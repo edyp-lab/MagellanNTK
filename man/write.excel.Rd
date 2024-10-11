@@ -4,10 +4,14 @@
 \alias{write.excel}
 \title{This function exports a data.frame to a Excel file.}
 \usage{
-write.excel(obj, filename = NULL)
+write.excel(df, colors, tags, filename = NULL)
 }
 \arguments{
-\item{obj}{A list of data.frame() items}
+\item{df}{A list of data.frame() items}
+
+\item{colors}{xxx}
+
+\item{tags}{xxx}
 
 \item{filename}{A character string for the name of the Excel file.}
 }
@@ -19,7 +23,7 @@ This is the default function fo export the current dataset as an Excel file.
 }
 \examples{
 data(lldata)
-write.excel(lldata, "foo.xlsx")
+write.excel(lldata, filename = "foo.xlsx")
 
 }
 \author{

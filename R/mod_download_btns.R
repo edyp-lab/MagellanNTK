@@ -101,7 +101,7 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   download_btns_server(id = "ex",
-                       data = reactive({obj}),
+                       obj = reactive({obj}),
                        name = reactive({"myTest"}),
                        colors = reactive({NULL}),
                        tags = reactive({NULL

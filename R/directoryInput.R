@@ -246,7 +246,7 @@ choose.dir.windows <- function(default = NA, caption = NA, useNew = TRUE) {
 #' 
 #' @import htmltools
 #' 
-directoryInput = function(inputId, label, value = NULL) {
+directoryInput <- function(inputId, label, value = NULL) {
   if (!is.null(value) && !is.na(value)) {
     value = path.expand(value)
   }
@@ -367,8 +367,7 @@ runDirinputExample <- function() {
           titlePanel("Directory Input Demo"),
           directoryInput('directory', 
             label = 'Select directory', 
-            value = '~',
-            width = '600px'),
+            value = '~'),
           tags$h5('Files'),
           dataTableOutput('files')
         ),

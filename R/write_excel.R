@@ -4,8 +4,9 @@
 #' This is the default function fo export the current dataset as an Excel file.
 #'
 #'
-#' @param obj A list of data.frame() items
-#'
+#' @param df A list of data.frame() items
+#' @param colors xxx
+#' @param tags xxx
 #' @param filename A character string for the name of the Excel file.
 #'
 #' @return A Excel file (.xlsx)
@@ -17,10 +18,12 @@
 #'
 #' @examples
 #' data(lldata)
-#' write.excel(lldata, "foo.xlsx")
+#' write.excel(lldata, filename = "foo.xlsx")
 #' 
 write.excel <- function(
-    obj,
+    df,
+    colors,
+  tags,
     filename = NULL) {
   pkgs.require(c('openxlsx', 'tools'))
 
@@ -38,10 +41,10 @@ write.excel <- function(
   
   wb <- openxlsx::createWorkbook(fname)
   
-  lapply(names(obj), function(x)
+  lapply(names(df), function(x)
     {
     openxlsx::addWorksheet(wb, x)
-    openxlsx::writeData(wb, sheet = x, obj, rowNames = FALSE)
+    openxlsx::writeData(wb, sheet = x, df, rowNames = FALSE)
   })
 
   openxlsx::saveWorkbook(wb, fname, overwrite = TRUE)
