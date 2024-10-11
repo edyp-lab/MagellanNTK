@@ -72,15 +72,23 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">write.excel</span><span class="op">(</span><span class="va">obj</span>, filename <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">write.excel</span><span class="op">(</span><span class="va">df</span>, <span class="va">colors</span>, <span class="va">tags</span>, filename <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
 
 
-<dl><dt id="arg-obj">obj<a class="anchor" aria-label="anchor" href="#arg-obj"></a></dt>
+<dl><dt id="arg-df">df<a class="anchor" aria-label="anchor" href="#arg-df"></a></dt>
 <dd><p>A list of data.frame() items</p></dd>
+
+
+<dt id="arg-colors">colors<a class="anchor" aria-label="anchor" href="#arg-colors"></a></dt>
+<dd><p>xxx</p></dd>
+
+
+<dt id="arg-tags">tags<a class="anchor" aria-label="anchor" href="#arg-tags"></a></dt>
+<dd><p>xxx</p></dd>
 
 
 <dt id="arg-filename">filename<a class="anchor" aria-label="anchor" href="#arg-filename"></a></dt>
@@ -99,7 +107,7 @@
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">lldata</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">write.excel</span><span class="op">(</span><span class="va">lldata</span>, <span class="st">"foo.xlsx"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">write.excel</span><span class="op">(</span><span class="va">lldata</span>, filename <span class="op">=</span> <span class="st">"foo.xlsx"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

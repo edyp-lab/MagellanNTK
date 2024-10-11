@@ -26,6 +26,7 @@
 <url><loc>/reference/dataset-processing.html</loc></url>
 <url><loc>/reference/datasets.html</loc></url>
 <url><loc>/reference/Debug_Infos.html</loc></url>
+<url><loc>/reference/default_vars.html</loc></url>
 <url><loc>/reference/directoryInput.html</loc></url>
 <url><loc>/reference/Discover_Skipped_Steps.html</loc></url>
 <url><loc>/reference/download_btns.html</loc></url>
@@ -56,7 +57,7 @@
 <url><loc>/reference/launchGA.html</loc></url>
 <url><loc>/reference/launch_app.html</loc></url>
 <url><loc>/reference/LoadCode.html</loc></url>
-<url><loc>/reference/Load_Dataset.html</loc></url>
+<url><loc>/reference/load_workflow.html</loc></url>
 <url><loc>/reference/magellanNTK.html</loc></url>
 <url><loc>/reference/MagellanNTK2.html</loc></url>
 <url><loc>/reference/mdEditor.html</loc></url>
@@ -76,7 +77,6 @@
 <url><loc>/reference/mod_open_workflow.html</loc></url>
 <url><loc>/reference/mod_popover_for_help.html</loc></url>
 <url><loc>/reference/mod_release_notes.html</loc></url>
-<url><loc>/reference/mod_settings.html</loc></url>
 <url><loc>/reference/mod_sweetAlert.html</loc></url>
 <url><loc>/reference/nav.html</loc></url>
 <url><loc>/reference/navbarPageWithInputs.html</loc></url>
@@ -96,6 +96,7 @@
 <url><loc>/reference/shinyOutput.html</loc></url>
 <url><loc>/reference/shinyValue.html</loc></url>
 <url><loc>/reference/show-Config-method.html</loc></url>
+<url><loc>/reference/sidebars.html</loc></url>
 <url><loc>/reference/source_shinyApp_files.html</loc></url>
 <url><loc>/reference/source_wf_files.html</loc></url>
 <url><loc>/reference/timelines.html</loc></url>
