@@ -1,16 +1,15 @@
 Title
 
 <!-- badges: start -->
-
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Project Status: Active – The project is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R-CMD-check-bioc](https://github.com/edyp-lab/MagellanNTK/actions/workflows/check-bioc.yaml/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions/workflows/check-bioc.yaml)
 [![R-CMD-check.yaml](https://github.com/edyp-lab/MagellanNTK/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions/workflows/check-standard.yaml)
-[![codecov.io](https://codecov.io/github/edyp-lab/MagellanNTK/coverage.svg?branch=main)](https://codecov.io/github/edyp-lab/MagellanNTK?branch=main)
+[![test-coverage.yaml](https://github.com/edyp-lab/MagellanNTK/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions/workflows/test-coverage.yaml)
 [![license](https://img.shields.io/badge/license-Artistic--2.0-brightgreen.svg)](https://opensource.org/licenses/Artistic-2.0)
 
 
 
-  [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
   
 # Magellan
