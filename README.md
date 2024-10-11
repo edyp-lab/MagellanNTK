@@ -1,4 +1,12 @@
 <!-- badges: start -->
+
+[![Project Status: Active – The project is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![R-CMD-check-bioc](https://github.com/edyp-lab/MagellanNTK/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions?query=workflow%3AR-CMD-check-bioc)
+[![codecov.io](https://codecov.io/github/edyp-lab/MagellanNTK/coverage.svg?branch=master)](https://codecov.io/github/edyp-lab/MagellanNTK?branch=master)
+[![license](https://img.shields.io/badge/license-Artistic--2.0-brightgreen.svg)](https://opensource.org/licenses/Artistic-2.0)
+
+
+
   [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R-CMD-check](https://github.com/edyp-lab/MagellanNTK/workflows/R-CMD-check/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions)
 <!-- badges: end -->
