@@ -5,9 +5,9 @@
 #' 
 #' @param id internal
 #' @param dataIn internal
-#'@param widget.type Available values are `Button` and `Link` (default).
-#' @param name internal
+#' @param widget.type Available values are `Button` and `Link` (default).
 #' @param filename xxx
+#' @param data xxx
 #'
 #' @return NA
 #'
@@ -23,7 +23,7 @@
 NULL
 
 
-#' @import shiny
+#' @importFrom shiny uiOutput h3 tagList NS
 #'
 #' @rdname download_dataset
 #'
@@ -39,6 +39,11 @@ download_dataset_ui <- function(id) {
   )
 }
 
+
+
+#' @importFrom shiny moduleServer reactive reactiveValues observeEvent renderUI 
+#' downloadHandler 
+#' 
 #' @rdname download_dataset
 #'
 #' @export
@@ -116,6 +121,8 @@ download_dataset_server <- function(id,
 
 
 #' @rdname download_dataset
+#' 
+#' @importFrom shiny shinyApp
 #'
 #' @export
 #'

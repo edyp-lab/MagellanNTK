@@ -40,7 +40,7 @@ workflowApp(
 
 \item{usermod}{Available values are 'superdev', 'dev', 'superuser', 'user'}
 
-\item{...}{xxx}
+\item{verbose}{xxx}
 }
 \value{
 NA

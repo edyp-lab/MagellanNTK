@@ -1,11 +1,13 @@
 #' @title Main Shiny application
 #' @description xxx
 #' 
+#' @param id xxx
 #' @param obj xxx
 #' @param workflow.path xxx
-#' @param workflow.path xxxx
+#' @param workflow.name xxxx
 #' @param verbose A `boolean(1)` 
-#' @param usermode xxx
+#' @param usermod xxx
+#' obj = reactive({NULL}),
 #' 
 #' 
 #' 
@@ -30,12 +32,9 @@
 NULL
 
 #' The application User-Interface
-#' 
-#' @param request Internal parameter for `{shiny}`. 
 #'     DO NOT REMOVE.
 #' @importFrom shiny shinyUI tagList 
-#' @import shinydashboardPlus
-#' @import shinydashboard
+#' @importFrom shinydashboardPlus dashboardSidebar dashboardPage dashboardHeader 
 #' @importFrom shinyjs useShinyjs extendShinyjs
 #' 
 #' @rdname magellanNTK
@@ -70,10 +69,8 @@ enableJIT(3)
 
 #' The application server-side
 #' 
-#' @param input,output,session Internal parameters for {shiny}. 
 #'     DO NOT REMOVE.
-#' @import  shiny
-#' @import shinyjs
+#' @importFrom shiny moduleServer addResourcePath reactive
 #' 
 #' @export
 #' 
@@ -121,7 +118,9 @@ MagellanNTK_server <- function(id,
 
 
 #'  
-#' @export
+#' @importFrom shiny shinyApp runApp
+#' 
+#' 
 #' @examples
 #' \dontrun{
 #' # launch without initial config

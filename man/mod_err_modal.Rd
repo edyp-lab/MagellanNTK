@@ -18,6 +18,15 @@ mod_errorModal_server(
 
 mod_errorModal(title = NULL, text = NULL)
 }
+\arguments{
+\item{id}{xxx}
+
+\item{title}{xxxx}
+
+\item{text}{xxx}
+
+\item{footer}{xxx}
+}
 \description{
 xxx
 }

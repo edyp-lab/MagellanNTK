@@ -6,8 +6,12 @@
 #' 
 #' 
 #' @param id shiny id
-#' @param funcs xxx
-#' @param verbose xxx
+#' @param obj xxx
+#' @param session xxx
+#' @param workflow.name = reactive({NULL}),
+#' @param workflow.path = reactive({NULL}),
+#' @param verbose = FALSE,
+#' @param usermod = 'dev'
 #'
 #' 
 #' 
@@ -20,10 +24,10 @@
 NULL
 
 
-#' @import shiny
+#' @importFrom shiny NS tagList span uiOutput 
 #' @import shinyjs
-#' @import shinydashboard
-#' @import shinydashboardPlus
+#' @importFrom shinydashboard tabItem tabItems dashboardBody
+#' @importFrom shinydashboardPlus dashboardSidebar dashboardPage dashboardHeader 
 #' @import shinyEffects
 #' 
 #' @rdname mod_main_page
@@ -45,7 +49,7 @@ mainapp_ui <- function(id, session){
   #   width: 360px;"))
   #div(id = "header",
     
-      dashboardPage(
+  shinydashboardPlus::dashboardPage(
         options = list(sidebarExpandOnHover = TRUE),
         
         md = FALSE,
@@ -83,7 +87,7 @@ mainapp_ui <- function(id, session){
         ##
         ## Header
         ## 
-        # header = dashboardHeader(
+        # header = shinydashboardPlus::dashboardHeader(
         #   fixed = TRUE,
         #   title = dashboardthemes::shinyDashboardLogo(theme = "blue_gradient",
         #                                               boldText = "Prostar",
@@ -100,7 +104,7 @@ mainapp_ui <- function(id, session){
         #       title="GitHub")
         #   )
         # ),
-        header = dashboardHeader(
+        header = shinydashboardPlus::dashboardHeader(
           fixed = TRUE,
           # titleWidth = "245px",
           # title = absolutePanel(
@@ -241,11 +245,9 @@ mainapp_ui <- function(id, session){
                 uiOutput(ns('manual_UI')))
               # shinydashboard::tabItem(tabName = "bugReport", 
               #   mod_bug_report_ui(ns("bug_report"))),
-
             )
             
           ))
-
    # )
 )
 }
@@ -253,10 +255,10 @@ mainapp_ui <- function(id, session){
 
 
 
-#' @import shiny
+#' @importFrom shiny reactive moduleServer reactiveValues observeEvent req
+#' renderUI tagList h4 observeEvent actionButton h3 observe wellPanel helpText
 #' @import shinyjs
-#' @import shinydashboard
-#' @import shinydashboardPlus
+#' @importFrom shinydashboardPlus dashboardSidebar dashboardPage dashboardHeader 
 #' @import shinyEffects
 #' 
 #' @rdname mod_main_page
@@ -271,8 +273,6 @@ mainapp_server <- function(id,
    
   moduleServer(id, function(input, output, session){
     ns <- session$ns
-    
-    
     
     rv.core <- reactiveValues(
       dataIn = NULL,
@@ -701,6 +701,7 @@ mainapp_server <- function(id,
 
 #' @export
 #' @rdname mod_main_page
+#' @importFrom shiny fluidPage shinyApp
 #' 
 mainapp <- function(usermod = 'dev'){
   

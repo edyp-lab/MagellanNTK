@@ -20,5 +20,4 @@ This code is extracted from https://sebastiansauer.github.io/finds_funs/
 find_funs('filter')
 }
 
-
 }

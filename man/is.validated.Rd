@@ -6,6 +6,9 @@
 \usage{
 is.validated(test)
 }
+\arguments{
+\item{test}{xxx}
+}
 \description{
 xxx
 }

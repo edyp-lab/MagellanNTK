@@ -20,7 +20,7 @@ NULL
 
 #' @export 
 #' @rdname mod_open_workflow
-#' @import shiny
+#' @importFrom shiny NS tagList h3 fluidRow column uiOutput actionButton 
 #' 
 open_workflow_ui <- function(id){
   ns <- NS(id)

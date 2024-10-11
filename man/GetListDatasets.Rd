@@ -6,13 +6,16 @@
 \usage{
 GetListDatasets(class, filtered = FALSE)
 }
+\arguments{
+\item{class}{xxx}
+
+\item{filtered}{xxx}
+}
 \description{
 Get filtered datasets
 }
 \examples{
 foo1 <- GetListDatasets()
-
-foo2 <- GetListDatasets(class='QFeatures', filtered = TRUE)
 
 
 }

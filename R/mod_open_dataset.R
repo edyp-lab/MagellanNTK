@@ -20,7 +20,7 @@ NULL
 #' @export 
 #' @rdname generic_mod_open_dataset
 #' @importFrom shiny NS tagList 
-#' @import shinyjs
+#' @importFrom shinyjs useShinyjs
 #' 
 open_dataset_ui <- function(id){
   ns <- NS(id)

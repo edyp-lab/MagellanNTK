@@ -3,6 +3,8 @@
 #' @description  A shiny Module.
 #' 
 #' @param id xxx
+#' @param dataIn xxx
+#' @param data xxx
 #' 
 #' @name mod_export_dataset
 #' 
@@ -21,7 +23,7 @@ NULL
 
 #' @export 
 #' @rdname mod_export_dataset
-#' @import shiny
+#' @importFrom shiny NS tagList actionButton
 #' 
 export_dataset_ui <- function(id){
   ns <- NS(id)
@@ -43,11 +45,9 @@ export_dataset_server <- function(id, dataIn){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
     
-    
     ## -- Open a MSnset File --------------------------------------------
     observeEvent(input$export_btn, ignoreInit = TRUE, {
-      
-      
+
     })
     
   })

@@ -1,4 +1,7 @@
 #' @title xxx
+#' 
+#' @param expr xxx
+#' 
 #' @export
 #' 
 catchToList <- function(expr) {

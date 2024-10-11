@@ -32,7 +32,6 @@ Imports:
     S4Vectors,
     methods,
     DT, 
-    sos,
     shiny,
     shinydashboardPlus, 
     shinydashboard, 
@@ -44,17 +43,18 @@ Imports:
     shinyFiles,
     sass,
     shinyjqui,
-    stringi,
     stats,
     utils,
     openxlsx,
     markdown,
     shinyAce,
-    BiocGenerics, DAPAR, DAPARdata,
-    QFeatures, data.table, future,
-    ggplot2, gplots, highcharter, later, promises,
-    rhandsontable, shinycssloaders, shinythemes, tibble,
-    vioplot, webshot, rclipboard, BiocManager
+    BiocGenerics, 
+    highcharter, 
+    rclipboard,
+    htmltools,
+    crayon,
+    tidyverse,
+    dplyr
 Remotes:
     git::edyp-lab/DaparToolshedData,
     git::prostarproteomics/omXplore
@@ -108,7 +108,6 @@ Collate:
     mod_infos_dataset.R
     mod_insert_md.R
     mod_homepage.R
-    mod_bsmodal2.R
     mod_view_dataset.R
     mod_convert_dataset.R
     mod_export_dataset.R
@@ -120,7 +119,6 @@ Collate:
     mod_open_dataset.R
     mod_popover_for_help.R
     mod_release_notes.R
-    mod_settings.R
     mod_loadapp.R
     mod_mainapp.R
     utils_Prostar.R

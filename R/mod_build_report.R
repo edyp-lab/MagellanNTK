@@ -5,9 +5,8 @@
 #' 
 #' @param id internal
 #' @param dataIn internal
-#'@param widget.type Available values are `Button` and `Link` (default).
-#' @param name internal
 #' @param filename xxx
+#' @param data xxx
 #'
 #' @return NA
 #'
@@ -23,7 +22,7 @@
 NULL
 
 
-#' @import shiny
+#' @importFrom shiny NS tagList h3
 #'
 #' @rdname build_report
 #'
@@ -37,6 +36,8 @@ build_report_ui <- function(id) {
 }
 
 #' @rdname build_report
+#' 
+#' @importFrom shiny moduleServer reactiveValues observeEvent
 #'
 #' @export
 #'
@@ -58,7 +59,8 @@ build_report_server <- function(id,
 
 
 
-#' @rdname download_dataset
+#' @rdname build_report
+#' @importFrom shiny shinyApp reactive
 #'
 #' @export
 #'

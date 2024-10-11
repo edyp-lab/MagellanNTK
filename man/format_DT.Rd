@@ -46,6 +46,22 @@ format_DT(
 \item{id}{shiny id}
 
 \item{obj}{xxx}
+
+\item{hidden}{Default is reactive({NULL}),}
+
+\item{withDLBtns}{Default is FALSE,}
+
+\item{showRownames}{Default is FALSE,}
+
+\item{dom}{Default is 'Bt',}
+
+\item{max.rows}{Default is 20,}
+
+\item{hc_style}{Default is reactive({NULL}),}
+
+\item{remoteReset}{Default is reactive({0}),}
+
+\item{is.enabled}{Default is TRUE}
 }
 \value{
 NA

@@ -15,6 +15,8 @@ build_report_server(
  }),
   filename = "myDataset"
 )
+
+build_report(data, filename = "myDataset")
 }
 \arguments{
 \item{id}{internal}
@@ -23,9 +25,7 @@ build_report_server(
 
 \item{filename}{xxx}
 
-\item{widget.type}{Available values are `Button` and `Link` (default).}
-
-\item{name}{internal}
+\item{data}{xxx}
 }
 \value{
 NA

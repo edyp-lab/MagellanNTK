@@ -13,6 +13,7 @@
 #' current (active) step.
 #' @param enabled A `reactive vector` of length the number of steps and which
 #' indicate whether the step is enabled or disabled.
+#' @param layout xxx
 #'
 #' @return A Shiny module
 #'

@@ -15,6 +15,8 @@ release_notes(URL_releaseNotes)
 }
 \arguments{
 \item{id}{shiny id}
+
+\item{URL_releaseNotes}{xxx}
 }
 \description{
 A shiny Module.

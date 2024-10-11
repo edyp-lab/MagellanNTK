@@ -1,6 +1,11 @@
 #' @title xxx
 #' @name mod_err_modal
 #' 
+#' @param id xxx
+#' @param title xxxx
+#' @param text xxx
+#' @param footer xxx
+#' 
 #' @examples
 #' \dontrun{
 #' shiny::runApp(mod_errorModal('myTitle', 'myContent'))

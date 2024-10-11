@@ -1,4 +1,19 @@
 
+#' @title Sidebar functions
+#' @description xxx
+#' @name sidebars
+#' 
+#' @examples
+#' NULL
+#' 
+NULL
+
+
+
+
+
+#' @importFrom shinydashboard sidebarMenu menuItem menuSubItem
+#' @rdname sidebars
 #' @export
 Insert_Dev_Sidebar <- function(){
  # dashboardSidebar(
@@ -39,7 +54,7 @@ Insert_Dev_Sidebar <- function(){
         #   )
         ,shinydashboard::menuSubItem("Import", tabName = "convertDataset"),
         shinydashboard::menuSubItem("Save As", tabName = "SaveAs"),
-        shinydashboard::menuSubItem("Build report (Bêta)", tabName = "BuildReport")
+        shinydashboard::menuSubItem("Build report (Beta)", tabName = "BuildReport")
       ),
       #hr(),
       shinydashboard::menuItem(h4('Workflow', style = "color: lightgrey;"),
@@ -80,6 +95,8 @@ Insert_Dev_Sidebar <- function(){
 
 
 
+#' @importFrom shinydashboard sidebarMenu menuItem menuSubItem
+#' @rdname sidebars
 #' @export
 Insert_User_Sidebar <- function(){
   #dashboardSidebar(
@@ -110,7 +127,7 @@ Insert_User_Sidebar <- function(){
           tabName = "convertDataset",
           icon = icon("folder")
           ),
-        shinydashboard::menuSubItem("Build report (Bêta)", tabName = "BuildReport")
+        shinydashboard::menuSubItem("Build report (Beta)", tabName = "BuildReport")
       ),
       #hr(),
       shinydashboard::menuItem(h4('Workflow', style="color: lightgrey;"),

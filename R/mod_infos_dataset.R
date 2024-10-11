@@ -21,7 +21,6 @@ NULL
 #' @export 
 #' @rdname infos_dataset
 #' @importFrom shiny NS tagList uiOutput fluidRow h3 br column
-#' @import shinyjs
 #' 
 infos_dataset_ui <- function(id){
   ns <- NS(id)
@@ -40,7 +39,8 @@ infos_dataset_ui <- function(id){
 #' @importFrom BiocGenerics get
 #' @importFrom utils data
 #' @importFrom shinyjs info
-#' @importFrom shiny moduleServer observe req reactive 
+#' @importFrom shiny moduleServer observe req reactive selectInput renderUI
+#' 
 #' 
 infos_dataset_server <- function(
     id,
@@ -48,8 +48,6 @@ infos_dataset_server <- function(
   
   moduleServer(id, function(input, output, session){
     ns <- session$ns
-    
-    
     
     output$choose_SE_ui <- renderUI({
       req(obj())

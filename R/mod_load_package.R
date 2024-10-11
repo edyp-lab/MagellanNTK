@@ -54,7 +54,7 @@ idleTimer();", timeoutSeconds*1000, timeoutSeconds, timeoutSeconds*1000)
 
 
 #' @rdname mod_load_package
-#' @import shiny
+#' @importFrom shiny NS tagList h3 uiOutput 
 #' @export
 #'
 mod_load_package_ui <- function(id) {
@@ -75,7 +75,8 @@ mod_load_package_ui <- function(id) {
 
 #'
 #' @export
-#' @import shiny
+#' @importFrom shiny reactive moduleServer observeEvent req renderUI fluidRow
+#' div selectInput 
 #' @rdname mod_load_package
 #'
 mod_load_package_server <- function(id, 
@@ -149,7 +150,8 @@ mod_load_package_server <- function(id,
 
 
 #' @export
-#' @import shiny
+#' @importFrom shiny reactive moduleServer observeEvent req renderUI fluidRow
+#' shinyApp
 #' @rdname mod_load_package
 #' 
 load_package <- function(funcs = NULL){

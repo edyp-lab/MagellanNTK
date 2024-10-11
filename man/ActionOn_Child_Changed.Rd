@@ -37,6 +37,8 @@ which has changed its return value.}
 It can be either NULL (the process has been reseted) or contain
 a dataset (the process has been validated and returned the result
 of its calculations)}
+
+\item{keepdataset_func}{xxxx}
 }
 \value{
 NA

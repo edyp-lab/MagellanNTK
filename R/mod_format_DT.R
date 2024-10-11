@@ -7,6 +7,14 @@
 #' 
 #' @param id shiny id
 #' @param obj xxx
+#' @param hidden Default is reactive({NULL}),
+#' @param withDLBtns Default is FALSE,
+#' @param showRownames Default is FALSE,
+#' @param dom Default is 'Bt',
+#' @param max.rows Default is 20,
+#' @param hc_style Default is reactive({NULL}),
+#' @param remoteReset Default is reactive({0}),
+#' @param is.enabled Default is TRUE
 #'
 #' @name format_DT
 #' 
@@ -61,15 +69,12 @@ NULL
 
 
 #' @importFrom shiny NS tagList
-#'
+#' @importFrom DT dataTableOutput
 #' @export
 #' @rdname format_DT
 #'
 format_DT_ui <- function(id) {
-  if (!requireNamespace("DT", quietly = TRUE)) {
-    stop("Please install DT: BiocManager::install('DT')")
-  }
-  
+
   ns <- NS(id)
   tagList(
     shinyjs::useShinyjs(),
@@ -81,6 +86,8 @@ format_DT_ui <- function(id) {
 #' @export
 #'
 #' @importFrom htmlwidgets JS
+#' @importFrom DT dataTableOutput dataTableProxy replaceData formatStyle styleEqual renderDataTable datatable
+#' 
 #' @rdname format_DT
 format_DT_server <- function(id,
   obj = reactive({NULL}),

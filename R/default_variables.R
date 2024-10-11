@@ -1,5 +1,10 @@
+#' @title Default vars
+#' @name default_vars
+#' 
 
 
+
+#' @rdname default_vars
 #' @export
 default.funcs <- function()
   list(
@@ -14,12 +19,12 @@ default.funcs <- function()
     addDatasets = "MagellanNTK::addDatasets",
     keepDatasets = "MagellanNTK::keepDatasets")
 
-
+#' @rdname default_vars
 #' @export
 default.base.URL <- function()
   system.file('app/md', package = 'MagellanNTK')
 
-
+#' @rdname default_vars
 #' @export
 default.workflow  <- function()
   list(

@@ -244,6 +244,8 @@ choose.dir.windows <- function(default = NA, caption = NA, useNew = TRUE) {
 #' \code{\link{updateDirectoryInput}}, \code{\link{readDirectoryInput}}, \code{\link{choose.dir}}
 #' @export
 #' 
+#' @import htmltools
+#' 
 directoryInput = function(inputId, label, value = NULL) {
   if (!is.null(value) && !is.na(value)) {
     value = path.expand(value)

@@ -21,6 +21,7 @@
 #' It can be either NULL (the process has been reseted) or contain
 #' a dataset (the process has been validated and returned the result
 #' of its calculations)
+#' @param keepdataset_func xxxx
 #'
 #' @author Samuel Wieczorek
 #'
@@ -29,14 +30,15 @@
 #' @return NA
 #' 
 #'
-ActionOn_Child_Changed <- function(temp.dataIn,
-                                   dataIn,
-                                   steps.status,
-                                   steps,
-                                   steps.enabled,
-                                   steps.skipped,
-                                   processHasChanged,
-                                   newValue,
+ActionOn_Child_Changed <- function(
+    temp.dataIn,
+  dataIn,
+  steps.status,
+  steps,
+  steps.enabled,
+  steps.skipped,
+  processHasChanged,
+  newValue,
   keepdataset_func) {
     # Indice of the dataset in the object
     # If the original length is not 1, then this indice is different
@@ -167,6 +169,7 @@ ResetChildren <- function(range, resetChildren) {
 #' @description xxx
 #'
 #' @param rv xxxx
+#' @param keepdataset_func xxx
 #'
 #' @export
 #'
@@ -203,8 +206,11 @@ Update_Data2send_Vector <- function(rv, keepdataset_func) {
 #' @param rv xxxx
 #' @param pos xxx
 #' @param verbose xxx
+#' @param keepdataset_func xxx
 #'
 #' @export
+#' 
+#' @importFrom crayon blue
 #'
 #' @return NA
 #'

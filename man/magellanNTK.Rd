@@ -33,22 +33,23 @@ MagellanNTK(
 )
 }
 \arguments{
+\item{id}{xxx}
+
 \item{obj}{xxx}
 
-\item{workflow.path}{xxxx}
+\item{workflow.path}{xxx}
+
+\item{workflow.name}{xxxx}
 
 \item{verbose}{A `boolean(1)`}
 
-\item{usermode}{xxx}
-
-\item{request}{Internal parameter for `{shiny}`. 
-DO NOT REMOVE.}
-
-\item{input, output, session}{Internal parameters for {shiny}. 
-DO NOT REMOVE.}
+\item{usermod}{xxx
+obj = reactive({NULL}),}
 }
 \description{
 xxx
+
+DO NOT REMOVE.
 }
 \details{
 The list of customizable funcs (param `funcs`) contains the following items:

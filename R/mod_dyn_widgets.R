@@ -10,7 +10,9 @@ NULL
 
 
 #' @rdname DynamicWidgets
-#' @import shiny
+#' 
+#' @importFrom shiny NS fluidPage fluidRow column textInput actionButton
+#' selectInput
 #' @export
 dyn_widgets_ui <- function(id) {
   ns <- NS(id)
@@ -28,16 +30,18 @@ dyn_widgets_ui <- function(id) {
 }
 
 #' @rdname DynamicWidgets
-#' @import shiny
+#' @importFrom shiny moduleServer reactiveValues observeEvent updateTextInput
+#' updateSelectInput reactive
 #' @export
 dyn_widgets_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
     # reactive value to "collect" company inputs
-    steps <- reactiveValues(inputs = c(),
-                            mandatory = c())
-    
+    steps <- reactiveValues(
+      inputs = c(),
+      mandatory = c()
+      )
     
     dataOut <- reactiveVal(list())
     
@@ -59,7 +63,7 @@ dyn_widgets_server <- function(id) {
 
 
 #' @rdname DynamicWidgets
-#' @import shiny
+#' @importFrom shiny shinyUI observeEvent shinyApp
 #' @export
 dyn_widgets <- function(){
   ui <- shiny::shinyUI(

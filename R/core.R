@@ -26,7 +26,13 @@
 #' where each item correspond to the orientation of the timeline for a given
 #' level of navigation module.
 #' 
-#' @param mode Default
+#' @param wholeReset = reactive({0}),
+#' @param verbose = FALSE,
+#' @param usermod = 'user'
+#' 
+#' 
+#' 
+#' 
 #'
 #' @return A list of four items:
 #' * dataOut A dataset of the same class of the parameter dataIn
@@ -151,6 +157,7 @@ nav_ui <- function(id) {
 #'
 #' @rdname nav
 #' @importFrom stats setNames
+#' @importFrom crayon blue yellow
 #' 
 nav_server <- function(id = NULL,
     dataIn = reactive({NULL}),

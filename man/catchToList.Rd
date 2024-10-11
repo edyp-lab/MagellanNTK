@@ -6,6 +6,9 @@
 \usage{
 catchToList(expr)
 }
+\arguments{
+\item{expr}{xxx}
+}
 \description{
 xxx
 }

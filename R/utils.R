@@ -2,6 +2,7 @@
 #' @title xxx
 #' @description xxx
 #' 
+#' @param test xxx
 #' 
 #' @examples
 #' NULL
@@ -20,12 +21,14 @@ is.validated <- function(test){
 #' 
 #' @param f name of function for which the package(s) are to be identified.
 #' 
+#' @import tidyverse
+#' 
 #' @examples
 #' \dontrun{
 #' find_funs('filter')
 #' }
 #' 
-#' 
+#' @importFrom dplyr filter select
 #' @return 
 #' A dataframe with two columns:
 # `package_name`: packages(s) which the function is part of (chr)
@@ -37,12 +40,6 @@ is.validated <- function(test){
 #' 
 #' 
 find_funs <- function(f) {
-  
-  if ("tidyverse" %in% rownames(installed.packages()) == FALSE) {
-    cat("tidyverse is needed for this fuction. Please install. Stopping")
-    stop()}
-  
-  suppressMessages(library(tidyverse))
   
   
   # search for help in list of installed packages
@@ -174,11 +171,12 @@ readConfigFile <- function(path,
 
 #' @title Get filtered datasets
 #' 
+#' @param class xxx
+#' @param filtered xxx
+#' 
 #' @export
 #' @examples
 #' foo1 <- GetListDatasets()
-#' 
-#' foo2 <- GetListDatasets(class='QFeatures', filtered = TRUE)
 #' 
 #' 
 GetListDatasets <- function(class, filtered = FALSE){

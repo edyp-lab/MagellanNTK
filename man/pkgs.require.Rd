@@ -13,7 +13,9 @@ pkgs.require(ll.deps)
 Checks if a package is available to load it
 }
 \examples{
-pkgs.require('DAPAR')
+\dontrun{
+pkgs.require(c('omXplore'))
+}
 
 }
 \author{

@@ -24,7 +24,6 @@ NULL
 #' @export 
 #' @rdname view_dataset
 #' @importFrom shiny NS tagList h3
-#' @import shinyjs
 #' 
 view_dataset_ui <- function(id){
   ns <- NS(id)

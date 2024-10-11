@@ -4,16 +4,16 @@
 #' 
 #' @param id xxx
 #' @param path xxx
-#' @param mode xxx
+#' @param usermod xxx
 #' 
 # #' @example examples/test_load_workflow.R
 #' 
-#' @name Load_Dataset
+#' @name load_workflow
 #' 
 NULL
 
 
-#' @rdname Load_Dataset
+#' @rdname load_workflow
 #' @importFrom shinyFiles shinyDirButton
 #' @export
 #'
@@ -59,7 +59,7 @@ mod_load_workflow_ui <- function(id) {
 
 #' @return xxxxx
 #'
-#' @rdname Load_Dataset
+#' @rdname load_workflow
 #'
 #' @export
 #'

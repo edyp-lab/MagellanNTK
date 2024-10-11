@@ -12,6 +12,10 @@
 #' @param uiContent The content of the modal dialog.
 #' @param external_mod xxx
 #' @param external_mod_args xxx
+#' @param typeWidget = 'button',
+#' @param styleWidget = NULL,
+#' @param classWidget = NULL
+#' 
 #' @importFrom shinyjqui jqui_draggable
 #' 
 #' @name mod_modalDialog
@@ -109,7 +113,8 @@ mod_modalDialog_ui <- function(id){
 #'
 #' @rdname mod_modalDialog
 #' 
-#' @import shiny
+#' @importFrom shiny moduleServer reactiveValues renderUI actionButton actionLink 
+#' observeEvent showModal modalDialog modalButton reactive
 #' @import shinyBS
 #' @import shinyjqui
 #'
@@ -231,6 +236,7 @@ mod_modalDialog_server <- function(id,
 
 #' @export
 #' @rdname mod_modalDialog
+#' @importFrom shiny fluidPage reactiveValues observeEvent reactive shinyApp
 #' 
 mod_modalDialog <- function(title,
   typeWidget = 'button',

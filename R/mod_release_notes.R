@@ -2,6 +2,7 @@
 #' @description  A shiny Module.
 #'
 #' @param id shiny id
+#' @param URL_releaseNotes xxx
 #'
 #' @name mod_release_notes
 #'

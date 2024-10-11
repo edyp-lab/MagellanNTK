@@ -34,6 +34,8 @@ current (active) step.}
 
 \item{enabled}{A `reactive vector` of length the number of steps and which
 indicate whether the step is enabled or disabled.}
+
+\item{layout}{xxx}
 }
 \value{
 NA

@@ -12,6 +12,8 @@ PrepareData2Send(rv, pos, verbose = FALSE, keepdataset_func)
 \item{pos}{xxx}
 
 \item{verbose}{xxx}
+
+\item{keepdataset_func}{xxx}
 }
 \value{
 NA

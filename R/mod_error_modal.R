@@ -23,12 +23,13 @@ errorModal_ui <- function(id) {}
 
 #' @rdname errorModal
 #' @return NA
-#' @import shiny
+#' @importFrom shiny moduleServer observeEvent showModal modalDialog wellPanel 
+#' HTML 
 #' @export
 #'
 errorModal_server <- function(id, msg){
   
-  ishiny::moduleServer(id, function(input, output, session) {
+  shiny::moduleServer(id, function(input, output, session) {
       
       observeEvent(TRUE, ignoreInit = FALSE, {
         # shiny::showModal(
@@ -59,6 +60,7 @@ errorModal_server <- function(id, msg){
 
 #' @export
 #' @rdname errorModal
+#' @importFrom shiny fluidPage shinyApp
 #' 
 errorModal <- function(msg){
 ui <- fluidPage(

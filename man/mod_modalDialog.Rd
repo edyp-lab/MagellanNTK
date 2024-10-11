@@ -33,6 +33,12 @@ mod_modalDialog(
 
 \item{title}{A `character(1)`}
 
+\item{typeWidget}{= 'button',}
+
+\item{styleWidget}{= NULL,}
+
+\item{classWidget}{= NULL}
+
 \item{width}{A `character(1)` indicating the size of the modal window. Can 
 be "s" for small (the default), "m" for medium, or "l" for large.}
 

@@ -11,7 +11,7 @@
 #' @param dataIn xxx
 #' @param tl.layout Additional parameters for nav
 #' @param usermod Available values are 'superdev', 'dev', 'superuser', 'user'
-#' @param ... xxx
+#' @param verbose xxx
 #'
 #' @name workflow
 #' 
@@ -39,8 +39,9 @@
 #' @author Samuel Wieczorek
 #'
 #' @importFrom utils data
-#' @import shiny
-#'
+#' @importFrom shiny NS tagList actionButton reactive moduleServer reactiveVal 
+#' renderUI observeEvent shinyApp
+#' 
 #' @return NA
 #' 
 #' @examples
@@ -177,6 +178,6 @@ workflowApp <- function(id,
       })
     }
 
-  app <-shinyApp(ui, server)
+  app <- shiny::shinyApp(ui, server)
 }
 

@@ -21,7 +21,7 @@ NULL
 
 #' @export 
 #' @rdname mod_convert_dataset
-#' @import shiny
+#' @importFrom shiny NS tagList h3
 #' 
 convert_dataset_ui <- function(id){
   ns <- NS(id)
@@ -35,7 +35,7 @@ convert_dataset_ui <- function(id){
 #' 
 #' @export
 #' @importFrom shinyjs info 
-#' @importFrom shiny moduleServer reactiveValues observeEvent
+#' @importFrom shiny moduleServer reactiveValues observeEvent reactive
 #' 
 convert_dataset_server <- function(id){
   

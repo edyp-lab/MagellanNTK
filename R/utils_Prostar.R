@@ -166,7 +166,9 @@ GetExtension <- function(name) {
 #' @param ll.deps A `character()` vector which contains packages names
 #' 
 #' @examples 
-#' pkgs.require('DAPAR')
+#' \dontrun{
+#' pkgs.require(c('omXplore'))
+#' }
 #' 
 #' @export
 #' 
@@ -175,7 +177,7 @@ GetExtension <- function(name) {
 pkgs.require <- function(ll.deps){
   lapply(ll.deps, function(x) {
     if (!requireNamespace(x, quietly = TRUE)) {
-      stop(paste0("Please install ", x, ": BiocManager::install('", x, "')"))
+      stop(paste0("Please install ", x, ": install.packages('", x, "')"))
     }
   })
 }

@@ -29,9 +29,17 @@ mainapp(usermod = "dev")
 \arguments{
 \item{id}{shiny id}
 
-\item{verbose}{xxx}
+\item{session}{xxx}
 
-\item{funcs}{xxx}
+\item{obj}{xxx}
+
+\item{workflow.name}{= reactive({NULL}),}
+
+\item{workflow.path}{= reactive({NULL}),}
+
+\item{verbose}{= FALSE,}
+
+\item{usermod}{= 'dev'}
 }
 \description{
 A shiny Module.
