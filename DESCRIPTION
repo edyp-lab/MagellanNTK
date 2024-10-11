@@ -59,7 +59,7 @@ Remotes:
     git::prostarproteomics/omXplore
 Suggests: 
     rmarkdown, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
-    gtools, XML, R.utils, RColorBrewer
+    gtools, XML, R.utils, RColorBrewer, MultiAssayExperiment
 Collate: 
     MagellanNTK.R
     app.R
