@@ -49,7 +49,6 @@ Imports:
     markdown,
     shinyAce,
     BiocGenerics, 
-    highcharter, 
     rclipboard,
     htmltools,
     crayon,
