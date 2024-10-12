@@ -7,18 +7,15 @@ Title
 [![R-CMD-check.yaml](https://github.com/edyp-lab/MagellanNTK/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions/workflows/check-standard.yaml)
 [![test-coverage.yaml](https://github.com/edyp-lab/MagellanNTK/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions/workflows/test-coverage.yaml)
 [![license](https://img.shields.io/badge/license-Artistic--2.0-brightgreen.svg)](https://opensource.org/licenses/Artistic-2.0)
-
-
-
 <!-- badges: end -->
   
-# Magellan
+# MagellanNTK
 
-Magellan is a R package which proposes a framework to navigate between steps of a complex data processing tool when the succession of processes is mostly chronological.
+MagellanNTK is a R package which proposes a framework to navigate between steps of a complex data processing tool when the succession of processes is mostly chronological.
 
 For example, if a process is composed of three steps, then it is very easy to run the first steps, then the second and finally the last one. It is like a dataflow manager.
 
-Moreover, this navigation system, which is at the core of Magellan, can by used at several levels. It can then be possible to define, for example, a super-process (i.e. a pipeline) in which each step is a whole process containing itself several steps.
+Moreover, this navigation system, which is at the core of MagellanNTK, can by used at several levels. It can then be possible to define, for example, a super-process (i.e. a pipeline) in which each step is a whole process containing itself several steps.
 
 
 ## Install
