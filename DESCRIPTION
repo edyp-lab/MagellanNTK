@@ -55,8 +55,8 @@ Imports:
     tidyverse,
     dplyr
 Remotes:
-    git::edyp-lab/DaparToolshedData,
-    git::prostarproteomics/omXplore
+    git::https://github.com/edyp-lab/DaparToolshedData,
+    git::https://github.com/prostarproteomics/omXplore
 Suggests: 
     rmarkdown, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
     gtools, XML, R.utils, RColorBrewer, MultiAssayExperiment
