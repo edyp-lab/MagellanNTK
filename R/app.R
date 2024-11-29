@@ -66,6 +66,6 @@ MagellanNTK2 <- function(
 
    # Launch app
    app <- shiny::shinyApp(ui_MagellanNTK, server_MagellanNTK)
-   shiny::runApp(app)
+   shiny::runApp(app, launch.browser = FALSE)
   
 }
