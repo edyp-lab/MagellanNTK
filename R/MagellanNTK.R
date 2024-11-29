@@ -138,6 +138,14 @@ MagellanNTK <- function(
     verbose = FALSE,
     usermod = 'dev') {
   
+  options(
+    shiny.maxRequestSize = 1024^3,
+    port = 3838,
+    host = "0.0.0.0"
+  )
+  
+  
+  
   source_shinyApp_files()
   
   # Set global variables to global environment
@@ -166,7 +174,7 @@ MagellanNTK <- function(
   app <- shiny::shinyApp(ui, server)
   
   if (usermod == 'dev')
-    shiny::runApp(app)
+    shiny::runApp(app, launch.browser = TRUE)
   else if (usermod == 'user')
     shiny::runApp(app, launch.browser = TRUE)
 
