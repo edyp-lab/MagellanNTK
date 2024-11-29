@@ -141,7 +141,8 @@ MagellanNTK <- function(
   options(
     shiny.maxRequestSize = 1024^3,
     port = 3838,
-    host = "0.0.0.0"
+    host = "0.0.0.0",
+    launch.browser = FALSE
   )
   
   
