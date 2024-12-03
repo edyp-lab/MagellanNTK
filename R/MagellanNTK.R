@@ -162,6 +162,7 @@ MagellanNTK <- function(
   
   
   server <- function(input, output, session) {
+    
     MagellanNTK_server("infos",
       obj = reactive({obj}),
       workflow.path = reactive({workflow.path}),
@@ -175,8 +176,8 @@ MagellanNTK <- function(
   app <- shiny::shinyApp(ui, server)
   
   if (usermod == 'dev')
-    shiny::runApp(app, launch.browser = TRUE)
+    shiny::runApp(app, launch.browser = FALSE)
   else if (usermod == 'user')
-    shiny::runApp(app, launch.browser = TRUE)
+    shiny::runApp(app, launch.browser = FALSE)
 
 }
