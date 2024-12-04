@@ -69,6 +69,6 @@ MagellanNTK2 <- function(
    shiny::runApp(app, 
      launch.browser = FALSE, 
      host = "0.0.0.0",
-     port = 3838)
+     port = 3939)
   
 }
