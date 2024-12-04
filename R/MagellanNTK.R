@@ -140,7 +140,7 @@ MagellanNTK <- function(
   
   options(
     shiny.maxRequestSize = 1024^3,
-    port = 3939,
+    port = 3838,
     host = "127.0.0.1",
     launch.browser = FALSE,
     browser = NULL
@@ -179,12 +179,12 @@ MagellanNTK <- function(
   if (usermod == 'dev')
     shiny::runApp(app, 
       launch.browser = FALSE, 
-      port = 3939, 
+      port = 3838, 
       host = "127.0.0.1")
   else if (usermod == 'user')
     shiny::runApp(app, 
       launch.browser = FALSE, 
-      port = 3939, 
+      port = 3838, 
       host = "127.0.0.1")
 
 }
