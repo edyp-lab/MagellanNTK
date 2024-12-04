@@ -1,5 +1,10 @@
 
 
+.port <- 3939
+.host <- "127.0.0.1"
+.browser <- NULL
+
+
   tl_v_next_icon <- shiny::icon('arrow-down')
   tl_v_prev_icon <- shiny::icon('arrow-up')
   tl_h_next_icon <- shiny::icon('arrow-right')
