@@ -24,5 +24,7 @@ launch_app <- function(mode = 'user') {
   server_env$dev_mode <- dev_mode
   
   app <- shiny::shinyApp(ui, server)
-  shiny::runApp(app, launch.browser = FALSE)
+  shiny::runApp(app, 
+    #launch.browser = FALSE
+    )
 }

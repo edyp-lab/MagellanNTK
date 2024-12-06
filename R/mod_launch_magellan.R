@@ -3,6 +3,12 @@
 #' @description A shiny Module.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
+#' 
+#' @@examples
+#' \dontrun{
+#' shiny::runApp(mod_launch_magellan())
+#' }
+#' 
 #'
 #' @noRd 
 #'
@@ -11,9 +17,9 @@ mod_launch_magellan_ui <- function(id){
   ns <- NS(id)
   tagList(
     div(
-      div(style="display:inline-block; vertical-align: middle; padding-right: 20px;",
-        choose_pipeline_ui(ns("pipe"))
-      ),
+      # div(style="display:inline-block; vertical-align: middle; padding-right: 20px;",
+      #   choose_pipeline_ui(ns("pipe"))
+      # ),
       div(
         style="display:inline-block; vertical-align: middle; padding-right: 20px;",
         shinyjs::hidden(div(id=ns('div_demoDataset'),
@@ -46,8 +52,8 @@ mod_launch_magellan_server <- function(id){
     
     rv$demoData <- mod_open_demoDataset_server("rl")
     
-    rv$pipeline.name <- choose_pipeline_server('pipe', 
-                                                   package = 'MSPipelines')
+    # rv$pipeline.name <- choose_pipeline_server('pipe', 
+    #                                                package = 'MSPipelines')
     
     observe({
       shinyjs::toggle('div_demoDataset', condition = !is.null(rv$pipeline.name()) && rv$pipeline.name() != 'None')
@@ -62,7 +68,7 @@ mod_launch_magellan_server <- function(id){
       rv$dataOut <- rv$pipeline$server(dataIn = reactive({rv$dataIn}))
     })
     
-    observeEvent(input$load_dataset_btn, {
+    observeEvent(req(input$load_dataset_btn), ignoreNULL = TRUE, {
       print(names(rv$demoData()))
       rv$dataIn <- rv$demoData()
     })
@@ -83,9 +89,18 @@ mod_launch_magellan_server <- function(id){
  
 }
     
-## To be copied in the UI
-# mod_launch_magellan_ui("launch_magellan_ui_1")
-    
-## To be copied in the server
-# callModule(mod_launch_magellan_server, "launch_magellan_ui_1")
- 
+
+#' @export
+#' @rdname generic_mod_open_dataset
+#' 
+#' 
+mod_launch_magellan <- function(){
+  
+  ui <- mod_launch_magellan_ui("demo")
+  
+  server <- function(input, output, session) {
+    mod_launch_magellan_server()
+  }
+  
+  app <- shinyApp(ui = ui, server = server)
+}

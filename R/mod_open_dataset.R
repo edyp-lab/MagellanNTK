@@ -83,7 +83,7 @@ open_dataset_server <- function(id){
     output$choosePkg <- renderUI({
       req(input$chooseSource == 'packageDataset')
       selectizeInput(ns("pkg"), "Choose package",
-        choices = NULL,
+        choices = GetListDatasets(filtered = FALSE),
         #selected = 'MagellanNTK',
         width='200px')
     })
@@ -94,20 +94,20 @@ open_dataset_server <- function(id){
     #   unique(dat)
     # })
     
-    observeEvent(input$pkg, {
-
-      withProgress(message = "", detail = "", value = 0, {
-        incProgress(0.5, detail = "Building package list...")
-         dat <- GetListDatasets(filtered = FALSE)
-      })
-      
-      
-    updateSelectizeInput(session, 'pkg', 
-      choices = c('MagellanNTK', unique(dat)[, "Package"]), 
-      selected = 'MagellanNTK',
-      server = TRUE)
-
-    }, once = TRUE)
+    # observeEvent(input$pkg, {
+    # 
+    #   withProgress(message = "", detail = "", value = 0, {
+    #     incProgress(0.5, detail = "Building package list...")
+    #      dat <- GetListDatasets(filtered = FALSE)
+    #   })
+    #   
+    #   
+    # updateSelectizeInput(session, 'pkg', 
+    #   choices = c('MagellanNTK', unique(dat)[, "Package"]), 
+    #   selected = 'MagellanNTK',
+    #   server = TRUE)
+    # 
+    # }, once = TRUE)
     
     
     
