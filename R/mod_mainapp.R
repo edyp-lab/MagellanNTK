@@ -534,7 +534,9 @@ mainapp_server <- function(id,
 
       rv.core$result_open_dataset <- call.func(
         fname = paste0(rv.core$funcs$funcs$open_dataset, '_server'),
-        args = list(id = 'open_dataset'))
+        args = list(id = 'open_dataset',
+          class = rv.core$funcs$class)
+        )
       
       call.func(fname = paste0(rv.core$funcs$funcs$open_dataset, '_ui'),
         args = list(id = ns('open_dataset')))

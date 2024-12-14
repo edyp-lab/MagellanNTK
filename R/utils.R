@@ -131,7 +131,7 @@ readConfigFile <- function(path,
       
       verbose = TRUE,
       
-      UI_view_debugger = FALSE,
+      UI_view_debugger = TRUE,
       UI_view_open_pipeline = FALSE,
       UI_view_convert_dataset = TRUE,
       UI_view_change_Look_Feel = TRUE,
@@ -179,21 +179,21 @@ readConfigFile <- function(path,
 #' foo1 <- GetListDatasets()
 #' 
 #' 
-GetListDatasets <- function(class, filtered = FALSE){
+GetListDatasets <- function(class = NULL){
 
   ll.datasets <- NULL
-  
   x <- data(package = .packages(all.available = TRUE))$results
   dat <- x[which(x[,'Item'] != ''), c('Package', 'Item')]
   ll.datasets <- dat
   
-  if (filtered){
+  if (!is.null(class)){
   df <- data.frame()
 
   for(i in seq(nrow(dat))){
     pkg <- dat[i, 'Package']
     dataset <- dat[i, 'Item']
     tryCatch({
+  
       do.call(data, list(dataset, package = pkg, envir = environment()))
       is.qf <- inherits(eval(str2expression(dataset)), class)
       if(is.qf)

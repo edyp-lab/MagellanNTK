@@ -8,7 +8,7 @@
 #' 
 #' @examples
 #' \dontrun{
-#' shiny::runApp(open_dataset())
+#' shiny::runApp(open_dataset('QFeatures'))
 #' }
 #' 
 #' 
@@ -48,7 +48,7 @@ open_dataset_ui <- function(id){
 #' @importFrom utils data
 #' @importFrom shinyjs info
 #' 
-open_dataset_server <- function(id){
+open_dataset_server <- function(id, class = NULL){
   
   moduleServer(id, function(input, output, session){
     ns <- session$ns
@@ -83,7 +83,7 @@ open_dataset_server <- function(id){
     output$choosePkg <- renderUI({
       req(input$chooseSource == 'packageDataset')
       selectizeInput(ns("pkg"), "Choose package",
-        choices = GetListDatasets(filtered = FALSE),
+        choices = GetListDatasets(class),
         #selected = 'MagellanNTK',
         width='200px')
     })
@@ -222,7 +222,7 @@ open_dataset_server <- function(id){
 #' @rdname generic_mod_open_dataset
 #' 
 #' 
-open_dataset <- function(){
+open_dataset <- function(class = NULL){
 
 ui <- open_dataset_ui("demo")
 
@@ -232,7 +232,7 @@ server <- function(input, output, session) {
     obj = NULL
   )
   
-  rv$obj <- open_dataset_server("demo")
+  rv$obj <- open_dataset_server("demo", class = class)
   
   observeEvent(rv$obj(), {
     print(rv$obj()$name)
