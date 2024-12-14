@@ -61,12 +61,12 @@ open_dataset_server <- function(id, class = NULL){
     )
 
     
-    observeEvent(id, {
-      withProgress(message = '',detail = '', value = 0.5, {
-        incProgress(0.5, detail = paste0('Searching for ', class, ' datasets'))
-        rv.open$packages <- GetListDatasets(class)
-      })
-    })
+    # observeEvent(id, {
+    #   withProgress(message = '',detail = '', value = 0.5, {
+    #     incProgress(0.5, detail = paste0('Searching for ', class, ' datasets'))
+    #     rv.open$packages <- GetListDatasets(class)
+    #   })
+    # })
     
     
     output$packageDataset_UI <- renderUI({
@@ -92,6 +92,10 @@ open_dataset_server <- function(id, class = NULL){
     
     output$choosePkg <- renderUI({
       req(input$chooseSource == 'packageDataset')
+      withProgress(message = '',detail = '', value = 0.5, {
+        incProgress(0.5, detail = paste0('Searching for ', class, ' datasets'))
+        rv.open$packages <- GetListDatasets(class)
+      })
       req(rv.open$packages)
      
       selectizeInput(ns("pkg"), "Choose package",
