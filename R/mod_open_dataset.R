@@ -62,7 +62,10 @@ open_dataset_server <- function(id, class = NULL){
 
     
     observeEvent(id, {
-      rv.open$packages <- GetListDatasets(class)
+      withProgress(message = '',detail = '', value = 0.5, {
+        incProgress(0.5, detail = paste0('Searching for ', class, ' datasets'))
+        rv.open$packages <- GetListDatasets(class)
+      })
     })
     
     
@@ -89,9 +92,10 @@ open_dataset_server <- function(id, class = NULL){
     
     output$choosePkg <- renderUI({
       req(input$chooseSource == 'packageDataset')
+      req(rv.open$packages)
+     
       selectizeInput(ns("pkg"), "Choose package",
-        choices = rv.open$packages$Package,
-        #selected = 'MagellanNTK',
+        choices = rv.open$packages[, 'Package'],
         width='200px')
     })
     
@@ -125,8 +129,8 @@ open_dataset_server <- function(id, class = NULL){
       pkgs.require(input$pkg)
       
       req(rv.open$packages)
-      
-      ind <- which(rv.open$packages$Package == input$pkg)
+  
+      ind <- which(rv.open$packages[, 'Package'] == input$pkg)
 
       selectInput(ns("demoDataset"),
         "Demo dataset",
