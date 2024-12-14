@@ -56,9 +56,16 @@ open_dataset_server <- function(id, class = NULL){
     rv.open <- reactiveValues(
       dataRead = NULL,
       dataOut = NULL,
-      name = 'default.name'
+      name = 'default.name',
+      packages = NULL
     )
 
+    
+    observeEvent(id, {
+      rv.open$packages <- GetListDatasets(class)
+    })
+    
+    
     output$packageDataset_UI <- renderUI({
       req(input$chooseSource == 'packageDataset')
         wellPanel(
@@ -83,7 +90,7 @@ open_dataset_server <- function(id, class = NULL){
     output$choosePkg <- renderUI({
       req(input$chooseSource == 'packageDataset')
       selectizeInput(ns("pkg"), "Choose package",
-        choices = GetListDatasets(class),
+        choices = rv.open$packages$Package,
         #selected = 'MagellanNTK',
         width='200px')
     })
@@ -117,9 +124,13 @@ open_dataset_server <- function(id, class = NULL){
       req(input$pkg)
       pkgs.require(input$pkg)
       
+      req(rv.open$packages)
+      
+      ind <- which(rv.open$packages$Package == input$pkg)
+
       selectInput(ns("demoDataset"),
         "Demo dataset",
-        choices = utils::data(package=input$pkg)$results[,"Item"],
+        choices = rv.open$packages[ind, 'Item'],
         selected = character(0),
         width='200px')
     })
