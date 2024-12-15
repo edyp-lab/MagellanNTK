@@ -104,7 +104,7 @@ mod_load_package_server <- function(id,
         lapply(names(rv$list.funcs), function(x){
           find_ui_func <- find_funs(paste0(x, '_ui'))$package_name
           find_server_func <- find_funs(paste0(x, '_server'))$package_name
-  #browser()
+  
           .choices <- unique(unique(find_ui_func, find_server_func))
           #.tmp <- .tmp[-grep('MagellanNTK', .tmp)]
           #.choices <- c(.tmp, 'MagellanNTK')

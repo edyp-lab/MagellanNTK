@@ -259,7 +259,7 @@ nav_server <- function(id = NULL,
               # When the server starts, the default position is 1
                 # Not necessary ?
              # rv$current.pos <- 2
-                #browser()
+                
                 ### Call the server module of the process/pipeline which name is 
                 ### the parameter 'id'. 
                 ### The name of the server function is prefixed by 'mod_' and 
@@ -499,8 +499,11 @@ nav_server <- function(id = NULL,
 
                              # Look for new skipped steps
                              rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
+
+                             
+                             
                              #print('In observeEvent(rv$proc$dataOut()$trigger')
-                             #browser()
+
                              # If it is the first step (description step), then
                              # load the dataset in work variable 'dataIn'
                              if (rv$current.pos == 1) {
@@ -519,6 +522,9 @@ nav_server <- function(id = NULL,
                                # this  workflow and will be used in case of 
                                # reset
                                rv$dataIn <- rv$proc$dataOut()$value
+                               
+                               
+                               
                                
                                # Update the 'dataOut' reactive value to return
                                #  this dataset to the caller. this `nav_process` 
@@ -599,9 +605,9 @@ nav_server <- function(id = NULL,
         # See https://github.com/daattali/shinyjs/issues/166
         # https://github.com/daattali/shinyjs/issues/25
         observeEvent(rv$steps.status, ignoreInit = TRUE, {
-            
+           
             rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
-
+            
             rv$steps.enabled <- Update_State_Screens(
                 is.skipped = is.skipped(),
                 is.enabled = is.enabled(),
@@ -854,7 +860,7 @@ nav_server <- function(id = NULL,
                 #isolate({
                   # A new value on dataIn() means a new dataset sent to the 
                   # process
-                  #browser()
+                  
                   #rv$current.pos <- 1
 
                   # Get the new dataset in a temporary variable
@@ -924,7 +930,7 @@ nav_server <- function(id = NULL,
 
             if (rv$config@mode == "pipeline") {
                 # Specific to pipeline code
-              #browser()
+              
                 res <- PrepareData2Send(rv = rv, 
                   pos = NULL, 
                   verbose = verbose,

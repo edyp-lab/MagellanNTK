@@ -89,6 +89,11 @@ ActionOn_Child_Changed <- function(
 
         if (ind.processHasChanged < len) {
             steps.status[(1 + ind.processHasChanged):len] <- stepStatus$UNDONE
+            
+            # Reset all further processes
+            #print('proceed to reset all further children')
+            #
+            # steps.status[(1 + ind.processHasChanged):len] <- 
         }
 
         steps.status <- Discover_Skipped_Steps(steps.status)

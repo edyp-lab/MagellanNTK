@@ -135,8 +135,8 @@ mainapp_ui <- function(id, session){
             ),
           leftUi = tagList(
             uiOutput(ns('WF_Name_UI')),
-            uiOutput(ns('Dataset_Name_UI'))
-            
+            uiOutput(ns('Dataset_Name_UI')),
+            uiOutput(ns('browser_UI'))
           )
           
         ),
@@ -286,7 +286,6 @@ mainapp_server <- function(id,
       
       resetWF = 0,
 
-      
       workflow.name = NULL,
       workflow.path = NULL,
       
@@ -302,15 +301,11 @@ mainapp_server <- function(id,
       rv.core$current.obj <- obj()
       if (!is.null(obj()))
         rv.core$current.obj.name <- 'myDataset'
-        
-      
       
       rv.core$workflow.path <- workflow.path()
       rv.core$workflow.name <- workflow.name()
       session$userData$workflow.path <- workflow.path()
       session$userData$workflow.name <- workflow.name()
-      
-      
       
       session$userData$usermod <- usermod
       session$userData$verbose <- verbose
@@ -388,6 +383,12 @@ mainapp_server <- function(id,
       h4(paste0('Dataset: ', rv.core$current.obj.name), style = 'background-color: lightgrey;')
     })
     
+    
+    output$browser_UI <- renderUI({
+      req( session$userData$usermod == 'dev')
+        actionButton(ns('browser'), 'Console')
+      
+    })
     observeEvent(input$browser,{browser()})
     
     observeEvent(input$ReloadProstar, { js$reset()})

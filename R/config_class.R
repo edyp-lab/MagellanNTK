@@ -472,7 +472,6 @@ setMethod("initialize" , "Config" , function(.Object,
         .Object@steps <- if (length(steps) == 0) NULL else steps
         .Object@mandatory <- if (length(mandatory) == 0) NULL else mandatory 
         
-        #browser()
         # if (is.GenericProcess(.Object) || is.GenericPipeline(.Object))
         #   .Object <- init.GenericNode(.Object)
         # else if (is.SpecialProcess(.Object, 'Description'))
