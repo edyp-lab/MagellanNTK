@@ -60,15 +60,7 @@ open_dataset_server <- function(id, class = NULL, demo_package = NULL){
       packages = NULL
     )
 
-    
-    # observeEvent(id, {
-    #   withProgress(message = '',detail = '', value = 0.5, {
-    #     incProgress(0.5, detail = paste0('Searching for ', class, ' datasets'))
-    #     rv.open$packages <- GetListDatasets(class)
-    #   })
-    # })
-    
-    
+
     output$packageDataset_UI <- renderUI({
       req(input$chooseSource == 'packageDataset')
         wellPanel(
@@ -92,8 +84,7 @@ open_dataset_server <- function(id, class = NULL, demo_package = NULL){
     
     output$choosePkg <- renderUI({
       req(input$chooseSource == 'packageDataset')
-      
-      
+ 
         withProgress(message = '',detail = '', value = 0.5, {
         incProgress(0.5, detail = paste0('Searching for ', class, ' datasets'))
         rv.open$packages <- GetListDatasets(class, demo_package)
@@ -107,29 +98,7 @@ open_dataset_server <- function(id, class = NULL, demo_package = NULL){
         width='200px')
     })
     
-    # GetPackagesWithDatasets <- reactive({
-    #   x <- data(package = .packages(all.available = TRUE))$results
-    #   dat <- x[which(x[,'Item'] != ''), c('Package', 'Item')]
-    #   unique(dat)
-    # })
-    
-    # observeEvent(input$pkg, {
-    # 
-    #   withProgress(message = "", detail = "", value = 0, {
-    #     incProgress(0.5, detail = "Building package list...")
-    #      dat <- GetListDatasets(filtered = FALSE)
-    #   })
-    #   
-    #   
-    # updateSelectizeInput(session, 'pkg', 
-    #   choices = c('MagellanNTK', unique(dat)[, "Package"]), 
-    #   selected = 'MagellanNTK',
-    #   server = TRUE)
-    # 
-    # }, once = TRUE)
-    
-    
-    
+
     ## function for demo mode
     output$chooseDemoDataset <- renderUI({
       req(input$chooseSource == 'packageDataset')

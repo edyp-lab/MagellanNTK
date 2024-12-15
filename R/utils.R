@@ -139,6 +139,7 @@ readConfigFile <- function(path,
       
       class = get_data(lines, 'class'),
       package = get_data(lines, 'package'),
+      demo_package = get_data(lines, 'demo_package'),
       
       URL_manual = get_data(lines, 'URL_manual'),
       
@@ -158,10 +159,13 @@ readConfigFile <- function(path,
       
       class = get_data(lines, 'class'),
       package = get_data(lines, 'package'),
+      demo_package = get_data(lines, 'demo_package'),
+      
       
       URL_manual = get_data(lines, 'URL_manual'),
       URL_ReleaseNotes = get_data(lines, 'URL_ReleaseNotes')
     )
+
 
   return(value)
 }
@@ -172,7 +176,7 @@ readConfigFile <- function(path,
 #' @title Get filtered datasets
 #' 
 #' @param class xxx
-#' @param filtered xxx
+#' @param demo_package xxx
 #' 
 #' @export
 #' @examples
@@ -181,7 +185,7 @@ readConfigFile <- function(path,
 #' 
 GetListDatasets <- function(class = NULL, demo_package = NULL){
 
-  
+  print(paste0("demo_package: ", demo_package))
   if (is.null(demo_package)){
   ll.datasets <- NULL
   
