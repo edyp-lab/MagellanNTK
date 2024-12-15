@@ -48,7 +48,7 @@ open_dataset_ui <- function(id){
 #' @importFrom utils data
 #' @importFrom shinyjs info
 #' 
-open_dataset_server <- function(id, class = NULL){
+open_dataset_server <- function(id, class = NULL, demo_package = NULL){
   
   moduleServer(id, function(input, output, session){
     ns <- session$ns
@@ -92,10 +92,14 @@ open_dataset_server <- function(id, class = NULL){
     
     output$choosePkg <- renderUI({
       req(input$chooseSource == 'packageDataset')
-      withProgress(message = '',detail = '', value = 0.5, {
+      
+      
+        withProgress(message = '',detail = '', value = 0.5, {
         incProgress(0.5, detail = paste0('Searching for ', class, ' datasets'))
-        rv.open$packages <- GetListDatasets(class)
+        rv.open$packages <- GetListDatasets(class, demo_package)
       })
+
+        
       req(rv.open$packages)
      
       selectizeInput(ns("pkg"), "Choose package",

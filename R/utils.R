@@ -179,9 +179,12 @@ readConfigFile <- function(path,
 #' foo1 <- GetListDatasets()
 #' 
 #' 
-GetListDatasets <- function(class = NULL){
+GetListDatasets <- function(class = NULL, demo_package = NULL){
 
+  
+  if (is.null(demo_package)){
   ll.datasets <- NULL
+  
   x <- data(package = .packages(all.available = TRUE))$results
   dat <- x[which(x[,'Item'] != ''), c('Package', 'Item')]
   ll.datasets <- dat
@@ -207,6 +210,10 @@ GetListDatasets <- function(class = NULL){
   colnames(df) <- c('Package', 'Item')
 
   ll.datasets <- df
+  }
+  } else {
+    x <- data(package = demo_package)$results
+    ll.datasets <- x[which(x[,'Item'] != ''), c('Package', 'Item')]
   }
   
   return(ll.datasets)
