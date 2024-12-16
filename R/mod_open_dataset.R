@@ -35,8 +35,8 @@ open_dataset_ui <- function(id){
 
           uiOutput(ns('customDataset_UI')),
           uiOutput(ns('packageDataset_UI'))
-      ),
-    uiOutput(ns('datasetInfos_UI'))
+      )
+    #uiOutput(ns('datasetInfos_UI'))
     )
 }
 
@@ -193,11 +193,11 @@ open_dataset_server <- function(id, class = NULL, demo_package = NULL){
     })
     
     
-    
-    output$datasetInfos_UI <- renderUI({
-      req(rv.open$dataOut)
-        print(paste0('Dataset loaded'))
-      })
+    # 
+    # output$datasetInfos_UI <- renderUI({
+    #   req(rv.open$dataOut)
+    #     print(paste0('Dataset loaded'))
+    #   })
 
     reactive({
       list(data = rv.open$dataOut,
