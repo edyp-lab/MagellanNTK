@@ -244,6 +244,28 @@ observeEvent(steps.status(), ignoreNULL = TRUE, {
         rv$steps.status <- steps.status()
 })
 
+    #rv$dataIn <- NULL
+})
+
+
+"
+
+    code
+}
+
+#' @title Code for declaring xxx
+#'
+#' @description xxx
+#'
+#' @export
+#' 
+#' @rdname insertCodeForExternalModules
+#'
+#' @return NA
+#'
+Get_Code_for_remoteReset_observeEvents <- function() {
+  code <- "
+
 observeEvent(req(remoteReset() >=1), ignoreInit = TRUE, ignoreNULL = TRUE,{
       lapply(names(rv.widgets), function(x){
           rv.widgets[[x]] <- widgets.default.values[[x]]
@@ -258,8 +280,43 @@ observeEvent(req(remoteReset() >=1), ignoreInit = TRUE, ignoreNULL = TRUE,{
 
 
 "
+  
+  code
+}
 
-    code
+
+
+
+
+#' @title Code for declaring xxx
+#'
+#' @description xxx
+#'
+#' @export
+#' 
+#' @rdname insertCodeForExternalModules
+#'
+#' @return NA
+#'
+Get_Code_for_remoteReset <- function() {
+  code <- "
+
+observeEvent(remoteReset(), ignoreInit = TRUE, {
+      lapply(names(rv.widgets), function(x){
+          rv.widgets[[x]] <- widgets.default.values[[x]]
+        })
+        
+            lapply(names(rv.custom), function(x){
+        rv.custom[[x]] <- rv.custom.default.values[[x]]
+    })
+    
+    #rv$dataIn <- NULL
+})
+
+
+"
+  
+  code
 }
 
 
@@ -364,6 +421,7 @@ Get_Workflow_Core_Code <- function(
     Get_Code_Declare_rv_custom(rv.custom.names),
     Get_Code_for_dataOut(),
     Get_Code_for_General_observeEvents(),
+    Get_Code_for_remoteReset_observeEvents(),
     sep = "\n"
   )
   
@@ -431,8 +489,8 @@ Get_AdditionalModule_Core_Code <- function(
       Get_Code_for_ObserveEvent_widgets(w.names),
       Get_Code_for_rv_reactiveValues(),
       Get_Code_Declare_rv_custom(rv.custom.names),
-      Get_Code_for_dataOut(),
-      Get_Code_for_AddMod_observeEvents(),
+      Get_Code_for_dataOut(), 
+      Get_Code_for_remoteReset_observeEvents(),
       sep = "\n"
     )
 
@@ -440,32 +498,3 @@ Get_AdditionalModule_Core_Code <- function(
 }
 
 
-#' @title Code for declaring xxx
-#'
-#' @description This function xxx
-#' Generate dynamically the observeEvent function for each widget
-#' 
-#' @export
-#' 
-#' @rdname insertCodeForExternalModules
-#'
-#' @return NA
-#'
-Get_Code_for_AddMod_observeEvents <- function() {
-    code <- "
-
-observeEvent(req(remoteReset() >= 1), ignoreInit = TRUE, ignoreNULL = TRUE, {
-    lapply(names(rv.widgets), function(x){
-        rv.widgets[[x]] <- widgets.default.values[[x]]
-    })
-    
-    lapply(names(rv.custom), function(x){
-        rv.custom[[x]] <- rv.custom.default.values[[x]]
-    })
-})
-
-
-"
-
-    code
-}

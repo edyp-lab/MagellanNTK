@@ -4,12 +4,12 @@
 \alias{GetListDatasets}
 \title{Get filtered datasets}
 \usage{
-GetListDatasets(class, filtered = FALSE)
+GetListDatasets(class = NULL, demo_package = NULL)
 }
 \arguments{
 \item{class}{xxx}
 
-\item{filtered}{xxx}
+\item{demo_package}{xxx}
 }
 \description{
 Get filtered datasets

@@ -9,11 +9,12 @@
 \alias{Get_Code_for_rv_reactiveValues}
 \alias{Get_Code_for_dataOut}
 \alias{Get_Code_for_General_observeEvents}
+\alias{Get_Code_for_remoteReset_observeEvents}
+\alias{Get_Code_for_remoteReset}
 \alias{Module_Return_Func}
 \alias{AdditionnalCodeForExternalModules}
 \alias{Get_Workflow_Core_Code}
 \alias{Get_AdditionalModule_Core_Code}
-\alias{Get_Code_for_AddMod_observeEvents}
 \title{R code to update the 'config' variable of a process module}
 \usage{
 Get_Code_Update_Config_Variable()
@@ -30,6 +31,10 @@ Get_Code_for_dataOut()
 
 Get_Code_for_General_observeEvents()
 
+Get_Code_for_remoteReset_observeEvents()
+
+Get_Code_for_remoteReset()
+
 Module_Return_Func()
 
 AdditionnalCodeForExternalModules(w.names = NULL, rv.custom.names = NULL)
@@ -42,8 +47,6 @@ Get_Workflow_Core_Code(
 )
 
 Get_AdditionalModule_Core_Code(w.names = NULL, rv.custom.names = NULL)
-
-Get_Code_for_AddMod_observeEvents()
 }
 \arguments{
 \item{widgets.names}{A `list` containing the names of the widgets in all
@@ -67,6 +70,8 @@ NA
 NA
 
 A `string` containing some R code
+
+NA
 
 NA
 
@@ -117,6 +122,10 @@ Returned value of the process
 
 xxx
 
+xxx
+
+xxx
+
 This function xxx
 # Generate dynamically the observeEvent function for each widget
 
@@ -127,9 +136,6 @@ This function xxx
 # Generate dynamically the observeEvent function for each widget
 
 This function generates dynamically the observeEvent function for each widget
-
-This function xxx
-Generate dynamically the observeEvent function for each widget
 }
 \author{
 Samuel Wieczorek
