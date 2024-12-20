@@ -270,7 +270,7 @@ observeEvent(req(remoteReset() >=1), ignoreInit = TRUE, ignoreNULL = TRUE,{
             lapply(names(rv.custom), function(x){
         rv.custom[[x]] <- rv.custom.default.values[[x]]
     })
-    
+})
 
 "
   
@@ -302,6 +302,7 @@ observeEvent(remoteReset(), ignoreInit = TRUE, {
             lapply(names(rv.custom), function(x){
         rv.custom[[x]] <- rv.custom.default.values[[x]]
     })
+})
 
 "
   
