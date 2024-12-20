@@ -8,7 +8,7 @@
 #' 
 #' @examples
 #' \dontrun{
-#' shiny::runApp(open_dataset('QFeatures'))
+#' shiny::runApp(open_dataset(class = 'QFeatures', extension = '.qf'))
 #' }
 #' 
 #' 
@@ -48,7 +48,8 @@ open_dataset_ui <- function(id){
 #' @importFrom utils data
 #' @importFrom shinyjs info
 #' 
-open_dataset_server <- function(id, class = NULL, demo_package = NULL){
+open_dataset_server <- function(id, class = NULL, extension = NULL,
+  demo_package = NULL){
   
   moduleServer(id, function(input, output, session){
     ns <- session$ns
@@ -77,7 +78,8 @@ open_dataset_server <- function(id, class = NULL, demo_package = NULL){
     output$customDataset_UI <- renderUI({
       req(input$chooseSource == 'customDataset')
       wellPanel(
-        fileInput(ns("file"), "Open file", multiple = FALSE, width = "400px"),
+        fileInput(ns("file"), "Open file", 
+          accept = extension, multiple = FALSE, width = "400px"),
         actionButton(ns('load_btn'), 'Load file')
       )
     })
@@ -147,6 +149,13 @@ open_dataset_server <- function(id, class = NULL, demo_package = NULL){
     })
     
     
+    observeEvent(input$file$datapath, {
+      
+      if(!inherits(readRDS(input$file$datapath), class)){
+        errorModal('test')
+        print('erreur')
+      }
+    })
     # Part of open custom dataset
     ## -- Open a MSnset File --------------------------------------------
     observeEvent(input$load_btn, ignoreInit = TRUE, {
@@ -156,6 +165,7 @@ open_dataset_server <- function(id, class = NULL, demo_package = NULL){
         # Try with readRDS()
         rv.open$name <- input$file$name
         rv.open$dataRead <- readRDS(input$file$datapath)
+        
       },
         warning = function(w) {
           return(NULL)
@@ -191,13 +201,7 @@ open_dataset_server <- function(id, class = NULL, demo_package = NULL){
       #   shinyjs::info("Dataset not compatible with MagellanNTK")
       # }
     })
-    
-    
-    # 
-    # output$datasetInfos_UI <- renderUI({
-    #   req(rv.open$dataOut)
-    #     print(paste0('Dataset loaded'))
-    #   })
+
 
     reactive({
       list(data = rv.open$dataOut,
@@ -214,9 +218,11 @@ open_dataset_server <- function(id, class = NULL, demo_package = NULL){
 #' @rdname generic_mod_open_dataset
 #' 
 #' 
-open_dataset <- function(class = NULL){
+open_dataset <- function(class = NULL, extension = NULL){
 
-ui <- open_dataset_ui("demo")
+ui <- fluidPage(
+  open_dataset_ui("demo")
+)
 
 
 server <- function(input, output, session) {
@@ -224,7 +230,9 @@ server <- function(input, output, session) {
     obj = NULL
   )
   
-  rv$obj <- open_dataset_server("demo", class = class)
+  rv$obj <- open_dataset_server("demo", 
+    class = class,
+    extension = extension)
   
   observeEvent(rv$obj(), {
     print(rv$obj()$name)

@@ -326,6 +326,10 @@ mainapp_server <- function(id,
            rv.core$funcs$funcs[[f]] <- default.funcs()[[f]]
        }
        session$userData$funcs <- rv.core$funcs$funcs
+       session$userData$funcs <- rv.core$funcs$funcs
+       session$userData$funcs <- rv.core$funcs$funcs
+       
+       session$userData$funcs <- rv.core$funcs$funcs
        
        if(usermod == 'dev')
          options(shiny.fullstacktrace = TRUE)
@@ -537,6 +541,7 @@ mainapp_server <- function(id,
         fname = paste0(rv.core$funcs$funcs$open_dataset, '_server'),
         args = list(id = 'open_dataset',
           class = rv.core$funcs$class,
+          extension = rv.core$funcs$extension,
           demo_package = rv.core$funcs$demo_package)
         )
       
