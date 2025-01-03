@@ -407,8 +407,8 @@ nav_server <- function(id = NULL,
                            # the module
                            values.children <- GetValuesFromChildren(
                              tmp.return = tmp.return,
-                             config = rv$config
-                           )
+                             config = rv$config)
+                           
                            triggerValues <- values.children$triggers
                            return.values <- values.children$values
                            
@@ -448,7 +448,8 @@ nav_server <- function(id = NULL,
                                steps.skipped = rv$steps.skipped,
                                processHasChanged = processHasChanged,
                                newValue = newValue,
-                               keepdataset_func = session$userData$funcs$keepDatasets
+                               keepdataset_func = session$userData$funcs$keepDatasets,
+                               rv = rv
                              )
                              
                              
@@ -467,7 +468,7 @@ nav_server <- function(id = NULL,
                          # Catch the returned values of the processes attached to 
                          # pipeline
                          observeEvent(lapply(GetStepsNames(),
-                                             function(x) {tmp.return[[x]]$dataOut()$trigger}
+                           function(x) {tmp.return[[x]]$dataOut()$trigger}
                          ), ignoreInit = TRUE,
                          {
                            ActionOn_Data_Trigger()

@@ -39,7 +39,8 @@ ActionOn_Child_Changed <- function(
   steps.skipped,
   processHasChanged,
   newValue,
-  keepdataset_func) {
+  keepdataset_func,
+  rv) {
     # Indice of the dataset in the object
     # If the original length is not 1, then this indice is different
     # than the above one
@@ -49,18 +50,30 @@ ActionOn_Child_Changed <- function(
 
 
     if (is.null(newValue)) {
-        # A process has been reseted
+        # A process has been reseted (it has returned a NULL value)
 
         # One take the last validated step (before the one
         # corresponding to processHasChanges
         # but it is straightforward because we just updates rv$status
         steps.status[ind.processHasChanged:len] <- stepStatus$UNDONE
 
+        #All the following processes (after the one which has changed) are disabled
         steps.enabled[(ind.processHasChanged + 1):len] <- FALSE
+        
+        #browser()
+        
+        #test <- GetFirstMandatoryNotValidated((ind.processHasChanged + 1):len, rv)
+        # The process that has been rested is enabled so as to rerun it
         steps.enabled[ind.processHasChanged] <- TRUE
 
         steps.skipped[ind.processHasChanged:len] <- FALSE
 
+        
+        
+        Update_State_Screens(steps.skipped, steps.enabled, rv)
+        
+        
+        
         validated.steps <- which(steps.status == stepStatus$VALIDATED)
         if (length(validated.steps) > 0) {
             ind.last.validated <- max(validated.steps)

@@ -309,7 +309,7 @@ All_Skipped_tag <- function(steps.status, tag) {
 #' 
 #' @export
 #'
-GetFirstMandatoryNotValidated <- function(range,rv) {
+GetFirstMandatoryNotValidated <- function(range, rv) {
   .ind <- NULL
     first <- NULL
     first <- unlist((lapply(

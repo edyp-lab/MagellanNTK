@@ -12,9 +12,9 @@ mod_launch_magellan()
 
 open_dataset_ui(id)
 
-open_dataset_server(id, class = NULL, demo_package = NULL)
+open_dataset_server(id, class = NULL, extension = NULL, demo_package = NULL)
 
-open_dataset(class = NULL)
+open_dataset(class = NULL, extension = NULL)
 }
 \arguments{
 \item{id}{xxx}
@@ -24,7 +24,7 @@ This module allows to change
 }
 \examples{
 \dontrun{
-shiny::runApp(open_dataset('QFeatures'))
+shiny::runApp(open_dataset(class = 'QFeatures', extension = '.qf'))
 }
 
 

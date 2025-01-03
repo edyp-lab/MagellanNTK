@@ -10,6 +10,7 @@
 \alias{Get_Code_for_dataOut}
 \alias{Get_Code_for_General_observeEvents}
 \alias{Get_Code_for_remoteReset_observeEvents}
+\alias{Get_Code_for_remoteReset2_observeEvents}
 \alias{Get_Code_for_remoteReset}
 \alias{Module_Return_Func}
 \alias{AdditionnalCodeForExternalModules}
@@ -33,6 +34,8 @@ Get_Code_for_General_observeEvents()
 
 Get_Code_for_remoteReset_observeEvents()
 
+Get_Code_for_remoteReset2_observeEvents(add.code = NULL)
+
 Get_Code_for_remoteReset()
 
 Module_Return_Func()
@@ -54,6 +57,8 @@ steps of the module.}
 
 \item{rv.custom.names}{xxx}
 
+\item{add.code}{Add additional code}
+
 \item{w.names}{xxx}
 
 \item{mode}{xxx}
@@ -70,6 +75,8 @@ NA
 NA
 
 A `string` containing some R code
+
+NA
 
 NA
 
@@ -119,6 +126,8 @@ This function xxx
 This function createxxx
 
 Returned value of the process
+
+xxx
 
 xxx
 
