@@ -324,42 +324,22 @@ observeEvent(req(remoteReset()), ignoreInit = FALSE, ignoreNULL = TRUE,{
 #'
 Get_Code_for_remoteReset <- function(widgets = TRUE,
   custom = TRUE,
-  dataIn = TRUE) {
+  dataIn = 'NULL') {
   code <- "
 
-observeEvent(remoteReset(), ignoreInit = TRUE, {
+observeEvent(remoteReset(), ignoreInit = FALSE, {
   "
   
   if (widgets)
     code <- paste0(code, Get_Code_for_resetting_widgets())
   if (custom)
     code <- paste0(code, Get_Code_for_resetting_custom())
-  if(dataIn)
-  code <- paste0(code, Get_Code_for_resetting_dataIn())
   
-  code <- paste0(code, '
-    })
-    ')
-  
+  code <- paste0(code, 'rv$dataIn <- ', dataIn, '})')
+
   code
 }
 
-
-#' @title Code for declaring xxx
-#'
-#' @description xxx
-#'
-#' @export
-#' 
-#' @rdname insertCodeForExternalModules
-#'
-#' @return NA
-#'
-Get_Code_for_resetting_dataIn <- function() {
-  "
-rv$dataIn <- NULL
-"
-}
 
 
 #' @title Code for declaring xxx

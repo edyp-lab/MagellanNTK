@@ -12,7 +12,6 @@
 \alias{Get_Code_for_remoteReset_observeEvents}
 \alias{Get_Code_for_remoteReset2_observeEvents}
 \alias{Get_Code_for_remoteReset}
-\alias{Get_Code_for_resetting_dataIn}
 \alias{Get_Code_for_resetting_widgets}
 \alias{Get_Code_for_resetting_custom}
 \alias{Module_Return_Func}
@@ -39,9 +38,7 @@ Get_Code_for_remoteReset_observeEvents()
 
 Get_Code_for_remoteReset2_observeEvents(add.code = NULL)
 
-Get_Code_for_remoteReset(widgets = TRUE, custom = TRUE, dataIn = TRUE)
-
-Get_Code_for_resetting_dataIn()
+Get_Code_for_remoteReset(widgets = TRUE, custom = TRUE, dataIn = "NULL")
 
 Get_Code_for_resetting_widgets()
 
@@ -106,8 +103,6 @@ NA
 NA
 
 NA
-
-NA
 }
 \description{
 This function generates the necessary code to
@@ -141,8 +136,6 @@ This function xxx
 This function createxxx
 
 Returned value of the process
-
-xxx
 
 xxx
 
