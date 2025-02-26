@@ -322,27 +322,82 @@ observeEvent(req(remoteReset()), ignoreInit = FALSE, ignoreNULL = TRUE,{
 #'
 #' @return NA
 #'
-Get_Code_for_remoteReset <- function() {
+Get_Code_for_remoteReset <- function(widgets = TRUE,
+  custom = TRUE,
+  dataIn = TRUE) {
   code <- "
 
 observeEvent(remoteReset(), ignoreInit = TRUE, {
-      lapply(names(rv.widgets), function(x){
-          rv.widgets[[x]] <- widgets.default.values[[x]]
-        })
-        
-            lapply(names(rv.custom), function(x){
-        rv.custom[[x]] <- rv.custom.default.values[[x]]
+  "
+  
+  if (widgets)
+    code <- paste0(code, Get_Code_for_resetting_widgets())
+  if (custom)
+    code <- paste0(code, Get_Code_for_resetting_custom())
+  if(dataIn)
+  code <- paste0(code, Get_Code_for_resetting_dataIn())
+  
+  code <- paste0(code, '
     })
-    
-    rv$dataIn <- NULL
-})
-
-"
+    ')
   
   code
 }
 
 
+#' @title Code for declaring xxx
+#'
+#' @description xxx
+#'
+#' @export
+#' 
+#' @rdname insertCodeForExternalModules
+#'
+#' @return NA
+#'
+Get_Code_for_resetting_dataIn <- function() {
+  "
+rv$dataIn <- NULL
+"
+}
+
+
+#' @title Code for declaring xxx
+#'
+#' @description xxx
+#'
+#' @export
+#' 
+#' @rdname insertCodeForExternalModules
+#'
+#' @return NA
+#'
+Get_Code_for_resetting_widgets <- function() {
+  "
+lapply(names(rv.widgets), function(x){
+          rv.widgets[[x]] <- widgets.default.values[[x]]
+        })
+"
+}
+
+
+#' @title Code for declaring xxx
+#'
+#' @description xxx
+#'
+#' @export
+#' 
+#' @rdname insertCodeForExternalModules
+#'
+#' @return NA
+#'
+Get_Code_for_resetting_custom <- function() {
+  "
+  lapply(names(rv.custom), function(x){
+        rv.custom[[x]] <- rv.custom.default.values[[x]]
+    })
+"
+}
 
 
 #' @title Code for declaring xxx

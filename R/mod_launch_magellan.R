@@ -4,7 +4,7 @@
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #' 
-#' @@examples
+#' @examples
 #' \dontrun{
 #' shiny::runApp(mod_launch_magellan())
 #' }
