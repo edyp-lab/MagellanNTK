@@ -145,12 +145,12 @@ mod_bsmodal <- function(title = 'test',
   ui <- fluidPage(
     tagList(
       uiOutput('res'),
-      bsmodal_ui("tbl")
+      mod_bsmodal_ui("tbl")
     )
   )
   server <- function(input, output, session) {
     rv <- reactiveValues(res=NULL)
-    rv$res <- bsmodal_server(id = "tbl",
+    rv$res <- mod_bsmodal_server(id = "tbl",
                              title = title,
                              shiny.module = list(ui.func = ui.func,
                                               ui.params = ui.params,

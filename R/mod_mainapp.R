@@ -48,9 +48,14 @@ mainapp_ui <- function(id, session){
   #   top: 0;
   #   width: 360px;"))
   #div(id = "header",
+  tags$body(
+    #class = "skin-blue sidebar-mini control-sidebar-open",
+    #style = tags$style("padding-right: 0px;"),
+    options = list(sidebarExpandOnHover = TRUE),
     
   shinydashboardPlus::dashboardPage(
-        options = list(sidebarExpandOnHover = TRUE),
+        options = list(sidebarExpandOnHover = TRUE,
+          fixed = TRUE),
         
         md = FALSE,
         skin = "blue",
@@ -169,7 +174,8 @@ mainapp_ui <- function(id, session){
         body = dashboardBody(
           # some styling
           tags$head(
-            #tags$style(".content-wrapper {background-color: white;}"),
+            
+            tags$style(".content-wrapper {padding-right: 0px;}"),
             
             # .path <- file.path(system.file('app/www/css', package = 'MagellanNTK'),'prostar.css'),
             # includeCSS(.path),
@@ -196,7 +202,7 @@ mainapp_ui <- function(id, session){
           "
             )
           ),
-
+          options(style = "padding-right: 0px;"),
           div(style="margin-top: 40px;", 
             # body content
             shinydashboard::tabItems(
@@ -228,6 +234,7 @@ mainapp_ui <- function(id, session){
               
               shinydashboard::tabItem(tabName = "openWorkflow", 
                 uiOutput(ns('open_workflow_UI'))),
+              
               shinydashboard::tabItem(tabName = "workflow", 
                 uiOutput(ns('workflow_UI'))),
               
@@ -250,6 +257,7 @@ mainapp_ui <- function(id, session){
           ))
    # )
 )
+  )
 }
 
 
@@ -569,7 +577,6 @@ mainapp_server <- function(id,
       session$userData$workflow.path <- rv.core$result_open_workflow()$path
       
       
-      print('toto')
       print(session$userData$workflow.path)
       
       # Load the package which contains the workflow
@@ -605,9 +612,8 @@ mainapp_server <- function(id,
       req(rv.core$workflow.name)
       tagList(
         actionButton(ns('resetWF'), 'Reset whole Workflow'),
-        
-      nav_ui(ns(basename(rv.core$workflow.name)))
-      )
+        nav_ui(ns(basename(rv.core$workflow.name)))
+        )
       })
 
     

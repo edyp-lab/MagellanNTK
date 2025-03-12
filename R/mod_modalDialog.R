@@ -102,10 +102,7 @@ NULL
 mod_modalDialog_ui <- function(id){
   # create the namespace from the id
   ns <- NS(id)
-  
-  fluidPage(
-    uiOutput(ns('dialog_UI'))
-  )
+  uiOutput(ns('dialog_UI'))
 }
 
 
@@ -155,18 +152,15 @@ mod_modalDialog_server <- function(id,
     })
     
 
-    # Show modal when button is clicked.
+    # # Show modal when button is clicked.
     observeEvent(input$show, {
-     #req(external_mod)
-     
       if (is.null(width)) {
         width <- "small"
       }
-
       tagList(
-        tags$head(tags$style(paste0(".modal-dialog { width:", width, " }"))),
+       tags$head(tags$style(paste0(".modal-dialog { width:", width, " }"))),
         tags$head(tags$style(".modal-dialog {z-index: 1000;}")),
-        tags$head(tags$style("#test .modal-dialog {width: fit-content !important;}")),
+        tags$head(tags$style(".modal-dialog {width: fit-content !important;}")),
         showModal(
           modalDialog(
             if (!is.null(uiContent))
@@ -182,16 +176,16 @@ mod_modalDialog_server <- function(id,
       )
 
     })
-    
+
     session$userData$clicks_observer <- observe({
       req(external_mod)
       args <- list(id = 'test')
       if (length(external_mod_args))
         args <- append(args, external_mod_args)
-        
+
       rv$tmp <- do.call(paste0(external_mod, '_server'), args)
     })
-    
+
     # When OK button is pressed, attempt to load the data set. If successful,
     # remove the modal. If not show another modal, but this time with a failure
     # message.
@@ -201,13 +195,13 @@ mod_modalDialog_server <- function(id,
         rv$dataOut <- rv$tmp()
       else
         rv$dataOut <- Timestamp()
-      
-      
+
+
       removeModal()
       RemoveModule()
     })
-    
-    
+
+
     remove_shiny_inputs <- function(id, .input) {
       invisible(
         lapply(grep(id, names(.input), value = TRUE), function(i) {
@@ -215,13 +209,13 @@ mod_modalDialog_server <- function(id,
         })
       )
     }
-    
+
     RemoveModule <- reactive({
       removeUI(selector = "#module_content")
       remove_shiny_inputs("my_module", input)
       session$userData$clicks_observer$destroy()
     })
-    
+
     return(reactive({rv$dataOut}))
   })
 }
@@ -246,7 +240,9 @@ mod_modalDialog <- function(title,
   ){
   
   ui <- fluidPage(
-    mod_modalDialog_ui(id = "tbl")
+    wellPanel(
+      mod_modalDialog_ui(id = "tbl")
+    )
     )
 
 server <- function(input, output) {

@@ -88,10 +88,10 @@ Build_nav_v_ui <- function(ns) {
 #' @export
 #'
 Build_nav_h_ui <- function(ns) {
+  
     tagList(
         fluidRow(
-            style = "display: flex; align-items: top;
-            justify-content: center;",
+            style = "display: flex; align-items: top; justify-content: center;",
             column(width = 1, shinyjs::disabled(
                 actionButton(ns("prevBtn"),
                     tl_h_prev_icon,
@@ -99,7 +99,7 @@ Build_nav_h_ui <- function(ns) {
                   style = "font-size:60%"
                 )
             )),
-            column(width = 1, 
+            column(width = 1,
               mod_modalDialog_ui(id = ns("rstBtn"))
               # actionButton(ns("rstBtn"), "Reset",
               #                   class = redBtnClass,

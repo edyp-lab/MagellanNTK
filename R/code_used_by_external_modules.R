@@ -208,7 +208,7 @@ Get_Code_for_rv_reactiveValues <- function() {
 #'
 Get_Code_for_dataOut <- function() {
     code <- "dataOut <- reactiveValues(
-                trigger = NULL,
+                trigger = as.numeric(Sys.time()),
                 value = NULL
                 )
 
@@ -324,7 +324,8 @@ observeEvent(req(remoteReset()), ignoreInit = FALSE, ignoreNULL = TRUE,{
 #'
 Get_Code_for_remoteReset <- function(widgets = TRUE,
   custom = TRUE,
-  dataIn = 'NULL') {
+  dataIn = 'NULL',
+  addon = '') {
   code <- "
 
 observeEvent(remoteReset(), ignoreInit = FALSE, {
@@ -335,7 +336,14 @@ observeEvent(remoteReset(), ignoreInit = FALSE, {
   if (custom)
     code <- paste0(code, Get_Code_for_resetting_custom())
   
-  code <- paste0(code, 'rv$dataIn <- ', dataIn, '})')
+  code <- paste0(code, 'rv$dataIn <- ', dataIn, '
+    ')
+  code <- paste0(code, '
+  ', addon, '
+    ')
+  code <- paste0(code, '
+    })
+    ')
 
   code
 }

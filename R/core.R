@@ -43,84 +43,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' library(shiny)
-#' server_env <- environment() # will see all dtwclust functions
-#' server_env$dev_mode <- FALSE
-#' 
-#' # Uncomment and Change this for a process workflow
-#' # name <- 'PipelineDemo_Process1'
-#' #name <- 'PipelineDemo_Description'
-#' # layout <- c('h')
-#' 
-#' 
-#' # Uncomment and Change this for a pipeline workflow
-#' name <- 'PipelineDemo'
-#' layout <- c('v', 'h')
-#' 
-#' 
-#' path <- system.file('workflow', package='MagellanNTK')
-#' files <- list.files(file.path(path, name, 'R'), full.names = TRUE)
-#' for(f in files)
-#'   source(f, local = TRUE, chdir = TRUE)
-#' 
-#' 
-#' 
-#' ui <- fluidPage(
-#'   tagList(
-#'     fluidRow(
-#'       column(width=2, actionButton('simReset', 'Remote reset',  class='info')),
-#'       column(width=2, actionButton('simEnabled', 'Remote enable/disable', class='info')),
-#'       column(width=2, actionButton('simSkipped', 'Remote is.skipped', class='info'))
-#'     ),
-#'     hr(),
-#'     uiOutput('UI'),
-#'     uiOutput('debugInfos_ui')
-#'   )
-#' )
-#' 
-#' server <- function(input, output){
-#'   
-#'   data(sub_R25)
-#'   
-#'   rv <- reactiveValues(
-#'     dataIn = sub_R25,
-#'     dataOut = NULL
-#'   )
-#'   
-#'   
-#'   
-#'   output$UI <- renderUI({nav_ui(name)})
-#'   
-#'   output$debugInfos_ui <- renderUI({
-#'     req(dev_mode)
-#'     Debug_Infos_server(id = 'debug_infos',
-#'       title = 'Infos from shiny app',
-#'       rv.dataIn = reactive({rv$dataIn}),
-#'       dataOut = reactive({rv$dataOut$dataOut()})
-#'     )
-#'     Debug_Infos_ui('debug_infos')
-#'   })
-#'   
-#'   
-#'   
-#'   observe({
-#'     rv$dataOut <- nav_server(id = name,
-#'       dataIn = reactive({rv$dataIn}),
-#'       remoteReset = reactive({input$simReset}),
-#'       is.skipped = reactive({input$simSkipped%%2 != 0}),
-#'       is.enabled = reactive({input$simEnabled%%2 == 0}),
-#'       tl.layout = layout)
-#'   })
+#' shiny::runApp(nav())
 #' }
 #' 
-#' 
-#' 
-#' shiny::shinyApp(ui, server)
-#' 
-#' 
-#' }
-#' 
-
 #' @name nav
 #' 
 #' @author Samuel Wieczorek
@@ -142,8 +67,7 @@ nav_ui <- function(id) {
         
         # Contains the UI for the timeline, the direction buttons
         # and the workflows modules
-        
-          uiOutput(ns("nav_mod_ui")),
+        uiOutput(ns("nav_mod_ui")),
         
         # Contains the UI for the debug module
         uiOutput(ns("debug_infos_ui"))
@@ -712,15 +636,6 @@ nav_server <- function(id = NULL,
 
         
         
-        rv$rstBtn <- mod_modalDialog_server(
-          id = "rstBtn",
-          title = 'Reset',
-          uiContent = p("This action will reset the current process and
-        all its children. The input
-    dataset will be the output of the last previous validated process and all
-    further datasets will be removed")
-        )
-        
         
         # Catch a click of a the button 'Ok' of a reset modal. This can be in 
         # the local module or in the module parent UI (in this case,
@@ -832,14 +747,13 @@ nav_server <- function(id = NULL,
             cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
           
             DisplayWholeUI(ns, rv$tl.layout[1])
-            
-            
         })
 
         
-        template_reset_modal_txt <- "This action will reset this mode. The input 
-    dataset will be the output of the last previous validated process and all 
-    further datasets will be removed"
+        #Define message when the Reset button is clicked
+        template_reset_modal_txt <- "This action will reset the current process.
+        The input dataset will be the output of the last previous validated 
+        process and all further datasets will be removed"
         
         txt <- span(gsub("mode", 'mode_Test', template_reset_modal_txt))
         
@@ -847,6 +761,19 @@ nav_server <- function(id = NULL,
           id = "rstBtn",
           title = 'Reset',
           uiContent = p(txt))
+        
+    #     rv$rstBtn <- mod_modalDialog_server(
+    #       id = "rstBtn",
+    #       title = 'Reset',
+    #       uiContent = p("This action will reset the current process and
+    #     all its children. The input
+    # dataset will be the output of the last previous validated process and all
+    # further datasets will be removed")
+    #     )
+        
+        
+        
+        
 
         # Catch a new value on the parameter 'dataIn()' variable, sent by the
         # caller. This value may be NULL or contain a dataset.
@@ -1160,4 +1087,95 @@ nav_server <- function(id = NULL,
             status = reactive({rv$steps.status})
             )
         })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @export
+#' @rdname nav
+#' @importFrom shiny fluidPage shinyApp
+#' 
+nav <- function(){
+server_env <- environment() # will see all dtwclust functions
+server_env$dev_mode <- FALSE
+
+# Uncomment and Change this for a process workflow
+# name <- 'PipelineDemo_Process1'
+#name <- 'PipelineDemo_Description'
+# layout <- c('h')
+
+
+# Uncomment and Change this for a pipeline workflow
+name <- 'PipelineDemo'
+layout <- c('v', 'h')
+
+
+path <- system.file('workflow', package='MagellanNTK')
+files <- list.files(file.path(path, name, 'R'), full.names = TRUE)
+for(f in files)
+  source(f, local = TRUE, chdir = TRUE)
+
+
+
+ui <- fluidPage(
+  tagList(
+    fluidRow(
+      column(width=2, actionButton('simReset', 'Remote reset',  class='info')),
+      column(width=2, actionButton('simEnabled', 'Remote enable/disable', class='info')),
+      column(width=2, actionButton('simSkipped', 'Remote is.skipped', class='info'))
+    ),
+    hr(),
+    uiOutput('UI'),
+    uiOutput('debugInfos_ui')
+  )
+)
+
+server <- function(input, output, session){
+
+  data(sub_R25)
+
+  rv <- reactiveValues(
+    dataIn = sub_R25,
+    dataOut = NULL
+  )
+
+
+
+  output$UI <- renderUI({nav_ui(name)})
+
+  output$debugInfos_ui <- renderUI({
+    req(dev_mode)
+    Debug_Infos_server(id = 'debug_infos',
+      title = 'Infos from shiny app',
+      rv.dataIn = reactive({rv$dataIn}),
+      dataOut = reactive({rv$dataOut$dataOut()})
+    )
+    Debug_Infos_ui('debug_infos')
+  })
+
+
+
+  observe({
+    rv$dataOut <- nav_server(id = name,
+      dataIn = reactive({rv$dataIn}),
+      remoteReset = reactive({input$simReset}),
+      is.skipped = reactive({input$simSkipped%%2 != 0}),
+      is.enabled = reactive({input$simEnabled%%2 == 0}),
+      tl.layout = layout)
+  })
+}
+
+
+app <- shiny::shinyApp(ui, server)
+
 }
