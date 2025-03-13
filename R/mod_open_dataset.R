@@ -62,6 +62,12 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
     )
 
 
+    observeEvent(id, {
+      req(class)
+      req(extension)
+    })
+    
+    
     output$packageDataset_UI <- renderUI({
       req(input$chooseSource == 'packageDataset')
         wellPanel(
@@ -140,6 +146,7 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
     observeEvent(input$load_dataset_btn, {
       
       rv.open$dataOut <- rv.open$dataRead
+      rv.open$trigger <- MagellanNTK::Timestamp()
     })
     
     output$linktoDemoPdf <- renderUI({
@@ -191,6 +198,7 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
       }
       
       rv.open$dataOut <- rv.open$dataRead
+      rv.open$trigger <- MagellanNTK::Timestamp()
       
       # if (is.Magellan.compliant(rv.open$dataRead)){
       #   if (inherits(rv.open$dataRead, 'list'))
@@ -204,8 +212,10 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
 
 
     reactive({
-      list(data = rv.open$dataOut,
-      name = rv.open$name)
+      list(
+        trigger = rv.open$trigger,
+        data = rv.open$dataOut,
+        name = rv.open$name)
       })
   })
   
