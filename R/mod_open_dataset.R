@@ -34,7 +34,8 @@ open_dataset_ui <- function(id){
           width = '200px'),
 
           uiOutput(ns('customDataset_UI')),
-          uiOutput(ns('packageDataset_UI'))
+          uiOutput(ns('packageDataset_UI')),
+        uiOutput(ns("load_btn_UI"))
       )
     #uiOutput(ns('datasetInfos_UI'))
     )
@@ -56,9 +57,14 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
     
     rv.open <- reactiveValues(
       dataRead = NULL,
-      dataOut = NULL,
       name = 'default.name',
       packages = NULL
+    )
+    
+    dataOut <- reactiveValues(
+      trigger = NULL,
+      name = NULL,
+      dataset = NULL
     )
 
 
@@ -73,10 +79,7 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
         wellPanel(
           uiOutput(ns("choosePkg")),
           uiOutput(ns("chooseDemoDataset")),
-          uiOutput(ns("linktoDemoPdf")),
-          shinyjs::disabled(
-            actionButton(ns('load_dataset_btn'), 'Load dataset', 
-              class= 'btn-info'))
+          uiOutput(ns("linktoDemoPdf"))
         )
     })
     
@@ -85,9 +88,20 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
       req(input$chooseSource == 'customDataset')
       wellPanel(
         fileInput(ns("file"), "Open file", 
-          accept = extension, multiple = FALSE, width = "400px"),
-        actionButton(ns('load_btn'), 'Load file')
+          accept = extension, multiple = FALSE, width = "400px")
       )
+    })
+    
+    
+    output$load_btn_UI <- renderUI({
+      if(input$chooseSource == 'customDataset')
+        widget <- actionButton(ns('load_dataset_btn'), 'Load file')
+      else 
+        widget <- shinyjs::disabled(
+        actionButton(ns('load_dataset_btn'), 'Load dataset', 
+          class= 'btn-info'))
+      
+      widget
     })
     
     output$choosePkg <- renderUI({
@@ -127,28 +141,10 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
     
     
     observeEvent(req(input$demoDataset != 'None'), {
-      nSteps <- 1
-      withProgress(message = '',detail = '', value = 0, {
-        incProgress(1/nSteps, detail = 'Loading dataset')
-        utils::data(list = input$demoDataset, package = input$pkg)
-        rv.open$name <- input$demoDataset
-        rv.open$dataRead <- BiocGenerics::get(input$demoDataset)
-        # if (!inherits(rv.open$dataRead, "QFeatures")) {
-        #   shinyjs::info("Warning : this file is not a QFeatures file ! 
-        #               Please choose another one.")
-        #   return(NULL)
-        # }
-        shinyjs::toggleState('load_dataset_btn', condition = !is.null(rv.open$dataRead))
-      }) # End withProgress
+      shinyjs::toggleState('load_dataset_btn', condition = !is.null(rv.open$dataRead))
     }) # End observeEvent
     
-    
-    observeEvent(input$load_dataset_btn, {
-      
-      rv.open$dataOut <- rv.open$dataRead
-      rv.open$trigger <- MagellanNTK::Timestamp()
-    })
-    
+
     output$linktoDemoPdf <- renderUI({
       req(input$demoDataset)
       req(input$chooseSource == 'packageDataset')
@@ -165,7 +161,19 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
     })
     # Part of open custom dataset
     ## -- Open a MSnset File --------------------------------------------
-    observeEvent(input$load_btn, ignoreInit = TRUE, {
+    observeEvent(input$load_dataset_btn, ignoreInit = TRUE, {
+      
+      if (input$chooseSource == 'packageDataset'){
+        req(input$demoDataset != "None")
+        utils::data(list = input$demoDataset, package = input$pkg)
+        rv.open$name <- input$demoDataset
+        rv.open$dataRead <- BiocGenerics::get(input$demoDataset)
+      }
+      else if (input$chooseSource == 'customDataset')
+      {
+        
+      
+      
       input$file
       rv.open$dataRead <- NULL
       tryCatch({
@@ -196,27 +204,16 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
           }
         )
       }
+      }
       
-      rv.open$dataOut <- rv.open$dataRead
-      rv.open$trigger <- MagellanNTK::Timestamp()
-      
-      # if (is.Magellan.compliant(rv.open$dataRead)){
-      #   if (inherits(rv.open$dataRead, 'list'))
-      #     rv.open$dataOut <- rv.open$dataRead
-      #   else 
-      #     rv.open$dataOut <- list(original = rv.open$dataRead)
-      # } else {
-      #   shinyjs::info("Dataset not compatible with MagellanNTK")
-      # }
+      dataOut$dataset <- rv.open$dataRead
+      dataOut$trigger <- MagellanNTK::Timestamp()
+      dataOut$name <- rv.open$name
+
     })
 
 
-    reactive({
-      list(
-        trigger = rv.open$trigger,
-        data = rv.open$dataOut,
-        name = rv.open$name)
-      })
+    reactive({dataOut})
   })
   
   
@@ -244,9 +241,9 @@ server <- function(input, output, session) {
     class = class,
     extension = extension)
   
-  observeEvent(rv$obj(), {
+  observeEvent(rv$obj()$trigger, {
     print(rv$obj()$name)
-    print(rv$obj()$data)
+    print(rv$obj()$dataset)
   })
 
 }

@@ -376,11 +376,12 @@ nav_server <- function(id = NULL,
                                rv = rv
                              )
                              
-                             
                              rv$dataIn <- ret$dataIn
                              rv$steps.status <- ret$steps.status
                              rv$steps.enabled <- ret$steps.enabled
                              rv$steps.skipped <- ret$steps.skipped
+                             
+                            
                            }
                            
                            # Send result
@@ -433,6 +434,7 @@ nav_server <- function(id = NULL,
                              # load the dataset in work variable 'dataIn'
                              if (rv$current.pos == 1) {
                                rv$dataIn <- rv$temp.dataIn
+                               
                              } # View intermediate datasets
                              else if (rv$current.pos > 1 && rv$current.pos < length(rv$config@steps)) {
                                rv$dataIn <- rv$proc$dataOut()$value
@@ -530,7 +532,7 @@ nav_server <- function(id = NULL,
         # See https://github.com/daattali/shinyjs/issues/166
         # https://github.com/daattali/shinyjs/issues/25
         observeEvent(rv$steps.status, ignoreInit = TRUE, {
-           
+           print('observeEvent(rv$steps.status, ignoreInit = TRUE')
             rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
             
             rv$steps.enabled <- Update_State_Screens(
@@ -797,7 +799,17 @@ nav_server <- function(id = NULL,
                   # The mode pipeline is a node and has to send
                   # datasets to its children
                   if (rv$config@mode == "pipeline") {
-
+                    browser()
+                    #browser()
+                    # Check if the dataset has already been processed by this
+                    # pipeline
+                    
+                    
+                    # Lists the processes which have been used
+                    
+                    
+                    
+                    
                       if (is.null(rv$dataIn)) {
                           res <- PrepareData2Send(
                             rv = rv, 
@@ -849,6 +861,8 @@ nav_server <- function(id = NULL,
 
 
         observeEvent(rv$current.pos, ignoreInit = TRUE, {
+          
+       
             ToggleState_NavBtns(
                 current.pos = rv$current.pos,
                 nSteps = length(rv$config@steps)
@@ -858,7 +872,7 @@ nav_server <- function(id = NULL,
 
             if (rv$config@mode == "pipeline") {
                 # Specific to pipeline code
-              
+              #browser()
                 res <- PrepareData2Send(rv = rv, 
                   pos = NULL, 
                   verbose = verbose,
