@@ -9,6 +9,7 @@
 #' @examples
 #' \dontrun{
 #' shiny::runApp(open_dataset(class = 'QFeatures', extension = '.qf'))
+#' shiny::runApp(open_dataset(class = 'QFeatures', extension = '.qf', demo_package = 'DaparToolshedData'))
 #' }
 #' 
 #' 
@@ -94,14 +95,10 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
     
     
     output$load_btn_UI <- renderUI({
-      if(input$chooseSource == 'customDataset')
-        widget <- actionButton(ns('load_dataset_btn'), 'Load file')
-      else 
-        widget <- shinyjs::disabled(
-        actionButton(ns('load_dataset_btn'), 'Load dataset', 
-          class= 'btn-info'))
-      
-      widget
+      shinyjs::disabled(
+        actionButton(ns('load_dataset_btn'), 'Load', 
+          class= 'btn-info')
+      )
     })
     
     output$choosePkg <- renderUI({
@@ -140,8 +137,11 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
     
     
     
-    observeEvent(req(input$demoDataset != 'None'), {
-      shinyjs::toggleState('load_dataset_btn', condition = !is.null(rv.open$dataRead))
+    observe({
+      cond1 <- input$chooseSource == 'customDataset' && !is.null(input$file$datapath)
+      cond2 <- input$chooseSource == 'packageDataset' && !is.null(input$pkg) && input$pkg != ""
+
+      shinyjs::toggleState('load_dataset_btn', condition = cond1 || cond2)
     }) # End observeEvent
     
 
@@ -171,9 +171,6 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
       }
       else if (input$chooseSource == 'customDataset')
       {
-        
-      
-      
       input$file
       rv.open$dataRead <- NULL
       tryCatch({
@@ -182,26 +179,18 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
         rv.open$dataRead <- readRDS(input$file$datapath)
         
       },
-        warning = function(w) {
-          return(NULL)
-        },
-        error = function(e) {
-          return(NULL)
-        }
+        warning = function(w) {return(NULL)},
+        error = function(e) {return(NULL)}
       )
       
       if (is.null(rv.open$dataRead)){
         rv.open$dataRead <- tryCatch({
           load(file = input$file$datapath)
-          name <- unlist(strsplit(input$file$name, split='.', fixed = TRUE))[1]
-          get(name)
+          rv.open$name <- unlist(strsplit(input$file$name, split='.', fixed = TRUE))[1]
+          get(rv.open$name)
         },
-          warning = function(w) {
-            return(NULL)
-          },
-          error = function(e) {
-            return(NULL)
-          }
+          warning = function(w) {return(NULL)},
+          error = function(e) {return(NULL)}
         )
       }
       }
@@ -209,14 +198,9 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
       dataOut$dataset <- rv.open$dataRead
       dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$name <- rv.open$name
-
     })
-
-
     reactive({dataOut})
   })
-  
-  
 }
 
 
@@ -225,7 +209,10 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
 #' @rdname generic_mod_open_dataset
 #' 
 #' 
-open_dataset <- function(class = NULL, extension = NULL){
+open_dataset <- function(class = NULL, 
+  extension = NULL,
+  demo_package = NULL
+  ){
 
 ui <- fluidPage(
   open_dataset_ui("demo")
@@ -239,7 +226,7 @@ server <- function(input, output, session) {
   
   rv$obj <- open_dataset_server("demo", 
     class = class,
-    extension = extension)
+    extension = extension, demo_package = demo_package)
   
   observeEvent(rv$obj()$trigger, {
     print(rv$obj()$name)
