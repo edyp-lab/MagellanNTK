@@ -557,12 +557,17 @@ mainapp_server <- function(id,
         args = list(id = ns('open_dataset')))
     })
     
-    observeEvent(req(rv.core$result_open_dataset()),{
+    
+    
+    
+    observeEvent(req(rv.core$result_open_dataset()$trigger),{
       if (verbose)
         cat('new dataset loaded\n')
-      rv.core$current.obj <- rv.core$result_open_dataset()$data
-      rv.core$current.obj.name <- rv.core$result_open_dataset()$name
       rv.core$resetWF <- rv.core$resetWF + 1
+      
+      rv.core$current.obj <- rv.core$result_open_dataset()$dataset
+      rv.core$current.obj.name <- rv.core$result_open_dataset()$name
+      
     })
     
    
@@ -604,7 +609,7 @@ mainapp_server <- function(id,
         #   !is.null(rv.core$result_open_dataset()$name)
         #   + !is.null(rv.core$result_convert()$dataOut()$value$name) })
          )
-      })
+      }, priority = 1000)
     
 
     # Workflow code

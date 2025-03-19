@@ -607,6 +607,8 @@ nav_server <- function(id = NULL,
         
         observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE,{
           req(rv$config)
+          
+          
           rv$dataIn <- NULL
           # The cursor is set to the first step
           rv$current.pos <- 1
@@ -799,7 +801,7 @@ nav_server <- function(id = NULL,
                   # The mode pipeline is a node and has to send
                   # datasets to its children
                   if (rv$config@mode == "pipeline") {
-                    browser()
+                   
                     #browser()
                     # Check if the dataset has already been processed by this
                     # pipeline
