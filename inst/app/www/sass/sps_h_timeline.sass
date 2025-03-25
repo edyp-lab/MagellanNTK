@@ -1,0 +1,82 @@
+/* timeline */
+.sps-timeline 
+  list-style-type: none
+  display: flex
+  align-items: center
+  justify-content: center
+  overflow-y: auto
+
+
+.sps-timestamp 
+  margin-bottom: 20px
+  padding: 0px 40px
+  display: flex
+  flex-direction: column
+  align-items: center
+  font-weight: 100
+
+
+.sps-timeline .timeline-i 
+  width: 30px
+  height: 30px
+  padding: 7px
+  background-color: #D6DCE0
+  border-radius: 25px
+  display: inline
+  justify-content: center
+  position: relative
+  transition: all 200ms ease-in
+  left: 40%
+  z-index: 98
+
+.sps-timeline .timeline-i i
+  position: relative
+  z-index: 99
+  top: 25%
+  color: white
+
+.sps-timeline .status 
+  padding: 0px 40px
+  display: flex
+  justify-content: center
+  border-top: 5px solid #D6DCE0
+  top: -10px
+  position: relative
+  transition: all 200ms ease-in
+
+.sps-timeline .status h4 
+  font-weight: 600
+
+
+.sps-timeline .li.complete .timeline-i 
+  background-color: #5cb85c
+
+.sps-timeline .li.complete .status 
+  border-top: 5px solid #5cb85c
+  top: -10px
+
+.sps-timeline .li.complete .status:before 
+  background-color: #5cb85c
+  border: none
+  transition: all 200ms ease-in
+
+.sps-timeline .li.complete .status h4 
+  color: #5cb85c
+
+
+.sps-timeline::-webkit-scrollbar-track
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3)
+  border-radius: 10px
+  background-color: #fff
+
+
+.sps-timeline::-webkit-scrollbar
+  width: auto
+  background-color: #fff
+  height: 8px
+
+
+.sps-timeline::-webkit-scrollbar-thumb
+  border-radius: 10px
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3)
+  background-color: #c9c9c9

@@ -146,7 +146,9 @@ mainapp_ui <- function(id, session){
           
         ),
         sidebar = dashboardSidebar(
-          uiOutput(ns('sidebar'))
+          
+          uiOutput(ns('sidebar')),
+          collapsed = TRUE
         ),
         #uiOutput(ns('sidebar')),
         # controlbar = shinydashboardPlus::dashboardControlbar(
