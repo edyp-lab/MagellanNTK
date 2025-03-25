@@ -88,6 +88,8 @@ find_funs <- function(f) {
 #' }
 #' 
 #' @export
+#' 
+#' @importFrom stringr str_locate_all
 #'
 readConfigFile <- function(path,
   usermod = 'dev'){
@@ -105,7 +107,16 @@ readConfigFile <- function(path,
   
   
   get_data <- function(lines, pattern){
-    record <- lines[grepl(paste0(pattern, ":"), lines)]
+    indice <- which(grepl(paste0(pattern, ":"), lines))
+    .ind <- NULL
+    for (i in indice){
+      locate <- unlist(stringr::str_locate_all(pattern =pattern, lines[i]))
+      start <- locate[1]
+      end <- locate[2]
+      if (start == 1 && end == nchar(pattern))
+        .ind <- i
+    }
+    record <- lines[.ind]
     if(length(record) == 1){
       ll <- unlist(strsplit(record, split = ': ', fixed = TRUE))
       as.character(ll[2])
@@ -123,7 +134,7 @@ readConfigFile <- function(path,
   tmp <- lapply(names(funcs), 
     function(x) prepare_data(lines, x))
   names(tmp) <- names(funcs)
-
+ 
   
   if (usermod == 'dev')
     value <- list(
@@ -147,7 +158,8 @@ readConfigFile <- function(path,
       URL_ReleaseNotes = get_data(lines, 'URL_ReleaseNotes')
     )
   else 
-    value <- list(
+    
+  value <- list(
       funcs = tmp,
       
       verbose = get_data(lines, 'verbose') == 'enabled',

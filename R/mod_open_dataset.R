@@ -50,7 +50,10 @@ open_dataset_ui <- function(id){
 #' @importFrom utils data
 #' @importFrom shinyjs info
 #' 
-open_dataset_server <- function(id, class = NULL, extension = NULL,
+open_dataset_server <- function(
+    id, 
+  class = NULL, 
+  extension = NULL,
   demo_package = NULL){
   
   moduleServer(id, function(input, output, session){
@@ -87,6 +90,8 @@ open_dataset_server <- function(id, class = NULL, extension = NULL,
     
     output$customDataset_UI <- renderUI({
       req(input$chooseSource == 'customDataset')
+      req(extension)
+      
       wellPanel(
         fileInput(ns("file"), "Open file", 
           accept = extension, multiple = FALSE, width = "400px")
