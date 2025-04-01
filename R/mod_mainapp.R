@@ -29,6 +29,7 @@ NULL
 #' @importFrom shinydashboard tabItem tabItems dashboardBody
 #' @importFrom shinydashboardPlus dashboardSidebar dashboardPage dashboardHeader 
 #' @import shinyEffects
+#' @import waiter
 #' 
 #' @rdname mod_main_page
 #'
@@ -54,7 +55,8 @@ mainapp_ui <- function(id, session){
     options = list(sidebarExpandOnHover = TRUE),
     
   shinydashboardPlus::dashboardPage(
-        options = list(sidebarExpandOnHover = TRUE,
+    preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
+    options = list(sidebarExpandOnHover = TRUE,
           fixed = TRUE),
         
         md = FALSE,
