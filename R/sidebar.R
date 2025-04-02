@@ -39,7 +39,8 @@ Insert_Dev_Sidebar <- function(){
       #          badgeLabel = "new", 
       #          badgeColor = "green"),
       shinydashboard::menuItem(
-        h4('Dataset', style="color: lightgrey;"),
+        'Dataset',
+        icon = 'home',
         shinydashboard::menuSubItem(
           "Open (qf)",
           icon = img(src="www/logo-simple.png", width = 20),
@@ -98,7 +99,7 @@ Insert_Dev_Sidebar <- function(){
         
         shinydashboard::menuSubItem("Info", 
           tabName = "infosDataset", 
-          icon = icon("cogs")
+          icon = icon("info")
           # ,badgeLabel = "new"
           # ,badgeColor = "green"
         ),
@@ -112,7 +113,7 @@ Insert_Dev_Sidebar <- function(){
       #hr(),
       shinydashboard::menuItem(
         'Help', 
-        icon = icon("home")
+        icon = icon("question")
         
         
         #shinydashboard::menuSubItem("Useful Links", tabName = "usefulLinks")
