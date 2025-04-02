@@ -510,7 +510,7 @@ mainapp_server <- function(id,
     
     
     observeEvent(rv.core$result_run_workflow$dataOut()$trigger, {
-      browser()
+      #browser()
         rv.core$current.obj <- rv.core$result_run_workflow$dataOut()$value
     })
 
