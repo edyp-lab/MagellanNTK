@@ -40,7 +40,9 @@ view_dataset_ui <- function(id){
 #' @export
 #' @importFrom shiny moduleServer reactiveValues reactive
 #' 
-view_dataset_server <- function(id, obj = NULL, ...){
+view_dataset_server <- function(id,
+  dataIn= NULL, 
+  ...){
   
   moduleServer(id, function(input, output, session){
     ns <- session$ns
@@ -52,15 +54,15 @@ view_dataset_server <- function(id, obj = NULL, ...){
     
     
     output$chooseAssay_UI <- renderUI({
-      req(obj())
+      req(dataIn())
       selectInput(ns('assay'), 'Choose',
-        choices = names(obj()),
+        choices = names(dataIn()),
         width = '100px')
     })
     
     output$plot <- renderPlot({
       req(input$assay)
-      plot(obj()[[input$assay]])
+      plot(dataIn()[[input$assay]])
     })
     reactive({rv.openDemo$dataOut})
   })
@@ -84,7 +86,7 @@ server <- function(input, output, session) {
   )
   
   rv$obj <- view_dataset_server("demo",
-    obj = reactive({obj}),
+    dataIn = reactive({obj}),
     ...
     )
   

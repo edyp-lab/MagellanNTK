@@ -54,7 +54,7 @@ foo_ui <- function(id){
 
 
 foo_server <- function(id,
-  obj,
+  dataIn = reactive({NULL}),
   remoteReset = reactive({NULL}),
   is.enabled = reactive({TRUE})
 ) {
@@ -108,7 +108,7 @@ foo_server <- function(id,
     
     observeEvent(input$valid_btn, {
       dataOut$trigger <- as.numeric(Sys.time())
-      dataOut$value <- obj()
+      dataOut$value <- dataIn()
       dataOut$widgets <- reactiveValuesToList(rv.widgets)
     })
     

@@ -218,7 +218,7 @@ Tools_Templates_server <- function(id,
     
     
     # rv.custom$foo <- foo_server('foo',
-    #   obj = reactive({rv$dataIn}),
+    #   dataIn = reactive({rv$dataIn}),
     #   reset = reactive({NULL}),
     #   is.enabled = reactive({rv$steps.enabled['Step1']})
     # )

@@ -330,11 +330,12 @@ observeEvent(req(remoteReset() >=1), ignoreInit = TRUE, ignoreNULL = TRUE,{
 Get_Code_for_remoteReset <- function(
     widgets = TRUE,
     custom = TRUE,
-    dataIn = 'NULL',
+    dataIn = 'dataIn()',
     addon = '') {
     code <- "
 
 observeEvent(req(remoteReset() >=1), ignoreInit = TRUE, ignoreNULL = TRUE, {
+browser()
   "
   
   if (widgets)

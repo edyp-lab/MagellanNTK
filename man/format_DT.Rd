@@ -10,7 +10,7 @@ format_DT_ui(id)
 
 format_DT_server(
   id,
-  obj = reactive({
+  dataIn = reactive({
      NULL
  }),
   hidden = reactive({
@@ -45,8 +45,6 @@ format_DT(
 \arguments{
 \item{id}{shiny id}
 
-\item{obj}{xxx}
-
 \item{hidden}{Default is reactive({NULL}),}
 
 \item{withDLBtns}{Default is FALSE,}
@@ -62,6 +60,8 @@ format_DT(
 \item{remoteReset}{Default is reactive({0}),}
 
 \item{is.enabled}{Default is TRUE}
+
+\item{obj}{xxx}
 }
 \value{
 NA

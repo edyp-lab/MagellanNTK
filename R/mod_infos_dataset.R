@@ -44,23 +44,23 @@ infos_dataset_ui <- function(id){
 #' 
 infos_dataset_server <- function(
     id,
-  obj = reactive({NULL})){
+  dataIn = reactive({NULL})){
   
   moduleServer(id, function(input, output, session){
     ns <- session$ns
     
     output$choose_SE_ui <- renderUI({
-      req(obj())
+      req(dataIn())
       selectInput(ns("selectInputSE"),
         "Select a dataset for further information",
-        choices = c("None", names(obj()))
+        choices = c("None", names(dataIn()))
       )
     })
     
 
     output$show_SE_ui <- renderUI({
       req(input$selectInputSE != 'None')
-      req(obj())
+      req(dataIn())
       p(input$selectInputSE)
     })
 
@@ -86,7 +86,7 @@ ui <- fluidPage(
 
 
 server <- function(input, output, session) {
-  infos_dataset_server("infos", obj = reactive({obj}))
+  infos_dataset_server("infos", dataIn = reactive({obj}))
 }
 
 app <- shinyApp(ui = ui, server = server)

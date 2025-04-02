@@ -43,10 +43,10 @@ download_btns_ui <- function(id, settings = list()) {
 #' @export
 #'
 download_btns_server <- function(id,
-                                 obj = reactive({NULL}), 
-                                 name, 
-                                 colors = reactive({NULL}), 
-                                 tags = reactive({NULL})) {
+  dataIn = reactive({NULL}), 
+  name, 
+  colors = reactive({NULL}), 
+  tags = reactive({NULL})) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
@@ -55,7 +55,7 @@ download_btns_server <- function(id,
           paste(name(), "-", Sys.Date(), ".csv", sep = "")
         },
         content = function(file) {
-          write.table(obj(), file, sep = ";", row.names = FALSE)
+          write.table(dataIn(), file, sep = ";", row.names = FALSE)
         }
       )
       
@@ -64,7 +64,7 @@ download_btns_server <- function(id,
           paste ("data-", Sys.Date(), ".RData", sep = "")
         },
         content = function(fname) {
-          saveRDS(obj(), file=fname)
+          saveRDS(dataIn(), file=fname)
         }
       )
       
@@ -75,7 +75,7 @@ download_btns_server <- function(id,
         content = function(file) {
           fname <- paste("temp", Sys.Date(), ".xlsx", sep = "")
           write.excel(
-            df = obj(),
+            df = dataIn(),
             colors = colors(),
             tags = tags(),
             filename = fname
@@ -101,10 +101,10 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   download_btns_server(id = "ex",
-                       obj = reactive({obj}),
-                       name = reactive({"myTest"}),
-                       colors = reactive({NULL}),
-                       tags = reactive({NULL
+    dataIn = reactive({obj}),
+    name = reactive({"myTest"}),
+    colors = reactive({NULL}),
+    tags = reactive({NULL
                       })
   )
 }

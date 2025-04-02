@@ -7,7 +7,6 @@
 #' @param workflow.name xxxx
 #' @param verbose A `boolean(1)` 
 #' @param usermod xxx
-#' obj = reactive({NULL}),
 #' 
 #' 
 #' 
@@ -79,7 +78,7 @@ enableJIT(3)
 #' @rdname magellanNTK
 #' 
 MagellanNTK_server <- function(id,
-  obj = reactive({NULL}),
+  dataIn = reactive({NULL}),
   workflow.path = reactive({NULL}),
   workflow.name = reactive({NULL}),
   verbose = FALSE,
@@ -105,7 +104,7 @@ MagellanNTK_server <- function(id,
     
       #shinyjs::toggle('mainapp_module', condition = !is.null(funcs))
       mainapp_server('mainapp_module',
-        obj = obj,
+        dataIn = reactive({obj}),
         workflow.path = reactive({workflow.path()}),
         workflow.name = reactive({workflow.name()}),
         verbose = verbose,
@@ -166,7 +165,7 @@ MagellanNTK <- function(
   server <- function(input, output, session) {
     
     MagellanNTK_server("infos",
-      obj = reactive({obj}),
+      dataIn = reactive({obj}),
       workflow.path = reactive({workflow.path}),
       workflow.name = reactive({workflow.name}),
       verbose = verbose,

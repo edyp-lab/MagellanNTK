@@ -90,7 +90,7 @@ format_DT_ui <- function(id) {
 #' 
 #' @rdname format_DT
 format_DT_server <- function(id,
-  obj = reactive({NULL}),
+  dataIn = reactive({NULL}),
   hidden = reactive({NULL}),
   withDLBtns = FALSE,
   showRownames = FALSE,
@@ -113,10 +113,10 @@ format_DT_server <- function(id,
     proxy = DT::dataTableProxy(session$ns('StaticDataTable'), session)
     
     observe({
-      req(obj())
-      rv.infos$obj <- obj()
+      req(dataIn())
+      rv.infos$obj <- dataIn()
       if(!is.null(hidden()))
-        rv.infos$obj <- cbind(obj(), hidden())
+        rv.infos$obj <- cbind(dataIn(), hidden())
       
       
       DT::replaceData(proxy, rv.infos$obj, resetPaging = FALSE)
@@ -145,7 +145,7 @@ format_DT_server <- function(id,
       # }
       
       if (!is.null(hidden())) {
-        tgt.seq <- seq.int(from = ncol(obj()), to = ncol(obj()) + ncol(hidden()) -1)
+        tgt.seq <- seq.int(from = ncol(dataIn()), to = ncol(dataIn()) + ncol(hidden()) -1)
         list(
           list(targets = '_all', className = "dt-center")
           ,list(targets = tgt.seq, visible = FALSE)
@@ -221,7 +221,7 @@ ui <- format_DT_ui("dt")
 
 server <- function(input, output, session) {
   format_DT_server("dt", 
-    obj = reactive({obj}),
+    dataIn = reactive({obj}),
     hidden = reactive({hidden}),
     withDLBtns = withDLBtns,
     showRownames = showRownames,

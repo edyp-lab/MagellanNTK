@@ -10,7 +10,7 @@ download_btns_ui(id, settings = list())
 
 download_btns_server(
   id,
-  obj = reactive({
+  dataIn = reactive({
      NULL
  }),
   name,
@@ -29,13 +29,13 @@ download_btns(obj)
 
 \item{settings}{xxx}
 
-\item{obj}{A data.frame}
-
 \item{name}{xxxx.}
 
 \item{colors}{xxx}
 
 \item{tags}{xxx}
+
+\item{obj}{A data.frame}
 }
 \value{
 NA

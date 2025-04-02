@@ -11,7 +11,7 @@ MagellanNTK_ui(id)
 
 MagellanNTK_server(
   id,
-  obj = reactive({
+  dataIn = reactive({
      NULL
  }),
   workflow.path = reactive({
@@ -35,16 +35,15 @@ MagellanNTK(
 \arguments{
 \item{id}{xxx}
 
-\item{obj}{xxx}
-
 \item{workflow.path}{xxx}
 
 \item{workflow.name}{xxxx}
 
 \item{verbose}{A `boolean(1)`}
 
-\item{usermod}{xxx
-obj = reactive({NULL}),}
+\item{usermod}{xxx}
+
+\item{obj}{xxx}
 }
 \description{
 xxx

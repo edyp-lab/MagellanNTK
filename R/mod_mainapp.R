@@ -291,7 +291,7 @@ mainapp_ui <- function(id, session){
 #' @export
 #' 
 mainapp_server <- function(id,
-  obj = reactive({NULL}),
+  dataIn = reactive({NULL}),
   workflow.name = reactive({NULL}),
   workflow.path = reactive({NULL}),
   verbose = FALSE,
@@ -324,8 +324,8 @@ mainapp_server <- function(id,
     
     
     observeEvent(id, {
-      rv.core$current.obj <- obj()
-      if (!is.null(obj()))
+      rv.core$current.obj <- dataIn()
+      if (!is.null(dataIn))
         rv.core$current.obj.name <- 'myDataset'
       
       rv.core$workflow.path <- workflow.path()
@@ -581,7 +581,7 @@ mainapp_server <- function(id,
     observeEvent(req(rv.core$result_open_dataset()$trigger),{
       if (verbose)
         cat('new dataset loaded\n')
-      rv.core$resetWF <- rv.core$resetWF + 1
+      #rv.core$resetWF <- rv.core$resetWF + 1
       
       rv.core$current.obj <- rv.core$result_open_dataset()$dataset
       rv.core$current.obj.name <- rv.core$result_open_dataset()$name
@@ -617,7 +617,7 @@ mainapp_server <- function(id,
     
     observe({
       
-      rv.core$result_run_workflow <- nav_server(
+      rv.core$result_run_workflow <- nav_pipeline_server(
         id = rv.core$workflow.name,
         dataIn = reactive({rv.core$current.obj}),
         verbose = verbose,
@@ -635,13 +635,12 @@ mainapp_server <- function(id,
       req(rv.core$workflow.name)
       tagList(
         actionButton(ns('resetWF'), 'Reset whole Workflow'),
-        nav_ui(ns(basename(rv.core$workflow.name)))
+        nav_pipeline_ui(ns(basename(rv.core$workflow.name)))
       )
     })
     
     
-    observeEvent(req(input$resetWF), {
-      rv.core$resetWF <- input$resetWF})
+    observeEvent(req(input$resetWF), {rv.core$resetWF <- input$resetWF})
     
     
     observeEvent(rv.core$result_run_workflow$dataOut()$value, {
@@ -660,7 +659,7 @@ mainapp_server <- function(id,
       call.func(
         fname = paste0(rv.core$funcs$funcs$infos_dataset, '_server'),
         args = list(id = 'infos_dataset',
-          obj = reactive({rv.core$current.obj})))
+          dataIn = reactive({rv.core$current.obj})))
       
       call.func(
         fname = paste0(rv.core$funcs$funcs$infos_dataset, '_ui'),
@@ -674,7 +673,7 @@ mainapp_server <- function(id,
       call.func(
         fname = paste0(rv.core$funcs$funcs$view_dataset, '_server'),
         args = list(id = 'view_dataset',
-          obj = reactive({rv.core$current.obj}),
+          dataIn = reactive({rv.core$current.obj}),
           useModal = FALSE,
           verbose = TRUE))
       

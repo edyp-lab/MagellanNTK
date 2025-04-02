@@ -41,7 +41,7 @@ Get_Code_for_remoteReset_observeEvents()
 Get_Code_for_remoteReset(
   widgets = TRUE,
   custom = TRUE,
-  dataIn = "NULL",
+  dataIn = "dataIn()",
   addon = ""
 )
 

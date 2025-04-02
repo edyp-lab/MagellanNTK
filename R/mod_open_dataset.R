@@ -231,7 +231,8 @@ server <- function(input, output, session) {
   
   rv$obj <- open_dataset_server("demo", 
     class = class,
-    extension = extension, demo_package = demo_package)
+    extension = extension, 
+    demo_package = demo_package)
   
   observeEvent(rv$obj()$trigger, {
     print(rv$obj()$name)
