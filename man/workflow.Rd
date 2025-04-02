@@ -2,14 +2,17 @@
 % Please edit documentation in R/run_workflow.R
 \name{workflow}
 \alias{workflow}
-\alias{workflow_ui}
-\alias{workflow_server}
-\alias{workflowApp}
+\alias{pipe_workflow_ui}
+\alias{pipe_workflow_server}
+\alias{pipe_workflowApp}
+\alias{proc_workflow_ui}
+\alias{proc_workflow_server}
+\alias{proc_workflowApp}
 \title{Shiny example module `Process`}
 \usage{
-workflow_ui(id)
+pipe_workflow_ui(id)
 
-workflow_server(
+pipe_workflow_server(
   id,
   path = NULL,
   dataIn = reactive({
@@ -20,7 +23,29 @@ workflow_server(
   verbose = FALSE
 )
 
-workflowApp(
+pipe_workflowApp(
+  id,
+  path = NULL,
+  dataIn = NULL,
+  tl.layout = NULL,
+  usermod = "dev",
+  verbose = FALSE
+)
+
+proc_workflow_ui(id)
+
+proc_workflow_server(
+  id,
+  path = NULL,
+  dataIn = reactive({
+     NULL
+ }),
+  tl.layout = NULL,
+  usermod = "dev",
+  verbose = FALSE
+)
+
+proc_workflowApp(
   id,
   path = NULL,
   dataIn = NULL,
@@ -53,42 +78,41 @@ pipelines nor processes to be managed with `MagellanNTK`.
 }
 \examples{
 \dontrun{
+library(shiny)
+data(lldata)
 data(sub_R25)
-
-path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
+path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
 files <- list.files(file.path(path, 'R'), full.names = TRUE)
 for(f in files)
   source(f, local = FALSE, chdir = TRUE)
+  
+  
+# Nothing happens when dataIn is NULL
+pipe_workflowApp("PipelineDemo", path, dataIn = NULL)
+
+pipe_workflowApp("PipelineDemo", path, dataIn = lldata)
+
+pipe_workflowApp("PipelineDemo", dataIn = data.frame())
+
+pipe_workflowApp("PipelineDemo", path, dataIn = lldata)
+
+pipe_workflowApp("PipelineB", path, tl.layout = c("v", "h"))
+
+pipe_workflowApp("PipelineDemo", path, dataIn = sub_R25, 
+tl.layout = c("v", "h"))
+
 
 # Nothing happens when dataIn is NULL
-shiny::runApp(run_workflow("PipelineDemo_Process1", dataIn = NULL))
+proc_workflowApp("PipelineDemo_Process1", path, dataIn = NULL)
 
-shiny::runApp(run_workflow("PipelineDemo_Process1", dataIn = sub_R25))
+proc_workflowApp("PipelineDemo_Process1", path, dataIn = sub_R25)
 
-shiny::runApp(run_workflow("PipelineDemo_Process1", dataIn = data.frame(), tl.layout = "v"))
+proc_workflowApp("PipelineDemo_Process1", path, dataIn = data.frame(), tl.layout = "v")
 
-shiny::runApp(run_workflow("PipelineDemo", dataIn = sub_R25, tl.layout = c("v", "h")))
+proc_workflowApp("PipelineDemo", path, dataIn = sub_R25, tl.layout = c("v", "h"))
 
-shiny::runApp(workflow("PipelineDemo", dataIn = sub_R25, tl.layout = c("v", "h")))
-}
+proc_workflowApp("PipelineDemo", path, dataIn = sub_R25, tl.layout = c("v", "h"))
 
-\dontrun{
-data(lldata)
-path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
-
-# Nothing happens when dataIn is NULL
-shiny::runApp(workflowApp("PipelineDemo_Process1", path, dataIn = NULL))
-
-shiny::runApp(workflowApp("PipelineDemo_Process1", path, dataIn = lldata))
-
-shiny::runApp(workflowApp("PipelineDemo_Process1", dataIn = data.frame())
-
-shiny::runApp(workflowApp("PipelineDemo", path, dataIn = lldata))
-
-shiny::runApp(workflowApp("PipelineB", path, tl.layout = c("v", "h")))
-
-shiny::runApp(workflowApp("PipelineDemo", path, dataIn = sub_R25, 
-tl.layout = c("v", "h")))
 }
 
 }

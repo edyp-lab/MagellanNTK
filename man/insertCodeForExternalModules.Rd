@@ -9,8 +9,8 @@
 \alias{Get_Code_for_rv_reactiveValues}
 \alias{Get_Code_for_dataOut}
 \alias{Get_Code_for_General_observeEvents}
-\alias{Get_Code_for_remoteReset_observeEvents}
 \alias{Get_Code_for_remoteReset2_observeEvents}
+\alias{Get_Code_for_remoteReset_observeEvents}
 \alias{Get_Code_for_remoteReset}
 \alias{Get_Code_for_resetting_widgets}
 \alias{Get_Code_for_resetting_custom}
@@ -34,11 +34,16 @@ Get_Code_for_dataOut()
 
 Get_Code_for_General_observeEvents()
 
-Get_Code_for_remoteReset_observeEvents()
-
 Get_Code_for_remoteReset2_observeEvents(add.code = NULL)
 
-Get_Code_for_remoteReset(widgets = TRUE, custom = TRUE, dataIn = "NULL")
+Get_Code_for_remoteReset_observeEvents()
+
+Get_Code_for_remoteReset(
+  widgets = TRUE,
+  custom = TRUE,
+  dataIn = "NULL",
+  addon = ""
+)
 
 Get_Code_for_resetting_widgets()
 

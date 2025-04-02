@@ -14,7 +14,7 @@ open_dataset_ui(id)
 
 open_dataset_server(id, class = NULL, extension = NULL, demo_package = NULL)
 
-open_dataset(class = NULL, extension = NULL)
+open_dataset(class = NULL, extension = NULL, demo_package = NULL)
 }
 \arguments{
 \item{id}{xxx}
@@ -25,6 +25,7 @@ This module allows to change
 \examples{
 \dontrun{
 shiny::runApp(open_dataset(class = 'QFeatures', extension = '.qf'))
+shiny::runApp(open_dataset(class = 'QFeatures', extension = '.qf', demo_package = 'DaparToolshedData'))
 }
 
 

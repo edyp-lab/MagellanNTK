@@ -41,6 +41,7 @@ ActionOn_Child_Changed <- function(
   newValue,
   keepdataset_func,
   rv) {
+
     # # Indice of the dataset in the object
     # # If the original length is not 1, then this indice is different
     # # than the above one
@@ -219,9 +220,8 @@ ActionOn_Child_Changed <- function(
       steps.skipped = steps.skipped
     )
   )
+
 }
-
-
 
 #' @title xxxx
 #' @description xxx

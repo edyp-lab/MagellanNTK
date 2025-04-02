@@ -124,7 +124,8 @@ PipelineDemo_Process1_server <- function(id,
     output$Description <- renderUI({
       file <- normalizePath(file.path(session$userData$workflow.path, 
         'md', paste0(id, '.md')))
-      
+   
+      req(file)
       tagList(
         ### In this example, the md file is found in the extdata/module_examples 
         ### directory but with a real app, it should be provided by the package 

@@ -608,6 +608,7 @@ nav_server <- function(id = NULL,
         observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE,{
           req(rv$config)
           
+          print("In core.R : observeEvent(req(rv$rstBtn())")
           
           rv$dataIn <- NULL
           # The cursor is set to the first step
@@ -626,6 +627,7 @@ nav_server <- function(id = NULL,
           # the values by 1. This has for effect to be detected
           # by the observeEvent function. It works like an actionButton
           # widget
+          
           if (rv$config@mode == "pipeline")
             rv$resetChildren <- ResetChildren(seq_len(n), rv$resetChildren)
 
@@ -645,7 +647,8 @@ nav_server <- function(id = NULL,
         # the local module or in the module parent UI (in this case,
         # it is called a 'remoteReset')
         observeEvent(req(rv$rstBtn()), ignoreInit = FALSE, ignoreNULL = TRUE,{
-                rv$dataIn <- NULL
+                print("In core.R : observeEvent(req(rv$rstBtn())")
+          rv$dataIn <- NULL
                 # The cursor is set to the first step
                 rv$current.pos <- 1
 

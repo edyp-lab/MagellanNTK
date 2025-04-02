@@ -100,7 +100,6 @@ Collate:
     Save_dataset.R
     general_core_funcs.R
     pipeline_funcs.R
-    process_funcs.R
     build_nav_ui.R
     load_save.R
     run_workflow.R

@@ -15,27 +15,6 @@
 #'
 #' @name workflow
 #' 
-#' @examples
-#' \dontrun{
-#' data(sub_R25)
-#' 
-#' path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
-#' files <- list.files(file.path(path, 'R'), full.names = TRUE)
-#' for(f in files)
-#'   source(f, local = FALSE, chdir = TRUE)
-#' 
-#' # Nothing happens when dataIn is NULL
-#' shiny::runApp(run_workflow("PipelineDemo_Process1", dataIn = NULL))
-#' 
-#' shiny::runApp(run_workflow("PipelineDemo_Process1", dataIn = sub_R25))
-#' 
-#' shiny::runApp(run_workflow("PipelineDemo_Process1", dataIn = data.frame(), tl.layout = "v"))
-#' 
-#' shiny::runApp(run_workflow("PipelineDemo", dataIn = sub_R25, tl.layout = c("v", "h")))
-#' 
-#' shiny::runApp(workflow("PipelineDemo", dataIn = sub_R25, tl.layout = c("v", "h")))
-#' }
-#'
 #' @author Samuel Wieczorek
 #'
 #' @importFrom utils data
@@ -46,22 +25,41 @@
 #' 
 #' @examples
 #' \dontrun{
+#' library(shiny)
 #' data(lldata)
+#' data(sub_R25)
 #' path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
+#' files <- list.files(file.path(path, 'R'), full.names = TRUE)
+#' for(f in files)
+#'   source(f, local = FALSE, chdir = TRUE)
+#'   
+#'   
+#' # Nothing happens when dataIn is NULL
+#' pipe_workflowApp("PipelineDemo", path, dataIn = NULL)
+#' 
+#' pipe_workflowApp("PipelineDemo", path, dataIn = lldata)
+#' 
+#' pipe_workflowApp("PipelineDemo", dataIn = data.frame())
+#' 
+#' pipe_workflowApp("PipelineDemo", path, dataIn = lldata)
+#' 
+#' pipe_workflowApp("PipelineB", path, tl.layout = c("v", "h"))
+#' 
+#' pipe_workflowApp("PipelineDemo", path, dataIn = sub_R25, 
+#' tl.layout = c("v", "h"))
+#' 
 #' 
 #' # Nothing happens when dataIn is NULL
-#' shiny::runApp(workflowApp("PipelineDemo_Process1", path, dataIn = NULL))
+#' proc_workflowApp("PipelineDemo_Process1", path, dataIn = NULL)
 #' 
-#' shiny::runApp(workflowApp("PipelineDemo_Process1", path, dataIn = lldata))
+#' proc_workflowApp("PipelineDemo_Process1", path, dataIn = sub_R25)
 #' 
-#' shiny::runApp(workflowApp("PipelineDemo_Process1", dataIn = data.frame())
+#' proc_workflowApp("PipelineDemo_Process1", path, dataIn = data.frame(), tl.layout = "v")
 #' 
-#' shiny::runApp(workflowApp("PipelineDemo", path, dataIn = lldata))
+#' proc_workflowApp("PipelineDemo", path, dataIn = sub_R25, tl.layout = c("v", "h"))
 #' 
-#' shiny::runApp(workflowApp("PipelineB", path, tl.layout = c("v", "h")))
+#' proc_workflowApp("PipelineDemo", path, dataIn = sub_R25, tl.layout = c("v", "h"))
 #' 
-#' shiny::runApp(workflowApp("PipelineDemo", path, dataIn = sub_R25, 
-#' tl.layout = c("v", "h")))
 #' }
 #'
 NULL
@@ -70,10 +68,10 @@ NULL
 #' @export
 #' @rdname workflow
 #' 
-workflow_ui <- function(id){
+pipe_workflow_ui <- function(id){
   ns <- NS(id)
   tagList(
-    nav_ui(ns(id)),
+    nav_pipeline_ui(ns(id)),
     uiOutput(ns("debugInfos_ui"))
   )
   
@@ -84,22 +82,20 @@ workflow_ui <- function(id){
 #' @export
 #' @rdname workflow
 #' 
-workflow_server <- function(id,
+pipe_workflow_server <- function(id,
   path = NULL,
   dataIn = reactive({NULL}),
   tl.layout = NULL,
   usermod = "dev",
   verbose = FALSE){
   
-  
-  source_shinyApp_files()
-  
+
  if(is.null(path)){
    message("'path' is not correctly configured. Abort...")
    return(NULL)
  } 
   
-  
+  source_shinyApp_files()
   source_wf_files(path)
   
   moduleServer(id, function(input, output, session){
@@ -130,16 +126,14 @@ workflow_server <- function(id,
     
     observeEvent(path, {
       session$userData$workflow.path <- path
-      
       session$userData$funcs <- readConfigFile(path)$funcs
-      
     })
     
     
     observeEvent(dataIn, {
-      
       dataOut(
-        nav_server(id = id,
+        nav_pipeline_server(
+          id = id,
           dataIn = reactive({dataIn}),
           tl.layout = tl.layout, 
           verbose = verbose,
@@ -158,18 +152,20 @@ workflow_server <- function(id,
 
 #' @rdname workflow
 #' @export
-workflowApp <- function(id,
-  path = NULL,
-  dataIn = NULL,
-  tl.layout = NULL,
-  usermod = 'dev',
-  verbose = FALSE) {
+pipe_workflowApp <- function(
+    id,
+    path = NULL,
+    dataIn = NULL,
+    tl.layout = NULL,
+    usermod = 'dev',
+    verbose = FALSE) {
 
-  ui <- workflow_ui(id)
+  ui <- pipe_workflow_ui(id)
+  
   server <- function(input, output, session) {
-    
-    
-      res <- workflow_server(id, 
+
+      res <- pipe_workflow_server(
+        id, 
         path = path,
         dataIn = dataIn)
 
@@ -178,6 +174,125 @@ workflowApp <- function(id,
       })
     }
 
-  app <- shiny::shinyApp(ui, server)
+  shiny::shinyApp(ui, server)
 }
+
+
+
+
+
+
+
+#' @export
+#' @rdname workflow
+#' 
+proc_workflow_ui <- function(id){
+  ns <- NS(id)
+  tagList(
+    nav_process_ui(ns(id)),
+    uiOutput(ns("debugInfos_ui"))
+  )
+  
+}
+
+
+
+#' @export
+#' @rdname workflow
+#' 
+proc_workflow_server <- function(
+    id,
+    path = NULL,
+    dataIn = reactive({NULL}),
+    tl.layout = NULL,
+    usermod = "dev",
+    verbose = FALSE){
+
+  if(is.null(path)){
+    message("'path' is not correctly configured. Abort...")
+    return(NULL)
+  } 
+  
+  source_shinyApp_files()
+  source_wf_files(path)
+  
+  moduleServer(id, function(input, output, session){
+    ns <- session$ns
+    
+    dataOut <- reactiveVal()
+    
+    output$debugInfos_ui <- renderUI({
+      req(usermod == 'dev')
+      Debug_Infos_server(id = 'debug_infos',
+        title = 'Infos from shiny app',
+        rv.dataIn = reactive({dataIn}),
+        dataOut = reactive({rv$dataOut$dataOut()})
+      )
+      Debug_Infos_ui("debug_infos")
+    })
+    
+    output$save_dataset_ui <- renderUI({
+      req(c(dataOut(), dataOut()$dataOut()$value))
+      
+      dl_ui(ns("saveDataset"))
+      dl_server(
+        id = "saveDataset",
+        dataIn = reactive({dataOut()$dataOut()$value})
+      )
+    })
+    
+    
+    observeEvent(path, {
+      session$userData$workflow.path <- path
+      session$userData$funcs <- readConfigFile(path)$funcs
+    })
+    
+    
+    observeEvent(dataIn, {
+      dataOut(
+        nav_process_server(
+          id = id,
+          dataIn = reactive({dataIn}),
+          tl.layout = tl.layout, 
+          verbose = verbose,
+          usermod = usermod
+        )
+      )
+    })
+    
+    return(reactive({dataOut()}))
+    
+  })
+}
+
+
+
+
+#' @rdname workflow
+#' @export
+proc_workflowApp <- function(
+    id,
+    path = NULL,
+    dataIn = NULL,
+    tl.layout = NULL,
+    usermod = 'dev',
+    verbose = FALSE) {
+  
+  ui <- proc_workflow_ui(id)
+  
+  server <- function(input, output, session) {
+    
+    res <- proc_workflow_server(
+      id, 
+      path = path,
+      dataIn = dataIn)
+    
+    observeEvent(req(res()$dataOut()$trigger), {
+      print(res()$dataOut()$value)
+    })
+  }
+  
+  shiny::shinyApp(ui, server)
+}
+
 

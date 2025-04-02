@@ -26,6 +26,7 @@ NULL
 
 #' @importFrom shiny NS tagList span uiOutput 
 #' @import shinyjs
+#' @import waiter
 #' @importFrom shinydashboard tabItem tabItems dashboardBody
 #' @importFrom shinydashboardPlus dashboardSidebar dashboardPage dashboardHeader 
 #' @import shinyEffects
@@ -39,21 +40,6 @@ mainapp_ui <- function(id, session){
   ns <- NS(id)
   
   
-  # tags$head(tags$style(".sidebar {
-  #   background: #F4F4F4;
-  #     height: 100vh;
-  #   left: 0;
-  #   overflow-x: hidden;
-  #   overflow-y: clip;
-  #   position: absolute;
-  #   top: 0;
-  #   width: 360px;"))
-  #div(id = "header",
-  tags$body(
-    #class = "skin-blue sidebar-mini control-sidebar-open",
-    #style = tags$style("padding-right: 0px;"),
-    options = list(sidebarExpandOnHover = TRUE),
-    
   shinydashboardPlus::dashboardPage(
     preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
     options = list(sidebarExpandOnHover = TRUE,
@@ -61,84 +47,12 @@ mainapp_ui <- function(id, session){
         
         md = FALSE,
         skin = "blue",
-        
-        # 
-        # tags$head(
-        #   .path <- file.path(system.file('app/www/css', package = 'MagellanNTK'),'prostar.css'),
-        #   includeCSS(.path),
-        #   .path_sass <- file.path(system.file('app/www/css', package = 'MagellanNTK'),'sass-size.scss'),
-        #   tags$head(tags$style(sass::sass(
-        #     sass::sass_file(.path_sass),
-        #     sass::sass_options(output_style = "expanded")
-        #   )))
-        #   ),
-          
-        #skin = shinythemes::shinytheme("cerulean"),
-        
-        # https://stackoverflow.com/questions/31711307/how-to-change-color-in-shiny-dashboard
-        # orangeProstar <- "#E97D5E"
-        # gradient greenblue header
-        # greenblue links <- #2fa4e7
-        # darker greenblue hover links <- #157ab5
-        # darker greenblue titles <- #317eac
-        # small titles <- #9999
-        # darkest greenblue button reset+next+selected menu
-        # color background arrow : #88b7d5 (bleu gris clair)
-        # lightgrey #dddd
-        # grey #ccc
-        # bleu ceruleen #2EA8B1
-        # jaune clair 'mark' #FCF8E3
-        # green #468847
-        # darker green #356635
-        
-        ##
-        ## Header
-        ## 
-        # header = shinydashboardPlus::dashboardHeader(
-        #   fixed = TRUE,
-        #   title = dashboardthemes::shinyDashboardLogo(theme = "blue_gradient",
-        #                                               boldText = "Prostar",
-        #                                               badgeText = "v2"),
-        #   leftUi = tagList(
-        #   actionButton('browser', 'Console'),
-        #   a(href="http://www.prostar-proteomics.org/"
-        #       # img(src=base64enc::dataURI(
-        #       #   file=system.file('ProstarApp/www/images', 'LogoProstarComplet.png', package='ProstarDev'), 
-        #       #   mime="image/png"))
-        #       ),
-        #    a(href="https://github.com/edyp-lab/Prostar2",
-        #       icon("github"),
-        #       title="GitHub")
-        #   )
-        # ),
         header = shinydashboardPlus::dashboardHeader(
           fixed = TRUE,
-          # titleWidth = "245px",
-          # title = absolutePanel(
-          #    fixed = TRUE,
-          #    height = '100px',
-          #    dashboardthemes::shinyDashboardLogo(theme = "blue_gradient",
-          #                                        boldText = "Prostar",
-          #                                        badgeText = "v2")
-          #    ),
-          # leftUi = tagList(
-          #   tags$style(".skin-blue .main-header .navbar {background-color: rgb(20,97,117);}"),
-          #   actionButton('browser', 'Console'),
-          #   a(href="http://www.prostar-proteomics.org/"
-          #     #       # img(src=base64enc::dataURI(
-          #     #       #   file=system.file('ProstarApp/www/images', 'LogoProstarComplet.png', package='ProstarDev'), 
-          #     #       #   mime="image/png"))
-          #            ),
-          #   a(href="https://github.com/edyp-lab/Prostar2",
-          #     icon("github"),
-          #     title="GitHub")
-          # 
-          # )
           title = 
             tagList(
               span(class = "logo-lg", 
                 uiOutput(ns('left_UI')))
-              
             ),
           leftUi = tagList(
             uiOutput(ns('WF_Name_UI')),
@@ -152,51 +66,17 @@ mainapp_ui <- function(id, session){
           uiOutput(ns('sidebar')),
           collapsed = TRUE
         ),
-        #uiOutput(ns('sidebar')),
-        # controlbar = shinydashboardPlus::dashboardControlbar(
-        #   skin = "dark",
-        #   shinydashboardPlus::controlbarMenu(
-        #     shinydashboardPlus::controlbarItem(
-        #       title = "Configure",
-        #       icon = icon("desktop"),
-        #       active = TRUE,
-        #       actionLink(ns('browser'), 'Console'),
-        #       mod_modalDialog_ui(ns('loadPkg_modal'))
-        #     ),
-        #     shinydashboardPlus::controlbarItem(
-        #       icon = icon("paint-brush"),
-        #       title = "Settings",
-        #       mod_settings_ui(ns('global_settings'))
-        #     )
-        #     ,shinydashboardPlus::controlbarItem(
-        #       icon = icon("paint-brush"),
-        #       title = "Skin",
-        #       shinydashboardPlus::skinSelector()
-        #     )
-        #   )
-        #   ),
         body = dashboardBody(
+          
+          
+          # tags$head(tags$link(rel = "stylesheet", type = "text/css", 
+          #   href = file.path(system.file('app/www/css', package = 'MagellanNTK'),'Prostar.css'))),
+          # 
+          includeCSS(file.path(system.file('app/www/css', package = 'MagellanNTK'),'Prostar.css')), # Link to style sheet
+          
           # some styling
           tags$head(
-            
             tags$style(".content-wrapper {padding-right: 0px;}"),
-            
-            # .path <- file.path(system.file('app/www/css', package = 'MagellanNTK'),'prostar.css'),
-            # includeCSS(.path),
-            # .path_sass <- file.path(system.file('app/www/css', package = 'MagellanNTK'),'sass-size.scss'),
-            # tags$style(sass::sass(
-            #   sass::sass_file(.path_sass),
-            #   sass::sass_options(output_style = "expanded")
-            # )),
-            
-            # tags$style(
-            #   rel = "stylesheet",
-            #   type = "text/css",
-            #   href = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/qtcreator_dark.min.css"
-            # ),
-            # tags$script(
-            #   src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"
-            # ),
             tags$script(
               "$(function() {
             $('.sidebar-toggle').on('click', function() {
@@ -223,7 +103,6 @@ mainapp_ui <- function(id, session){
                 icon = 'home',
                 uiOutput(ns('open_dataset_UI'))
                 ),
-              
               shinydashboard::tabItem(
                 tabName = "convertDataset",
                 icon = 'home',
@@ -255,27 +134,17 @@ mainapp_ui <- function(id, session){
               shinydashboard::tabItem(tabName = "workflow", 
                 icon = 'home',
                 uiOutput(ns('workflow_UI'))),
-              
-              
-              #tabItem(tabName = "globalSettings", mod_settings_ui(ns('global_settings'))),
               shinydashboard::tabItem(tabName = "releaseNotes", 
                 uiOutput(ns('ReleaseNotes_UI'))),
-              # tabItem(tabName = "checkUpdates", 
-              #   mod_check_updates_ui(ns('check_updates'))),
-              # shinydashboard::tabItem(tabName = "usefulLinks", 
-              #   insert_md_ui(ns('links_MD'))),
               shinydashboard::tabItem(tabName = "faq", 
                 insert_md_ui(ns('FAQ_MD'))),
               shinydashboard::tabItem(tabName = "Manual", 
                 uiOutput(ns('manual_UI')))
-              # shinydashboard::tabItem(tabName = "bugReport", 
-              #   mod_bug_report_ui(ns("bug_report"))),
-            )
+              )
             
           ))
-   # )
 )
-  )
+#  )
 }
 
 
@@ -395,11 +264,7 @@ mainapp_server <- function(id,
       } else
         rv.core$funcs$package
         
-      tagList(
-        h4(style = "font-weight: bold;",
-          paste0(.txt, ' ', GetPackageVersion(.txt)) 
-        )
-      )
+      h4(paste0(.txt, ' ', GetPackageVersion(.txt)))
     })
     
     
@@ -496,7 +361,7 @@ mainapp_server <- function(id,
       
       rv.core$current.obj <- rv.core$result_convert()$dataOut()$value$data
       rv.core$current.obj.name <- rv.core$result_convert()$dataOut()$value$name
-      rv.core$resetWF <- rv.core$resetWF + 1
+     # rv.core$resetWF <- rv.core$resetWF + 1
     })
     
     
@@ -581,7 +446,8 @@ mainapp_server <- function(id,
     observeEvent(req(rv.core$result_open_dataset()$trigger),{
       if (verbose)
         cat('new dataset loaded\n')
-      rv.core$resetWF <- rv.core$resetWF + 1
+      #browser()
+      #rv.core$resetWF <- rv.core$resetWF + 1
       
       rv.core$current.obj <- rv.core$result_open_dataset()$dataset
       rv.core$current.obj.name <- rv.core$result_open_dataset()$name
@@ -617,7 +483,7 @@ mainapp_server <- function(id,
     
     observe({
       
-      rv.core$result_run_workflow <- nav_server(
+      rv.core$result_run_workflow <- nav_pipeline_server(
         id = rv.core$workflow.name,
         dataIn = reactive({rv.core$current.obj}),
         verbose = verbose,
@@ -635,16 +501,16 @@ mainapp_server <- function(id,
       req(rv.core$workflow.name)
       tagList(
         actionButton(ns('resetWF'), 'Reset whole Workflow'),
-        nav_ui(ns(basename(rv.core$workflow.name)))
+        nav_pipeline_ui(ns(basename(rv.core$workflow.name)))
         )
       })
 
     
-    observeEvent(req(input$resetWF), {
-      rv.core$resetWF <- input$resetWF})
+    observeEvent(req(input$resetWF), {rv.core$resetWF <- input$resetWF})
     
     
-    observeEvent(rv.core$result_run_workflow$dataOut()$value, {
+    observeEvent(rv.core$result_run_workflow$dataOut()$trigger, {
+      browser()
         rv.core$current.obj <- rv.core$result_run_workflow$dataOut()$value
     })
 

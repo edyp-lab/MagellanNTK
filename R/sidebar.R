@@ -19,18 +19,14 @@ Insert_Dev_Sidebar <- function(){
  # dashboardSidebar(
     #tags$style(".sidebar-menu li a { height: 40px; color: grey;}"), 
     
-    shinydashboard::sidebarMenu(id = "sb_dev",
-      #tags$style(".sidebar-menu li a { height: 40px; color: grey;}"), 
-      minified = TRUE, collapsed = TRUE,
-      #style = "position: fixed; overflow: visible;",
-      # inactiveClass for import menus inactivation 
-      # tags$head(tags$style(".inactiveLink {pointer-events: none; background-color: grey;}")),
-      
+    sidebarMenu(
+      id = "sb_dev",
+      minified = TRUE, 
+      collapsed = TRUE,
       # Menus and submenus in sidebar
-      #br(),
-      shinydashboard::menuItem("Home", 
+      menuItem("Dashboard2", 
         tabName = "Home", 
-        icon = icon("home"),
+        icon = icon('home'),
         selected = TRUE),
       #hr(),
       # shinydashboard::menuItem("Data Manager",
@@ -67,6 +63,7 @@ Insert_Dev_Sidebar <- function(){
           icon = img(src="www/logo-simple.png", width = 20),
           tabName = "BuildReport")
       ),
+<<<<<<< Updated upstream
       #hr(),
       shinydashboard::menuItem(
         'Workflow',
@@ -102,14 +99,31 @@ Insert_Dev_Sidebar <- function(){
           icon = icon("info")
           # ,badgeLabel = "new"
           # ,badgeColor = "green"
+=======
+      menuItem(
+        "Dashboard2",
+        tabName = "Workflow",
+        icon = icon('home'),
+        menuSubItem("Load", tabName = "openWorkflow"),
+        menuSubItem("Run", tabName = "workflow"),
+        menuSubItem("Manual", tabName = "Manual"),
+        menuSubItem("FAQ", tabName = "faq"),
+        menuSubItem("Release Notes", tabName = "releaseNotes")
+      ),
+      menuItem("Vizualize",
+        tabName = "Vizualize",
+        icon = icon('home'),
+        menuSubItem("Info", 
+          tabName = "infosDataset", 
+          icon = img(src='www/logo-simple.png', width = 20)
+>>>>>>> Stashed changes
         ),
-        shinydashboard::menuSubItem("EDA", 
+        menuSubItem("EDA", 
           tabName = "eda", 
-          icon = icon("cogs")
-          # ,badgeLabel = "new"
-          # ,badgeColor = "green"
+          icon = img(src='www/logo-simple.png', width = 20)
         )
       ),
+<<<<<<< Updated upstream
       #hr(),
       shinydashboard::menuItem(
         'Help', 
@@ -122,8 +136,12 @@ Insert_Dev_Sidebar <- function(){
         #             tabName = "checkUpdates", 
         #             icon = icon("wrench"))
       )
+=======
+      menuItem("Help",
+        icon = icon('home')
+        )
+>>>>>>> Stashed changes
     )
-  #)
 }
 
 
@@ -135,7 +153,7 @@ Insert_User_Sidebar <- function(){
   #dashboardSidebar(
     #tags$style(".sidebar-menu li a { height: 40px; color: grey;}"), 
     #minified = TRUE, collapsed = TRUE,
-    shinydashboard::sidebarMenu(id = "sb_user",
+    sidebarMenu(id = "sb_user",
       #tags$style(".sidebar-menu li a { height: 40px; color: grey;}"), 
       
       #style = "position: fixed; overflow: visible;",
@@ -144,13 +162,14 @@ Insert_User_Sidebar <- function(){
       
       # Menus and submenus in sidebar
       #br(),
-      shinydashboard::menuItem("Home", 
+      menuItem("Home", 
         tabName = "Home", 
         icon = icon("home"),
         selected = TRUE),
       #hr(),
       
       
+<<<<<<< Updated upstream
       shinydashboard::menuItem(
         'Dataset',
         icon = 'home',
@@ -198,13 +217,47 @@ Insert_User_Sidebar <- function(){
         shinydashboard::menuSubItem("EDA", 
           icon = img(src="www/logo-simple.png", width = 20),
           tabName = "eda")
+=======
+      menuItem(
+        h4('Dataset', style="color: lightgrey;"),
+        menuSubItem("Open file",
+          tabName = "openDataset",
+          icon = img(src='www/logo-simple.png')
+          ),
+        menuSubItem("Save As", tabName = "SaveAs"),
+        menuSubItem("Import data",
+          tabName = "convertDataset",
+          icon = icon("folder")
+          ),
+        menuSubItem("Build report (Beta)", tabName = "BuildReport")
+      ),
+      #hr(),
+      menuItem(h4('Workflow', style="color: lightgrey;"),
+        # menuItem("Load",
+        #   tabName = "openWorkflow",
+        #   icon = icon("cogs")),
+        menuSubItem("Run", 
+          tabName = "workflow", 
+          icon = icon("cogs")),
+        menuSubItem("Manual", tabName = "Manual"),
+        menuSubItem("FAQ", tabName = "faq"),
+        menuSubItem("Release Notes", tabName = "releaseNotes")
+      ),
+      #hr(),
+      menuItem(h4('Vizualize data', style="color: lightgrey;"),
+        menuSubItem("Info", 
+          tabName = "infosDataset", 
+          icon = icon("cogs")
+          ),
+        menuSubItem("EDA", tabName = "eda")
+>>>>>>> Stashed changes
       )
       #hr(),
-      # ,shinydashboard::menuItem(h4('Help', style="color: lightgrey;"),
+      # ,menuItem(h4('Help', style="color: lightgrey;"),
       #   
       #   #icon = icon("question-circle"),
-      #   shinydashboard::menuSubItem("Useful Links", tabName = "usefulLinks"),
-      #   shinydashboard::menuSubItem("Bug Report", tabName = "bugReport")
+      #   menuSubItem("Useful Links", tabName = "usefulLinks"),
+      #   menuSubItem("Bug Report", tabName = "bugReport")
       #   )
     )
  # )

@@ -249,35 +249,6 @@ observeEvent(steps.status(), ignoreNULL = TRUE, {
     code
 }
 
-#' @title Code for declaring xxx
-#'
-#' @description xxx
-#'
-#' @export
-#' 
-#' @rdname insertCodeForExternalModules
-#'
-#' @return NA
-#'
-Get_Code_for_remoteReset_observeEvents <- function() {
-  code <- "
-
-observeEvent(req(remoteReset() >=1), ignoreInit = TRUE, ignoreNULL = TRUE,{
-      lapply(names(rv.widgets), function(x){
-          rv.widgets[[x]] <- widgets.default.values[[x]]
-        })
-        
-            lapply(names(rv.custom), function(x){
-        rv.custom[[x]] <- rv.custom.default.values[[x]]
-    })
-    
-    rv$dataIn <- NULL
-})
-
-"
-  
-  code
-}
 
 
 
@@ -312,6 +283,7 @@ observeEvent(req(remoteReset()), ignoreInit = FALSE, ignoreNULL = TRUE,{
   code
 }
 
+
 #' @title Code for declaring xxx
 #'
 #' @description xxx
@@ -322,13 +294,47 @@ observeEvent(req(remoteReset()), ignoreInit = FALSE, ignoreNULL = TRUE,{
 #'
 #' @return NA
 #'
-Get_Code_for_remoteReset <- function(widgets = TRUE,
-  custom = TRUE,
-  dataIn = 'NULL',
-  addon = '') {
+Get_Code_for_remoteReset_observeEvents <- function() {
   code <- "
 
-observeEvent(remoteReset(), ignoreInit = FALSE, {
+observeEvent(req(remoteReset() >=1), ignoreInit = TRUE, ignoreNULL = TRUE,{
+      lapply(names(rv.widgets), function(x){
+          rv.widgets[[x]] <- widgets.default.values[[x]]
+        })
+        
+            lapply(names(rv.custom), function(x){
+        rv.custom[[x]] <- rv.custom.default.values[[x]]
+    })
+    
+    rv$dataIn <- NULL
+})
+
+"
+  
+  code
+}
+
+
+
+
+#' @title Code for declaring xxx
+#'
+#' @description xxx
+#'
+#' @export
+#' 
+#' @rdname insertCodeForExternalModules
+#'
+#' @return NA
+#'
+Get_Code_for_remoteReset <- function(
+    widgets = TRUE,
+    custom = TRUE,
+    dataIn = 'NULL',
+    addon = '') {
+    code <- "
+
+observeEvent(req(remoteReset() >=1), ignoreInit = TRUE, ignoreNULL = TRUE, {
   "
   
   if (widgets)
@@ -487,7 +493,7 @@ Get_Workflow_Core_Code <- function(
     Get_Code_Declare_rv_custom(rv.custom.names),
     Get_Code_for_dataOut(),
     Get_Code_for_General_observeEvents(),
-    Get_Code_for_remoteReset_observeEvents(),
+    Get_Code_for_remoteReset(),
     sep = "\n"
   )
   
@@ -556,7 +562,7 @@ Get_AdditionalModule_Core_Code <- function(
       Get_Code_for_rv_reactiveValues(),
       Get_Code_Declare_rv_custom(rv.custom.names),
       Get_Code_for_dataOut(), 
-      Get_Code_for_remoteReset_observeEvents(),
+      Get_Code_for_remoteReset(),
       sep = "\n"
     )
 

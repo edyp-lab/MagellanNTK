@@ -43,18 +43,19 @@ NULL
 #' 
 MagellanNTK_ui <- function(id){
   ns <- NS(id)
-  shiny::tagList(
-    #launchGA(),
-    shinyjs::useShinyjs(),
-    shinyjs::extendShinyjs(
-      text = "shinyjs.resetProstar = function() {history.go(0)}",
-      functions = c("resetProstar")),
-    
-    shiny::titlePanel("", windowTitle = "Prostar"),
+  # shiny::tagList(
+  #   #launchGA(),
+  #   shinyjs::useShinyjs(),
+  #   shinyjs::extendShinyjs(
+  #     text = "shinyjs.resetProstar = function() {history.go(0)}",
+  #     functions = c("resetProstar")),
+  #   
+  #   shiny::titlePanel("", windowTitle = "Prostar"),
     #hidden(div(id = 'div_mainapp_module',
+    #
     mainapp_ui(ns('mainapp_module'))
     #)
-  )
+  #)
 }
 
 
