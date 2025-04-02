@@ -693,7 +693,7 @@ nav_pipeline_server <- function(
     observeEvent(dataIn(),  ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
       
-      browser()
+      #browser()
       #isolate({
       # A new value on dataIn() means a new dataset sent to the 
       # process

@@ -171,8 +171,6 @@ ActionOn_Child_Changed <- function(
     } else if (ind.last.validated == 1){
       
       # Check if the reseted process has been validated before reset or not
-      
-      
       if (isTRUE(validatedBeforeReset)){
         dataIn <- call.func(
           fname = keepdataset_func,
