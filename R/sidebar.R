@@ -40,9 +40,10 @@ Insert_Dev_Sidebar <- function(){
       #          badgeColor = "green"),
       shinydashboard::menuItem(
         h4('Dataset', style="color: lightgrey;"),
-        shinydashboard::menuSubItem("Open (qf)",
+        shinydashboard::menuSubItem(
+          "Open (qf)",
+          icon = img(src="www/logo-simple.png", width = 20),
           tabName = "openDataset",
-          icon = icon("folder")
           # ,badgeLabel = "new"
           # ,badgeColor = "green"
         )

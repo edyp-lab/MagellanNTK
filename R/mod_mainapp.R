@@ -211,20 +211,32 @@ mainapp_ui <- function(id, session){
             # body content
             shinydashboard::tabItems(
               
-              shinydashboard::tabItem(tabName = "Home", class="active", 
+              shinydashboard::tabItem(
+                tabName = "Home", 
+                icon = 'home',
+                class = "active", 
                 mod_homepage_ui(ns('home'))),
               #tabItem(tabName = "dataManager", 
               #uiOutput(ns('dataManager_UI'))),
-              shinydashboard::tabItem(tabName = "openDataset", 
-                uiOutput(ns('open_dataset_UI'))),
+              shinydashboard::tabItem(
+                tabName = "openDataset",
+                icon = 'home',
+                uiOutput(ns('open_dataset_UI'))
+                ),
               
-              shinydashboard::tabItem(tabName = "convertDataset", 
+              shinydashboard::tabItem(
+                tabName = "convertDataset",
+                icon = 'home',
                 uiOutput(ns('open_convert_dataset_UI'))),
               
-              shinydashboard::tabItem(tabName = "SaveAs", 
+              shinydashboard::tabItem(
+                tabName = "SaveAs", 
+                icon = 'home',
                 uiOutput(ns('SaveAs_UI'))),
 
-              shinydashboard::tabItem(tabName = "infosDataset", 
+              shinydashboard::tabItem(
+                tabName = "infosDataset", 
+                icon = 'home',
                 uiOutput(ns('InfosDataset_UI'))),
               
               shinydashboard::tabItem(tabName = "eda", 
@@ -234,12 +246,14 @@ mainapp_ui <- function(id, session){
                 uiOutput(ns('tools_UI'))),
               
               shinydashboard::tabItem(tabName = "BuildReport", 
+                icon = 'home',
                 uiOutput(ns('BuildReport_UI'))),
               
               shinydashboard::tabItem(tabName = "openWorkflow", 
                 uiOutput(ns('open_workflow_UI'))),
               
               shinydashboard::tabItem(tabName = "workflow", 
+                icon = 'home',
                 uiOutput(ns('workflow_UI'))),
               
               
