@@ -131,7 +131,7 @@ ActionOn_Child_Changed <- function(
   
   len <- length(steps)
   
-  
+  browser()
   if (is.null(newValue)) {
     # A process has been reseted (it has returned a NULL value)
     
@@ -164,7 +164,7 @@ ActionOn_Child_Changed <- function(
       ind.last.validated <- 0
     }
     
-    
+   
     
     # There is no validated step (the first step has been reseted)
     if (ind.last.validated == 0) {

@@ -325,7 +325,7 @@ mainapp_server <- function(id,
     
     observeEvent(id, {
       rv.core$current.obj <- dataIn()
-      if (!is.null(dataIn))
+      if (!is.null(dataIn()))
         rv.core$current.obj.name <- 'myDataset'
       
       rv.core$workflow.path <- workflow.path()
@@ -581,7 +581,7 @@ mainapp_server <- function(id,
     observeEvent(req(rv.core$result_open_dataset()$trigger),{
       if (verbose)
         cat('new dataset loaded\n')
-      #rv.core$resetWF <- rv.core$resetWF + 1
+      rv.core$resetWF <- rv.core$resetWF + 1
       
       rv.core$current.obj <- rv.core$result_open_dataset()$dataset
       rv.core$current.obj.name <- rv.core$result_open_dataset()$name
@@ -640,7 +640,8 @@ mainapp_server <- function(id,
     })
     
     
-    observeEvent(req(input$resetWF), {rv.core$resetWF <- input$resetWF})
+    observeEvent(req(input$resetWF), {
+      rv.core$resetWF <- input$resetWF})
     
     
     observeEvent(rv.core$result_run_workflow$dataOut()$value, {
@@ -659,7 +660,7 @@ mainapp_server <- function(id,
       call.func(
         fname = paste0(rv.core$funcs$funcs$infos_dataset, '_server'),
         args = list(id = 'infos_dataset',
-          dataIn = reactive({rv.core$current.obj})))
+          obj = reactive({rv.core$current.obj})))
       
       call.func(
         fname = paste0(rv.core$funcs$funcs$infos_dataset, '_ui'),
@@ -673,7 +674,7 @@ mainapp_server <- function(id,
       call.func(
         fname = paste0(rv.core$funcs$funcs$view_dataset, '_server'),
         args = list(id = 'view_dataset',
-          dataIn = reactive({rv.core$current.obj}),
+          obj = reactive({rv.core$current.obj}),
           useModal = FALSE,
           verbose = TRUE))
       

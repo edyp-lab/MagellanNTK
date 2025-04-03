@@ -532,7 +532,7 @@ nav_pipeline_server <- function(
     
     
     ResetPipeline <- function(){
-      rv$dataIn <- NULL
+      rv$dataIn <- dataIn()
       # The cursor is set to the first step
       rv$current.pos <- 1
       
@@ -549,7 +549,7 @@ nav_pipeline_server <- function(
       # the values by 1. This has for effect to be detected
       # by the observeEvent function. It works like an actionButton
       # widget
-      
+     
       rv$resetChildren <- ResetChildren(seq_len(n), rv$resetChildren)
       
       # Return the NULL value as dataset

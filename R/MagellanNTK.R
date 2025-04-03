@@ -77,7 +77,8 @@ enableJIT(3)
 #' 
 #' @rdname magellanNTK
 #' 
-MagellanNTK_server <- function(id,
+MagellanNTK_server <- function(
+    id,
   dataIn = reactive({NULL}),
   workflow.path = reactive({NULL}),
   workflow.name = reactive({NULL}),
@@ -102,9 +103,10 @@ MagellanNTK_server <- function(id,
     # })
     # 
     
+
       #shinyjs::toggle('mainapp_module', condition = !is.null(funcs))
       mainapp_server('mainapp_module',
-        dataIn = reactive({obj}),
+        dataIn = reactive({dataIn()}),
         workflow.path = reactive({workflow.path()}),
         workflow.name = reactive({workflow.name()}),
         verbose = verbose,
