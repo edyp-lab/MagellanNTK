@@ -138,7 +138,7 @@ nav_process_server <- function(id = NULL,
       
       # current.pos Stores the current cursor position in the 
       # timeline and indicates which of the process' steps is active
-      current.pos = 2,
+      current.pos = 1,
       length = NULL,
       config = NULL,
       rstBtn = reactive({0})
@@ -171,7 +171,6 @@ nav_process_server <- function(id = NULL,
             steps.enabled = reactive({rv$steps.enabled}),
             remoteReset = reactive({rv$rstBtn() + remoteReset()}),
             steps.status = reactive({rv$steps.status})
-            #current.pos = reactive({1})
           )
         )
         
@@ -260,10 +259,6 @@ nav_process_server <- function(id = NULL,
                 # Look for new skipped steps
                 rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
                 
-                
-                
-                #print('In observeEvent(rv$proc$dataOut()$trigger')
-                
                 # If it is the first step (description step), then
                 # load the dataset in work variable 'dataIn'
                 if (rv$current.pos == 1) {
@@ -283,9 +278,6 @@ nav_process_server <- function(id = NULL,
                   # this  workflow and will be used in case of 
                   # reset
                   rv$dataIn <- rv$proc$dataOut()$value
-                  
-                  
-                  
                   
                   # Update the 'dataOut' reactive value to return
                   #  this dataset to the caller. this `nav_process` 
@@ -309,7 +301,6 @@ nav_process_server <- function(id = NULL,
                 rv$current.pos <- rv$position
               }
             })
-
       },
       priority = 1000
     )

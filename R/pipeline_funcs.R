@@ -42,87 +42,7 @@ ActionOn_Child_Changed <- function(
   keepdataset_func,
   rv) {
 
-    # # Indice of the dataset in the object
-    # # If the original length is not 1, then this indice is different
-    # # than the above one
-    # ind.processHasChanged <- which(names(steps) == processHasChanged)
-    # 
-    # len <- length(steps)
-    # 
-    # 
-    # if (is.null(newValue)) {
-    #     # A process has been reseted (it has returned a NULL value)
-    # 
-    #     # One take the last validated step (before the one
-    #     # corresponding to processHasChanges
-    #     # but it is straightforward because we just updates rv$status
-    #     steps.status[ind.processHasChanged:len] <- stepStatus$UNDONE
-    # 
-    #     #All the following processes (after the one which has changed) are disabled
-    #     steps.enabled[(ind.processHasChanged + 1):len] <- FALSE
-    #     
-    #     #browser()
-    #     
-    #     #test <- GetFirstMandatoryNotValidated((ind.processHasChanged + 1):len, rv)
-    #     # The process that has been rested is enabled so as to rerun it
-    #     steps.enabled[ind.processHasChanged] <- TRUE
-    # 
-    #     steps.skipped[ind.processHasChanged:len] <- FALSE
-    # 
-    #     
-    #     
-    #     Update_State_Screens(steps.skipped, steps.enabled, rv)
-    #     
-    #     
-    #     
-    #     validated.steps <- which(steps.status == stepStatus$VALIDATED)
-    #     if (length(validated.steps) > 0) {
-    #         ind.last.validated <- max(validated.steps)
-    #     } else {
-    #         ind.last.validated <- 0
-    #     }
-    # 
-    #     # There is no validated step (the first step has been reseted)
-    #     if (ind.last.validated %in% c(0, 1)) {
-    #         dataIn <- temp.dataIn
-    #     } else {
-    #        # browser()
-    #       name.last.validated <- steps[ind.last.validated]
-    #         dataIn.ind.last.validated <- which(names(dataIn) == names(name.last.validated))
-    #         #browser()
-    #         dataIn <- call.func(
-    #           fname = keepdataset_func,
-    #           args = list(object = dataIn,
-    #             range = seq_len(dataIn.ind.last.validated))
-    #         )
-    #     }
-    # } else {
-    #    
-    #   # A process has been validated
-    #     steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
-    # 
-    #     if (ind.processHasChanged < len) {
-    #         steps.status[(1 + ind.processHasChanged):len] <- stepStatus$UNDONE
-    #         
-    #         # Reset all further processes
-    #         #print('proceed to reset all further children')
-    #         #
-    #         # steps.status[(1 + ind.processHasChanged):len] <- 
-    #     }
-    # 
-    #     steps.status <- Discover_Skipped_Steps(steps.status)
-    #     dataIn <- newValue
-    # }
-    # 
-    # 
-    # return(
-    #     list(
-    #         dataIn = dataIn,
-    #         steps.status = steps.status,
-    #         steps.enabled = steps.enabled,
-    #         steps.skipped = steps.skipped
-    #     )
-    # )
+
   # Indice of the dataset in the object
   # If the original length is not 1, then this indice is different
   # than the above one
@@ -131,7 +51,7 @@ ActionOn_Child_Changed <- function(
   
   len <- length(steps)
   
-  browser()
+  #browser()
   if (is.null(newValue)) {
     # A process has been reseted (it has returned a NULL value)
     
@@ -273,8 +193,7 @@ GetValuesFromChildren <- function(config, tmp.return) {
 #'
 ResetChildren <- function(range, resetChildren) {
     
-    resetChildren[range] <- 1 + resetChildren[range]
-
+    resetChildren[range] <- resetChildren[range] + 1
     return(resetChildren)
 }
 
@@ -329,10 +248,11 @@ Update_Data2send_Vector <- function(rv, keepdataset_func) {
 #'
 #' @return NA
 #'
-PrepareData2Send <- function(rv, 
-  pos, 
-  verbose = FALSE, 
-  keepdataset_func) {
+PrepareData2Send <- function(
+    rv, 
+    pos, 
+    verbose = FALSE, 
+    keepdataset_func) {
     # Returns NULL to all modules except the one pointed by the current position
     # Initialization of the pipeline : one send dataIn() to the
     # first module

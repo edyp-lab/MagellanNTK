@@ -125,6 +125,7 @@ nav_pipeline_server <- function(
       # dataIn Contains the dataset passed by argument to the 
       # module server
       dataIn = NULL,
+      dataIn.original = NULL,
       
       # temp.dataIn This variable is used to serves as a tampon 
       # between the input of the module and the functions.
@@ -149,7 +150,7 @@ nav_pipeline_server <- function(
       
       # current.pos Stores the current cursor position in the 
       # timeline and indicates which of the process' steps is active
-      current.pos = 2,
+      current.pos = 1,
       
       
       length = NULL,
@@ -260,6 +261,12 @@ nav_pipeline_server <- function(
     # process and pipeline modules
     observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE,
       {
+        
+        rv$dataIn.original <- dataIn()
+        session$userData$dataIn.original <- dataIn()
+        browser()
+        
+        
         # When the server starts, the default position is 1
         # Not necessary ?
         # rv$current.pos <- 2
@@ -390,10 +397,6 @@ nav_pipeline_server <- function(
                 usermod = usermod
               )
             })
-            
-            
-           
-            
             
             # Catch the returned values of the processes attached to 
             # pipeline
@@ -532,7 +535,10 @@ nav_pipeline_server <- function(
     
     
     ResetPipeline <- function(){
-      rv$dataIn <- dataIn()
+      
+      browser()
+      rv$dataIn <- session$userData$dataIn.original
+      
       # The cursor is set to the first step
       rv$current.pos <- 1
       
@@ -550,14 +556,57 @@ nav_pipeline_server <- function(
       # by the observeEvent function. It works like an actionButton
       # widget
      
+      
+      #browser()
+      # if (is.null(rv$dataIn)) {
+      #   res <- PrepareData2Send(
+      #     rv = rv, 
+      #     pos = rv$current.pos,
+      #     verbose = verbose,
+      #     keepdataset_func = session$userData$funcs$keepDatasets
+      #   )
+      #   
+      #   rv$child.data2send <- res$data2send
+      #   rv$steps.enabled <- res$steps.enabled
+      # }
+      # 
+      # if (is.null(dataIn())) {
+      #   # The process has been reseted or is not concerned
+      #   # Disable all screens of the process
+      #   rv$steps.enabled <- ToggleState_Screens(
+      #     cond = FALSE,
+      #     range = seq_len(length(rv$config@steps)),
+      #     is.enabled = is.enabled,
+      #     rv = rv
+      #   )
+      # } else {
+      #   
+      #   # A new dataset has been loaded
+      #   # # Update the different screens in the process
+      #   rv$steps.enabled <- Update_State_Screens(
+      #     is.skipped = is.skipped(),
+      #     is.enabled = is.enabled(),
+      #     rv = rv
+      #   )
+      #   
+      #   
+      #   # Enable the first screen
+      #   rv$steps.enabled <- ToggleState_Screens(
+      #     cond = TRUE,
+      #     range = 1,
+      #     is.enabled = is.enabled(),
+      #     rv = rv
+      #   )
+      # }
+      # 
+      
+      
+      
       rv$resetChildren <- ResetChildren(seq_len(n), rv$resetChildren)
       
       # Return the NULL value as dataset
       dataOut$trigger <- Timestamp()
       dataOut$value <- rv$dataIn
-      
-      #Finally, close the modal
-      #removeModal()
     }
     
     observeEvent(req(remoteReset()), ignoreInit = TRUE, ignoreNULL = TRUE,{
@@ -670,19 +719,7 @@ nav_pipeline_server <- function(
       title = 'Reset',
       uiContent = p(txt)
       )
-    
-    #     rv$rstBtn <- mod_modalDialog_server(
-    #       id = "rstBtn",
-    #       title = 'Reset',
-    #       uiContent = p("This action will reset the current process and
-    #     all its children. The input
-    # dataset will be the output of the last previous validated process and all
-    # further datasets will be removed")
-    #     )
-    
-    
-    
-    
+
     
     # Catch a new value on the parameter 'dataIn()' variable, sent by the
     # caller. This value may be NULL or contain a dataset.
@@ -692,16 +729,10 @@ nav_pipeline_server <- function(
     # 2 - if the variable contains a dataset. xxx
     observeEvent(dataIn(),  ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
-      
-      #browser()
-      #isolate({
-      # A new value on dataIn() means a new dataset sent to the 
-      # process
-      
-      #rv$current.pos <- 1
-      
+
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
+      #session$userData$dataIn.original <- dataIn()
       
       # The mode pipeline is a node and has to send
       # datasets to its children
@@ -710,7 +741,8 @@ nav_pipeline_server <- function(
             rv = rv, 
             pos = rv$current.pos,
             verbose = verbose,
-            keepdataset_func = session$userData$funcs$keepDatasets)
+            keepdataset_func = session$userData$funcs$keepDatasets
+            )
           
           rv$child.data2send <- res$data2send
           rv$steps.enabled <- res$steps.enabled
@@ -725,8 +757,6 @@ nav_pipeline_server <- function(
           is.enabled = is.enabled,
           rv = rv
         )
-        
-        
       } else {
         
         # A new dataset has been loaded
@@ -747,16 +777,11 @@ nav_pipeline_server <- function(
         )
       }
       
-      # Update the initial length of the dataset with the length
-      # of the one that has been received
-      #rv$original.length <- length(dataIn())
-      #})
+
     })
     
     
     observeEvent(rv$current.pos, ignoreInit = TRUE, {
-      
-      
       ToggleState_NavBtns(
         current.pos = rv$current.pos,
         nSteps = length(rv$config@steps)
@@ -766,10 +791,13 @@ nav_pipeline_server <- function(
       
         # Specific to pipeline code
         #browser()
-        res <- PrepareData2Send(rv = rv, 
+        res <- PrepareData2Send(
+          rv = rv, 
           pos = NULL, 
           verbose = verbose,
-          keepdataset_func = session$userData$funcs$keepDatasets)
+          keepdataset_func = session$userData$funcs$keepDatasets
+          )
+        
         rv$child.data2send <- res$data2send
         rv$steps.enabled <- res$steps.enabled
         

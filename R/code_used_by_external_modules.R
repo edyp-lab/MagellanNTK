@@ -251,68 +251,68 @@ observeEvent(steps.status(), ignoreNULL = TRUE, {
 
 
 
-
-#' @title Code for declaring xxx
-#'
-#' @description xxx
-#' @param add.code Add additional code
-#'
-#' @export
 #' 
-#' @rdname insertCodeForExternalModules
-#'
-#' @return NA
-#'
-Get_Code_for_remoteReset2_observeEvents <- function(add.code = NULL) {
-  code <- "
-
-observeEvent(req(remoteReset()), ignoreInit = FALSE, ignoreNULL = TRUE,{
-      lapply(names(rv.widgets), function(x){
-          rv.widgets[[x]] <- widgets.default.values[[x]]
-        })
-        
-            lapply(names(rv.custom), function(x){
-        rv.custom[[x]] <- rv.custom.default.values[[x]]
-    })
-    
-    rv$dataIn <- NULL
-    "
-  code <- paste0(code, add.code, "})")
-
-  
-  code
-}
-
-
-#' @title Code for declaring xxx
-#'
-#' @description xxx
-#'
-#' @export
+#' #' @title Code for declaring xxx
+#' #'
+#' #' @description xxx
+#' #' @param add.code Add additional code
+#' #'
+#' #' @export
+#' #' 
+#' #' @rdname insertCodeForExternalModules
+#' #'
+#' #' @return NA
+#' #'
+#' Get_Code_for_remoteReset2_observeEvents <- function(add.code = NULL) {
+#'   code <- "
 #' 
-#' @rdname insertCodeForExternalModules
-#'
-#' @return NA
-#'
-Get_Code_for_remoteReset_observeEvents <- function() {
-  code <- "
+#' observeEvent(req(remoteReset()), ignoreInit = FALSE, ignoreNULL = TRUE,{
+#'       lapply(names(rv.widgets), function(x){
+#'           rv.widgets[[x]] <- widgets.default.values[[x]]
+#'         })
+#'         
+#'             lapply(names(rv.custom), function(x){
+#'         rv.custom[[x]] <- rv.custom.default.values[[x]]
+#'     })
+#'     
+#'     rv$dataIn <- NULL
+#'     "
+#'   code <- paste0(code, add.code, "})")
+#' 
+#'   
+#'   code
+#' }
 
-observeEvent(req(remoteReset() >=1), ignoreInit = TRUE, ignoreNULL = TRUE,{
-      lapply(names(rv.widgets), function(x){
-          rv.widgets[[x]] <- widgets.default.values[[x]]
-        })
-        
-            lapply(names(rv.custom), function(x){
-        rv.custom[[x]] <- rv.custom.default.values[[x]]
-    })
-    
-    rv$dataIn <- NULL
-})
 
-"
-  
-  code
-}
+#' #' @title Code for declaring xxx
+#' #'
+#' #' @description xxx
+#' #'
+#' #' @export
+#' #' 
+#' #' @rdname insertCodeForExternalModules
+#' #'
+#' #' @return NA
+#' #'
+#' Get_Code_for_remoteReset_observeEvents <- function() {
+#'   code <- "
+#' 
+#' observeEvent(req(remoteReset() >=1), ignoreInit = TRUE, ignoreNULL = TRUE,{
+#'       lapply(names(rv.widgets), function(x){
+#'           rv.widgets[[x]] <- widgets.default.values[[x]]
+#'         })
+#'         
+#'             lapply(names(rv.custom), function(x){
+#'         rv.custom[[x]] <- rv.custom.default.values[[x]]
+#'     })
+#'     
+#'     rv$dataIn <- NULL
+#' })
+#' 
+#' "
+#'   
+#'   code
+#' }
 
 
 
@@ -334,7 +334,7 @@ Get_Code_for_remoteReset <- function(
     addon = '') {
     code <- "
 
-observeEvent(req(remoteReset() >=1), ignoreInit = TRUE, ignoreNULL = TRUE, {
+observeEvent(req(remoteReset()), ignoreInit = TRUE, ignoreNULL = TRUE, {
 browser()
   "
   
@@ -349,6 +349,8 @@ browser()
   ', addon, '
     ')
   code <- paste0(code, '
+  dataOut$trigger <- MagellanNTK::Timestamp()
+  dataOut$value <- NULL
     })
     ')
 

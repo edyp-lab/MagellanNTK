@@ -324,9 +324,20 @@ mainapp_server <- function(id,
     
     
     observeEvent(id, {
+      
+      if(usermod == 'dev')
+        options(shiny.fullstacktrace = TRUE)
+      
+      options(shiny.maxRequestSize = 1024^3)
+      
+      # rv.core$current.obj <- dataIn()
+      # if (!is.null(dataIn()))
+      #   rv.core$current.obj.name <- 'myDataset'
+      
       rv.core$current.obj <- dataIn()
-      if (!is.null(dataIn()))
-        rv.core$current.obj.name <- 'myDataset'
+      if (!is.null(rv.core$current.obj))
+         rv.core$current.obj.name <- metadata(rv.core$current.obj)$file
+      
       
       rv.core$workflow.path <- workflow.path()
       rv.core$workflow.name <- workflow.name()
@@ -356,11 +367,7 @@ mainapp_server <- function(id,
       session$userData$funcs <- rv.core$funcs$funcs
       
       session$userData$funcs <- rv.core$funcs$funcs
-      
-      if(usermod == 'dev')
-        options(shiny.fullstacktrace = TRUE)
-      
-      options(shiny.maxRequestSize = 1024^3)
+      rv.core$resetWF <- rv.core$resetWF + 1
       
     }, priority = 1000)
     
@@ -490,43 +497,16 @@ mainapp_server <- function(id,
         args = list(id = ns('Convert')))
     })
     
-    observeEvent(req(rv.core$result_convert()$dataOut()$trigger),{
+    observeEvent(rv.core$result_convert()$dataOut()$value,
+      ignoreInit = TRUE, ignoreNULL = TRUE,{
       if(verbose)
         cat('Data converted')
       
+      req(rv.core$result_convert()$dataOut()$value)
       rv.core$current.obj <- rv.core$result_convert()$dataOut()$value$data
       rv.core$current.obj.name <- rv.core$result_convert()$dataOut()$value$name
       rv.core$resetWF <- rv.core$resetWF + 1
     })
-    
-    
-    #
-    # Code for open demo dataset
-    #
-    # rv.core$result_openDemoDataset <- call.func(
-    #   fname = paste0(rv.core$funcs$open_demoDataset, '_server'),
-    #   args = list(id = 'open_demo_dataset'))
-    # 
-    # output$open_demo_dataset_UI <- renderUI({
-    #   req(rv.core$funcs)
-    #   call.func(
-    #     fname = paste0(rv.core$funcs$open_demoDataset, '_ui'),
-    #     args = list(id = ns('open_demo_dataset')))
-    # })
-    # 
-    # observeEvent(req(rv.core$result_openDemoDataset()),{
-    #   rv.core$current.obj <- rv.core$result_openDemoDataset()
-    # })
-    
-    
-    # observe({
-    #   req(rv.core$funcs$open_dataset)
-    #   print('titi')
-    #   rv.core$result_open_dataset <- call.func(
-    #     fname = paste0(rv.core$funcs$open_dataset, '_server'),
-    #     args = list(id = 'open_dataset'))
-    #   
-    # })
     
     
     output$BuildReport_UI <- renderUI({
@@ -578,9 +558,12 @@ mainapp_server <- function(id,
     
     
     
-    observeEvent(req(rv.core$result_open_dataset()$trigger),{
+    observeEvent(rv.core$result_open_dataset()$trigger, 
+      ignoreInit = TRUE, ignoreNULL = TRUE,{
       if (verbose)
         cat('new dataset loaded\n')
+      
+      req(rv.core$result_open_dataset()$dataset)
       rv.core$resetWF <- rv.core$resetWF + 1
       
       rv.core$current.obj <- rv.core$result_open_dataset()$dataset
@@ -599,9 +582,6 @@ mainapp_server <- function(id,
       rv.core$workflow.path <- rv.core$result_open_workflow()$path
       session$userData$workflow.path <- rv.core$result_open_workflow()$path
       
-      
-      print(session$userData$workflow.path)
-      
       # Load the package which contains the workflow
       call.func('library', list(rv.core$result_open_workflow()$pkg))
       source_wf_files(session$userData$workflow.path)
@@ -616,7 +596,6 @@ mainapp_server <- function(id,
     
     
     observe({
-      
       rv.core$result_run_workflow <- nav_pipeline_server(
         id = rv.core$workflow.name,
         dataIn = reactive({rv.core$current.obj}),
@@ -639,15 +618,14 @@ mainapp_server <- function(id,
       )
     })
     
-    
-    observeEvent(req(input$resetWF), {
-      rv.core$resetWF <- input$resetWF})
-    
-    
     observeEvent(rv.core$result_run_workflow$dataOut()$value, {
+      browser()
       rv.core$current.obj <- rv.core$result_run_workflow$dataOut()$value
     })
     
+    
+    observeEvent(req(input$resetWF), {rv.core$resetWF <- input$resetWF})
+
     output$tools_UI <- renderUI({
       h3('tools')
     })
@@ -656,11 +634,12 @@ mainapp_server <- function(id,
     
     output$InfosDataset_UI <- renderUI({
       req(rv.core$funcs$funcs)
-      
+
       call.func(
         fname = paste0(rv.core$funcs$funcs$infos_dataset, '_server'),
-        args = list(id = 'infos_dataset',
-          obj = reactive({rv.core$current.obj})))
+        args = list(
+          id = 'infos_dataset',
+          dataIn = reactive({rv.core$current.obj})))
       
       call.func(
         fname = paste0(rv.core$funcs$funcs$infos_dataset, '_ui'),

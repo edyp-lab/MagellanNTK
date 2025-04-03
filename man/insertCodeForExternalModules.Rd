@@ -9,8 +9,6 @@
 \alias{Get_Code_for_rv_reactiveValues}
 \alias{Get_Code_for_dataOut}
 \alias{Get_Code_for_General_observeEvents}
-\alias{Get_Code_for_remoteReset2_observeEvents}
-\alias{Get_Code_for_remoteReset_observeEvents}
 \alias{Get_Code_for_remoteReset}
 \alias{Get_Code_for_resetting_widgets}
 \alias{Get_Code_for_resetting_custom}
@@ -33,10 +31,6 @@ Get_Code_for_rv_reactiveValues()
 Get_Code_for_dataOut()
 
 Get_Code_for_General_observeEvents()
-
-Get_Code_for_remoteReset2_observeEvents(add.code = NULL)
-
-Get_Code_for_remoteReset_observeEvents()
 
 Get_Code_for_remoteReset(
   widgets = TRUE,
@@ -68,8 +62,6 @@ steps of the module.}
 
 \item{rv.custom.names}{xxx}
 
-\item{add.code}{Add additional code}
-
 \item{w.names}{xxx}
 
 \item{mode}{xxx}
@@ -86,10 +78,6 @@ NA
 NA
 
 A `string` containing some R code
-
-NA
-
-NA
 
 NA
 
@@ -150,10 +138,6 @@ xxx
 
 xxx
 
-xxx
-
-xxx
-
 This function xxx
 # Generate dynamically the observeEvent function for each widget
 
@@ -164,6 +148,67 @@ This function xxx
 # Generate dynamically the observeEvent function for each widget
 
 This function generates dynamically the observeEvent function for each widget
+}
+\details{
+#' @title Code for declaring xxx
+#'
+#' @description xxx
+#' @param add.code Add additional code
+#'
+#' @export
+#' 
+#' @rdname insertCodeForExternalModules
+#'
+#' @return NA
+#'
+Get_Code_for_remoteReset2_observeEvents <- function(add.code = NULL) {
+  code <- "
+
+observeEvent(req(remoteReset()), ignoreInit = FALSE, ignoreNULL = TRUE,{
+      lapply(names(rv.widgets), function(x){
+          rv.widgets[[x]] <- widgets.default.values[[x]]
+        })
+        
+            lapply(names(rv.custom), function(x){
+        rv.custom[[x]] <- rv.custom.default.values[[x]]
+    })
+    
+    rv$dataIn <- NULL
+    "
+  code <- paste0(code, add.code, "})")
+
+  
+  code
+}
+#' @title Code for declaring xxx
+#'
+#' @description xxx
+#'
+#' @export
+#' 
+#' @rdname insertCodeForExternalModules
+#'
+#' @return NA
+#'
+Get_Code_for_remoteReset_observeEvents <- function() {
+  code <- "
+
+observeEvent(req(remoteReset() >=1), ignoreInit = TRUE, ignoreNULL = TRUE,{
+      lapply(names(rv.widgets), function(x){
+          rv.widgets[[x]] <- widgets.default.values[[x]]
+        })
+        
+            lapply(names(rv.custom), function(x){
+        rv.custom[[x]] <- rv.custom.default.values[[x]]
+    })
+    
+    rv$dataIn <- NULL
+})
+
+"
+  
+  code
+}
 }
 \author{
 Samuel Wieczorek
