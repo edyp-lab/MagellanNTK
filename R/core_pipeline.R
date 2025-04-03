@@ -264,7 +264,7 @@ nav_pipeline_server <- function(
         
         rv$dataIn.original <- dataIn()
         session$userData$dataIn.original <- dataIn()
-        browser()
+        #browser()
         
         
         # When the server starts, the default position is 1
@@ -536,7 +536,7 @@ nav_pipeline_server <- function(
     
     ResetPipeline <- function(){
       
-      browser()
+      
       rv$dataIn <- session$userData$dataIn.original
       
       # The cursor is set to the first step

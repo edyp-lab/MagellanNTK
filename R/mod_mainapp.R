@@ -531,7 +531,7 @@ mainapp_server <- function(id,
         fname = paste0(rv.core$funcs$funcs$download_dataset, '_server'),
         args = list(
           id = 'download_dataset',
-          dataIn = reactive({rv.core$current.obj}))
+          dataIn = reactive({rv.core$processed.obj}))
       )
       
       call.func(fname = paste0(rv.core$funcs$funcs$download_dataset, '_ui'),
@@ -619,8 +619,8 @@ mainapp_server <- function(id,
     })
     
     observeEvent(rv.core$result_run_workflow$dataOut()$value, {
-      browser()
-      rv.core$current.obj <- rv.core$result_run_workflow$dataOut()$value
+      #rv.core$current.obj <- rv.core$result_run_workflow$dataOut()$value
+      rv.core$processed.obj <- rv.core$result_run_workflow$dataOut()$value
     })
     
     
@@ -639,7 +639,7 @@ mainapp_server <- function(id,
         fname = paste0(rv.core$funcs$funcs$infos_dataset, '_server'),
         args = list(
           id = 'infos_dataset',
-          dataIn = reactive({rv.core$current.obj})))
+          dataIn = reactive({rv.core$processed.obj})))
       
       call.func(
         fname = paste0(rv.core$funcs$funcs$infos_dataset, '_ui'),
@@ -653,7 +653,7 @@ mainapp_server <- function(id,
       call.func(
         fname = paste0(rv.core$funcs$funcs$view_dataset, '_server'),
         args = list(id = 'view_dataset',
-          obj = reactive({rv.core$current.obj}),
+          dataIn = reactive({rv.core$processed.obj}),
           useModal = FALSE,
           verbose = TRUE))
       
