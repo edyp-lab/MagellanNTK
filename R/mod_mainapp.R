@@ -335,18 +335,16 @@ mainapp_server <- function(id,
       #   rv.core$current.obj.name <- 'myDataset'
       
       rv.core$current.obj <- dataIn()
+      rv.core$processed.obj <- dataIn()
       if (!is.null(rv.core$current.obj))
          rv.core$current.obj.name <- metadata(rv.core$current.obj)$file
-      
       
       rv.core$workflow.path <- workflow.path()
       rv.core$workflow.name <- workflow.name()
       session$userData$workflow.path <- workflow.path()
       session$userData$workflow.name <- workflow.name()
-      
       session$userData$usermod <- usermod
       session$userData$verbose <- verbose
-      
       session$userData$funcs <- rv.core$funcs
       
       
@@ -363,16 +361,12 @@ mainapp_server <- function(id,
           rv.core$funcs$funcs[[f]] <- default.funcs()[[f]]
       }
       session$userData$funcs <- rv.core$funcs$funcs
-      session$userData$funcs <- rv.core$funcs$funcs
-      session$userData$funcs <- rv.core$funcs$funcs
-      
-      session$userData$funcs <- rv.core$funcs$funcs
+
       rv.core$resetWF <- rv.core$resetWF + 1
-      
     }, priority = 1000)
     
     
-    observeEvent(rv.core$workflow.path, {
+    observeEvent(req(rv.core$workflow.path), {
       rv.core$funcs <- readConfigFile(rv.core$workflow.path)
       
       for (f in names(rv.core$funcs$funcs)){
@@ -388,11 +382,10 @@ mainapp_server <- function(id,
     output$sidebar <- renderUI({
       req(usermod)
       
-      if (usermod == 'dev'){
-        Insert_Dev_Sidebar()
-      } else if (usermod == 'user'){
-        Insert_User_Sidebar()
-      }
+      switch(usermod,
+        dev = Insert_Dev_Sidebar(),
+        user = Insert_User_Sidebar()
+      )
     })
     
     output$left_UI <- renderUI({
@@ -421,42 +414,13 @@ mainapp_server <- function(id,
     })
     
     
-    output$browser_UI <- renderUI({
-      req( session$userData$usermod == 'dev')
-      actionButton(ns('browser'), 'Console')
-      
-    })
-    observeEvent(input$browser,{browser()})
+    # output$browser_UI <- renderUI({
+    #   req(session$userData$usermod == 'dev')
+    #   actionButton(ns('browser'), 'Console')
+    # })
     
+    #observeEvent(input$browser,{browser()})
     observeEvent(input$ReloadProstar, { js$reset()})
-    
-    
-    # # Launching a demo consist in launching a workflow and a dataset
-    # observeEvent(input$launch_demo, {
-    #   data(lldata)
-    #   rv.core$current.obj <- lldata
-    # 
-    #   rv.core$workflow.name <- 'PipelineDemo'
-    #   session$userData$workflow.name <- 'PipelineDemo'
-    #   
-    #   rv.core$workflow.path <- system.file('workflow/PipelineDemo', package='MagellanNTK')
-    #   session$userData$workflow.path <- system.file('workflow/PipelineDemo', package='MagellanNTK')
-    #   
-    #   session$userData$funcs <- default.funcs()
-    #   rv.core$funcs <- default.funcs()
-    #   
-    #   
-    #   # Fix NULL values
-    #   lapply(names(rv.core$funcs), function(x)
-    #     if(is.null(rv.core$funcs[[x]]))
-    #       rv.core$funcs[[x]] <- default.funcs()[[x]]
-    #   )
-    #   session$userData$funcs <- default.funcs()
-    #   
-    #   
-    #   source_wf_files(session$userData$workflow.path)
-    #   })
-    
     
     rv.core$tmp.funcs <- mod_modalDialog_server('loadPkg_modal', 
       title = "Default core functions",
@@ -484,7 +448,6 @@ mainapp_server <- function(id,
       rv.core$result_convert <- call.func(
         fname = paste0(rv.core$funcs$funcs$convert_dataset, '_server'),
         args = list(id = 'Convert'))
-      
     })
     
     
@@ -503,8 +466,10 @@ mainapp_server <- function(id,
         cat('Data converted')
       
       req(rv.core$result_convert()$dataOut()$value)
+      
       rv.core$current.obj <- rv.core$result_convert()$dataOut()$value$data
       rv.core$current.obj.name <- rv.core$result_convert()$dataOut()$value$name
+      rv.core$processed.obj <- rv.core$current.obj
       rv.core$resetWF <- rv.core$resetWF + 1
     })
     
@@ -517,7 +482,7 @@ mainapp_server <- function(id,
         fname = paste0(rv.core$funcs$funcs$build_report, '_server'),
         args = list(
           id = 'build_report',
-          dataIn = reactive({rv.core$current.obj}))
+          dataIn = reactive({rv.core$processed.obj}))
       )
       
       call.func(fname = paste0(rv.core$funcs$funcs$build_report, '_ui'),
@@ -568,7 +533,7 @@ mainapp_server <- function(id,
       
       rv.core$current.obj <- rv.core$result_open_dataset()$dataset
       rv.core$current.obj.name <- rv.core$result_open_dataset()$name
-      
+      rv.core$processed.obj <- rv.core$current.obj
     })
     
     
@@ -619,7 +584,6 @@ mainapp_server <- function(id,
     })
     
     observeEvent(rv.core$result_run_workflow$dataOut()$value, {
-      #rv.core$current.obj <- rv.core$result_run_workflow$dataOut()$value
       rv.core$processed.obj <- rv.core$result_run_workflow$dataOut()$value
     })
     

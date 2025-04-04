@@ -334,7 +334,7 @@ Get_Code_for_remoteReset <- function(
     addon = '') {
     code <- "
 
-observeEvent(req(remoteReset()), ignoreInit = TRUE, ignoreNULL = TRUE, {
+observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
 browser()
   "
   
@@ -348,10 +348,7 @@ browser()
   code <- paste0(code, '
   ', addon, '
     ')
-  code <- paste0(code, '
-  dataOut$trigger <- MagellanNTK::Timestamp()
-  dataOut$value <- NULL
-    })
+  code <- paste0(code, '})
     ')
 
   code

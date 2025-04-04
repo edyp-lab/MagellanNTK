@@ -55,26 +55,6 @@ ActionOn_Child_Changed <- function(
   if (is.null(newValue)) {
     # A process has been reseted (it has returned a NULL value)
     
-    # One take the last validated step (before the one
-    # corresponding to processHasChanges
-    # but it is straightforward because we just updates rv$status
-    steps.status[ind.processHasChanged:len] <- stepStatus$UNDONE
-    
-    #All the following processes (after the one which has changed) are disabled
-    steps.enabled[(ind.processHasChanged + 1):len] <- FALSE
-    
-    #browser()
-    
-    #test <- GetFirstMandatoryNotValidated((ind.processHasChanged + 1):len, rv)
-    # The process that has been rested is enabled so as to rerun it
-    steps.enabled[ind.processHasChanged] <- TRUE
-    
-    steps.skipped[ind.processHasChanged:len] <- FALSE
-    
-    
-    
-    Update_State_Screens(steps.skipped, steps.enabled, rv)
-    
     
     
     validated.steps <- which(steps.status == stepStatus$VALIDATED)
@@ -84,35 +64,61 @@ ActionOn_Child_Changed <- function(
       ind.last.validated <- 0
     }
     
-   
+   browser()
     
     # There is no validated step (the first step has been reseted)
     if (ind.last.validated == 0) {
       dataIn <- NULL
     } else if (ind.last.validated == 1){
       
+      dataIn <- temp.dataIn
+      
+    } else {
       # Check if the reseted process has been validated before reset or not
       if (isTRUE(validatedBeforeReset)){
         dataIn <- call.func(
           fname = keepdataset_func,
           args = list(object = dataIn,
-            range = seq_len(length(temp.dataIn)-1))
+            range = seq_len(length(dataIn)-1))
         )
       } else {
         dataIn <- temp.dataIn
       }
       
-    } else {
       # browser()
-      name.last.validated <- steps[ind.last.validated]
-      dataIn.ind.last.validated <- which(names(dataIn) == names(name.last.validated))
-      #browser()
-      dataIn <- call.func(
-        fname = keepdataset_func,
-        args = list(object = dataIn,
-          range = seq_len(dataIn.ind.last.validated))
-      )
+      # name.last.validated <- steps[ind.last.validated]
+      # dataIn.ind.last.validated <- which(names(dataIn) == names(name.last.validated))
+      # #browser()
+      # dataIn <- call.func(
+      #   fname = keepdataset_func,
+      #   args = list(object = dataIn,
+      #     range = seq_len(dataIn.ind.last.validated))
+      # )
     }
+   
+   # One take the last validated step (before the one
+   # corresponding to processHasChanges
+   # but it is straightforward because we just updates rv$status
+   steps.status[ind.processHasChanged:len] <- stepStatus$UNDONE
+   
+   #All the following processes (after the one which has changed) are disabled
+   steps.enabled[(ind.processHasChanged + 1):len] <- FALSE
+   
+   #browser()
+   
+   #test <- GetFirstMandatoryNotValidated((ind.processHasChanged + 1):len, rv)
+   # The process that has been rested is enabled so as to rerun it
+   steps.enabled[ind.processHasChanged] <- TRUE
+   
+   steps.skipped[ind.processHasChanged:len] <- FALSE
+   
+   
+   
+   Update_State_Screens(steps.skipped, steps.enabled, rv)
+   
+   
+   
+   
   } else {
     
     # A process has been validated

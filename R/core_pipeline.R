@@ -398,18 +398,22 @@ nav_pipeline_server <- function(
               )
             })
             
-            # Catch the returned values of the processes attached to 
-            # pipeline
-            observeEvent(lapply(GetStepsNames(),
-              function(x) {tmp.return[[x]]$dataOut()$trigger}
-            ), ignoreInit = TRUE,
-              {
-                
-                ActionOn_Data_Trigger()
-              }
-            )
+            
       },
       priority = 1000
+    )
+    
+    
+    
+    # Catch the returned values of the processes attached to 
+    # pipeline
+    observeEvent(lapply(GetStepsNames(),
+      function(x) {tmp.return[[x]]$dataOut()$trigger}
+    ), ignoreInit = FALSE,
+      {
+        
+        ActionOn_Data_Trigger()
+      }
     )
     
     

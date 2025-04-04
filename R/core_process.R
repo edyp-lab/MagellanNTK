@@ -228,82 +228,67 @@ nav_process_server <- function(id = NULL,
         })
         
         
-
-        #######################################################
         if(verbose)
           cat(crayon::yellow(paste0(id, ': Entering observeEvent(req(rv$config), {...})\n')))
-
- 
-            
-            # Launch the horizontal timeline server
-            # The parameter 'config' is used to xxx
-            # The parameter 'status' is used to color the bullets
-            # the parameter 'position' is used to put the cursor at the
-            # current position
-            # The parameter 'enabled' is used to modify the bullets 
-            # whether the corresponding step is enabled or disabled
-            # mod_timeline_h_server(id = 'timeline',
-            # config = rv$config,
-            # status = reactive({rv$steps.status}),
-            # position = reactive({rv$current.pos}),
-            # enabled = reactive({rv$steps.enabled})
-            # )
-            
-            
-            observeEvent(rv$proc$dataOut()$trigger,
-              ignoreNULL = TRUE, ignoreInit = TRUE, {
-                # If a value is returned, this is because the 
-                # # current step has been validated
-                rv$steps.status[rv$current.pos] <- stepStatus$VALIDATED
-                
-                # Look for new skipped steps
-                rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
-                
-                # If it is the first step (description step), then
-                # load the dataset in work variable 'dataIn'
-                if (rv$current.pos == 1) {
-                  rv$dataIn <- rv$temp.dataIn
-                  
-                } # View intermediate datasets
-                else if (rv$current.pos > 1 && rv$current.pos < length(rv$config@steps)) {
-                  rv$dataIn <- rv$proc$dataOut()$value
-                } 
-                # Manage the last dataset which is the real one 
-                # returned by the process
-                else if (rv$current.pos == length(rv$config@steps)) {
-                  # Update the work variable of the nav_process 
-                  # with the dataset returned by the process
-                  # Thus, the variable rv$temp.dataIn keeps 
-                  # trace of the original dataset sent to
-                  # this  workflow and will be used in case of 
-                  # reset
-                  rv$dataIn <- rv$proc$dataOut()$value
-                  
-                  # Update the 'dataOut' reactive value to return
-                  #  this dataset to the caller. this `nav_process` 
-                  #  is only a bridge between the process and  the
-                  #  caller
-                  # For a pipeline, the output is updated each 
-                  # time a process has been validated
-                  dataOut$trigger <- Timestamp()
-                  dataOut$value <- rv$dataIn
-                }
-              }
-            )
-            
-            
-            observeEvent(req(!is.null(rv$position)), ignoreInit = TRUE, {
-              pos <- strsplit(rv$position, "_")[[1]][1]
-              
-              if (pos == "last") {
-                rv$current.pos <- length(rv$config@steps)
-              } else if (is.numeric(pos)) {
-                rv$current.pos <- rv$position
-              }
-            })
       },
       priority = 1000
     )
+    
+    
+    
+    observeEvent(rv$proc$dataOut()$trigger,
+      ignoreNULL = TRUE, ignoreInit = TRUE, {
+        # If a value is returned, this is because the 
+        # # current step has been validated
+        rv$steps.status[rv$current.pos] <- stepStatus$VALIDATED
+        
+        # Look for new skipped steps
+        rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
+        
+        # If it is the first step (description step), then
+        # load the dataset in work variable 'dataIn'
+        if (rv$current.pos == 1) {
+          rv$dataIn <- rv$temp.dataIn
+          
+        } # View intermediate datasets
+        else if (rv$current.pos > 1 && rv$current.pos < length(rv$config@steps)) {
+          rv$dataIn <- rv$proc$dataOut()$value
+        } 
+        # Manage the last dataset which is the real one 
+        # returned by the process
+        else if (rv$current.pos == length(rv$config@steps)) {
+          # Update the work variable of the nav_process 
+          # with the dataset returned by the process
+          # Thus, the variable rv$temp.dataIn keeps 
+          # trace of the original dataset sent to
+          # this  workflow and will be used in case of 
+          # reset
+          rv$dataIn <- rv$proc$dataOut()$value
+          
+          # Update the 'dataOut' reactive value to return
+          #  this dataset to the caller. this `nav_process` 
+          #  is only a bridge between the process and  the
+          #  caller
+          # For a pipeline, the output is updated each 
+          # time a process has been validated
+          dataOut$trigger <- Timestamp()
+          dataOut$value <- rv$dataIn
+        }
+      }
+    )
+    
+    
+    
+    observeEvent(req(!is.null(rv$position)), ignoreInit = TRUE, {
+      pos <- strsplit(rv$position, "_")[[1]][1]
+      
+      if (pos == "last") {
+        rv$current.pos <- length(rv$config@steps)
+      } else if (is.numeric(pos)) {
+        rv$current.pos <- rv$position
+      }
+    })
+    
     
     
     # Specific to pipeline module
@@ -355,7 +340,6 @@ nav_process_server <- function(id = NULL,
     # See https://github.com/daattali/shinyjs/issues/166
     # https://github.com/daattali/shinyjs/issues/25
     observeEvent(rv$steps.status, ignoreInit = TRUE, {
-      print('observeEvent(rv$steps.status, ignoreInit = TRUE')
       rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
       
       rv$steps.enabled <- Update_State_Screens(
@@ -405,35 +389,28 @@ nav_process_server <- function(id = NULL,
       # configuration of the process
       rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
       
-      
       # Return the NULL value as dataset
       dataOut$trigger <- Timestamp()
-      dataOut$value <- rv$dataIn
-      
-      #Finally, close the modal
-      #removeModal()
+      dataOut$value <- NULL
     }
     
-    observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE,{
+    observeEvent(c(remoteReset(), rv$rstBtn()), ignoreInit = TRUE, ignoreNULL = TRUE,{
       req(rv$config)
-      
-      print("In core.R : observeEvent(req(rv$rstBtn())")
-      
       ResetProcess()
     }
     )
     
     
     
-    
-    # Catch a click of a the button 'Ok' of a reset modal. This can be in 
-    # the local module or in the module parent UI (in this case,
-    # it is called a 'remoteReset')
-    observeEvent(req(rv$rstBtn()), ignoreInit = FALSE, ignoreNULL = TRUE,{
-      print("In core.R : observeEvent(req(rv$rstBtn())")
-      ResetProcess()
-    }
-    )
+
+    # # Catch a click of a the button 'Ok' of a reset modal. This can be in
+    # # the local module or in the module parent UI (in this case,
+    # # it is called a 'remoteReset')
+    # observeEvent(req(rv$rstBtn()), ignoreInit = FALSE, ignoreNULL = TRUE,{
+    #   print("In core.R : observeEvent(req(rv$rstBtn())")
+    #   ResetProcess()
+    # }
+    # )
     
     
     # Show the info panel of a skipped module
