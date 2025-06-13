@@ -142,69 +142,60 @@ Insert_User_Sidebar <- function(){
     # tags$head(tags$style(".inactiveLink {pointer-events: none; background-color: grey;}")),
     
     # Menus and submenus in sidebar
-    #br(),
-    shinydashboard::menuItem("Home", 
+
+    menuItem("Home", 
       tabName = "Home", 
-      icon = icon("home"),
-      selected = TRUE),
-    #hr(),
-    
-    
-    shinydashboard::menuItem(
-      'Dataset',
-      icon = 'home',
-      
-      shinydashboard::menuSubItem("Open file",
-        icon = img(src="www/logo-simple.png", width = 20),
-        tabName = "openDataset"),
-      shinydashboard::menuSubItem("Save As", 
-        icon = img(src="www/logo-simple.png", width = 20),
-        tabName = "SaveAs"),
-      shinydashboard::menuSubItem("Import data",
+      icon = icon("home"), 
+      startExpanded = TRUE),
+    menuItem(
+      "Dataset", 
+      menuSubItem("Open file", 
+        tabName = "openDataset",
+        icon = img(src="www/logo-simple.png", width = 20)
+        ),
+      menuSubItem("Save As", 
+        tabName = "SaveAs",
+        icon = img(src="www/logo-simple.png", width = 20)
+      ),
+      menuSubItem("Import data", 
         tabName = "convertDataset",
-        icon = icon("folder")
+        icon = img(src="www/logo-simple.png", width = 20)
       ),
-      shinydashboard::menuSubItem(
-        "Build report (Beta)", 
-        icon = img(src="www/logo-simple.png", width = 20),
-        tabName = "BuildReport")
+      menuSubItem("Build report (Beta)", 
+        tabName = "BuildReport",
+        icon = img(src="www/logo-simple.png", width = 20)
+      )
     ),
-    #hr(),
-    shinydashboard::menuItem('Workflow', 
-      icon = 'home',
-      
-      shinydashboard::menuSubItem("Run", 
-        tabName = "workflow", 
-        icon = icon("cogs")),
-      shinydashboard::menuSubItem("Manual", 
-        icon = img(src="www/logo-simple.png", width = 20),
-        tabName = "Manual"),
-      shinydashboard::menuSubItem("FAQ", 
-        icon = img(src="www/logo-simple.png", width = 20),
-        tabName = "faq"),
-      shinydashboard::menuSubItem("Release Notes", 
-        icon = img(src="www/logo-simple.png", width = 20),
-        tabName = "releaseNotes")
-    ),
-    #hr(),
-    shinydashboard::menuItem('Vizualize data',
-      icon = 'home',
-      
-      shinydashboard::menuSubItem("Info", 
-        tabName = "infosDataset", 
-        icon = icon("info")
+    menuItem(
+      "Workflow", 
+      menuSubItem("Run", 
+        tabName = "workflow",
+        icon = icon("cogs")
       ),
-      shinydashboard::menuSubItem("EDA", 
-        icon = img(src="www/logo-simple.png", width = 20),
-        tabName = "eda")
+      menuSubItem("Manual", 
+        tabName = "Manual",
+        icon = img(src="www/logo-simple.png", width = 20)
+      ),
+      menuSubItem("FAQ", 
+        tabName = "faq",
+        icon = img(src="www/logo-simple.png", width = 20)
+      ),
+      menuSubItem("Release Notes", 
+        tabName = "releaseNotes",
+        icon = img(src="www/logo-simple.png", width = 20)
+      )
+    ),
+    menuItem("Vizualize data", 
+      menuSubItem("Info", 
+        tabName = "infosDataset",
+        icon = icon("cogs")
+      ),
+      menuSubItem("EDA", 
+        tabName = "eda",
+        icon = img(src="www/logo-simple.png", width = 20)
+      )
     )
-    #hr(),
-    # ,shinydashboard::menuItem(h4('Help', style="color: lightgrey;"),
-    #   
-    #   #icon = icon("question-circle"),
-    #   shinydashboard::menuSubItem("Useful Links", tabName = "usefulLinks"),
-    #   shinydashboard::menuSubItem("Bug Report", tabName = "bugReport")
-    #   )
+    
   )
-  # )
+
 }
