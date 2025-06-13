@@ -64,7 +64,7 @@ ActionOn_Child_Changed <- function(
       ind.last.validated <- 0
     }
     
-   browser()
+   #browser()
     
     # There is no validated step (the first step has been reseted)
     if (ind.last.validated == 0) {
