@@ -335,7 +335,7 @@ Get_Code_for_remoteReset <- function(
     code <- "
 
 observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
-browser()
+#browser()
   "
   
   if (widgets)

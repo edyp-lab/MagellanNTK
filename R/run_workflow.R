@@ -25,6 +25,7 @@
 #' 
 #' @examples
 #' \dontrun{
+#' library(MagellanNTK)
 #' library(shiny)
 #' data(lldata)
 #' data(sub_R25)
@@ -255,7 +256,8 @@ proc_workflow_server <- function(
           dataIn = reactive({dataIn}),
           tl.layout = tl.layout, 
           verbose = verbose,
-          usermod = usermod
+          usermod = usermod,
+          remoteReset = reactive({NULL})
         )
       )
     })

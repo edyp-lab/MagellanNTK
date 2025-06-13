@@ -148,6 +148,9 @@ MagellanNTK <- function(
   #   browser = NULL
   # )
   
+  files <- list.files(file.path(workflow.path, 'R'), full.names = TRUE)
+  for(f in files)
+    source(f, local = FALSE, chdir = TRUE)
   
   
   source_shinyApp_files()
