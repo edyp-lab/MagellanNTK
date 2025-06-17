@@ -148,18 +148,7 @@ MagellanNTK <- function(
   #   browser = NULL
   # )
   
-  
-  library(MagellanNTK)
-  library(highcharter)
-  library(DaparToolshed)
-  library(shinyBS)
-  library(omXplore)
-  library(shiny)
-  library(shinyjs)
-  library(shinydashboard)
-  library(shinydashboardPlus)
-  
-  
+
   files <- list.files(file.path(workflow.path, 'R'), full.names = TRUE)
   for(f in files)
     source(f, local = FALSE, chdir = TRUE)
