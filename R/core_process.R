@@ -440,6 +440,12 @@ nav_process_server <- function(id = NULL,
     
     GetStepsNames <- reactive({names(rv$config@steps)})
     
+    
+    
+    output$injectHTML <- renderUI({
+      h2('*******inject html*******')
+    })
+    
     # This function uses the UI definition to:
     # 1 - initialize the UI (only the first screen is shown),
     # 2 - encapsulate the UI in a div (used to hide all screens at a time 
@@ -447,8 +453,8 @@ nav_process_server <- function(id = NULL,
     output$EncapsulateScreens_ui <- renderUI({
       len <- length(rv$config@ll.UI)
       
-      renderUI({
-        tagList(
+      #renderUI({
+       screens <-  tagList(
           lapply(seq_len(len), function(i) {
             if (i == 1) {
               div(
@@ -467,9 +473,9 @@ nav_process_server <- function(id = NULL,
             }
           })
         )
-      })
-      
-      
+      #})
+      #browser()
+      screens
     })
     
     
@@ -481,7 +487,9 @@ nav_process_server <- function(id = NULL,
         cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
       
       #DisplayWholeUI(ns, rv$tl.layout[1])
-      Build_nav_process_ui(ns)
+      processUI <-Build_nav_process_ui(ns)
+     
+      processUI
     })
     
     

@@ -185,31 +185,74 @@ PipelineDemo_Process1_server <- function(id,
     # >>>> -------------------- STEP 1 : Global UI ------------------------------------
     output$Step1 <- renderUI({
       shinyjs::useShinyjs()
-      wellPanel(
-        # uiOutput for all widgets in this UI
-        # This part is mandatory
-        # The renderUI() function of each widget is managed by MagellanNTK
-        # The dev only have to define a reactive() function for each
-        # widget he want to insert
-        # Be aware of the naming convention for ids in uiOutput()
-        # For more details, please refer to the dev document.
-        fluidRow(
-          column(width = 3, uiOutput(ns('Step1_btn1_ui'))),
-          column(width = 3, uiOutput(ns('Step1_radio1_ui')))
+      # wellPanel(
+      #   # uiOutput for all widgets in this UI
+      #   # This part is mandatory
+      #   # The renderUI() function of each widget is managed by MagellanNTK
+      #   # The dev only have to define a reactive() function for each
+      #   # widget he want to insert
+      #   # Be aware of the naming convention for ids in uiOutput()
+      #   # For more details, please refer to the dev document.
+      #   fluidRow(
+      #     column(width = 3, uiOutput(ns('Step1_btn1_ui'))),
+      #     column(width = 3, uiOutput(ns('Step1_radio1_ui')))
+      #     ),
+      #   
+      #   fluidRow(
+      #     column(width = 3, uiOutput(ns('Step1_select1_ui'))),
+      #     column(width = 3, shinyjs::hidden(uiOutput(ns('Step1_select2_ui')))),
+      #     column(width = 3, uiOutput(ns('Step1_select3_ui')))
+      #     ),
+      #   #foo_ui(ns('foo')),
+      #   # Insert validation button
+      #   uiOutput(ns('Step1_btn_validate_ui')),
+      #   
+      #   # Additional code
+      #   plotOutput(ns('showPlot'))
+      # )
+      
+      
+      
+      
+      fluidPage(
+        #includeCSS("www/theme_base.css"),
+
+        bslib::layout_sidebar(
+          sidebar = bslib::sidebar(
+            h3('--- add frise ---'),
+            uiOutput(ns('injectHTML')),
+
+
+
+            hr(style = "border-top: 3px solid #000000;"),
+            uiOutput(ns("Step1_btn_validate_ui")),
+            hr(style = "border-top: 3px solid #000000;"),
+            fluidRow(
+              inputPanel(p("add widgets"),
+                
+                fluidRow(
+                  column(width = 3, uiOutput(ns('Step1_btn1_ui'))),
+                  column(width = 3, uiOutput(ns('Step1_radio1_ui')))
+                ),
+                
+                fluidRow(
+                  column(width = 3, uiOutput(ns('Step1_select1_ui'))),
+                  column(width = 3, shinyjs::hidden(uiOutput(ns('Step1_select2_ui')))),
+                  column(width = 3, uiOutput(ns('Step1_select3_ui')))
+                ))
+            ),
+            width = 510,
+            position = "left",
+            bg='lightblue',
+            padding = c(7, 5), # 1ere valeur : padding vertical, 2eme : horizontal
+            style = "p1"
           ),
-        
-        fluidRow(
-          column(width = 3, uiOutput(ns('Step1_select1_ui'))),
-          column(width = 3, shinyjs::hidden(uiOutput(ns('Step1_select2_ui')))),
-          column(width = 3, uiOutput(ns('Step1_select3_ui')))
-          ),
-        #foo_ui(ns('foo')),
-        # Insert validation button
-        uiOutput(ns('Step1_btn_validate_ui')),
-        
-        # Additional code
-        plotOutput(ns('showPlot'))
+          plotOutput(ns('showPlot'))
+        )
       )
+      # 
+      # 
+      # 
     })
     
     
@@ -300,10 +343,9 @@ PipelineDemo_Process1_server <- function(id,
     })
     
     
-    # output$showPlot <- renderPlot({
-    #   req(rv$dataIn)
-    #   plot(as.matrix(rv$dataIn[[1]][,1]))
-    # })
+    output$showPlot <- renderPlot({
+      plot(1:10)
+    })
     # <<< END ------------- Code for step 1 UI---------------
     
     
@@ -405,7 +447,7 @@ PipelineDemo_Process1_server <- function(id,
     # <<< END ------------- Code for step 3 UI---------------
     
     
-    
+    #dataOu$widgets <- 
     # Insert necessary code which is hosted by MagellanNTK
     # DO NOT MODIFY THIS LINE
     eval(parse(text = Module_Return_Func()))

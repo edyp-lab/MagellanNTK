@@ -753,6 +753,7 @@ nav_server <- function(id = NULL,
           if(verbose)
             cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
           
+          #browser()
             DisplayWholeUI(ns, rv$tl.layout[1])
         })
 
