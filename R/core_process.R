@@ -170,28 +170,10 @@ nav_process_server <- function(id = NULL,
             dataIn = reactive({rv$temp.dataIn}),
             steps.enabled = reactive({rv$steps.enabled}),
             remoteReset = reactive({rv$rstBtn() + remoteReset()}),
-            steps.status = reactive({rv$steps.status}),
-            current.pos = reactive({rv$current.pos}),
-            timeline = reactive({
-           tagList(
-             div(
-           # actionButton(ns("prevBtn"),
-           #       tl_h_prev_icon,
-           #       class = PrevNextBtnClass,
-           #       style = "font-size:60%"
-           #     ),
-           #   actionButton(ns("nextBtn"),
-           #       tl_h_next_icon,
-           #       class = PrevNextBtnClass,
-           #       style = "font-size:60%"
-           #     ),
-           #     mod_modalDialog_ui(id = ns("rstBtn")),
-               timeline_process_ui(ns("timeline_process"))
-           )
-           )
-           })
+            steps.status = reactive({rv$steps.status})
           )
-)
+        )
+        
         # Update the reactive value config with the config of the 
         # pipeline
         rv$config <- rv$proc$config()
@@ -226,22 +208,24 @@ nav_process_server <- function(id = NULL,
         # Launch the server timeline for this process/pipeline
         
         do.call(
-          paste0("timeline_process_server"),
+          paste0("timeline_", rv$tl.layout[1], "_server"),
           list(
-            id = "timeline_process",
+            id = paste0("timeline", rv$tl.layout[1]),
             config = rv$config,
             status = reactive({rv$steps.status}),
             enabled = reactive({rv$steps.enabled}),
             position = reactive({rv$current.pos})
           )
         )
-
-        # # Launch the UI of the timeline
-        # output$show_TL <- renderUI({
-        # 
-        #   timeline_process_ui(ns("timeline_process")))
-        #   )
-        # })
+        
+        # Launch the UI of the timeline
+        output$show_TL <- renderUI({
+          
+          do.call(
+            paste0("timeline_", rv$tl.layout[1], "_ui"),
+            list(ns(paste0("timeline", rv$tl.layout[1])))
+          )
+        })
         
         
         if(verbose)
@@ -250,7 +234,7 @@ nav_process_server <- function(id = NULL,
       priority = 1000
     )
     
-   
+    
     
     observeEvent(rv$proc$dataOut()$trigger,
       ignoreNULL = TRUE, ignoreInit = TRUE, {
@@ -316,7 +300,6 @@ nav_process_server <- function(id = NULL,
     
     # Update the current position after a click  on the 'Previous' button
     observeEvent(input$prevBtn, ignoreInit = TRUE, {
-      print("clikc on Prev button")
       rv$current.pos <- NavPage(direction = -1,
         current.pos = rv$current.pos,
         len = length(rv$config@steps)
@@ -325,15 +308,15 @@ nav_process_server <- function(id = NULL,
     
     # Update the current position after a click on the 'Next' button
     observeEvent(input$nextBtn, ignoreInit = TRUE, {
-      print("clikc on Next button")
       rv$current.pos <- NavPage(direction = 1,
         current.pos = rv$current.pos,
         len = length(rv$config@steps)
       )
     })
     
-
-
+    
+    
+    
     
     # The parameter 'is.enabled()' is updated by the caller and tells the 
     # process if it is enabled or disabled (remote action from the caller)
@@ -505,16 +488,7 @@ nav_process_server <- function(id = NULL,
       if(verbose)
         cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
       
-      tagList(
-       # h2('tutututututu')
-      #DisplayWholeUI(ns, rv$tl.layout[1])
-        Build_nav_process_ui(ns),
-        div(
-          id = ns("Screens"),
-          uiOutput(ns("SkippedInfoPanel")),
-          uiOutput(ns("EncapsulateScreens_ui"))
-        )
-      )
+      DisplayWholeUI(ns, rv$tl.layout[1])
     })
     
     
@@ -603,9 +577,7 @@ nav_process_server <- function(id = NULL,
     
     
     observeEvent(rv$current.pos, ignoreInit = TRUE, {
-      print("observeEvent(rv$current.pos in CORE_PROCESS.R")
       
-      print(paste0("New current position = ", rv$current.pos))
       
       ToggleState_NavBtns(
         current.pos = rv$current.pos,

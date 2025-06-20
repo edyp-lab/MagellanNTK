@@ -46,8 +46,8 @@ PipelineDemo_Process1_conf <- function(){
   Config(
     fullname = 'PipelineDemo_Process1',
     mode = 'process',
-    steps = c('Step 1'),
-    mandatory = c(FALSE)
+    steps = c('Step 1', 'Step 2'),
+    mandatory = c(FALSE, TRUE)
     )
 }
 
@@ -73,8 +73,7 @@ PipelineDemo_Process1_server <- function(id,
   steps.enabled = reactive({NULL}),
   remoteReset = reactive({NULL}),
   steps.status = reactive({NULL}),
-  current.pos = reactive({1}), 
-  timeline = reactive({NULL})
+  current.pos = reactive({1})
   ){
  
   #source(paste0(path, '/foo.R'), local=TRUE)$value
@@ -123,62 +122,29 @@ PipelineDemo_Process1_server <- function(id,
     
     
     output$Description <- renderUI({
-      #timeline()
-      
       file <- normalizePath(file.path(session$userData$workflow.path, 
         'md', paste0(id, '.md')))
    
       req(file)
-      
-      
-      fluidPage(
-        #includeCSS("www/theme_base.css"),
+      tagList(
+        ### In this example, the md file is found in the extdata/module_examples 
+        ### directory but with a real app, it should be provided by the package 
+        ### which contains the UI for the different steps of the process module.
+        ### system.file(xxx)
         
-        bslib::layout_sidebar(
-          sidebar = bslib::sidebar(
-            timeline(),
-              h3('add frise'),
-              hr(style = "border-top: 3px solid #000000;"),
-              uiOutput(ns("Description_btn_validate_ui")),
-              hr(style = "border-top: 3px solid #000000;"),
-            width = 810,
-            position = "left",
-            #bg='lightblue',
-            padding = c(7, 5), # 1ere valeur : padding vertical, 2eme : horizontal
-            style = "p1"
-          ),
-          
-          uiOutput(ns('datasetDescription_ui')),
-          
-          # Insert validation button
-          uiOutput(ns('Description_btn_validate_ui'))
-          
-          
-          #padding = c(0, 40)
-        )
-      
+        if (file.exists(file))
+          includeMarkdown(file)
+        else
+          p('No Description available'),
+        
+        
+        # Used to show some information about the dataset which is loaded
+        # This function must be provided by the package of the process module
+        uiOutput(ns('datasetDescription_ui')),
+        
+        # Insert validation button
+        uiOutput(ns('Description_btn_validate_ui'))
       )
-      
-      
-      # tagList(
-      #   ### In this example, the md file is found in the extdata/module_examples 
-      #   ### directory but with a real app, it should be provided by the package 
-      #   ### which contains the UI for the different steps of the process module.
-      #   ### system.file(xxx)
-      #   
-      #   if (file.exists(file))
-      #     includeMarkdown(file)
-      #   else
-      #     p('No Description available'),
-      #   
-      #   
-      #   # Used to show some information about the dataset which is loaded
-      #   # This function must be provided by the package of the process module
-      #   uiOutput(ns('datasetDescription_ui')),
-      #   
-      #   # Insert validation button
-      #   uiOutput(ns('Description_btn_validate_ui'))
-      # )
     })
     
     output$datasetDescription_ui <- renderUI({
@@ -218,79 +184,33 @@ PipelineDemo_Process1_server <- function(id,
     
     # >>>> -------------------- STEP 1 : Global UI ------------------------------------
     output$Step1 <- renderUI({
-      
       shinyjs::useShinyjs()
-      # wellPanel(
-      #   # uiOutput for all widgets in this UI
-      #   # This part is mandatory
-      #   # The renderUI() function of each widget is managed by MagellanNTK
-      #   # The dev only have to define a reactive() function for each
-      #   # widget he want to insert
-      #   # Be aware of the naming convention for ids in uiOutput()
-      #   # For more details, please refer to the dev document.
-      #   fluidRow(
-      #     column(width = 3, uiOutput(ns('Step1_btn1_ui'))),
-      #     column(width = 3, uiOutput(ns('Step1_radio1_ui')))
-      #     ),
-      #   
-      #   fluidRow(
-      #     column(width = 3, uiOutput(ns('Step1_select1_ui'))),
-      #     column(width = 3, shinyjs::hidden(uiOutput(ns('Step1_select2_ui')))),
-      #     column(width = 3, uiOutput(ns('Step1_select3_ui')))
-      #     ),
-      #   #foo_ui(ns('foo')),
-      #   # Insert validation button
-      #   uiOutput(ns('Step1_btn_validate_ui')),
-      #   
-      #   # Additional code
-      #   plotOutput(ns('showPlot'))
-      # )
-      
-      
-        fluidPage(
-          #includeCSS("www/theme_base.css"),
-          
-          bslib::layout_sidebar(
-            sidebar = bslib::sidebar(
-              timeline(),
-                h3('add frise'),
-                hr(style = "border-top: 3px solid #000000;"),
-                uiOutput(ns("Step1_btn_validate_ui")),
-                hr(style = "border-top: 3px solid #000000;"),
-              fluidRow(
-                inputPanel(
-                  fluidRow(
-                    column(width = 3, uiOutput(ns('Step1_btn1_ui'))),
-                    column(width = 3, uiOutput(ns('Step1_radio1_ui')))
-                  ),
-                  
-                  fluidRow(
-                    column(width = 3, uiOutput(ns('Step1_select1_ui'))),
-                    column(width = 3, shinyjs::hidden(uiOutput(ns('Step1_select2_ui')))),
-                    column(width = 3, uiOutput(ns('Step1_select3_ui')))
-                  )
-                )
-              ),
-              width = 510,
-              position = "left",
-              #bg='lightblue',
-              padding = c(7, 5), # 1ere valeur : padding vertical, 2eme : horizontal
-              style = "p1"
-            ),
-            plotOutput(ns('showPlot'))
-          )
-        )
-
+      wellPanel(
+        # uiOutput for all widgets in this UI
+        # This part is mandatory
+        # The renderUI() function of each widget is managed by MagellanNTK
+        # The dev only have to define a reactive() function for each
+        # widget he want to insert
+        # Be aware of the naming convention for ids in uiOutput()
+        # For more details, please refer to the dev document.
+        fluidRow(
+          column(width = 3, uiOutput(ns('Step1_btn1_ui'))),
+          column(width = 3, uiOutput(ns('Step1_radio1_ui')))
+          ),
+        
+        fluidRow(
+          column(width = 3, uiOutput(ns('Step1_select1_ui'))),
+          column(width = 3, shinyjs::hidden(uiOutput(ns('Step1_select2_ui')))),
+          column(width = 3, uiOutput(ns('Step1_select3_ui')))
+          ),
+        #foo_ui(ns('foo')),
+        # Insert validation button
+        uiOutput(ns('Step1_btn_validate_ui')),
+        
+        # Additional code
+        plotOutput(ns('showPlot'))
+      )
     })
-    
-    
-    # timeline_h_server('frise_norm',
-    #   config = PipelineDemo_Process1_conf(),
-    #   status = reactive({rv$steps.status}),
-    #   position = reactive({current.pos()}),
-    #   enabled = reactive({rv$steps.enabled})
-    # )
-    
     
     
     # >>> START: Definition of the widgets
@@ -389,88 +309,68 @@ PipelineDemo_Process1_server <- function(id,
     
     # >>> START ------------- Code for step 2 UI---------------
     
-    # output$Step2 <- renderUI({
-    #   wellPanel(
-    #     # Two examples of widgets in a renderUI() function
-    #     fluidRow(
-    #       column(width = 3, uiOutput(ns('Step2_select1_ui'))),
-    #       column(width = 3, uiOutput(ns('Step2_select2_ui')))
-    #     ),
-    #     # Insert validation button
-    #     # This line is necessary. DO NOT MODIFY
-    #     uiOutput(ns('Step2_btn_validate_ui'))
-    #   )
-    # })
-    # 
-    # 
-    # output$Step2_select1_ui <- renderUI({
-    #   widget <- selectInput(ns('Step2_select1'), 'Select',
-    #     choices = 1:4,
-    #     selected = rv.widgets$Step2_select1,
-    #     width = '150px')
-    #   toggleWidget(widget, rv$steps.enabled['Step2'] )
-    # })
-    # 
-    # output$Step2_select2_ui <- renderUI({
-    #   widget <- selectInput(ns('Step2_select2'), 'Select',
-    #     choices = 1:4,
-    #     selected = rv.widgets$Step2_select2,
-    #     width = '150px')
-    #   toggleWidget(widget, rv$steps.enabled['Step2'] )
-    # })
-    # 
-    # output$Step2_btn_validate_ui <- renderUI({
-    #   widget <- actionButton(ns("Step2_btn_validate"),
-    #     "Perform",
-    #     class = btn_success_color)
-    #   toggleWidget(widget, rv$steps.enabled['Step2'] )
-    # })
-    # 
-    # observeEvent(input$Step2_btn_validate, {
-    #   # Do some stuff
-    #   # new.dataset <- rv$dataIn[[length(rv$dataIn)]]
-    #   # SummarizedExperiment::assay(new.dataset) <- 10 * SummarizedExperiment::assay(rv$dataIn[[length(rv$dataIn)]])
-    #   # rv$dataIn <- addDatasets(object = rv$dataIn,
-    #   #   dataset = new.dataset,
-    #   #   name = paste0('Step2_',id))
-    # 
-    #   # DO NOT MODIFY THE THREE FOLLOWINF LINES
-    #   dataOut$trigger <- Timestamp()
-    #   dataOut$value <- NULL
-    #   rv$steps.status['Step2'] <- stepStatus$VALIDATED
-    # })
+    output$Step2 <- renderUI({
+      wellPanel(
+        # Two examples of widgets in a renderUI() function
+        fluidRow(
+          column(width = 3, uiOutput(ns('Step2_select1_ui'))),
+          column(width = 3, uiOutput(ns('Step2_select2_ui')))
+        ),
+        # Insert validation button
+        # This line is necessary. DO NOT MODIFY
+        uiOutput(ns('Step2_btn_validate_ui'))
+      )
+    })
+    
+    
+    output$Step2_select1_ui <- renderUI({
+      widget <- selectInput(ns('Step2_select1'), 'Select',
+        choices = 1:4,
+        selected = rv.widgets$Step2_select1,
+        width = '150px')
+      toggleWidget(widget, rv$steps.enabled['Step2'] )
+    })
+    
+    output$Step2_select2_ui <- renderUI({
+      widget <- selectInput(ns('Step2_select2'), 'Select',
+        choices = 1:4,
+        selected = rv.widgets$Step2_select2,
+        width = '150px')
+      toggleWidget(widget, rv$steps.enabled['Step2'] )
+    })
+    
+    output$Step2_btn_validate_ui <- renderUI({
+      widget <- actionButton(ns("Step2_btn_validate"),
+        "Perform",
+        class = btn_success_color)
+      toggleWidget(widget, rv$steps.enabled['Step2'] )
+    })
+    
+    observeEvent(input$Step2_btn_validate, {
+      # Do some stuff
+      # new.dataset <- rv$dataIn[[length(rv$dataIn)]]
+      # SummarizedExperiment::assay(new.dataset) <- 10 * SummarizedExperiment::assay(rv$dataIn[[length(rv$dataIn)]])
+      # rv$dataIn <- addDatasets(object = rv$dataIn,
+      #   dataset = new.dataset,
+      #   name = paste0('Step2_',id))
+
+      # DO NOT MODIFY THE THREE FOLLOWINF LINES
+      dataOut$trigger <- Timestamp()
+      dataOut$value <- NULL
+      rv$steps.status['Step2'] <- stepStatus$VALIDATED
+    })
     
     # <<< END ------------- Code for step 2 UI---------------
     
     
     # >>> START ------------- Code for step 'Save' UI---------------
     output$Save <- renderUI({
-      fluidPage(
-        #includeCSS("www/theme_base.css"),
-        
-        bslib::layout_sidebar(
-          sidebar = bslib::sidebar(
-            timeline(),
-            h3('add frise'),
-            hr(style = "border-top: 3px solid #000000;"),
-            fluidRow(
-              inputPanel(
-                uiOutput(ns('Save_btn_validate_ui')),
-              )
-            ),
-            width = 510,
-            position = "left",
-            #bg='lightblue',
-            padding = c(7, 5), # 1ere valeur : padding vertical, 2eme : horizontal
-            style = "p1"
-          )
-        )
+      tagList(
         # Insert validation button
-          # This line is necessary. DO NOT MODIFY
-        #padding = c(0, 40)
+        # This line is necessary. DO NOT MODIFY
+        uiOutput(ns('Save_btn_validate_ui')),
+        uiOutput(ns('dl_ui'))
       )
-      
-      
     })
     
     output$dl_ui <- renderUI({

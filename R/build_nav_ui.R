@@ -25,7 +25,9 @@ NULL
 #' @export
 #'
 DisplayWholeUI <- function(ns, layout = 'h'){
+  
   do.call(paste0("Build_nav_", layout, "_ui"), list(ns))
+
 }
 
 #' @rdname Build_nav_X_ui
@@ -119,4 +121,3 @@ Build_nav_h_ui <- function(ns) {
         )
     )
 }
-
