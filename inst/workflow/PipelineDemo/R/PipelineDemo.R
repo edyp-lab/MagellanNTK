@@ -15,8 +15,8 @@ PipelineDemo_conf <- function(){
 Config(
   mode = 'pipeline',
   fullname = 'PipelineDemo',
-  steps = c('Process 1', 'Process 2', 'Process 3'),
-  mandatory = c(FALSE, FALSE, TRUE)
+  steps = c('Process 1'),
+  mandatory = c(FALSE)
 )
 }
 

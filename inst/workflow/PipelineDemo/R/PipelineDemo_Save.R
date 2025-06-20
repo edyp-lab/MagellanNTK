@@ -26,7 +26,8 @@ PipelineDemo_Save_server <- function(id,
   steps.enabled = reactive({NULL}),
   remoteReset = reactive({FALSE}),
   steps.status = reactive({NULL}),
-  current.pos = reactive({1})
+  current.pos = reactive({1}),
+  timeline = reactive({NULL})
 ){
   
   

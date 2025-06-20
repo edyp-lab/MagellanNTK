@@ -46,8 +46,8 @@ PipelineDemo_Process1_conf <- function(){
   Config(
     fullname = 'PipelineDemo_Process1',
     mode = 'process',
-    steps = c('Step 1', 'Step 2'),
-    mandatory = c(FALSE, TRUE)
+    steps = c('Step 1'),
+    mandatory = c(FALSE)
     )
 }
 
@@ -73,7 +73,8 @@ PipelineDemo_Process1_server <- function(id,
   steps.enabled = reactive({NULL}),
   remoteReset = reactive({NULL}),
   steps.status = reactive({NULL}),
-  current.pos = reactive({1})
+  current.pos = reactive({1}),
+  timeline = reactive({NULL})
   ){
  
   #source(paste0(path, '/foo.R'), local=TRUE)$value

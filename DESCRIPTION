@@ -69,6 +69,7 @@ Collate:
     mod_open_workflow.R
     directoryInput.R
     mod_build_report.R
+    build_nav_process_ui.R
     mod_chooseDir.R
     mod_launch_magellan.R
     mod_observe_dynamic_colourPicker_input.R
@@ -93,6 +94,7 @@ Collate:
     timeline_v.R
     code_used_by_external_modules.R
     mod_debug_infos.R
+    timeline_process.R
     core.R
     core_process.R
     core_pipeline.R

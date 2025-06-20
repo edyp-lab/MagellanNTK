@@ -170,7 +170,8 @@ nav_process_server <- function(id = NULL,
             dataIn = reactive({rv$temp.dataIn}),
             steps.enabled = reactive({rv$steps.enabled}),
             remoteReset = reactive({rv$rstBtn() + remoteReset()}),
-            steps.status = reactive({rv$steps.status})
+            steps.status = reactive({rv$steps.status}),
+            timeline = reactive({NULL})
           )
         )
         
@@ -207,26 +208,20 @@ nav_process_server <- function(id = NULL,
         
         # Launch the server timeline for this process/pipeline
         
-        do.call(
-          paste0("timeline_", rv$tl.layout[1], "_server"),
-          list(
-            id = paste0("timeline", rv$tl.layout[1]),
+        timeline_process_server(
+            id = "timeline_process",
             config = rv$config,
             status = reactive({rv$steps.status}),
             enabled = reactive({rv$steps.enabled}),
             position = reactive({rv$current.pos})
           )
-        )
-        
-        # Launch the UI of the timeline
+
+        # # Launch the UI of the timeline
         output$show_TL <- renderUI({
-          
-          do.call(
-            paste0("timeline_", rv$tl.layout[1], "_ui"),
-            list(ns(paste0("timeline", rv$tl.layout[1])))
-          )
+
+          timeline_process_ui(ns("timeline_process"))
         })
-        
+        # 
         
         if(verbose)
           cat(crayon::yellow(paste0(id, ': Entering observeEvent(req(rv$config), {...})\n')))
