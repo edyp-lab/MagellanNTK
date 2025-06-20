@@ -170,8 +170,7 @@ nav_process_server <- function(id = NULL,
             dataIn = reactive({rv$temp.dataIn}),
             steps.enabled = reactive({rv$steps.enabled}),
             remoteReset = reactive({rv$rstBtn() + remoteReset()}),
-            steps.status = reactive({rv$steps.status}),
-            timeline = reactive({Build_nav_process_ui(ns)})
+            steps.status = reactive({rv$steps.status})
           )
         )
         
@@ -478,7 +477,6 @@ nav_process_server <- function(id = NULL,
     # Note for devs: apparently, the renderUI() cannot be stored in the 
     # function 'Build..'
     output$nav_process_mod_ui <- renderUI({
-      req(rv$tl.layout)
       if(verbose)
         cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
       

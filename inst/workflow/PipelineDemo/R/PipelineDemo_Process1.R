@@ -73,8 +73,7 @@ PipelineDemo_Process1_server <- function(id,
   steps.enabled = reactive({NULL}),
   remoteReset = reactive({NULL}),
   steps.status = reactive({NULL}),
-  current.pos = reactive({1}),
-  timeline = reactive({NULL})
+  current.pos = reactive({1})
   ){
  
   #source(paste0(path, '/foo.R'), local=TRUE)$value
