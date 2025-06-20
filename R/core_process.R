@@ -171,7 +171,7 @@ nav_process_server <- function(id = NULL,
             steps.enabled = reactive({rv$steps.enabled}),
             remoteReset = reactive({rv$rstBtn() + remoteReset()}),
             steps.status = reactive({rv$steps.status}),
-            timeline = reactive({NULL})
+            timeline = reactive({Build_nav_process_ui(ns)})
           )
         )
         
@@ -218,7 +218,6 @@ nav_process_server <- function(id = NULL,
 
         # # Launch the UI of the timeline
         output$show_TL <- renderUI({
-
           timeline_process_ui(ns("timeline_process"))
         })
         # 
@@ -483,7 +482,8 @@ nav_process_server <- function(id = NULL,
       if(verbose)
         cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
       
-      DisplayWholeUI(ns, rv$tl.layout[1])
+      #DisplayWholeUI(ns, rv$tl.layout[1])
+      Build_nav_process_ui(ns)
     })
     
     
