@@ -26,7 +26,8 @@ PipelineDemo_Description_server <- function(id,
     steps.enabled = reactive({NULL}),
     remoteReset = reactive({FALSE}),
     steps.status = reactive({NULL}),
-    current.pos = reactive({1})
+    current.pos = reactive({1}), 
+  timeline = reactive({NULL})
     ){
   
   
@@ -60,17 +61,43 @@ PipelineDemo_Description_server <- function(id,
     output$Description <- renderUI({
       file <- normalizePath(file.path(session$userData$workflow.path, 
         'md', paste0(id, '.md')))
-      tagList(
-        if (file.exists(file))
-          includeMarkdown(file)
-        else
-          p('No Description available'),
+      
+      
+      fluidPage(
+        #includeCSS("www/theme_base.css"),
         
-        uiOutput(ns('datasetDescription_ui')),
+        bslib::layout_sidebar(
+          sidebar = bslib::sidebar(
+            column(12, timeline()
+            ),
+            h3('add frise'),
+            hr(style = "border-top: 3px solid #000000;"),
+            uiOutput(ns('Description_btn_validate_ui')),
+            hr(style = "border-top: 3px solid #000000;"),
+            width = 310,
+            position = "left",
+            bg = 'lightblue',
+            padding = c(7, 5), # 1ere valeur : padding vertical, 2eme : horizontal
+            style = "p1"
+          )
+        ),
         
-        # Insert validation button
-        uiOutput(ns('Description_btn_validate_ui'))
+        uiOutput(ns('datasetDescription_ui'))
       )
+      
+      
+      # tagList(
+      #   if (file.exists(file))
+      #     includeMarkdown(file)
+      #   else
+      #     p('No Description available'),
+      #   
+      #   uiOutput(ns('datasetDescription_ui')),
+      #   
+      #   # Insert validation button
+      #   uiOutput(ns('Description_btn_validate_ui'))
+      # )
+      
     })
     
     

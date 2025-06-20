@@ -419,6 +419,7 @@ Update_State_Screens <- function(is.skipped,
 #'
 ToggleState_NavBtns <- function(current.pos, nSteps) {
 
+  #browser()
     # If the cursor is not on the first position, show the 'prevBtn'
     shinyjs::toggleState(id = "prevBtn", condition = current.pos != 1)
 

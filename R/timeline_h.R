@@ -35,6 +35,12 @@ timeline_h_server <- function(id,
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
+        
+        # observeEvent(position(), {
+        #   print(paste0("popopopopopopopopo : ", position()))
+        #   #browser()
+        # })
+        
         UpdateTags <- reactive({
           req(config@steps != '')
 
@@ -49,10 +55,12 @@ timeline_h_server <- function(id,
             }
           
           tl_status[position()] <- paste0(tl_status[position()], " active")
+ 
           tl_status
         })
 
         output$show_h_TL <- renderUI({
+          position()
           req(config@steps != '')
           
             tags$div(

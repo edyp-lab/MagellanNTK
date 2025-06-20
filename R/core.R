@@ -752,8 +752,11 @@ nav_server <- function(id = NULL,
           req(rv$tl.layout)
           if(verbose)
             cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
-          
+          tagList(
+            h2('tutututututu'),
+
             DisplayWholeUI(ns, rv$tl.layout[1])
+          )
         })
 
         
@@ -866,7 +869,7 @@ nav_server <- function(id = NULL,
 
 
         observeEvent(rv$current.pos, ignoreInit = TRUE, {
-          
+          print("observeEvent(rv$current.pos in CORE.R")
        
             ToggleState_NavBtns(
                 current.pos = rv$current.pos,
