@@ -185,6 +185,9 @@ PipelineDemo_Process1_server <- function(id,
     # >>>> -------------------- STEP 1 : Global UI ------------------------------------
     output$Step1 <- renderUI({
       shinyjs::useShinyjs()
+      path <- file.path(system.file('www/css', package = 'MagellanNTK'),'theme_base.css')
+      includeCSS(path)
+      
       # wellPanel(
       #   # uiOutput for all widgets in this UI
       #   # This part is mandatory
@@ -215,33 +218,19 @@ PipelineDemo_Process1_server <- function(id,
       
       
       fluidPage(
-        #includeCSS("www/theme_base.css"),
-
+        
         bslib::layout_sidebar(
           sidebar = bslib::sidebar(
-            h3('--- add frise ---'),
-            uiOutput(ns('injectHTML')),
-
-
-
+           uiOutput(ns("Step1_btn_validate_ui")),
             hr(style = "border-top: 3px solid #000000;"),
-            uiOutput(ns("Step1_btn_validate_ui")),
-            hr(style = "border-top: 3px solid #000000;"),
-            fluidRow(
-              inputPanel(p("add widgets"),
-                
-                fluidRow(
-                  column(width = 3, uiOutput(ns('Step1_btn1_ui'))),
-                  column(width = 3, uiOutput(ns('Step1_radio1_ui')))
-                ),
-                
-                fluidRow(
-                  column(width = 3, uiOutput(ns('Step1_select1_ui'))),
-                  column(width = 3, shinyjs::hidden(uiOutput(ns('Step1_select2_ui')))),
-                  column(width = 3, uiOutput(ns('Step1_select3_ui')))
-                ))
+            inputPanel(
+              uiOutput(ns('Step1_btn1_ui')),
+              uiOutput(ns('Step1_radio1_ui')),
+              uiOutput(ns('Step1_select1_ui')),
+              shinyjs::hidden(uiOutput(ns('Step1_select2_ui'))),
+              uiOutput(ns('Step1_select3_ui'))
             ),
-            width = 510,
+            width = 200,
             position = "left",
             bg='lightblue',
             padding = c(7, 5), # 1ere valeur : padding vertical, 2eme : horizontal
@@ -250,9 +239,6 @@ PipelineDemo_Process1_server <- function(id,
           plotOutput(ns('showPlot'))
         )
       )
-      # 
-      # 
-      # 
     })
     
     
