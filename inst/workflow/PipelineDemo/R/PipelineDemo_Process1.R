@@ -218,6 +218,7 @@ PipelineDemo_Process1_server <- function(id,
       
       
       fluidPage(
+        tags$style(".bslib-sidebar-layout .collapse-toggle{display:true;}"),
         
         bslib::layout_sidebar(
           sidebar = bslib::sidebar(
