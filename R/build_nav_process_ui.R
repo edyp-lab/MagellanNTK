@@ -21,7 +21,8 @@ Build_nav_process_ui <- function(ns) {
       column(width = 1,
         mod_modalDialog_ui(id = ns("rstBtn"))
       ),
-      column(width = 9, uiOutput(ns("show_TL"))),
+     # column(width = 9, uiOutput(ns("show_TL"))),
+      column(width = 9, timeline_process_ui(ns("timeline_process"))),
       column(width = 1,
         actionButton(ns("nextBtn"),
           tl_h_next_icon,
@@ -36,11 +37,11 @@ Build_nav_process_ui <- function(ns) {
     width = .width,
     height = '100%',
     style = "background-color: orange;
-                         opacity: 0.85;
-                         padding: 0px 0px 200px 0px;
-                         margin: 0px 0px 0px 0px;
-                         padding-bottom: 2mm;
-                         padding-top: 1mm;",
+    opacity: 0.85;
+    padding: 0px 0px 200px 0px;
+    margin: 0px 0px 0px 0px;
+    padding-bottom: 2mm;
+    padding-top: 1mm;",
     
   ),
   absolutePanel(id = "sssss",
@@ -55,11 +56,11 @@ Build_nav_process_ui <- function(ns) {
     width = '100%',
     height = '100%',
     style = "background-color: white;
-                         opacity: 0.85;
-                         padding: 0px 0px 0px 0px;
-                         margin: 0px 0px 0px 0px;
-                         padding-bottom: 2mm;
-                         padding-top: 1mm;",
+    opacity: 0.85;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    padding-bottom: 2mm;
+    padding-top: 1mm;",
     
   )
   )

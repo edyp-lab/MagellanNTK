@@ -217,8 +217,7 @@ PipelineDemo_Process1_server <- function(id,
       
       
       
-      fluidPage(
-        tags$style(".bslib-sidebar-layout .collapse-toggle{display:true;}"),
+      #fluidPage(
         
         bslib::layout_sidebar(
           sidebar = bslib::sidebar(
@@ -234,12 +233,12 @@ PipelineDemo_Process1_server <- function(id,
             width = 200,
             position = "left",
             bg='lightblue',
-            padding = c(7, 5), # 1ere valeur : padding vertical, 2eme : horizontal
-            style = "p1"
+            padding = c(0, 0) # 1ere valeur : padding vertical, 2eme : horizontal
+            #style = "p1"
           ),
           plotOutput(ns('showPlot'))
         )
-      )
+      #)
     })
     
     
