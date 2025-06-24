@@ -126,12 +126,41 @@ PipelineDemo_Process1_server <- function(id,
         'md', paste0(id, '.md')))
    
       req(file)
-      tagList(
-        ### In this example, the md file is found in the extdata/module_examples 
-        ### directory but with a real app, it should be provided by the package 
-        ### which contains the UI for the different steps of the process module.
-        ### system.file(xxx)
-        
+      # tagList(
+      #   ### In this example, the md file is found in the extdata/module_examples 
+      #   ### directory but with a real app, it should be provided by the package 
+      #   ### which contains the UI for the different steps of the process module.
+      #   ### system.file(xxx)
+      #   
+      #   if (file.exists(file))
+      #     includeMarkdown(file)
+      #   else
+      #     p('No Description available'),
+      #   
+      #   
+      #   # Used to show some information about the dataset which is loaded
+      #   # This function must be provided by the package of the process module
+      #   uiOutput(ns('datasetDescription_ui')),
+      #   
+      #   # Insert validation button
+      #   uiOutput(ns('Description_btn_validate_ui'))
+      # )
+      
+      
+      
+      bslib::layout_sidebar(
+        sidebar = bslib::sidebar(
+          uiOutput(ns("Step1_btn_validate_ui")),
+          hr(style = "border-top: 3px solid #000000;"),
+          inputPanel(
+            uiOutput(ns('Description_btn_validate_ui'))
+          ),
+          width = 200,
+          position = "left",
+          bg='lightblue',
+          padding = c(0, 0) # 1ere valeur : padding vertical, 2eme : horizontal
+          #style = "p1"
+        ),
         if (file.exists(file))
           includeMarkdown(file)
         else
@@ -140,11 +169,10 @@ PipelineDemo_Process1_server <- function(id,
         
         # Used to show some information about the dataset which is loaded
         # This function must be provided by the package of the process module
-        uiOutput(ns('datasetDescription_ui')),
-        
-        # Insert validation button
-        uiOutput(ns('Description_btn_validate_ui'))
+        uiOutput(ns('datasetDescription_ui'))
       )
+      
+      
     })
     
     output$datasetDescription_ui <- renderUI({
@@ -393,12 +421,39 @@ PipelineDemo_Process1_server <- function(id,
     
     # >>> START ------------- Code for step 'Save' UI---------------
     output$Save <- renderUI({
-      tagList(
-        # Insert validation button
-        # This line is necessary. DO NOT MODIFY
-        uiOutput(ns('Save_btn_validate_ui')),
-        uiOutput(ns('dl_ui'))
+      # tagList(
+      #   # Insert validation button
+      #   # This line is necessary. DO NOT MODIFY
+      #   uiOutput(ns('Save_btn_validate_ui')),
+      #   uiOutput(ns('dl_ui'))
+      # )
+      
+      
+      bslib::layout_sidebar(
+        sidebar = bslib::sidebar(
+          uiOutput(ns("Step1_btn_validate_ui")),
+          hr(style = "border-top: 3px solid #000000;"),
+          inputPanel(
+            uiOutput(ns('dl_ui'))
+          ),
+          width = 200,
+          position = "left",
+          bg='lightblue',
+          padding = c(0, 0) # 1ere valeur : padding vertical, 2eme : horizontal
+          #style = "p1"
+        ),
+        if (file.exists(file))
+          includeMarkdown(file)
+        else
+          p('No Description available'),
+        
+        
+        # Used to show some information about the dataset which is loaded
+        # This function must be provided by the package of the process module
+        uiOutput(ns('Save_btn_validate_ui'))
       )
+      
+      
     })
     
     output$dl_ui <- renderUI({
