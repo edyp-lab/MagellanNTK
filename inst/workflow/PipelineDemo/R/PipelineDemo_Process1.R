@@ -73,7 +73,8 @@ PipelineDemo_Process1_server <- function(id,
   steps.enabled = reactive({NULL}),
   remoteReset = reactive({NULL}),
   steps.status = reactive({NULL}),
-  current.pos = reactive({1})
+  current.pos = reactive({1}),
+  timeline = reactive({NULL})
   ){
  
   #source(paste0(path, '/foo.R'), local=TRUE)$value
@@ -121,6 +122,41 @@ PipelineDemo_Process1_server <- function(id,
     
     
     
+    
+    timeline_process_server(
+      id = 'Description_timeline',
+      config = PipelineDemo_Process1_conf(),
+      status = reactive({steps.status()}),
+      position = reactive({current.pos()}),
+      enabled = reactive({steps.enabled()})
+    )
+    
+    
+    
+    timeline_process_server(
+      id = 'Step1_timeline',
+      config = PipelineDemo_Process1_conf(),
+      status = reactive({steps.status()}),
+      position = reactive({current.pos()}),
+      enabled = reactive({steps.enabled()})
+    )
+    
+    
+    
+    timeline_process_server(
+      id = 'Save_timeline',
+      config = PipelineDemo_Process1_conf(),
+      status = reactive({steps.status()}),
+      position = reactive({current.pos()}),
+      enabled = reactive({steps.enabled()})
+    )
+    
+    
+    
+    
+    
+      
+    
     output$Description <- renderUI({
       file <- normalizePath(file.path(session$userData$workflow.path, 
         'md', paste0(id, '.md')))
@@ -146,13 +182,22 @@ PipelineDemo_Process1_server <- function(id,
       #   uiOutput(ns('Description_btn_validate_ui'))
       # )
       
-      
+      # timeline_process_server(
+      #   id = 'Description_timeline',
+      #   config = PipelineDemo_Process1_conf(),
+      #   status = reactive({steps.status()}),
+      #   position = reactive({current.pos()}),
+      #   enabled = reactive({steps.enabled()})
+      # )
       
       bslib::layout_sidebar(
         sidebar = bslib::sidebar(
-          uiOutput(ns("Step1_btn_validate_ui")),
-          hr(style = "border-top: 3px solid #000000;"),
+          p('INSERT TIMELINE'),
+          timeline_process_ui(ns('Description_timeline')),
+          
           inputPanel(
+            uiOutput(ns("Step1_btn_validate_ui")),
+            hr(style = "border-top: 3px solid #000000;"),
             uiOutput(ns('Description_btn_validate_ui'))
           ),
           width = 200,
@@ -242,16 +287,16 @@ PipelineDemo_Process1_server <- function(id,
       #   plotOutput(ns('showPlot'))
       # )
       
-      
-      
-      
+    
       #fluidPage(
         
         bslib::layout_sidebar(
           sidebar = bslib::sidebar(
-           uiOutput(ns("Step1_btn_validate_ui")),
+            p('INSERT TIMELINE'),
+            timeline_process_ui(ns('Step1_timeline')),
             hr(style = "border-top: 3px solid #000000;"),
             inputPanel(
+              uiOutput(ns("Step1_btn_validate_ui")),
               uiOutput(ns('Step1_btn1_ui')),
               uiOutput(ns('Step1_radio1_ui')),
               uiOutput(ns('Step1_select1_ui')),
@@ -428,10 +473,10 @@ PipelineDemo_Process1_server <- function(id,
       #   uiOutput(ns('dl_ui'))
       # )
       
-      
       bslib::layout_sidebar(
         sidebar = bslib::sidebar(
-          uiOutput(ns("Step1_btn_validate_ui")),
+          p('INSERT TIMELINE'),
+          timeline_process_ui(ns('Save_timeline')),
           hr(style = "border-top: 3px solid #000000;"),
           inputPanel(
             uiOutput(ns('dl_ui'))
@@ -442,12 +487,6 @@ PipelineDemo_Process1_server <- function(id,
           padding = c(0, 0) # 1ere valeur : padding vertical, 2eme : horizontal
           #style = "p1"
         ),
-        if (file.exists(file))
-          includeMarkdown(file)
-        else
-          p('No Description available'),
-        
-        
         # Used to show some information about the dataset which is loaded
         # This function must be provided by the package of the process module
         uiOutput(ns('Save_btn_validate_ui'))

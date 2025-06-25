@@ -170,7 +170,8 @@ nav_process_server <- function(id = NULL,
             dataIn = reactive({rv$temp.dataIn}),
             steps.enabled = reactive({rv$steps.enabled}),
             remoteReset = reactive({rv$rstBtn() + remoteReset()}),
-            steps.status = reactive({rv$steps.status})
+            steps.status = reactive({rv$steps.status}),
+            current.pos = reactive({rv$current.pos})
           )
         )
         

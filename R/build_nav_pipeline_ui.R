@@ -129,14 +129,14 @@ Build_nav_pipeline_ui <- function(ns) {
       column(width = 1,
         mod_modalDialog_ui(id = ns("rstBtn"))
         ),
-      column(width = 9, uiOutput(ns("show_TL"))),
       column(width = 1,
         actionButton(ns("nextBtn"),
           tl_h_next_icon,
           class = PrevNextBtnClass,
           style = "font-size:60%"
         )
-      )
+      ),
+      column(width = 9, uiOutput(ns("show_TL")))
     ),
     div(
       id = ns("Screens"),
