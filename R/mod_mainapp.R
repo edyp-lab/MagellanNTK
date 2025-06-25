@@ -337,7 +337,7 @@ mainapp_server <- function(id,
       rv.core$current.obj <- dataIn()
       rv.core$processed.obj <- dataIn()
       if (!is.null(rv.core$current.obj))
-         rv.core$current.obj.name <- metadata(rv.core$current.obj)$file
+        rv.core$current.obj.name <- metadata(rv.core$current.obj)$file
       
       rv.core$workflow.path <- workflow.path()
       rv.core$workflow.name <- workflow.name()
@@ -361,7 +361,7 @@ mainapp_server <- function(id,
           rv.core$funcs$funcs[[f]] <- default.funcs()[[f]]
       }
       session$userData$funcs <- rv.core$funcs$funcs
-
+      
       rv.core$resetWF <- rv.core$resetWF + 1
     }, priority = 1000)
     
@@ -462,16 +462,16 @@ mainapp_server <- function(id,
     
     observeEvent(rv.core$result_convert()$dataOut()$value,
       ignoreInit = TRUE, ignoreNULL = TRUE,{
-      if(verbose)
-        cat('Data converted')
-      
-      req(rv.core$result_convert()$dataOut()$value)
-      
-      rv.core$current.obj <- rv.core$result_convert()$dataOut()$value$data
-      rv.core$current.obj.name <- rv.core$result_convert()$dataOut()$value$name
-      rv.core$processed.obj <- rv.core$current.obj
-      rv.core$resetWF <- rv.core$resetWF + 1
-    })
+        if(verbose)
+          cat('Data converted')
+        
+        req(rv.core$result_convert()$dataOut()$value)
+        
+        rv.core$current.obj <- rv.core$result_convert()$dataOut()$value$data
+        rv.core$current.obj.name <- rv.core$result_convert()$dataOut()$value$name
+        rv.core$processed.obj <- rv.core$current.obj
+        rv.core$resetWF <- rv.core$resetWF + 1
+      })
     
     
     output$BuildReport_UI <- renderUI({
@@ -525,16 +525,16 @@ mainapp_server <- function(id,
     
     observeEvent(rv.core$result_open_dataset()$trigger, 
       ignoreInit = TRUE, ignoreNULL = TRUE,{
-      if (verbose)
-        cat('new dataset loaded\n')
-      
-      req(rv.core$result_open_dataset()$dataset)
-      rv.core$resetWF <- rv.core$resetWF + 1
-      
-      rv.core$current.obj <- rv.core$result_open_dataset()$dataset
-      rv.core$current.obj.name <- rv.core$result_open_dataset()$name
-      rv.core$processed.obj <- rv.core$current.obj
-    })
+        if (verbose)
+          cat('new dataset loaded\n')
+        
+        req(rv.core$result_open_dataset()$dataset)
+        rv.core$resetWF <- rv.core$resetWF + 1
+        
+        rv.core$current.obj <- rv.core$result_open_dataset()$dataset
+        rv.core$current.obj.name <- rv.core$result_open_dataset()$name
+        rv.core$processed.obj <- rv.core$current.obj
+      })
     
     
     
@@ -589,7 +589,7 @@ mainapp_server <- function(id,
     
     
     observeEvent(req(input$resetWF), {rv.core$resetWF <- input$resetWF})
-
+    
     output$tools_UI <- renderUI({
       h3('tools')
     })
@@ -598,7 +598,7 @@ mainapp_server <- function(id,
     
     output$InfosDataset_UI <- renderUI({
       req(rv.core$funcs$funcs)
-
+      
       call.func(
         fname = paste0(rv.core$funcs$funcs$infos_dataset, '_server'),
         args = list(

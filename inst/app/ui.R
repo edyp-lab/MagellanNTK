@@ -1,4 +1,4 @@
-library(shinydashboard)
+
 library(shinyjs)
 
 
@@ -8,8 +8,6 @@ library(shinyjs)
 #' #' @param request Internal parameter for `{shiny}`. 
 #' #'     DO NOT REMOVE.
 #' #' @importFrom shiny shinyUI tagList 
-#' #' @import shinydashboardPlus
-#' #' @import shinydashboard
 #' #' @importFrom shinyjs useShinyjs extendShinyjs
 #' #' @noRd
 #' #' @export

@@ -142,7 +142,7 @@ Insert_User_Sidebar <- function(){
     # tags$head(tags$style(".inactiveLink {pointer-events: none; background-color: grey;}")),
     
     # Menus and submenus in sidebar
-
+    
     menuItem("Home", 
       tabName = "Home", 
       icon = icon("home"), 
@@ -152,7 +152,7 @@ Insert_User_Sidebar <- function(){
       menuSubItem("Open file", 
         tabName = "openDataset",
         icon = img(src="www/logo-simple.png", width = 20)
-        ),
+      ),
       menuSubItem("Save As", 
         tabName = "SaveAs",
         icon = img(src="www/logo-simple.png", width = 20)
@@ -197,5 +197,5 @@ Insert_User_Sidebar <- function(){
     )
     
   )
-
+  
 }

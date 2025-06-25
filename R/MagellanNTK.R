@@ -33,7 +33,6 @@ NULL
 #' The application User-Interface
 #'     DO NOT REMOVE.
 #' @importFrom shiny shinyUI tagList 
-#' @importFrom shinydashboardPlus dashboardSidebar dashboardPage dashboardHeader 
 #' @importFrom shinyjs useShinyjs extendShinyjs
 #' 
 #' @rdname magellanNTK

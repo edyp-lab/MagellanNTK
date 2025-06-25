@@ -1,6 +1,6 @@
 /* Sidebar parameters */
 .main-sidebar {
-  width: 350px;
+  /*width: 350px;*/
   background-color: black;
   opacity: 0.8;
 }
@@ -23,7 +23,7 @@
 
 /* Sidebar button custom color */
 .nav-link-sidebar {
-  color: #ffffff;
+  color: orange;
 }
 
 /* Controlbar button custom color */
@@ -91,4 +91,9 @@ h2 {
 
 p1 {
   border-style: double;
+}
+
+
+.custom-switch {
+  display: none;
 }
