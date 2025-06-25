@@ -64,7 +64,7 @@ nav_ui <- function(id) {
     ns <- NS(id)
     tagList(
         shinyjs::useShinyjs(),
-        
+        p("tetetetetetete"),
         # Contains the UI for the timeline, the direction buttons
         # and the workflows modules
         uiOutput(ns("nav_mod_ui")),

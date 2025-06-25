@@ -9,15 +9,16 @@
 #'
 timeline_process_ui <- function(id) {
   ns <- NS(id)
-  fpath <- system.file("app/www/sass",
-    "h_timeline.sass",
-    package = "MagellanNTK"
-  )
+  fpath <- system.file("www/sass", "process_timeline.sass", package = "MagellanNTK")
+  
+ # inlineCSS(sass(sass_file("www/sass/process_timeline.sass"))),
+  
+  
   tagList(
     shinyjs::useShinyjs(),
     #tags$div(
     shinyjs::inlineCSS(sass::sass(sass::sass_file(fpath))),
-    uiOutput(ns("show_h_TL"))
+    uiOutput(ns("show_process_TL"))
     #)
   )
 }
@@ -35,45 +36,100 @@ timeline_process_server <- function(id,
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
+    # UpdateTags <- reactive({
+    #   req(config@steps != '')
+    #   
+    #   tl_status <- rep("undone", length(config@steps))
+    #   tl_status[which(config@mandatory)] <- "mandatory"
+    #   tl_status[which(unlist(status()) == stepStatus$VALIDATED)] <- "completed"
+    #   tl_status[which(unlist(status()) == stepStatus$SKIPPED)] <- "skipped"
+    #   for (i in seq_len(length(enabled()))) {
+    #     if (!enabled()[i]) {
+    #       tl_status[i] <- paste0(tl_status[i], "Disabled")
+    #     }
+    #   }
+    #   
+    #   tl_status[position()] <- paste0(tl_status[position()], " active")
+    #   tl_status
+    # })
+    
+    addResourcePath('www', system.file('www', package='MagellanNTK'))
+    
+    
+    icons <- lapply(config@steps, function(step) {
+      if (step == "Description" | step == "Save"){
+        filename <- tolower(step)
+        filename <- gsub(" ", "_", filename)
+      } else
+        filename = "step_icon"
+
+      paste0("www/images/", filename, ".png")
+    }
+    )
+    icons <- unlist(icons)
+    
+    
+    
     UpdateTags <- reactive({
-      req(config@steps != '')
-      
       tl_status <- rep("undone", length(config@steps))
-      tl_status[which(config@mandatory)] <- "mandatory"
-      tl_status[which(unlist(status()) == stepStatus$VALIDATED)] <- "completed"
-      tl_status[which(unlist(status()) == stepStatus$SKIPPED)] <- "skipped"
-      for (i in seq_len(length(enabled()))) {
-        if (!enabled()[i]) {
-          tl_status[i] <- paste0(tl_status[i], "Disabled")
-        }
+      # tl_status[which(config@mandatory)] <- "mandatory"
+      tl_status[which(status() == stepStatus$VALIDATED)] <- "completed"
+      tl_status[which(status() == stepStatus$SKIPPED)] <- "skipped"
+      
+      for (i in seq_along(tl_status)) {
+        tl_status[i] <- paste(
+          tl_status[i],
+          if (enabled()[i]) "enabled" else "disabled",
+          if (config@mandatory[i]) "mandatory"
+        )
       }
       
-      tl_status[position()] <- paste0(tl_status[position()], " active")
-      tl_status
+      pos <- position()
+      tl_status[pos] <- paste(tl_status[pos], "active")
+      return(tl_status)
     })
     
-    output$show_h_TL <- renderUI({
-      req(config@steps != '')
-      
-      tags$div(
-        class = "timeline",
-        #id = "timeline",
-        lapply(seq_len(length(config@steps)),
-          function(x) {
-            #print(class = paste0("li ", UpdateTags()[x]))
-            tags$li(style = 'border: 0px none;',
-              class = paste0("li ", UpdateTags()[x]),
-              tags$div(
-                class = "timestamp status",
-                tags$h4(config@steps[x])
-              )
-            )
-          }
-        )
+    
+    
+    
+    output$show_process_TL <- renderUI({
+
+      tags$div(class = "process-timeline",
+        lapply(seq_len(length(config@steps)), function(i) {
+          
+          step_class <- paste("li", UpdateTags()[i])
+          print(step_class)
+          tags$div(class = step_class,
+            tags$div(class = "icon",
+              tags$img(src = icons[i], height = "35px")),
+            tags$div(class = "label", config@steps[i])
+          )
+        })
       )
-      
-      
-      
     })
+    
+    # output$show_h_TL <- renderUI({
+    #   req(config@steps != '')
+    #   
+    #   tags$div(
+    #     class = "timeline",
+    #     #id = "timeline",
+    #     lapply(seq_len(length(config@steps)),
+    #       function(x) {
+    #         #print(class = paste0("li ", UpdateTags()[x]))
+    #         tags$li(style = 'border: 0px none;',
+    #           class = paste0("li ", UpdateTags()[x]),
+    #           tags$div(
+    #             class = "timestamp status",
+    #             tags$h4(config@steps[x])
+    #           )
+    #         )
+    #       }
+    #     )
+    #   )
+    #   
+    #   
+    #   
+    # })
   })
 }

@@ -214,6 +214,8 @@ proc_workflow_server <- function(
     return(NULL)
   } 
   
+  addResourcePath('www', system.file('www', package='MagellanNTK'))
+  
   source_shinyApp_files()
   source_wf_files(path)
   

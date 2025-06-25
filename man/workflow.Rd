@@ -78,6 +78,7 @@ pipelines nor processes to be managed with `MagellanNTK`.
 }
 \examples{
 \dontrun{
+library(MagellanNTK)
 library(shiny)
 data(lldata)
 data(sub_R25)

@@ -63,15 +63,80 @@ NULL
 #'
 nav_pipeline_ui <- function(id) {
   ns <- NS(id)
-  tagList(
-    shinyjs::useShinyjs(),
-    
-    # Contains the UI for the timeline, the direction buttons
-    # and the workflows modules
-    uiOutput(ns("nav_pipeline_mod_ui")),
-    
-    # Contains the UI for the debug module
-    uiOutput(ns("debug_infos_ui"))
+  
+  .width <- 250
+  
+  # fluidPage(
+  #   shinyjs::useShinyjs(),
+  #   # Contains the UI for the timeline, the direction buttons
+  #   # and the workflows modules
+  #   #uiOutput(ns("nav_pipeline_mod_ui")),
+  #     absolutePanel(id = "pipeline_timeline",
+  #       
+  #       shinyjs::disabled(
+  #         actionButton(ns("prevBtn"),
+  #           tl_h_prev_icon,
+  #           class = PrevNextBtnClass,
+  #           style = "font-size:60%"
+  #         ),
+  #         actionButton(ns("nextBtn"),
+  #           tl_h_next_icon,
+  #           class = PrevNextBtnClass,
+  #           style = "font-size:60%"
+  #         ),
+  #         mod_modalDialog_ui(id = ns("rstBtn"))
+  #       ),
+  #       timeline_pipeline_ui(ns("timeline_pipeline"))
+  #       ,
+  #       fixed = TRUE,
+  #       top = 0,
+  #       left = .width,
+  #       width = '100%',
+  #       height = '100',
+  #       style = "background-color: yellow;
+  #   opacity: 0.85;
+  #   padding: 0px 0px 200px 0px;
+  #   margin: 0px 0px 0px 0px;
+  #   padding-bottom: 2mm;
+  #   padding-top: 1mm;",
+  #       
+  #     ),
+  #     div(
+  #         id = ns("Screens"),
+  #         uiOutput(ns("SkippedInfoPanel")),
+  #         uiOutput(ns("EncapsulateScreens_ui"))
+  #       )
+  #   # Contains the UI for the debug module
+  #   #uiOutput(ns("debug_infos_ui"))
+  # )
+  
+  wellPanel(
+    fluidRow(
+      style = "display: flex; align-items: top; justify-content: center;",
+      column(width = 1, shinyjs::disabled(
+        actionButton(ns("prevBtn"),
+          tl_h_prev_icon,
+          class = PrevNextBtnClass,
+          style = "font-size:60%"
+        )
+      )),
+      column(width = 1,
+        mod_modalDialog_ui(id = ns("rstBtn"))
+      ),
+      column(width = 9, uiOutput(ns("show_TL"))),
+      column(width = 1,
+        actionButton(ns("nextBtn"),
+          tl_h_next_icon,
+          class = PrevNextBtnClass,
+          style = "font-size:60%"
+        )
+      )
+    ),
+    div(
+      id = ns("Screens"),
+      uiOutput(ns("SkippedInfoPanel")),
+      uiOutput(ns("EncapsulateScreens_ui"))
+    )
   )
 }
 
@@ -181,10 +246,7 @@ nav_pipeline_server <- function(
     # Launch the UI of the timeline
     output$show_TL <- renderUI({
       req(rv$tl.layout)
-      do.call(
-        paste0("timeline_", rv$tl.layout[1], "_ui"),
-        list(ns(paste0("timeline", rv$tl.layout[1])))
-      )
+      timeline_pipeline_ui(ns('timeline_pipeline'))
     })
     
     
@@ -330,20 +392,14 @@ nav_pipeline_server <- function(
         
         # Launch the server timeline for this process/pipeline
         
-        do.call(
-          paste0("timeline_", rv$tl.layout[1], "_server"),
-          list(
-            id = paste0("timeline", rv$tl.layout[1]),
+        timeline_pipeline_server(
+          "timeline_pipeline",
             config = rv$config,
             status = reactive({rv$steps.status}),
             enabled = reactive({rv$steps.enabled}),
             position = reactive({rv$current.pos})
           )
-        )
-        
-        
-        
-        
+
         
         #######################################################
         if(verbose)
@@ -707,7 +763,10 @@ nav_pipeline_server <- function(
       if(verbose)
         cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
       
-      DisplayWholeUI(ns, rv$tl.layout[1])
+      #DisplayWholeUI(ns, 'pipeline')
+      pipelineUI <-Build_nav_pipeline_ui(ns)
+      
+      pipelineUI
     })
     
     

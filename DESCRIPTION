@@ -70,6 +70,7 @@ Collate:
     directoryInput.R
     mod_build_report.R
     build_nav_process_ui.R
+    build_nav_pipeline_ui.R
     mod_chooseDir.R
     mod_launch_magellan.R
     mod_observe_dynamic_colourPicker_input.R
@@ -95,6 +96,7 @@ Collate:
     code_used_by_external_modules.R
     mod_debug_infos.R
     timeline_process.R
+    timeline_pipeline.R
     core.R
     core_process.R
     core_pipeline.R
