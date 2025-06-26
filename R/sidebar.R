@@ -12,14 +12,13 @@ NULL
 
 
 
-#' @importFrom shinydashboard sidebarMenu menuItem menuSubItem
 #' @rdname sidebars
 #' @export
 Insert_Dev_Sidebar <- function(){
   # dashboardSidebar(
   #tags$style(".sidebar-menu li a { height: 40px; color: grey;}"), 
   
-  shinydashboard::sidebarMenu(id = "sb_dev",
+  sidebarMenu(id = "sb_dev",
     #tags$style(".sidebar-menu li a { height: 40px; color: grey;}"), 
     minified = TRUE, collapsed = TRUE,
     #style = "position: fixed; overflow: visible;",
@@ -28,81 +27,81 @@ Insert_Dev_Sidebar <- function(){
     
     # Menus and submenus in sidebar
     #br(),
-    shinydashboard::menuItem("Home", 
+    menuItem("Home", 
       tabName = "Home", 
       icon = icon("home"),
       selected = TRUE),
     #hr(),
-    # shinydashboard::menuItem("Data Manager",
+    # menuItem("Data Manager",
     #          tabName = "dataManager",
     #          icon = icon("folder"),
     #          badgeLabel = "new", 
     #          badgeColor = "green"),
-    shinydashboard::menuItem(
+    menuItem(
       h4('Dataset', style="color: lightgrey;"),
-      shinydashboard::menuSubItem(
+      menuSubItem(
         "Open (qf)",
         icon = img(src="www/logo-simple.png", width = 20),
         tabName = "openDataset",
         # ,badgeLabel = "new"
         # ,badgeColor = "green"
       )
-      # ,shinydashboard::menuItem("Demo dataset",
+      # ,menuItem("Demo dataset",
       #   tabName = "demoDataset",
       #   icon = icon("folder")
       #   # ,badgeLabel = "new"
       #   # ,badgeColor = "green"
       #   )
-      ,shinydashboard::menuSubItem(
+      ,menuSubItem(
         "Import", 
         icon = img(src="www/logo-simple.png", width = 20),
         tabName = "convertDataset"),
-      shinydashboard::menuSubItem(
+      menuSubItem(
         "Save As", 
         icon = img(src="www/logo-simple.png", width = 20),
         tabName = "SaveAs"),
-      shinydashboard::menuSubItem(
+      menuSubItem(
         "Build report (Beta)", 
         icon = img(src="www/logo-simple.png", width = 20),
         tabName = "BuildReport")
     ),
     #hr(),
-    shinydashboard::menuItem(
+    menuItem(
       'Workflow',
       icon = icon("home"),
-      shinydashboard::menuSubItem(
+      menuSubItem(
         "Load", 
         icon = img(src="www/logo-simple.png", width = 20),
         tabName = "openWorkflow"),
-      shinydashboard::menuSubItem(
+      menuSubItem(
         "Run", 
         icon = img(src="www/logo-simple.png", width = 20),
         tabName = "workflow"),
-      shinydashboard::menuSubItem(
+      menuSubItem(
         "Manual", 
         icon = img(src="www/logo-simple.png", width = 20),
         tabName = "Manual"),
-      shinydashboard::menuSubItem(
+      menuSubItem(
         "FAQ", 
         icon = img(src="www/logo-simple.png", width = 20),
         tabName = "faq"),
-      shinydashboard::menuSubItem(
+      menuSubItem(
         "Release Notes", 
         icon = img(src="www/logo-simple.png", width = 20),
         tabName = "releaseNotes")
     ),
     #hr(),
-    shinydashboard::menuItem(
+    menuItem(
       'Vizualize data',
       icon = icon("home"),
       
-      shinydashboard::menuSubItem("Info", 
+      menuSubItem("Info", 
         tabName = "infosDataset", 
         icon = icon("info")
         # ,badgeLabel = "new"
         # ,badgeColor = "green"
       ),
-      shinydashboard::menuSubItem("EDA", 
+      menuSubItem("EDA", 
         tabName = "eda", 
         icon = icon("cogs")
         # ,badgeLabel = "new"
@@ -110,14 +109,14 @@ Insert_Dev_Sidebar <- function(){
       )
     ),
     #hr(),
-    shinydashboard::menuItem(
+    menuItem(
       'Help', 
       icon = icon("question")
       
       
-      #shinydashboard::menuSubItem("Useful Links", tabName = "usefulLinks")
-      #shinydashboard::menuSubItem("Bug Report", tabName = "bugReport")
-      # ,shinydashboard::menuSubItem("Check for Updates", 
+      #menuSubItem("Useful Links", tabName = "usefulLinks")
+      #menuSubItem("Bug Report", tabName = "bugReport")
+      # ,menuSubItem("Check for Updates", 
       #             tabName = "checkUpdates", 
       #             icon = icon("wrench"))
     )
@@ -127,14 +126,13 @@ Insert_Dev_Sidebar <- function(){
 
 
 
-#' @importFrom shinydashboard sidebarMenu menuItem menuSubItem
 #' @rdname sidebars
 #' @export
 Insert_User_Sidebar <- function(){
   #dashboardSidebar(
   #tags$style(".sidebar-menu li a { height: 40px; color: grey;}"), 
   #minified = TRUE, collapsed = TRUE,
-  shinydashboard::sidebarMenu(id = "sb_user",
+  sidebarMenu(id = "sb_user",
     #tags$style(".sidebar-menu li a { height: 40px; color: grey;}"), 
     
     #style = "position: fixed; overflow: visible;",
