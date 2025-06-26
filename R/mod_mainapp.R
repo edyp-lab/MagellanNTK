@@ -130,7 +130,6 @@ mainapp_ui <- function(id, session){
         # some styling
         #tags$style(".content-wrapper {overflow-y: true;}"),
          includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'theme_base.css')),
-        p('azertyuiopqsdfghjklmwxcvbn')
         # .path <- file.path(system.file('app/www/css', package = 'MagellanNTK'),'prostar.css'),
           # includeCSS(.path),
           # .path_sass <- file.path(system.file('app/www/css', package = 'MagellanNTK'),'sass-size.scss'),
@@ -155,63 +154,61 @@ mainapp_ui <- function(id, session){
           # });
           # "
           # ),
-         #  tabItems(
-        #     
-        #     tabItem(
-        #       tabName = "Home", 
-        #       icon = 'home',
-        #       class = "active", 
-        #       mod_homepage_ui(ns('home'))),
-        #     tabItem(
-        #       tabName = "openDataset",
-        #       icon = 'home',
-        #       uiOutput(ns('open_dataset_UI'))
-        #     ),
-        #     
-        #     tabItem(
-        #       tabName = "convertDataset",
-        #       icon = 'home',
-        #       uiOutput(ns('open_convert_dataset_UI'))),
-        #     
-        #     tabItem(
-        #       tabName = "SaveAs", 
-        #       icon = 'home',
-        #       uiOutput(ns('SaveAs_UI'))),
-        #     
-        #     tabItem(
-        #       tabName = "infosDataset", 
-        #       icon = 'home',
-        #       uiOutput(ns('InfosDataset_UI'))),
-        #     
-        #     tabItem(tabName = "eda", 
-        #       uiOutput(ns('EDA_UI'))),
-        #     
-        #     tabItem(tabName = "tools", 
-        #       uiOutput(ns('tools_UI'))),
-        #     
-        #     tabItem(tabName = "BuildReport", 
-        #       icon = 'home',
-        #       uiOutput(ns('BuildReport_UI'))),
-        #     
-        #     tabItem(tabName = "openWorkflow", 
-        #       uiOutput(ns('open_workflow_UI'))),
-        #     
-        #     tabItem(tabName = "workflow", 
-        #       icon = 'home',
-        #       uiOutput(ns('workflow_UI'))),
-        #     
-        #     
-        #     tabItem(tabName = "releaseNotes", 
-        #       uiOutput(ns('ReleaseNotes_UI'))),
-        # 
-        #     tabItem(tabName = "faq", 
-        #       insert_md_ui(ns('FAQ_MD'))),
-        #     tabItem(tabName = "Manual", 
-        #       uiOutput(ns('manual_UI')))
-        # 
-        #   
-        # ))
-       )
+         tabItems(
+
+            tabItem(
+              tabName = "Home",
+              icon = 'home',
+              class = "active",
+              mod_homepage_ui(ns('home'))),
+            tabItem(
+              tabName = "openDataset",
+              icon = 'home',
+              uiOutput(ns('open_dataset_UI'))
+            ),
+
+            tabItem(
+              tabName = "convertDataset",
+              icon = 'home',
+              uiOutput(ns('open_convert_dataset_UI'))),
+
+            tabItem(
+              tabName = "SaveAs",
+              icon = 'home',
+              uiOutput(ns('SaveAs_UI'))),
+
+            tabItem(
+              tabName = "infosDataset",
+              icon = 'home',
+              uiOutput(ns('InfosDataset_UI'))),
+
+            tabItem(tabName = "eda",
+              uiOutput(ns('EDA_UI'))),
+
+            tabItem(tabName = "tools",
+              uiOutput(ns('tools_UI'))),
+
+            tabItem(tabName = "BuildReport",
+              icon = 'home',
+              uiOutput(ns('BuildReport_UI'))),
+
+            tabItem(tabName = "openWorkflow",
+              uiOutput(ns('open_workflow_UI'))),
+
+            tabItem(tabName = "workflow",
+              icon = 'home',
+              uiOutput(ns('workflow_UI'))),
+
+
+            tabItem(tabName = "releaseNotes",
+              uiOutput(ns('ReleaseNotes_UI'))),
+
+            tabItem(tabName = "faq",
+              insert_md_ui(ns('FAQ_MD'))),
+            tabItem(tabName = "Manual",
+              uiOutput(ns('manual_UI')))
+        )
+         )
     )
 }
 
