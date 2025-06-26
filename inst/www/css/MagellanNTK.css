@@ -12,6 +12,7 @@
   }
 
 /* Content wrapper adjustment */
+/* permet à la sidebar de passer par-dessus le body lorsqu'elle est étendue */
   .content-wrapper {
     margin-left: 4.6rem !important;
     
@@ -61,14 +62,35 @@
 /* body text styling for the app */
   body { /*, .form-control {*/
       font-size: 15px;
-    font-family: Calibri;
+    font-family: Arial;
   }
     
     /* h2 text styling for the app */
-      h2 {
-        font-size: 25px;
-        font-family: Arial;
-      }
+h1 {
+font-size: 25px;
+font-family: Arial;
+}
+
+h2 {
+font-size: 25px;
+font-family: Arial;
+}
+
+h3 {
+font-size: 25px;
+font-family: Arial;
+}
+
+h4 {
+font-size: 25px;
+font-family: Arial;
+}
+
+p {
+font-size: 12px;
+font-family: Arial;
+/* color: orange; */
+}
     
     .main-header {
       max-height: 40px; /* Sert pour la hauteur de la controlbar */

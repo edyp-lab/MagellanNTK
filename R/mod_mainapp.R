@@ -39,87 +39,84 @@ mainapp_ui <- function(id, session){
 
   dashboardPage(
       #preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
-      options = list(
-        sidebarExpandOnHover = TRUE,
-        fixed = TRUE),
+      # options = list(
+      #   sidebarExpandOnHover = TRUE,
+      #   fixed = TRUE),
 
       header = dashboardHeader(),
       sidebar = dashboardSidebar(
-        tags$head(tags$style(HTML(".sidebar {height: 90vh; overflow-y: true; }"))),   
+        #tags$head(tags$style(HTML("p {color: white;}"))),   
         #tags$head(tags$style(HTML(".nav-item {height: 90; background-color: red;}"))),
-        
-        
-        
-        
+
         sidebarMenu(id = "sb_dev",
           menuItem(
-            text = "Home",
+            text = p("Home", style = "color: white;"),
             tabName = "Home",
           icon = icon("home")
             ),
           menuItem(
-            text = 'Dataset',
+            text = p('Dataset', style = "color: white;"),
             icon = icon("home"),
             menuSubItem(
-              text = "Open (qf)",
+              text = p("Open (qf)", style = "color: white;"),
               tabName = "openDataset",
               icon = icon("gear")
             ),
           menuSubItem(
-            text = "Import",
+            text = p("Import", style = "color: white;"),
              tabName = "convertDataset",
             icon = icon("gear")
             ),
             menuSubItem(
-              text = "Save As",
+              text = p("Save As", style = "color: white;"),
               tabName = "SaveAs",
               icon = icon("gear")
               ),
             menuSubItem(
-              text = "Build report (Beta)",
+              text = p("Build report (Beta)", style = "color: white;"),
               tabName = "BuildReport",
               icon = icon("gear")
               )
           ),
           menuItem(
-            text = 'Workflow',
+            text = p('Workflow', style = "color: white;"),
             icon = icon("home"),
             menuSubItem(
-              text = "Load",
+              text = p("Load", style = "color: white;"),
               tabName = "openWorkflow",
               icon = icon("gear")
               ),
             menuSubItem(
-              text = "Run",
+              text = p("Run", style = "color: white;"),
               tabName = "workflow",
               icon = icon("gear")
               ),
             menuSubItem(
-              text = "Manual",
+              text = p("Manual", style = "color: white;"),
               tabName = "Manual",
               icon = icon("gear")
               ),
             menuSubItem(
-              text = "FAQ",
+              text = p("FAQ", style = "color: white;"),
               tabName = "faq",
               icon = icon("gear")
               ),
             menuSubItem(
-              text = "Release Notes",
+              text = p("Release Notes", style = "color: white;"),
               tabName = "releaseNotes",
             icon = icon("gear")
             )
           ),
           menuItem(
-            text = 'Vizualize data',
+            text = p('Vizualize data', style = "color: white;"),
             icon = icon("home"),
             menuSubItem(
-              text = "Info",
+              text = p("Info", style = "color: white;"),
               tabName = "infosDataset",
               icon = icon("gear")
             ),
             menuSubItem(
-              text = "EDA",
+              text = p("EDA", style = "color: white;"),
               tabName = "eda",
               icon = icon("gear")
               )
