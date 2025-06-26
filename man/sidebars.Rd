@@ -2,12 +2,9 @@
 % Please edit documentation in R/sidebar.R
 \name{sidebars}
 \alias{sidebars}
-\alias{Insert_Dev_Sidebar}
 \alias{Insert_User_Sidebar}
 \title{Sidebar functions}
 \usage{
-Insert_Dev_Sidebar()
-
 Insert_User_Sidebar()
 }
 \description{

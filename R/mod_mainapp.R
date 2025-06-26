@@ -47,29 +47,83 @@ mainapp_ui <- function(id, session){
       sidebar = dashboardSidebar(
         #tags$head(
         #  tags$style(HTML(".sidebar {height: 90vh; overflow-y: true; }"))),   
-        #uiOutput(ns('sidebar')),
-        sidebarMenu(
-          id = "sidebarmenu",
+        #uiOutput(ns('sidebar'))
+        # sidebarMenu(
+        #   id = "sidebarmenu",
+        #   menuItem(
+        #     "Item 1",
+        #     tabName = "item1",
+        #     icon = icon("sliders")
+        #   ),
+        #   menuItem(
+        #     "Item 2",
+        #     tabName = "item2",
+        #     icon = icon("id-card"),
+        #     menuSubItem(
+        #       text = 'toto1',
+        #       tabName = 'titi1'
+        #     ),
+        #     menuSubItem(
+        #       text = 'toto2',
+        #       tabName = 'titi2'
+        #     )
+        #   )
+        # )
+        
+        
+        
+        
+        sidebarMenu(id = "sb_dev",
           menuItem(
-            "Item 1",
-            tabName = "item1",
-            icon = icon("sliders")
+            text = "Home",
+            tabName = "Home"),
+          menuItem(
+            h4('Dataset', style="color: lightgrey;"),
+            menuSubItem(
+              text = "Open (qf)",
+              tabName = "openDataset"
+            ),
+          menuSubItem(
+            text = "Import",
+             tabName = "convertDataset"),
+            menuSubItem(
+              text = "Save As",
+              tabName = "SaveAs"),
+            menuSubItem(
+              text = "Build report (Beta)",
+              tabName = "BuildReport")
           ),
           menuItem(
-            "Item 2",
-            tabName = "item2",
-            icon = icon("id-card"),
+            text = 'Workflow',
+            icon = icon("home"),
             menuSubItem(
-              text = 'toto1',
-              tabName = 'titi1'
+              text = "Load",
+              tabName = "openWorkflow"),
+            menuSubItem(
+              "Run",
+              tabName = "workflow"),
+            menuSubItem(
+              "Manual",
+              tabName = "Manual"),
+            menuSubItem(
+              "FAQ",
+              tabName = "faq"),
+            menuSubItem(
+              "Release Notes",
+              tabName = "releaseNotes")
+          ),
+          menuItem(
+            text = 'Vizualize data',
+            menuSubItem(
+              text = "Info",
+              tabName = "infosDataset"
             ),
             menuSubItem(
-              text = 'toto2',
-              tabName = 'titi2'
+              text = "EDA",
+              tabName = "eda"
+              )
             )
           )
-        )
-
       ),
       
       body = dashboardBody(
@@ -265,7 +319,96 @@ mainapp_server <- function(id,
       req(usermod)
       
       switch(usermod,
-        dev = Insert_Dev_Sidebar(),
+        dev = {
+          sidebarMenu(
+            id = "sidebarmenu",
+            menuItem(
+              "Item 1",
+              tabName = "item1",
+              icon = icon("sliders")
+            ),
+            menuItem(
+              "Item 2",
+              tabName = "item2",
+              icon = icon("id-card"),
+              menuSubItem(
+                text = 'toto1',
+                tabName = 'titi1'
+              ),
+              menuSubItem(
+                text = 'toto2',
+                tabName = 'titi2'
+              )
+            )
+          )
+          
+          
+          # sidebarMenu(id = "sb_dev",
+          #   #tags$style(".sidebar-menu li a { height: 40px; color: grey;}"), 
+          #   minified = TRUE, collapsed = TRUE,
+          #   menuItem("Home", 
+          #     tabName = "Home", 
+          #     icon = icon("home"),
+          #     selected = TRUE),
+          #   menuItem(
+          #     h4('Dataset', style="color: lightgrey;"),
+          #     menuSubItem(
+          #       "Open (qf)",
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "openDataset"
+          #     ),
+          #   menuSubItem(
+          #       "Import", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "convertDataset"),
+          #     menuSubItem(
+          #       "Save As", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "SaveAs"),
+          #     menuSubItem(
+          #       "Build report (Beta)", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "BuildReport")
+          #   ),
+          #   menuItem(
+          #     'Workflow',
+          #     icon = icon("home"),
+          #     menuSubItem(
+          #       "Load", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "openWorkflow"),
+          #     menuSubItem(
+          #       "Run", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "workflow"),
+          #     menuSubItem(
+          #       "Manual", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "Manual"),
+          #     menuSubItem(
+          #       "FAQ", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "faq"),
+          #     menuSubItem(
+          #       "Release Notes", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "releaseNotes")
+          #   ),
+          #   menuItem(
+          #     'Vizualize data',
+          #     icon = icon("home"),
+          #     
+          #     menuSubItem("Info", 
+          #       tabName = "infosDataset", 
+          #       icon = icon("info")
+          #     ),
+          #     menuSubItem("EDA", 
+          #       tabName = "eda", 
+          #       icon = icon("cogs")
+          #     )
+          #   )
+          #   )
+        },
         user = Insert_User_Sidebar()
       )
     })
