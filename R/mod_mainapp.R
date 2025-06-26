@@ -45,30 +45,8 @@ mainapp_ui <- function(id, session){
 
       header = dashboardHeader(),
       sidebar = dashboardSidebar(
-        #tags$head(
-        #  tags$style(HTML(".sidebar {height: 90vh; overflow-y: true; }"))),   
-        #uiOutput(ns('sidebar'))
-        # sidebarMenu(
-        #   id = "sidebarmenu",
-        #   menuItem(
-        #     "Item 1",
-        #     tabName = "item1",
-        #     icon = icon("sliders")
-        #   ),
-        #   menuItem(
-        #     "Item 2",
-        #     tabName = "item2",
-        #     icon = icon("id-card"),
-        #     menuSubItem(
-        #       text = 'toto1',
-        #       tabName = 'titi1'
-        #     ),
-        #     menuSubItem(
-        #       text = 'toto2',
-        #       tabName = 'titi2'
-        #     )
-        #   )
-        # )
+        tags$head(tags$style(HTML(".sidebar {height: 90vh; overflow-y: true; }"))),   
+        #tags$head(tags$style(HTML(".nav-item {height: 90; background-color: red;}"))),
         
         
         
@@ -78,7 +56,7 @@ mainapp_ui <- function(id, session){
             text = "Home",
             tabName = "Home"),
           menuItem(
-            h4('Dataset', style="color: lightgrey;"),
+            text = 'Dataset',
             menuSubItem(
               text = "Open (qf)",
               tabName = "openDataset"
