@@ -54,51 +54,74 @@ mainapp_ui <- function(id, session){
         sidebarMenu(id = "sb_dev",
           menuItem(
             text = "Home",
-            tabName = "Home"),
+            tabName = "Home",
+          icon = icon("home")
+            ),
           menuItem(
             text = 'Dataset',
+            icon = icon("home"),
             menuSubItem(
               text = "Open (qf)",
-              tabName = "openDataset"
+              tabName = "openDataset",
+              icon = icon("gear")
             ),
           menuSubItem(
             text = "Import",
-             tabName = "convertDataset"),
+             tabName = "convertDataset",
+            icon = icon("gear")
+            ),
             menuSubItem(
               text = "Save As",
-              tabName = "SaveAs"),
+              tabName = "SaveAs",
+              icon = icon("gear")
+              ),
             menuSubItem(
               text = "Build report (Beta)",
-              tabName = "BuildReport")
+              tabName = "BuildReport",
+              icon = icon("gear")
+              )
           ),
           menuItem(
             text = 'Workflow',
             icon = icon("home"),
             menuSubItem(
               text = "Load",
-              tabName = "openWorkflow"),
+              tabName = "openWorkflow",
+              icon = icon("gear")
+              ),
             menuSubItem(
-              "Run",
-              tabName = "workflow"),
+              text = "Run",
+              tabName = "workflow",
+              icon = icon("gear")
+              ),
             menuSubItem(
-              "Manual",
-              tabName = "Manual"),
+              text = "Manual",
+              tabName = "Manual",
+              icon = icon("gear")
+              ),
             menuSubItem(
-              "FAQ",
-              tabName = "faq"),
+              text = "FAQ",
+              tabName = "faq",
+              icon = icon("gear")
+              ),
             menuSubItem(
-              "Release Notes",
-              tabName = "releaseNotes")
+              text = "Release Notes",
+              tabName = "releaseNotes",
+            icon = icon("gear")
+            )
           ),
           menuItem(
             text = 'Vizualize data',
+            icon = icon("home"),
             menuSubItem(
               text = "Info",
-              tabName = "infosDataset"
+              tabName = "infosDataset",
+              icon = icon("gear")
             ),
             menuSubItem(
               text = "EDA",
-              tabName = "eda"
+              tabName = "eda",
+              icon = icon("gear")
               )
             )
           )
@@ -107,7 +130,7 @@ mainapp_ui <- function(id, session){
       body = dashboardBody(
         # some styling
         #tags$style(".content-wrapper {overflow-y: true;}"),
-         includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'theme_base.css')),
+         includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
         # .path <- file.path(system.file('app/www/css', package = 'MagellanNTK'),'prostar.css'),
           # includeCSS(.path),
           # .path_sass <- file.path(system.file('app/www/css', package = 'MagellanNTK'),'sass-size.scss'),
