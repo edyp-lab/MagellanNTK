@@ -38,13 +38,15 @@ mainapp_ui <- function(id, session){
   
 
   dashboardPage(
-      #preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
-      # options = list(
-      #   sidebarExpandOnHover = TRUE,
-      #   fixed = TRUE),
+      preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
+       options = list(
+         fixed = TRUE),
 
       header = dashboardHeader(),
       sidebar = dashboardSidebar(
+        expandOnHover = TRUE,
+        collapsed = TRUE,
+        
         #tags$head(tags$style(HTML("p {color: white;}"))),   
         #tags$head(tags$style(HTML(".nav-item {height: 90; background-color: red;}"))),
 

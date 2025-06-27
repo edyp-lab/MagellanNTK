@@ -114,7 +114,7 @@ mod_bsmodal_server <- function(id,
           tags$style("#test .modal-dialog {width: fit-content !important;}")),
         actionButton(ns("openModalBtn"), label,
                      icon("chart-bar", lib = "font-awesome"),
-                     class = "btn-success"
+                     class = btn_success_color
         ),
         
         shinyBS::bsModal(ns("window"),
