@@ -144,8 +144,8 @@ mod_modalDialog_server <- function(id,
       
       if (typeWidget == 'button')
         actionButton(ns("show"), title,
-          class = 'btn-danger',
-          style = "font-size:60%"
+          class = redBtnClass,
+          style = btn_css_style
         )
       else if (typeWidget == 'link')
        actionLink(ns("show"), title)

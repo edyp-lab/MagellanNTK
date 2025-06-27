@@ -123,7 +123,7 @@ Build_nav_pipeline_ui <- function(ns) {
         actionButton(ns("prevBtn"),
           tl_h_prev_icon,
           class = PrevNextBtnClass,
-          style = "font-size:60%"
+          style = btn_css_style
         )
       )),
       column(width = 1,
@@ -133,7 +133,7 @@ Build_nav_pipeline_ui <- function(ns) {
         actionButton(ns("nextBtn"),
           tl_h_next_icon,
           class = PrevNextBtnClass,
-          style = "font-size:60%"
+          style = btn_css_style
         )
       ),
       column(width = 9, uiOutput(ns("show_TL")))

@@ -110,14 +110,14 @@ nav_pipeline_ui <- function(id) {
   #   #uiOutput(ns("debug_infos_ui"))
   # )
   
-  wellPanel(
+tagList(
     fluidRow(
       style = "display: flex; align-items: top; justify-content: center;",
       column(width = 1, shinyjs::disabled(
         actionButton(ns("prevBtn"),
           tl_h_prev_icon,
           class = PrevNextBtnClass,
-          style = "font-size:60%"
+          style = btn_css_style
         )
       )),
       column(width = 1,
@@ -127,7 +127,7 @@ nav_pipeline_ui <- function(id) {
         actionButton(ns("nextBtn"),
           tl_h_next_icon,
           class = PrevNextBtnClass,
-          style = "font-size:60%"
+          style = btn_css_style
         )
       ),
       column(width = 9, uiOutput(ns("show_TL")))
@@ -136,8 +136,8 @@ nav_pipeline_ui <- function(id) {
       id = ns("Screens"),
       uiOutput(ns("SkippedInfoPanel")),
       uiOutput(ns("EncapsulateScreens_ui"))
-    )
   )
+)
 }
 
 

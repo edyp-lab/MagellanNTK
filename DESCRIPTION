@@ -90,8 +90,6 @@ Collate:
     load_code.R
     utils.R
     check_funcs.R
-    timeline_h.R
-    timeline_v.R
     code_used_by_external_modules.R
     mod_debug_infos.R
     timeline_process.R
@@ -103,7 +101,6 @@ Collate:
     Save_dataset.R
     general_core_funcs.R
     pipeline_funcs.R
-    build_nav_ui.R
     load_save.R
     run_workflow.R
     mod_modalDialog.R
