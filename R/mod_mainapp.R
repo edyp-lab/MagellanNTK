@@ -42,8 +42,11 @@ mainapp_ui <- function(id, session){
        options = list(
          fixed = TRUE),
 
-      header = dashboardHeader(),
+      header = dashboardHeader(
+        disable = TRUE
+      ),
       sidebar = dashboardSidebar(
+        id = ns('mySidebar'),
         expandOnHover = TRUE,
         collapsed = TRUE,
         
@@ -128,32 +131,19 @@ mainapp_ui <- function(id, session){
       
       body = dashboardBody(
         # some styling
-        #tags$style(".content-wrapper {overflow-y: true;}"),
-         includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
-        # .path <- file.path(system.file('app/www/css', package = 'MagellanNTK'),'prostar.css'),
-          # includeCSS(.path),
-          # .path_sass <- file.path(system.file('app/www/css', package = 'MagellanNTK'),'sass-size.scss'),
-          # tags$style(sass::sass(
-          #   sass::sass_file(.path_sass),
-          #   sass::sass_options(output_style = "expanded")
-          # )),
-          
-          # tags$style(
-          #   rel = "stylesheet",
-          #   type = "text/css",
-          #   href = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/qtcreator_dark.min.css"
-          # ),
-          # tags$script(
-          #   src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"
-          # ),
-          # tags$script(
-          #   "$(function() {
-          #   $('.sidebar-toggle').on('click', function() {
-          #     $('.skinSelector-widget').toggle();
-          #   });
-          # });
-          # "
-          # ),
+        includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
+        
+        absolutePanel(
+            actionButton(
+              inputId = ns("toggleSidebarBar"),
+              label = icon('bars'),
+              class = PrevNextBtnClass
+            ),
+            top = 100,
+            left = 200,
+            draggable = FALSE,
+            style = "background-color: blue;"
+          ),
          tabItems(
 
             tabItem(
@@ -232,6 +222,11 @@ mainapp_server <- function(id,
   
   moduleServer(id, function(input, output, session){
     ns <- session$ns
+    
+    
+    observeEvent(input$toggleSidebarBar, {
+      updateSidebar("mySidebar", session = session)
+    })
     
     rv.core <- reactiveValues(
       dataIn = NULL,

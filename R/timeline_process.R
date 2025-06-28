@@ -35,24 +35,7 @@ timeline_process_server <- function(id,
   enabled) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    
-    # UpdateTags <- reactive({
-    #   req(config@steps != '')
-    #   
-    #   tl_status <- rep("undone", length(config@steps))
-    #   tl_status[which(config@mandatory)] <- "mandatory"
-    #   tl_status[which(unlist(status()) == stepStatus$VALIDATED)] <- "completed"
-    #   tl_status[which(unlist(status()) == stepStatus$SKIPPED)] <- "skipped"
-    #   for (i in seq_len(length(enabled()))) {
-    #     if (!enabled()[i]) {
-    #       tl_status[i] <- paste0(tl_status[i], "Disabled")
-    #     }
-    #   }
-    #   
-    #   tl_status[position()] <- paste0(tl_status[position()], " active")
-    #   tl_status
-    # })
-    
+
     addResourcePath('www', system.file('www', package='MagellanNTK'))
     
     
@@ -107,29 +90,5 @@ timeline_process_server <- function(id,
         })
       )
     })
-    
-    # output$show_h_TL <- renderUI({
-    #   req(config@steps != '')
-    #   
-    #   tags$div(
-    #     class = "timeline",
-    #     #id = "timeline",
-    #     lapply(seq_len(length(config@steps)),
-    #       function(x) {
-    #         #print(class = paste0("li ", UpdateTags()[x]))
-    #         tags$li(style = 'border: 0px none;',
-    #           class = paste0("li ", UpdateTags()[x]),
-    #           tags$div(
-    #             class = "timestamp status",
-    #             tags$h4(config@steps[x])
-    #           )
-    #         )
-    #       }
-    #     )
-    #   )
-    #   
-    #   
-    #   
-    # })
   })
 }

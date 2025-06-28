@@ -64,7 +64,7 @@ NULL
 nav_pipeline_ui <- function(id) {
   ns <- NS(id)
   
-  .width <- 250
+  #.width <- 250
   
   # fluidPage(
   #   shinyjs::useShinyjs(),
@@ -110,8 +110,9 @@ nav_pipeline_ui <- function(id) {
   #   #uiOutput(ns("debug_infos_ui"))
   # )
   
-tagList(
-    fluidRow(
+#tagList(
+    absolutePanel(
+      fluidRow(
       style = "display: flex; align-items: top; justify-content: center;",
       column(width = 1, shinyjs::disabled(
         actionButton(ns("prevBtn"),
@@ -130,14 +131,27 @@ tagList(
           style = btn_css_style
         )
       ),
-      column(width = 9, uiOutput(ns("show_TL")))
+      column(width = 9, timeline_pipeline_ui(ns('timeline_pipeline')))
     ),
     div(
       id = ns("Screens"),
       uiOutput(ns("SkippedInfoPanel")),
       uiOutput(ns("EncapsulateScreens_ui"))
-  )
-)
+  ),
+  top = 0,
+      left = 100,
+      draggable = FALSE,
+      fixed = TRUE,
+      width = '100%',
+      height = '100%',
+      style = "background-color: orange;
+    z-index = 30000;
+    opacity: 0.85;
+    padding: 0px 0px 200px 0px;
+    margin: 0px 0px 0px 0px;
+    padding-bottom: 2mm;
+    padding-top: 1mm;"
+    )
 }
 
 
@@ -239,17 +253,7 @@ nav_pipeline_server <- function(
       
       rstBtn = reactive({0})
     )
-    
-    
-    
-    
-    # Launch the UI of the timeline
-    output$show_TL <- renderUI({
-      req(rv$tl.layout)
-      timeline_pipeline_ui(ns('timeline_pipeline'))
-    })
-    
-    
+
     
     ActionOn_Data_Trigger <- function() {
       processHasChanged <- newValue <- NULL

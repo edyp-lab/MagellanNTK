@@ -9,16 +9,11 @@
 #'
 timeline_pipeline_ui <- function(id) {
   ns <- NS(id)
-  fpath <- system.file("app/www/sass",
-    "h_timeline.sass",
-    package = "MagellanNTK"
-  )
+  fpath <- system.file("www/sass", "pipeline_timeline.sass", package = "MagellanNTK")
   tagList(
     shinyjs::useShinyjs(),
-    #tags$div(
     shinyjs::inlineCSS(sass::sass(sass::sass_file(fpath))),
     uiOutput(ns("show_pipeline_TL"))
-    #)
   )
 }
 
@@ -37,19 +32,36 @@ timeline_pipeline_server <- function(id,
     
     UpdateTags <- reactive({
       req(config@steps != '')
-      
       tl_status <- rep("undone", length(config@steps))
-      tl_status[which(config@mandatory)] <- "mandatory"
-      tl_status[which(unlist(status()) == stepStatus$VALIDATED)] <- "completed"
-      tl_status[which(unlist(status()) == stepStatus$SKIPPED)] <- "skipped"
-      for (i in seq_len(length(enabled()))) {
-        if (!enabled()[i]) {
-          tl_status[i] <- paste0(tl_status[i], "Disabled")
-        }
+      tl_status[which(status() == stepStatus$VALIDATED)] <- "completed"
+      tl_status[which(status() == stepStatus$SKIPPED)] <- "skipped"
+      
+      for (i in seq_along(tl_status)) {
+        tl_status[i] <- paste(
+          tl_status[i],
+          if (enabled()[i]) "enabled" else "disabled",
+          if (config@mandatory[i]) "mandatory"
+        )
       }
       
-      tl_status[position()] <- paste0(tl_status[position()], " active")
-      tl_status
+      tl_status[position()] <- paste(tl_status[position()], "active")
+      
+      return(tl_status)
+      
+      
+      # 
+      # tl_status[which(config@mandatory)] <- "mandatory"
+      # tl_status[which(unlist(status()) == stepStatus$VALIDATED)] <- "completed"
+      # tl_status[which(unlist(status()) == stepStatus$SKIPPED)] <- "skipped"
+      # 
+      # for (i in seq_len(length(enabled()))) {
+      #   if (!enabled()[i]) {
+      #     tl_status[i] <- paste0(tl_status[i], "Disabled")
+      #   }
+      # }
+      # 
+      # tl_status[position()] <- paste0(tl_status[position()], " active")
+      # tl_status
     })
     
     output$show_pipeline_TL <- renderUI({
@@ -57,19 +69,27 @@ timeline_pipeline_server <- function(id,
       
       tags$div(
         class = "timeline",
-        #id = "timeline",
-        lapply(seq_len(length(config@steps)),
-          function(x) {
-            #print(class = paste0("li ", UpdateTags()[x]))
-            tags$li(style = 'border: 0px none;',
-              class = paste0("li ", UpdateTags()[x]),
-              tags$div(
-                class = "timestamp status",
-                tags$h4(config@steps[x])
-              )
-            )
-          }
-        )
+        lapply(seq_along(config@steps), function(i) {
+          step_class <- paste("li", UpdateTags()[i])
+          
+          # step_subclass_list <- UpdateSubTags()[[i]]
+          box_tags <- NULL
+          
+          # if (length(step_subclass_list) > 0) {
+          #   box_tags <- lapply(step_subclass_list, function(cls) {
+          #     tags$span(class = paste("box", cls))
+          #   })
+          # }
+          
+          # print(box_tags)
+          # print(step_class)
+          tags$li(
+            class = step_class,
+            tags$div(class = "timestamp status",
+              tags$h4(config@steps[i])),
+            tags$div(class = "boxes", box_tags)
+          )
+        })
       )
       
       
