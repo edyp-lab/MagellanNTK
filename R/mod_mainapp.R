@@ -47,6 +47,7 @@ mainapp_ui <- function(id, session){
       ),
       sidebar = dashboardSidebar(
         id = ns('mySidebar'),
+        tags$style(".left-side, .main-sidebar {padding-top: 20px}"),
         expandOnHover = TRUE,
         collapsed = TRUE,
         
@@ -142,8 +143,7 @@ mainapp_ui <- function(id, session){
             top = 100,
             left = 200,
             draggable = FALSE,
-            style = "background-color: blue;"
-          ),
+            ),
          tabItems(
 
             tabItem(
