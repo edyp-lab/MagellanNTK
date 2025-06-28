@@ -197,9 +197,10 @@ tagList(
       label = icon('bars'),
       class = PrevNextBtnClass
     ),
-    top = 100,
-    left = 200,
+    top = 0,
+    left = 20,
     draggable = FALSE,
+    style = "z-index: 9999999"
   )
 )
 }
