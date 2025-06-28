@@ -36,7 +36,7 @@ NULL
 mainapp_ui <- function(id, session){
   ns <- NS(id)
   
-
+tagList(
   dashboardPage(
       preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
        options = list(
@@ -47,7 +47,7 @@ mainapp_ui <- function(id, session){
       ),
       sidebar = dashboardSidebar(
         id = ns('mySidebar'),
-        tags$style(".left-side, .main-sidebar {padding-top: 20px}"),
+        tags$style(".left-side, .main-sidebar {padding-top: 40px}"),
         expandOnHover = TRUE,
         collapsed = TRUE,
         
@@ -134,16 +134,6 @@ mainapp_ui <- function(id, session){
         # some styling
         includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
         
-        absolutePanel(
-            actionButton(
-              inputId = ns("toggleSidebarBar"),
-              label = icon('bars'),
-              class = PrevNextBtnClass
-            ),
-            top = 100,
-            left = 200,
-            draggable = FALSE,
-            ),
          tabItems(
 
             tabItem(
@@ -199,7 +189,19 @@ mainapp_ui <- function(id, session){
               uiOutput(ns('manual_UI')))
         )
          )
-    )
+    ),
+  
+  absolutePanel(
+    actionButton(
+      inputId = ns("toggleSidebarBar"),
+      label = icon('bars'),
+      class = PrevNextBtnClass
+    ),
+    top = 100,
+    left = 200,
+    draggable = FALSE,
+  )
+)
 }
 
 
