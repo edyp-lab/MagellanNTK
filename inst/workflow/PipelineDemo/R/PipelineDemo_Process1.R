@@ -181,14 +181,7 @@ PipelineDemo_Process1_server <- function(id,
       #   # Insert validation button
       #   uiOutput(ns('Description_btn_validate_ui'))
       # )
-      
-      # timeline_process_server(
-      #   id = 'Description_timeline',
-      #   config = PipelineDemo_Process1_conf(),
-      #   status = reactive({steps.status()}),
-      #   position = reactive({current.pos()}),
-      #   enabled = reactive({steps.enabled()})
-      # )
+
       
       bslib::layout_sidebar(
         sidebar = bslib::sidebar(
@@ -243,14 +236,7 @@ PipelineDemo_Process1_server <- function(id,
       
     })
     
-    # observe({
-    #   req(dataIn())
-    #   rv$dataIn <- dataIn()
-    #   dataOut$trigger <- Timestamp()
-    #   dataOut$value <- rv$dataIn
-    #   rv$steps.status['Description'] <- stepStatus$VALIDATED
-    # })
-    
+
     # >>>
     # >>> START ------------- Code for step 1 UI---------------
     # >>> 
@@ -311,7 +297,6 @@ PipelineDemo_Process1_server <- function(id,
           ),
           plotOutput(ns('showPlot'))
         )
-      #)
     })
     
     
@@ -475,7 +460,6 @@ PipelineDemo_Process1_server <- function(id,
       
       bslib::layout_sidebar(
         sidebar = bslib::sidebar(
-          p('INSERT TIMELINE'),
           timeline_process_ui(ns('Save_timeline')),
           hr(style = "border-top: 3px solid #000000;"),
           inputPanel(

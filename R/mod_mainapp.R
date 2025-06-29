@@ -194,7 +194,7 @@ tagList(
   absolutePanel(
     actionButton(
       inputId = ns("toggleSidebarBar"),
-      label = icon('bars'),
+      label = icon('bars', width = 20),
       class = PrevNextBtnClass
     ),
     top = 0,

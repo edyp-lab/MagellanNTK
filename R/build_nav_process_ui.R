@@ -32,11 +32,11 @@ Build_nav_process_ui <- function(ns) {
          class = PrevNextBtnClass,
          style = btn_css_style
        )),
-       top = 0,
-       left = 0,
+       top = 200,
+       left = 200,
        width = 200,
        height = 200,
-       style = "background-color: orange;
+       style = "background-color: blue;
     z-index = 20000;
     opacity: 0.85;
     padding: 0px 0px 200px 0px;
