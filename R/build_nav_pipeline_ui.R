@@ -23,7 +23,7 @@ Build_nav_pipeline_ui <- function(ns) {
           style = btn_css_style
         )
       ),
-      column(width = 9, uiOutput(ns("show_TL")))
+      column(width = 9, timeline_pipeline_ui(ns("timeline_pipeline")))
     ),
     div(
       id = ns("Screens"),

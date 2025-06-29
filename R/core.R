@@ -257,14 +257,14 @@ nav_server <- function(id = NULL,
                     )
 
                 # Launch the UI of the timeline
-                output$show_TL <- renderUI({
-                 
-                  do.call(
-                        paste0("timeline_", rv$tl.layout[1], "_ui"),
-                        list(ns(paste0("timeline", rv$tl.layout[1])))
-                    )
-                })
-                
+                # output$show_TL <- renderUI({
+                #  
+                #   do.call(
+                #         paste0("timeline_", rv$tl.layout[1], "_ui"),
+                #         list(ns(paste0("timeline", rv$tl.layout[1])))
+                #     )
+                # })
+                # 
 
                 
                 #######################################################
