@@ -64,54 +64,12 @@ NULL
 nav_pipeline_ui <- function(id) {
   ns <- NS(id)
   
-  #.width <- 250
-  
-  # fluidPage(
-  #   shinyjs::useShinyjs(),
-  #   # Contains the UI for the timeline, the direction buttons
-  #   # and the workflows modules
-  #   #uiOutput(ns("nav_pipeline_mod_ui")),
-  #     absolutePanel(id = "pipeline_timeline",
-  #       
-  #       shinyjs::disabled(
-  #         actionButton(ns("prevBtn"),
-  #           tl_h_prev_icon,
-  #           class = PrevNextBtnClass,
-  #           style = "font-size:60%"
-  #         ),
-  #         actionButton(ns("nextBtn"),
-  #           tl_h_next_icon,
-  #           class = PrevNextBtnClass,
-  #           style = "font-size:60%"
-  #         ),
-  #         mod_modalDialog_ui(id = ns("rstBtn"))
-  #       ),
-  #       timeline_pipeline_ui(ns("timeline_pipeline"))
-  #       ,
-  #       fixed = TRUE,
-  #       top = 0,
-  #       left = .width,
-  #       width = '100%',
-  #       height = '100',
-  #       style = "background-color: yellow;
-  #   opacity: 0.85;
-  #   padding: 0px 0px 200px 0px;
-  #   margin: 0px 0px 0px 0px;
-  #   padding-bottom: 2mm;
-  #   padding-top: 1mm;",
-  #       
-  #     ),
-  #     div(
-  #         id = ns("Screens"),
-  #         uiOutput(ns("SkippedInfoPanel")),
-  #         uiOutput(ns("EncapsulateScreens_ui"))
-  #       )
-  #   # Contains the UI for the debug module
-  #   #uiOutput(ns("debug_infos_ui"))
-  # )
-  
-#tagList(
     absolutePanel(
+      div("content",
+        style = "background-color: green;
+        padding: 0px 0px 0px 75px;
+        width: 100%; 
+        height: auto;",
       fluidRow(
       style = "display: flex; align-items: top; justify-content: center;",
       column(width = 1, shinyjs::disabled(
@@ -132,22 +90,24 @@ nav_pipeline_ui <- function(id) {
         )
       ),
       column(width = 9, timeline_pipeline_ui(ns('timeline_pipeline')))
-    ),
+    
+        ),
     div(
       id = ns("Screens"),
+      #style = "width: 100%; height: auto; backgroun-color: red;",
       uiOutput(ns("SkippedInfoPanel")),
       uiOutput(ns("EncapsulateScreens_ui"))
-  ),
+  )
+        ),
   top = 0,
-      left = 100,
+      left = 0,
       draggable = FALSE,
       fixed = TRUE,
       width = '100%',
       height = '100%',
-      style = "background-color: orange;
-    z-index = 30000;
+      style = "z-index = 30000;
     opacity: 0.85;
-    padding: 0px 0px 200px 0px;
+    padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px;
     padding-bottom: 2mm;
     padding-top: 1mm;"
