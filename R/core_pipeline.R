@@ -21,11 +21,6 @@
 #' Basically, it is the program which has called this module
 #'
 #' @param is.skipped xxx
-#'
-#' @param tl.layout A vector of character ('h' for horizontal, 'v' for vertical)
-#' where each item correspond to the orientation of the timeline for a given
-#' level of navigation module.
-#' 
 #' @param wholeReset = reactive({0}),
 #' @param verbose = FALSE,
 #' @param usermod = 'user'
@@ -128,7 +123,6 @@ nav_pipeline_server <- function(
   remoteReset = reactive({0}),
   wholeReset = reactive({0}),
   is.skipped = reactive({FALSE}),
-  tl.layout = NULL,
   verbose = FALSE,
   usermod = 'user') {
   
@@ -152,8 +146,6 @@ nav_pipeline_server <- function(
     rv <- reactiveValues(
       # Contains the return value of the process module that has been called
       proc = NULL,
-      
-      tl.layout = NULL,
       
       # steps.status A boolean vector which contains the status 
       # (validated, skipped or undone) of the steps
@@ -344,14 +336,7 @@ nav_pipeline_server <- function(
         )
         
         rv$currentStepName <- reactive({stepsnames[rv$current.pos]})
-        
-        # Set default layout for process and pipeline
-        if (is.null(rv$tl.layout)) {
-          rv$tl.layout <-  c("h", "h")
-        } else 
-          rv$tl.layout <- tl.layout
-        
-        
+
         # Launch the server timeline for this process/pipeline
         
         timeline_pipeline_server(
@@ -410,7 +395,6 @@ nav_pipeline_server <- function(
             is.enabled = reactive({isTRUE(rv$steps.enabled[x])}),
             remoteReset = reactive({rv$resetChildren[x]}),
             is.skipped = reactive({isTRUE(rv$steps.skipped[x])}),
-            tl.layout = rv$tl.layout[-1],
             verbose = verbose,
             usermod = usermod
           )
@@ -913,8 +897,7 @@ nav_pipeline <- function(){
         dataIn = reactive({rv$dataIn}),
         remoteReset = reactive({input$simReset}),
         is.skipped = reactive({input$simSkipped%%2 != 0}),
-        is.enabled = reactive({input$simEnabled%%2 == 0}),
-        tl.layout = layout)
+        is.enabled = reactive({input$simEnabled%%2 == 0}))
     })
   }
   

@@ -87,7 +87,6 @@ nav_process_server <- function(id = NULL,
   is.enabled = reactive({TRUE}),
   remoteReset = reactive({0}),
   is.skipped = reactive({FALSE}),
-  tl.layout = NULL,
   verbose = FALSE,
   usermod = 'user') {
   
@@ -112,7 +111,6 @@ nav_process_server <- function(id = NULL,
       # Contains the return value of the process module that has been called
       proc = NULL,
       
-      tl.layout = NULL,
       
       # steps.status A boolean vector which contains the status 
       # (validated, skipped or undone) of the steps
@@ -198,30 +196,7 @@ nav_process_server <- function(id = NULL,
         rv$steps.skipped <- setNames(rep(FALSE, n), nm = stepsnames)
         
         rv$currentStepName <- reactive({stepsnames[rv$current.pos]})
-        
-        rv$tl.layout <- tl.layout
-        
-        # Set default layout for process and pipeline
-        if (is.null(rv$tl.layout)) {
-          rv$tl.layout <- c('h')
-        }
-        
-        # Launch the server timeline for this process/pipeline
-        
-        timeline_process_server(
-          id = "timeline_process",
-          config = rv$config,
-          status = reactive({rv$steps.status}),
-          enabled = reactive({rv$steps.enabled}),
-          position = reactive({rv$current.pos})
-        )
-        
-        # # Launch the UI of the timeline
-        output$show_TL <- renderUI({
-          timeline_process_ui(ns("timeline_process"))
-        })
-        # 
-        
+
         if(verbose)
           cat(crayon::yellow(paste0(id, ': Entering observeEvent(req(rv$config), {...})\n')))
       },
@@ -486,43 +461,30 @@ nav_process_server <- function(id = NULL,
     output$nav_process_mod_ui <- renderUI({
       if(verbose)
         cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
-    #   tagList(
-    #     absolutePanel(id = "btns_process_panel",
-    #       draggable = TRUE,
-    #       fluidRow(
-    #         column(width = 4, shinyjs::disabled(
-    #           actionButton(ns("prevBtn"),
-    #             tl_h_prev_icon,
-    #             class = PrevNextBtnClass,
-    #             style = btn_css_style
-    #           )
-    #         )),
-    #         column(width = 4, mod_modalDialog_ui(id = ns("rstBtn"))),
-    #         column(width = 4, actionButton(ns("nextBtn"),
-    #           tl_h_next_icon,
-    #           class = PrevNextBtnClass,
-    #           style = btn_css_style
-    #         )),
-    #         top = 0,
-    #         left = 200,
-    #         width = 200,
-    #         height = 200,
-    #         style = "background-color: blue;
-    # z-index = 999999 !important;
-    # opacity: 0.85;
-    # padding: 0px 0px 200px 0px;
-    # margin: 0px 0px 0px 0px;
-    # padding-bottom: 2mm;
-    # padding-top: 1mm;",
-    #       )
-    #     ),
-      tagList(
+
+      fluidPage(
         #  ui <- layout_sidebar(
         #includeCSS("C:/Users/sw175264/Desktop/Evolutions Prostar/Cyril/Maquette/www/theme_base2.css"),
         tags$style(".bslib-sidebar-layout .collapse-toggle{display:true;}"),
-        #tags$style("z-index: 999;}"),
-        tags$style(" z-index: 99999999;"),
-          absolutePanel(id = "btns_process_panel",
+        
+        div(
+          style = "z-index: 0;",
+          id = ns("Screens"),
+          uiOutput(ns("SkippedInfoPanel")),
+          uiOutput(ns("EncapsulateScreens_ui"))
+        ),
+        absolutePanel(id = "btns_process_panel",
+          top = 150,
+          left = 200,
+          width = 200,
+          height = 50,
+          style = " z-index: 99999999;
+            background-color: blue;
+            opacity: 0.85;
+            padding: 0px 0px 200px 0px;
+            margin: 0px 0px 0px 0px;
+            padding-bottom: 2mm;
+            padding-top: 1mm;",
           draggable = TRUE,
           fluidRow(
             column(width = 4, shinyjs::disabled(
@@ -537,26 +499,9 @@ nav_process_server <- function(id = NULL,
               tl_h_next_icon,
               class = PrevNextBtnClass,
               style = btn_css_style
-            )),
-            top = 0,
-            left = 200,
-            width = 200,
-            height = 200,
-            style = "background-color: blue;
-    z-index = 99999999 !important;
-    opacity: 0.85;
-    padding: 0px 0px 200px 0px;
-    margin: 0px 0px 0px 0px;
-    padding-bottom: 2mm;
-    padding-top: 1mm;"
-          )),
-        
-        div(
-          style = "z-index: 0;",
-          id = ns("Screens"),
-          uiOutput(ns("SkippedInfoPanel")),
-          uiOutput(ns("EncapsulateScreens_ui"))
-        )
+            ))
+            
+          ))
         )
     })
     
@@ -751,8 +696,8 @@ nav_process <- function(){
         dataIn = reactive({rv$dataIn}),
         remoteReset = reactive({input$simReset}),
         is.skipped = reactive({input$simSkipped%%2 != 0}),
-        is.enabled = reactive({input$simEnabled%%2 == 0}),
-        tl.layout = layout)
+        is.enabled = reactive({input$simEnabled%%2 == 0})
+        )
     })
   }
   

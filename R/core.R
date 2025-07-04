@@ -22,10 +22,6 @@
 #'
 #' @param is.skipped xxx
 #'
-#' @param tl.layout A vector of character ('h' for horizontal, 'v' for vertical)
-#' where each item correspond to the orientation of the timeline for a given
-#' level of navigation module.
-#' 
 #' @param wholeReset = reactive({0}),
 #' @param verbose = FALSE,
 #' @param usermod = 'user'
@@ -64,7 +60,6 @@ nav_ui <- function(id) {
     ns <- NS(id)
     tagList(
         shinyjs::useShinyjs(),
-        p("tetetetetetete"),
         # Contains the UI for the timeline, the direction buttons
         # and the workflows modules
         uiOutput(ns("nav_mod_ui")),
@@ -89,7 +84,6 @@ nav_server <- function(id = NULL,
     remoteReset = reactive({0}),
     wholeReset = reactive({0}),
     is.skipped = reactive({FALSE}),
-    tl.layout = NULL,
     verbose = FALSE,
     usermod = 'user') {
 
@@ -114,8 +108,7 @@ nav_server <- function(id = NULL,
             # Contains the return value of the process module that has been called
             proc = NULL,
 
-            tl.layout = NULL,
-
+            
             # steps.status A boolean vector which contains the status 
             # (validated, skipped or undone) of the steps
             steps.status = NULL,
@@ -235,26 +228,19 @@ nav_server <- function(id = NULL,
                 
                 rv$tl.layout <- tl.layout
 
-                # Set default layout for process and pipeline
-                if (is.null(rv$tl.layout)) {
-                    rv$tl.layout <- switch(rv$config@mode,
-                        process = c("h"),
-                        pipeline = c("h", "h")
-                    )
-                }
 
                 # Launch the server timeline for this process/pipeline
                 
-                do.call(
-                    paste0("timeline_", rv$tl.layout[1], "_server"),
-                    list(
-                        id = paste0("timeline", rv$tl.layout[1]),
-                        config = rv$config,
-                        status = reactive({rv$steps.status}),
-                        enabled = reactive({rv$steps.enabled}),
-                        position = reactive({rv$current.pos})
-                        )
-                    )
+                # do.call(
+                #     paste0("timeline_", rv$tl.layout[1], "_server"),
+                #     list(
+                #         id = paste0("timeline", rv$tl.layout[1]),
+                #         config = rv$config,
+                #         status = reactive({rv$steps.status}),
+                #         enabled = reactive({rv$steps.enabled}),
+                #         position = reactive({rv$current.pos})
+                #         )
+                #     )
 
                 # Launch the UI of the timeline
                 # output$show_TL <- renderUI({
@@ -317,7 +303,6 @@ nav_server <- function(id = NULL,
                              is.enabled = reactive({isTRUE(rv$steps.enabled[x])}),
                              remoteReset = reactive({rv$resetChildren[x]}),
                              is.skipped = reactive({isTRUE(rv$steps.skipped[x])}),
-                             tl.layout = rv$tl.layout[-1],
                              verbose = verbose,
                              usermod = usermod
                              )
@@ -749,12 +734,12 @@ nav_server <- function(id = NULL,
         # Note for devs: apparently, the renderUI() cannot be stored in the 
         # function 'Build..'
         output$nav_mod_ui <- renderUI({
-          req(rv$tl.layout)
+          #req(rv$tl.layout)
           if(verbose)
             cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
           
           #browser()
-            DisplayWholeUI(ns, rv$tl.layout[1])
+            DisplayWholeUI(ns)
         })
 
         
@@ -1190,8 +1175,8 @@ server <- function(input, output, session){
       dataIn = reactive({rv$dataIn}),
       remoteReset = reactive({input$simReset}),
       is.skipped = reactive({input$simSkipped%%2 != 0}),
-      is.enabled = reactive({input$simEnabled%%2 == 0}),
-      tl.layout = layout)
+      is.enabled = reactive({input$simEnabled%%2 == 0})
+      )
   })
 }
 
