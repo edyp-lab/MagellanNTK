@@ -196,7 +196,7 @@ nav_process_server <- function(id = NULL,
         rv$steps.enabled <- setNames(rep(FALSE, n), nm = stepsnames)
         
         rv$steps.skipped <- setNames(rep(FALSE, n), nm = stepsnames)
-
+        
         rv$currentStepName <- reactive({stepsnames[rv$current.pos]})
         
         rv$tl.layout <- tl.layout
@@ -209,13 +209,13 @@ nav_process_server <- function(id = NULL,
         # Launch the server timeline for this process/pipeline
         
         timeline_process_server(
-            id = "timeline_process",
-            config = rv$config,
-            status = reactive({rv$steps.status}),
-            enabled = reactive({rv$steps.enabled}),
-            position = reactive({rv$current.pos})
-          )
-
+          id = "timeline_process",
+          config = rv$config,
+          status = reactive({rv$steps.status}),
+          enabled = reactive({rv$steps.enabled}),
+          position = reactive({rv$current.pos})
+        )
+        
         # # Launch the UI of the timeline
         output$show_TL <- renderUI({
           timeline_process_ui(ns("timeline_process"))
@@ -396,7 +396,7 @@ nav_process_server <- function(id = NULL,
     
     
     
-
+    
     # # Catch a click of a the button 'Ok' of a reset modal. This can be in
     # # the local module or in the module parent UI (in this case,
     # # it is called a 'remoteReset')
@@ -455,25 +455,25 @@ nav_process_server <- function(id = NULL,
       len <- length(rv$config@ll.UI)
       
       #renderUI({
-       screens <-  tagList(
-          lapply(seq_len(len), function(i) {
-            if (i == 1) {
+      screens <-  tagList(
+        lapply(seq_len(len), function(i) {
+          if (i == 1) {
+            div(
+              id = ns(GetStepsNames()[i]),
+              class = paste0("page_", id),
+              rv$config@ll.UI[[i]]
+            )
+          } else {
+            shinyjs::hidden(
               div(
                 id = ns(GetStepsNames()[i]),
                 class = paste0("page_", id),
                 rv$config@ll.UI[[i]]
               )
-            } else {
-              shinyjs::hidden(
-                div(
-                  id = ns(GetStepsNames()[i]),
-                  class = paste0("page_", id),
-                  rv$config@ll.UI[[i]]
-                )
-              )
-            }
-          })
-        )
+            )
+          }
+        })
+      )
       #})
       #browser()
       screens
@@ -497,7 +497,7 @@ nav_process_server <- function(id = NULL,
           uiOutput(ns("SkippedInfoPanel")),
           uiOutput(ns("EncapsulateScreens_ui"))
         ),
-        absolutePanel(id = "process_btns_panel",
+        absolutePanel(id = "btns_process_panel",
           draggable = TRUE,
           fluidRow(
             column(width = 4, shinyjs::disabled(
@@ -513,8 +513,8 @@ nav_process_server <- function(id = NULL,
               class = PrevNextBtnClass,
               style = btn_css_style
             )),
-            top = 100,
-            left = 100,
+            top = 50,
+            left = 200,
             width = 200,
             height = 200,
             style = "background-color: blue;
@@ -575,7 +575,7 @@ nav_process_server <- function(id = NULL,
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
       
-
+      
       
       if (is.null(dataIn())) {
         # The process has been reseted or is not concerned
@@ -624,7 +624,7 @@ nav_process_server <- function(id = NULL,
       )
       shinyjs::hide(selector = paste0(".page_", id))
       shinyjs::show(GetStepsNames()[rv$current.pos])
-
+      
     })
     
     
@@ -663,11 +663,11 @@ nav_process <- function(){
   server_env$dev_mode <- FALSE
   
   # Uncomment and Change this for a process workflow
-   proc.name <- 'PipelineDemo_Process1'
-   pipe.name <- 'PipelineDemo'
+  proc.name <- 'PipelineDemo_Process1'
+  pipe.name <- 'PipelineDemo'
   #name <- 'PipelineDemo_Description'
-   layout <- c('h')
-
+  layout <- c('h')
+  
   path <- system.file(file.path('workflow', pipe.name), package='MagellanNTK')
   files <- list.files(file.path(path, 'R'), full.names = TRUE)
   for(f in files)
@@ -699,7 +699,7 @@ nav_process <- function(){
       dataIn = sub_R25,
       dataOut = NULL
     )
-
+    
     output$UI <- renderUI({nav_process_ui(proc.name)})
     
     output$debugInfos_ui <- renderUI({

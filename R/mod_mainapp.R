@@ -36,16 +36,15 @@ NULL
 mainapp_ui <- function(id, session){
   ns <- NS(id)
   
-tagList(
-  dashboardPage(
+  tagList(
+    dashboardPage(
       preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
-       options = list(
-         fixed = TRUE),
-
+      options = list(
+        fixed = TRUE),
+      
       header = dashboardHeader(
         disable = TRUE
       ),
-    
       sidebar = dashboardSidebar(
         id = ns('mySidebar'),
         tags$style(".left-side, .main-sidebar {padding-top: 40px}"),
@@ -54,13 +53,13 @@ tagList(
         
         #tags$head(tags$style(HTML("p {color: white;}"))),   
         #tags$head(tags$style(HTML(".nav-item {height: 90; background-color: red;}"))),
-
+        
         sidebarMenu(id = "sb_dev",
           menuItem(
             text = p("Home", style = "color: white;"),
             tabName = "Home",
-          icon = icon("home")
-            ),
+            icon = icon("home")
+          ),
           menuItem(
             text = p('Dataset', style = "color: white;"),
             icon = icon("home"),
@@ -69,21 +68,21 @@ tagList(
               tabName = "openDataset",
               icon = icon("gear")
             ),
-          menuSubItem(
-            text = p("Import", style = "color: white;"),
-             tabName = "convertDataset",
-            icon = icon("gear")
+            menuSubItem(
+              text = p("Import", style = "color: white;"),
+              tabName = "convertDataset",
+              icon = icon("gear")
             ),
             menuSubItem(
               text = p("Save As", style = "color: white;"),
               tabName = "SaveAs",
               icon = icon("gear")
-              ),
+            ),
             menuSubItem(
               text = p("Build report (Beta)", style = "color: white;"),
               tabName = "BuildReport",
               icon = icon("gear")
-              )
+            )
           ),
           menuItem(
             text = p('Workflow', style = "color: white;"),
@@ -92,26 +91,26 @@ tagList(
               text = p("Load", style = "color: white;"),
               tabName = "openWorkflow",
               icon = icon("gear")
-              ),
+            ),
             menuSubItem(
               text = p("Run", style = "color: white;"),
               tabName = "workflow",
               icon = icon("gear")
-              ),
+            ),
             menuSubItem(
               text = p("Manual", style = "color: white;"),
               tabName = "Manual",
               icon = icon("gear")
-              ),
+            ),
             menuSubItem(
               text = p("FAQ", style = "color: white;"),
               tabName = "faq",
               icon = icon("gear")
-              ),
+            ),
             menuSubItem(
               text = p("Release Notes", style = "color: white;"),
               tabName = "releaseNotes",
-            icon = icon("gear")
+              icon = icon("gear")
             )
           ),
           menuItem(
@@ -126,84 +125,84 @@ tagList(
               text = p("EDA", style = "color: white;"),
               tabName = "eda",
               icon = icon("gear")
-              )
             )
           )
+        )
       ),
       
       body = dashboardBody(
         # some styling
         includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
-        #tags$head(tags$style("height: auto;")),
-         tabItems(
-
-            tabItem(
-              tabName = "Home",
-              icon = 'home',
-              class = "active",
-              mod_homepage_ui(ns('home'))),
-            tabItem(
-              tabName = "openDataset",
-              icon = 'home',
-              uiOutput(ns('open_dataset_UI'))
-            ),
-
-            tabItem(
-              tabName = "convertDataset",
-              icon = 'home',
-              uiOutput(ns('open_convert_dataset_UI'))),
-
-            tabItem(
-              tabName = "SaveAs",
-              icon = 'home',
-              uiOutput(ns('SaveAs_UI'))),
-
-            tabItem(
-              tabName = "infosDataset",
-              icon = 'home',
-              uiOutput(ns('InfosDataset_UI'))),
-
-            tabItem(tabName = "eda",
-              uiOutput(ns('EDA_UI'))),
-
-            tabItem(tabName = "tools",
-              uiOutput(ns('tools_UI'))),
-
-            tabItem(tabName = "BuildReport",
-              icon = 'home',
-              uiOutput(ns('BuildReport_UI'))),
-
-            tabItem(tabName = "openWorkflow",
-              uiOutput(ns('open_workflow_UI'))),
-
-            tabItem(tabName = "workflow",
-              icon = 'home',
-              uiOutput(ns('workflow_UI'))),
-
-
-            tabItem(tabName = "releaseNotes",
-              uiOutput(ns('ReleaseNotes_UI'))),
-
-            tabItem(tabName = "faq",
-              insert_md_ui(ns('FAQ_MD'))),
-            tabItem(tabName = "Manual",
-              uiOutput(ns('manual_UI')))
+        
+        tabItems(
+          
+          tabItem(
+            tabName = "Home",
+            icon = 'home',
+            class = "active",
+            mod_homepage_ui(ns('home'))),
+          tabItem(
+            tabName = "openDataset",
+            icon = 'home',
+            uiOutput(ns('open_dataset_UI'))
+          ),
+          
+          tabItem(
+            tabName = "convertDataset",
+            icon = 'home',
+            uiOutput(ns('open_convert_dataset_UI'))),
+          
+          tabItem(
+            tabName = "SaveAs",
+            icon = 'home',
+            uiOutput(ns('SaveAs_UI'))),
+          
+          tabItem(
+            tabName = "infosDataset",
+            icon = 'home',
+            uiOutput(ns('InfosDataset_UI'))),
+          
+          tabItem(tabName = "eda",
+            uiOutput(ns('EDA_UI'))),
+          
+          tabItem(tabName = "tools",
+            uiOutput(ns('tools_UI'))),
+          
+          tabItem(tabName = "BuildReport",
+            icon = 'home',
+            uiOutput(ns('BuildReport_UI'))),
+          
+          tabItem(tabName = "openWorkflow",
+            uiOutput(ns('open_workflow_UI'))),
+          
+          tabItem(tabName = "workflow",
+            icon = 'home',
+            uiOutput(ns('workflow_UI'))),
+          
+          
+          tabItem(tabName = "releaseNotes",
+            uiOutput(ns('ReleaseNotes_UI'))),
+          
+          tabItem(tabName = "faq",
+            insert_md_ui(ns('FAQ_MD'))),
+          tabItem(tabName = "Manual",
+            uiOutput(ns('manual_UI')))
         )
-         )
+      )
+    ),
+    
+    absolutePanel(
+      actionButton(
+        inputId = ns("toggleSidebarBar"),
+        label = icon('bars', width = 20),
+        class = PrevNextBtnClass
+      ),
+      top = 0,
+      left = 20,
+      draggable = FALSE,
+      style = "z-index: 9999999"
     )
-  # 
-  # ,absolutePanel(
-  #   actionButton(
-  #     inputId = ns("toggleSidebarBar"),
-  #     label = icon('bars', width = 20),
-  #     class = PrevNextBtnClass
-  #   ),
-  #   top = 0,
-  #   left = 20,
-  #   draggable = FALSE,
-  #   style = "z-index: 9999999"
-  # )
-)
+  )
 }
 
 

@@ -48,7 +48,7 @@ PipelineDemo_Process1_conf <- function(){
     mode = 'process',
     steps = c('Step 1'),
     mandatory = c(FALSE)
-    )
+  )
 }
 
 
@@ -75,8 +75,8 @@ PipelineDemo_Process1_server <- function(id,
   steps.status = reactive({NULL}),
   current.pos = reactive({1}),
   timeline = reactive({NULL})
-  ){
- 
+){
+  
   #source(paste0(path, '/foo.R'), local=TRUE)$value
   
   # Define default selected values for widgets
@@ -155,12 +155,12 @@ PipelineDemo_Process1_server <- function(id,
     
     
     
-      
+    
     
     output$Description <- renderUI({
       file <- normalizePath(file.path(session$userData$workflow.path, 
         'md', paste0(id, '.md')))
-   
+      
       req(file)
       # tagList(
       #   ### In this example, the md file is found in the extdata/module_examples 
@@ -181,10 +181,11 @@ PipelineDemo_Process1_server <- function(id,
       #   # Insert validation button
       #   uiOutput(ns('Description_btn_validate_ui'))
       # )
-
+      
       
       bslib::layout_sidebar(
         sidebar = bslib::sidebar(
+          p('INSERT TIMELINE'),
           timeline_process_ui(ns('Description_timeline')),
           
           inputPanel(
@@ -195,8 +196,8 @@ PipelineDemo_Process1_server <- function(id,
           width = 200,
           position = "left",
           bg='lightblue',
-          padding = c(0, 0), # 1ere valeur : padding vertical, 2eme : horizontal
-          style = "position: fixed;"
+          padding = c(0, 0) # 1ere valeur : padding vertical, 2eme : horizontal
+          #style = "p1"
         ),
         if (file.exists(file))
           includeMarkdown(file)
@@ -235,7 +236,7 @@ PipelineDemo_Process1_server <- function(id,
       
     })
     
-
+    
     # >>>
     # >>> START ------------- Code for step 1 UI---------------
     # >>> 
@@ -246,28 +247,56 @@ PipelineDemo_Process1_server <- function(id,
       path <- file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')
       includeCSS(path)
       
+      # wellPanel(
+      #   # uiOutput for all widgets in this UI
+      #   # This part is mandatory
+      #   # The renderUI() function of each widget is managed by MagellanNTK
+      #   # The dev only have to define a reactive() function for each
+      #   # widget he want to insert
+      #   # Be aware of the naming convention for ids in uiOutput()
+      #   # For more details, please refer to the dev document.
+      #   fluidRow(
+      #     column(width = 3, uiOutput(ns('Step1_btn1_ui'))),
+      #     column(width = 3, uiOutput(ns('Step1_radio1_ui')))
+      #     ),
+      #   
+      #   fluidRow(
+      #     column(width = 3, uiOutput(ns('Step1_select1_ui'))),
+      #     column(width = 3, shinyjs::hidden(uiOutput(ns('Step1_select2_ui')))),
+      #     column(width = 3, uiOutput(ns('Step1_select3_ui')))
+      #     ),
+      #   #foo_ui(ns('foo')),
+      #   # Insert validation button
+      #   uiOutput(ns('Step1_btn_validate_ui')),
+      #   
+      #   # Additional code
+      #   plotOutput(ns('showPlot'))
+      # )
+      
+      
       #fluidPage(
-        
-        bslib::layout_sidebar(
-          sidebar = bslib::sidebar(
-             timeline_process_ui(ns('Step1_timeline')),
-            hr(style = "border-top: 3px solid #000000;"),
-            inputPanel(
-              uiOutput(ns("Step1_btn_validate_ui")),
-              uiOutput(ns('Step1_btn1_ui')),
-              uiOutput(ns('Step1_radio1_ui')),
-              uiOutput(ns('Step1_select1_ui')),
-              shinyjs::hidden(uiOutput(ns('Step1_select2_ui'))),
-              uiOutput(ns('Step1_select3_ui'))
-            ),
-            width = 200,
-            position = "left",
-            bg='lightblue',
-            padding = c(0, 0), # 1ere valeur : padding vertical, 2eme : horizontal
-            style = "position: fixed;"
+      
+      bslib::layout_sidebar(
+        sidebar = bslib::sidebar(
+          p('INSERT TIMELINE'),
+          timeline_process_ui(ns('Step1_timeline')),
+          hr(style = "border-top: 3px solid #000000;"),
+          inputPanel(
+            uiOutput(ns("Step1_btn_validate_ui")),
+            uiOutput(ns('Step1_btn1_ui')),
+            uiOutput(ns('Step1_radio1_ui')),
+            uiOutput(ns('Step1_select1_ui')),
+            shinyjs::hidden(uiOutput(ns('Step1_select2_ui'))),
+            uiOutput(ns('Step1_select3_ui'))
           ),
-          plotOutput(ns('showPlot'))
-        )
+          width = 200,
+          position = "left",
+          bg='lightblue',
+          padding = c(0, 0) # 1ere valeur : padding vertical, 2eme : horizontal
+          #style = "p1"
+        ),
+        plotOutput(ns('showPlot'))
+      )
     })
     
     
@@ -320,9 +349,9 @@ PipelineDemo_Process1_server <- function(id,
     
     output$Step1_radio1_ui <- renderUI({
       widget <- radioButtons(ns('Step1_radio1'), 'Choose',
-                            c("choice 1" = "choice1", "choice 2" = "choice2"),
-                            selected = rv.widgets$Step1_radio1
-                            )
+        c("choice 1" = "choice1", "choice 2" = "choice2"),
+        selected = rv.widgets$Step1_radio1
+      )
       toggleWidget(widget, rv$steps.enabled['Step1'])
     })
     
@@ -343,18 +372,18 @@ PipelineDemo_Process1_server <- function(id,
     
     observeEvent(input$Step1_btn_validate, {
       # Do some stuff
-#browser()
+      #browser()
       # new.dataset <- rv$dataIn[[length(rv$dataIn)]]
       # SummarizedExperiment::assay(new.dataset) <- 10 * SummarizedExperiment::assay(rv$dataIn[[length(rv$dataIn)]])
       # rv$dataIn <- addDatasets(object = rv$dataIn,
       #                          dataset = new.dataset,
       #                          name = paste0('Step1_',id))
-
+      
       # DO NOT MODIFY THE THREE FOLLOWINF LINES
       dataOut$trigger <- Timestamp()
       dataOut$value <- NULL
       rv$steps.status['Step1'] <- stepStatus$VALIDATED
-
+      
     })
     
     
@@ -410,7 +439,7 @@ PipelineDemo_Process1_server <- function(id,
       # rv$dataIn <- addDatasets(object = rv$dataIn,
       #   dataset = new.dataset,
       #   name = paste0('Step2_',id))
-
+      
       # DO NOT MODIFY THE THREE FOLLOWINF LINES
       dataOut$trigger <- Timestamp()
       dataOut$value <- NULL
@@ -439,8 +468,8 @@ PipelineDemo_Process1_server <- function(id,
           width = 200,
           position = "left",
           bg='lightblue',
-          padding = c(0, 0), # 1ere valeur : padding vertical, 2eme : horizontal
-          style = "position: fixed;"
+          padding = c(0, 0) # 1ere valeur : padding vertical, 2eme : horizontal
+          #style = "p1"
         ),
         # Used to show some information about the dataset which is loaded
         # This function must be provided by the package of the process module
@@ -459,9 +488,9 @@ PipelineDemo_Process1_server <- function(id,
     output$Save_btn_validate_ui <- renderUI({
       toggleWidget(
         actionButton(ns("Save_btn_validate"), "Save",
-                     class = btn_success_color),
+          class = btn_success_color),
         rv$steps.enabled['Save']
-        )
+      )
     })
     observeEvent(input$Save_btn_validate, {
       # Do some stuff
@@ -470,7 +499,7 @@ PipelineDemo_Process1_server <- function(id,
         object = rv$dataIn,
         dataset = 10*rv$dataIn[[length(rv$dataIn)]],
         name = 'Process1')
-
+      
       # DO NOT MODIFY THE THREE FOLLOWINF LINES
       dataOut$trigger <- Timestamp()
       dataOut$value <- rv$dataIn
