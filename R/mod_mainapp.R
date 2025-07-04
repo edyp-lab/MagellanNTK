@@ -45,6 +45,7 @@ tagList(
       header = dashboardHeader(
         disable = TRUE
       ),
+    
       sidebar = dashboardSidebar(
         id = ns('mySidebar'),
         tags$style(".left-side, .main-sidebar {padding-top: 40px}"),
@@ -133,7 +134,7 @@ tagList(
       body = dashboardBody(
         # some styling
         includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
-        
+        #tags$head(tags$style("height: auto;")),
          tabItems(
 
             tabItem(
@@ -189,19 +190,19 @@ tagList(
               uiOutput(ns('manual_UI')))
         )
          )
-    ),
-  
-  absolutePanel(
-    actionButton(
-      inputId = ns("toggleSidebarBar"),
-      label = icon('bars', width = 20),
-      class = PrevNextBtnClass
-    ),
-    top = 0,
-    left = 20,
-    draggable = FALSE,
-    style = "z-index: 9999999"
-  )
+    )
+  # 
+  # ,absolutePanel(
+  #   actionButton(
+  #     inputId = ns("toggleSidebarBar"),
+  #     label = icon('bars', width = 20),
+  #     class = PrevNextBtnClass
+  #   ),
+  #   top = 0,
+  #   left = 20,
+  #   draggable = FALSE,
+  #   style = "z-index: 9999999"
+  # )
 )
 }
 

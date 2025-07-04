@@ -185,7 +185,6 @@ PipelineDemo_Process1_server <- function(id,
       
       bslib::layout_sidebar(
         sidebar = bslib::sidebar(
-          p('INSERT TIMELINE'),
           timeline_process_ui(ns('Description_timeline')),
           
           inputPanel(
@@ -196,8 +195,8 @@ PipelineDemo_Process1_server <- function(id,
           width = 200,
           position = "left",
           bg='lightblue',
-          padding = c(0, 0) # 1ere valeur : padding vertical, 2eme : horizontal
-          #style = "p1"
+          padding = c(0, 0), # 1ere valeur : padding vertical, 2eme : horizontal
+          style = "position: fixed;"
         ),
         if (file.exists(file))
           includeMarkdown(file)
@@ -247,39 +246,11 @@ PipelineDemo_Process1_server <- function(id,
       path <- file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')
       includeCSS(path)
       
-      # wellPanel(
-      #   # uiOutput for all widgets in this UI
-      #   # This part is mandatory
-      #   # The renderUI() function of each widget is managed by MagellanNTK
-      #   # The dev only have to define a reactive() function for each
-      #   # widget he want to insert
-      #   # Be aware of the naming convention for ids in uiOutput()
-      #   # For more details, please refer to the dev document.
-      #   fluidRow(
-      #     column(width = 3, uiOutput(ns('Step1_btn1_ui'))),
-      #     column(width = 3, uiOutput(ns('Step1_radio1_ui')))
-      #     ),
-      #   
-      #   fluidRow(
-      #     column(width = 3, uiOutput(ns('Step1_select1_ui'))),
-      #     column(width = 3, shinyjs::hidden(uiOutput(ns('Step1_select2_ui')))),
-      #     column(width = 3, uiOutput(ns('Step1_select3_ui')))
-      #     ),
-      #   #foo_ui(ns('foo')),
-      #   # Insert validation button
-      #   uiOutput(ns('Step1_btn_validate_ui')),
-      #   
-      #   # Additional code
-      #   plotOutput(ns('showPlot'))
-      # )
-      
-    
       #fluidPage(
         
         bslib::layout_sidebar(
           sidebar = bslib::sidebar(
-            p('INSERT TIMELINE'),
-            timeline_process_ui(ns('Step1_timeline')),
+             timeline_process_ui(ns('Step1_timeline')),
             hr(style = "border-top: 3px solid #000000;"),
             inputPanel(
               uiOutput(ns("Step1_btn_validate_ui")),
@@ -292,8 +263,8 @@ PipelineDemo_Process1_server <- function(id,
             width = 200,
             position = "left",
             bg='lightblue',
-            padding = c(0, 0) # 1ere valeur : padding vertical, 2eme : horizontal
-            #style = "p1"
+            padding = c(0, 0), # 1ere valeur : padding vertical, 2eme : horizontal
+            style = "position: fixed;"
           ),
           plotOutput(ns('showPlot'))
         )
@@ -468,8 +439,8 @@ PipelineDemo_Process1_server <- function(id,
           width = 200,
           position = "left",
           bg='lightblue',
-          padding = c(0, 0) # 1ere valeur : padding vertical, 2eme : horizontal
-          #style = "p1"
+          padding = c(0, 0), # 1ere valeur : padding vertical, 2eme : horizontal
+          style = "position: fixed;"
         ),
         # Used to show some information about the dataset which is loaded
         # This function must be provided by the package of the process module

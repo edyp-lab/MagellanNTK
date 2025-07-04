@@ -492,12 +492,12 @@ nav_process_server <- function(id = NULL,
         #includeCSS("C:/Users/sw175264/Desktop/Evolutions Prostar/Cyril/Maquette/www/theme_base2.css"),
         tags$style(".bslib-sidebar-layout .collapse-toggle{display:true;}"),
         
-        bs4Dash::bs4Card(
+        div(
           id = ns("Screens"),
           uiOutput(ns("SkippedInfoPanel")),
           uiOutput(ns("EncapsulateScreens_ui"))
         ),
-        absolutePanel(id = "initial_panel",
+        absolutePanel(id = "process_btns_panel",
           draggable = TRUE,
           fluidRow(
             column(width = 4, shinyjs::disabled(
@@ -513,8 +513,8 @@ nav_process_server <- function(id = NULL,
               class = PrevNextBtnClass,
               style = btn_css_style
             )),
-            top = 200,
-            left = 200,
+            top = 100,
+            left = 100,
             width = 200,
             height = 200,
             style = "background-color: blue;
