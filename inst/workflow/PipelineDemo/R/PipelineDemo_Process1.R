@@ -278,7 +278,6 @@ PipelineDemo_Process1_server <- function(id,
       
       bslib::layout_sidebar(
         sidebar = bslib::sidebar(
-          p('INSERT TIMELINE'),
           timeline_process_ui(ns('Step1_timeline')),
           hr(style = "border-top: 3px solid #000000;"),
           inputPanel(
@@ -292,8 +291,8 @@ PipelineDemo_Process1_server <- function(id,
           width = 200,
           position = "left",
           bg='lightblue',
-          padding = c(0, 0) # 1ere valeur : padding vertical, 2eme : horizontal
-          #style = "p1"
+          padding = c(0, 0), # 1ere valeur : padding vertical, 2eme : horizontal
+          style = "z-index: 0;"
         ),
         plotOutput(ns('showPlot'))
       )

@@ -200,7 +200,7 @@ mainapp_ui <- function(id, session){
       top = 0,
       left = 20,
       draggable = FALSE,
-      style = "z-index: 9999999"
+      style = "z-index: 99999999"
     )
   )
 }

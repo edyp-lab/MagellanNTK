@@ -486,18 +486,43 @@ nav_process_server <- function(id = NULL,
     output$nav_process_mod_ui <- renderUI({
       if(verbose)
         cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
-      
-      fluidPage(
+    #   tagList(
+    #     absolutePanel(id = "btns_process_panel",
+    #       draggable = TRUE,
+    #       fluidRow(
+    #         column(width = 4, shinyjs::disabled(
+    #           actionButton(ns("prevBtn"),
+    #             tl_h_prev_icon,
+    #             class = PrevNextBtnClass,
+    #             style = btn_css_style
+    #           )
+    #         )),
+    #         column(width = 4, mod_modalDialog_ui(id = ns("rstBtn"))),
+    #         column(width = 4, actionButton(ns("nextBtn"),
+    #           tl_h_next_icon,
+    #           class = PrevNextBtnClass,
+    #           style = btn_css_style
+    #         )),
+    #         top = 0,
+    #         left = 200,
+    #         width = 200,
+    #         height = 200,
+    #         style = "background-color: blue;
+    # z-index = 999999 !important;
+    # opacity: 0.85;
+    # padding: 0px 0px 200px 0px;
+    # margin: 0px 0px 0px 0px;
+    # padding-bottom: 2mm;
+    # padding-top: 1mm;",
+    #       )
+    #     ),
+      tagList(
         #  ui <- layout_sidebar(
         #includeCSS("C:/Users/sw175264/Desktop/Evolutions Prostar/Cyril/Maquette/www/theme_base2.css"),
         tags$style(".bslib-sidebar-layout .collapse-toggle{display:true;}"),
-        
-        div(
-          id = ns("Screens"),
-          uiOutput(ns("SkippedInfoPanel")),
-          uiOutput(ns("EncapsulateScreens_ui"))
-        ),
-        absolutePanel(id = "btns_process_panel",
+        #tags$style("z-index: 999;}"),
+        tags$style(" z-index: 99999999;"),
+          absolutePanel(id = "btns_process_panel",
           draggable = TRUE,
           fluidRow(
             column(width = 4, shinyjs::disabled(
@@ -513,21 +538,26 @@ nav_process_server <- function(id = NULL,
               class = PrevNextBtnClass,
               style = btn_css_style
             )),
-            top = 50,
+            top = 0,
             left = 200,
             width = 200,
             height = 200,
             style = "background-color: blue;
-    z-index = 20000;
+    z-index = 99999999 !important;
     opacity: 0.85;
     padding: 0px 0px 200px 0px;
     margin: 0px 0px 0px 0px;
     padding-bottom: 2mm;
-    padding-top: 1mm;",
-          )
-        )
+    padding-top: 1mm;"
+          )),
         
-      )
+        div(
+          style = "z-index: 0;",
+          id = ns("Screens"),
+          uiOutput(ns("SkippedInfoPanel")),
+          uiOutput(ns("EncapsulateScreens_ui"))
+        )
+        )
     })
     
     
