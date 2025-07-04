@@ -154,37 +154,29 @@ PipelineDemo_Process1_server <- function(id,
     
     
     
+    observeEvent(input$Description_Sidebar, ignoreNULL = TRUE, {
+      dataOut$sidebarState <- input$Description_Sidebar
+    })
     
+    observeEvent(input$Step1_Sidebar, ignoreNULL = TRUE, {
+      dataOut$sidebarState <- input$Step1_Sidebar
+    })
     
+    observeEvent(input$Save_Sidebar, ignoreNULL = TRUE, {
+      dataOut$sidebarState <- input$Save_Sidebar
+    })
+
     
     output$Description <- renderUI({
       file <- normalizePath(file.path(session$userData$workflow.path, 
         'md', paste0(id, '.md')))
       
       req(file)
-      # tagList(
-      #   ### In this example, the md file is found in the extdata/module_examples 
-      #   ### directory but with a real app, it should be provided by the package 
-      #   ### which contains the UI for the different steps of the process module.
-      #   ### system.file(xxx)
-      #   
-      #   if (file.exists(file))
-      #     includeMarkdown(file)
-      #   else
-      #     p('No Description available'),
-      #   
-      #   
-      #   # Used to show some information about the dataset which is loaded
-      #   # This function must be provided by the package of the process module
-      #   uiOutput(ns('datasetDescription_ui')),
-      #   
-      #   # Insert validation button
-      #   uiOutput(ns('Description_btn_validate_ui'))
-      # )
-      
       
       bslib::layout_sidebar(
         sidebar = bslib::sidebar(
+          id = ns("Description_Sidebar"),  # Add an explicit ID
+          
           timeline_process_ui(ns('Description_timeline')),
           
           inputPanel(
@@ -195,7 +187,7 @@ PipelineDemo_Process1_server <- function(id,
           width = 200,
           position = "left",
           bg='lightblue',
-          padding = c(0, 0) # 1ere valeur : padding vertical, 2eme : horizontal
+          padding = c(100, 0) # 1ere valeur : padding vertical, 2eme : horizontal
           #style = "p1"
         ),
         if (file.exists(file))
@@ -251,6 +243,7 @@ PipelineDemo_Process1_server <- function(id,
       
       bslib::layout_sidebar(
         sidebar = bslib::sidebar(
+          id = ns('Step1_Sidebar'),
            timeline_process_ui(ns('Step1_timeline')),
           hr(style = "border-top: 3px solid #000000;"),
           inputPanel(
@@ -264,7 +257,7 @@ PipelineDemo_Process1_server <- function(id,
           width = 200,
           position = "left",
           bg='lightblue',
-          padding = c(0, 0), # 1ere valeur : padding vertical, 2eme : horizontal
+          padding = c(100, 0), # 1ere valeur : padding vertical, 2eme : horizontal
           style = "z-index: 0;"
         ),
         plotOutput(ns('showPlot'))
@@ -440,7 +433,7 @@ PipelineDemo_Process1_server <- function(id,
           width = 200,
           position = "left",
           bg='lightblue',
-          padding = c(0, 0) # 1ere valeur : padding vertical, 2eme : horizontal
+          padding = c(100, 0) # 1ere valeur : padding vertical, 2eme : horizontal
           #style = "p1"
         ),
         # Used to show some information about the dataset which is loaded

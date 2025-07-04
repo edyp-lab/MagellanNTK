@@ -415,13 +415,7 @@ nav_process_server <- function(id = NULL,
     
     
     GetStepsNames <- reactive({names(rv$config@steps)})
-    
-    
-    
-    output$injectHTML <- renderUI({
-      h2('*******inject html*******')
-    })
-    
+
     # This function uses the UI definition to:
     # 1 - initialize the UI (only the first screen is shown),
     # 2 - encapsulate the UI in a div (used to hide all screens at a time 
@@ -455,6 +449,15 @@ nav_process_server <- function(id = NULL,
     })
     
     
+    observeEvent(rv$proc$dataOut()$sidebarState,
+      ignoreNULL = TRUE, ignoreInit = TRUE, {
+        shinyjs::toggle('btns_process_panel', 
+          anim = TRUE,
+          animType = "fade",
+          time = 0.1,
+          condition = rv$proc$dataOut()$sidebarState)
+      })
+    
     # Launch the UI for the user interface of the module
     # Note for devs: apparently, the renderUI() cannot be stored in the 
     # function 'Build..'
@@ -473,14 +476,12 @@ nav_process_server <- function(id = NULL,
           uiOutput(ns("SkippedInfoPanel")),
           uiOutput(ns("EncapsulateScreens_ui"))
         ),
-        absolutePanel(id = "btns_process_panel",
-          top = 150,
-          left = 200,
+          absolutePanel(id = ns("btns_process_panel"),
+          top = 165,
+          left = 83,
           width = 200,
           height = 50,
           style = " z-index: 99999999;
-            background-color: blue;
-            opacity: 0.85;
             padding: 0px 0px 200px 0px;
             margin: 0px 0px 0px 0px;
             padding-bottom: 2mm;
@@ -500,7 +501,7 @@ nav_process_server <- function(id = NULL,
               class = PrevNextBtnClass,
               style = btn_css_style
             ))
-            
+          
           ))
         )
     })
