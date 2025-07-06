@@ -68,7 +68,7 @@ timeline_pipeline_server <- function(id,
       req(config@steps != '')
       
       tags$div(
-        class = "timeline",
+        class = "pipeline-timeline",
         lapply(seq_along(config@steps), function(i) {
           step_class <- paste("li", UpdateTags()[i])
           

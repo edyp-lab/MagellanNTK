@@ -77,14 +77,20 @@ timeline_process_server <- function(id,
     
     output$show_process_TL <- renderUI({
 
+      #.size <-"25px"
+      #.iconsize <- "25px"
+      
       tags$div(class = "process-timeline",
         lapply(seq_len(length(config@steps)), function(i) {
           
           step_class <- paste("li", UpdateTags()[i])
-          print(step_class)
+
           tags$div(class = step_class,
             tags$div(class = "icon",
-              tags$img(src = icons[i], height = "35px")),
+              tags$img(src = icons[i], height = "25px"),
+              #style = paste0("height: ", .size, "; width: ", .size, ";")
+              style = paste0("height: 30px; width: 30px;")
+              ),
             tags$div(class = "label", config@steps[i])
           )
         })
