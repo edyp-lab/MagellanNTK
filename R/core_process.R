@@ -481,12 +481,13 @@ nav_process_server <- function(id = NULL,
           left = 83,
           width = 200,
           height = 50,
+          draggable = TRUE,
           style = " z-index: 99999999;
-            padding: 0px 0px 200px 0px;
+            padding: 0px 0px 0px 0px;
             margin: 0px 0px 0px 0px;
             padding-bottom: 2mm;
             padding-top: 1mm;",
-          draggable = TRUE,
+
           fluidRow(
             column(width = 4, shinyjs::disabled(
               actionButton(ns("prevBtn"),

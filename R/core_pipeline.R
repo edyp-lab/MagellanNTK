@@ -61,11 +61,16 @@ nav_pipeline_ui <- function(id) {
   
   absolutePanel(
     div(
-      style = "background-color: green;
-        padding: 0px 0px 0px 75px;
-        width: 100%; 
+      style = "
+        background-color: green;
+        padding: 0px 0px 0px 0px;
+        width: 100%;
         height: auto;",
       fluidRow(
+          # style = "background-color: green;
+          #   padding: 0px 0px 0px 0px;
+          #   width: 100%;
+          #   height: 100%;",
         column(width = 2, 
           div(style = "display: flex; align-items: top; justify-content: center;",
             shinyjs::disabled(
@@ -87,23 +92,17 @@ nav_pipeline_ui <- function(id) {
       ),
       div(
         id = ns("Screens"),
-        #style = "width: 100%; height: auto; backgroun-color: red;",
         uiOutput(ns("SkippedInfoPanel")),
         uiOutput(ns("EncapsulateScreens_ui"))
       )
-    ),
+      ),
     top = 0,
     left = 0,
     draggable = FALSE,
     fixed = TRUE,
     width = '100%',
     height = '100%',
-    style = "z-index = 30000;
-    opacity: 0.85;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
-    padding-bottom: 2mm;
-    padding-top: 1mm;"
+    style = "padding: 0px; margin: 0px;"
   )
 }
 
