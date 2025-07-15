@@ -101,7 +101,7 @@ nav_pipeline_ui <- function(id) {
     fixed = TRUE,
     width = '100%',
     height = '100%',
-    style = "padding: 0px; margin: 0px;"
+    style = "padding: 75px; margin: 0px;"
   )
 }
 
