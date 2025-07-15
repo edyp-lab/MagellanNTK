@@ -226,7 +226,7 @@ nav_server <- function(id = NULL,
 
                 rv$currentStepName <- reactive({stepsnames[rv$current.pos]})
                 
-                rv$tl.layout <- tl.layout
+                #rv$tl.layout <- tl.layout
 
 
                 # Launch the server timeline for this process/pipeline

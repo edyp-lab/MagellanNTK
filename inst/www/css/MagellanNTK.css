@@ -10,6 +10,17 @@
     background-color: black;
     opacity: 0.8;
   }
+  
+  .sidebar-content {
+    background-color: lightblue;
+    width: 300px;
+    
+  }
+  
+.shiny-input-panel{
+  background-color: lightblue;
+}
+
 
 /* Content wrapper adjustment */
 /* permet à la sidebar de passer par-dessus le body lorsqu'elle est étendue */

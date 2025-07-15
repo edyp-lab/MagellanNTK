@@ -62,7 +62,6 @@ nav_pipeline_ui <- function(id) {
   absolutePanel(
     div(
       style = "
-        background-color: green;
         padding: 0px 0px 0px 0px;
         width: 100%;
         height: auto;",
@@ -704,7 +703,7 @@ nav_pipeline_server <- function(
     # Note for devs: apparently, the renderUI() cannot be stored in the 
     # function 'Build..'
     output$nav_pipeline_mod_ui <- renderUI({
-      req(rv$tl.layout)
+     # req(rv$tl.layout)
       if(verbose)
         cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
       
