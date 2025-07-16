@@ -59,7 +59,7 @@ NULL
 nav_pipeline_ui <- function(id) {
   ns <- NS(id)
   
-  absolutePanel(
+  tagList(
     div(
       style = "
         padding: 0px 0px 0px 0px;
@@ -94,15 +94,15 @@ nav_pipeline_ui <- function(id) {
         uiOutput(ns("SkippedInfoPanel")),
         uiOutput(ns("EncapsulateScreens_ui"))
       )
-      ),
-    top = 0,
-    left = 0,
-    draggable = FALSE,
-    fixed = TRUE,
-    width = '100%',
-    height = '100%',
-    style = "padding: 75px; margin: 0px;"
-  )
+      )
+    # top = 0,
+    # left = 0,
+    # draggable = FALSE,
+    # fixed = TRUE,
+    # width = '100%',
+    # height = '100%',
+    # style = "padding: 75px; margin: 0px; z-index: -10;"
+   )
 }
 
 

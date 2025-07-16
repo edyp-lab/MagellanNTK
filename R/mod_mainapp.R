@@ -190,7 +190,6 @@ mainapp_ui <- function(id, session){
         )
       )
     ),
-    
     absolutePanel(
       actionButton(
         inputId = ns("toggleSidebarBar"),
@@ -200,7 +199,7 @@ mainapp_ui <- function(id, session){
       top = 0,
       left = 20,
       draggable = FALSE,
-      style = "z-index: 99999999"
+      style = "z-index: 9999"
     )
   )
 }
@@ -598,6 +597,7 @@ mainapp_server <- function(id,
     output$workflow_UI <- renderUI({
       req(rv.core$workflow.name)
       tagList(
+        tags$style("z-index: 9999999999 !important;"),
         actionButton(ns('resetWF'), 'Reset whole Workflow'),
         nav_pipeline_ui(ns(basename(rv.core$workflow.name)))
       )

@@ -482,7 +482,7 @@ nav_process_server <- function(id = NULL,
           width = 200,
           height = 50,
           draggable = TRUE,
-          style = " z-index: 99999999;
+          style = "
             padding: 0px 0px 0px 0px;
             margin: 0px 0px 0px 0px;
             padding-bottom: 2mm;
