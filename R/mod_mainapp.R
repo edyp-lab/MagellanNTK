@@ -458,39 +458,30 @@ mainapp_server <- function(id,
       session$userData$funcs <- rv.core$tmp.funcs()
     })
     
-    
-    #
-    # Code for convert tool
-    #
-    observe({
-      req(rv.core$funcs$funcs$convert_dataset)
-      rv.core$result_convert <- call.func(
-        fname = paste0(rv.core$funcs$funcs$convert_dataset, '_server'),
-        args = list(id = 'Convert'))
-    })
-    
-    
+
     
     output$open_convert_dataset_UI <- renderUI({
       req(rv.core$funcs$funcs$convert_dataset)
       
+      rv.core$result_convert <- call.func(
+        fname = paste0(rv.core$funcs$funcs$convert_dataset, '_server'),
+        args = list(id = 'Convert'))
+
       call.func(
         fname = paste0(rv.core$funcs$funcs$convert_dataset, '_ui'),
         args = list(id = ns('Convert')))
     })
     
-    observeEvent(rv.core$result_convert()$dataOut()$value,
-      ignoreInit = TRUE, ignoreNULL = TRUE,{
-        if(verbose)
-          cat('Data converted')
-        
-        req(rv.core$result_convert()$dataOut()$value)
-        
-        rv.core$current.obj <- rv.core$result_convert()$dataOut()$value$data
-        rv.core$current.obj.name <- rv.core$result_convert()$dataOut()$value$name
-        rv.core$processed.obj <- rv.core$current.obj
-        rv.core$resetWF <- rv.core$resetWF + 1
-      })
+    # observeEvent(req(rv.core$result_convert$dataOut()),
+    #   ignoreInit = TRUE, ignoreNULL = TRUE,{
+    #     if(verbose)
+    #       cat('Data converted')
+    #     req(rv.core$result_convert$dataOut()$value)
+    #     rv.core$current.obj <- rv.core$result_convert$dataOut()$value$data
+    #     rv.core$current.obj.name <- rv.core$result_convert$dataOut()$value$name
+    #     rv.core$processed.obj <- rv.core$current.obj
+    #     rv.core$resetWF <- rv.core$resetWF + 1
+    #   })
     
     
     output$BuildReport_UI <- renderUI({
