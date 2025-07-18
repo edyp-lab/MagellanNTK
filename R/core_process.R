@@ -169,7 +169,8 @@ nav_process_server <- function(id = NULL,
             steps.enabled = reactive({rv$steps.enabled}),
             remoteReset = reactive({rv$rstBtn() + remoteReset()}),
             steps.status = reactive({rv$steps.status}),
-            current.pos = reactive({rv$current.pos})
+            current.pos = reactive({rv$current.pos}),
+            btnEvents = reactive({rv$btnEvents})
           )
         )
         
@@ -285,6 +286,16 @@ nav_process_server <- function(id = NULL,
     
     
     
+    observeEvent(input$validateBtn, ignoreInit = TRUE, {
+      # Cathc the event to send it to the process server
+      
+      rv$btnEvents <- names(rv$steps.status)[rv$current.pos]
+      
+      # rv$current.pos <- NavPage(direction = 1,
+      #   current.pos = rv$current.pos,
+      #   len = length(rv$config@steps)
+      # )
+    })
     
     
     # The parameter 'is.enabled()' is updated by the caller and tells the 
@@ -489,15 +500,20 @@ nav_process_server <- function(id = NULL,
             padding-top: 1mm;",
 
           fluidRow(
-            column(width = 4, shinyjs::disabled(
+            column(width = 3, shinyjs::disabled(
               actionButton(ns("prevBtn"),
                 tl_h_prev_icon,
                 class = PrevNextBtnClass,
                 style = btn_css_style
               )
             )),
-            column(width = 4, mod_modalDialog_ui(id = ns("rstBtn"))),
-            column(width = 4, actionButton(ns("nextBtn"),
+            column(width = 3, mod_modalDialog_ui(id = ns("rstBtn"))),
+            column(width = 3, actionButton(ns("validateBtn"),
+              'Run',
+              class = PrevNextBtnClass,
+              style = btn_css_style
+            )),
+            column(width = 3, actionButton(ns("nextBtn"),
               tl_h_next_icon,
               class = PrevNextBtnClass,
               style = btn_css_style
