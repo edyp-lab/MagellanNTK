@@ -132,7 +132,7 @@ mainapp_ui <- function(id, session){
       
       body = dashboardBody(
         # some styling
-        includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
+        #includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
         
         tabItems(
           
@@ -589,7 +589,7 @@ mainapp_server <- function(id,
       req(rv.core$workflow.name)
       tagList(
         tags$style("z-index: 9999999999 !important;"),
-        actionButton(ns('resetWF'), 'Reset whole Workflow'),
+        #actionButton(ns('resetWF'), 'Reset whole Workflow'),
         nav_pipeline_ui(ns(basename(rv.core$workflow.name)))
       )
     })

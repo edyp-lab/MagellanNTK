@@ -139,7 +139,8 @@ nav_process_server <- function(id = NULL,
       current.pos = 1,
       length = NULL,
       config = NULL,
-      rstBtn = reactive({0})
+      rstBtn = reactive({0}),
+      btnEvents = reactive({NULL})
     )
     
     
@@ -210,6 +211,7 @@ nav_process_server <- function(id = NULL,
       ignoreNULL = TRUE, ignoreInit = TRUE, {
         # If a value is returned, this is because the 
         # # current step has been validated
+        
         rv$steps.status[rv$current.pos] <- stepStatus$VALIDATED
         
         # Look for new skipped steps
@@ -219,10 +221,12 @@ nav_process_server <- function(id = NULL,
         # load the dataset in work variable 'dataIn'
         if (rv$current.pos == 1) {
           rv$dataIn <- rv$temp.dataIn
+          rv$current.pos <- rv$current.pos + 1
           
         } # View intermediate datasets
         else if (rv$current.pos > 1 && rv$current.pos < length(rv$config@steps)) {
           rv$dataIn <- rv$proc$dataOut()$value
+          rv$current.pos <- rv$current.pos + 1
         } 
         # Manage the last dataset which is the real one 
         # returned by the process
@@ -290,7 +294,8 @@ nav_process_server <- function(id = NULL,
       # Cathc the event to send it to the process server
       
       rv$btnEvents <- names(rv$steps.status)[rv$current.pos]
-      
+      #session$userData$runEvent  <- names(rv$steps.status)[rv$current.pos]
+      print(paste0("update rv$btnEvents in core_process.R with ", names(rv$steps.status)[rv$current.pos]))
       # rv$current.pos <- NavPage(direction = 1,
       #   current.pos = rv$current.pos,
       #   len = length(rv$config@steps)
@@ -477,8 +482,6 @@ nav_process_server <- function(id = NULL,
         cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
 
       fluidPage(
-        #  ui <- layout_sidebar(
-        #includeCSS("C:/Users/sw175264/Desktop/Evolutions Prostar/Cyril/Maquette/www/theme_base2.css"),
         tags$style(".bslib-sidebar-layout .collapse-toggle{display:true;}"),
         
         div(

@@ -23,7 +23,7 @@ $enabledStyle: solid
   padding-left: 20px
   gap: 10px
 
-  .li
+  .li-process-timeline
     display: flex
     align-items: center
 
@@ -36,14 +36,14 @@ $enabledStyle: solid
       border: 3px $enabledStyle $colBorder
       border-radius: 6px
 
-    .label
+    .label-process-timeline
       margin-left: 5px
       padding-left: 3px
       font-size: 14px
       font-weight: normal
       color: #333
 
-    &.mandatory .label
+    &.mandatory .label-process-timeline
       color: $colMandatory
 
     &.completed .icon
@@ -70,17 +70,17 @@ $enabledStyle: solid
     &.active .icon
       border-width: 4px
 
-    &.active .label
+    &.active .label-process-timeline
       font-weight: bold
       
-    &.active.enabled .label
+    &.active.enabled .label-process-timeline
       border-bottom: 3px $enabledStyle $colBorder
       
-    &.active.mandatory .label
+    &.active.mandatory .label-process-timeline
       border-bottom: 3px $enabledStyle $colMandatory
 
-    &.active.disabled .label
+    &.active.disabled .label-process-timeline
       border-bottom: 3px $disabledStyle $colBorder
 
-    &.active.mandatory.disabled .label
+    &.active.mandatory.disabled .label-process-timeline
       border-bottom: 3px $disabledStyle $colMandatory

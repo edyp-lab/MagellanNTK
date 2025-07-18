@@ -47,21 +47,6 @@ timeline_pipeline_server <- function(id,
       tl_status[position()] <- paste(tl_status[position()], "active")
       
       return(tl_status)
-      
-      
-      # 
-      # tl_status[which(config@mandatory)] <- "mandatory"
-      # tl_status[which(unlist(status()) == stepStatus$VALIDATED)] <- "completed"
-      # tl_status[which(unlist(status()) == stepStatus$SKIPPED)] <- "skipped"
-      # 
-      # for (i in seq_len(length(enabled()))) {
-      #   if (!enabled()[i]) {
-      #     tl_status[i] <- paste0(tl_status[i], "Disabled")
-      #   }
-      # }
-      # 
-      # tl_status[position()] <- paste0(tl_status[position()], " active")
-      # tl_status
     })
     
     output$show_pipeline_TL <- renderUI({

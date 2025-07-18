@@ -5,12 +5,14 @@
     opacity: 0.8;
   }
 
-/* Sidebar parameters */
+/* Sidebar parameters 
   .control-sidebar {
     background-color: black;
     opacity: 0.8;
   }
+  */
   
+ /* 
   .sidebar-content {
     background-color: lightblue;
     width: 300px;
@@ -20,7 +22,7 @@
 .shiny-input-panel{
   background-color: lightblue;
 }
-
+*/
 
 /* Content wrapper adjustment */
 /* permet à la sidebar de passer par-dessus le body lorsqu'elle est étendue */
@@ -29,10 +31,10 @@
     
   }
 
-/* Remove bullet style for toggle buttons */
+/* Remove bullet style for toggle buttons 
   .no-bullet {
     list-style: none;
-  }
+  }*/
 
 /* Sidebar button custom color */
   .nav-link-sidebar {
@@ -83,17 +85,17 @@ font-family: Arial;
 }
 
 h2 {
-font-size: 25px;
+font-size: 18px;
 font-family: Arial;
 }
 
 h3 {
-font-size: 25px;
+font-size: 16px;
 font-family: Arial;
 }
 
 h4 {
-font-size: 25px;
+font-size: 14px;
 font-family: Arial;
 }
 
@@ -122,11 +124,7 @@ font-family: Arial;
           background-color: lightblue;
         opacity: 0.8	
       }
-    
-    p1 {
-      border-style: double;
-    }
-    
+
     
     .custom-switch {
       display: none;
@@ -144,7 +142,7 @@ font-family: Arial;
       cursor: pointer;
       font-weight: bold;
       display: inline-block;
-      padding:0;
+      padding: 0;
     }
     
     button.Prostar_tooltip_white {
@@ -158,7 +156,7 @@ font-family: Arial;
       cursor: pointer;
       font-weight: bold;
       display: inline-block;
-      padding:0;
+      padding: 0;
     }
     
     .input-color {
@@ -180,7 +178,46 @@ font-family: Arial;
       
     }
     
-    
-    
-    
-    
+
+#boxx{
+  padding: 20px 20px 20px 20px;
+  position: fixed;
+  left: 30%;
+  border: 2px solid black;
+  font: 2em Calibri;
+  width:500px;
+  height: 1000px;
+  float: left;
+}
+
+img{ 
+  float: left;
+  vertical-align: top;
+  margin: 20px 20px 20px 20px; 
+
+}
+
+
+
+.arrow {
+	position: relative;
+	background: #88b7d5;
+  height: 50px;
+  width: 200px;
+  margin-top: 50px;
+}
+
+.arrow:after {
+  left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height:30px;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-left-color: #dddddd;
+	border-width: 50px;
+	margin-top: -50px;
+}

@@ -408,7 +408,7 @@ nav_server <- function(id = NULL,
                              # # current step has been validated
                              rv$steps.status[rv$current.pos] <- stepStatus$VALIDATED
 
-                             # Look for new skipped steps
+                              # Look for new skipped steps
                              rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
 
                              
