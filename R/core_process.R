@@ -439,9 +439,7 @@ nav_process_server <- function(id = NULL,
     output$EncapsulateScreens_ui <- renderUI({
       len <- length(rv$config@ll.UI)
       
-      #renderUI({
-      screens <-  tagList(
-        lapply(seq_len(len), function(i) {
+          lapply(seq_len(len), function(i) {
           if (i == 1) {
             div(
               id = ns(GetStepsNames()[i]),
@@ -458,10 +456,6 @@ nav_process_server <- function(id = NULL,
             )
           }
         })
-      )
-      #})
-      #browser()
-      screens
     })
     
     
@@ -471,7 +465,8 @@ nav_process_server <- function(id = NULL,
           anim = TRUE,
           animType = "fade",
           time = 0.1,
-          condition = rv$proc$dataOut()$sidebarState)
+          condition = rv$proc$dataOut()$sidebarState
+          )
       })
     
     # Launch the UI for the user interface of the module
@@ -481,17 +476,18 @@ nav_process_server <- function(id = NULL,
       if(verbose)
         cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
 
-      fluidPage(
-        tags$style(".bslib-sidebar-layout .collapse-toggle{display:true;}"),
+      div(
+        style = "position: relative;  ",
         
-        div(
+        #tags$style(".bslib-sidebar-layout .collapse-toggle{display:true;}"),
+        
+        div(id = ns("Screens"),
           style = "z-index: 0;",
-          id = ns("Screens"),
-          uiOutput(ns("SkippedInfoPanel")),
-          uiOutput(ns("EncapsulateScreens_ui"))
-        ),
-          absolutePanel(id = ns("btns_process_panel"),
-          top = 165,
+          uiOutput(ns("SkippedInfoPanel"))
+          ,uiOutput(ns("EncapsulateScreens_ui"))
+        )
+          ,absolutePanel(id = ns("btns_process_panel"),
+          top = 130,
           left = 83,
           width = 200,
           height = 50,

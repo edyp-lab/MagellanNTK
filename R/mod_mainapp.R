@@ -50,79 +50,76 @@ mainapp_ui <- function(id, session){
         tags$style(".left-side, .main-sidebar {padding-top: 40px}"),
         expandOnHover = TRUE,
         collapsed = TRUE,
-        
-        #tags$head(tags$style(HTML("p {color: white;}"))),   
-        #tags$head(tags$style(HTML(".nav-item {height: 90; background-color: red;}"))),
-        
-        sidebarMenu(id = "sb_dev",
+         
+        sidebarMenu(
           menuItem(
-            text = p("Home", style = "color: white;"),
+            p("Home", style = "color: white;"),
             tabName = "Home",
             icon = icon("home")
           ),
           menuItem(
-            text = p('Dataset', style = "color: white;"),
+            p('Dataset', style = "color: white;"),
             icon = icon("home"),
             menuSubItem(
-              text = p("Open (qf)", style = "color: white;"),
+              p("Open (qf)", style = "color: white;"),
               tabName = "openDataset",
               icon = icon("gear")
             ),
             menuSubItem(
-              text = p("Import", style = "color: white;"),
+              p("Import", style = "color: white;"),
               tabName = "convertDataset",
               icon = icon("gear")
             ),
             menuSubItem(
-              text = p("Save As", style = "color: white;"),
+              p("Save As", style = "color: white;"),
               tabName = "SaveAs",
               icon = icon("gear")
             ),
             menuSubItem(
-              text = p("Build report (Beta)", style = "color: white;"),
+              p("Build report (Beta)", style = "color: white;"),
               tabName = "BuildReport",
               icon = icon("gear")
             )
           ),
           menuItem(
-            text = p('Workflow', style = "color: white;"),
+            p('Workflow', style = "color: white;"),
             icon = icon("home"),
             menuSubItem(
-              text = p("Load", style = "color: white;"),
+              p("Load", style = "color: white;"),
               tabName = "openWorkflow",
               icon = icon("gear")
             ),
             menuSubItem(
-              text = p("Run", style = "color: white;"),
+              p("Run", style = "color: white;"),
               tabName = "workflow",
               icon = icon("gear")
             ),
             menuSubItem(
-              text = p("Manual", style = "color: white;"),
+              p("Manual", style = "color: white;"),
               tabName = "Manual",
               icon = icon("gear")
             ),
             menuSubItem(
-              text = p("FAQ", style = "color: white;"),
+              p("FAQ", style = "color: white;"),
               tabName = "faq",
               icon = icon("gear")
             ),
             menuSubItem(
-              text = p("Release Notes", style = "color: white;"),
+              p("Release Notes", style = "color: white;"),
               tabName = "releaseNotes",
               icon = icon("gear")
             )
           ),
           menuItem(
-            text = p('Vizualize data', style = "color: white;"),
+            p('Vizualize data', style = "color: white;"),
             icon = icon("home"),
             menuSubItem(
-              text = p("Info", style = "color: white;"),
+              p("Info", style = "color: white;"),
               tabName = "infosDataset",
               icon = icon("gear")
             ),
             menuSubItem(
-              text = p("EDA", style = "color: white;"),
+              p("EDA", style = "color: white;"),
               tabName = "eda",
               icon = icon("gear")
             )
@@ -132,7 +129,7 @@ mainapp_ui <- function(id, session){
       
       body = dashboardBody(
         # some styling
-        #includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
+        includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
         
         tabItems(
           

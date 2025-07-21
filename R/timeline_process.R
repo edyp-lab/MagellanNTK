@@ -9,13 +9,17 @@
 #'
 timeline_process_ui <- function(id) {
   ns <- NS(id)
+  fpath <- system.file("www/sass", "process_timeline.sass", package = "MagellanNTK")
   
  # inlineCSS(sass(sass_file("www/sass/process_timeline.sass"))),
   
   
   tagList(
     shinyjs::useShinyjs(),
+    tags$div(
+    shinyjs::inlineCSS(sass::sass(sass::sass_file(fpath))),
     uiOutput(ns("show_process_TL"))
+    )
   )
 }
 
@@ -72,17 +76,14 @@ timeline_process_server <- function(id,
     
     
     output$show_process_TL <- renderUI({
-      fpath <- system.file("www/sass", "process_timeline.sass", package = "MagellanNTK")
-      
+
       #.size <-"25px"
       #.iconsize <- "25px"
-      tags$div(
-        shinyjs::inlineCSS(sass::sass(sass::sass_file(fpath))),
-        
+      
       tags$div(class = "process-timeline",
         lapply(seq_len(length(config@steps)), function(i) {
           
-          step_class <- paste("li-process-timeline", UpdateTags()[i])
+          step_class <- paste("li", UpdateTags()[i])
 
           tags$div(class = step_class,
             tags$div(class = "icon",
@@ -90,10 +91,9 @@ timeline_process_server <- function(id,
               #style = paste0("height: ", .size, "; width: ", .size, ";")
               style = paste0("height: 30px; width: 30px;")
               ),
-            tags$div(class = "label-process-timeline", config@steps[i])
+            tags$div(class = "label", config@steps[i])
           )
         })
-      )
       )
     })
   })

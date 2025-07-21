@@ -60,7 +60,7 @@ nav_pipeline_ui <- function(id) {
   ns <- NS(id)
   
   tagList(
-    div(
+    div(id = ns('nav_pipeline'),
       style = "
         padding: 0px 0px 0px 0px;
         width: 100%;
@@ -71,7 +71,8 @@ nav_pipeline_ui <- function(id) {
           #   width: 100%;
           #   height: 100%;",
         column(width = 2, 
-          div(style = "display: flex; align-items: top; justify-content: center;",
+          div(
+          style = "display: flex; align-items: top; justify-content: center;",
             shinyjs::disabled(
           actionButton(ns("prevBtn"),
             tl_h_prev_icon,
@@ -85,15 +86,15 @@ nav_pipeline_ui <- function(id) {
                 style = btn_css_style
               )
         )
-            ),
-        column(width = 10, timeline_pipeline_ui(ns('timeline_pipeline')))
+            )
+        ,column(width = 10, timeline_pipeline_ui(ns('timeline_pipeline')))
         
-      ),
-      div(
-        id = ns("Screens"),
-        uiOutput(ns("SkippedInfoPanel")),
-        uiOutput(ns("EncapsulateScreens_ui"))
       )
+       ,div(
+         id = ns("Screens"),
+         uiOutput(ns("SkippedInfoPanel")),
+         uiOutput(ns("EncapsulateScreens_ui"))
+       )
       )
     # top = 0,
     # left = 0,
@@ -672,9 +673,8 @@ nav_pipeline_server <- function(
     #     before showing the one corresponding to the current position)
     output$EncapsulateScreens_ui <- renderUI({
       len <- length(rv$config@ll.UI)
-      
-      renderUI({
-        tagList(
+
+        #tagList(
           lapply(seq_len(len), function(i) {
             if (i == 1) {
               div(
@@ -692,12 +692,9 @@ nav_pipeline_server <- function(
               )
             }
           })
-        )
+       # )
       })
-      
-      
-    })
-    
+
     
     # Launch the UI for the user interface of the module
     # Note for devs: apparently, the renderUI() cannot be stored in the 

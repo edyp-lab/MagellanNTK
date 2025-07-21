@@ -1,0 +1,88 @@
+.process-timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  margin-left: 5px;
+  margin-top: 5px;
+  padding-left: 20px;
+  gap: 10px;
+}
+
+.process-timeline .li {
+  display: flex;
+  align-items: center;
+}
+
+.process-timeline .li .icon {
+  width: 55px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid black;
+  border-radius: 6px;
+}
+
+.process-timeline .li .label {
+  margin-left: 5px;
+  padding-left: 3px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #333;
+}
+
+.process-timeline .li.mandatory .label {
+  color: #DC143C;
+}
+
+.process-timeline .li.completed .icon {
+  background-color: #50C878;
+  border-color: black;
+}
+
+.process-timeline .li.skipped .icon {
+  background-color: #B3AFAB;
+  border-color: black;
+}
+
+.process-timeline .li.undone .icon {
+  background-color: white;
+  border-color: black;
+}
+
+.process-timeline .li.enabled .icon {
+  border-style: solid;
+}
+
+.process-timeline .li.disabled .icon {
+  border-style: dashed;
+}
+
+.process-timeline .li.mandatory .icon {
+  border-color: #DC143C;
+}
+
+.process-timeline .li.active .icon {
+  border-width: 4px;
+}
+
+.process-timeline .li.active .label {
+  font-weight: bold;
+}
+
+.process-timeline .li.active.enabled .label {
+  border-bottom: 3px solid black;
+}
+
+.process-timeline .li.active.mandatory .label {
+  border-bottom: 3px solid #DC143C;
+}
+
+.process-timeline .li.active.disabled .label {
+  border-bottom: 3px dashed black;
+}
+
+.process-timeline .li.active.mandatory.disabled .label {
+  border-bottom: 3px dashed #DC143C;
+}
