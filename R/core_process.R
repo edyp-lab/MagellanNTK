@@ -486,17 +486,18 @@ nav_process_server <- function(id = NULL,
           uiOutput(ns("SkippedInfoPanel"))
           ,uiOutput(ns("EncapsulateScreens_ui"))
         )
-          ,absolutePanel(id = ns("btns_process_panel"),
-          top = 130,
-          left = 83,
-          width = 200,
-          height = 50,
-          draggable = TRUE,
-          style = "
-            padding: 0px 0px 0px 0px;
-            margin: 0px 0px 0px 0px;
-            padding-bottom: 2mm;
-            padding-top: 1mm;",
+          ,absolutePanel(
+            id = ns("btns_process_panel"),
+            top = default.layout$top_process_btns,
+            left = default.layout$left_process_btns,
+            width = default.layout$width_process_btns,
+            height = default.layout$height_process_btns,
+            draggable = TRUE,
+            style = "
+              padding: 0px 0px 0px 0px;
+              margin: 0px 0px 0px 0px;
+              padding-bottom: 2mm;
+              padding-top: 1mm;",
 
           fluidRow(
             column(width = 3, shinyjs::disabled(
