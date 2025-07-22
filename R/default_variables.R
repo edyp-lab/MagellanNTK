@@ -39,6 +39,7 @@ default.layout <- list(
   top_sidebar = 85,
   left_sidebar = 75,
   width_sidebar = 200,
+  bgcolor_sidebar = 'lightblue',
   top_panel = 85,
   # left_sidebar + width_sidebar
   left_panel = 275,
