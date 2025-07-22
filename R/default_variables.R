@@ -31,3 +31,17 @@ default.workflow  <- function()
   name = 'PipelineDemo_Process1',
   path = system.file("workflow/PipelineDemo", package = "MagellanNTK")
 )
+
+
+#' @rdname default_vars
+#' @export
+default.layout <- list(
+  top_sidebar = 85,
+  top_panel = 85,
+  left_sidebar = 75,
+  width_sidebar = 200,
+  top_panel = 85,
+  # left_sidebar + width_sidebar
+  left_panel = 275,
+  width_panel = '100%'
+)

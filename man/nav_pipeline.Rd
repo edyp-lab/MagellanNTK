@@ -25,7 +25,6 @@ nav_pipeline_server(
   is.skipped = reactive({
      FALSE
  }),
-  tl.layout = NULL,
   verbose = FALSE,
   usermod = "user"
 )
@@ -51,10 +50,6 @@ Basically, it is the program which has called this module}
 \item{wholeReset}{= reactive({0}),}
 
 \item{is.skipped}{xxx}
-
-\item{tl.layout}{A vector of character ('h' for horizontal, 'v' for vertical)
-where each item correspond to the orientation of the timeline for a given
-level of navigation module.}
 
 \item{verbose}{= FALSE,}
 
