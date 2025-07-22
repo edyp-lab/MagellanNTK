@@ -9,7 +9,7 @@
 \alias{default.layout}
 \title{Default vars}
 \format{
-An object of class \code{list} of length 7.
+An object of class \code{list} of length 11.
 }
 \usage{
 default.funcs()

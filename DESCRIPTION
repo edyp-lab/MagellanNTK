@@ -63,6 +63,7 @@ Collate:
     MagellanNTK.R
     app.R
     settings.R
+    process_layout.R
     default_funcs.R
     mod_sweetAlert.R
     mod_open_workflow.R

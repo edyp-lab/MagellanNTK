@@ -72,7 +72,7 @@ nav_pipeline_ui <- function(id) {
           #   height: 100%;",
         column(width = 2, 
           div(
-          style = "display: flex; align-items: top; justify-content: center;",
+         # style = "display: flex; align-items: top; justify-content: center;",
             shinyjs::disabled(
           actionButton(ns("prevBtn"),
             tl_h_prev_icon,

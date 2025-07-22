@@ -88,7 +88,9 @@ nav_process_server <- function(id = NULL,
   remoteReset = reactive({0}),
   is.skipped = reactive({FALSE}),
   verbose = FALSE,
-  usermod = 'user') {
+  usermod = 'user',
+  btnEvents = reactive({NULL})
+  ){
   
   
   
@@ -282,6 +284,11 @@ nav_process_server <- function(id = NULL,
     
     # Update the current position after a click on the 'Next' button
     observeEvent(input$nextBtn, ignoreInit = TRUE, {
+      
+      # if (rv$current.pos == 1){
+      #   rv$btnEvents <- names(rv$steps.status)[rv$current.pos]
+      # }
+      # 
       rv$current.pos <- NavPage(direction = 1,
         current.pos = rv$current.pos,
         len = length(rv$config@steps)
@@ -291,15 +298,8 @@ nav_process_server <- function(id = NULL,
     
     
     observeEvent(input$validateBtn, ignoreInit = TRUE, {
-      # Cathc the event to send it to the process server
-      
+      # Catch the event to send it to the process server
       rv$btnEvents <- names(rv$steps.status)[rv$current.pos]
-      #session$userData$runEvent  <- names(rv$steps.status)[rv$current.pos]
-      print(paste0("update rv$btnEvents in core_process.R with ", names(rv$steps.status)[rv$current.pos]))
-      # rv$current.pos <- NavPage(direction = 1,
-      #   current.pos = rv$current.pos,
-      #   len = length(rv$config@steps)
-      # )
     })
     
     
