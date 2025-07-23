@@ -523,12 +523,12 @@ nav_process_server <- function(id = NULL,
           
           ),
             fluidRow(
-              column(width = 3, actionButton(ns("DoBtn"),
+              column(width = 4, actionButton(ns("DoBtn"),
                 'Do X',
                 class = PrevNextBtnClass,
                 style = btn_css_style
               )),
-              column(width = 3, actionButton(ns("DoProceedBtn"),
+              column(width = 8, actionButton(ns("DoProceedBtn"),
                 'Do X & proceed',
                 class = PrevNextBtnClass,
                 style = btn_css_style

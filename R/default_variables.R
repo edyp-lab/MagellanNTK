@@ -34,14 +34,17 @@ default.workflow  <- function()
 
 
 #' @rdname default_vars
+#' @description
+#' left_panel = left_sidebar + width_sidebar
+#' top_sidebar = top_panel
+#' width_sidebar = width_process_btns
 #' @export
 default.layout <- list(
-  top_sidebar = 85,
+  top_sidebar = 100,
   left_sidebar = 75,
   width_sidebar = 200,
   bgcolor_sidebar = 'lightblue',
-  top_panel = 85,
-  # left_sidebar + width_sidebar
+  top_panel = 100,
   left_panel = 275,
   width_panel = '100%',
   
