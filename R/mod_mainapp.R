@@ -131,6 +131,17 @@ mainapp_ui <- function(id, session){
         # some styling
         includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
         
+        absolutePanel(
+          actionButton(
+            inputId = ns("toggleSidebarBar"),
+            label = icon('bars', width = 20),
+            class = PrevNextBtnClass
+          ),
+          top = 0,
+          left = 20,
+          draggable = FALSE,
+          style = "z-index: 9999"
+        ),
         tabItems(
           
           tabItem(
@@ -186,17 +197,6 @@ mainapp_ui <- function(id, session){
             uiOutput(ns('manual_UI')))
         )
       )
-    ),
-    absolutePanel(
-      actionButton(
-        inputId = ns("toggleSidebarBar"),
-        label = icon('bars', width = 20),
-        class = PrevNextBtnClass
-      ),
-      top = 0,
-      left = 20,
-      draggable = FALSE,
-      style = "z-index: 9999"
     )
   )
 }
@@ -585,8 +585,7 @@ mainapp_server <- function(id,
     output$workflow_UI <- renderUI({
       req(rv.core$workflow.name)
       tagList(
-        tags$style("z-index: 9999999999 !important;"),
-        #actionButton(ns('resetWF'), 'Reset whole Workflow'),
+        #tags$style("z-index: 999 !important;"),
         nav_pipeline_ui(ns(basename(rv.core$workflow.name)))
       )
     })
