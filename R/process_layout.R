@@ -2,7 +2,19 @@
 process_layout <- function(sidebar, content){
   
   div(
-  style = "position: relative; ",
+  #style = "position: relative; ",
+    absolutePanel(
+      top = MagellanNTK::default.layout$top_sidebar,
+      left = MagellanNTK::default.layout$left_sidebar,
+      width = MagellanNTK::default.layout$width_sidebar,
+      height = "100%",
+      fixed = TRUE,
+      style = paste0("background:", default.layout$bgcolor_sidebar, ";"),
+      div(
+        style = "margin-top:55px;",
+        sidebar
+      )
+    ),
     absolutePanel(
       top = MagellanNTK::default.layout$top_panel,
       left = MagellanNTK::default.layout$left_panel,
@@ -16,21 +28,25 @@ process_layout <- function(sidebar, content){
           content
         )
       )
-    ),
-    absolutePanel(
-    top = MagellanNTK::default.layout$top_sidebar,
-    left = MagellanNTK::default.layout$left_sidebar,
-    width = MagellanNTK::default.layout$width_sidebar,
-    height = "100%",
-    fixed = TRUE,
-    style = paste0("background:", default.layout$bgcolor_sidebar, ";"),
-    div(
-      style = "margin-top:55px;",
-      sidebar
     )
-  )
-  
-  
 )
+  
+  
+  
+  # 
+  # 
+  # bslib::layout_sidebar(
+  #   tags$head(tags$style(".sidebar-content {background-color: lightblue; width: 300px;}"),
+  #     tags$style(".shiny-input-panel {background-color: lightblue;}")
+  #   ),
+  #   sidebar = bslib::sidebar(
+  #     #id = ns("Description_Sidebar"),  # Add an explicit ID
+  #     sidebar,
+  #     position = "left",
+  #     padding = c(100, 0) # 1ere valeur : padding vertical, 2eme : horizontal
+  #     #style = "p1"
+  #   ),
+  #   content
+  # )
 
 }

@@ -674,7 +674,8 @@ nav_pipeline_server <- function(
     output$EncapsulateScreens_ui <- renderUI({
       len <- length(rv$config@ll.UI)
 
-        #tagList(
+      renderUI({
+        tagList(
           lapply(seq_len(len), function(i) {
             if (i == 1) {
               div(
@@ -692,7 +693,8 @@ nav_pipeline_server <- function(
               )
             }
           })
-       # )
+        )
+      })
       })
 
     

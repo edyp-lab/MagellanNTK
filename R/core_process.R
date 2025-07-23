@@ -446,6 +446,7 @@ nav_process_server <- function(id = NULL,
     output$EncapsulateScreens_ui <- renderUI({
       len <- length(rv$config@ll.UI)
       
+      tagList(
           lapply(seq_len(len), function(i) {
           if (i == 1) {
             div(
@@ -463,6 +464,7 @@ nav_process_server <- function(id = NULL,
             )
           }
         })
+      )
     })
     
     
@@ -488,7 +490,8 @@ nav_process_server <- function(id = NULL,
         
         #tags$style(".bslib-sidebar-layout .collapse-toggle{display:true;}"),
         
-        div(id = ns("Screens"),
+        div(
+          id = ns("Screens"),
           style = "z-index: 0;",
           uiOutput(ns("SkippedInfoPanel"))
           ,uiOutput(ns("EncapsulateScreens_ui"))
@@ -551,17 +554,7 @@ nav_process_server <- function(id = NULL,
       title = 'Reset',
       uiContent = p(txt))
     
-    #     rv$rstBtn <- mod_modalDialog_server(
-    #       id = "rstBtn",
-    #       title = 'Reset',
-    #       uiContent = p("This action will reset the current process and
-    #     all its children. The input
-    # dataset will be the output of the last previous validated process and all
-    # further datasets will be removed")
-    #     )
-    
-    
-    
+
     
     
     # Catch a new value on the parameter 'dataIn()' variable, sent by the
