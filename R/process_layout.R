@@ -46,10 +46,11 @@ process_layout <- function(ns, sidebar, content){
     ),
     sidebar = bslib::sidebar(
       id = ns("Description_Sidebar"),  # Add an explicit ID
-      sidebar,
-      position = "left",
-      padding = c(100, 0), # 1ere valeur : padding vertical, 2eme : horizontal
-      style = "background-color : lightblue;"),
+      sidebar
+      #position = "left",
+      #padding = c(100, 0), # 1ere valeur : padding vertical, 2eme : horizontal
+      #style = "background-color : lightblue;"
+      ),
     content
   )
 
