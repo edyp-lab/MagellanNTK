@@ -158,8 +158,8 @@ mod_modalDialog_server <- function(id,
         width <- "small"
       }
       tagList(
-       tags$head(tags$style(paste0(".modal-dialog { width:", width, " }"))),
-        tags$head(tags$style(".modal-dialog {z-index: 1000;}")),
+       tags$head(tags$style(paste0(".modal-dialog { width:", width, "; }"))),
+        tags$head(tags$style(".modal-dialog {z-index: 10000; !important;}")),
         tags$head(tags$style(".modal-dialog {width: fit-content !important;}")),
         showModal(
           modalDialog(

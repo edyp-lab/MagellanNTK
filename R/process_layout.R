@@ -2,7 +2,7 @@
 process_layout <- function(sidebar, content){
   
   div(
-  style = "position: relative; z-index: 0;",
+  style = "position: relative; ",
     absolutePanel(
       top = MagellanNTK::default.layout$top_panel,
       left = MagellanNTK::default.layout$left_panel,
@@ -11,7 +11,7 @@ process_layout <- function(sidebar, content){
       fixed = TRUE,
       #style = "padding:15px; background:lightblue;",
       div(
-        style = "z-index: 0;",
+        style = "",
         tagList(
           content
         )
