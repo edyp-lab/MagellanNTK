@@ -142,7 +142,8 @@ nav_process_server <- function(id = NULL,
       length = NULL,
       config = NULL,
       rstBtn = reactive({0}),
-      btnEvents = reactive({NULL})
+      btnEvents = reactive({NULL}),
+      doProceedAction = NULL
     )
     
     
@@ -196,9 +197,7 @@ nav_process_server <- function(id = NULL,
         stepsnames <- names(rv$config@steps)
         rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = stepsnames)
         rv$steps.enabled <- setNames(rep(FALSE, n), nm = stepsnames)
-        
         rv$steps.skipped <- setNames(rep(FALSE, n), nm = stepsnames)
-        
         rv$currentStepName <- reactive({stepsnames[rv$current.pos]})
 
         if(verbose)
@@ -211,6 +210,7 @@ nav_process_server <- function(id = NULL,
     
     observeEvent(rv$proc$dataOut()$trigger,
       ignoreNULL = TRUE, ignoreInit = TRUE, {
+        req(rv$doProceedAction)
         # If a value is returned, this is because the 
         # # current step has been validated
         
@@ -223,12 +223,16 @@ nav_process_server <- function(id = NULL,
         # load the dataset in work variable 'dataIn'
         if (rv$current.pos == 1) {
           rv$dataIn <- rv$temp.dataIn
+          
+          if (rv$doProceedAction == 'Do_Proceed')
           rv$current.pos <- rv$current.pos + 1
           
         } # View intermediate datasets
         else if (rv$current.pos > 1 && rv$current.pos < length(rv$config@steps)) {
           rv$dataIn <- rv$proc$dataOut()$value
-          rv$current.pos <- rv$current.pos + 1
+          
+          if (rv$doProceedAction == 'Do_Proceed')
+            rv$current.pos <- rv$current.pos + 1
         } 
         # Manage the last dataset which is the real one 
         # returned by the process
@@ -285,10 +289,6 @@ nav_process_server <- function(id = NULL,
     # Update the current position after a click on the 'Next' button
     observeEvent(input$nextBtn, ignoreInit = TRUE, {
       
-      # if (rv$current.pos == 1){
-      #   rv$btnEvents <- names(rv$steps.status)[rv$current.pos]
-      # }
-      # 
       rv$current.pos <- NavPage(direction = 1,
         current.pos = rv$current.pos,
         len = length(rv$config@steps)
@@ -297,11 +297,18 @@ nav_process_server <- function(id = NULL,
     
     
     
-    observeEvent(input$validateBtn, ignoreInit = TRUE, {
+    observeEvent(input$DoProceedBtn, ignoreInit = TRUE, {
       # Catch the event to send it to the process server
       rv$btnEvents <- names(rv$steps.status)[rv$current.pos]
+      rv$doProceedAction <- 'Do_Proceed'
     })
     
+    observeEvent(input$DoBtn, ignoreInit = TRUE, {
+      # Catch the event to send it to the process server
+      rv$btnEvents <- names(rv$steps.status)[rv$current.pos]
+      rv$doProceedAction <- 'Do'
+    })
+
     
     # The parameter 'is.enabled()' is updated by the caller and tells the 
     # process if it is enabled or disabled (remote action from the caller)
@@ -459,15 +466,15 @@ nav_process_server <- function(id = NULL,
     })
     
     
-    observeEvent(rv$proc$dataOut()$sidebarState,
-      ignoreNULL = TRUE, ignoreInit = TRUE, {
-        shinyjs::toggle('btns_process_panel', 
-          anim = TRUE,
-          animType = "fade",
-          time = 0.1,
-          condition = rv$proc$dataOut()$sidebarState
-          )
-      })
+    # observeEvent(rv$proc$dataOut()$sidebarState,
+    #   ignoreNULL = TRUE, ignoreInit = TRUE, {
+    #     shinyjs::toggle('btns_process_panel', 
+    #       anim = TRUE,
+    #       animType = "fade",
+    #       time = 0.1,
+    #       condition = rv$proc$dataOut()$sidebarState
+    #       )
+    #   })
     
     # Launch the UI for the user interface of the module
     # Note for devs: apparently, the renderUI() cannot be stored in the 
@@ -508,18 +515,26 @@ nav_process_server <- function(id = NULL,
               )
             )),
             column(width = 3, mod_modalDialog_ui(id = ns("rstBtn"))),
-            column(width = 3, actionButton(ns("validateBtn"),
-              'Run',
-              class = PrevNextBtnClass,
-              style = btn_css_style
-            )),
             column(width = 3, actionButton(ns("nextBtn"),
               tl_h_next_icon,
               class = PrevNextBtnClass,
               style = btn_css_style
             ))
           
-          ))
+          ),
+            fluidRow(
+              column(width = 3, actionButton(ns("DoBtn"),
+                'Do X',
+                class = PrevNextBtnClass,
+                style = btn_css_style
+              )),
+              column(width = 3, actionButton(ns("DoProceedBtn"),
+                'Do X & proceed',
+                class = PrevNextBtnClass,
+                style = btn_css_style
+              ))
+              
+            ))
         )
     })
     
