@@ -47,7 +47,8 @@ mainapp_ui <- function(id, session){
       ),
       sidebar = dashboardSidebar(
         id = ns('mySidebar'),
-        tags$style(".left-side, .main-sidebar {padding-top: 40px}"),
+        style = "padding-top: 50px;",
+        
         expandOnHover = TRUE,
         collapsed = TRUE,
          
@@ -128,7 +129,7 @@ mainapp_ui <- function(id, session){
       ),
       
       body = dashboardBody(
-        # some styling
+        style = "padding: 0px;",
         includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
         
         absolutePanel(

@@ -65,7 +65,7 @@ nav_process_ui <- function(id) {
   #     #", ns('mysidebar'),  "{ width: 200px; height: 100%; float: left; background-color: lightblue; }
       
   fillPage(
-    padding = 10,
+    padding = 0,
     tags$style(type = "text/css",
       paste0(
       "#", ns('btns_process_panel'), "{ position: relative; background-color: green; }
