@@ -59,43 +59,73 @@ NULL
 nav_pipeline_ui <- function(id) {
   ns <- NS(id)
   
-  tagList(
-    div(id = ns('nav_pipeline'),
-      style = "
-        padding: 0px 0px 0px 0px;
-        width: 100%;
-        height: auto;",
-      fluidRow(
-          # style = "background-color: green;
-          #   padding: 0px 0px 0px 0px;
-          #   width: 100%;
-          #   height: 100%;",
-        column(width = 2, 
-          div(
-         # style = "display: flex; align-items: top; justify-content: center;",
-            shinyjs::disabled(
-          actionButton(ns("prevBtn"),
-            tl_h_prev_icon,
-            class = PrevNextBtnClass,
-            style = btn_css_style
-          )),
-              mod_modalDialog_ui(id = ns("rstBtn")),
-              actionButton(ns("nextBtn"),
-                tl_h_next_icon,
+  
+  fillPage(
+    tags$style(type = "text/css",
+      paste0(
+        "#", ns("mycontent"), " { padding-top: 80px; height: 100%; width: 100%;  }
+       #", ns('mysidebar'), " { width: 100%; height: 75px; background-color: lightgrey; 
+        display: flex; align-items: center; justify-content: center;}")
+    ),
+    
+    fluidRow(
+      id = ns("mysidebar"), 
+      column(width = 1, shinyjs::disabled(
+              actionButton(ns("prevBtn"),
+                tl_h_prev_icon,
                 class = PrevNextBtnClass,
                 style = btn_css_style
-              )
-        )
-            )
-        ,column(width = 10, timeline_pipeline_ui(ns('timeline_pipeline')))
-        
+              ))),
+      column(width = 1, mod_modalDialog_ui(id = ns("rstBtn"))),
+        column(width = 1, actionButton(ns("nextBtn"),
+        tl_h_next_icon,
+        class = PrevNextBtnClass,
+        style = btn_css_style
+        )),
+          column(width = 9, timeline_pipeline_ui(ns('timeline_pipeline')))
+     ),
+    div(id = ns("mycontent"), 
+      uiOutput(ns("EncapsulateScreens_ui"))
       )
-       ,div(
-         id = ns("Screens"),
-         uiOutput(ns("SkippedInfoPanel")),
-         uiOutput(ns("EncapsulateScreens_ui"))
-       )
-      )
+  )
+  
+  # 
+  # fillPage(
+  #   div(id = ns('nav_pipeline'),
+  #     style = "
+  #       padding: 0px 0px 0px 0px;
+  #       width: 100%;
+  #       height: auto;",
+  #     fluidRow(
+  #         # style = "background-color: green;
+  #         #   padding: 0px 0px 0px 0px;
+  #         #   width: 100%;
+  #         #   height: 100%;",
+  #       column(width = 2, 
+  #         div(
+  #        # style = "display: flex; align-items: top; justify-content: center;",
+  #           shinyjs::disabled(
+  #         actionButton(ns("prevBtn"),
+  #           tl_h_prev_icon,
+  #           class = PrevNextBtnClass,
+  #           style = btn_css_style
+  #         )),
+  #             mod_modalDialog_ui(id = ns("rstBtn")),
+  #             actionButton(ns("nextBtn"),
+  #               tl_h_next_icon,
+  #               class = PrevNextBtnClass,
+  #               style = btn_css_style
+  #             )
+  #       )
+  #           )
+  #       ,column(width = 10, timeline_pipeline_ui(ns('timeline_pipeline')))
+  #       
+  #     )
+  #      ,div(
+  #        id = ns("Screens"),
+  #        uiOutput(ns("EncapsulateScreens_ui"))
+  #      )
+  #     )
     # top = 0,
     # left = 0,
     # draggable = FALSE,
@@ -103,7 +133,7 @@ nav_pipeline_ui <- function(id) {
     # width = '100%',
     # height = '100%',
     # style = "padding: 75px; margin: 0px; z-index: -10;"
-   )
+  # )
 }
 
 
@@ -674,8 +704,6 @@ nav_pipeline_server <- function(
     output$EncapsulateScreens_ui <- renderUI({
       len <- length(rv$config@ll.UI)
 
-      renderUI({
-        tagList(
           lapply(seq_len(len), function(i) {
             if (i == 1) {
               div(
@@ -693,8 +721,6 @@ nav_pipeline_server <- function(
               )
             }
           })
-        )
-      })
       })
 
     

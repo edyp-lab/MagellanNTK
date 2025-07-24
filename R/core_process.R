@@ -61,15 +61,60 @@ NULL
 #'
 nav_process_ui <- function(id) {
   ns <- NS(id)
-  tagList(
-    shinyjs::useShinyjs(),
-    
-    # Contains the UI for the timeline, the direction buttons
-    # and the workflows modules
-    uiOutput(ns("nav_process_mod_ui")),
+  # "#", ns('mycontent'), "{ padding-left: 220px; height: 100%; background-color: orange; }
+  #     #", ns('mysidebar'),  "{ width: 200px; height: 100%; float: left; background-color: lightblue; }
+      
+  fillPage(
+    padding = 10,
+    tags$style(type = "text/css",
+      paste0(
+      "#", ns('btns_process_panel'), "{ position: relative; background-color: green; }
+      #", ns('mysupercontent'), "{ padding-left: 220px; height: 100%; background-color: red; }")
+    ),
+   div (
+     id = ns("btns_process_panel"),
+    absolutePanel(
+        top = default.layout$top_process_btns,
+        left = default.layout$left_process_btns,
+        width = default.layout$width_process_btns,
+        height = default.layout$height_process_btns,
+        draggable = TRUE,
+        
+        fluidRow(
+          column(width = 3, shinyjs::disabled(
+            actionButton(ns("prevBtn"),
+              tl_h_prev_icon,
+              class = PrevNextBtnClass,
+              style = btn_css_style
+            )
+          )),
+          column(width = 3, mod_modalDialog_ui(id = ns("rstBtn"))),
+          column(width = 3, actionButton(ns("nextBtn"),
+            tl_h_next_icon,
+            class = PrevNextBtnClass,
+            style = btn_css_style
+          ))
+          
+        ),
+        fluidRow(
+          column(width = 4, actionButton(ns("DoBtn"),
+            'Do X',
+            class = PrevNextBtnClass,
+            style = btn_css_style
+          )),
+          column(width = 8, actionButton(ns("DoProceedBtn"),
+            'Do X & proceed',
+            class = PrevNextBtnClass,
+            style = btn_css_style
+          ))
+        )
+        )
+     ),
+    div(id = "mysupercontent",
+      uiOutput(ns("EncapsulateScreens_ui")))
     
     # Contains the UI for the debug module
-    uiOutput(ns("debug_infos_ui"))
+    #uiOutput(ns("debug_infos_ui"))
   )
 }
 
@@ -406,35 +451,35 @@ nav_process_server <- function(id = NULL,
     
     
     # Show the info panel of a skipped module
-    output$SkippedInfoPanel <- renderUI({
-      Build_SkippedInfoPanel(steps.status = rv$steps.status,
-        current.pos = rv$current.pos,
-        config = rv$config
-      )
-    })
+    # output$SkippedInfoPanel <- renderUI({
+    #   Build_SkippedInfoPanel(steps.status = rv$steps.status,
+    #     current.pos = rv$current.pos,
+    #     config = rv$config
+    #   )
+    # })
     
     # Show the debug infos if requested (dev_mode mode)
     # This function is not directly implemented in the main UI of nav_ui
     # because it is hide/show w.r.t. the value of dev_mode
-    output$debug_infos_ui <- renderUI({
-      req(verbose)
-      
-      Debug_Infos_server(
-        id = "debug_infos",
-        title = paste0("Infos from ",rv$config@mode, ": ", id),
-        config = reactive({rv$config}),
-        rv.dataIn = reactive({rv$dataIn}),
-        dataIn = reactive({dataIn()}),
-        dataOut = reactive({dataOut}),
-        steps.status = reactive({rv$steps.status}),
-        steps.skipped = reactive({rv$steps.skipped}),
-        current.pos = reactive({rv$current.pos}),
-        steps.enabled = reactive({rv$steps.enabled}),
-        is.enabled = reactive({is.enabled()})
-      )
-      
-      Debug_Infos_ui(ns("debug_infos"))
-    })
+    # output$debug_infos_ui <- renderUI({
+    #   req(verbose)
+    #   
+    #   Debug_Infos_server(
+    #     id = "debug_infos",
+    #     title = paste0("Infos from ",rv$config@mode, ": ", id),
+    #     config = reactive({rv$config}),
+    #     rv.dataIn = reactive({rv$dataIn}),
+    #     dataIn = reactive({dataIn()}),
+    #     dataOut = reactive({dataOut}),
+    #     steps.status = reactive({rv$steps.status}),
+    #     steps.skipped = reactive({rv$steps.skipped}),
+    #     current.pos = reactive({rv$current.pos}),
+    #     steps.enabled = reactive({rv$steps.enabled}),
+    #     is.enabled = reactive({is.enabled()})
+    #   )
+    #   
+    #   Debug_Infos_ui(ns("debug_infos"))
+    # })
     
     
     GetStepsNames <- reactive({names(rv$config@steps)})
