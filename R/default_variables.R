@@ -48,8 +48,8 @@ default.layout <- list(
   left_panel = 275,
   width_panel = '100%',
   
-  top_process_btns = -76,
-  left_process_btns = 10,
+  top_process_btns = 18,
+  left_process_btns = 47,
   width_process_btns = 200,
   height_process_btns = 50
 )

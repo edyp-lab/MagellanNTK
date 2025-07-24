@@ -60,6 +60,10 @@ nav_pipeline_ui <- function(id) {
   ns <- NS(id)
   
     tagList(
+      tags$style(type = "text/css",
+        paste0(
+          "#", ns("Screens"), " {background-color: yellow; padding: 0px;}")
+      ),
       fluidRow(
          style = "background-color: green; padding: 0px; display: flex; align-items: center; justify-content: center;",
         column(width = 1, 
@@ -79,12 +83,10 @@ nav_pipeline_ui <- function(id) {
           ),
         column(width = 9, timeline_pipeline_ui(ns('timeline_pipeline')))
       ),
-      div(
-        style = "background-color: yellow; padding: 0px; ",
-        id = ns("Screens"),
-        uiOutput(ns("SkippedInfoPanel")),
+      #div(
+      #  id = ns("Screens"),
         uiOutput(ns("EncapsulateScreens_ui"))
-      )
+     # )
     )
 }
 
