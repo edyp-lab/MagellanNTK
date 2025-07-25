@@ -20,6 +20,7 @@
 #' 
 #' @examples
 #' \dontrun{
+#' library(SummarizedExperiment)
 #' data(lldata)
 #' obj <- assay(lldata[[1]])
 #' shiny::runApp(format_DT(obj))

@@ -65,7 +65,7 @@ nav_pipeline_ui <- function(id) {
           "#", ns("Screens"), " {background-color: yellow; padding: 0px;}")
       ),
       fluidRow(
-         style = "background-color: green; padding: 0px; display: flex; align-items: center; justify-content: center;",
+         style = "background-color: grey; padding: 0px; display: flex; align-items: center; justify-content: center;",
         column(width = 1, 
           shinyjs::disabled(
               actionButton(ns("prevBtn"),
@@ -83,10 +83,10 @@ nav_pipeline_ui <- function(id) {
           ),
         column(width = 9, timeline_pipeline_ui(ns('timeline_pipeline')))
       ),
-      #div(
-      #  id = ns("Screens"),
+      div(
+        id = ns("Screens"),
         uiOutput(ns("EncapsulateScreens_ui"))
-     # )
+      )
     )
 }
 

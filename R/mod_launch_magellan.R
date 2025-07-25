@@ -21,7 +21,7 @@ mod_launch_magellan_ui <- function(id){
       #   choose_pipeline_ui(ns("pipe"))
       # ),
       div(
-        style="display:inline-block; vertical-align: middle; padding-right: 20px;",
+        #style="display:inline-block; vertical-align: middle; padding-right: 20px;",
         shinyjs::hidden(div(id=ns('div_demoDataset'),
                             mod_open_demoDataset_ui(ns('rl'))
         )

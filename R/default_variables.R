@@ -40,7 +40,7 @@ default.workflow  <- function()
 #' width_sidebar = width_process_btns
 #' @export
 default.layout <- list(
-  top_sidebar = 100,
+  top_sidebar = 30,
   left_sidebar = 75,
   width_sidebar = 200,
   bgcolor_sidebar = 'lightblue',
@@ -48,8 +48,8 @@ default.layout <- list(
   left_panel = 275,
   width_panel = '100%',
   
-  top_process_btns = 18,
-  left_process_btns = 47,
+  top_process_btns = 100,
+  left_process_btns = 137,
   width_process_btns = 200,
   height_process_btns = 50
 )

@@ -66,10 +66,10 @@ nav_process_ui <- function(id) {
       
   fillPage(
     padding = 0,
-    tags$style(type = "text/css",
-      paste0(
-      "#", ns('btns_process_panel'), "{ position: relative; background-color: green; }")
-    ),
+    # tags$style(type = "text/css",
+    #   paste0(
+    #   "#", ns('btns_process_panel'), "{ position: relative; background-color: green; }")
+    # ),
    div (
      id = ns("btns_process_panel"),
     absolutePanel(

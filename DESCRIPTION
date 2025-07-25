@@ -72,7 +72,6 @@ Collate:
     mod_chooseDir.R
     mod_launch_magellan.R
     mod_observe_dynamic_colourPicker_input.R
-    mod_splash.R
     catch2List.R
     mod_errorModal.R
     rclip.R
