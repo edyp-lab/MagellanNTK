@@ -60,21 +60,21 @@ nav_pipeline_ui <- function(id) {
   ns <- NS(id)
   
     tagList(
-      tags$style(type = "text/css",
-        paste0(
-          "#", ns("Screens"), " {background-color: yellow; padding: 0px;}")
-      ),
-      
-      absolutePanel(
-        style = paste0(
-          "position: fixed; background-color: ", default.layout$bgcolor_process_sidebar, ";"),
-        width = default.layout$width_process_sidebar,
-        height = '100vh',
-        top = default.layout$top_process_sidebar,
-        left = default.layout$left_process_sidebar,
-        draggable = TRUE
-        
-      ),
+      # tags$style(type = "text/css",
+      #   paste0(
+      #     "#", ns("Screens"), " {background-color: yellow; padding: 0px;}")
+      # ),
+      # 
+      # absolutePanel(
+      #   style = paste0(
+      #     "position: fixed; background-color: ", default.layout$bgcolor_process_sidebar, ";"),
+      #   width = default.layout$width_process_sidebar,
+      #   height = '100vh',
+      #   top = default.layout$top_process_sidebar,
+      #   left = default.layout$left_process_sidebar,
+      #   draggable = TRUE
+      #   
+      # ),
       fluidRow(
          style = "background-color: grey; padding: 0px; display: flex; align-items: center; justify-content: center;",
         column(width = 1, 
@@ -96,6 +96,7 @@ nav_pipeline_ui <- function(id) {
       ),
       div(
         id = ns("Screens"),
+       # style = "background-color: yellow; padding: 0px;",
         uiOutput(ns("EncapsulateScreens_ui"))
       )
     )
