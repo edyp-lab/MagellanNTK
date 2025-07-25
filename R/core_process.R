@@ -68,8 +68,7 @@ nav_process_ui <- function(id) {
     padding = 0,
     tags$style(type = "text/css",
       paste0(
-      "#", ns('btns_process_panel'), "{ position: relative; background-color: green; }
-      #", ns('mysupercontent'), "{ padding-left: 220px; height: 100%; background-color: red; }")
+      "#", ns('btns_process_panel'), "{ position: relative; background-color: green; }")
     ),
    div (
      id = ns("btns_process_panel"),
@@ -110,8 +109,7 @@ nav_process_ui <- function(id) {
         )
         )
      ),
-    div(id = "mysupercontent",
-      uiOutput(ns("EncapsulateScreens_ui")))
+    uiOutput(ns("EncapsulateScreens_ui"))
     
     # Contains the UI for the debug module
     #uiOutput(ns("debug_infos_ui"))
