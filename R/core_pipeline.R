@@ -64,6 +64,16 @@ nav_pipeline_ui <- function(id) {
         paste0(
           "#", ns("Screens"), " {background-color: yellow; padding: 0px;}")
       ),
+      
+      absolutePanel(
+        style = "position: fixed; background-color: purple;",
+        width = 250,
+        height = '100vh',
+        top = 177,
+        left = 89,
+        draggable = TRUE
+        
+      ),
       fluidRow(
          style = "background-color: grey; padding: 0px; display: flex; align-items: center; justify-content: center;",
         column(width = 1, 

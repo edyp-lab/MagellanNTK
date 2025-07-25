@@ -10,6 +10,7 @@ process_layout <- function(ns, sidebar, content){
 
     div(id = ns("myprocesssidebar"), sidebar),
     div(id = ns("myprocesscontent"), content)
+    
     )
 
   
