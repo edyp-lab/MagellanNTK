@@ -66,11 +66,12 @@ nav_pipeline_ui <- function(id) {
       ),
       
       absolutePanel(
-        style = "position: fixed; background-color: purple;",
-        width = 250,
+        style = paste0(
+          "position: fixed; background-color: ", default.layout$bgcolor_process_sidebar, ";"),
+        width = default.layout$width_process_sidebar,
         height = '100vh',
-        top = 177,
-        left = 89,
+        top = default.layout$top_process_sidebar,
+        left = default.layout$left_process_sidebar,
         draggable = TRUE
         
       ),

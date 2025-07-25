@@ -4,8 +4,13 @@ process_layout <- function(ns, sidebar, content){
   tagList(
     tags$style(type = "text/css",
       paste0(
-        "#", ns("myprocesscontent"), " {padding-top: 10px; padding-left: 250px; height: 100%; width: 100%; background-color: orange; }
-       #", ns('myprocesssidebar'), " { padding-top: 85px; float: left; width: 250px; height: 100%; background-color: lightblue; }")
+        "#", ns("myprocesscontent"), " {padding-top: ",
+        default.layout$top_process_panel, "px; padding-left: ",
+        default.layout$left_process_panel, "px; height: 100%; width: 100%; background-color: ",
+        default.layout$bgcolor_process_panel, "; }
+       #", ns('myprocesssidebar'), " { padding-top: ",
+        default.layout$top_process_sidebar, "x; float: left; width: ",
+        default.layout$left_process_panel, "px; height: 100%;}")
     ),
 
     div(id = ns("myprocesssidebar"), sidebar),
