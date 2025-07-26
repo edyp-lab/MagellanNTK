@@ -36,7 +36,6 @@ NULL
 mainapp_ui <- function(id, session){
   ns <- NS(id)
   
-  tagList(
     dashboardPage(
       preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
       options = list(
@@ -200,7 +199,6 @@ mainapp_ui <- function(id, session){
         )
       )
     )
-  )
 }
 
 
