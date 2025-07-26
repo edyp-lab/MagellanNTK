@@ -51,6 +51,7 @@ default.layout <- list(
   
   top_process_content = 10,
   left_process_content = 200,
+  left_process_content = 100,
   bgcolor_process_content = 'yellow',
   
   

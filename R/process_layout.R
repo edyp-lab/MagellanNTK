@@ -44,7 +44,7 @@ process_layout <- function(ns, sidebar, content){
     div(id = "div2",
       #style = "background-color:red; height: 100%; ",
       style = paste0("padding-top: ", default.layout$top_process_content, "px; ",
-      #" width: ", default.layout$left_process_content, "px; ",
+      " width: ", default.layout$width_process_content, "vh; ",
       " height: 100%; ",
       " background-color: ", default.layout$bgcolor_process_content, ";"),
       content

@@ -64,7 +64,7 @@ nav_process_ui <- function(id) {
   # "#", ns('mycontent'), "{ padding-left: 220px; height: 100%; background-color: orange; }
   #     #", ns('mysidebar'),  "{ width: 200px; height: 100%; float: left; background-color: lightblue; }
       
-  fillPage(
+  tagList(
     padding = 0,
     # tags$style(type = "text/css",
     #   paste0(
