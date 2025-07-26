@@ -46,10 +46,10 @@ default.layout <- list(
   bgcolor_process_sidebar = 'lightblue',
   
   top_process_timeline = 86,
-  left_process_timeline = -200,
+  left_process_timeline = 0,
   bgcolor_process_timeline = 'lightblue',
   
-  top_process_content = 0,
+  top_process_content = 10,
   left_process_content = 200,
   bgcolor_process_content = 'yellow',
   
@@ -59,8 +59,8 @@ default.layout <- list(
   width_process_panel = '100%',
   bgcolor_process_panel = 'white',
   
-  top_process_btns = 102,
-  left_process_btns = 116,
+  top_process_btns = 80,
+  left_process_btns = 113,
   width_process_btns = 200,
   height_process_btns = 50,
   
