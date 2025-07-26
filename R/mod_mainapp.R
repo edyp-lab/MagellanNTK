@@ -129,7 +129,7 @@ mainapp_ui <- function(id, session){
       ),
       
       body = dashboardBody(
-        #style = "padding: 0px;",
+        style = "padding: 0px; background-color: purple; margin: 0px;",
         #style = "padding: 0px; overflow-y: auto;",
         includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
         

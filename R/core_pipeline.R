@@ -59,7 +59,7 @@ NULL
 nav_pipeline_ui <- function(id) {
   ns <- NS(id)
   
-    tagList(
+    div(style = "padding: 0; margin: -20px;",
       # tags$style(type = "text/css",
       #   paste0(
       #     "#", ns("Screens"), " {background-color: yellow; padding: 0px;}")
@@ -76,7 +76,8 @@ nav_pipeline_ui <- function(id) {
       #   
       # ),
       fluidRow(
-         style = "background-color: grey; padding: 0px; display: flex; align-items: center; justify-content: center;",
+         style = "background-color: grey; padding: 0px; margin: 0px; 
+        display: flex; align-items: center; justify-content: center;",
         column(width = 1, 
           shinyjs::disabled(
               actionButton(ns("prevBtn"),
@@ -689,20 +690,20 @@ nav_pipeline_server <- function(
           })
       })
 
-    
-    # Launch the UI for the user interface of the module
-    # Note for devs: apparently, the renderUI() cannot be stored in the 
-    # function 'Build..'
-    output$nav_pipeline_mod_ui <- renderUI({
-     # req(rv$tl.layout)
-      if(verbose)
-        cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
-      
-      #DisplayWholeUI(ns, 'pipeline')
-      pipelineUI <-Build_nav_pipeline_ui(ns)
-      
-      pipelineUI
-    })
+    # 
+    # # Launch the UI for the user interface of the module
+    # # Note for devs: apparently, the renderUI() cannot be stored in the 
+    # # function 'Build..'
+    # output$nav_pipeline_mod_ui <- renderUI({
+    #  # req(rv$tl.layout)
+    #   if(verbose)
+    #     cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
+    #   
+    #   #DisplayWholeUI(ns, 'pipeline')
+    #   pipelineUI <-Build_nav_pipeline_ui(ns)
+    #   
+    #   pipelineUI
+    # })
     
     
     #Define message when the Reset button is clicked
@@ -850,7 +851,7 @@ nav_pipeline <- function(){
         column(width=2, actionButton('simSkipped', 'Remote is.skipped', class='info'))
       ),
       hr(),
-      uiOutput('UI'),
+      nav_pipeline_ui(pipe.name),
       uiOutput('debugInfos_ui')
     )
   )
@@ -866,7 +867,7 @@ nav_pipeline <- function(){
       dataOut = NULL
     )
     
-    output$UI <- renderUI({nav_pipeline_ui(pipe.name)})
+  #  output$UI <- renderUI({nav_pipeline_ui(pipe.name)})
     
     output$debugInfos_ui <- renderUI({
       req(dev_mode)
