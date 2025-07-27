@@ -47,11 +47,12 @@ default.layout <- list(
   
   top_process_timeline = 86,
   left_process_timeline = 0,
-  bgcolor_process_timeline = 'lightblue',
+  width_process_timeline = "250", 
+  bgcolor_process_timeline = 'green',
   
   top_process_content = 10,
   left_process_content = 200,
-  left_process_content = 100,
+  width_process_content = '100',
   bgcolor_process_content = 'yellow',
   
   

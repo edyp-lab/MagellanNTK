@@ -81,10 +81,10 @@ nav_pipeline_ui <- function(id) {
           ),
         column(width = 9, timeline_pipeline_ui(ns('timeline_pipeline')))
       ),
-      div(
-        id = ns("Screens"),
+      #div(
+      #  id = ns("Screens"),
         uiOutput(ns("EncapsulateScreens_ui"))
-      )
+     # )
     )
 }
 

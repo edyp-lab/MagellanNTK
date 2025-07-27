@@ -64,19 +64,21 @@ nav_process_ui <- function(id) {
   # "#", ns('mycontent'), "{ padding-left: 220px; height: 100%; background-color: orange; }
   #     #", ns('mysidebar'),  "{ width: 200px; height: 100%; float: left; background-color: lightblue; }
       
-  tagList(
-    padding = 0,
+ # tagList(
+  #  padding = 0,
     # tags$style(type = "text/css",
     #   paste0(
     #   "#", ns('btns_process_panel'), "{ position: relative; background-color: green; }")
     # ),
    div (
      id = ns("btns_process_panel"),
+     style = "background-color: green;",
     absolutePanel(
         top = default.layout$top_process_btns,
         left = default.layout$left_process_btns,
         width = default.layout$width_process_btns,
         height = default.layout$height_process_btns,
+      style = "z-index: 99;",
         draggable = TRUE,
         
         fluidRow(
@@ -107,13 +109,12 @@ nav_process_ui <- function(id) {
             style = btn_css_style
           ))
         )
-        )
-     ),
+        ),
     uiOutput(ns("EncapsulateScreens_ui"))
-    
+   )
     # Contains the UI for the debug module
     #uiOutput(ns("debug_infos_ui"))
-  )
+ # )
 }
 
 
