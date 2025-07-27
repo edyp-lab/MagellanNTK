@@ -72,13 +72,13 @@ nav_process_ui <- function(id) {
     # ),
    div (
      id = ns("btns_process_panel"),
-     style = "background-color: green;",
+     #style = "background-color: green;",
     absolutePanel(
         top = default.layout$top_process_btns,
         left = default.layout$left_process_btns,
         width = default.layout$width_process_btns,
         height = default.layout$height_process_btns,
-      style = "z-index: 99;",
+      style = "z-index: 9;",
         draggable = TRUE,
         
         fluidRow(
