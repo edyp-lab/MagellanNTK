@@ -45,10 +45,10 @@ default.layout <- list(
   width_process_sidebar = 200,
   bgcolor_process_sidebar = 'lightblue',
   
-  top_process_timeline = 86,
+  top_process_timeline = 0,
   left_process_timeline = 0,
   width_process_timeline = "250", 
-  bgcolor_process_timeline = 'green',
+  bgcolor_process_timeline = 'orange',
   
   top_process_content = 10,
   left_process_content = 200,

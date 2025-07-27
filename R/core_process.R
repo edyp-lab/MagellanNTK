@@ -73,7 +73,9 @@ nav_process_ui <- function(id) {
    div (
      id = ns("btns_process_panel"),
      #style = "background-color: green;",
-    absolutePanel(
+     
+     uiOutput(ns("EncapsulateScreens_ui")),
+     absolutePanel(
         top = default.layout$top_process_btns,
         left = default.layout$left_process_btns,
         width = default.layout$width_process_btns,
@@ -109,8 +111,7 @@ nav_process_ui <- function(id) {
             style = btn_css_style
           ))
         )
-        ),
-    uiOutput(ns("EncapsulateScreens_ui"))
+        )
    )
     # Contains the UI for the debug module
     #uiOutput(ns("debug_infos_ui"))

@@ -18,7 +18,19 @@ div(
 #    "}")
 # ),
 
-    
+  absolutePanel(
+    id = ns("myprocesstimeline"),
+    style = paste0(
+      "position: fixed; ",
+      "padding-top: ", default.layout$top_process_timeline, "px; ",
+      "width: ", default.layout$width_process_timeline, "px; ",
+      "height: 100%;",
+      "background-color: ", default.layout$bgcolor_process_timeline, "; ",
+      "z-index: 99999 !important;",
+      "}"),
+    draggable = TRUE,
+    sidebar
+  ),
 
     div(
       id = ns("myprocesscontent"),
@@ -29,20 +41,7 @@ div(
         #"width: 300px; ",
         "background-color: ", default.layout$bgcolor_process_content, "; }"),
       draggable = TRUE,
-      content),
-  
-  absolutePanel(
-    id = ns("myprocesstimeline"),
-    style = paste0(
-      "padding-top: ", default.layout$top_process_timeline, "px; ",
-      "width: ", default.layout$width_process_timeline, "px; ",
-      "height: 100%;",
-      "background-color: ", default.layout$bgcolor_process_timeline, "; ",
-      #"z-index: 0;",
-      "}"),
-    draggable = TRUE,
-    sidebar
-  )
+      content)
     )
 
   
