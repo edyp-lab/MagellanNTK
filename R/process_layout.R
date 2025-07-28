@@ -26,7 +26,7 @@ div(
       "width: ", default.layout$width_process_timeline, "px; ",
       "height: ", default.layout$height_process_timeline, ";",
       "background-color: ", default.layout$bgcolor_process_timeline, "; ",
-      "z-index: 9999 !important;",
+      "z-index: 9999;",
       "}"),
     draggable = FALSE,
     div(
