@@ -54,7 +54,7 @@ default.layout <- list(
   top_process_content = 10,
   left_process_content = 200,
   width_process_content = '100',
-  bgcolor_process_content = 'yellow',
+  bgcolor_process_content = 'white',
   
   
   top_process_panel = 100,
@@ -71,6 +71,6 @@ default.layout <- list(
   left_pipeline_sidebar = 75,
   width_pipeline_sidebar = 200,
   heigth_pipeline_sidebar = '70px',
-  bgcolor_pipeline_sidebar = 'lightblue'
+  bgcolor_pipeline_sidebar = 'lightgrey'
   
 )

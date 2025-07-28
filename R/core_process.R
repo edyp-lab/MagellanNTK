@@ -79,7 +79,7 @@ nav_process_ui <- function(id) {
         left = default.layout$left_process_btns,
         width = default.layout$width_process_btns,
         height = default.layout$height_process_btns,
-      style = "z-index: 999;",
+      style = "z-index: 99999;",
         draggable = TRUE,
         
         fluidRow(

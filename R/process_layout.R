@@ -26,9 +26,9 @@ div(
       "width: ", default.layout$width_process_timeline, "px; ",
       "height: ", default.layout$height_process_timeline, ";",
       "background-color: ", default.layout$bgcolor_process_timeline, "; ",
-      "z-index: 99 !important;",
+      "z-index: 9999 !important;",
       "}"),
-    draggable = TRUE,
+    draggable = FALSE,
     div(
       id = ns("myprocesstimeline"),
       style = paste0(
@@ -52,7 +52,7 @@ div(
         #"height: 100%; ",
         #"width: 300px; ",
         "background-color: ", default.layout$bgcolor_process_content, "; }"),
-      draggable = TRUE,
+      draggable = FALSE,
       content)
     )
 
