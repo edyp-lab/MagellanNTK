@@ -36,10 +36,17 @@ NULL
 mainapp_ui <- function(id, session){
   ns <- NS(id)
   
-    dashboardPage(
+    # tagList(
+    #   actionButton(
+    #     inputId = ns("toggleSidebarBar"),
+    #     label = icon('bars', width = 20),
+    #     class = PrevNextBtnClass
+    #   ),
+      dashboardPage(
       preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
       options = list(
-        fixed = TRUE),
+        fixed = TRUE,
+        sidebarExpandOnHover = TRUE),
       
       header = dashboardHeader(
         disable = TRUE
@@ -48,9 +55,9 @@ mainapp_ui <- function(id, session){
         id = ns('mySidebar'),
         style = "padding-top: 50px;",
         
-        expandOnHover = TRUE,
+        #expandOnHover = TRUE,
         collapsed = TRUE,
-         
+        
         sidebarMenu(
           menuItem(
             p("Home", style = "color: white;"),
@@ -128,21 +135,21 @@ mainapp_ui <- function(id, session){
       ),
       
       body = dashboardBody(
-        style = "background-color: purple;",
+        #style = "background-color: purple;",
         #style = "padding: 0px; overflow-y: auto;",
         includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
         
-        absolutePanel(
-          actionButton(
-            inputId = ns("toggleSidebarBar"),
-            label = icon('bars', width = 20),
-            class = PrevNextBtnClass
-          ),
-          top = 0,
-          left = 20,
-          draggable = FALSE,
-          style = "z-index: 9999"
-        ),
+        # absolutePanel(
+        #   actionButton(
+        #     inputId = ns("toggleSidebarBar"),
+        #     label = icon('bars', width = 20),
+        #     class = PrevNextBtnClass
+        #   ),
+        #   top = 0,
+        #   left = 20,
+        #   draggable = FALSE,
+        #   style = "z-index: 9999"
+        # ),
         tabItems(
           
           tabItem(
@@ -199,6 +206,7 @@ mainapp_ui <- function(id, session){
         )
       )
     )
+   # )
 }
 
 

@@ -62,8 +62,9 @@ nav_pipeline_ui <- function(id) {
     div(style = "padding: 0; margin: -20px;",
       
       fluidRow(
-         style = "background-color: grey; padding: 0px; margin: 0px; 
-        display: flex; align-items: center; justify-content: center;",
+         style = paste0("padding: 0px; margin: 0px;  
+         height: ", default.layout$heigth_pipeline_sidebar, ";
+        display: flex; align-items: center; justify-content: center;"),
         column(width = 1, 
           shinyjs::disabled(
               actionButton(ns("prevBtn"),
@@ -71,7 +72,7 @@ nav_pipeline_ui <- function(id) {
                 class = PrevNextBtnClass,
                 style = btn_css_style
               ))),
-        column(width = 1,   mod_modalDialog_ui(id = ns("rstBtn"))),
+        column(width = 1, mod_modalDialog_ui(id = ns("rstBtn"))),
           column(width = 1, 
             actionButton(ns("nextBtn"),
               tl_h_next_icon,

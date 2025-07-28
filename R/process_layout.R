@@ -1,6 +1,6 @@
 #' @export
 process_layout <- function(ns, sidebar, content){
-
+  
 div(
 # tags$style(type = "text/css",
 #   paste0(
@@ -19,19 +19,31 @@ div(
 # ),
 
   absolutePanel(
-    id = ns("myprocesstimeline"),
+    #id = ns("myprocesstimeline"),
     style = paste0(
       "position: fixed; ",
       "padding-top: ", default.layout$top_process_timeline, "px; ",
       "width: ", default.layout$width_process_timeline, "px; ",
-      "height: 100%;",
+      "height: ", default.layout$height_process_timeline, ";",
       "background-color: ", default.layout$bgcolor_process_timeline, "; ",
-      "z-index: 99999 !important;",
+      "z-index: 99 !important;",
       "}"),
     draggable = TRUE,
-    sidebar
+    div(
+      id = ns("myprocesstimeline"),
+      style = paste0(
+        "padding-top: ", "70", "px; ",
+        "padding-left: ", "0px",
+        #"height: 100%; ",
+        #"width: 300px; ",
+        "background-color: ", default.layout$bgcolor_process_timeline, "; }"),
+      draggable = TRUE,
+      sidebar
+    )
   ),
 
+  
+  
     div(
       id = ns("myprocesscontent"),
       style = paste0(

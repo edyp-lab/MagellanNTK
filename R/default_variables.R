@@ -48,7 +48,8 @@ default.layout <- list(
   top_process_timeline = 0,
   left_process_timeline = 0,
   width_process_timeline = "250", 
-  bgcolor_process_timeline = 'orange',
+  height_process_timeline = "100%",
+  bgcolor_process_timeline = 'lightblue',
   
   top_process_content = 10,
   left_process_content = 200,
@@ -69,6 +70,7 @@ default.layout <- list(
   top_pipeline_sidebar = 30,
   left_pipeline_sidebar = 75,
   width_pipeline_sidebar = 200,
+  heigth_pipeline_sidebar = '70px',
   bgcolor_pipeline_sidebar = 'lightblue'
   
 )
