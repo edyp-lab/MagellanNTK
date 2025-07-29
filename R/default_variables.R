@@ -43,18 +43,18 @@ default.layout <- list(
   top_process_sidebar = 90,
   left_process_sidebar = 89,
   width_process_sidebar = 200,
-  bgcolor_process_sidebar = 'lightblue',
+  bgcolor_process_sidebar = 'green',
   
-  top_process_timeline = 0,
-  left_process_timeline = 0,
-  width_process_timeline = "250", 
+  top_process_timeline = 165,
+  left_process_timeline = 75,
+  width_process_timeline = "250px", 
   height_process_timeline = "100%",
   bgcolor_process_timeline = 'lightblue',
   
   top_process_content = 10,
   left_process_content = 200,
   width_process_content = '100',
-  bgcolor_process_content = 'white',
+  bgcolor_process_content = 'yellow',
   
   
   top_process_panel = 100,
@@ -62,10 +62,11 @@ default.layout <- list(
   width_process_panel = '100%',
   bgcolor_process_panel = 'white',
   
-  top_process_btns = 80,
-  left_process_btns = 113,
+  top_process_btns = 65,
+  left_process_btns = 75,
   width_process_btns = 200,
-  height_process_btns = 50,
+  height_process_btns = 100,
+  bgcolor_process_btns = 'blue',
   
   top_pipeline_sidebar = 30,
   left_pipeline_sidebar = 75,

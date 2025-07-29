@@ -75,13 +75,13 @@ nav_process_ui <- function(id) {
      #style = "background-color: green;",
      
      absolutePanel(
-        top = default.layout$top_process_btns,
-        left = default.layout$left_process_btns,
-        width = default.layout$width_process_btns,
-        height = default.layout$height_process_btns,
-      style = "z-index: 99999;",
-        draggable = TRUE,
-        
+        # top = default.layout$top_process_btns,
+        # left = default.layout$left_process_btns,
+        # width = default.layout$width_process_timeline,
+        # height = default.layout$height_process_btns,
+       #bgcolor = default.layout$bgcolor_process_btns,
+      style = "background-color : lightblue; width: 200px; height: 100px;",
+       # draggable = TRUE,
         fluidRow(
           column(width = 3, shinyjs::disabled(
             actionButton(ns("prevBtn"),
@@ -111,8 +111,10 @@ nav_process_ui <- function(id) {
           ))
         )
         ),
+   
+   div(style="z-index: 99999;",
      uiOutput(ns("EncapsulateScreens_ui"))
-     
+   )
    )
     # Contains the UI for the debug module
     #uiOutput(ns("debug_infos_ui"))
