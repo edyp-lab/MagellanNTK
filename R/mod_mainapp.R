@@ -57,7 +57,11 @@ mainapp_ui <- function(id, session){
         
         #expandOnHover = TRUE,
         collapsed = TRUE,
-        
+          actionButton(
+            inputId = ns("toggleSidebarBar"),
+            label = icon('bars', width = 20),
+            class = PrevNextBtnClass
+          ),
         sidebarMenu(
           menuItem(
             p("Home", style = "color: white;"),

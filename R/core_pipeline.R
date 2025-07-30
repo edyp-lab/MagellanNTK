@@ -59,8 +59,15 @@ NULL
 nav_pipeline_ui <- function(id) {
   ns <- NS(id)
   
-    div(style = "padding: 0; margin: -20px;",
-      
+    tagList(
+      #div(style = "padding: 0; margin: -20px;",
+      absolutePanel(
+        left = 0,
+        top = 0,
+        height = 85,
+        width = '100%',
+        #draggable = TRUE,
+        style = "position : absolute, z-index: 999; padding-left: 350px;",
       fluidRow(
          style = paste0("background-color: ", default.layout$bgcolor_pipeline_sidebar,
          " ; padding: 0px; margin: 0px;  
@@ -82,11 +89,14 @@ nav_pipeline_ui <- function(id) {
             )
           ),
         column(width = 9, timeline_pipeline_ui(ns('timeline_pipeline')))
-      ),
-      div(
-      #  id = ns("Screens"),
-        uiOutput(ns("EncapsulateScreens_ui"))
       )
+        ),
+      #div(
+      #  id = ns("Screens"),
+        #style = "padding-top: -40px;",
+        uiOutput(ns("EncapsulateScreens_ui"))
+      
+   # )
     )
 }
 

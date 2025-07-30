@@ -73,14 +73,20 @@ nav_process_ui <- function(id) {
    div (
      id = ns("btns_process_panel"),
      #style = "background-color: green;",
-     
      absolutePanel(
-        # top = default.layout$top_process_btns,
-        # left = default.layout$left_process_btns,
-        # width = default.layout$width_process_timeline,
+       top = 0,
+       left = 80,
+       width = 250,
+       height = 400,
+       style = "background-color: green;"
+     ),
+     absolutePanel(
+        top = 0,
+         left = 80,
+        width = 250,
         # height = default.layout$height_process_btns,
        #bgcolor = default.layout$bgcolor_process_btns,
-      style = "background-color : lightblue; width: 200px; height: 100px;",
+      style = "position : absolute ; background-color : lightblue;",
        # draggable = TRUE,
         fluidRow(
           column(width = 3, shinyjs::disabled(
@@ -109,10 +115,12 @@ nav_process_ui <- function(id) {
             class = PrevNextBtnClass,
             style = btn_css_style
           ))
-        )
-        ),
+        )),
    
-   div(style="z-index: 99999;",
+   div(
+     style="padding-top: 70px; background-color: lightblue;",
+     
+     uiOutput(ns('testTL')),
      uiOutput(ns("EncapsulateScreens_ui"))
    )
    )
@@ -487,6 +495,23 @@ nav_process_server <- function(id = NULL,
     
     GetStepsNames <- reactive({names(rv$config@steps)})
 
+    
+ 
+    
+    output$testTL <- renderUI({
+      
+      timeline_process_server(
+        id = 'process_timeline',
+        config = rv$config,
+        status = reactive({rv$steps.status}),
+        position = reactive({rv$current.pos}),
+        enabled = reactive({rv$steps.enabled})
+      )
+      
+      timeline_process_ui(ns('process_timeline'))
+    })
+    
+    
     # This function uses the UI definition to:
     # 1 - initialize the UI (only the first screen is shown),
     # 2 - encapsulate the UI in a div (used to hide all screens at a time 
