@@ -73,60 +73,54 @@ nav_process_ui <- function(id) {
    div (
      id = ns("btns_process_panel"),
      #style = "background-color: green;",
+     
      absolutePanel(
-       top = 0,
+       top = 200,
        left = 80,
        width = 250,
-       height = 400,
-       style = "background-color: green;"
-     ),
-     absolutePanel(
-        top = 0,
-         left = 80,
-        width = 250,
-        # height = default.layout$height_process_btns,
-       #bgcolor = default.layout$bgcolor_process_btns,
-      style = "position : absolute ; background-color : lightblue;",
-       # draggable = TRUE,
-        fluidRow(
-          column(width = 3, shinyjs::disabled(
-            actionButton(ns("prevBtn"),
+       height = '100vh',
+       style = "position : absolute ; background-color: lightblue;",
+       div(style = "display: flex; align-items: center; justify-content: center;",
+         uiOutput(ns('dataset_name'))
+         ),
+       div(style = "display: flex; align-items: center; justify-content: center;",
+          actionButton(ns("prevBtn"),
               tl_h_prev_icon,
               class = PrevNextBtnClass,
               style = btn_css_style
-            )
-          )),
-          column(width = 3, mod_modalDialog_ui(id = ns("rstBtn"))),
-          column(width = 3, actionButton(ns("nextBtn"),
+            ),
+          mod_modalDialog_ui(id = ns("rstBtn")),
+          actionButton(ns("nextBtn"),
             tl_h_next_icon,
             class = PrevNextBtnClass,
             style = btn_css_style
-          ))
-          
-        ),
-        fluidRow(
-          column(width = 4, actionButton(ns("DoBtn"),
+          )),
+       div(style = "display: flex; align-items: center; justify-content: center;",
+         actionButton(ns("DoBtn"),
             'Do X',
             class = PrevNextBtnClass,
             style = btn_css_style
-          )),
-          column(width = 8, actionButton(ns("DoProceedBtn"),
+          ),
+          actionButton(ns("DoProceedBtn"),
             'Do X & proceed',
             class = PrevNextBtnClass,
             style = btn_css_style
-          ))
-        )),
-   
-   div(
-     style="padding-top: 70px; background-color: lightblue;",
+          )
+         ),
+       uiOutput(ns('testTL'))
+       ),
+     uiOutput(ns("EncapsulateScreens_ui")),
      
-     uiOutput(ns('testTL')),
-     uiOutput(ns("EncapsulateScreens_ui"))
-   )
-   )
+   # div(
+   #   style="padding-top: 70px; background-color: transparent;",
+   #   
+   #   uiOutput(ns('testTL'))
+   # )
+     
+
     # Contains the UI for the debug module
     #uiOutput(ns("debug_infos_ui"))
- # )
+  )
 }
 
 
@@ -202,6 +196,11 @@ nav_process_server <- function(id = NULL,
       doProceedAction = NULL
     )
     
+    output$dataset_name <- renderUI({
+      #p(DaparToolshed::file(dataIn()))
+      p('filename')
+      
+    })
     
     
     # Catch any event on the 'id' parameter. As this parameter is static 

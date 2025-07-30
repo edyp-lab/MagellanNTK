@@ -47,7 +47,7 @@ mainapp_ui <- function(id, session){
       options = list(
         fixed = TRUE,
         sidebarExpandOnHover = TRUE),
-      
+        
       header = dashboardHeader(
         disable = TRUE
       ),
@@ -139,7 +139,8 @@ mainapp_ui <- function(id, session){
       ),
       
       body = dashboardBody(
-        #style = "background-color: purple;",
+        tags$style(".content-wrapper {background-color: white;}"),
+        
         #style = "padding: 0px; overflow-y: auto;",
         includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
         

@@ -59,7 +59,7 @@ NULL
 nav_pipeline_ui <- function(id) {
   ns <- NS(id)
   
-    tagList(
+    page_fillable(
       #div(style = "padding: 0; margin: -20px;",
       absolutePanel(
         left = 0,
@@ -67,12 +67,10 @@ nav_pipeline_ui <- function(id) {
         height = 85,
         width = '100%',
         #draggable = TRUE,
-        style = "position : absolute, z-index: 999; padding-left: 350px;",
+        style = "position : absolute, padding-left: 330px; background-color: grey;",
+        
       fluidRow(
-         style = paste0("background-color: ", default.layout$bgcolor_pipeline_sidebar,
-         " ; padding: 0px; margin: 0px;  
-         height: ", default.layout$heigth_pipeline_sidebar, ";
-        display: flex; align-items: center; justify-content: center;"),
+         style = paste0("background-color: lightgrey ; padding-left: 330px; display: flex; align-items: center; justify-content: center;"),
         column(width = 1, 
           shinyjs::disabled(
               actionButton(ns("prevBtn"),
@@ -198,6 +196,7 @@ nav_pipeline_server <- function(
     )
     
     
+ 
     ActionOn_Data_Trigger <- function() {
       processHasChanged <- newValue <- NULL
       
