@@ -74,12 +74,12 @@ nav_process_ui <- function(id) {
      id = ns("btns_process_panel"),
      #style = "background-color: green;",
      
-     absolutePanel(
-       top = 74,
-       left = 75,
-       width = 250,
-       #height = '100vh',
-       draggable = FALSE,
+     div(
+       # top = 74,
+       # left = 75,
+       # width = 250,
+       # #height = '100vh',
+       # draggable = FALSE,
        style = "position : absolute ; background-color: lightblue;",
        
        div(style = "display: flex; align-items: center; justify-content: center;",
@@ -106,10 +106,9 @@ nav_process_ui <- function(id) {
             style = btn_css_style
           )
          ),
-       uiOutput(ns('testTL'))
-       )
-     #uiOutput(ns("EncapsulateScreens_ui")),
-     
+       uiOutput(ns('testTL')),
+       uiOutput(ns("EncapsulateScreens_ui"))
+     )
    # div(
    #   style="padding-top: 70px; background-color: transparent;",
    #   
