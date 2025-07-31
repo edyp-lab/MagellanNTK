@@ -65,18 +65,15 @@ nav_pipeline_ui <- function(id) {
         top = 0,
         height = 75,
         width = 250,
-      style = "position : absolute; background-color: grey;",
+      style = "position : absolute; background-color: lightblue; height: 100vh;",
         div(style = " align-items: center; justify-content: center;",
           h3('DATASET')
         ),
         div(
-          #  id = ns("Screens"),
-          #style = "padding-top: -40px;",
           uiOutput(ns("EncapsulateScreens_ui"))
-          
         )
     ),
-        div(style = "padding-left: 250px; margin-top: -15px;",
+        div(style = "padding-left: 240px; margin-top: -15px;",
       fluidRow(
          style = paste0("background-color: lightgrey ; display: flex; align-items: center; justify-content: center;"),
         column(width = 1, 

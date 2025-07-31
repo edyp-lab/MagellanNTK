@@ -60,7 +60,7 @@ process_layout <- function(ns, sidebar, content){
     absolutePanel(
       style = "position: absolute; background-color: yellow;}",
       top = 76,
-      left = 265,
+      left = 260,
       #width = '100%',
       #height = '100%',
       #draggable = TRUE,
