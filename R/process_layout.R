@@ -11,7 +11,7 @@ process_layout <- function(ns, sidebar, content){
       top = 76,
       left = 255,
       div(
-        p('totottototot')
+        content
       )
     )
   )
