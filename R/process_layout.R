@@ -7,7 +7,7 @@ process_layout <- function(ns, sidebar, content){
     ),
 
     absolutePanel(
-      style = "position: absolute; background-color: yellow;}",
+      style = "position: absolute; }",
       top = 76,
       left = 255,
       div(
