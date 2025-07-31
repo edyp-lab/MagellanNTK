@@ -61,16 +61,8 @@ NULL
 #'
 nav_process_ui <- function(id) {
   ns <- NS(id)
-  # "#", ns('mycontent'), "{ padding-left: 220px; height: 100%; background-color: orange; }
-  #     #", ns('mysidebar'),  "{ width: 200px; height: 100%; float: left; background-color: lightblue; }
-      
- # tagList(
-  #  padding = 0,
-    # tags$style(type = "text/css",
-    #   paste0(
-    #   "#", ns('btns_process_panel'), "{ position: relative; background-color: green; }")
-    # ),
-   tagList (
+  
+  tagList (
      div(style = "display: flex; align-items: center; justify-content: center;",
           actionButton(ns("prevBtn"),
               tl_h_prev_icon,
@@ -82,7 +74,8 @@ nav_process_ui <- function(id) {
             tl_h_next_icon,
             class = PrevNextBtnClass,
             style = btn_css_style
-          )),
+          )
+       ),
        div(style = "display: flex; align-items: center; justify-content: center;",
          actionButton(ns("DoBtn"),
             'Do X',
@@ -97,15 +90,6 @@ nav_process_ui <- function(id) {
          ),
      uiOutput(ns('testTL')),
      uiOutput(ns("EncapsulateScreens_ui"))
-   # div(
-   #   style="padding-top: 70px; background-color: transparent;",
-   #   
-   #   uiOutput(ns('testTL'))
-   # )
-     
-
-    # Contains the UI for the debug module
-    #uiOutput(ns("debug_infos_ui"))
   )
 }
 

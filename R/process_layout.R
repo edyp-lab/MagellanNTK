@@ -51,28 +51,29 @@ process_layout <- function(ns, sidebar, content){
   # )
   # 
   div(
-    div(style = "display: flex;",
+    div(
+      #style = "display: flex;",
       #style = "padding-top: 75px; padding-left: 300px; width: 100%;",
       sidebar
+    ),
+
+    absolutePanel(
+      style = "position: absolute; background-color: yellow;}",
+      top = 76,
+      left = 265,
+      #width = '100%',
+      #height = '100%',
+      #draggable = TRUE,
+      #div(
+      #  id = ns("myprocesscontent"),
+      div(
+        #style = "padding-top: 75px; padding-left: 300px; width: 100%;",
+        p('totottototot')
+      )
     )
+    
+    
   )
-    # absolutePanel(
-    #   style = "position: absolute; background-color: yellow; width: 230px; }",
-    #   top = 168,
-    #   left = 73,
-    #   #width = '100%',
-    #   #height = '100%',
-    #   draggable = TRUE,
-    #   #div(
-    #   #  id = ns("myprocesscontent"),
-    #   div(
-    #     #style = "padding-top: 75px; padding-left: 300px; width: 100%;",
-    #     sidebar
-    #   )
-    # )
-    
-    
- # )
   
   
   
