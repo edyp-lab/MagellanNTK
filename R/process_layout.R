@@ -51,7 +51,7 @@ process_layout <- function(ns, sidebar, content){
   # )
   # 
   div(
-    div(
+    div(style = "display: flex;",
       #style = "padding-top: 75px; padding-left: 300px; width: 100%;",
       sidebar
     )

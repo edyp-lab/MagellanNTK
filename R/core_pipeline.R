@@ -68,6 +68,12 @@ nav_pipeline_ui <- function(id) {
       style = "position : absolute; background-color: grey;",
         div(style = " align-items: center; justify-content: center;",
           h3('DATASET')
+        ),
+        div(
+          #  id = ns("Screens"),
+          #style = "padding-top: -40px;",
+          uiOutput(ns("EncapsulateScreens_ui"))
+          
         )
     ),
         div(style = "padding-left: 250px; margin-top: -15px;",
@@ -90,13 +96,7 @@ nav_pipeline_ui <- function(id) {
           ),
         column(width = 9, timeline_pipeline_ui(ns('timeline_pipeline')))
       )
-        ),
-      div(
-      #  id = ns("Screens"),
-        #style = "padding-top: -40px;",
-        uiOutput(ns("EncapsulateScreens_ui"))
-      
-    )
+        )
     )
 }
 

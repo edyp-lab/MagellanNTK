@@ -70,19 +70,8 @@ nav_process_ui <- function(id) {
     #   paste0(
     #   "#", ns('btns_process_panel'), "{ position: relative; background-color: green; }")
     # ),
-   div (
-     id = ns("btns_process_panel"),
-     #style = "background-color: green;",
-     
-     div(
-       # top = 74,
-       # left = 75,
-       # width = 250,
-       # #height = '100vh',
-       # draggable = FALSE,
-       style = "position : absolute ; background-color: lightblue;",
-       
-       div(style = "display: flex; align-items: center; justify-content: center;",
+   tagList (
+     div(style = "display: flex; align-items: center; justify-content: center;",
           actionButton(ns("prevBtn"),
               tl_h_prev_icon,
               class = PrevNextBtnClass,
@@ -106,9 +95,8 @@ nav_process_ui <- function(id) {
             style = btn_css_style
           )
          ),
-       uiOutput(ns('testTL')),
-       uiOutput(ns("EncapsulateScreens_ui"))
-     )
+     uiOutput(ns('testTL')),
+     uiOutput(ns("EncapsulateScreens_ui"))
    # div(
    #   style="padding-top: 70px; background-color: transparent;",
    #   
