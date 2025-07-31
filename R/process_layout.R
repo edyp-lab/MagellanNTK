@@ -39,13 +39,12 @@ process_layout <- function(ns, sidebar, content){
     cellWidths = c('200px', '100%'),
 
     div(id = "mysidebar",
-      style = " background-color: lightblue; width: 200px;
-      height: 100vh; padding-top: 150px;",
+      style = " background-color: lightblue; ",
       sidebar
     ),
     div(id = "mycontent",
       #style = "background-color:red; height: 100%; ",
-      style = " background-color: yellow; width: 300px; padding-top : 90px; padding-left: 10px;",
+      style = " background-color: yellow;",
       content
     )
   )

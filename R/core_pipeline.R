@@ -59,18 +59,20 @@ NULL
 nav_pipeline_ui <- function(id) {
   ns <- NS(id)
   
-    page_fillable(
-      #div(style = "padding: 0; margin: -20px;",
+    div(
       absolutePanel(
-        left = 0,
+        left = 75,
         top = 0,
-        height = 85,
-        width = '100%',
-        #draggable = TRUE,
-        style = "position : absolute, padding-left: 330px; background-color: grey;",
-        
+        height = 75,
+        width = 250,
+      style = "position : absolute; background-color: grey;",
+        div(style = " align-items: center; justify-content: center;",
+          h3('DATASET')
+        )
+    ),
+        div(style = "padding-left: 250px; margin-top: -15px;",
       fluidRow(
-         style = paste0("background-color: lightgrey ; padding-left: 330px; display: flex; align-items: center; justify-content: center;"),
+         style = paste0("background-color: lightgrey ; display: flex; align-items: center; justify-content: center;"),
         column(width = 1, 
           shinyjs::disabled(
               actionButton(ns("prevBtn"),
@@ -89,12 +91,12 @@ nav_pipeline_ui <- function(id) {
         column(width = 9, timeline_pipeline_ui(ns('timeline_pipeline')))
       )
         ),
-      #div(
+      div(
       #  id = ns("Screens"),
         #style = "padding-top: -40px;",
         uiOutput(ns("EncapsulateScreens_ui"))
       
-   # )
+    )
     )
 }
 

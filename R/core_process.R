@@ -75,14 +75,13 @@ nav_process_ui <- function(id) {
      #style = "background-color: green;",
      
      absolutePanel(
-       top = 200,
-       left = 80,
+       top = 74,
+       left = 75,
        width = 250,
-       height = '100vh',
+       #height = '100vh',
+       draggable = FALSE,
        style = "position : absolute ; background-color: lightblue;",
-       div(style = "display: flex; align-items: center; justify-content: center;",
-         uiOutput(ns('dataset_name'))
-         ),
+       
        div(style = "display: flex; align-items: center; justify-content: center;",
           actionButton(ns("prevBtn"),
               tl_h_prev_icon,
@@ -108,8 +107,8 @@ nav_process_ui <- function(id) {
           )
          ),
        uiOutput(ns('testTL'))
-       ),
-     uiOutput(ns("EncapsulateScreens_ui")),
+       )
+     #uiOutput(ns("EncapsulateScreens_ui")),
      
    # div(
    #   style="padding-top: 70px; background-color: transparent;",
