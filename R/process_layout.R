@@ -10,8 +10,8 @@ process_layout <- function(ns, sidebar, content){
       style = paste0(
         "position: absolute; ",
         "width: ", default.layout$width_process_content, ";}"),
-      top = default.layout$width_process_content,
-      left = default.layout$width_process_content,
+      top = default.layout$top_process_content,
+      left = default.layout$left_process_content,
       content
     )
   )

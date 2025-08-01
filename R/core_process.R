@@ -165,13 +165,7 @@ nav_process_server <- function(id = NULL,
       btnEvents = reactive({NULL}),
       doProceedAction = NULL
     )
-    
-    output$dataset_name <- renderUI({
-      #p(DaparToolshed::file(dataIn()))
-      p('filename')
-      
-    })
-    
+
     
     # Catch any event on the 'id' parameter. As this parameter is static 
     # and is attached to the server, this function can be view as the 
