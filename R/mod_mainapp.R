@@ -42,7 +42,7 @@ mainapp_ui <- function(id, session){
     #     label = icon('bars', width = 20),
     #     class = PrevNextBtnClass
     #   ),
-      dashboardPage(
+  dashboardPage(
       preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
       options = list(
         fixed = TRUE,
@@ -53,7 +53,7 @@ mainapp_ui <- function(id, session){
       ),
       sidebar = dashboardSidebar(
         id = ns('mySidebar'),
-        style = "padding-top: 50px;",
+        style = "padding-top: 0px;",
         
         #expandOnHover = TRUE,
         collapsed = TRUE,
@@ -234,11 +234,11 @@ mainapp_server <- function(id,
   
   moduleServer(id, function(input, output, session){
     ns <- session$ns
-    
-    
+
     observeEvent(input$toggleSidebarBar, {
       updateSidebar("mySidebar", session = session)
     })
+
     
     rv.core <- reactiveValues(
       dataIn = NULL,

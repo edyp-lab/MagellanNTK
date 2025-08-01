@@ -173,6 +173,7 @@ MagellanNTK <- function(
   
   server <- function(input, output, session) {
     
+   
     MagellanNTK_server("infos",
       dataIn = reactive({obj}),
       workflow.path = reactive({workflow.path}),

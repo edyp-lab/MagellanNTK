@@ -63,31 +63,41 @@ nav_process_ui <- function(id) {
   ns <- NS(id)
   
   tagList (
-     div(style = "display: flex; align-items: center; justify-content: center;",
+    div(style = "display: flex; align-items: center; justify-content: center;",
           actionButton(ns("prevBtn"),
               tl_h_prev_icon,
               class = PrevNextBtnClass,
               style = btn_css_style
             ),
           mod_modalDialog_ui(id = ns("rstBtn")),
+      actionButton(ns("DoBtn"),
+        'Do X',
+        class = PrevNextBtnClass,
+        style = btn_css_style
+      ),
+      actionButton(ns("DoProceedBtn"),
+        'Do X & proceed',
+        class = PrevNextBtnClass,
+        style = btn_css_style
+      ),
           actionButton(ns("nextBtn"),
             tl_h_next_icon,
             class = PrevNextBtnClass,
             style = btn_css_style
           )
        ),
-       div(style = "display: flex; align-items: center; justify-content: center;",
-         actionButton(ns("DoBtn"),
-            'Do X',
-            class = PrevNextBtnClass,
-            style = btn_css_style
-          ),
-          actionButton(ns("DoProceedBtn"),
-            'Do X & proceed',
-            class = PrevNextBtnClass,
-            style = btn_css_style
-          )
-         ),
+       # div(style = "display: flex; align-items: center; justify-content: center;",
+       #   actionButton(ns("DoBtn"),
+       #      'Do X',
+       #      class = PrevNextBtnClass,
+       #      style = btn_css_style
+       #    ),
+       #    actionButton(ns("DoProceedBtn"),
+       #      'Do X & proceed',
+       #      class = PrevNextBtnClass,
+       #      style = btn_css_style
+       #    )
+       #   ),
      uiOutput(ns('testTL')),
      uiOutput(ns("EncapsulateScreens_ui"))
   )
@@ -121,6 +131,8 @@ nav_process_server <- function(id = NULL,
   ### -------------------------------------------------------------###
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
+    
+    
     
     # Reactive values that will be used to output the current dataset when
     # the last step is validated

@@ -66,8 +66,8 @@ nav_pipeline_ui <- function(id) {
         height = 75,
         width = 250,
       style = "position : absolute; background-color: lightblue; height: 100vh;",
-        div(style = " align-items: center; justify-content: center;",
-          h3('DATASET')
+        div(style = " align-items: center; justify-content: center; margin-bottom: 20px;",
+          uiOutput(ns('datasetNameUI'))
         ),
         div(
           uiOutput(ns("EncapsulateScreens_ui"))
@@ -196,6 +196,12 @@ nav_pipeline_server <- function(
     
     
  
+    output$datasetNameUI <- renderUI({
+      h3(DaparToolshed::filename(dataIn()))
+      
+      })
+    
+    
     ActionOn_Data_Trigger <- function() {
       processHasChanged <- newValue <- NULL
       

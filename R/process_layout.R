@@ -1,22 +1,16 @@
 #' @export
 process_layout <- function(ns, sidebar, content){
-  
-  window_height <- htmlwidgets::JS('window.innerHeight')
-  window_width <- Jhtmlwidgets::S('window.innerWidth')
-  
+  #shinybrowser::detect()
   div(
     div(
       sidebar
     ),
 
     absolutePanel(
-      style = "position: absolute; }",
+      style = "position: absolute; width: 100vh;}",
       top = 76,
       left = 255,
-      width = window_width - 255,
-      div(
-        content
-      )
+      content
     )
   )
 }
