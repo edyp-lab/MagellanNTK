@@ -68,10 +68,10 @@ default.layout <- list(
   height_process_btns = NULL,
   bgcolor_process_btns = 'transparent',
   
-  top_pipeline_sidebar = NULL,
-  left_pipeline_sidebar = NULL,
-  width_pipeline_sidebar = NULL,
-  heigth_pipeline_sidebar = '100vh',
+  top_pipeline_sidebar = 0,
+  left_pipeline_sidebar = 75,
+  width_pipeline_sidebar = 250,
+  heigth_pipeline_sidebar = 100,
   bgcolor_pipeline_sidebar = 'lightblue'
   
 )

@@ -61,14 +61,14 @@ nav_pipeline_ui <- function(id) {
   
     div(
       absolutePanel(
-        left = 75,
-        top = 0,
-        height = 75,
-        width = 250,
+        left = default.layout$left_pipeline_sidebar,
+        top = default.layout$top_pipeline_sidebar,
+        height = default.layout$height_pipeline_sidebar,
+        width = default.layout$width_pipeline_sidebar,
       style = paste0(
         "position : absolute; ",
         "background-color: ", default.layout$bgcolor_pipeline_sidebar, "; ", 
-        "height: ", default.layout$height_pipeline_sidebar, ";"),
+        "height: 100vh;"),
         div(style = " align-items: center; justify-content: center; margin-bottom: 20px;",
           uiOutput(ns('datasetNameUI'))
         ),
