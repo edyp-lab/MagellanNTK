@@ -86,18 +86,6 @@ nav_process_ui <- function(id) {
             style = btn_css_style
           )
        ),
-       # div(style = "display: flex; align-items: center; justify-content: center;",
-       #   actionButton(ns("DoBtn"),
-       #      'Do X',
-       #      class = PrevNextBtnClass,
-       #      style = btn_css_style
-       #    ),
-       #    actionButton(ns("DoProceedBtn"),
-       #      'Do X & proceed',
-       #      class = PrevNextBtnClass,
-       #      style = btn_css_style
-       #    )
-       #   ),
      uiOutput(ns('testTL')),
      uiOutput(ns("EncapsulateScreens_ui"))
   )

@@ -65,7 +65,10 @@ nav_pipeline_ui <- function(id) {
         top = 0,
         height = 75,
         width = 250,
-      style = "position : absolute; background-color: lightblue; height: 100vh;",
+      style = paste0(
+        "position : absolute; ",
+        "background-color: ", default.layout$bgcolor_pipeline_sidebar, "; ", 
+        "height: ", default.layout$height_pipeline_sidebar, ";"),
         div(style = " align-items: center; justify-content: center; margin-bottom: 20px;",
           uiOutput(ns('datasetNameUI'))
         ),
@@ -75,7 +78,11 @@ nav_pipeline_ui <- function(id) {
     ),
         div(style = "padding-left: 240px; margin-top: -15px;",
       fluidRow(
-         style = paste0("background-color: lightgrey ; display: flex; align-items: center; justify-content: center;"),
+         style = paste0(
+           "background-color: ",default.layout$bgcolor_pipeline_sidebar, " ; ",
+           "display: flex; ",
+           "align-items: center; ", 
+           "justify-content: center;"),
         column(width = 1, 
           shinyjs::disabled(
               actionButton(ns("prevBtn"),

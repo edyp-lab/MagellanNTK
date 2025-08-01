@@ -7,9 +7,11 @@ process_layout <- function(ns, sidebar, content){
     ),
 
     absolutePanel(
-      style = "position: absolute; width: 100vh;}",
-      top = 76,
-      left = 255,
+      style = paste0(
+        "position: absolute; ",
+        "width: ", default.layout$width_process_content, ";}"),
+      top = default.layout$width_process_content,
+      left = default.layout$width_process_content,
       content
     )
   )

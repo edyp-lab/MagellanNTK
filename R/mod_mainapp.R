@@ -36,12 +36,6 @@ NULL
 mainapp_ui <- function(id, session){
   ns <- NS(id)
   
-    # tagList(
-    #   actionButton(
-    #     inputId = ns("toggleSidebarBar"),
-    #     label = icon('bars', width = 20),
-    #     class = PrevNextBtnClass
-    #   ),
   dashboardPage(
       preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
       options = list(
@@ -144,17 +138,6 @@ mainapp_ui <- function(id, session){
         #style = "padding: 0px; overflow-y: auto;",
         includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
         
-        # absolutePanel(
-        #   actionButton(
-        #     inputId = ns("toggleSidebarBar"),
-        #     label = icon('bars', width = 20),
-        #     class = PrevNextBtnClass
-        #   ),
-        #   top = 0,
-        #   left = 20,
-        #   draggable = FALSE,
-        #   style = "z-index: 9999"
-        # ),
         tabItems(
           
           tabItem(
@@ -269,10 +252,7 @@ mainapp_server <- function(id,
         options(shiny.fullstacktrace = TRUE)
       
       options(shiny.maxRequestSize = 1024^3)
-      
-      # rv.core$current.obj <- dataIn()
-      # if (!is.null(dataIn()))
-      #   rv.core$current.obj.name <- 'myDataset'
+
       
       rv.core$current.obj <- dataIn()
       rv.core$processed.obj <- dataIn()
@@ -449,6 +429,7 @@ mainapp_server <- function(id,
     # })
     
     #observeEvent(input$browser,{browser()})
+    
     observeEvent(input$ReloadProstar, { js$reset()})
     
     rv.core$tmp.funcs <- mod_modalDialog_server('loadPkg_modal', 
