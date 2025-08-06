@@ -2,6 +2,7 @@
 % Please edit documentation in R/directoryInput.R
 \name{choose.dir}
 \alias{choose.dir}
+\alias{\%AND\%}
 \alias{is.Windows}
 \alias{is.Linux}
 \alias{is.Darwin}
@@ -11,6 +12,8 @@
 \alias{choose.dir.windows}
 \title{Choose a Folder Interactively}
 \usage{
+x \%AND\% y
+
 is.Windows()
 
 is.Linux()
@@ -28,6 +31,10 @@ choose.dir.linux(default = NA, caption = NA)
 choose.dir.windows(default = NA, caption = NA, useNew = TRUE)
 }
 \arguments{
+\item{x}{left operand}
+
+\item{y}{right operand}
+
 \item{default}{which folder to show initially}
 
 \item{caption}{the caption on the selection dialog}
@@ -48,6 +55,8 @@ This code is heavily based on the following repository:
 https://github.com/wleepang/shiny-directory-input
 Display an OS-native folder selection dialog under Mac OS X, Linux GTK+ or
 Windows.
+
+Given x and y, return y only if both x and y are set
 }
 \details{
 Uses an Apple Script, Zenity or Windows Batch script to display an OS-native

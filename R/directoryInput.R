@@ -41,7 +41,7 @@ NULL
 #' 
 #' @param x left operand
 #' @param y right operand
-#' @noRd 
+#' @rdname choose.dir 
 #' @export
 #' 
 `%AND%` <- function(x, y) {
