@@ -52,10 +52,12 @@ Imports:
     htmltools,
     crayon,
     tidyverse,
-    dplyr
+    dplyr,
+    stringr,
+    waiter
 Remotes:
     git::https://github.com/edyp-lab/DaparToolshedData,
-    git::https://github.com/prostarproteomics/omXplore
+    git::https://github.com/edyp-lab/omXplore
 Suggests: 
     rmarkdown, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
     gtools, XML, R.utils, RColorBrewer, MultiAssayExperiment
