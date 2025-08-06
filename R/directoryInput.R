@@ -42,6 +42,7 @@ NULL
 #' @param x left operand
 #' @param y right operand
 #' @noRd 
+#' @export
 #' 
 `%AND%` <- function(x, y) {
   if (!is.null(x) && !isTRUE(is.na(x)))
@@ -263,7 +264,7 @@ directoryInput <- function(inputId, label, value = NULL) {
   tagList(
     shiny::div(
       class = 'form-group directory-input-container',
-      MagellanNTK:::`%AND%`(label, tags$label(label)),
+      MagellanNTK::`%AND%`(label, tags$label(label)),
       shiny::div(
         shiny::span(
           class = 'col-xs-9 col-md-11',
