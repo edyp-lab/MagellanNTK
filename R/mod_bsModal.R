@@ -86,6 +86,7 @@ mod_bsmodal_server <- function(id,
     
     
     GetUI <- reactive({
+      ui <- div()
       if(!is.null(uiContent))
         ui <- uiContent
       else if(!is.null(shiny.module$ui.func))
@@ -107,20 +108,19 @@ mod_bsmodal_server <- function(id,
                                shiny.module$server.params)))
       
       tagList(
-        tags$head(tags$style(paste0(".modal-dialog { 
-                    width:", width, " }"))),
-        tags$head(tags$style(".modal-dialog {z-index: 1000;}")),
-        tags$head(
-          tags$style("#test .modal-dialog {width: fit-content !important;}")),
+        tags$head(tags$style(paste0(".modal-dialog {width:", width, " }"))),
+        tags$head(tags$style(".modal-dialog {z-index: 9999999;}")),
+        tags$head(tags$style(".modal-dialog {width: fit-content !important;}")),
         actionButton(ns("openModalBtn"), label,
                      icon("chart-bar", lib = "font-awesome"),
-                     class = "btn-success"
+                     class = btn_success_color
         ),
         
-        shinyBS::bsModal(ns("window"),
-                         title = title,
-                         trigger = ns("openModalBtn"),
-                         GetUI()
+        shinyBS::bsModal(
+          ns("window"),
+            title = title,
+          trigger = ns("openModalBtn"),
+          GetUI()
         )
       )
     })
@@ -128,6 +128,7 @@ mod_bsmodal_server <- function(id,
     reactive({dataOut()()})
   })
 }
+
 
 
 
@@ -151,11 +152,11 @@ mod_bsmodal <- function(title = 'test',
   server <- function(input, output, session) {
     rv <- reactiveValues(res=NULL)
     rv$res <- mod_bsmodal_server(id = "tbl",
-                             title = title,
-                             shiny.module = list(ui.func = ui.func,
-                                              ui.params = ui.params,
-                                              server.func = server.func,
-                                              server.params = server.params)
+      title = title,
+      shiny.module = list(ui.func = ui.func,
+        ui.params = ui.params,
+        server.func = server.func,
+        server.params = server.params)
     )
    
     

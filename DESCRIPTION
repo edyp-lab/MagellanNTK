@@ -33,8 +33,7 @@ Imports:
     methods,
     DT, 
     shiny,
-    shinydashboardPlus, 
-    shinydashboard, 
+    bs4Dash ,
     shinyEffects,
     htmlwidgets,
     shinyWidgets,
@@ -64,6 +63,7 @@ Collate:
     MagellanNTK.R
     app.R
     settings.R
+    process_layout.R
     default_funcs.R
     mod_sweetAlert.R
     mod_open_workflow.R
@@ -72,7 +72,6 @@ Collate:
     mod_chooseDir.R
     mod_launch_magellan.R
     mod_observe_dynamic_colourPicker_input.R
-    mod_splash.R
     catch2List.R
     mod_errorModal.R
     rclip.R
@@ -89,11 +88,10 @@ Collate:
     load_code.R
     utils.R
     check_funcs.R
-    timeline_h.R
-    timeline_process.R
-    timeline_v.R
     code_used_by_external_modules.R
     mod_debug_infos.R
+    timeline_process.R
+    timeline_pipeline.R
     core.R
     core_process.R
     core_pipeline.R
@@ -101,8 +99,6 @@ Collate:
     Save_dataset.R
     general_core_funcs.R
     pipeline_funcs.R
-    build_nav_ui.R
-    build_nav_process_ui.R
     load_save.R
     run_workflow.R
     mod_modalDialog.R

@@ -18,7 +18,6 @@ pipe_workflow_server(
   dataIn = reactive({
      NULL
  }),
-  tl.layout = NULL,
   usermod = "dev",
   verbose = FALSE
 )
@@ -27,7 +26,6 @@ pipe_workflowApp(
   id,
   path = NULL,
   dataIn = NULL,
-  tl.layout = NULL,
   usermod = "dev",
   verbose = FALSE
 )
@@ -40,7 +38,6 @@ proc_workflow_server(
   dataIn = reactive({
      NULL
  }),
-  tl.layout = NULL,
   usermod = "dev",
   verbose = FALSE
 )
@@ -49,7 +46,6 @@ proc_workflowApp(
   id,
   path = NULL,
   dataIn = NULL,
-  tl.layout = NULL,
   usermod = "dev",
   verbose = FALSE
 )
@@ -61,11 +57,11 @@ proc_workflowApp(
 
 \item{dataIn}{xxx}
 
-\item{tl.layout}{Additional parameters for nav}
-
 \item{usermod}{Available values are 'superdev', 'dev', 'superuser', 'user'}
 
 \item{verbose}{xxx}
+
+\item{tl.layout}{Additional parameters for nav}
 }
 \value{
 NA
@@ -78,6 +74,7 @@ pipelines nor processes to be managed with `MagellanNTK`.
 }
 \examples{
 \dontrun{
+library(MagellanNTK)
 library(shiny)
 data(lldata)
 data(sub_R25)

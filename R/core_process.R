@@ -61,15 +61,33 @@ NULL
 #'
 nav_process_ui <- function(id) {
   ns <- NS(id)
-  tagList(
-    shinyjs::useShinyjs(),
-    
-    # Contains the UI for the timeline, the direction buttons
-    # and the workflows modules
-    uiOutput(ns("nav_process_mod_ui")),
-    
-    # Contains the UI for the debug module
-    uiOutput(ns("debug_infos_ui"))
+  
+  tagList (
+    div(style = "display: flex; align-items: center; justify-content: center;",
+          actionButton(ns("prevBtn"),
+              tl_h_prev_icon,
+              class = PrevNextBtnClass,
+              style = btn_css_style
+            ),
+          mod_modalDialog_ui(id = ns("rstBtn")),
+      actionButton(ns("DoBtn"),
+        'Do X',
+        class = PrevNextBtnClass,
+        style = btn_css_style
+      ),
+      actionButton(ns("DoProceedBtn"),
+        'Do X & proceed',
+        class = PrevNextBtnClass,
+        style = btn_css_style
+      ),
+          actionButton(ns("nextBtn"),
+            tl_h_next_icon,
+            class = PrevNextBtnClass,
+            style = btn_css_style
+          )
+       ),
+     uiOutput(ns('testTL')),
+     uiOutput(ns("EncapsulateScreens_ui"))
   )
 }
 
@@ -87,9 +105,10 @@ nav_process_server <- function(id = NULL,
   is.enabled = reactive({TRUE}),
   remoteReset = reactive({0}),
   is.skipped = reactive({FALSE}),
-  tl.layout = NULL,
   verbose = FALSE,
-  usermod = 'user') {
+  usermod = 'user',
+  btnEvents = reactive({NULL})
+  ){
   
   
   
@@ -100,6 +119,8 @@ nav_process_server <- function(id = NULL,
   ### -------------------------------------------------------------###
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
+    
+    
     
     # Reactive values that will be used to output the current dataset when
     # the last step is validated
@@ -112,7 +133,6 @@ nav_process_server <- function(id = NULL,
       # Contains the return value of the process module that has been called
       proc = NULL,
       
-      tl.layout = NULL,
       
       # steps.status A boolean vector which contains the status 
       # (validated, skipped or undone) of the steps
@@ -141,10 +161,11 @@ nav_process_server <- function(id = NULL,
       current.pos = 1,
       length = NULL,
       config = NULL,
-      rstBtn = reactive({0})
+      rstBtn = reactive({0}),
+      btnEvents = reactive({NULL}),
+      doProceedAction = NULL
     )
-    
-    
+
     
     # Catch any event on the 'id' parameter. As this parameter is static 
     # and is attached to the server, this function can be view as the 
@@ -170,7 +191,9 @@ nav_process_server <- function(id = NULL,
             dataIn = reactive({rv$temp.dataIn}),
             steps.enabled = reactive({rv$steps.enabled}),
             remoteReset = reactive({rv$rstBtn() + remoteReset()}),
-            steps.status = reactive({rv$steps.status})
+            steps.status = reactive({rv$steps.status}),
+            current.pos = reactive({rv$current.pos}),
+            btnEvents = reactive({rv$btnEvents})
           )
         )
         
@@ -193,41 +216,9 @@ nav_process_server <- function(id = NULL,
         stepsnames <- names(rv$config@steps)
         rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = stepsnames)
         rv$steps.enabled <- setNames(rep(FALSE, n), nm = stepsnames)
-        
         rv$steps.skipped <- setNames(rep(FALSE, n), nm = stepsnames)
-
         rv$currentStepName <- reactive({stepsnames[rv$current.pos]})
-        
-        rv$tl.layout <- tl.layout
-        
-        # Set default layout for process and pipeline
-        if (is.null(rv$tl.layout)) {
-          rv$tl.layout <- c('h')
-        }
-        
-        # Launch the server timeline for this process/pipeline
-        
-        do.call(
-          paste0("timeline_", rv$tl.layout[1], "_server"),
-          list(
-            id = paste0("timeline", rv$tl.layout[1]),
-            config = rv$config,
-            status = reactive({rv$steps.status}),
-            enabled = reactive({rv$steps.enabled}),
-            position = reactive({rv$current.pos})
-          )
-        )
-        
-        # Launch the UI of the timeline
-        output$show_TL <- renderUI({
-          
-          do.call(
-            paste0("timeline_", rv$tl.layout[1], "_ui"),
-            list(ns(paste0("timeline", rv$tl.layout[1])))
-          )
-        })
-        
-        
+
         if(verbose)
           cat(crayon::yellow(paste0(id, ': Entering observeEvent(req(rv$config), {...})\n')))
       },
@@ -238,8 +229,10 @@ nav_process_server <- function(id = NULL,
     
     observeEvent(rv$proc$dataOut()$trigger,
       ignoreNULL = TRUE, ignoreInit = TRUE, {
+        req(rv$doProceedAction)
         # If a value is returned, this is because the 
         # # current step has been validated
+        
         rv$steps.status[rv$current.pos] <- stepStatus$VALIDATED
         
         # Look for new skipped steps
@@ -250,9 +243,15 @@ nav_process_server <- function(id = NULL,
         if (rv$current.pos == 1) {
           rv$dataIn <- rv$temp.dataIn
           
+          if (rv$doProceedAction == 'Do_Proceed')
+          rv$current.pos <- rv$current.pos + 1
+          
         } # View intermediate datasets
         else if (rv$current.pos > 1 && rv$current.pos < length(rv$config@steps)) {
           rv$dataIn <- rv$proc$dataOut()$value
+          
+          if (rv$doProceedAction == 'Do_Proceed')
+            rv$current.pos <- rv$current.pos + 1
         } 
         # Manage the last dataset which is the real one 
         # returned by the process
@@ -308,6 +307,7 @@ nav_process_server <- function(id = NULL,
     
     # Update the current position after a click on the 'Next' button
     observeEvent(input$nextBtn, ignoreInit = TRUE, {
+      
       rv$current.pos <- NavPage(direction = 1,
         current.pos = rv$current.pos,
         len = length(rv$config@steps)
@@ -316,7 +316,18 @@ nav_process_server <- function(id = NULL,
     
     
     
+    observeEvent(input$DoProceedBtn, ignoreInit = TRUE, {
+      # Catch the event to send it to the process server
+      rv$btnEvents <- names(rv$steps.status)[rv$current.pos]
+      rv$doProceedAction <- 'Do_Proceed'
+    })
     
+    observeEvent(input$DoBtn, ignoreInit = TRUE, {
+      # Catch the event to send it to the process server
+      rv$btnEvents <- names(rv$steps.status)[rv$current.pos]
+      rv$doProceedAction <- 'Do'
+    })
+
     
     # The parameter 'is.enabled()' is updated by the caller and tells the 
     # process if it is enabled or disabled (remote action from the caller)
@@ -402,7 +413,7 @@ nav_process_server <- function(id = NULL,
     
     
     
-
+    
     # # Catch a click of a the button 'Ok' of a reset modal. This can be in
     # # the local module or in the module parent UI (in this case,
     # # it is called a 'remoteReset')
@@ -414,38 +425,55 @@ nav_process_server <- function(id = NULL,
     
     
     # Show the info panel of a skipped module
-    output$SkippedInfoPanel <- renderUI({
-      Build_SkippedInfoPanel(steps.status = rv$steps.status,
-        current.pos = rv$current.pos,
-        config = rv$config
-      )
-    })
+    # output$SkippedInfoPanel <- renderUI({
+    #   Build_SkippedInfoPanel(steps.status = rv$steps.status,
+    #     current.pos = rv$current.pos,
+    #     config = rv$config
+    #   )
+    # })
     
     # Show the debug infos if requested (dev_mode mode)
     # This function is not directly implemented in the main UI of nav_ui
     # because it is hide/show w.r.t. the value of dev_mode
-    output$debug_infos_ui <- renderUI({
-      req(verbose)
-      
-      Debug_Infos_server(
-        id = "debug_infos",
-        title = paste0("Infos from ",rv$config@mode, ": ", id),
-        config = reactive({rv$config}),
-        rv.dataIn = reactive({rv$dataIn}),
-        dataIn = reactive({dataIn()}),
-        dataOut = reactive({dataOut}),
-        steps.status = reactive({rv$steps.status}),
-        steps.skipped = reactive({rv$steps.skipped}),
-        current.pos = reactive({rv$current.pos}),
-        steps.enabled = reactive({rv$steps.enabled}),
-        is.enabled = reactive({is.enabled()})
-      )
-      
-      Debug_Infos_ui(ns("debug_infos"))
-    })
+    # output$debug_infos_ui <- renderUI({
+    #   req(verbose)
+    #   
+    #   Debug_Infos_server(
+    #     id = "debug_infos",
+    #     title = paste0("Infos from ",rv$config@mode, ": ", id),
+    #     config = reactive({rv$config}),
+    #     rv.dataIn = reactive({rv$dataIn}),
+    #     dataIn = reactive({dataIn()}),
+    #     dataOut = reactive({dataOut}),
+    #     steps.status = reactive({rv$steps.status}),
+    #     steps.skipped = reactive({rv$steps.skipped}),
+    #     current.pos = reactive({rv$current.pos}),
+    #     steps.enabled = reactive({rv$steps.enabled}),
+    #     is.enabled = reactive({is.enabled()})
+    #   )
+    #   
+    #   Debug_Infos_ui(ns("debug_infos"))
+    # })
     
     
     GetStepsNames <- reactive({names(rv$config@steps)})
+
+    
+ 
+    
+    output$testTL <- renderUI({
+      
+      timeline_process_server(
+        id = 'process_timeline',
+        config = rv$config,
+        status = reactive({rv$steps.status}),
+        position = reactive({rv$current.pos}),
+        enabled = reactive({rv$steps.enabled})
+      )
+      
+      timeline_process_ui(ns('process_timeline'))
+    })
+    
     
     # This function uses the UI definition to:
     # 1 - initialize the UI (only the first screen is shown),
@@ -454,41 +482,99 @@ nav_process_server <- function(id = NULL,
     output$EncapsulateScreens_ui <- renderUI({
       len <- length(rv$config@ll.UI)
       
-      renderUI({
-        tagList(
+      tagList(
           lapply(seq_len(len), function(i) {
-            if (i == 1) {
+          if (i == 1) {
+            div(
+              id = ns(GetStepsNames()[i]),
+              class = paste0("page_", id),
+              rv$config@ll.UI[[i]]
+            )
+          } else {
+            shinyjs::hidden(
               div(
                 id = ns(GetStepsNames()[i]),
                 class = paste0("page_", id),
                 rv$config@ll.UI[[i]]
               )
-            } else {
-              shinyjs::hidden(
-                div(
-                  id = ns(GetStepsNames()[i]),
-                  class = paste0("page_", id),
-                  rv$config@ll.UI[[i]]
-                )
-              )
-            }
-          })
-        )
-      })
-      
-      
+            )
+          }
+        })
+      )
     })
     
+    
+    # observeEvent(rv$proc$dataOut()$sidebarState,
+    #   ignoreNULL = TRUE, ignoreInit = TRUE, {
+    #     shinyjs::toggle('btns_process_panel', 
+    #       anim = TRUE,
+    #       animType = "fade",
+    #       time = 0.1,
+    #       condition = rv$proc$dataOut()$sidebarState
+    #       )
+    #   })
     
     # Launch the UI for the user interface of the module
     # Note for devs: apparently, the renderUI() cannot be stored in the 
     # function 'Build..'
     output$nav_process_mod_ui <- renderUI({
-      req(rv$tl.layout)
       if(verbose)
         cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
-      
-      DisplayWholeUI(ns, rv$tl.layout[1])
+
+      div(
+        style = "position: relative;  ",
+        
+        #tags$style(".bslib-sidebar-layout .collapse-toggle{display:true;}"),
+        
+        div(
+          id = ns("Screens"),
+          style = "z-index: 0;",
+          uiOutput(ns("SkippedInfoPanel"))
+          ,uiOutput(ns("EncapsulateScreens_ui"))
+        )
+          ,absolutePanel(
+            id = ns("btns_process_panel"),
+            top = default.layout$top_process_btns,
+            left = default.layout$left_process_btns,
+            width = default.layout$width_process_btns,
+            height = default.layout$height_process_btns,
+            draggable = TRUE,
+            style = "
+              padding: 0px 0px 0px 0px;
+              margin: 0px 0px 0px 0px;
+              padding-bottom: 2mm;
+              padding-top: 1mm;",
+
+          fluidRow(
+            column(width = 3, shinyjs::disabled(
+              actionButton(ns("prevBtn"),
+                tl_h_prev_icon,
+                class = PrevNextBtnClass,
+                style = btn_css_style
+              )
+            )),
+            column(width = 3, mod_modalDialog_ui(id = ns("rstBtn"))),
+            column(width = 3, actionButton(ns("nextBtn"),
+              tl_h_next_icon,
+              class = PrevNextBtnClass,
+              style = btn_css_style
+            ))
+          
+          ),
+            fluidRow(
+              column(width = 4, actionButton(ns("DoBtn"),
+                'Do X',
+                class = PrevNextBtnClass,
+                style = btn_css_style
+              )),
+              column(width = 8, actionButton(ns("DoProceedBtn"),
+                'Do X & proceed',
+                class = PrevNextBtnClass,
+                style = btn_css_style
+              ))
+              
+            ))
+        )
     })
     
     
@@ -504,17 +590,7 @@ nav_process_server <- function(id = NULL,
       title = 'Reset',
       uiContent = p(txt))
     
-    #     rv$rstBtn <- mod_modalDialog_server(
-    #       id = "rstBtn",
-    #       title = 'Reset',
-    #       uiContent = p("This action will reset the current process and
-    #     all its children. The input
-    # dataset will be the output of the last previous validated process and all
-    # further datasets will be removed")
-    #     )
-    
-    
-    
+
     
     
     # Catch a new value on the parameter 'dataIn()' variable, sent by the
@@ -536,7 +612,7 @@ nav_process_server <- function(id = NULL,
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
       
-
+      
       
       if (is.null(dataIn())) {
         # The process has been reseted or is not concerned
@@ -585,7 +661,7 @@ nav_process_server <- function(id = NULL,
       )
       shinyjs::hide(selector = paste0(".page_", id))
       shinyjs::show(GetStepsNames()[rv$current.pos])
-
+      
     })
     
     
@@ -624,11 +700,11 @@ nav_process <- function(){
   server_env$dev_mode <- FALSE
   
   # Uncomment and Change this for a process workflow
-   proc.name <- 'PipelineDemo_Process1'
-   pipe.name <- 'PipelineDemo'
+  proc.name <- 'PipelineDemo_Process1'
+  pipe.name <- 'PipelineDemo'
   #name <- 'PipelineDemo_Description'
-   layout <- c('h')
-
+  layout <- c('h')
+  
   path <- system.file(file.path('workflow', pipe.name), package='MagellanNTK')
   files <- list.files(file.path(path, 'R'), full.names = TRUE)
   for(f in files)
@@ -660,7 +736,7 @@ nav_process <- function(){
       dataIn = sub_R25,
       dataOut = NULL
     )
-
+    
     output$UI <- renderUI({nav_process_ui(proc.name)})
     
     output$debugInfos_ui <- renderUI({
@@ -682,8 +758,8 @@ nav_process <- function(){
         dataIn = reactive({rv$dataIn}),
         remoteReset = reactive({input$simReset}),
         is.skipped = reactive({input$simSkipped%%2 != 0}),
-        is.enabled = reactive({input$simEnabled%%2 == 0}),
-        tl.layout = layout)
+        is.enabled = reactive({input$simEnabled%%2 == 0})
+        )
     })
   }
   

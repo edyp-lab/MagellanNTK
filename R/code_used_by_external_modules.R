@@ -209,7 +209,8 @@ Get_Code_for_rv_reactiveValues <- function() {
 Get_Code_for_dataOut <- function() {
     code <- "dataOut <- reactiveValues(
                 trigger = as.numeric(Sys.time()),
-                value = NULL
+                value = NULL,
+                sidebarState = NULL
                 )
 
 "

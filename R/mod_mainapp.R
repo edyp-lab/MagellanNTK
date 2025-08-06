@@ -26,8 +26,6 @@ NULL
 
 #' @importFrom shiny NS tagList span uiOutput 
 #' @import shinyjs
-#' @importFrom shinydashboard tabItem tabItems dashboardBody
-#' @importFrom shinydashboardPlus dashboardSidebar dashboardPage dashboardHeader 
 #' @import shinyEffects
 #' @import waiter
 #' 
@@ -38,244 +36,165 @@ NULL
 mainapp_ui <- function(id, session){
   ns <- NS(id)
   
-  
-  # tags$head(tags$style(".sidebar {
-  #   background: #F4F4F4;
-  #     height: 100vh;
-  #   left: 0;
-  #   overflow-x: hidden;
-  #   overflow-y: clip;
-  #   position: absolute;
-  #   top: 0;
-  #   width: 360px;"))
-  #div(id = "header",
-  tags$body(
-    #class = "skin-blue sidebar-mini control-sidebar-open",
-    #style = tags$style("padding-right: 0px;"),
-    options = list(sidebarExpandOnHover = TRUE),
-    
-    shinydashboardPlus::dashboardPage(
+  dashboardPage(
       preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
-      options = list(sidebarExpandOnHover = TRUE,
-        fixed = TRUE),
-      
-      md = FALSE,
-      skin = "blue",
-      
-      # 
-      # tags$head(
-      #   .path <- file.path(system.file('app/www/css', package = 'MagellanNTK'),'prostar.css'),
-      #   includeCSS(.path),
-      #   .path_sass <- file.path(system.file('app/www/css', package = 'MagellanNTK'),'sass-size.scss'),
-      #   tags$head(tags$style(sass::sass(
-      #     sass::sass_file(.path_sass),
-      #     sass::sass_options(output_style = "expanded")
-      #   )))
-      #   ),
-      
-      #skin = shinythemes::shinytheme("cerulean"),
-      
-      # https://stackoverflow.com/questions/31711307/how-to-change-color-in-shiny-dashboard
-      # orangeProstar <- "#E97D5E"
-      # gradient greenblue header
-      # greenblue links <- #2fa4e7
-      # darker greenblue hover links <- #157ab5
-      # darker greenblue titles <- #317eac
-      # small titles <- #9999
-      # darkest greenblue button reset+next+selected menu
-      # color background arrow : #88b7d5 (bleu gris clair)
-      # lightgrey #dddd
-      # grey #ccc
-      # bleu ceruleen #2EA8B1
-      # jaune clair 'mark' #FCF8E3
-      # green #468847
-      # darker green #356635
-      
-      ##
-      ## Header
-      ## 
-      # header = shinydashboardPlus::dashboardHeader(
-      #   fixed = TRUE,
-      #   title = dashboardthemes::shinyDashboardLogo(theme = "blue_gradient",
-      #                                               boldText = "Prostar",
-      #                                               badgeText = "v2"),
-      #   leftUi = tagList(
-      #   actionButton('browser', 'Console'),
-      #   a(href="http://www.prostar-proteomics.org/"
-      #       # img(src=base64enc::dataURI(
-      #       #   file=system.file('ProstarApp/www/images', 'LogoProstarComplet.png', package='ProstarDev'), 
-      #       #   mime="image/png"))
-      #       ),
-      #    a(href="https://github.com/edyp-lab/Prostar2",
-      #       icon("github"),
-      #       title="GitHub")
-      #   )
-      # ),
-      header = shinydashboardPlus::dashboardHeader(
+      options = list(
         fixed = TRUE,
-        # titleWidth = "245px",
-        # title = absolutePanel(
-        #    fixed = TRUE,
-        #    height = '100px',
-        #    dashboardthemes::shinyDashboardLogo(theme = "blue_gradient",
-        #                                        boldText = "Prostar",
-        #                                        badgeText = "v2")
-        #    ),
-        # leftUi = tagList(
-        #   tags$style(".skin-blue .main-header .navbar {background-color: rgb(20,97,117);}"),
-        #   actionButton('browser', 'Console'),
-        #   a(href="http://www.prostar-proteomics.org/"
-        #     #       # img(src=base64enc::dataURI(
-        #     #       #   file=system.file('ProstarApp/www/images', 'LogoProstarComplet.png', package='ProstarDev'), 
-        #     #       #   mime="image/png"))
-        #            ),
-        #   a(href="https://github.com/edyp-lab/Prostar2",
-        #     icon("github"),
-        #     title="GitHub")
-        # 
-        # )
-        title = 
-          tagList(
-            span(class = "logo-lg", 
-              uiOutput(ns('left_UI')))
-            
-          ),
-        leftUi = tagList(
-          uiOutput(ns('WF_Name_UI')),
-          uiOutput(ns('Dataset_Name_UI')),
-          uiOutput(ns('browser_UI'))
-        )
+        sidebarExpandOnHover = TRUE),
         
+      header = dashboardHeader(
+        disable = TRUE
       ),
       sidebar = dashboardSidebar(
+        id = ns('mySidebar'),
+        style = "padding-top: 0px;",
         
-        uiOutput(ns('sidebar')),
-        collapsed = TRUE
-      ),
-      #uiOutput(ns('sidebar')),
-      # controlbar = shinydashboardPlus::dashboardControlbar(
-      #   skin = "dark",
-      #   shinydashboardPlus::controlbarMenu(
-      #     shinydashboardPlus::controlbarItem(
-      #       title = "Configure",
-      #       icon = icon("desktop"),
-      #       active = TRUE,
-      #       actionLink(ns('browser'), 'Console'),
-      #       mod_modalDialog_ui(ns('loadPkg_modal'))
-      #     ),
-      #     shinydashboardPlus::controlbarItem(
-      #       icon = icon("paint-brush"),
-      #       title = "Settings",
-      #       mod_settings_ui(ns('global_settings'))
-      #     )
-      #     ,shinydashboardPlus::controlbarItem(
-      #       icon = icon("paint-brush"),
-      #       title = "Skin",
-      #       shinydashboardPlus::skinSelector()
-      #     )
-      #   )
-      #   ),
-      body = dashboardBody(
-        # some styling
-        tags$head(
-          
-          tags$style(".content-wrapper {padding-right: 0px;}"),
-          
-          # .path <- file.path(system.file('app/www/css', package = 'MagellanNTK'),'prostar.css'),
-          # includeCSS(.path),
-          # .path_sass <- file.path(system.file('app/www/css', package = 'MagellanNTK'),'sass-size.scss'),
-          # tags$style(sass::sass(
-          #   sass::sass_file(.path_sass),
-          #   sass::sass_options(output_style = "expanded")
-          # )),
-          
-          # tags$style(
-          #   rel = "stylesheet",
-          #   type = "text/css",
-          #   href = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/qtcreator_dark.min.css"
-          # ),
-          # tags$script(
-          #   src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"
-          # ),
-          tags$script(
-            "$(function() {
-            $('.sidebar-toggle').on('click', function() {
-              $('.skinSelector-widget').toggle();
-            });
-          });
-          "
-          )
-        ),
-        options(style = "padding-right: 0px;"),
-        div(style="margin-top: 40px;", 
-          # body content
-          shinydashboard::tabItems(
-            
-            shinydashboard::tabItem(
-              tabName = "Home", 
-              icon = 'home',
-              class = "active", 
-              mod_homepage_ui(ns('home'))),
-            #tabItem(tabName = "dataManager", 
-            #uiOutput(ns('dataManager_UI'))),
-            shinydashboard::tabItem(
+        #expandOnHover = TRUE,
+        collapsed = TRUE,
+          actionButton(
+            inputId = ns("toggleSidebarBar"),
+            label = icon('bars', width = 20),
+            class = PrevNextBtnClass
+          ),
+        sidebarMenu(
+          menuItem(
+            p("Home", style = "color: white;"),
+            tabName = "Home",
+            icon = icon("home")
+          ),
+          menuItem(
+            p('Dataset', style = "color: white;"),
+            icon = icon("home"),
+            menuSubItem(
+              p("Open (qf)", style = "color: white;"),
               tabName = "openDataset",
-              icon = 'home',
-              uiOutput(ns('open_dataset_UI'))
+              icon = icon("gear")
             ),
-            
-            shinydashboard::tabItem(
+            menuSubItem(
+              p("Import", style = "color: white;"),
               tabName = "convertDataset",
-              icon = 'home',
-              uiOutput(ns('open_convert_dataset_UI'))),
-            
-            shinydashboard::tabItem(
-              tabName = "SaveAs", 
-              icon = 'home',
-              uiOutput(ns('SaveAs_UI'))),
-            
-            shinydashboard::tabItem(
-              tabName = "infosDataset", 
-              icon = 'home',
-              uiOutput(ns('InfosDataset_UI'))),
-            
-            shinydashboard::tabItem(tabName = "eda", 
-              uiOutput(ns('EDA_UI'))),
-            
-            shinydashboard::tabItem(tabName = "tools", 
-              uiOutput(ns('tools_UI'))),
-            
-            shinydashboard::tabItem(tabName = "BuildReport", 
-              icon = 'home',
-              uiOutput(ns('BuildReport_UI'))),
-            
-            shinydashboard::tabItem(tabName = "openWorkflow", 
-              uiOutput(ns('open_workflow_UI'))),
-            
-            shinydashboard::tabItem(tabName = "workflow", 
-              icon = 'home',
-              uiOutput(ns('workflow_UI'))),
-            
-            
-            #tabItem(tabName = "globalSettings", mod_settings_ui(ns('global_settings'))),
-            shinydashboard::tabItem(tabName = "releaseNotes", 
-              uiOutput(ns('ReleaseNotes_UI'))),
-            # tabItem(tabName = "checkUpdates", 
-            #   mod_check_updates_ui(ns('check_updates'))),
-            # shinydashboard::tabItem(tabName = "usefulLinks", 
-            #   insert_md_ui(ns('links_MD'))),
-            shinydashboard::tabItem(tabName = "faq", 
-              insert_md_ui(ns('FAQ_MD'))),
-            shinydashboard::tabItem(tabName = "Manual", 
-              uiOutput(ns('manual_UI')))
-            # shinydashboard::tabItem(tabName = "bugReport", 
-            #   mod_bug_report_ui(ns("bug_report"))),
+              icon = icon("gear")
+            ),
+            menuSubItem(
+              p("Save As", style = "color: white;"),
+              tabName = "SaveAs",
+              icon = icon("gear")
+            ),
+            menuSubItem(
+              p("Build report (Beta)", style = "color: white;"),
+              tabName = "BuildReport",
+              icon = icon("gear")
+            )
+          ),
+          menuItem(
+            p('Workflow', style = "color: white;"),
+            icon = icon("home"),
+            menuSubItem(
+              p("Load", style = "color: white;"),
+              tabName = "openWorkflow",
+              icon = icon("gear")
+            ),
+            menuSubItem(
+              p("Run", style = "color: white;"),
+              tabName = "workflow",
+              icon = icon("gear")
+            ),
+            menuSubItem(
+              p("Manual", style = "color: white;"),
+              tabName = "Manual",
+              icon = icon("gear")
+            ),
+            menuSubItem(
+              p("FAQ", style = "color: white;"),
+              tabName = "faq",
+              icon = icon("gear")
+            ),
+            menuSubItem(
+              p("Release Notes", style = "color: white;"),
+              tabName = "releaseNotes",
+              icon = icon("gear")
+            )
+          ),
+          menuItem(
+            p('Vizualize data', style = "color: white;"),
+            icon = icon("home"),
+            menuSubItem(
+              p("Info", style = "color: white;"),
+              tabName = "infosDataset",
+              icon = icon("gear")
+            ),
+            menuSubItem(
+              p("EDA", style = "color: white;"),
+              tabName = "eda",
+              icon = icon("gear")
+            )
           )
+        )
+      ),
+      
+      body = dashboardBody(
+        tags$style(".content-wrapper {background-color: white;}"),
+        
+        #style = "padding: 0px; overflow-y: auto;",
+        includeCSS(file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')),
+        
+        tabItems(
           
-        ))
-      # )
+          tabItem(
+            tabName = "Home",
+            icon = 'home',
+            class = "active",
+            mod_homepage_ui(ns('home'))),
+          tabItem(
+            tabName = "openDataset",
+            icon = 'home',
+            uiOutput(ns('open_dataset_UI'))
+          ),
+          
+          tabItem(
+            tabName = "convertDataset",
+            icon = 'home',
+            uiOutput(ns('open_convert_dataset_UI'))),
+          
+          tabItem(
+            tabName = "SaveAs",
+            icon = 'home',
+            uiOutput(ns('SaveAs_UI'))),
+          
+          tabItem(
+            tabName = "infosDataset",
+            icon = 'home',
+            uiOutput(ns('InfosDataset_UI'))),
+          
+          tabItem(tabName = "eda",
+            uiOutput(ns('EDA_UI'))),
+          
+          tabItem(tabName = "tools",
+            uiOutput(ns('tools_UI'))),
+          
+          tabItem(tabName = "BuildReport",
+            icon = 'home',
+            uiOutput(ns('BuildReport_UI'))),
+          
+          tabItem(tabName = "openWorkflow",
+            uiOutput(ns('open_workflow_UI'))),
+          
+          tabItem(tabName = "workflow",
+            icon = 'home',
+            uiOutput(ns('workflow_UI'))),
+          
+          
+          tabItem(tabName = "releaseNotes",
+            uiOutput(ns('ReleaseNotes_UI'))),
+          
+          tabItem(tabName = "faq",
+            insert_md_ui(ns('FAQ_MD'))),
+          tabItem(tabName = "Manual",
+            uiOutput(ns('manual_UI')))
+        )
+      )
     )
-  )
+   # )
 }
 
 
@@ -284,7 +203,6 @@ mainapp_ui <- function(id, session){
 #' @importFrom shiny reactive moduleServer reactiveValues observeEvent req
 #' renderUI tagList h4 observeEvent actionButton h3 observe wellPanel helpText
 #' @import shinyjs
-#' @importFrom shinydashboardPlus dashboardSidebar dashboardPage dashboardHeader 
 #' @import shinyEffects
 #' 
 #' @rdname mod_main_page
@@ -299,6 +217,11 @@ mainapp_server <- function(id,
   
   moduleServer(id, function(input, output, session){
     ns <- session$ns
+
+    observeEvent(input$toggleSidebarBar, {
+      updateSidebar("mySidebar", session = session)
+    })
+
     
     rv.core <- reactiveValues(
       dataIn = NULL,
@@ -329,15 +252,12 @@ mainapp_server <- function(id,
         options(shiny.fullstacktrace = TRUE)
       
       options(shiny.maxRequestSize = 1024^3)
-      
-      # rv.core$current.obj <- dataIn()
-      # if (!is.null(dataIn()))
-      #   rv.core$current.obj.name <- 'myDataset'
+
       
       rv.core$current.obj <- dataIn()
       rv.core$processed.obj <- dataIn()
       if (!is.null(rv.core$current.obj))
-         rv.core$current.obj.name <- metadata(rv.core$current.obj)$file
+        rv.core$current.obj.name <- metadata(rv.core$current.obj)$file
       
       rv.core$workflow.path <- workflow.path()
       rv.core$workflow.name <- workflow.name()
@@ -361,7 +281,7 @@ mainapp_server <- function(id,
           rv.core$funcs$funcs[[f]] <- default.funcs()[[f]]
       }
       session$userData$funcs <- rv.core$funcs$funcs
-
+      
       rv.core$resetWF <- rv.core$resetWF + 1
     }, priority = 1000)
     
@@ -383,7 +303,96 @@ mainapp_server <- function(id,
       req(usermod)
       
       switch(usermod,
-        dev = Insert_Dev_Sidebar(),
+        dev = {
+          sidebarMenu(
+            id = "sidebarmenu",
+            menuItem(
+              "Item 1",
+              tabName = "item1",
+              icon = icon("sliders")
+            ),
+            menuItem(
+              "Item 2",
+              tabName = "item2",
+              icon = icon("id-card"),
+              menuSubItem(
+                text = 'toto1',
+                tabName = 'titi1'
+              ),
+              menuSubItem(
+                text = 'toto2',
+                tabName = 'titi2'
+              )
+            )
+          )
+          
+          
+          # sidebarMenu(id = "sb_dev",
+          #   #tags$style(".sidebar-menu li a { height: 40px; color: grey;}"), 
+          #   minified = TRUE, collapsed = TRUE,
+          #   menuItem("Home", 
+          #     tabName = "Home", 
+          #     icon = icon("home"),
+          #     selected = TRUE),
+          #   menuItem(
+          #     h4('Dataset', style="color: lightgrey;"),
+          #     menuSubItem(
+          #       "Open (qf)",
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "openDataset"
+          #     ),
+          #   menuSubItem(
+          #       "Import", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "convertDataset"),
+          #     menuSubItem(
+          #       "Save As", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "SaveAs"),
+          #     menuSubItem(
+          #       "Build report (Beta)", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "BuildReport")
+          #   ),
+          #   menuItem(
+          #     'Workflow',
+          #     icon = icon("home"),
+          #     menuSubItem(
+          #       "Load", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "openWorkflow"),
+          #     menuSubItem(
+          #       "Run", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "workflow"),
+          #     menuSubItem(
+          #       "Manual", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "Manual"),
+          #     menuSubItem(
+          #       "FAQ", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "faq"),
+          #     menuSubItem(
+          #       "Release Notes", 
+          #       icon = img(src="www/logo-simple.png", width = 20),
+          #       tabName = "releaseNotes")
+          #   ),
+          #   menuItem(
+          #     'Vizualize data',
+          #     icon = icon("home"),
+          #     
+          #     menuSubItem("Info", 
+          #       tabName = "infosDataset", 
+          #       icon = icon("info")
+          #     ),
+          #     menuSubItem("EDA", 
+          #       tabName = "eda", 
+          #       icon = icon("cogs")
+          #     )
+          #   )
+          #   )
+        },
         user = Insert_User_Sidebar()
       )
     })
@@ -420,6 +429,7 @@ mainapp_server <- function(id,
     # })
     
     #observeEvent(input$browser,{browser()})
+    
     observeEvent(input$ReloadProstar, { js$reset()})
     
     rv.core$tmp.funcs <- mod_modalDialog_server('loadPkg_modal', 
@@ -439,39 +449,30 @@ mainapp_server <- function(id,
       session$userData$funcs <- rv.core$tmp.funcs()
     })
     
-    
-    #
-    # Code for convert tool
-    #
-    observe({
-      req(rv.core$funcs$funcs$convert_dataset)
-      rv.core$result_convert <- call.func(
-        fname = paste0(rv.core$funcs$funcs$convert_dataset, '_server'),
-        args = list(id = 'Convert'))
-    })
-    
-    
+
     
     output$open_convert_dataset_UI <- renderUI({
       req(rv.core$funcs$funcs$convert_dataset)
       
+      rv.core$result_convert <- call.func(
+        fname = paste0(rv.core$funcs$funcs$convert_dataset, '_server'),
+        args = list(id = 'Convert'))
+
       call.func(
         fname = paste0(rv.core$funcs$funcs$convert_dataset, '_ui'),
         args = list(id = ns('Convert')))
     })
     
-    observeEvent(rv.core$result_convert()$dataOut()$value,
-      ignoreInit = TRUE, ignoreNULL = TRUE,{
-      if(verbose)
-        cat('Data converted')
-      
-      req(rv.core$result_convert()$dataOut()$value)
-      
-      rv.core$current.obj <- rv.core$result_convert()$dataOut()$value$data
-      rv.core$current.obj.name <- rv.core$result_convert()$dataOut()$value$name
-      rv.core$processed.obj <- rv.core$current.obj
-      rv.core$resetWF <- rv.core$resetWF + 1
-    })
+    # observeEvent(req(rv.core$result_convert$dataOut()),
+    #   ignoreInit = TRUE, ignoreNULL = TRUE,{
+    #     if(verbose)
+    #       cat('Data converted')
+    #     req(rv.core$result_convert$dataOut()$value)
+    #     rv.core$current.obj <- rv.core$result_convert$dataOut()$value$data
+    #     rv.core$current.obj.name <- rv.core$result_convert$dataOut()$value$name
+    #     rv.core$processed.obj <- rv.core$current.obj
+    #     rv.core$resetWF <- rv.core$resetWF + 1
+    #   })
     
     
     output$BuildReport_UI <- renderUI({
@@ -525,16 +526,16 @@ mainapp_server <- function(id,
     
     observeEvent(rv.core$result_open_dataset()$trigger, 
       ignoreInit = TRUE, ignoreNULL = TRUE,{
-      if (verbose)
-        cat('new dataset loaded\n')
-      
-      req(rv.core$result_open_dataset()$dataset)
-      rv.core$resetWF <- rv.core$resetWF + 1
-      
-      rv.core$current.obj <- rv.core$result_open_dataset()$dataset
-      rv.core$current.obj.name <- rv.core$result_open_dataset()$name
-      rv.core$processed.obj <- rv.core$current.obj
-    })
+        if (verbose)
+          cat('new dataset loaded\n')
+        
+        req(rv.core$result_open_dataset()$dataset)
+        rv.core$resetWF <- rv.core$resetWF + 1
+        
+        rv.core$current.obj <- rv.core$result_open_dataset()$dataset
+        rv.core$current.obj.name <- rv.core$result_open_dataset()$name
+        rv.core$processed.obj <- rv.core$current.obj
+      })
     
     
     
@@ -578,7 +579,7 @@ mainapp_server <- function(id,
     output$workflow_UI <- renderUI({
       req(rv.core$workflow.name)
       tagList(
-        actionButton(ns('resetWF'), 'Reset whole Workflow'),
+        #tags$style("z-index: 999 !important;"),
         nav_pipeline_ui(ns(basename(rv.core$workflow.name)))
       )
     })
@@ -589,7 +590,7 @@ mainapp_server <- function(id,
     
     
     observeEvent(req(input$resetWF), {rv.core$resetWF <- input$resetWF})
-
+    
     output$tools_UI <- renderUI({
       h3('tools')
     })
@@ -598,7 +599,7 @@ mainapp_server <- function(id,
     
     output$InfosDataset_UI <- renderUI({
       req(rv.core$funcs$funcs)
-
+      
       call.func(
         fname = paste0(rv.core$funcs$funcs$infos_dataset, '_server'),
         args = list(

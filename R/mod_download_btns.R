@@ -95,7 +95,7 @@ download_btns_server <- function(id,
 download_btns <- function(obj){
 ui <- fluidPage(
   download_btns_ui(id = 'ex', 
-    settings = list(actionBtnClass = "btn-primary"))
+    settings = list(actionBtnClass = actionBtnClass))
 )
 
 server <- function(input, output) {

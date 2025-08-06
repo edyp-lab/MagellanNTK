@@ -1,0 +1,162 @@
+$colDone: #50C878
+$colSkip: #B3AFAB
+$colTodo: white
+
+$colMandatory: #DC143C
+$colOptional: black
+$colActive: black
+$colBorder: black
+
+$colLineEnabled: black
+$colLineDisabled: black
+
+$dotSize: 20px
+$lineWidth: 3px
+
+$disabledStyle : dashed
+
+.pipeline-timeline
+  display: flex
+  justify-content: space-between
+  padding-top: 30px
+  position: relative
+  list-style: none
+  margin-top: 20px
+  padding-left: 0
+
+.li
+  flex: 1
+  text-align: center
+  position: relative
+
+  .status
+    position: relative
+    padding: 0 10px
+
+    h4
+      font-size: 14px
+      margin-top: -45px
+      margin-bottom: 20px
+      position: relative
+
+      &::after
+        content: ''
+        position: absolute
+        top: 100%
+        left: 50%
+        transform: translateX(-50%)
+        width: 2px
+        height: 10px
+        background-color: $colLineEnabled
+
+    &::before
+      content: ''
+      width: $dotSize
+      height: $dotSize
+      border-radius: 50%
+      background-color: $colTodo
+      border: $lineWidth solid $colBorder
+      position: absolute
+      top: -12px
+      left: 50%
+      transform: translateX(-50%)
+
+  &.completed .status::before
+    background-color: $colDone
+    color: $colBorder
+    &.mandatory
+      color: $colMandatory
+    
+  &.mandatory .status::after
+    border-color: $colMandatory
+
+  &.skipped .status::before
+    background-color: $colSkip
+    border-color: $colBorder
+
+  &.mandatory .status h4
+    color: $colMandatory
+
+  &.mandatory .status::before
+    border-color: $colMandatory
+
+  &.enabled .status
+    border-top: $lineWidth solid $colLineEnabled
+
+  &.disabled .status
+    border-top: $lineWidth dashed $colLineDisabled
+    
+  &.disabled .status::before
+    border-style: dashed
+  
+  &.active .status::before
+    border-width: 5px
+    //background-color: $colTodo
+
+    
+  &.active .status h4
+    border-bottom: 3px solid $colActive
+    margin-left: 15%
+    margin-right: 15%
+    font-weight: bold
+    border-width: 4px
+  
+  &.active .status h4
+    border-bottom: 3px solid $colActive
+    margin-left: 15%
+    margin-right: 15%
+    font-weight: bold
+    
+  &.active .status h4
+    border-bottom: 3px solid $colActive
+    margin-left: 15%
+    margin-right: 15%
+    font-weight: bold
+    
+  &.active 
+    width: 10px
+
+
+  .boxes
+    display: flex
+    justify-content: center
+    gap: 4px
+    margin-top: 10px
+
+    .box
+      width: 23px
+      height: 23px
+      border: 3px solid
+      border-radius: 3px
+    
+    .nobox
+      width: 0px
+      height: 0px
+      border: 0px solid
+      border-radius: 0px
+
+    .completed
+      border-color: $colBorder
+      background-color: $colDone
+
+    .skipped
+      border-color: $colBorder 
+      background-color: $colSkip
+
+    .undone
+      border-color: $colOptional
+      background-color: $colTodo
+
+    .mandatory
+      border-color: $colMandatory
+      //background-color: $colTodo
+      
+    .disabled
+      border-style: $disabledStyle
+      background-color: $colTodo
+
+    .active
+      border-width: 5px
+      &.disabled
+        border-style: $disabledStyle
+

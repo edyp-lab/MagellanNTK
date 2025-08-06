@@ -1,0 +1,223 @@
+/* Sidebar parameters */
+  .main-sidebar {
+    /*width: 350px;*/
+      background-color: black;
+    opacity: 0.8;
+  }
+
+/* Sidebar parameters 
+  .control-sidebar {
+    background-color: black;
+    opacity: 0.8;
+  }
+  */
+  
+ /* 
+  .sidebar-content {
+    background-color: lightblue;
+    width: 300px;
+    
+  }
+  
+.shiny-input-panel{
+  background-color: lightblue;
+}
+*/
+
+/* Content wrapper adjustment */
+/* permet à la sidebar de passer par-dessus le body lorsqu'elle est étendue */
+  .content-wrapper {
+    margin-left: 4.6rem !important;
+    
+  }
+
+/* Remove bullet style for toggle buttons 
+  .no-bullet {
+    list-style: none;
+  }*/
+
+/* Sidebar button custom color */
+  .nav-link-sidebar {
+    color: orange;
+  }
+
+/* Controlbar button custom color */
+  .nav-link-controlbar {
+    color: black;
+  }
+/* Toggle sidebar button position */
+  .top-left-button {
+    list-style: none;
+    position: fixed;
+    top: 10px;
+    left: 27px;
+    z-index: 9999;
+    color: black;
+  }
+
+/* Toggle controlbar button position */
+  .top-right-button {
+    list-style: none;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    color: #000000;
+  }
+
+/* Style used in R instead of inline */
+  .localStyle {
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 20px;
+  }
+
+/* body text styling for the app */
+  body { /*, .form-control {*/
+      font-size: 15px;
+    font-family: Arial;
+  }
+    
+    /* h2 text styling for the app */
+h1 {
+font-size: 25px;
+font-family: Arial;
+}
+
+h2 {
+font-size: 18px;
+font-family: Arial;
+}
+
+h3 {
+font-size: 16px;
+font-family: Arial;
+}
+
+h4 {
+font-size: 14px;
+font-family: Arial;
+}
+
+p {
+font-size: 12px;
+font-family: Arial;
+/* color: orange; */
+}
+    
+    .main-header {
+      max-height: 40px; /* Sert pour la hauteur de la controlbar */
+    }
+    
+    /*
+      .bslib-sidebar-layout > .collapse-toggle > .collapse-icon {
+        fill: red !important;
+      }
+    */
+      
+      .bslib-sidebar-layout > .collapse-toggle {
+        /*
+          padding: 100px 0;
+        margin-bottom: 350px;
+        left: 300px;
+        */
+          background-color: lightblue;
+        opacity: 0.8	
+      }
+
+    
+    .custom-switch {
+      display: none;
+    }
+    
+
+    button.Prostar_tooltip {
+      background:none;
+      color: #2EA8B1;
+        border:none;
+      padding-left:1ch;
+      font: inherit;
+      /*border is optional*/
+        /*border-bottom:1px solid #444;*/
+      cursor: pointer;
+      font-weight: bold;
+      display: inline-block;
+      padding: 0;
+    }
+    
+    button.Prostar_tooltip_white {
+      background:none;
+      color: white;
+      border:none;
+      padding-left:1ch;
+      font: inherit;
+      /*border is optional*/
+        /*border-bottom:1px solid #444;*/
+      cursor: pointer;
+      font-weight: bold;
+      display: inline-block;
+      padding: 0;
+    }
+    
+    .input-color {
+      position: relative;
+    }
+    .input-color input {
+      padding-left: 15px;
+      border: 0px;
+      background: transparent;
+    }
+    .input-color .color-box {
+      width: 15px;
+      height: 15px;
+      display: inline-block;
+      background-color: #ccc;
+        position: absolute;
+      left: 5px;
+      top: 5px;
+      
+    }
+    
+
+#boxx{
+  padding: 20px 20px 20px 20px;
+  position: fixed;
+  left: 30%;
+  border: 2px solid black;
+  font: 2em Calibri;
+  width:500px;
+  height: 1000px;
+  float: left;
+}
+
+img{ 
+  float: left;
+  vertical-align: top;
+  margin: 20px 20px 20px 20px; 
+
+}
+
+
+
+.arrow {
+	position: relative;
+	background: #88b7d5;
+  height: 50px;
+  width: 200px;
+  margin-top: 50px;
+}
+
+.arrow:after {
+  left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height:30px;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-left-color: #dddddd;
+	border-width: 50px;
+	margin-top: -50px;
+}

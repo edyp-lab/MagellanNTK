@@ -102,7 +102,7 @@ open_dataset_server <- function(
     output$load_btn_UI <- renderUI({
       shinyjs::disabled(
         actionButton(ns('load_dataset_btn'), 'Load', 
-          class= 'btn-info')
+          class= PrevNextBtnClass)
       )
     })
     

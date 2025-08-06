@@ -33,7 +33,6 @@ NULL
 #' The application User-Interface
 #'     DO NOT REMOVE.
 #' @importFrom shiny shinyUI tagList 
-#' @importFrom shinydashboardPlus dashboardSidebar dashboardPage dashboardHeader 
 #' @importFrom shinyjs useShinyjs extendShinyjs
 #' 
 #' @rdname magellanNTK
@@ -150,6 +149,10 @@ MagellanNTK <- function(
   # )
   
 
+  
+  app.path <- system.file('app', package='MagellanNTK')
+  source(file.path(app.path, 'global.R'), local = FALSE, chdir = TRUE)
+  
   files <- list.files(file.path(workflow.path, 'R'), full.names = TRUE)
   for(f in files)
     source(f, local = FALSE, chdir = TRUE)
@@ -171,6 +174,7 @@ MagellanNTK <- function(
   
   server <- function(input, output, session) {
     
+   
     MagellanNTK_server("infos",
       dataIn = reactive({obj}),
       workflow.path = reactive({workflow.path}),

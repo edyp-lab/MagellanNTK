@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 $colCompletedDisabled: #ABDBAC
 $colCompleted: #07910A
@@ -319,3 +320,91 @@ $lineWidth: 3px
     
   
 
+=======
+$colDone: #50C878
+$colSkip: #B3AFAB
+$colTodo: white
+
+$colMandatory: #DC143C
+$colOptional: black
+$colActive: black
+$colBorder: black
+
+$colLineEnabled: black
+$colLineDisabled: black
+
+$disabledStyle: dashed
+$enabledStyle: solid
+
+.process-timeline
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  position: relative
+  margin-left: 5px
+  margin-top: 5px 
+  padding-left: 20px
+  gap: 10px
+
+  .li
+    display: flex
+    align-items: center
+
+    .icon
+      width: 55px
+      height: 55px
+      display: flex
+      justify-content: center
+      align-items: center
+      border: 3px $enabledStyle $colBorder
+      border-radius: 6px
+
+    .label
+      margin-left: 5px
+      padding-left: 3px
+      font-size: 14px
+      font-weight: normal
+      color: #333
+
+    &.mandatory .label
+      color: $colMandatory
+
+    &.completed .icon
+      background-color: $colDone
+      border-color: $colBorder
+
+    &.skipped .icon
+      background-color: $colSkip
+      border-color: $colBorder
+
+    &.undone .icon
+      background-color: $colTodo
+      border-color: $colBorder
+
+    &.enabled .icon
+      border-style: $enabledStyle
+
+    &.disabled .icon
+      border-style: $disabledStyle
+
+    &.mandatory .icon
+      border-color: $colMandatory
+
+    &.active .icon
+      border-width: 4px
+
+    &.active .label
+      font-weight: bold
+      
+    &.active.enabled .label
+      border-bottom: 3px $enabledStyle $colBorder
+      
+    &.active.mandatory .label
+      border-bottom: 3px $enabledStyle $colMandatory
+
+    &.active.disabled .label
+      border-bottom: 3px $disabledStyle $colBorder
+
+    &.active.mandatory.disabled .label
+      border-bottom: 3px $disabledStyle $colMandatory
+>>>>>>> bac97b4c3697a1ed6891fa85591885008474f565

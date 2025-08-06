@@ -21,11 +21,6 @@
 #' Basically, it is the program which has called this module
 #'
 #' @param is.skipped xxx
-#'
-#' @param tl.layout A vector of character ('h' for horizontal, 'v' for vertical)
-#' where each item correspond to the orientation of the timeline for a given
-#' level of navigation module.
-#' 
 #' @param wholeReset = reactive({0}),
 #' @param verbose = FALSE,
 #' @param usermod = 'user'
@@ -63,16 +58,50 @@ NULL
 #'
 nav_pipeline_ui <- function(id) {
   ns <- NS(id)
-  tagList(
-    shinyjs::useShinyjs(),
-    
-    # Contains the UI for the timeline, the direction buttons
-    # and the workflows modules
-    uiOutput(ns("nav_pipeline_mod_ui")),
-    
-    # Contains the UI for the debug module
-    uiOutput(ns("debug_infos_ui"))
-  )
+  
+    div(
+      absolutePanel(
+        left = default.layout$left_pipeline_sidebar,
+        top = default.layout$top_pipeline_sidebar,
+        height = default.layout$height_pipeline_sidebar,
+        width = default.layout$width_pipeline_sidebar,
+      style = paste0(
+        "position : absolute; ",
+        "background-color: ", default.layout$bgcolor_pipeline_sidebar, "; ", 
+        "height: 100vh;"),
+        div(style = " align-items: center; justify-content: center; margin-bottom: 20px;",
+          uiOutput(ns('datasetNameUI'))
+        ),
+        div(
+          uiOutput(ns("EncapsulateScreens_ui"))
+        )
+    ),
+        div(style = "padding-left: 240px; margin-top: -15px;",
+      fluidRow(
+         style = paste0(
+           "background-color: ",default.layout$bgcolor_pipeline_sidebar, " ; ",
+           "display: flex; ",
+           "align-items: center; ", 
+           "justify-content: center;"),
+        column(width = 1, 
+          shinyjs::disabled(
+              actionButton(ns("prevBtn"),
+                tl_h_prev_icon,
+                class = PrevNextBtnClass,
+                style = btn_css_style
+              ))),
+        column(width = 1, mod_modalDialog_ui(id = ns("rstBtn"))),
+          column(width = 1, 
+            actionButton(ns("nextBtn"),
+              tl_h_next_icon,
+              class = PrevNextBtnClass,
+              style = btn_css_style
+            )
+          ),
+        column(width = 9, timeline_pipeline_ui(ns('timeline_pipeline')))
+      )
+        )
+    )
 }
 
 
@@ -91,7 +120,6 @@ nav_pipeline_server <- function(
   remoteReset = reactive({0}),
   wholeReset = reactive({0}),
   is.skipped = reactive({FALSE}),
-  tl.layout = NULL,
   verbose = FALSE,
   usermod = 'user') {
   
@@ -115,8 +143,6 @@ nav_pipeline_server <- function(
     rv <- reactiveValues(
       # Contains the return value of the process module that has been called
       proc = NULL,
-      
-      tl.layout = NULL,
       
       # steps.status A boolean vector which contains the status 
       # (validated, skipped or undone) of the steps
@@ -176,17 +202,11 @@ nav_pipeline_server <- function(
     )
     
     
-    
-    
-    # Launch the UI of the timeline
-    output$show_TL <- renderUI({
-      req(rv$tl.layout)
-      do.call(
-        paste0("timeline_", rv$tl.layout[1], "_ui"),
-        list(ns(paste0("timeline", rv$tl.layout[1])))
-      )
-    })
-    
+ 
+    output$datasetNameUI <- renderUI({
+      h3(DaparToolshed::filename(dataIn()))
+      
+      })
     
     
     ActionOn_Data_Trigger <- function() {
@@ -228,7 +248,7 @@ nav_pipeline_server <- function(
         }
         
         
-     
+        
         ret <- ActionOn_Child_Changed(
           temp.dataIn = rv$temp.dataIn,
           dataIn = rv$dataIn,
@@ -320,29 +340,16 @@ nav_pipeline_server <- function(
         )
         
         rv$currentStepName <- reactive({stepsnames[rv$current.pos]})
-        
-        # Set default layout for process and pipeline
-        if (is.null(rv$tl.layout)) {
-          rv$tl.layout <-  c("h", "h")
-        } else 
-          rv$tl.layout <- tl.layout
-          
-        
+
         # Launch the server timeline for this process/pipeline
         
-        do.call(
-          paste0("timeline_", rv$tl.layout[1], "_server"),
-          list(
-            id = paste0("timeline", rv$tl.layout[1]),
-            config = rv$config,
-            status = reactive({rv$steps.status}),
-            enabled = reactive({rv$steps.enabled}),
-            position = reactive({rv$current.pos})
-          )
+        timeline_pipeline_server(
+          "timeline_pipeline",
+          config = rv$config,
+          status = reactive({rv$steps.status}),
+          enabled = reactive({rv$steps.enabled}),
+          position = reactive({rv$current.pos})
         )
-        
-        
-        
         
         
         #######################################################
@@ -350,55 +357,54 @@ nav_pipeline_server <- function(
           cat(crayon::yellow(paste0(id, ': Entering observeEvent(req(rv$config), {...})\n')))
         
         # Before continuing the initialization, check if all 
-            # modules functions (the steps contained in the slot
-            # `rv$config@steps` are found in the Global environment
+        # modules functions (the steps contained in the slot
+        # `rv$config@steps` are found in the Global environment
+        
+        rv$steps.skipped <- setNames(rep(FALSE, length(rv$config@steps)),
+          nm = GetStepsNames()
+        )
+        rv$resetChildren <- setNames(rep(0, length(rv$config@steps)),
+          nm = GetStepsNames()
+        )
+        
+        # Launch the ui for each step of the pipeline
+        # This function could be stored in the source file of the
+        # pipeline but the strategy is to insert minimum extra 
+        # code in the files for pipelines and processes. This is 
+        # useful when other devs will develop other pipelines and 
+        # processes. Thus, it will be easier.
+        
+        rv$config@ll.UI <- setNames(lapply(
+          GetStepsNames(),
+          function(x) {
+            if(verbose)
+              cat(paste0(id, ": Launch: ", 'nav_process_ui(', 
+                ns(paste0(id, '_', x)), ')\n'))
             
-            rv$steps.skipped <- setNames(rep(FALSE, length(rv$config@steps)),
-              nm = GetStepsNames()
-            )
-            rv$resetChildren <- setNames(rep(0, length(rv$config@steps)),
-              nm = GetStepsNames()
-            )
-            
-            # Launch the ui for each step of the pipeline
-            # This function could be stored in the source file of the
-            # pipeline but the strategy is to insert minimum extra 
-            # code in the files for pipelines and processes. This is 
-            # useful when other devs will develop other pipelines and 
-            # processes. Thus, it will be easier.
-            
-            rv$config@ll.UI <- setNames(lapply(
-              GetStepsNames(),
-              function(x) {
-                if(verbose)
-                  cat(paste0(id, ": Launch: ", 'nav_process_ui(', 
-                    ns(paste0(id, '_', x)), ')\n'))
-                
-                nav_process_ui(ns(paste0(id, '_', x)))
-              }
-            ), nm = paste0(GetStepsNames())
-            )
-            
-            ###
-            ### Launch the server for each step of the pipeline
-            ### 
-            lapply(GetStepsNames(), function(x) {
-              if(verbose)
-                cat(paste0(id, ": Launch nav_process_server(", id, "_", x, ")\n"))
-              
-              tmp.return[[x]] <- nav_process_server(
-                id = paste0(id, '_', x),
-                dataIn = reactive({rv$child.data2send[[x]]}),
-                is.enabled = reactive({isTRUE(rv$steps.enabled[x])}),
-                remoteReset = reactive({rv$resetChildren[x]}),
-                is.skipped = reactive({isTRUE(rv$steps.skipped[x])}),
-                tl.layout = rv$tl.layout[-1],
-                verbose = verbose,
-                usermod = usermod
-              )
-            })
-            
-            
+            nav_process_ui(ns(paste0(id, '_', x)))
+          }
+        ), nm = paste0(GetStepsNames())
+        )
+        
+        ###
+        ### Launch the server for each step of the pipeline
+        ### 
+        lapply(GetStepsNames(), function(x) {
+          if(verbose)
+            cat(paste0(id, ": Launch nav_process_server(", id, "_", x, ")\n"))
+          
+          tmp.return[[x]] <- nav_process_server(
+            id = paste0(id, '_', x),
+            dataIn = reactive({rv$child.data2send[[x]]}),
+            is.enabled = reactive({isTRUE(rv$steps.enabled[x])}),
+            remoteReset = reactive({rv$resetChildren[x]}),
+            is.skipped = reactive({isTRUE(rv$steps.skipped[x])}),
+            verbose = verbose,
+            usermod = usermod
+          )
+        })
+        
+        
       },
       priority = 1000
     )
@@ -559,7 +565,7 @@ nav_pipeline_server <- function(
       # the values by 1. This has for effect to be detected
       # by the observeEvent function. It works like an actionButton
       # widget
-     
+      
       
       #browser()
       # if (is.null(rv$dataIn)) {
@@ -619,7 +625,7 @@ nav_pipeline_server <- function(
     }
     )
     
-
+    
     # Catch a click of a the button 'Ok' of a reset modal. This can be in 
     # the local module or in the module parent UI (in this case,
     # it is called a 'remoteReset')
@@ -672,9 +678,7 @@ nav_pipeline_server <- function(
     #     before showing the one corresponding to the current position)
     output$EncapsulateScreens_ui <- renderUI({
       len <- length(rv$config@ll.UI)
-      
-      renderUI({
-        tagList(
+
           lapply(seq_len(len), function(i) {
             if (i == 1) {
               div(
@@ -692,23 +696,22 @@ nav_pipeline_server <- function(
               )
             }
           })
-        )
       })
-      
-      
-    })
-    
-    
-    # Launch the UI for the user interface of the module
-    # Note for devs: apparently, the renderUI() cannot be stored in the 
-    # function 'Build..'
-    output$nav_pipeline_mod_ui <- renderUI({
-      req(rv$tl.layout)
-      if(verbose)
-        cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
-      
-      DisplayWholeUI(ns, rv$tl.layout[1])
-    })
+
+    # 
+    # # Launch the UI for the user interface of the module
+    # # Note for devs: apparently, the renderUI() cannot be stored in the 
+    # # function 'Build..'
+    # output$nav_pipeline_mod_ui <- renderUI({
+    #  # req(rv$tl.layout)
+    #   if(verbose)
+    #     cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
+    #   
+    #   #DisplayWholeUI(ns, 'pipeline')
+    #   pipelineUI <-Build_nav_pipeline_ui(ns)
+    #   
+    #   pipelineUI
+    # })
     
     
     #Define message when the Reset button is clicked
@@ -722,8 +725,8 @@ nav_pipeline_server <- function(
       id = "rstBtn",
       title = 'Reset',
       uiContent = p(txt)
-      )
-
+    )
+    
     
     # Catch a new value on the parameter 'dataIn()' variable, sent by the
     # caller. This value may be NULL or contain a dataset.
@@ -733,24 +736,24 @@ nav_pipeline_server <- function(
     # 2 - if the variable contains a dataset. xxx
     observeEvent(dataIn(),  ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
-
+      
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
       #session$userData$dataIn.original <- dataIn()
       
       # The mode pipeline is a node and has to send
       # datasets to its children
-        if (is.null(rv$dataIn)) {
-          res <- PrepareData2Send(
-            rv = rv, 
-            pos = rv$current.pos,
-            verbose = verbose,
-            keepdataset_func = session$userData$funcs$keepDatasets
-            )
-          
-          rv$child.data2send <- res$data2send
-          rv$steps.enabled <- res$steps.enabled
-        }
+      if (is.null(rv$dataIn)) {
+        res <- PrepareData2Send(
+          rv = rv, 
+          pos = rv$current.pos,
+          verbose = verbose,
+          keepdataset_func = session$userData$funcs$keepDatasets
+        )
+        
+        rv$child.data2send <- res$data2send
+        rv$steps.enabled <- res$steps.enabled
+      }
       
       if (is.null(dataIn())) {
         # The process has been reseted or is not concerned
@@ -781,7 +784,7 @@ nav_pipeline_server <- function(
         )
       }
       
-
+      
     })
     
     
@@ -793,21 +796,21 @@ nav_pipeline_server <- function(
       shinyjs::hide(selector = paste0(".page_", id))
       shinyjs::show(GetStepsNames()[rv$current.pos])
       
-        # Specific to pipeline code
-        #browser()
-        res <- PrepareData2Send(
-          rv = rv, 
-          pos = NULL, 
-          verbose = verbose,
-          keepdataset_func = session$userData$funcs$keepDatasets
-          )
-        
-        rv$child.data2send <- res$data2send
-        rv$steps.enabled <- res$steps.enabled
-        
-        if (rv$steps.status[rv$current.pos] == stepStatus$VALIDATED) 
-          rv$child.position[rv$current.pos] <- paste0("last_", Timestamp())
-
+      # Specific to pipeline code
+      #browser()
+      res <- PrepareData2Send(
+        rv = rv, 
+        pos = NULL, 
+        verbose = verbose,
+        keepdataset_func = session$userData$funcs$keepDatasets
+      )
+      
+      rv$child.data2send <- res$data2send
+      rv$steps.enabled <- res$steps.enabled
+      
+      if (rv$steps.status[rv$current.pos] == stepStatus$VALIDATED) 
+        rv$child.position[rv$current.pos] <- paste0("last_", Timestamp())
+      
       
     })
     
@@ -856,7 +859,7 @@ nav_pipeline <- function(){
         column(width=2, actionButton('simSkipped', 'Remote is.skipped', class='info'))
       ),
       hr(),
-      uiOutput('UI'),
+      nav_pipeline_ui(pipe.name),
       uiOutput('debugInfos_ui')
     )
   )
@@ -872,7 +875,7 @@ nav_pipeline <- function(){
       dataOut = NULL
     )
     
-    output$UI <- renderUI({nav_pipeline_ui(pipe.name)})
+  #  output$UI <- renderUI({nav_pipeline_ui(pipe.name)})
     
     output$debugInfos_ui <- renderUI({
       req(dev_mode)
@@ -892,8 +895,7 @@ nav_pipeline <- function(){
         dataIn = reactive({rv$dataIn}),
         remoteReset = reactive({input$simReset}),
         is.skipped = reactive({input$simSkipped%%2 != 0}),
-        is.enabled = reactive({input$simEnabled%%2 == 0}),
-        tl.layout = layout)
+        is.enabled = reactive({input$simEnabled%%2 == 0}))
     })
   }
   

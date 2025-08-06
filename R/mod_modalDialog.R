@@ -144,8 +144,8 @@ mod_modalDialog_server <- function(id,
       
       if (typeWidget == 'button')
         actionButton(ns("show"), title,
-          class = 'btn-danger',
-          style = "font-size:60%"
+          class = redBtnClass,
+          style = btn_css_style
         )
       else if (typeWidget == 'link')
        actionLink(ns("show"), title)
@@ -158,7 +158,7 @@ mod_modalDialog_server <- function(id,
         width <- "small"
       }
       tagList(
-       tags$head(tags$style(paste0(".modal-dialog { width:", width, " }"))),
+       tags$head(tags$style(paste0(".modal-dialog { width:", width, "; }"))),
         tags$head(tags$style(".modal-dialog {z-index: 1000;}")),
         tags$head(tags$style(".modal-dialog {width: fit-content !important;}")),
         showModal(

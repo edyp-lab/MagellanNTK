@@ -46,9 +46,9 @@ PipelineDemo_Process1_conf <- function(){
   Config(
     fullname = 'PipelineDemo_Process1',
     mode = 'process',
-    steps = c('Step 1', 'Step 2'),
-    mandatory = c(FALSE, TRUE)
-    )
+    steps = c('Step 1'),
+    mandatory = c(FALSE)
+  )
 }
 
 
@@ -73,9 +73,10 @@ PipelineDemo_Process1_server <- function(id,
   steps.enabled = reactive({NULL}),
   remoteReset = reactive({NULL}),
   steps.status = reactive({NULL}),
-  current.pos = reactive({1})
-  ){
- 
+  current.pos = reactive({1}),
+  timeline = reactive({NULL})
+){
+  
   #source(paste0(path, '/foo.R'), local=TRUE)$value
   
   # Define default selected values for widgets
@@ -121,17 +122,74 @@ PipelineDemo_Process1_server <- function(id,
     
     
     
+    
+    timeline_process_server(
+      id = 'Description_timeline',
+      config = PipelineDemo_Process1_conf(),
+      status = reactive({steps.status()}),
+      position = reactive({current.pos()}),
+      enabled = reactive({steps.enabled()})
+    )
+    
+    
+    
+    timeline_process_server(
+      id = 'Step1_timeline',
+      config = PipelineDemo_Process1_conf(),
+      status = reactive({steps.status()}),
+      position = reactive({current.pos()}),
+      enabled = reactive({steps.enabled()})
+    )
+    
+    
+    
+    timeline_process_server(
+      id = 'Save_timeline',
+      config = PipelineDemo_Process1_conf(),
+      status = reactive({steps.status()}),
+      position = reactive({current.pos()}),
+      enabled = reactive({steps.enabled()})
+    )
+    
+    
+    
+    
+    observeEvent(input$Description_Sidebar, ignoreNULL = TRUE, {
+      dataOut$sidebarState <- input$Description_Sidebar
+    })
+    
+    observeEvent(input$Step1_Sidebar, ignoreNULL = TRUE, {
+      dataOut$sidebarState <- input$Step1_Sidebar
+    })
+    
+    observeEvent(input$Save_Sidebar, ignoreNULL = TRUE, {
+      dataOut$sidebarState <- input$Save_Sidebar
+    })
+
+    
     output$Description <- renderUI({
       file <- normalizePath(file.path(session$userData$workflow.path, 
         'md', paste0(id, '.md')))
-   
+      
       req(file)
-      tagList(
-        ### In this example, the md file is found in the extdata/module_examples 
-        ### directory but with a real app, it should be provided by the package 
-        ### which contains the UI for the different steps of the process module.
-        ### system.file(xxx)
-        
+      
+      bslib::layout_sidebar(
+        sidebar = bslib::sidebar(
+          id = ns("Description_Sidebar"),  # Add an explicit ID
+          
+          timeline_process_ui(ns('Description_timeline')),
+          
+          inputPanel(
+            uiOutput(ns("Step1_btn_validate_ui")),
+            hr(style = "border-top: 3px solid #000000;"),
+            uiOutput(ns('Description_btn_validate_ui'))
+          ),
+          width = 200,
+          position = "left",
+          bg='lightblue',
+          padding = c(100, 0) # 1ere valeur : padding vertical, 2eme : horizontal
+          #style = "p1"
+        ),
         if (file.exists(file))
           includeMarkdown(file)
         else
@@ -140,11 +198,10 @@ PipelineDemo_Process1_server <- function(id,
         
         # Used to show some information about the dataset which is loaded
         # This function must be provided by the package of the process module
-        uiOutput(ns('datasetDescription_ui')),
-        
-        # Insert validation button
-        uiOutput(ns('Description_btn_validate_ui'))
+        uiOutput(ns('datasetDescription_ui'))
       )
+      
+      
     })
     
     output$datasetDescription_ui <- renderUI({
@@ -170,13 +227,6 @@ PipelineDemo_Process1_server <- function(id,
       
     })
     
-    # observe({
-    #   req(dataIn())
-    #   rv$dataIn <- dataIn()
-    #   dataOut$trigger <- Timestamp()
-    #   dataOut$value <- rv$dataIn
-    #   rv$steps.status['Description'] <- stepStatus$VALIDATED
-    # })
     
     # >>>
     # >>> START ------------- Code for step 1 UI---------------
@@ -185,29 +235,31 @@ PipelineDemo_Process1_server <- function(id,
     # >>>> -------------------- STEP 1 : Global UI ------------------------------------
     output$Step1 <- renderUI({
       shinyjs::useShinyjs()
-      wellPanel(
-        # uiOutput for all widgets in this UI
-        # This part is mandatory
-        # The renderUI() function of each widget is managed by MagellanNTK
-        # The dev only have to define a reactive() function for each
-        # widget he want to insert
-        # Be aware of the naming convention for ids in uiOutput()
-        # For more details, please refer to the dev document.
-        fluidRow(
-          column(width = 3, uiOutput(ns('Step1_btn1_ui'))),
-          column(width = 3, uiOutput(ns('Step1_radio1_ui')))
+      path <- file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')
+      includeCSS(path)
+      
+      
+      #fluidPage(
+      
+      bslib::layout_sidebar(
+        sidebar = bslib::sidebar(
+          id = ns('Step1_Sidebar'),
+           timeline_process_ui(ns('Step1_timeline')),
+          hr(style = "border-top: 3px solid #000000;"),
+          inputPanel(
+            uiOutput(ns("Step1_btn_validate_ui")),
+            uiOutput(ns('Step1_btn1_ui')),
+            uiOutput(ns('Step1_radio1_ui')),
+            uiOutput(ns('Step1_select1_ui')),
+            shinyjs::hidden(uiOutput(ns('Step1_select2_ui'))),
+            uiOutput(ns('Step1_select3_ui'))
           ),
-        
-        fluidRow(
-          column(width = 3, uiOutput(ns('Step1_select1_ui'))),
-          column(width = 3, shinyjs::hidden(uiOutput(ns('Step1_select2_ui')))),
-          column(width = 3, uiOutput(ns('Step1_select3_ui')))
-          ),
-        #foo_ui(ns('foo')),
-        # Insert validation button
-        uiOutput(ns('Step1_btn_validate_ui')),
-        
-        # Additional code
+          width = 200,
+          position = "left",
+          bg='lightblue',
+          padding = c(100, 0), # 1ere valeur : padding vertical, 2eme : horizontal
+          style = "z-index: 0;"
+        ),
         plotOutput(ns('showPlot'))
       )
     })
@@ -262,9 +314,9 @@ PipelineDemo_Process1_server <- function(id,
     
     output$Step1_radio1_ui <- renderUI({
       widget <- radioButtons(ns('Step1_radio1'), 'Choose',
-                            c("choice 1" = "choice1", "choice 2" = "choice2"),
-                            selected = rv.widgets$Step1_radio1
-                            )
+        c("choice 1" = "choice1", "choice 2" = "choice2"),
+        selected = rv.widgets$Step1_radio1
+      )
       toggleWidget(widget, rv$steps.enabled['Step1'])
     })
     
@@ -285,25 +337,24 @@ PipelineDemo_Process1_server <- function(id,
     
     observeEvent(input$Step1_btn_validate, {
       # Do some stuff
-#browser()
+      #browser()
       # new.dataset <- rv$dataIn[[length(rv$dataIn)]]
       # SummarizedExperiment::assay(new.dataset) <- 10 * SummarizedExperiment::assay(rv$dataIn[[length(rv$dataIn)]])
       # rv$dataIn <- addDatasets(object = rv$dataIn,
       #                          dataset = new.dataset,
       #                          name = paste0('Step1_',id))
-
+      
       # DO NOT MODIFY THE THREE FOLLOWINF LINES
       dataOut$trigger <- Timestamp()
       dataOut$value <- NULL
       rv$steps.status['Step1'] <- stepStatus$VALIDATED
-
+      
     })
     
     
-    # output$showPlot <- renderPlot({
-    #   req(rv$dataIn)
-    #   plot(as.matrix(rv$dataIn[[1]][,1]))
-    # })
+    output$showPlot <- renderPlot({
+      plot(1:10)
+    })
     # <<< END ------------- Code for step 1 UI---------------
     
     
@@ -353,7 +404,7 @@ PipelineDemo_Process1_server <- function(id,
       # rv$dataIn <- addDatasets(object = rv$dataIn,
       #   dataset = new.dataset,
       #   name = paste0('Step2_',id))
-
+      
       # DO NOT MODIFY THE THREE FOLLOWINF LINES
       dataOut$trigger <- Timestamp()
       dataOut$value <- NULL
@@ -365,12 +416,32 @@ PipelineDemo_Process1_server <- function(id,
     
     # >>> START ------------- Code for step 'Save' UI---------------
     output$Save <- renderUI({
-      tagList(
-        # Insert validation button
-        # This line is necessary. DO NOT MODIFY
-        uiOutput(ns('Save_btn_validate_ui')),
-        uiOutput(ns('dl_ui'))
+      # tagList(
+      #   # Insert validation button
+      #   # This line is necessary. DO NOT MODIFY
+      #   uiOutput(ns('Save_btn_validate_ui')),
+      #   uiOutput(ns('dl_ui'))
+      # )
+      
+      bslib::layout_sidebar(
+        sidebar = bslib::sidebar(
+          timeline_process_ui(ns('Save_timeline')),
+          hr(style = "border-top: 3px solid #000000;"),
+          inputPanel(
+            uiOutput(ns('dl_ui'))
+          ),
+          width = 200,
+          position = "left",
+          bg='lightblue',
+          padding = c(100, 0) # 1ere valeur : padding vertical, 2eme : horizontal
+          #style = "p1"
+        ),
+        # Used to show some information about the dataset which is loaded
+        # This function must be provided by the package of the process module
+        uiOutput(ns('Save_btn_validate_ui'))
       )
+      
+      
     })
     
     output$dl_ui <- renderUI({
@@ -382,9 +453,9 @@ PipelineDemo_Process1_server <- function(id,
     output$Save_btn_validate_ui <- renderUI({
       toggleWidget(
         actionButton(ns("Save_btn_validate"), "Save",
-                     class = btn_success_color),
+          class = btn_success_color),
         rv$steps.enabled['Save']
-        )
+      )
     })
     observeEvent(input$Save_btn_validate, {
       # Do some stuff
@@ -393,7 +464,7 @@ PipelineDemo_Process1_server <- function(id,
         object = rv$dataIn,
         dataset = 10*rv$dataIn[[length(rv$dataIn)]],
         name = 'Process1')
-
+      
       # DO NOT MODIFY THE THREE FOLLOWINF LINES
       dataOut$trigger <- Timestamp()
       dataOut$value <- rv$dataIn
@@ -405,7 +476,7 @@ PipelineDemo_Process1_server <- function(id,
     # <<< END ------------- Code for step 3 UI---------------
     
     
-    
+    #dataOu$widgets <- 
     # Insert necessary code which is hosted by MagellanNTK
     # DO NOT MODIFY THIS LINE
     eval(parse(text = Module_Return_Func()))

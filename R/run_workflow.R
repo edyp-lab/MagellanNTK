@@ -86,7 +86,6 @@ pipe_workflow_ui <- function(id){
 pipe_workflow_server <- function(id,
   path = NULL,
   dataIn = reactive({NULL}),
-  tl.layout = NULL,
   usermod = "dev",
   verbose = FALSE){
   
@@ -136,7 +135,6 @@ pipe_workflow_server <- function(id,
         nav_pipeline_server(
           id = id,
           dataIn = reactive({dataIn}),
-          tl.layout = tl.layout, 
           verbose = verbose,
           usermod = usermod
         )
@@ -157,7 +155,6 @@ pipe_workflowApp <- function(
     id,
     path = NULL,
     dataIn = NULL,
-    tl.layout = NULL,
     usermod = 'dev',
     verbose = FALSE) {
 
@@ -205,7 +202,6 @@ proc_workflow_server <- function(
     id,
     path = NULL,
     dataIn = reactive({NULL}),
-    tl.layout = NULL,
     usermod = "dev",
     verbose = FALSE){
 
@@ -213,6 +209,8 @@ proc_workflow_server <- function(
     message("'path' is not correctly configured. Abort...")
     return(NULL)
   } 
+  
+  addResourcePath('www', system.file('www', package='MagellanNTK'))
   
   source_shinyApp_files()
   source_wf_files(path)
@@ -254,7 +252,6 @@ proc_workflow_server <- function(
         nav_process_server(
           id = id,
           dataIn = reactive({dataIn}),
-          tl.layout = tl.layout, 
           verbose = verbose,
           usermod = usermod,
           remoteReset = reactive({NULL})
@@ -276,7 +273,6 @@ proc_workflowApp <- function(
     id,
     path = NULL,
     dataIn = NULL,
-    tl.layout = NULL,
     usermod = 'dev',
     verbose = FALSE) {
   

@@ -246,7 +246,7 @@ dataModal <- function(ns, mode) {
         modalDialog(
             span(gsub("mode", mode, template_reset_modal_txt)),
             footer = tagList(
-                actionButton(ns("closeModal"), "Cancel", class = "btn-info"),
+                actionButton(ns("closeModal"), "Cancel", class = PrevNextBtnClass),
                 actionButton(ns("modal_ok"), "OK")
             )
         )

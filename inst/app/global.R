@@ -14,7 +14,7 @@
   redBtnClass <- "btn-danger"
   PrevNextBtnClass <- "btn-info"
   btn_success_color <- "btn-success"
-  btn_css_style <- "display:inline-block; vertical-align: middle; padding: 7px;"
+  btn_css_style <- "font-size:60%; display:inline-block; vertical-align: middle; padding: 7px;"
   
   stepStatus <- list(
     VALIDATED = 1,
@@ -47,11 +47,6 @@
     "RdYlBu (diverging)" ="RdYlBu",
     "RdYlGn (diverging)" ="RdYlGn",
     "Spectral (diverging)"="Spectral")
-
-
-
-
-
 
 
 
