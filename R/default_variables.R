@@ -72,6 +72,12 @@ default.layout <- list(
   left_pipeline_sidebar = 75,
   width_pipeline_sidebar = 250,
   heigth_pipeline_sidebar = 100,
-  bgcolor_pipeline_sidebar = 'lightblue'
+  bgcolor_pipeline_sidebar = 'lightblue',
+  
+  top_pipeline_timeline = 0,
+  left_pipeline_timeline = 75,
+  width_pipeline_timeline = 250,
+  heigth_pipeline_timeline = 100,
+  bgcolor_pipeline_timeline = 'transparent'
   
 )

@@ -79,7 +79,7 @@ nav_pipeline_ui <- function(id) {
         div(style = "padding-left: 240px; margin-top: -15px;",
       fluidRow(
          style = paste0(
-           "background-color: ",default.layout$bgcolor_pipeline_sidebar, " ; ",
+           "background-color: ",default.layout$bgcolor_pipeline_timeline, " ; ",
            "display: flex; ",
            "align-items: center; ", 
            "justify-content: center;"),
