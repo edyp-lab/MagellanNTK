@@ -18,6 +18,12 @@ open_dataset(class = NULL, extension = NULL, demo_package = NULL)
 }
 \arguments{
 \item{id}{xxx}
+
+\item{class}{xxx}
+
+\item{extension}{xxx}
+
+\item{demo_package}{xxx}
 }
 \description{
 This module allows to change

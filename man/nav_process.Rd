@@ -23,7 +23,10 @@ nav_process_server(
      FALSE
  }),
   verbose = FALSE,
-  usermod = "user"
+  usermod = "user",
+  btnEvents = reactive({
+     NULL
+ })
 )
 }
 \arguments{
@@ -50,9 +53,7 @@ Basically, it is the program which has called this module}
 
 \item{usermod}{= 'user'}
 
-\item{tl.layout}{A vector of character ('h' for horizontal, 'v' for vertical)
-where each item correspond to the orientation of the timeline for a given
-level of navigation module.}
+\item{btnEvents}{xxxx}
 }
 \value{
 A list of four items:

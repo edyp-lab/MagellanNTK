@@ -6,7 +6,7 @@
 #' 
 #' 
 #' @param id shiny id
-#' @param obj xxx
+#' @param dataIn xxx
 #' @param hidden Default is reactive({NULL}),
 #' @param withDLBtns Default is FALSE,
 #' @param showRownames Default is FALSE,
@@ -207,7 +207,7 @@ format_DT_server <- function(id,
 #' @export
 #' @rdname format_DT
 #' 
-format_DT <- function(obj,
+format_DT <- function(dataIn,
   hidden = NULL,
   withDLBtns = FALSE,
   showRownames = FALSE,
@@ -217,12 +217,12 @@ format_DT <- function(obj,
   is.enabled = TRUE
   ){
   
-stopifnot(inherits(obj, 'data.frame'))
+stopifnot(inherits(dataIn, 'data.frame'))
 ui <- format_DT_ui("dt")
 
 server <- function(input, output, session) {
   format_DT_server("dt", 
-    dataIn = reactive({obj}),
+    dataIn = reactive({dataIn}),
     hidden = reactive({hidden}),
     withDLBtns = withDLBtns,
     showRownames = showRownames,

@@ -31,6 +31,8 @@ mainapp(usermod = "dev")
 
 \item{session}{xxx}
 
+\item{dataIn}{xxx}
+
 \item{workflow.name}{= reactive({NULL}),}
 
 \item{workflow.path}{= reactive({NULL}),}
@@ -38,8 +40,6 @@ mainapp(usermod = "dev")
 \item{verbose}{= FALSE,}
 
 \item{usermod}{= 'dev'}
-
-\item{obj}{xxx}
 }
 \description{
 A shiny Module.

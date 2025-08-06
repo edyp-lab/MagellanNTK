@@ -22,20 +22,20 @@ download_btns_server(
  })
 )
 
-download_btns(obj)
+download_btns(dataIn)
 }
 \arguments{
 \item{id}{internal}
 
 \item{settings}{xxx}
 
+\item{dataIn}{A data.frame}
+
 \item{name}{xxxx.}
 
 \item{colors}{xxx}
 
 \item{tags}{xxx}
-
-\item{obj}{A data.frame}
 }
 \value{
 NA

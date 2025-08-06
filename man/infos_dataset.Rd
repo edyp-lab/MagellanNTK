@@ -15,12 +15,12 @@ infos_dataset_server(
  })
 )
 
-infos_dataset(obj)
+infos_dataset(dataIn)
 }
 \arguments{
 \item{id}{xxx}
 
-\item{obj}{xxx}
+\item{dataIn}{xxx}
 }
 \description{
 A shiny Module.

@@ -15,6 +15,10 @@
 #' @param name xxx
 #' @param w.names xxx
 #' @param rv.custom.names xxx
+#' @param widgets xxx
+#' @param custom xxx
+#' @param dataIn xxx
+#' @param addon xxx
 #'
 #' @author Samuel Wieczorek
 #'

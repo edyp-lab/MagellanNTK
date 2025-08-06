@@ -4,7 +4,7 @@
 #' 
 #' @param id internal
 #' @param settings xxx
-#' @param obj A data.frame
+#' @param dataIn A data.frame
 #' @param name xxxx.
 #' @param colors xxx
 #' @param tags xxx
@@ -21,7 +21,6 @@ NULL
 
 
 #' @rdname download_btns
-#'
 #' @export
 #'
 download_btns_ui <- function(id, settings = list()) {
@@ -92,7 +91,7 @@ download_btns_server <- function(id,
 #' @export
 #' @rdname download_btns
 #' 
-download_btns <- function(obj){
+download_btns <- function(dataIn){
 ui <- fluidPage(
   download_btns_ui(id = 'ex', 
     settings = list(actionBtnClass = actionBtnClass))
@@ -101,7 +100,7 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   download_btns_server(id = "ex",
-    dataIn = reactive({obj}),
+    dataIn = reactive({dataIn}),
     name = reactive({"myTest"}),
     colors = reactive({NULL}),
     tags = reactive({NULL

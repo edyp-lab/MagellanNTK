@@ -1,10 +1,6 @@
 
 #'
 #' @rdname timelines
-#'
-#' @importFrom shiny NS tagList
-#' @importFrom sass sass sass_file
-#' @return NA
 #' @export
 #'
 timeline_pipeline_ui <- function(id) {
@@ -19,7 +15,6 @@ timeline_pipeline_ui <- function(id) {
 
 
 #' @rdname timelines
-#' 
 #' @export
 #'
 timeline_pipeline_server <- function(id,

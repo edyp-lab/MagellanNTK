@@ -9,7 +9,6 @@
 #' @param id xxx
 #' @param path xxx
 #' @param dataIn xxx
-#' @param tl.layout Additional parameters for nav
 #' @param usermod Available values are 'superdev', 'dev', 'superuser', 'user'
 #' @param verbose xxx
 #'

@@ -6,7 +6,7 @@
 #' 
 #' 
 #' @param id shiny id
-#' @param obj xxx
+#' @param dataIn xxx
 #' @param session xxx
 #' @param workflow.name = reactive({NULL}),
 #' @param workflow.path = reactive({NULL}),

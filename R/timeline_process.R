@@ -1,11 +1,27 @@
-
+#' @title Timelines
+#' 
+#' @description xxx
+#' 
+#' @param id xxx
+#' @param config xxx
+#' @param status xxx,
+#' @param position xxx
+#' @param enabled xxx
 #'
-#' @rdname timelines
+#' @name timelines
 #'
 #' @importFrom shiny NS tagList
 #' @importFrom sass sass sass_file
 #' @return NA
+#' 
+NULL
+
+
+
+
+
 #' @export
+#' @rdname timelines
 #'
 timeline_process_ui <- function(id) {
   ns <- NS(id)
@@ -25,7 +41,6 @@ timeline_process_ui <- function(id) {
 
 
 #' @rdname timelines
-#' 
 #' @export
 #'
 timeline_process_server <- function(id,

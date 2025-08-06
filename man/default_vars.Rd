@@ -9,7 +9,7 @@
 \alias{default.layout}
 \title{Default vars}
 \format{
-An object of class \code{list} of length 11.
+An object of class \code{list} of length 32.
 }
 \usage{
 default.funcs()
@@ -21,6 +21,8 @@ default.workflow()
 default.layout
 }
 \description{
-Default vars
+left_panel = left_sidebar + width_sidebar
+top_sidebar = top_panel
+width_sidebar = width_process_btns
 }
 \keyword{datasets}

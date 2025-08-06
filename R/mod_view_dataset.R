@@ -3,7 +3,7 @@
 #' @description  A shiny Module.
 #' 
 #' @param id xxx
-#' @param obj An instance of class xxx
+#' @param dataIn An instance of class xxx
 #' @param ... Additional parameters
 #' 
 #' @name view_dataset
@@ -75,18 +75,18 @@ view_dataset_server <- function(id,
 #' @rdname view_dataset
 #' @importFrom shiny shinyApp reactiveValues reactive
 #' 
-view_dataset <- function(obj, ...){
+view_dataset <- function(dataIn, ...){
 
 ui <- view_dataset_ui("demo")
 
 
 server <- function(input, output, session) {
   rv <- reactiveValues(
-    obj = NULL
+    dataIn = NULL
   )
   
-  rv$obj <- view_dataset_server("demo",
-    dataIn = reactive({obj}),
+  rv$dataIn <- view_dataset_server("demo",
+    dataIn = reactive({dataIn}),
     ...
     )
   

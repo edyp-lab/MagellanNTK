@@ -25,15 +25,18 @@ MagellanNTK_server(
 )
 
 MagellanNTK(
-  obj = NULL,
+  dataIn = NULL,
   workflow.path = NULL,
   workflow.name = NULL,
   verbose = FALSE,
-  usermod = "dev"
+  usermod = "dev",
+  ...
 )
 }
 \arguments{
 \item{id}{xxx}
+
+\item{dataIn}{xxx}
 
 \item{workflow.path}{xxx}
 
@@ -43,7 +46,7 @@ MagellanNTK(
 
 \item{usermod}{xxx}
 
-\item{obj}{xxx}
+\item{...}{xxx}
 }
 \description{
 xxx

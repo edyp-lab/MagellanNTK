@@ -62,6 +62,14 @@ steps of the module.}
 
 \item{rv.custom.names}{xxx}
 
+\item{widgets}{xxx}
+
+\item{custom}{xxx}
+
+\item{dataIn}{xxx}
+
+\item{addon}{xxx}
+
 \item{w.names}{xxx}
 
 \item{mode}{xxx}

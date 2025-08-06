@@ -60,8 +60,6 @@ proc_workflowApp(
 \item{usermod}{Available values are 'superdev', 'dev', 'superuser', 'user'}
 
 \item{verbose}{xxx}
-
-\item{tl.layout}{Additional parameters for nav}
 }
 \value{
 NA

@@ -10,14 +10,14 @@ view_dataset_ui(id)
 
 view_dataset_server(id, dataIn = NULL, ...)
 
-view_dataset(obj, ...)
+view_dataset(dataIn, ...)
 }
 \arguments{
 \item{id}{xxx}
 
-\item{...}{Additional parameters}
+\item{dataIn}{An instance of class xxx}
 
-\item{obj}{An instance of class xxx}
+\item{...}{Additional parameters}
 }
 \description{
 A shiny Module.

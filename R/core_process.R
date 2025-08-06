@@ -22,9 +22,7 @@
 #'
 #' @param is.skipped xxx
 #'
-#' @param tl.layout A vector of character ('h' for horizontal, 'v' for vertical)
-#' where each item correspond to the orientation of the timeline for a given
-#' level of navigation module.
+#' @param btnEvents xxxx
 #' 
 #' @param verbose = FALSE,
 #' @param usermod = 'user'

@@ -3,7 +3,7 @@
 #' @description A shiny Module.
 #' 
 #' @param id xxx
-#' @param obj xxx
+#' @param dataIn xxx
 #' 
 #' @name infos_dataset
 #' 
@@ -78,7 +78,7 @@ infos_dataset_server <- function(
 #' @importFrom shiny shinyApp fluidPage
 #' @rdname infos_dataset
 #' 
-infos_dataset <- function(obj){
+infos_dataset <- function(dataIn){
   
 ui <- fluidPage(
   infos_dataset_ui("infos")
@@ -86,7 +86,7 @@ ui <- fluidPage(
 
 
 server <- function(input, output, session) {
-  infos_dataset_server("infos", dataIn = reactive({obj}))
+  infos_dataset_server("infos", dataIn = reactive({dataIn}))
 }
 
 app <- shinyApp(ui = ui, server = server)

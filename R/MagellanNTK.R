@@ -2,11 +2,12 @@
 #' @description xxx
 #' 
 #' @param id xxx
-#' @param obj xxx
+#' @param dataIn xxx
 #' @param workflow.path xxx
 #' @param workflow.name xxxx
 #' @param verbose A `boolean(1)` 
 #' @param usermod xxx
+#' @param ... xxx
 #' 
 #' 
 #' 
@@ -133,7 +134,7 @@ MagellanNTK_server <- function(
 #' @rdname magellanNTK
 #' 
 MagellanNTK <- function(
-    obj = NULL,
+    dataIn = NULL,
     workflow.path = NULL,
     workflow.name = NULL,
     verbose = FALSE,
@@ -176,7 +177,7 @@ MagellanNTK <- function(
     
    
     MagellanNTK_server("infos",
-      dataIn = reactive({obj}),
+      dataIn = reactive({dataIn}),
       workflow.path = reactive({workflow.path}),
       workflow.name = reactive({workflow.name}),
       verbose = verbose,

@@ -40,6 +40,8 @@ a dataset (the process has been validated and returned the result
 of its calculations)}
 
 \item{keepdataset_func}{xxxx}
+
+\item{rv}{xxxx}
 }
 \value{
 NA

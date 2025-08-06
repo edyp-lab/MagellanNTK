@@ -32,7 +32,7 @@ format_DT_server(
 )
 
 format_DT(
-  obj,
+  dataIn,
   hidden = NULL,
   withDLBtns = FALSE,
   showRownames = FALSE,
@@ -44,6 +44,8 @@ format_DT(
 }
 \arguments{
 \item{id}{shiny id}
+
+\item{dataIn}{xxx}
 
 \item{hidden}{Default is reactive({NULL}),}
 
@@ -60,8 +62,6 @@ format_DT(
 \item{remoteReset}{Default is reactive({0}),}
 
 \item{is.enabled}{Default is TRUE}
-
-\item{obj}{xxx}
 }
 \value{
 NA
@@ -71,6 +71,7 @@ A shiny Module.
 }
 \examples{
 \dontrun{
+library(SummarizedExperiment)
 data(lldata)
 obj <- assay(lldata[[1]])
 shiny::runApp(format_DT(obj))

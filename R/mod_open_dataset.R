@@ -3,6 +3,9 @@
 #' @description This module allows to change
 #' 
 #' @param id xxx
+#' @param class xxx
+#' @param extension xxx
+#' @param demo_package xxx
 #' 
 #' @name generic_mod_open_dataset
 #' 

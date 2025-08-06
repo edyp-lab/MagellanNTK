@@ -22,6 +22,7 @@
 #' a dataset (the process has been validated and returned the result
 #' of its calculations)
 #' @param keepdataset_func xxxx
+#' @param rv xxxx
 #'
 #' @author Samuel Wieczorek
 #'
