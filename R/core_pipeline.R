@@ -833,7 +833,7 @@ nav_pipeline_server <- function(
 
 
 #' @export
-#' @rdname nav
+#' @rdname nav_pipeline
 #' @importFrom shiny fluidPage shinyApp
 #' 
 nav_pipeline <- function(){

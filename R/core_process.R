@@ -690,7 +690,7 @@ nav_process_server <- function(id = NULL,
 
 
 #' @export
-#' @rdname nav
+#' @rdname nav_process
 #' @importFrom shiny fluidPage shinyApp
 #' 
 nav_process <- function(){

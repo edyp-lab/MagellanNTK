@@ -28,6 +28,8 @@ nav_process_server(
      NULL
  })
 )
+
+nav_process()
 }
 \arguments{
 \item{id}{A `character(1)` which defines the id of the module. 

@@ -28,6 +28,8 @@ nav_pipeline_server(
   verbose = FALSE,
   usermod = "user"
 )
+
+nav_pipeline()
 }
 \arguments{
 \item{id}{A `character(1)` which defines the id of the module. 
