@@ -1,17 +1,16 @@
-
 #' @title Change the default functions in `MagellanNTK`
 #' @description  This module allows to change the default functions
 #' embedded in the package `MagellanNTK`. These fucntions are the following:
 #' * convert_dataset: xxx
 #' * view_dataset: xxx
 #' * infos_dataset: xxx
-#' 
-#' 
+#'
+#'
 #' @param id shiny id
 #' @param funcs A list
-#' 
+#'
 #' @examples\dontrun{
-#' 
+#'
 #' funcs <- list(convert_dataset = "DaparToolshed::convert_dataset",
 #' open_dataset = "MagellanNTK::open_dataset",
 #' open_demoDataset = "MagellanNTK::open_demoDataset",
@@ -23,13 +22,13 @@
 #' keepDatasets = "MagellanNTK::keepDatasets"
 #' )
 #' shiny::runApp(load_package(funcs))
-#' 
+#'
 #' shiny::runApp(load_package())
 #' }
-#' 
+#'
 #' @name mod_load_package
 #' @author Samuel Wieczorek
-#' 
+#'
 NULL
 
 timeoutSeconds <- 30 * 60
@@ -49,24 +48,24 @@ clearTimeout(t);
 t = setTimeout(logout, %s);  // time is in milliseconds (1000 is 1 second)
 }
 }
-idleTimer();", timeoutSeconds*1000, timeoutSeconds, timeoutSeconds*1000)
+idleTimer();", timeoutSeconds * 1000, timeoutSeconds, timeoutSeconds * 1000)
 
 
 
 #' @rdname mod_load_package
-#' @importFrom shiny NS tagList h3 uiOutput 
+#' @importFrom shiny NS tagList h3 uiOutput
 #' @export
 #'
 mod_load_package_ui <- function(id) {
-  ns <- NS(id)
-  tagList(
-    h3('Load package tool'),
-    uiOutput(ns('update_func_ui')),
-    uiOutput(ns('select_pkg_ui')),
-    #actionButton(ns('update_btn'), 'Update value'),
-    uiOutput(ns('show_table'))
-    #actionButton(ns('validate_btn'), 'Validate')
-  )
+    ns <- NS(id)
+    tagList(
+        h3("Load package tool"),
+        uiOutput(ns("update_func_ui")),
+        uiOutput(ns("select_pkg_ui")),
+        # actionButton(ns('update_btn'), 'Update value'),
+        uiOutput(ns("show_table"))
+        # actionButton(ns('validate_btn'), 'Validate')
+    )
 }
 
 
@@ -76,76 +75,87 @@ mod_load_package_ui <- function(id) {
 #'
 #' @export
 #' @importFrom shiny reactive moduleServer observeEvent req renderUI fluidRow
-#' div selectInput 
+#' div selectInput
 #' @rdname mod_load_package
 #'
-mod_load_package_server <- function(id, 
-  funcs = reactive({NULL})) {
-  
-  moduleServer(id, function(input, output, session) {
-    ns <- session$ns
-    
-    dataOut <- reactiveValues(
-      done = FALSE)
-    
-    
-    rv <- reactiveValues(
-      list.funcs = default.funcs()
-    )
+mod_load_package_server <- function(
+        id,
+        funcs = reactive({
+            NULL
+        })) {
+    moduleServer(id, function(input, output, session) {
+        ns <- session$ns
 
-    observeEvent(req(funcs()), {
-    
-      rv$list.funcs <- funcs()
-    }, priority = 1000)
-    
-      output$show_table <- renderUI({
-        req(rv$list.funcs)
-        
-        lapply(names(rv$list.funcs), function(x){
-          find_ui_func <- find_funs(paste0(x, '_ui'))$package_name
-          find_server_func <- find_funs(paste0(x, '_server'))$package_name
-  
-          .choices <- unique(unique(find_ui_func, find_server_func))
-          #.tmp <- .tmp[-grep('MagellanNTK', .tmp)]
-          #.choices <- c(.tmp, 'MagellanNTK')
-          
-          .selected <- 'MagellanNTK'
-          .found <- sum(unlist(lapply(.choices, function(y) 
-            MagellanNTK::is.substr(y, rv$list.funcs[[x]]))))
-          if (.found == 1){
-            .pkg <- unlist(strsplit(rv$list.funcs[[x]], split = '::'))[1]
-            .choices <- c(.pkg, .choices[-grep(.pkg, .choices)])
-            .selected <- .pkg
-          }
-            
-            
-          # reordering list to put the target
-          fluidRow(
-            div(style = "align: center;display:inline-block; vertical-align: middle;padding-right: 10px;",
-              p(x)),
-            div(style = "align: center;display:inline-block; vertical-align: middle;padding-right: 10px;",
-              selectInput(ns(paste0(x, '_ui')), 
-            NULL,
-            choices = .choices,
-            selected = .selected
-          )
-          )
-          )
+        dataOut <- reactiveValues(
+            done = FALSE
+        )
+
+
+        rv <- reactiveValues(
+            list.funcs = default.funcs()
+        )
+
+        observeEvent(req(funcs()),
+            {
+                rv$list.funcs <- funcs()
+            },
+            priority = 1000
+        )
+
+        output$show_table <- renderUI({
+            req(rv$list.funcs)
+
+            lapply(names(rv$list.funcs), function(x) {
+                find_ui_func <- find_funs(paste0(x, "_ui"))$package_name
+                find_server_func <- find_funs(paste0(x, "_server"))$package_name
+
+                .choices <- unique(unique(find_ui_func, find_server_func))
+                # .tmp <- .tmp[-grep('MagellanNTK', .tmp)]
+                # .choices <- c(.tmp, 'MagellanNTK')
+
+                .selected <- "MagellanNTK"
+                .found <- sum(unlist(lapply(.choices, function(y) {
+                    MagellanNTK::is.substr(y, rv$list.funcs[[x]])
+                })))
+                if (.found == 1) {
+                    .pkg <- unlist(strsplit(rv$list.funcs[[x]], split = "::"))[1]
+                    .choices <- c(.pkg, .choices[-grep(.pkg, .choices)])
+                    .selected <- .pkg
+                }
+
+
+                # reordering list to put the target
+                fluidRow(
+                    div(
+                        style = "align: center;display:inline-block; vertical-align: middle;padding-right: 10px;",
+                        p(x)
+                    ),
+                    div(
+                        style = "align: center;display:inline-block; vertical-align: middle;padding-right: 10px;",
+                        selectInput(ns(paste0(x, "_ui")),
+                            NULL,
+                            choices = .choices,
+                            selected = .selected
+                        )
+                    )
+                )
+            })
         })
-      })
 
-    observeEvent(lapply(names(rv$list.funcs), function(x) input[[paste0(x, '_ui')]]), {
-      #req(rv$list.funcs)
-      ll <- list()
-      for (c in names(rv$list.funcs))
-        ll[[c]] <- paste0(input[[paste0(c, '_ui')]], '::', c)
-      
-      dataOut$value <- ll
+        observeEvent(lapply(names(rv$list.funcs), function(x) input[[paste0(x, "_ui")]]), {
+            # req(rv$list.funcs)
+            ll <- list()
+            for (c in names(rv$list.funcs)) {
+                ll[[c]] <- paste0(input[[paste0(c, "_ui")]], "::", c)
+            }
+
+            dataOut$value <- ll
+        })
+
+        reactive({
+            dataOut$value
+        })
     })
-    
-    reactive({dataOut$value})
-  })
-  
 }
 
 
@@ -153,18 +163,20 @@ mod_load_package_server <- function(id,
 #' @importFrom shiny reactive moduleServer observeEvent req renderUI fluidRow
 #' shinyApp
 #' @rdname mod_load_package
-#' 
-load_package <- function(funcs = NULL){
-  ui <- mod_load_package_ui("mod_pkg")
+#'
+load_package <- function(funcs = NULL) {
+    ui <- mod_load_package_ui("mod_pkg")
 
-server <- function(input, output, session) {
-  
-  done <- mod_load_package_server("mod_pkg", 
-    funcs = reactive({funcs}))
-  
-  observeEvent(done(), {
-    print(done())
-  })
-  }
-  app <- shinyApp(ui, server)
+    server <- function(input, output, session) {
+        done <- mod_load_package_server("mod_pkg",
+            funcs = reactive({
+                funcs
+            })
+        )
+
+        observeEvent(done(), {
+            print(done())
+        })
+    }
+    app <- shinyApp(ui, server)
 }

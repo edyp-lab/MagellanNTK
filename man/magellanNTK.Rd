@@ -58,9 +58,9 @@ The list of customizable funcs (param `funcs`) contains the following items:
 
  These are the default values where each item points to a default fucntion
  implemented into MagellanNTK.
- 
+
  The user can modify these values by two means:
- * setting the values in the parameter to pass to the function 
+ * setting the values in the parameter to pass to the function
  `MagellanNTK()`,
  * inside the UI of MagellanNTK, in the settings panels
 }

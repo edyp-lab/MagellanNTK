@@ -25,7 +25,7 @@ A shiny Module.
 }
 \examples{
 \dontrun{
-base <- system.file('app/md', package = 'MagellanNTK')
+base <- system.file("app/md", package = "MagellanNTK")
 url <- file.path(base, "presentation.Rmd")
 shiny::runApp(insert_md(url))
 }

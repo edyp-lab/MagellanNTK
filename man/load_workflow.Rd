@@ -24,7 +24,7 @@ mod_load_workflow_server(
 \item{usermod}{xxx}
 }
 \value{
-xxxxx
+NA
 }
 \description{
 A shiny Module to load a dataset.

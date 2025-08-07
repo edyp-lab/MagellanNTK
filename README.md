@@ -7,6 +7,13 @@ Title
 [![R-CMD-check.yaml](https://github.com/edyp-lab/MagellanNTK/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions/workflows/check-standard.yaml)
 [![test-coverage.yaml](https://github.com/edyp-lab/MagellanNTK/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions/workflows/test-coverage.yaml)
 [![license](https://img.shields.io/badge/license-Artistic--2.0-brightgreen.svg)](https://opensource.org/licenses/Artistic-2.0)
+[![Bioc release status](http://www.bioconductor.org/shields/build/release/bioc/MagellanNTK.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/MagellanNTK)
+[![Bioc devel status](http://www.bioconductor.org/shields/build/devel/bioc/MagellanNTK.svg)](https://bioconductor.org/checkResults/devel/bioc-LATEST/MagellanNTK)
+[![Bioc downloads rank](https://bioconductor.org/shields/downloads/release/MagellanNTK.svg)](http://bioconductor.org/packages/stats/bioc/MagellanNTK/)
+[![Bioc support](https://bioconductor.org/shields/posts/MagellanNTK.svg)](https://support.bioconductor.org/tag/MagellanNTK)
+[![Bioc history](https://bioconductor.org/shields/years-in-bioc/MagellanNTK.svg)](https://bioconductor.org/packages/release/bioc/html/MagellanNTK.html#since)
+[![Bioc last commit](https://bioconductor.org/shields/lastcommit/devel/bioc/MagellanNTK.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/MagellanNTK/)
+[![Bioc dependencies](https://bioconductor.org/shields/dependencies/release/MagellanNTK.svg)](https://bioconductor.org/packages/release/bioc/html/MagellanNTK.html#since)
 <!-- badges: end -->
   
 # MagellanNTK

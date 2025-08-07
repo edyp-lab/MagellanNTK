@@ -12,8 +12,12 @@ GetFirstMandatoryNotValidated(range, rv)
 \item{rv}{xxx}
 }
 \value{
-xxx
+NA
 }
 \description{
 xxx
+}
+\examples{
+NULL
+
 }

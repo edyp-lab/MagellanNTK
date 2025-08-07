@@ -11,6 +11,9 @@ call.func(fname, args)
 
 \item{args}{xxx}
 }
+\value{
+NA
+}
 \description{
 xxx
 }

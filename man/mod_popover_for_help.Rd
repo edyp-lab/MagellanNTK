@@ -25,7 +25,7 @@ A shiny Module.
 }
 \examples{
 \dontrun{
-shiny::runApp(popover_for_help('myTitle', 'myContent'))
+shiny::runApp(popover_for_help("myTitle", "myContent"))
 }
 
 }

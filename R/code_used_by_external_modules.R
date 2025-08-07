@@ -6,8 +6,8 @@
 #' and 'mandatory'
 #'  list, erases all white spaces for the names of the steps.
 #'
-#' @name insertCodeForExternalModules 
-#' 
+#' @name insertCodeForExternalModules
+#'
 #' @param widgets.names A `list` containing the names of the widgets in all
 #' steps of the module.
 #' @param rv.custom.names A `list` containing the names of the custom values.
@@ -42,9 +42,9 @@ NULL
 #' @return A `string` containing some R code
 #'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
-#' 
+#'
 #'
 Get_Code_Update_Config_Variable <- function() {
     code <- "
@@ -68,13 +68,13 @@ Get_Code_Update_Config_Variable <- function() {
 #' @return NA
 #'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
 #'
 Get_Code_Declare_widgets <- function(widgets.names = NULL) {
     # If one is on a composed workflow which do not have explicit ui
-  declare_rv_widgets <- NULL
-  if (is.null(widgets.names)) {
+    declare_rv_widgets <- NULL
+    if (is.null(widgets.names)) {
         declare_rv_widgets <- "rv.widgets <- reactiveValues()\n\n"
     } else {
         basis <- "w.name = widgets.default.values$w.name"
@@ -107,7 +107,7 @@ Get_Code_Declare_widgets <- function(widgets.names = NULL) {
 #' @return NA
 #'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
 #'
 #'
@@ -121,7 +121,7 @@ Get_Code_Declare_rv_custom <- function(rv.custom.names = NULL) {
         ls_list <- lapply(
             rv.custom.names,
             function(x) gsub("w.name", x, basis)
-          )
+        )
         declare_rv_custom <- paste0(
             "rv.custom <- reactiveValues(\n",
             paste0("\t", ls_list, sep = "", collapse = ",\n"),
@@ -141,7 +141,7 @@ Get_Code_Declare_rv_custom <- function(rv.custom.names = NULL) {
 #' # Generate dynamically the observeEvent function for each widget
 #'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
 #'
 #' @return NA
@@ -172,7 +172,7 @@ Get_Code_for_ObserveEvent_widgets <- function(widgets.names = NULL) {
 #' @return A `string` containing some R code
 #'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
 #'
 #'
@@ -204,7 +204,7 @@ Get_Code_for_rv_reactiveValues <- function() {
 # DO NOT MODIFY THIS FUNCTION
 #'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
 #'
 #'
@@ -227,7 +227,7 @@ Get_Code_for_dataOut <- function() {
 #' @description xxx
 #'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
 #'
 #' @return NA
@@ -256,35 +256,35 @@ observeEvent(steps.status(), ignoreNULL = TRUE, {
 
 
 
-#' 
+#'
 #' #' @title Code for declaring xxx
 #' #'
 #' #' @description xxx
 #' #' @param add.code Add additional code
 #' #'
 #' #' @export
-#' #' 
+#' #'
 #' #' @rdname insertCodeForExternalModules
 #' #'
 #' #' @return NA
 #' #'
 #' Get_Code_for_remoteReset2_observeEvents <- function(add.code = NULL) {
 #'   code <- "
-#' 
+#'
 #' observeEvent(req(remoteReset()), ignoreInit = FALSE, ignoreNULL = TRUE,{
 #'       lapply(names(rv.widgets), function(x){
 #'           rv.widgets[[x]] <- widgets.default.values[[x]]
 #'         })
-#'         
+#'
 #'             lapply(names(rv.custom), function(x){
 #'         rv.custom[[x]] <- rv.custom.default.values[[x]]
 #'     })
-#'     
+#'
 #'     rv$dataIn <- NULL
 #'     "
 #'   code <- paste0(code, add.code, "})")
-#' 
-#'   
+#'
+#'
 #'   code
 #' }
 
@@ -294,28 +294,28 @@ observeEvent(steps.status(), ignoreNULL = TRUE, {
 #' #' @description xxx
 #' #'
 #' #' @export
-#' #' 
+#' #'
 #' #' @rdname insertCodeForExternalModules
 #' #'
 #' #' @return NA
 #' #'
 #' Get_Code_for_remoteReset_observeEvents <- function() {
 #'   code <- "
-#' 
+#'
 #' observeEvent(req(remoteReset() >=1), ignoreInit = TRUE, ignoreNULL = TRUE,{
 #'       lapply(names(rv.widgets), function(x){
 #'           rv.widgets[[x]] <- widgets.default.values[[x]]
 #'         })
-#'         
+#'
 #'             lapply(names(rv.custom), function(x){
 #'         rv.custom[[x]] <- rv.custom.default.values[[x]]
 #'     })
-#'     
+#'
 #'     rv$dataIn <- NULL
 #' })
-#' 
+#'
 #' "
-#'   
+#'
 #'   code
 #' }
 
@@ -327,36 +327,38 @@ observeEvent(steps.status(), ignoreNULL = TRUE, {
 #' @description xxx
 #'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
 #'
 #' @return NA
 #'
 Get_Code_for_remoteReset <- function(
-    widgets = TRUE,
-    custom = TRUE,
-    dataIn = 'dataIn()',
-    addon = '') {
+        widgets = TRUE,
+        custom = TRUE,
+        dataIn = "dataIn()",
+        addon = "") {
     code <- "
 
 observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
 #browser()
   "
-  
-  if (widgets)
-    code <- paste0(code, Get_Code_for_resetting_widgets())
-  if (custom)
-    code <- paste0(code, Get_Code_for_resetting_custom())
-  
-  code <- paste0(code, 'rv$dataIn <- ', dataIn, '
-    ')
-  code <- paste0(code, '
-  ', addon, '
-    ')
-  code <- paste0(code, '})
-    ')
 
-  code
+    if (widgets) {
+        code <- paste0(code, Get_Code_for_resetting_widgets())
+    }
+    if (custom) {
+        code <- paste0(code, Get_Code_for_resetting_custom())
+    }
+
+    code <- paste0(code, "rv$dataIn <- ", dataIn, "
+    ")
+    code <- paste0(code, "
+  ", addon, "
+    ")
+    code <- paste0(code, "})
+    ")
+
+    code
 }
 
 
@@ -366,13 +368,13 @@ observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
 #' @description xxx
 #'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
 #'
 #' @return NA
 #'
 Get_Code_for_resetting_widgets <- function() {
-  "
+    "
 lapply(names(rv.widgets), function(x){
           rv.widgets[[x]] <- widgets.default.values[[x]]
         })
@@ -385,13 +387,13 @@ lapply(names(rv.widgets), function(x){
 #' @description xxx
 #'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
 #'
 #' @return NA
 #'
 Get_Code_for_resetting_custom <- function() {
-  "
+    "
   lapply(names(rv.custom), function(x){
         rv.custom[[x]] <- rv.custom.default.values[[x]]
     })
@@ -406,7 +408,7 @@ Get_Code_for_resetting_custom <- function() {
 #'
 #'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
 #'
 #' @return NA
@@ -429,45 +431,44 @@ dataOut = reactive({dataOut})
 #' @description This function xxx
 #' # Generate dynamically the observeEvent function for each widget
 #'
-#' 
+#'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
 #'
 #' @return NA
 #'
 AdditionnalCodeForExternalModules <- function(
-    w.names = NULL,
-    rv.custom.names = NULL) {
-  
-  core <- paste0(
-    Get_Code_Declare_widgets(w.names),
-    Get_Code_for_ObserveEvent_widgets(w.names),
-    Get_Code_for_rv_reactiveValues(),
-    Get_Code_Declare_rv_custom(rv.custom.names),
-    Get_Code_for_dataOut(),
-    sep = "\n"
-  )
-  
-  # 
-  # core <- Insert_Call_to_Config(name)
-  # core <- paste0(core, Get_Code_Declare_widgets(w.names))
-  # 
-  # if (mode == 'process'){
-  #     core <- paste0(core,
-  #       Get_Code_for_ObserveEvent_widgets(w.names),
-  #       sep = '\n')
-  # }
-  # 
-  # core <- paste0(core,
-  #                Get_Code_Declare_rv_custom(rv.custom.names),
-  #                Get_Code_for_rv_reactiveValues(),
-  #                Get_Code_for_dataOut(),
-  #                Get_Code_for_General_observeEvents(),
-  #                sep = "\n"
-  #                )
-  
-  core
+        w.names = NULL,
+        rv.custom.names = NULL) {
+    core <- paste0(
+        Get_Code_Declare_widgets(w.names),
+        Get_Code_for_ObserveEvent_widgets(w.names),
+        Get_Code_for_rv_reactiveValues(),
+        Get_Code_Declare_rv_custom(rv.custom.names),
+        Get_Code_for_dataOut(),
+        sep = "\n"
+    )
+
+    #
+    # core <- Insert_Call_to_Config(name)
+    # core <- paste0(core, Get_Code_Declare_widgets(w.names))
+    #
+    # if (mode == 'process'){
+    #     core <- paste0(core,
+    #       Get_Code_for_ObserveEvent_widgets(w.names),
+    #       sep = '\n')
+    # }
+    #
+    # core <- paste0(core,
+    #                Get_Code_Declare_rv_custom(rv.custom.names),
+    #                Get_Code_for_rv_reactiveValues(),
+    #                Get_Code_for_dataOut(),
+    #                Get_Code_for_General_observeEvents(),
+    #                sep = "\n"
+    #                )
+
+    core
 }
 
 
@@ -476,42 +477,41 @@ AdditionnalCodeForExternalModules <- function(
 #' @description This function xxx
 #' # Generate dynamically the observeEvent function for each widget
 #'
-#' 
+#'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
 #'
 #' @return NA
 #'
 Get_Workflow_Core_Code <- function(
-    mode = NULL,
-    name = NULL,
-    w.names = NULL,
-    rv.custom.names = NULL) {
+        mode = NULL,
+        name = NULL,
+        w.names = NULL,
+        rv.custom.names = NULL) {
+    core <- paste0(
+        Insert_Call_to_Config(name),
+        Get_Code_Declare_widgets(w.names),
+        # Get_Code_Update_Config_Variable(),
+        Get_Code_for_ObserveEvent_widgets(w.names),
+        Get_Code_for_rv_reactiveValues(),
+        Get_Code_Declare_rv_custom(rv.custom.names),
+        Get_Code_for_dataOut(),
+        Get_Code_for_General_observeEvents(),
+        Get_Code_for_remoteReset(),
+        sep = "\n"
+    )
 
-  core <- paste0(
-    Insert_Call_to_Config(name),
-    Get_Code_Declare_widgets(w.names),
-    #Get_Code_Update_Config_Variable(),
-    Get_Code_for_ObserveEvent_widgets(w.names),
-    Get_Code_for_rv_reactiveValues(),
-    Get_Code_Declare_rv_custom(rv.custom.names),
-    Get_Code_for_dataOut(),
-    Get_Code_for_General_observeEvents(),
-    Get_Code_for_remoteReset(),
-    sep = "\n"
-  )
-  
-    # 
+    #
     # core <- Insert_Call_to_Config(name)
     # core <- paste0(core, Get_Code_Declare_widgets(w.names))
-    # 
+    #
     # if (mode == 'process'){
     #     core <- paste0(core,
     #       Get_Code_for_ObserveEvent_widgets(w.names),
     #       sep = '\n')
     # }
-    # 
+    #
     # core <- paste0(core,
     #                Get_Code_Declare_rv_custom(rv.custom.names),
     #                Get_Code_for_rv_reactiveValues(),
@@ -528,8 +528,8 @@ Get_Workflow_Core_Code <- function(
 #' @description xxx
 #' @param name xxx
 #' @export
-Insert_Call_to_Config <- function(name){
-  code <- "
+Insert_Call_to_Config <- function(name) {
+    code <- "
 
 config <- #name#_conf()
 
@@ -543,9 +543,8 @@ config@ll.UI <- setNames(
     )
 
 "
-  code <- gsub('#name#', name, code)
-  code
-  
+    code <- gsub("#name#", name, code)
+    code
 }
 
 #' @title Code for declaring xxx
@@ -553,25 +552,23 @@ config@ll.UI <- setNames(
 #' @description This function generates dynamically the observeEvent function for each widget
 #'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
 #'
 #' @return NA
 #'
 Get_AdditionalModule_Core_Code <- function(
-    w.names = NULL, 
-    rv.custom.names = NULL) {
+        w.names = NULL,
+        rv.custom.names = NULL) {
     core <- paste0(
-      Get_Code_Declare_widgets(w.names),
-      Get_Code_for_ObserveEvent_widgets(w.names),
-      Get_Code_for_rv_reactiveValues(),
-      Get_Code_Declare_rv_custom(rv.custom.names),
-      Get_Code_for_dataOut(), 
-      Get_Code_for_remoteReset(),
-      sep = "\n"
+        Get_Code_Declare_widgets(w.names),
+        Get_Code_for_ObserveEvent_widgets(w.names),
+        Get_Code_for_rv_reactiveValues(),
+        Get_Code_Declare_rv_custom(rv.custom.names),
+        Get_Code_for_dataOut(),
+        Get_Code_for_remoteReset(),
+        sep = "\n"
     )
 
     core
 }
-
-

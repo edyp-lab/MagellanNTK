@@ -16,6 +16,9 @@ updateDirectoryInput(session, inputId, value = NULL, ...)
 \item{...}{Additional arguments passed to \code{\link{choose.dir}}.  Only used
 if \code{value} is \code{NULL}.}
 }
+\value{
+NA
+}
 \description{
 Change the value of a directoryInput on the client
 }
@@ -24,4 +27,8 @@ Sends a message to the client, telling it to change the value of the input
 object.  For \code{directoryInput} objects, this changes the value displayed
 in the text-field and triggers a client-side change event.  A directory
 selection dialog is not displayed.
+}
+\examples{
+NULL
+
 }

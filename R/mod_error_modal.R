@@ -1,12 +1,12 @@
 #' @title Error modal shiny module.
-#' 
+#'
 #' @description A shiny module that shows messages in modal.
-#' 
+#'
 #' @param id internal
 #' @param msg xxxx
 #'
 #' @name errorModal
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' shiny::runApp(errorModal("my error text"))
@@ -23,35 +23,34 @@ errorModal_ui <- function(id) {}
 
 #' @rdname errorModal
 #' @return NA
-#' @importFrom shiny moduleServer observeEvent showModal modalDialog wellPanel 
-#' HTML 
+#' @importFrom shiny moduleServer observeEvent showModal modalDialog wellPanel
+#' HTML
 #' @export
 #'
-errorModal_server <- function(id, msg){
-  
-  shiny::moduleServer(id, function(input, output, session) {
-      
-      observeEvent(TRUE, ignoreInit = FALSE, {
-        # shiny::showModal(
-        #     shiny::modalDialog('test')
-        # )
-        
-        shiny::showModal(
-          div(
-            id = 'errModal',
-            tags$style("#errModal .modal-dialog{width: 600px;}"),
-            shiny::modalDialog(
-              h3("Error log"),
-              tags$style("#tPanel {overflow-y:scroll; color: red;}"),
-              shiny::wellPanel(
-                id = "tPanel",
-                HTML(paste('> ', msg, collapse = "<br/>"))
-              )
-              ,easyClose = TRUE)
-          ))
-      })
-    }
-  )
+errorModal_server <- function(id, msg) {
+    shiny::moduleServer(id, function(input, output, session) {
+        observeEvent(TRUE, ignoreInit = FALSE, {
+            # shiny::showModal(
+            #     shiny::modalDialog('test')
+            # )
+
+            shiny::showModal(
+                div(
+                    id = "errModal",
+                    tags$style("#errModal .modal-dialog{width: 600px;}"),
+                    shiny::modalDialog(
+                        h3("Error log"),
+                        tags$style("#tPanel {overflow-y:scroll; color: red;}"),
+                        shiny::wellPanel(
+                            id = "tPanel",
+                            HTML(paste("> ", msg, collapse = "<br/>"))
+                        ),
+                        easyClose = TRUE
+                    )
+                )
+            )
+        })
+    })
 }
 
 
@@ -61,16 +60,15 @@ errorModal_server <- function(id, msg){
 #' @export
 #' @rdname errorModal
 #' @importFrom shiny fluidPage shinyApp
-#' 
-errorModal <- function(msg){
-ui <- fluidPage(
-  errorModal_ui(id = 'ex')
-)
+#'
+errorModal <- function(msg) {
+    ui <- fluidPage(
+        errorModal_ui(id = "ex")
+    )
 
-server <- function(input, output) {
-  errorModal_server(id = "ex", msg = msg)
+    server <- function(input, output) {
+        errorModal_server(id = "ex", msg = msg)
+    }
+
+    app <- shiny::shinyApp(ui, server)
 }
-
-app <- shiny::shinyApp(ui, server)
-}
-

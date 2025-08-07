@@ -35,7 +35,7 @@ xxxxx
 }
 \examples{
 \dontrun{
-shiny::runApp(mod_SweetAlert('my title', 'my message'))
+shiny::runApp(mod_SweetAlert("my title", "my message"))
 }
 
 }

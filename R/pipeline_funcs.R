@@ -1,5 +1,3 @@
-
-
 #' @title xxx
 #'
 #' @description
@@ -30,124 +28,120 @@
 #'
 #' @return NA
 #' 
+#' @examples
+#' NULL
+#' 
+#'
 #'
 ActionOn_Child_Changed <- function(
-    temp.dataIn,
-  dataIn,
-  steps.status,
-  steps,
-  steps.enabled,
-  steps.skipped,
-  processHasChanged,
-  newValue,
-  keepdataset_func,
-  rv) {
+        temp.dataIn,
+        dataIn,
+        steps.status,
+        steps,
+        steps.enabled,
+        steps.skipped,
+        processHasChanged,
+        newValue,
+        keepdataset_func,
+        rv) {
+    # Indice of the dataset in the object
+    # If the original length is not 1, then this indice is different
+    # than the above one
+    ind.processHasChanged <- which(names(steps) == processHasChanged)
+    validatedBeforeReset <- names(dataIn)[length(names(dataIn))] == processHasChanged
+
+    len <- length(steps)
+
+    # browser()
+    if (is.null(newValue)) {
+        # A process has been reseted (it has returned a NULL value)
 
 
-  # Indice of the dataset in the object
-  # If the original length is not 1, then this indice is different
-  # than the above one
-  ind.processHasChanged <- which(names(steps) == processHasChanged)
-  validatedBeforeReset <- names(dataIn)[length(names(dataIn))] == processHasChanged
-  
-  len <- length(steps)
-  
-  #browser()
-  if (is.null(newValue)) {
-    # A process has been reseted (it has returned a NULL value)
-    
-    
-    
-    validated.steps <- which(steps.status == stepStatus$VALIDATED)
-    if (length(validated.steps) > 0) {
-      ind.last.validated <- max(validated.steps)
+
+        validated.steps <- which(steps.status == stepStatus$VALIDATED)
+        if (length(validated.steps) > 0) {
+            ind.last.validated <- max(validated.steps)
+        } else {
+            ind.last.validated <- 0
+        }
+
+        # browser()
+
+        # There is no validated step (the first step has been reseted)
+        if (ind.last.validated == 0) {
+            dataIn <- NULL
+        } else if (ind.last.validated == 1) {
+            dataIn <- temp.dataIn
+        } else {
+            # Check if the reseted process has been validated before reset or not
+            if (isTRUE(validatedBeforeReset)) {
+                dataIn <- call.func(
+                    fname = keepdataset_func,
+                    args = list(
+                        object = dataIn,
+                        range = seq_len(length(dataIn) - 1)
+                    )
+                )
+            } else {
+                dataIn <- temp.dataIn
+            }
+
+            # browser()
+            # name.last.validated <- steps[ind.last.validated]
+            # dataIn.ind.last.validated <- which(names(dataIn) == names(name.last.validated))
+            # #browser()
+            # dataIn <- call.func(
+            #   fname = keepdataset_func,
+            #   args = list(object = dataIn,
+            #     range = seq_len(dataIn.ind.last.validated))
+            # )
+        }
+
+        # One take the last validated step (before the one
+        # corresponding to processHasChanges
+        # but it is straightforward because we just updates rv$status
+        steps.status[ind.processHasChanged:len] <- stepStatus$UNDONE
+
+        # All the following processes (after the one which has changed) are disabled
+        steps.enabled[(ind.processHasChanged + 1):len] <- FALSE
+
+        # browser()
+
+        # test <- GetFirstMandatoryNotValidated((ind.processHasChanged + 1):len, rv)
+        # The process that has been rested is enabled so as to rerun it
+        steps.enabled[ind.processHasChanged] <- TRUE
+
+        steps.skipped[ind.processHasChanged:len] <- FALSE
+
+
+
+        Update_State_Screens(steps.skipped, steps.enabled, rv)
     } else {
-      ind.last.validated <- 0
+        # A process has been validated
+        steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
+
+        if (ind.processHasChanged < len) {
+            steps.status[(1 + ind.processHasChanged):len] <- stepStatus$UNDONE
+
+            # Reset all further processes
+            # print('proceed to reset all further children')
+            #
+            # steps.status[(1 + ind.processHasChanged):len] <-
+        }
+
+        steps.status <- Discover_Skipped_Steps(steps.status)
+        dataIn <- newValue
     }
-    
-   #browser()
-    
-    # There is no validated step (the first step has been reseted)
-    if (ind.last.validated == 0) {
-      dataIn <- NULL
-    } else if (ind.last.validated == 1){
-      
-      dataIn <- temp.dataIn
-      
-    } else {
-      # Check if the reseted process has been validated before reset or not
-      if (isTRUE(validatedBeforeReset)){
-        dataIn <- call.func(
-          fname = keepdataset_func,
-          args = list(object = dataIn,
-            range = seq_len(length(dataIn)-1))
+
+
+    return(
+        list(
+            dataIn = dataIn,
+            steps.status = steps.status,
+            steps.enabled = steps.enabled,
+            steps.skipped = steps.skipped
         )
-      } else {
-        dataIn <- temp.dataIn
-      }
-      
-      # browser()
-      # name.last.validated <- steps[ind.last.validated]
-      # dataIn.ind.last.validated <- which(names(dataIn) == names(name.last.validated))
-      # #browser()
-      # dataIn <- call.func(
-      #   fname = keepdataset_func,
-      #   args = list(object = dataIn,
-      #     range = seq_len(dataIn.ind.last.validated))
-      # )
-    }
-   
-   # One take the last validated step (before the one
-   # corresponding to processHasChanges
-   # but it is straightforward because we just updates rv$status
-   steps.status[ind.processHasChanged:len] <- stepStatus$UNDONE
-   
-   #All the following processes (after the one which has changed) are disabled
-   steps.enabled[(ind.processHasChanged + 1):len] <- FALSE
-   
-   #browser()
-   
-   #test <- GetFirstMandatoryNotValidated((ind.processHasChanged + 1):len, rv)
-   # The process that has been rested is enabled so as to rerun it
-   steps.enabled[ind.processHasChanged] <- TRUE
-   
-   steps.skipped[ind.processHasChanged:len] <- FALSE
-   
-   
-   
-   Update_State_Screens(steps.skipped, steps.enabled, rv)
-   
-   
-   
-   
-  } else {
-    
-    # A process has been validated
-    steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
-    
-    if (ind.processHasChanged < len) {
-      steps.status[(1 + ind.processHasChanged):len] <- stepStatus$UNDONE
-      
-      # Reset all further processes
-      #print('proceed to reset all further children')
-      #
-      # steps.status[(1 + ind.processHasChanged):len] <- 
-    }
-    
-    steps.status <- Discover_Skipped_Steps(steps.status)
-    dataIn <- newValue
-  }
-  
-  
-  return(
-    list(
-      dataIn = dataIn,
-      steps.status = steps.status,
-      steps.enabled = steps.enabled,
-      steps.skipped = steps.skipped
     )
-  )
-
 }
 
 #' @title xxxx
@@ -161,14 +155,12 @@ ActionOn_Child_Changed <- function(
 #' @return NA
 #'
 GetValuesFromChildren <- function(config, tmp.return) {
-  
-  stepsnames <- names(config@steps)
-  
+    stepsnames <- names(config@steps)
+
     # Get the trigger values for each steps of the module
     return.trigger.values <- setNames(lapply(stepsnames, function(x) {
         tmp.return[[x]]$dataOut()$trigger
-    }), nm = stepsnames
-    )
+    }), nm = stepsnames)
 
     # Replace NULL values by NA
     return.trigger.values[sapply(return.trigger.values, is.null)] <- NA
@@ -176,9 +168,15 @@ GetValuesFromChildren <- function(config, tmp.return) {
 
 
     # Get the values returned by each step of the modules
-    return.values <- setNames(lapply(stepsnames, 
-                                     function(x) {tmp.return[[x]]$dataOut()$value}),
-                              nm = stepsnames)
+    return.values <- setNames(
+        lapply(
+            stepsnames,
+            function(x) {
+                tmp.return[[x]]$dataOut()$value
+            }
+        ),
+        nm = stepsnames
+    )
 
 
     list(
@@ -199,7 +197,6 @@ GetValuesFromChildren <- function(config, tmp.return) {
 #' @return NA
 #'
 ResetChildren <- function(range, resetChildren) {
-    
     resetChildren[range] <- resetChildren[range] + 1
     return(resetChildren)
 }
@@ -222,19 +219,18 @@ Update_Data2send_Vector <- function(rv, keepdataset_func) {
     # initialized to NULL so the other processes are already ready to be sent
     ind.last.validated <- GetMaxValidated_BeforePos(rv = rv)
     name.last.validated <- names(rv$steps.status)[ind.last.validated]
-    if (is.null(ind.last.validated) || 
+    if (is.null(ind.last.validated) ||
         ind.last.validated == 1 ||
-        name.last.validated == 'Save') {
+        name.last.validated == "Save") {
         data <- rv$temp.dataIn
     } else {
-    #browser()
-      .ind <- which(grepl(name.last.validated, names(rv$dataIn)))
-      data <- call.func(
-        fname = keepdataset_func,
-        args = list(object = rv$dataIn, range = seq_len(.ind))
-      )
-      
-      }
+        # browser()
+        .ind <- which(grepl(name.last.validated, names(rv$dataIn)))
+        data <- call.func(
+            fname = keepdataset_func,
+            args = list(object = rv$dataIn, range = seq_len(.ind))
+        )
+    }
     return(data)
 }
 
@@ -250,16 +246,16 @@ Update_Data2send_Vector <- function(rv, keepdataset_func) {
 #' @param keepdataset_func xxx
 #'
 #' @export
-#' 
+#'
 #' @importFrom crayon blue
 #'
 #' @return NA
 #'
 PrepareData2Send <- function(
-    rv, 
-    pos, 
-    verbose = FALSE, 
-    keepdataset_func) {
+        rv,
+        pos,
+        verbose = FALSE,
+        keepdataset_func) {
     # Returns NULL to all modules except the one pointed by the current position
     # Initialization of the pipeline : one send dataIn() to the
     # first module
@@ -269,19 +265,23 @@ PrepareData2Send <- function(
     stepsnames <- names(rv$config@steps)
     nsteps <- length(rv$config@steps)
     # Initialize vector to all NULL values
-    data2send <- setNames(lapply(stepsnames, function(x) {NULL}), nm = stepsnames)
+    data2send <- setNames(lapply(stepsnames, function(x) {
+        NULL
+    }), nm = stepsnames)
 
     if (is.null(rv$dataIn)) { # Init of core engine
 
         # Only the first process will receive the data
-        if (!is.null(rv$temp.dataIn))
-          data2send[[1]] <- rv$temp.dataIn
+        if (!is.null(rv$temp.dataIn)) {
+            data2send[[1]] <- rv$temp.dataIn
+        }
 
         # The other processes are by default disabled.
         # If they have to be enabled, they will be by another function later
-        lapply(seq_len(nsteps), function(x) {rv$steps.enabled[x] <- x == 1})
+        lapply(seq_len(nsteps), function(x) {
+            rv$steps.enabled[x] <- x == 1
+        })
     } else {
-      
         current.step.name <- stepsnames[rv$current.pos]
         data2send[[current.step.name]] <- Update_Data2send_Vector(rv, keepdataset_func)
     }

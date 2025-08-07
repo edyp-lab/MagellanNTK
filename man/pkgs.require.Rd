@@ -14,7 +14,7 @@ Checks if a package is available to load it
 }
 \examples{
 \dontrun{
-pkgs.require(c('omXplore'))
+pkgs.require(c("omXplore"))
 }
 
 }

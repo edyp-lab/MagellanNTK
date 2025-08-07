@@ -1,5 +1,3 @@
-
-
 #' @title Save an R object.
 #'
 #' @description This function saves an R object to a '.rda' file.
@@ -32,7 +30,7 @@ Save_Object <- function(object, file) {
 #' @export
 #'
 #' @return NA
-#' 
+#'
 #'
 Upload_Object <- function(file) {
     if (missing(file)) {

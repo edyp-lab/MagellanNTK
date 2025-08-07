@@ -16,5 +16,6 @@ The extension of the given filename
 Get file extension
 }
 \examples{
-GetExtension('foo.xlsx')
+GetExtension("foo.xlsx")
+#
 }

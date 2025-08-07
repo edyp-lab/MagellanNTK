@@ -32,10 +32,10 @@ The names of these functions (shiny modules) are:
 * infos_dataset(): xxx
 
 Thus, MagellanNTK seraches in the global environment if any package exports
-one or more of these functions. If so, 
+one or more of these functions. If so,
 
 For each of these functions, the shiny app lists all the packages that export
-it. Once the user has make its choices, the module returns a list containing 
+it. Once the user has make its choices, the module returns a list containing
 the infos.
 }
 \examples{

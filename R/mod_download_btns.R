@@ -1,7 +1,7 @@
 #' @title Download_btns shiny module.
-#' 
+#'
 #' @description A shiny module that shows download buttons in different formats.
-#' 
+#'
 #' @param id internal
 #' @param settings xxx
 #' @param dataIn A data.frame
@@ -24,13 +24,13 @@ NULL
 #' @export
 #'
 download_btns_ui <- function(id, settings = list()) {
-  ns <- NS(id)
-  
-  tagList(
-    downloadButton(ns("download_as_Excel_btn"), "Excel", class = settings$actionBtnClass),
-    downloadButton(ns("download_as_csv_btn"), "csv", class = settings$actionBtnClass),
-    downloadButton(ns("download_as_RData_btn"), "RData", class = settings$actionBtnClass)
-  )
+    ns <- NS(id)
+
+    tagList(
+        downloadButton(ns("download_as_Excel_btn"), "Excel", class = settings$actionBtnClass),
+        downloadButton(ns("download_as_csv_btn"), "csv", class = settings$actionBtnClass),
+        downloadButton(ns("download_as_RData_btn"), "RData", class = settings$actionBtnClass)
+    )
 }
 
 
@@ -41,72 +41,87 @@ download_btns_ui <- function(id, settings = list()) {
 #'
 #' @export
 #'
-download_btns_server <- function(id,
-  dataIn = reactive({NULL}), 
-  name, 
-  colors = reactive({NULL}), 
-  tags = reactive({NULL})) {
-  moduleServer(id, function(input, output, session) {
-    ns <- session$ns
-    
-      output$download_as_csv_btn <- downloadHandler(
-        filename = function() {
-          paste(name(), "-", Sys.Date(), ".csv", sep = "")
-        },
-        content = function(file) {
-          write.table(dataIn(), file, sep = ";", row.names = FALSE)
-        }
-      )
-      
-      output$download_as_RData_btn <- downloadHandler(
-        filename = function() {
-          paste ("data-", Sys.Date(), ".RData", sep = "")
-        },
-        content = function(fname) {
-          saveRDS(dataIn(), file=fname)
-        }
-      )
-      
-      output$download_as_Excel_btn <- downloadHandler(
-        filename = function() {
-          paste(name(), "-", Sys.Date(), ".xlsx", sep = "")
-        },
-        content = function(file) {
-          fname <- paste("temp", Sys.Date(), ".xlsx", sep = "")
-          write.excel(
-            df = dataIn(),
-            colors = colors(),
-            tags = tags(),
-            filename = fname
-          )
-          
-          file.rename(fname, file)
-        }
-      )
-    }
-  )
+download_btns_server <- function(
+        id,
+        dataIn = reactive({
+            NULL
+        }),
+        name,
+        colors = reactive({
+            NULL
+        }),
+        tags = reactive({
+            NULL
+        })) {
+    moduleServer(id, function(input, output, session) {
+        ns <- session$ns
+
+        output$download_as_csv_btn <- downloadHandler(
+            filename = function() {
+                paste(name(), "-", Sys.Date(), ".csv", sep = "")
+            },
+            content = function(file) {
+                write.table(dataIn(), file, sep = ";", row.names = FALSE)
+            }
+        )
+
+        output$download_as_RData_btn <- downloadHandler(
+            filename = function() {
+                paste("data-", Sys.Date(), ".RData", sep = "")
+            },
+            content = function(fname) {
+                saveRDS(dataIn(), file = fname)
+            }
+        )
+
+        output$download_as_Excel_btn <- downloadHandler(
+            filename = function() {
+                paste(name(), "-", Sys.Date(), ".xlsx", sep = "")
+            },
+            content = function(file) {
+                fname <- paste("temp", Sys.Date(), ".xlsx", sep = "")
+                write.excel(
+                    df = dataIn(),
+                    colors = colors(),
+                    tags = tags(),
+                    filename = fname
+                )
+
+                file.rename(fname, file)
+            }
+        )
+    })
 }
 
 
 #' @export
 #' @rdname download_btns
-#' 
-download_btns <- function(dataIn){
-ui <- fluidPage(
-  download_btns_ui(id = 'ex', 
-    settings = list(actionBtnClass = actionBtnClass))
-)
+#'
+download_btns <- function(dataIn) {
+    ui <- fluidPage(
+        download_btns_ui(
+            id = "ex",
+            settings = list(actionBtnClass = actionBtnClass)
+        )
+    )
 
-server <- function(input, output) {
-  
-  download_btns_server(id = "ex",
-    dataIn = reactive({dataIn}),
-    name = reactive({"myTest"}),
-    colors = reactive({NULL}),
-    tags = reactive({NULL
-                      })
-  )
-}
+    server <- function(input, output) {
+        download_btns_server(
+            id = "ex",
+            dataIn = reactive({
+                dataIn
+            }),
+            name = reactive({
+                "myTest"
+            }),
+            colors = reactive({
+                NULL
+            }),
+            tags = reactive({
+                NULL
+            })
+        )
+    }
 
-shinyApp(ui, server)
+    shinyApp(ui, server)
 }

@@ -12,7 +12,7 @@ GetStringStatus(i, title.style = FALSE)
 \item{title.style}{xxx}
 }
 \value{
-xxx
+NA
 }
 \description{
 Converts status code (intefer) into a readable string.

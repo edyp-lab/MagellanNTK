@@ -1,7 +1,7 @@
 #' @title Timelines
-#' 
+#'
 #' @description xxx
-#' 
+#'
 #' @param ns xxx
 #' @param sidebar xxx
 #' @param content xxx
@@ -13,20 +13,20 @@
 #' @return NA
 #' @export
 #'
-process_layout <- function(ns, sidebar, content){
-  #shinybrowser::detect()
-  div(
+process_layout <- function(ns, sidebar, content) {
+    # shinybrowser::detect()
     div(
-      sidebar
-    ),
-
-    absolutePanel(
-      style = paste0(
-        "position: absolute; ",
-        "width: ", default.layout$width_process_content, ";}"),
-      top = default.layout$top_process_content,
-      left = default.layout$left_process_content,
-      content
+        div(
+            sidebar
+        ),
+        absolutePanel(
+            style = paste0(
+                "position: absolute; ",
+                "width: ", default.layout$width_process_content, ";}"
+            ),
+            top = default.layout$top_process_content,
+            left = default.layout$left_process_content,
+            content
+        )
     )
-  )
 }

@@ -38,7 +38,7 @@ A shiny Module.
 data(sub_R25)
 shiny::runApp(build_report(sub_R25))
 
-shiny::runApp(build_report(sub_R25, filename = 'myDataset'))
+shiny::runApp(build_report(sub_R25, filename = "myDataset"))
 }
 
 }

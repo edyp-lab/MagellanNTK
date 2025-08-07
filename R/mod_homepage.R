@@ -3,66 +3,67 @@
 #'
 #' @param id shiny id
 #' @param mdfile xxx
-#' 
+#'
 #' @name mod_homepage
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' shiny::runApp(mod_homepage())
 #' }
-#' 
-#' 
+#'
 NULL
 
 
 #' @rdname mod_homepage
-#' @export 
-#' @importFrom shiny NS tagList 
-mod_homepage_ui <- function(id){
-  ns <- NS(id)
-  tagList(
-    insert_md_ui(ns("md_file"))
-  )
+#' @export
+#' @importFrom shiny NS tagList
+mod_homepage_ui <- function(id) {
+    ns <- NS(id)
+    tagList(
+        insert_md_ui(ns("md_file"))
+    )
 }
-    
 
-    
+
+
 #' @rdname mod_homepage
 #' @export
-mod_homepage_server <- function(id,
-  mdfile = file.path(system.file('app/md', 
-    package = 'MagellanNTK'),'Presentation.Rmd')){
-  
-  # mdfile <- file.path(system.file('app/md', 
-  #   package = 'MagellanNTK'),'Presentation.Rmd')
-      
-      
-  moduleServer(id, function(input, output, session){
-    ns <- session$ns
+mod_homepage_server <- function(
+        id,
+        mdfile = file.path(system.file("app/md",
+            package = "MagellanNTK"
+        ), "Presentation.Rmd")) {
+    # mdfile <- file.path(system.file('app/md',
+    #   package = 'MagellanNTK'),'Presentation.Rmd')
 
-    if(file.exists(mdfile))
-      .mdfile <- mdfile
-    else
-      .mdfile <-file.path(system.file('app/md', 
-        package = 'MagellanNTK'),'404.Rmd')
-    
-    insert_md_server("md_file", normalizePath(.mdfile))
-  })
 
+    moduleServer(id, function(input, output, session) {
+        ns <- session$ns
+
+        if (file.exists(mdfile)) {
+            .mdfile <- mdfile
+        } else {
+            .mdfile <- file.path(system.file("app/md",
+                package = "MagellanNTK"
+            ), "404.Rmd")
+        }
+
+        insert_md_server("md_file", normalizePath(.mdfile))
+    })
 }
 
 
 #' @export
 #' @rdname mod_homepage
 #' @importFrom shiny fluidPage shinyApp
-#' 
-mod_homepage <- function(){
+#'
+mod_homepage <- function() {
     ui <- fluidPage(
         mod_homepage_ui("mod_pkg")
     )
 
     server <- function(input, output, session) {
-      mod_homepage_server("mod_pkg")
+        mod_homepage_server("mod_pkg")
     }
 
     app <- shinyApp(ui, server)

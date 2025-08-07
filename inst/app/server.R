@@ -3,7 +3,7 @@ options(shiny.maxRequestSize=300*1024^2,
         shiny.fullstacktrace = TRUE
         )
 require(compiler)
-enableJIT(3)
+#enableJIT(3)
 
 
 #' The application server-side

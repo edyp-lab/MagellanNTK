@@ -43,16 +43,16 @@ used with MagellanNTK It contains a validity function to ensure
 that the format is correct.
 
 Validity:
-* The first step must be called 'Description', it is a mandatory step. Thus, 
+* The first step must be called 'Description', it is a mandatory step. Thus,
 the first item of the mandatory vector is TRUE.
 To be continued...
 
 ## Initialization
  ### Generic process
- 
+
  A generic process
  * Generic pipeline : xxxx
- * Description pipeline: This case is for a process called 'Description' which is 
+ * Description pipeline: This case is for a process called 'Description' which is
  the first process module of a pipeline
 
 Wrapper function to the constructor of the class
@@ -81,36 +81,36 @@ Wrapper function to the constructor of the class
 
 # Example of a generic process
 generic.proc <- Config(
-  fullname = 'PipelineDemo_Process1',
-  mode = 'process',
-  steps = c('Step 1', 'Step 2'),
-  mandatory = c(TRUE, FALSE)
+    fullname = "PipelineDemo_Process1",
+    mode = "process",
+    steps = c("Step 1", "Step 2"),
+    mandatory = c(TRUE, FALSE)
 )
 
 
 # Example of a generic pipeline
 generic.pipe <- Config(
-  fullname = 'Pipe1_PipelineDemo',
-  mode = 'pipeline',
-  steps = c('Process 1', 'Process 2'),
-  mandatory = c(TRUE, FALSE)
+    fullname = "Pipe1_PipelineDemo",
+    mode = "pipeline",
+    steps = c("Process 1", "Process 2"),
+    mandatory = c(TRUE, FALSE)
 )
 
 # Example of a root pipeline (process has no parent)
 root.pipe <- Config(
-  mode = 'pipeline',
-  fullname = 'PipelineDemo',
-  steps = c('Process1', 'P-rocess2 bis', 'Process3'),
-  mandatory = c(FALSE, FALSE, TRUE)
+    mode = "pipeline",
+    fullname = "PipelineDemo",
+    steps = c("Process1", "P-rocess2 bis", "Process3"),
+    mandatory = c(FALSE, FALSE, TRUE)
 )
 
 
 # Example of a description module (process has no steps)
 description.process <- Config(
-  fullname = 'PipelineDemo_Description',
-  mode = 'process',
-  steps = '',
-  mandatory = ''
+    fullname = "PipelineDemo_Description",
+    mode = "process",
+    steps = "",
+    mandatory = ""
 )
 
 

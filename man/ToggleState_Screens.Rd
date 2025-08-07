@@ -16,7 +16,7 @@ ToggleState_Screens(cond, range, is.enabled, rv)
 \item{rv}{xxx}
 }
 \value{
-xxx
+NA
 }
 \description{
 Updates the status of steps in range

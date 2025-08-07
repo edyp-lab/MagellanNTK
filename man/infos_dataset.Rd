@@ -27,8 +27,8 @@ A shiny Module.
 }
 \examples{
 \dontrun{
-  data(lldata)
-  shiny::runApp(infos_dataset(lldata))
+data(lldata)
+shiny::runApp(infos_dataset(lldata))
 }
 
 }

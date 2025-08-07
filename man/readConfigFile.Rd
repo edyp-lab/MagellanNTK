@@ -16,7 +16,7 @@ xxx
 }
 \examples{
 \dontrun{
-path <- system.file("workflow/PipelineDemo", package = 'MagellanNTK')
+path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
 readConfigFile(path)
 }
 

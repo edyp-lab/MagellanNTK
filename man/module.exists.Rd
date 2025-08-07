@@ -13,6 +13,6 @@ module.exists(base_name)
 A boolean
 }
 \description{
-This function checks if the ui() and server() parts of a 
+This function checks if the ui() and server() parts of a
 Shiny module are available in the global environment.
 }

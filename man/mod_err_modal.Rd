@@ -32,7 +32,7 @@ xxx
 }
 \examples{
 \dontrun{
-shiny::runApp(mod_errorModal('myTitle', 'myContent'))
+shiny::runApp(mod_errorModal("myTitle", "myContent"))
 }
 
 }

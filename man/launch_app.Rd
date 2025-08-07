@@ -7,7 +7,7 @@
 launch_app(mode = "user")
 }
 \arguments{
-\item{mode}{A  `character(1)` which indicates xxxx. Available values are: 
+\item{mode}{A  `character(1)` which indicates xxxx. Available values are:
 'user' (default) and 'dev'.}
 }
 \description{

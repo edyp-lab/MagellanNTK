@@ -12,8 +12,13 @@ All_Skipped_tag(steps.status, tag)
 \item{tag}{xxx}
 }
 \value{
-xxx
+NA
 }
 \description{
 xxx
+}
+\examples{
+NULL
+
+
 }

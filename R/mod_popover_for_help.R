@@ -9,67 +9,65 @@
 #'
 #' @examples
 #' \dontrun{
-#' shiny::runApp(popover_for_help('myTitle', 'myContent'))
+#' shiny::runApp(popover_for_help("myTitle", "myContent"))
 #' }
-#' 
+#'
 NULL
 
 
 #' @rdname mod_popover_for_help
 #'
-#' @export 
+#' @export
 #' @importFrom shiny NS tagList div uiOutput
 #' @importFrom shinyjs inlineCSS useShinyjs
-#' 
-mod_popover_for_help_ui <- function(id){
-  ns <- NS(id)
-  tagList(
-    shinyjs::useShinyjs(),
-    shinyjs::inlineCSS(pop_css),
-    div(
-      div(
-        # edit1
-        style="display:inline-block; vertical-align: middle; padding-bottom: 5px;",
-        uiOutput(ns("write_title_ui"))
-      ),
-      div(style="display:inline-block; vertical-align: middle;padding-bottom: 5px;",
-          uiOutput(ns("dot")),
-          uiOutput(ns("show_Pop"))
-      )
+#'
+mod_popover_for_help_ui <- function(id) {
+    ns <- NS(id)
+    tagList(
+        shinyjs::useShinyjs(),
+        shinyjs::inlineCSS(pop_css),
+        div(
+            div(
+                # edit1
+                style = "display:inline-block; vertical-align: middle; padding-bottom: 5px;",
+                uiOutput(ns("write_title_ui"))
+            ),
+            div(
+                style = "display:inline-block; vertical-align: middle;padding-bottom: 5px;",
+                uiOutput(ns("dot")),
+                uiOutput(ns("show_Pop"))
+            )
+        )
     )
-  )
 }
 
 
 
 #' @rdname mod_popover_for_help
-#' 
+#'
 #' @export
-#' 
-#' 
+#'
+#'
 #' @importFrom shinyBS bsPopover addPopover bsTooltip
 #' @importFrom shiny renderUI req moduleServer
-#' 
-mod_popover_for_help_server <- function(id, title, content){
-  
-  
-  moduleServer(id, function(input, output, session){
-    ns <- session$ns
-    
-    output$write_title_ui <- renderUI({
-      HTML(paste0("<strong><font size=\"4\">", title, "</font></strong>"))
+#'
+mod_popover_for_help_server <- function(id, title, content) {
+    moduleServer(id, function(input, output, session) {
+        ns <- session$ns
+
+        output$write_title_ui <- renderUI({
+            HTML(paste0("<strong><font size=\"4\">", title, "</font></strong>"))
+        })
+
+        output$dot <- renderUI({
+            tags$button(tags$sup("[?]"), class = "custom_tooltip")
+        })
+
+        output$show_Pop <- renderUI({
+            req(content)
+            shinyBS::bsTooltip(ns("dot"), content, trigger = "hover")
+        })
     })
-    
-    output$dot <- renderUI({
-      tags$button(tags$sup("[?]"), class="custom_tooltip")
-    })
-    
-    output$show_Pop <- renderUI({
-      req(content)
-      shinyBS::bsTooltip(ns("dot"), content, trigger = "hover")
-    })
-  })
-  
 }
 
 
@@ -117,26 +115,27 @@ button.Prostar_tooltip_white {
     position: absolute;
     left: 5px;
     top: 5px;
-    
+
 }"
 
 
 #' @rdname mod_popover_for_help
-#' 
+#'
 #' @export
 #' @importFrom shiny fluidPage tagList textOutput reactiveValues observeEvent
 #' shinyApp
-#' 
-popover_for_help <- function(title, content){
-  ui <- fluidPage(
-    mod_popover_for_help_ui("settings")
-  )
-  
-  server <- function(input, output, session) {
-    mod_popover_for_help_server("settings",
-      title = title,
-      content = content)
-  }
-  
-  app <- shiny::shinyApp(ui, server)
+#'
+popover_for_help <- function(title, content) {
+    ui <- fluidPage(
+        mod_popover_for_help_ui("settings")
+    )
+
+    server <- function(input, output, session) {
+        mod_popover_for_help_server("settings",
+            title = title,
+            content = content
+        )
+    }
+
+    app <- shiny::shinyApp(ui, server)
 }

@@ -9,7 +9,7 @@ LoadCode(name, path, recursive = FALSE)
 \arguments{
 \item{name}{A `character()` to indicate the name of the workflow. It can be
 either a single string (which represents a workflow without a parent) or two
-strings separated by '_' (in that case, it is a workflow with a parent 
+strings separated by '_' (in that case, it is a workflow with a parent
 workflow).}
 
 \item{path}{A `character()` to indicate the directory where to find the source

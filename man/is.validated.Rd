@@ -15,5 +15,4 @@ xxx
 \examples{
 NULL
 
-
 }

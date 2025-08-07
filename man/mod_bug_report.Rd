@@ -24,5 +24,4 @@ A shiny Module.
 shiny::runApp(bug_report())
 }
 
-
 }

@@ -40,13 +40,13 @@
 #'     "RdYlGn (diverging)" ="RdYlGn",
 #'     "Spectral (diverging)"="Spectral")
 #' )
-#' 
-#' 
-#' 
+#'
+#'
+#'
 #' #' @title Default config values
 #' #' @description xxx
 #' #' @export
-#' #' 
+#' #'
 #'   default.funcs<- list(
 #'     convert_dataset = "MagellanNTK::convert_dataset",
 #'     open_dataset = "MagellanNTK::open_dataset",
@@ -54,6 +54,6 @@
 #'     open_demoDataset = "MagellanNTK::open_demoDataset",
 #'     view_dataset = "MagellanNTK::view_dataset",
 #'     infos_dataset = "MagellanNTK::infos_dataset")
-#' 
+#'
 #'   default.base.URL <- system.file('app/md', package = 'MagellanNTK')
-#' 
+#'

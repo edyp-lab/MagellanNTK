@@ -31,11 +31,13 @@ chooseDir(show.details = FALSE)
 
 \item{show.details}{xxx}
 }
+\value{
+NA
+}
 \description{
 A shiny Module which xxx
 }
 \examples{
-
 NULL
 
 }

@@ -32,7 +32,7 @@ mod_bsmodal(
 
 \item{title}{A `character(1)`}
 
-\item{width}{A `character(1)` indicating the size of the modal window. Can 
+\item{width}{A `character(1)` indicating the size of the modal window. Can
 be "s" for small (the default), "m" for medium, or "l" for large.}
 
 \item{uiContent}{The content of the modal dialog.}
@@ -51,7 +51,7 @@ be "s" for small (the default), "m" for medium, or "l" for large.}
 A Shiny modal-dialog
 }
 \description{
-Displays of formatted modal-dialog with 'Cancel' and 
+Displays of formatted modal-dialog with 'Cancel' and
 'Ok' buttons.
 }
 \examples{

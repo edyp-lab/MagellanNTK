@@ -32,7 +32,7 @@ nav_process_server(
 nav_process()
 }
 \arguments{
-\item{id}{A `character(1)` which defines the id of the module. 
+\item{id}{A `character(1)` which defines the id of the module.
 It is the same as for the server() function.}
 
 \item{dataIn}{The dataset}
@@ -66,7 +66,7 @@ A list of four items:
 * reset xxxx
 }
 \description{
-The module navigation can be launched via a Shiny app. 
+The module navigation can be launched via a Shiny app.
 This is the core module of MagellanNTK
 }
 \examples{

@@ -1,5 +1,3 @@
-
-
 #' @title xxx
 #'
 #' @description xxx
@@ -8,14 +6,13 @@
 #'
 #' @return NA
 #'
-#' 
+#'
 #' @export
 #'
 Found_Mod_Funcs <- function(id) {
-    
     config.func <- paste0(id, "_conf")
     config.exists <- exists(config.func, envir = .GlobalEnv, mode = "function")
-    
+
     server.func <- paste0(id, "_server")
     server.exists <- exists(server.func, envir = .GlobalEnv, mode = "function")
 
@@ -29,7 +26,7 @@ Found_Mod_Funcs <- function(id) {
     if (!ui.exists) {
         warning(paste0("Cannot find ", ui.func, "()"))
     }
-    
+
     if (!config.exists) {
         warning(paste0("Cannot finnd ", config.exists, "()"))
     }
@@ -50,15 +47,15 @@ Found_Mod_Funcs <- function(id) {
 #'
 #' @author Samuel Wieczorek
 #'
-#' 
+#'
 #' @export
 #'
 CleanSourceCode <- function(file = NULL) {
-    if (is.null(file) || file == ''){
-        warning (paste0("Argument 'file' is incorrect (current value is '", file, "')."))
+    if (is.null(file) || file == "") {
+        warning(paste0("Argument 'file' is incorrect (current value is '", file, "')."))
         return(NULL)
     }
-    
+
     source <- readLines(file)
 
     source <- unlist(lapply(source, function(x) gsub(" ", "", x)))
@@ -88,7 +85,7 @@ CleanSourceCode <- function(file = NULL) {
 #' @param openPos A `integer`
 #'
 #' @return A `integer`
-#' 
+#'
 #' @export
 #'
 FindClosingParenthesis <- function(text, openPos) {

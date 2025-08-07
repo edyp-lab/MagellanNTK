@@ -1,6 +1,3 @@
-
-
-
 #' @title xxx
 #'
 #' @description xxx
@@ -10,7 +7,7 @@
 #' @param config xxx
 #'
 #' @return A `wellPanel`
-#' 
+#'
 #' @export
 #'
 Build_SkippedInfoPanel <- function(steps.status, current.pos, config) {
@@ -23,8 +20,10 @@ Build_SkippedInfoPanel <- function(steps.status, current.pos, config) {
         # pipeline. Thus, it is not necessary to show the info box because
         # it is shown below the timeline of the pipeline
     } else {
-        txt <- paste0("This ", config@mode, 
-            " is skipped so it has been disabled.")
+        txt <- paste0(
+            "This ", config@mode,
+            " is skipped so it has been disabled."
+        )
         wellPanel(
             style = "background-color: #7CC9F0; opacity: 0.72; padding: 0px;
                    align: center; vertical-align: center;",
@@ -57,8 +56,8 @@ Build_SkippedInfoPanel <- function(steps.status, current.pos, config) {
 #'       cat ('Entering Build_EncapsulateScreens_ui()')
 #'       show(config)
 #'     }
-#'       
-#'     
+#'
+#'
 #'     renderUI({
 #'         tagList(
 #'             lapply(seq_len(len), function(i) {
@@ -95,12 +94,12 @@ Build_SkippedInfoPanel <- function(steps.status, current.pos, config) {
 #' @param rv A `list()` which stores reactiveValues()
 #'
 #' @return A `integer(1)`
-#' 
+#'
 #' @export
 #'
 GetMaxValidated_BeforePos <- function(
-    pos = NULL,
-    rv) {
+        pos = NULL,
+        rv) {
     if (is.null(pos)) {
         pos <- rv$current.pos
     }
@@ -126,7 +125,7 @@ GetMaxValidated_BeforePos <- function(
 #' The length of this vector is the same of the number of steps.
 #'
 #' @return A `integer(1)`
-#' 
+#'
 #' @export
 #'
 GetMaxValidated_AllSteps <- function(steps.status) {
@@ -150,24 +149,23 @@ GetMaxValidated_AllSteps <- function(steps.status) {
 #' @param is.enabled xxx
 #' @param rv xxx
 #'
-#' @return xxx
+#' @return NA
 #'
 #' @export
-#' 
+#'
 ToggleState_Screens <- function(cond,
-                                range,
-                                is.enabled,
-                                rv) {
-
-    #print(rv$steps.status[range])
+    range,
+    is.enabled,
+    rv) {
+    # print(rv$steps.status[range])
     if (isTRUE(is.enabled)) {
-        #rv$steps.enabled[range] <- rep(cond, length(range)) && 
+        # rv$steps.enabled[range] <- rep(cond, length(range)) &&
         #    !(rv$steps.status[range] == SKIPPED)
         rv$steps.enabled[range] <- unlist(
-            lapply(range, function(x) 
-                    cond && !(rv$steps.status[x] == stepStatus$SKIPPED)
-                )
-            )
+            lapply(range, function(x) {
+                cond && !(rv$steps.status[x] == stepStatus$SKIPPED)
+            })
+        )
     }
 
     return(rv$steps.enabled)
@@ -182,7 +180,7 @@ ToggleState_Screens <- function(cond,
 #'
 #' @param title.style xxx
 #'
-#' @return xxx
+#' @return NA
 #' @export
 #'
 GetStringStatus <- function(i, title.style = FALSE) {
@@ -230,15 +228,15 @@ NavPage <- function(direction, current.pos, len) {
 #' @param mode xxx
 #'
 #' @return A tag div for ui
-#' 
-#' 
+#'
+#'
 #' @export
 #'
 dataModal <- function(ns, mode) {
-    # Used to show an explanation for the reset feature whether the navigation 
+    # Used to show an explanation for the reset feature whether the navigation
     # mode is 'process' nor 'pipeline'.
-    template_reset_modal_txt <- "This action will reset this mode. The input 
-    dataset will be the output of the last previous validated process and all 
+    template_reset_modal_txt <- "This action will reset this mode. The input
+    dataset will be the output of the last previous validated process and all
     further datasets will be removed"
 
     tags$div(
@@ -262,9 +260,9 @@ dataModal <- function(ns, mode) {
 #'
 #' @param steps.status xxx
 #'
-#' @return xxx
-#' 
-#' 
+#' @return NA
+#'
+#'
 #' @export
 #'
 Discover_Skipped_Steps <- function(steps.status) {
@@ -288,8 +286,12 @@ Discover_Skipped_Steps <- function(steps.status) {
 #' @param steps.status xxx
 #' @param tag xxx
 #'
-#' @return xxx
+#' @return NA
 #' 
+#' @examples
+#' NULL
+#' 
+#'
 #' @export
 #'
 All_Skipped_tag <- function(steps.status, tag) {
@@ -305,12 +307,14 @@ All_Skipped_tag <- function(steps.status, tag) {
 #' @param range xxx
 #' @param rv xxx
 #'
-#' @return xxx
+#' @return NA
+#' @examples
+#' NULL
 #' 
 #' @export
 #'
 GetFirstMandatoryNotValidated <- function(range, rv) {
-  .ind <- NULL
+    .ind <- NULL
     first <- NULL
     first <- unlist((lapply(
         range,
@@ -318,9 +322,9 @@ GetFirstMandatoryNotValidated <- function(range, rv) {
             rv$config@mandatory[x] && !rv$steps.status[x]
         }
     )))
-    
-    if (sum(first) > 0){
-      .ind <- min(which(first))
+
+    if (sum(first) > 0) {
+        .ind <- min(which(first))
     }
 
     return(.ind)
@@ -338,29 +342,33 @@ GetFirstMandatoryNotValidated <- function(range, rv) {
 #' @param is.enabled xxx
 #' @param rv xxx
 #' @return NA
-#' 
 #'
+#' @examples
+#' NULL
 #' @export
 #'
 Update_State_Screens <- function(is.skipped,
-                                 is.enabled,
-                                 rv) {
+    is.enabled,
+    rv) {
     len <- length(rv$steps.status)
 
     if (isTRUE(is.skipped)) {
-        steps.enabled <- ToggleState_Screens(cond = FALSE,
-                                             range = seq_len(len),
-                                             is.enabled = is.enabled,
-                                             rv = rv)
+        steps.enabled <- ToggleState_Screens(
+            cond = FALSE,
+            range = seq_len(len),
+            is.enabled = is.enabled,
+            rv = rv
+        )
     } else {
-
         # Ensure that all steps before the last validated one are disabled
         ind.max <- GetMaxValidated_AllSteps(rv$steps.status)
         if (ind.max > 0) {
-            steps.enabled <- ToggleState_Screens(cond = FALSE,
-                                                 range = seq_len(ind.max),
-                                                 is.enabled = is.enabled,
-                                                 rv = rv)
+            steps.enabled <- ToggleState_Screens(
+                cond = FALSE,
+                range = seq_len(ind.max),
+                is.enabled = is.enabled,
+                rv = rv
+            )
         }
 
         if (ind.max < len) {
@@ -413,12 +421,12 @@ Update_State_Screens <- function(is.skipped,
 #' @param nSteps xxx
 #'
 #' @return NA
-#' 
-#' 
+#'
+#' @examples
+#' NULL
 #' @export
 #'
 ToggleState_NavBtns <- function(current.pos, nSteps) {
-
     # If the cursor is not on the first position, show the 'prevBtn'
     shinyjs::toggleState(id = "prevBtn", condition = current.pos != 1)
 
@@ -434,9 +442,11 @@ ToggleState_NavBtns <- function(current.pos, nSteps) {
 #' @param cond xxx
 #'
 #' @return NA
-#' 
-#' @export
 #'
+#' @export
+#' @examples
+#' NULL
+#' 
 ToggleState_ResetBtn <- function(cond) {
     shinyjs::toggleState("rstBtn", condition = cond)
 }

@@ -164,7 +164,7 @@ This function generates dynamically the observeEvent function for each widget
 #' @param add.code Add additional code
 #'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
 #'
 #' @return NA
@@ -176,16 +176,16 @@ observeEvent(req(remoteReset()), ignoreInit = FALSE, ignoreNULL = TRUE,{
       lapply(names(rv.widgets), function(x){
           rv.widgets[[x]] <- widgets.default.values[[x]]
         })
-        
+
             lapply(names(rv.custom), function(x){
         rv.custom[[x]] <- rv.custom.default.values[[x]]
     })
-    
+
     rv$dataIn <- NULL
     "
   code <- paste0(code, add.code, "})")
 
-  
+
   code
 }
 #' @title Code for declaring xxx
@@ -193,7 +193,7 @@ observeEvent(req(remoteReset()), ignoreInit = FALSE, ignoreNULL = TRUE,{
 #' @description xxx
 #'
 #' @export
-#' 
+#'
 #' @rdname insertCodeForExternalModules
 #'
 #' @return NA
@@ -205,16 +205,16 @@ observeEvent(req(remoteReset() >=1), ignoreInit = TRUE, ignoreNULL = TRUE,{
       lapply(names(rv.widgets), function(x){
           rv.widgets[[x]] <- widgets.default.values[[x]]
         })
-        
+
             lapply(names(rv.custom), function(x){
         rv.custom[[x]] <- rv.custom.default.values[[x]]
     })
-    
+
     rv$dataIn <- NULL
 })
 
 "
-  
+
   code
 }
 }

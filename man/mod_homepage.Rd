@@ -28,5 +28,4 @@ A shiny Module.
 shiny::runApp(mod_homepage())
 }
 
-
 }

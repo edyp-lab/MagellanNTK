@@ -17,5 +17,4 @@ Get filtered datasets
 \examples{
 foo1 <- GetListDatasets()
 
-
 }

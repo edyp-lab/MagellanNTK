@@ -39,7 +39,7 @@ mod_modalDialog(
 
 \item{classWidget}{= NULL}
 
-\item{width}{A `character(1)` indicating the size of the modal window. Can 
+\item{width}{A `character(1)` indicating the size of the modal window. Can
 be "s" for small (the default), "m" for medium, or "l" for large.}
 
 \item{uiContent}{The content of the modal dialog.}
@@ -52,7 +52,7 @@ be "s" for small (the default), "m" for medium, or "l" for large.}
 A Shiny modal-dialog
 }
 \description{
-Displays of formatted modal-dialog with 'Cancel' and 
+Displays of formatted modal-dialog with 'Cancel' and
 'Ok' buttons.
 }
 \examples{
@@ -72,30 +72,32 @@ shiny::runApp(mod_modalDialog(title = "test modalDialog", uiContent = p("test"))
 ##
 ########################################################
 
-simple_mod_ui <- function(id){
-# create the namespace from the id
-ns <- NS(id)
-fluidPage(
-actionButton(ns("test"), "Test")
-)
+simple_mod_ui <- function(id) {
+    # create the namespace from the id
+    ns <- NS(id)
+    fluidPage(
+        actionButton(ns("test"), "Test")
+    )
 }
 
 
-simple_mod_server <- function(id){ #height auto
-  
-  moduleServer(id, function(input, output, session){
-    ns <- session$ns
-    
-    # reactiveValues object for storing current data set.
-    dataOut <- reactiveVal(NULL)
-    
-    observeEvent(input$test, {
-      dataOut(paste0('Clicked ', input$test, ' times.'))
+simple_mod_server <- function(id) { # height auto
+
+    moduleServer(id, function(input, output, session) {
+        ns <- session$ns
+
+        # reactiveValues object for storing current data set.
+        dataOut <- reactiveVal(NULL)
+
+        observeEvent(input$test, {
+            dataOut(paste0("Clicked ", input$test, " times."))
+        })
+
+
+        return(reactive({
+            dataOut()
+        }))
     })
-    
-    
-    return(reactive({dataOut()}))
-  })
 }
 
 
@@ -108,21 +110,24 @@ shiny::runApp(mod_modalDialog(title = "test modalDialog", uiContent = p("test"))
 ##
 ########################################################
 
-funcs <- list(convert_dataset = "DaparToolshed::convert_dataset",
-open_dataset = "MagellanNTK::open_dataset",
-open_demoDataset = "MagellanNTK::open_demoDataset",
-infos_dataset = "MagellanNTK::infos_dataset",
-export_dataset = "MagellanNTK::export_dataset",
-addDatasets = "MagellanNTK::addDatasets",
-keepDatasets = "MagellanNTK::keepDatasets"
+funcs <- list(
+    convert_dataset = "DaparToolshed::convert_dataset",
+    open_dataset = "MagellanNTK::open_dataset",
+    open_demoDataset = "MagellanNTK::open_demoDataset",
+    infos_dataset = "MagellanNTK::infos_dataset",
+    export_dataset = "MagellanNTK::export_dataset",
+    addDatasets = "MagellanNTK::addDatasets",
+    keepDatasets = "MagellanNTK::keepDatasets"
 )
 
 
 shiny::runApp(
-mod_modalDialog(
-title = "test modalDialog",
-external_mod = 'mod_load_package',
-external_mod_args = list(funcs = funcs)))
+    mod_modalDialog(
+        title = "test modalDialog",
+        external_mod = "mod_load_package",
+        external_mod_args = list(funcs = funcs)
+    )
+)
 }
 
 }

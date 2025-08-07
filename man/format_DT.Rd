@@ -80,14 +80,15 @@ shiny::runApp(format_DT(obj))
 #
 # Compute style from within main tab
 #
-data(Exp1_R25_prot, package = 'DaparToolshedData')
+data(Exp1_R25_prot, package = "DaparToolshedData")
 obj <- data.frame(colData(Exp1_R25_prot))
 
 style <- list(
-  cols = colnames(obj),
-  vals = colnames(obj)[2],
-  unique = unique(obj$Condition),
-  pal = RColorBrewer::brewer.pal(3,'Dark2')[1:2])
+    cols = colnames(obj),
+    vals = colnames(obj)[2],
+    unique = unique(obj$Condition),
+    pal = RColorBrewer::brewer.pal(3, "Dark2")[1:2]
+)
 shiny::runApp(format_DT(obj, hc_style = style))
 
 
@@ -95,23 +96,23 @@ shiny::runApp(format_DT(obj, hc_style = style))
 #
 # Compute style from within third party tab
 #
-obj <- as.data.frame(matrix(1:30, byrow=TRUE, nrow=6))
-colnames(obj) <- paste0('col', 1:5)
+obj <- as.data.frame(matrix(1:30, byrow = TRUE, nrow = 6))
+colnames(obj) <- paste0("col", 1:5)
 
-mask <- as.data.frame(matrix(rep(LETTERS[1:5], 6), byrow=TRUE, nrow=6))
+mask <- as.data.frame(matrix(rep(LETTERS[1:5], 6), byrow = TRUE, nrow = 6))
 
 
 style <- list(
-  cols = colnames(obj),
-  vals = colnames(mask),
-  unique = unique(mask),
-  pal = RColorBrewer::brewer.pal(5,'Dark2')[1:5]
+    cols = colnames(obj),
+    vals = colnames(mask),
+    unique = unique(mask),
+    pal = RColorBrewer::brewer.pal(5, "Dark2")[1:5]
 )
 
-shiny::runApp(format_DT(obj, 
-  hidden = mask,
-  hc_style = style))
-
+shiny::runApp(format_DT(obj,
+    hidden = mask,
+    hc_style = style
+))
 }
 
 }

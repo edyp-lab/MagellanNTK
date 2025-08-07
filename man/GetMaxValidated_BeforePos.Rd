@@ -38,8 +38,8 @@ Build_EncapsulateScreens_ui <- function(ns, id, config) {
       cat ('Entering Build_EncapsulateScreens_ui()')
       show(config)
     }
-      
-    
+
+
     renderUI({
         tagList(
             lapply(seq_len(len), function(i) {

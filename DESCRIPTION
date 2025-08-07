@@ -53,16 +53,13 @@ Imports:
     tidyverse,
     dplyr,
     stringr,
-    waiter
-Remotes:
-    git::https://github.com/edyp-lab/DaparToolshedData,
-    git::https://github.com/edyp-lab/omXplore
+    waiter,
+    omXplore
 Suggests: 
     rmarkdown, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
     gtools, XML, R.utils, RColorBrewer, MultiAssayExperiment
 Collate: 
     MagellanNTK.R
-    app.R
     settings.R
     process_layout.R
     default_funcs.R

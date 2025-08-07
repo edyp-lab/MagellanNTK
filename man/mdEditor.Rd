@@ -21,7 +21,7 @@ A Shiny modal-dialog
 A Shiny modal-dialog
 }
 \description{
-Displays of formatted modal-dialog with 'Cancel' and 
+Displays of formatted modal-dialog with 'Cancel' and
 'Ok' buttons.
 }
 \examples{

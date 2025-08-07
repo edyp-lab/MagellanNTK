@@ -19,6 +19,11 @@ view_dataset(dataIn, ...)
 
 \item{...}{Additional parameters}
 }
+\value{
+NA
+
+NA
+}
 \description{
 A shiny Module.
 }
@@ -27,6 +32,5 @@ A shiny Module.
 data(lldata)
 shiny::runApp(view_dataset(lldata))
 }
-
 
 }

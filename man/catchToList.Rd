@@ -9,6 +9,9 @@ catchToList(expr)
 \arguments{
 \item{expr}{xxx}
 }
+\value{
+NA
+}
 \description{
 xxx
 }

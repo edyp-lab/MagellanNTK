@@ -41,7 +41,7 @@ A shiny Module.
 data(sub_R25)
 shiny::runApp(download_dataset(sub_R25))
 
-shiny::runApp(download_dataset(sub_R25, filename = 'myDataset'))
+shiny::runApp(download_dataset(sub_R25, filename = "myDataset"))
 }
 
 }
