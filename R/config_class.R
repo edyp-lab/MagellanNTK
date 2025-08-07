@@ -72,7 +72,7 @@
 #' generic.pipe
 #' root.pipe
 #' description.process
-#' 
+#'
 #' @return NA
 #'
 NULL

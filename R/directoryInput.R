@@ -1,4 +1,3 @@
-
 #'
 #' @title Choose a Folder Interactively
 #'
@@ -32,7 +31,7 @@
 #'
 #' @examples
 #' NULL
-#' 
+#'
 NULL
 
 
@@ -199,7 +198,7 @@ choose.dir.linux <- function(default = NA, caption = NA) {
 #'
 #' @return
 #' A length one character vector, character NA if 'Cancel' was selected.
-#' 
+#'
 choose.dir.windows <- function(default = NA, caption = NA, useNew = TRUE) {
     if (useNew) {
         ## uses a powershell script rather than the bat version, gives a nicer interface
@@ -254,10 +253,9 @@ choose.dir.windows <- function(default = NA, caption = NA, useNew = TRUE) {
 #' @export
 #'
 #' @import htmltools
-#' 
+#'
 #' @examples
 #' NULL
-#' 
 #'
 directoryInput <- function(inputId, label, value = NULL) {
     if (!is.null(value) && !is.na(value)) {
@@ -326,11 +324,11 @@ directoryInput <- function(inputId, label, value = NULL) {
 #' selection dialog is not displayed.
 #'
 #' @export
-#' 
+#'
 #' @return NA
 #' @examples
 #' NULL
-#' 
+#'
 updateDirectoryInput <- function(session, inputId, value = NULL, ...) {
     if (is.null(value)) {
         value <- choose.dir(...)
@@ -353,8 +351,7 @@ updateDirectoryInput <- function(session, inputId, value = NULL, ...) {
 #' @return NA
 #' @examples
 #' NULL
-#' 
-
+#'
 readDirectoryInput <- function(session, inputId) {
     session$input[[sprintf("%s__chosen_dir", inputId)]]
 }
@@ -371,10 +368,10 @@ readDirectoryInput <- function(session, inputId) {
 #' how this is accomplished.
 #'
 #' @examples
-#' if(interacttive()){
-#' shiny::runApp(runDirinputExample())
+#' if (interacttive()) {
+#'     shiny::runApp(runDirinputExample())
 #' }
-#' 
+#'
 #' @return NA
 #'
 #' @export

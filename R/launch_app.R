@@ -6,10 +6,10 @@
 #' 'user' (default) and 'dev'.
 #'
 #' @export
-#' 
+#'
 #' @examples
 #' NULL
-#' 
+#'
 #' @return NA
 #'
 launch_app <- function(mode = "user") {

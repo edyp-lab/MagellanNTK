@@ -5,9 +5,9 @@
 #' @param id xxx
 #'
 #' @name DynamicWidgets
-#' 
+#'
 #' @return NA
-#' 
+#'
 #' @examples
 #' NULL
 #'

@@ -8,8 +8,8 @@
 #'
 #'
 #' @examples
-#' if (interactive()){
-#' shiny::runApp(convert_dataset())
+#' if (interactive()) {
+#'     shiny::runApp(convert_dataset())
 #' }
 #'
 #' @return A list

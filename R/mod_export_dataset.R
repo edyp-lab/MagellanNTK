@@ -9,9 +9,9 @@
 #' @name mod_export_dataset
 #'
 #' @examples
-#' if (interactive()){
-#' data(lldata)
-#' shiny::runApp(export_dataset(lldata))
+#' if (interactive()) {
+#'     data(lldata)
+#'     shiny::runApp(export_dataset(lldata))
 #' }
 #'
 #' @return A list

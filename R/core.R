@@ -38,8 +38,8 @@
 #' * reset xxxx
 #'
 #' @examples
-#' if (interactive()){
-#' shiny::runApp(nav())
+#' if (interactive()) {
+#'     shiny::runApp(nav())
 #' }
 #'
 #' @name nav

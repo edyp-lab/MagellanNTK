@@ -19,8 +19,8 @@
 #' @param is.enabled A `logical(1)` xxxx
 #'
 #' @examples
-#' if (interactive()){
-#' shiny::runApp(Debug_Infos(sub_R25))
+#' if (interactive()) {
+#'     shiny::runApp(Debug_Infos(sub_R25))
 #' }
 #'
 #' @author Samuel Wieczorek

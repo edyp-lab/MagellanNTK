@@ -7,10 +7,10 @@
 #' @name mod_bug_report
 #'
 #' @examples
-#' if (interactive()){
-#' shiny::runApp(bug_report())
+#' if (interactive()) {
+#'     shiny::runApp(bug_report())
 #' }
-#' 
+#'
 #' @return NA
 #'
 NULL

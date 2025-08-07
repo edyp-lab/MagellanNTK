@@ -7,10 +7,10 @@
 #' @name mod_homepage
 #'
 #' @examples
-#' if (interactive()){
-#' shiny::runApp(mod_homepage())
+#' if (interactive()) {
+#'     shiny::runApp(mod_homepage())
 #' }
-#' 
+#'
 #' @return NA
 #'
 NULL

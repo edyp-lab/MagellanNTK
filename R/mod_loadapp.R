@@ -26,9 +26,9 @@
 #' chosen.
 #'
 #' @examples
-#' if (interactive()){
-#' app <- loadApp()
-#' shiny::runApp(app)
+#' if (interactive()) {
+#'     app <- loadApp()
+#'     shiny::runApp(app)
 #' }
 #'
 NULL

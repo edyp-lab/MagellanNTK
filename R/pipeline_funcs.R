@@ -27,11 +27,9 @@
 #' @export
 #'
 #' @return NA
-#' 
+#'
 #' @examples
 #' NULL
-#' 
-#'
 #'
 ActionOn_Child_Changed <- function(
         temp.dataIn,
@@ -216,7 +214,6 @@ ResetChildren <- function(range, resetChildren) {
 #' @return NA
 #' @examples
 #' NULL
-#' 
 #'
 Update_Data2send_Vector <- function(rv, keepdataset_func) {
     # One only update the current position because the vector has been entirely

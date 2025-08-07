@@ -39,7 +39,7 @@ call.func <- function(fname, args) {
 #' @param id xxx
 #' @param num xxx
 #' @export
-#' 
+#'
 #' @examples
 #' NULL
 #' @return NA
@@ -58,7 +58,7 @@ shinyValue <- function(id, num) {
 #' @param num xxx
 #' @param ... xxx
 #' @export
-#' 
+#'
 #' @examples
 #' NULL
 #' @return NA
@@ -176,7 +176,7 @@ initComplete <- function() {
 #'
 #' @examples
 #' GetExtension("foo.xlsx")
-#' 
+#'
 #' @return The extension of the given filename
 #'
 #'

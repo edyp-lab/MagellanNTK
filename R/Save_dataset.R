@@ -7,11 +7,11 @@
 #' @param data xxx
 #'
 #' @examples
-#' if(interactive()){
-#' data(sub_R25)
-#' shiny::runApp(Save_Dataset(sub_R25))
+#' if (interactive()) {
+#'     data(sub_R25)
+#'     shiny::runApp(Save_Dataset(sub_R25))
 #' }
-#' 
+#'
 #' @return NA
 #'
 NULL

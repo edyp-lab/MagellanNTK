@@ -73,12 +73,11 @@ mod_load_workflow_ui <- function(id) {
 #'
 #' @export
 #'
-mod_load_workflow_server <- function(
-        id,
-        path = reactive({
-            NULL
-        }),
-        usermod = "user") {
+mod_load_workflow_server <- function(id,
+    path = reactive({
+        NULL
+    }),
+    usermod = "user") {
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
@@ -247,13 +246,14 @@ mod_load_workflow_server <- function(
         observeEvent(input$loadPlugin, {
             # Loading source files
 
-            #library(rv$package, character.only = TRUE)
-          call.func('library', 
-            list(
-              package = rv$package,
-              character.only = TRUE
+            # library(rv$package, character.only = TRUE)
+            call.func(
+                "library",
+                list(
+                    package = rv$package,
+                    character.only = TRUE
+                )
             )
-          )
             dataOut$package <- rv$package
             dataOut$workflow <- rv$workflow
         })

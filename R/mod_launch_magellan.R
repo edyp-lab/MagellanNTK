@@ -5,14 +5,14 @@
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
 #' @examples
-#' if(interactive()){
-#' shiny::runApp(mod_launch_magellan())
+#' if (interactive()) {
+#'     shiny::runApp(mod_launch_magellan())
 #' }
 #'
 #' @name mod_launch_magellan
 #'
 #' @importFrom shiny NS tagList
-#' 
+#'
 #' @return NA
 NULL
 
@@ -21,7 +21,7 @@ NULL
 #'
 #' @rdname mod_launch_magellan
 #' @export
-#' 
+#'
 mod_launch_magellan_ui <- function(id) {
     ns <- NS(id)
     tagList(

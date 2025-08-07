@@ -37,9 +37,9 @@
 #' * reset xxxx
 #'
 #' @examples
-#' if (interactive()){
-#' library(shiny)
-#' nav_pipeline()
+#' if (interactive()) {
+#'     library(shiny)
+#'     nav_pipeline()
 #' }
 #'
 #' @name nav_pipeline

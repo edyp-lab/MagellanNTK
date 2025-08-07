@@ -8,10 +8,10 @@
 #' @name mod_popover_for_help
 #'
 #' @examples
-#' if(interactive()){
-#' shiny::runApp(popover_for_help("myTitle", "myContent"))
+#' if (interactive()) {
+#'     shiny::runApp(popover_for_help("myTitle", "myContent"))
 #' }
-#' 
+#'
 #' @return NA
 #'
 NULL

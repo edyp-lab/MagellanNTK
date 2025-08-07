@@ -39,8 +39,8 @@
 #' * reset xxxx
 #'
 #' @examples
-#' if (interactive()){
-#' nav_process()
+#' if (interactive()) {
+#'     nav_process()
 #' }
 #'
 #' @name nav_process

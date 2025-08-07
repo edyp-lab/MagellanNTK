@@ -4,9 +4,9 @@
 #'
 #' @examples
 #' NULL
-#' 
+#'
 #' @return NA
-#' 
+#'
 NULL
 
 
@@ -15,96 +15,95 @@ NULL
 
 #' @rdname sidebars
 #' @export
-Insert_Dev_Sidebar <- function(){
-
-  sidebarMenu(
-    id = "sidebarmenu",
-    menuItem(
-      "Item 1",
-      tabName = "item1",
-      icon = icon("sliders")
-    ),
-    menuItem(
-      "Item 2",
-      tabName = "item2",
-      icon = icon("id-card"),
-      menuSubItem(
-        text = 'toto1',
-        tabName = 'titi1'
-      ),
-      menuSubItem(
-        text = 'toto2',
-        tabName = 'titi2'
-      )
+Insert_Dev_Sidebar <- function() {
+    sidebarMenu(
+        id = "sidebarmenu",
+        menuItem(
+            "Item 1",
+            tabName = "item1",
+            icon = icon("sliders")
+        ),
+        menuItem(
+            "Item 2",
+            tabName = "item2",
+            icon = icon("id-card"),
+            menuSubItem(
+                text = "toto1",
+                tabName = "titi1"
+            ),
+            menuSubItem(
+                text = "toto2",
+                tabName = "titi2"
+            )
+        )
     )
-  )
 
 
-  # sidebarMenu(id = "sb_dev",
-  #   #tags$style(".sidebar-menu li a { height: 40px; color: grey;}"),
-  #   minified = TRUE, collapsed = TRUE,
-  #   menuItem("Home",
-  #     tabName = "Home",
-  #     icon = icon("home"),
-  #     selected = TRUE),
-  #   menuItem(
-  #     h4('Dataset', style="color: lightgrey;"),
-  #     menuSubItem(
-  #       "Open (qf)",
-  #       icon = img(src="www/logo-simple.png", width = 20),
-  #       tabName = "openDataset"
-  #     ),
-  #   menuSubItem(
-  #       "Import",
-  #       icon = img(src="www/logo-simple.png", width = 20),
-  #       tabName = "convertDataset"),
-  #     menuSubItem(
-  #       "Save As",
-  #       icon = img(src="www/logo-simple.png", width = 20),
-  #       tabName = "SaveAs"),
-  #     menuSubItem(
-  #       "Build report (Beta)",
-  #       icon = img(src="www/logo-simple.png", width = 20),
-  #       tabName = "BuildReport")
-  #   ),
-  #   menuItem(
-  #     'Workflow',
-  #     icon = icon("home"),
-  #     menuSubItem(
-  #       "Load",
-  #       icon = img(src="www/logo-simple.png", width = 20),
-  #       tabName = "openWorkflow"),
-  #     menuSubItem(
-  #       "Run",
-  #       icon = img(src="www/logo-simple.png", width = 20),
-  #       tabName = "workflow"),
-  #     menuSubItem(
-  #       "Manual",
-  #       icon = img(src="www/logo-simple.png", width = 20),
-  #       tabName = "Manual"),
-  #     menuSubItem(
-  #       "FAQ",
-  #       icon = img(src="www/logo-simple.png", width = 20),
-  #       tabName = "faq"),
-  #     menuSubItem(
-  #       "Release Notes",
-  #       icon = img(src="www/logo-simple.png", width = 20),
-  #       tabName = "releaseNotes")
-  #   ),
-  #   menuItem(
-  #     'Vizualize data',
-  #     icon = icon("home"),
-  #
-  #     menuSubItem("Info",
-  #       tabName = "infosDataset",
-  #       icon = icon("info")
-  #     ),
-  #     menuSubItem("EDA",
-  #       tabName = "eda",
-  #       icon = icon("cogs")
-  #     )
-  #   )
-  #   )
+    # sidebarMenu(id = "sb_dev",
+    #   #tags$style(".sidebar-menu li a { height: 40px; color: grey;}"),
+    #   minified = TRUE, collapsed = TRUE,
+    #   menuItem("Home",
+    #     tabName = "Home",
+    #     icon = icon("home"),
+    #     selected = TRUE),
+    #   menuItem(
+    #     h4('Dataset', style="color: lightgrey;"),
+    #     menuSubItem(
+    #       "Open (qf)",
+    #       icon = img(src="www/logo-simple.png", width = 20),
+    #       tabName = "openDataset"
+    #     ),
+    #   menuSubItem(
+    #       "Import",
+    #       icon = img(src="www/logo-simple.png", width = 20),
+    #       tabName = "convertDataset"),
+    #     menuSubItem(
+    #       "Save As",
+    #       icon = img(src="www/logo-simple.png", width = 20),
+    #       tabName = "SaveAs"),
+    #     menuSubItem(
+    #       "Build report (Beta)",
+    #       icon = img(src="www/logo-simple.png", width = 20),
+    #       tabName = "BuildReport")
+    #   ),
+    #   menuItem(
+    #     'Workflow',
+    #     icon = icon("home"),
+    #     menuSubItem(
+    #       "Load",
+    #       icon = img(src="www/logo-simple.png", width = 20),
+    #       tabName = "openWorkflow"),
+    #     menuSubItem(
+    #       "Run",
+    #       icon = img(src="www/logo-simple.png", width = 20),
+    #       tabName = "workflow"),
+    #     menuSubItem(
+    #       "Manual",
+    #       icon = img(src="www/logo-simple.png", width = 20),
+    #       tabName = "Manual"),
+    #     menuSubItem(
+    #       "FAQ",
+    #       icon = img(src="www/logo-simple.png", width = 20),
+    #       tabName = "faq"),
+    #     menuSubItem(
+    #       "Release Notes",
+    #       icon = img(src="www/logo-simple.png", width = 20),
+    #       tabName = "releaseNotes")
+    #   ),
+    #   menuItem(
+    #     'Vizualize data',
+    #     icon = icon("home"),
+    #
+    #     menuSubItem("Info",
+    #       tabName = "infosDataset",
+    #       icon = icon("info")
+    #     ),
+    #     menuSubItem("EDA",
+    #       tabName = "eda",
+    #       icon = icon("cogs")
+    #     )
+    #   )
+    #   )
 }
 
 

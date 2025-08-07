@@ -8,12 +8,12 @@
 #' @param type xxx
 #'
 #' @examples
-#' if(interactive()){
-#' shiny::runApp(mod_SweetAlert("my title", "my message"))
+#' if (interactive()) {
+#'     shiny::runApp(mod_SweetAlert("my title", "my message"))
 #' }
 #'
 #' @name mod_sweetAlert
-#' 
+#'
 #' @return NA
 #'
 NULL

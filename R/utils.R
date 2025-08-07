@@ -185,7 +185,7 @@ readConfigFile <- function(
 #' @export
 #' @examples
 #' foo1 <- GetListDatasets()
-#' 
+#'
 #' @return NA
 #'
 GetListDatasets <- function(class = NULL, demo_package = NULL) {
@@ -242,7 +242,7 @@ GetListDatasets <- function(class = NULL, demo_package = NULL) {
 #'
 #' @export
 #' @return NA
-#' 
+#'
 source_wf_files <- function(
         dirpath,
         verbose = FALSE) {

@@ -12,9 +12,9 @@
 #' NA
 #'
 #' @examples
-#' if(interactive()){
-#' data(lldata)
-#' shiny::runApp(view_dataset(lldata))
+#' if (interactive()) {
+#'     data(lldata)
+#'     shiny::runApp(view_dataset(lldata))
 #' }
 #'
 NULL
@@ -26,7 +26,7 @@ NULL
 #' @rdname view_dataset
 #' @importFrom shiny NS tagList h3
 #' @return NA
-#' 
+#'
 view_dataset_ui <- function(id) {
     ns <- NS(id)
     tagList(

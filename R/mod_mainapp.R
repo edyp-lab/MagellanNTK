@@ -16,10 +16,10 @@
 #'
 #'
 #' @examples
-#' if (interactive()){
-#' shiny::runApp(mainapp())
+#' if (interactive()) {
+#'     shiny::runApp(mainapp())
 #' }
-#' 
+#'
 #' @return NA
 #'
 NULL
@@ -215,19 +215,18 @@ mainapp_ui <- function(id, session) {
 #' @rdname mod_main_page
 #' @export
 #'
-mainapp_server <- function(
-        id,
-        dataIn = reactive({
-            NULL
-        }),
-        workflow.name = reactive({
-            NULL
-        }),
-        workflow.path = reactive({
-            NULL
-        }),
-        verbose = FALSE,
-        usermod = "dev") {
+mainapp_server <- function(id,
+    dataIn = reactive({
+        NULL
+    }),
+    workflow.name = reactive({
+        NULL
+    }),
+    workflow.path = reactive({
+        NULL
+    }),
+    verbose = FALSE,
+    usermod = "dev") {
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
@@ -476,13 +475,14 @@ mainapp_server <- function(
                 names(rv.core$tmp.funcs()),
                 function(x) {
                     pkg.name <- gsub(paste0("::", x), "", rv.core$tmp.funcs()[[x]])
-                    call.func('require', 
-                      list(
-                        package = pkg.name,
-                        character.only = TRUE
+                    call.func(
+                        "require",
+                        list(
+                            package = pkg.name,
+                            character.only = TRUE
                         )
-                      )
-                    #require(pkg.name, character.only = TRUE)
+                    )
+                    # require(pkg.name, character.only = TRUE)
                 }
             )
             rv.core$funcs$funcs <- rv.core$tmp.funcs()

@@ -1,13 +1,12 @@
 #' @title xxx
 #'
 #' @param expr xxx
-#' 
+#'
 #' @return NA
 #'
 #' @export
 #' @examples
 #' NULL
-#' 
 #'
 catchToList <- function(expr) {
     val <- NULL

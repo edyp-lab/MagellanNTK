@@ -12,9 +12,9 @@
 #'
 #' @name download_btns
 #' @examples
-#' if (interactive()){
-#' data(lldata)
-#' shiny::runApp(download_btns(lldata))
+#' if (interactive()) {
+#'     data(lldata)
+#'     shiny::runApp(download_btns(lldata))
 #' }
 #'
 NULL

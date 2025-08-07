@@ -6,12 +6,12 @@
 #' @param id shiny id
 #'
 #' @name mod_navbar_menu
-#' 
+#'
 #' @examples
 #' NULL
-#' 
+#'
 #' @return NA
-#' 
+#'
 NULL
 
 

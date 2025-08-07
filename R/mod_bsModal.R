@@ -20,8 +20,8 @@
 #' @return A Shiny modal-dialog
 #'
 #' @examples
-#' if (interactive()){
-#' shiny::runApp(mod_bsmodal())
+#' if (interactive()) {
+#'     shiny::runApp(mod_bsmodal())
 #' }
 #'
 #' @name mod_bsmodal

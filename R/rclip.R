@@ -10,7 +10,7 @@
 #' @return NA
 #' @examples
 #' NULL
-#' 
+#'
 #' @export
 #'
 clipboard <- function(x, sep = "\t", ...) {

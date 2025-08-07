@@ -8,8 +8,8 @@
 #' @name errorModal
 #'
 #' @examples
-#' if (interactive()){
-#' shiny::runApp(errorModal("my error text"))
+#' if (interactive()) {
+#'     shiny::runApp(errorModal("my error text"))
 #' }
 #'
 NULL

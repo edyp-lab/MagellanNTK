@@ -12,11 +12,11 @@
 #'
 #' @name build_report
 #' @examples
-#' if(interactive()){
-#' data(sub_R25)
-#' shiny::runApp(build_report(sub_R25))
+#' if (interactive()) {
+#'     data(sub_R25)
+#'     shiny::runApp(build_report(sub_R25))
 #'
-#' shiny::runApp(build_report(sub_R25, filename = "myDataset"))
+#'     shiny::runApp(build_report(sub_R25, filename = "myDataset"))
 #' }
 #'
 NULL
@@ -69,7 +69,6 @@ build_report_server <- function(
 #' @export
 #' @examples
 #' NULL
-#' 
 #'
 build_report <- function(data, filename = "myDataset") {
     ui <- build_report_ui("report")

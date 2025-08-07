@@ -11,7 +11,6 @@
 #' @export
 #' @examples
 #' NULL
-#' 
 #'
 Build_SkippedInfoPanel <- function(steps.status, current.pos, config) {
     req(steps.status[current.pos] == stepStatus$SKIPPED)
@@ -101,7 +100,7 @@ Build_SkippedInfoPanel <- function(steps.status, current.pos, config) {
 #' @export
 #' @examples
 #' NULL
-#' 
+#'
 GetMaxValidated_BeforePos <- function(
         pos = NULL,
         rv) {
@@ -298,10 +297,9 @@ Discover_Skipped_Steps <- function(steps.status) {
 #' @param tag xxx
 #'
 #' @return NA
-#' 
+#'
 #' @examples
 #' NULL
-#' 
 #'
 #' @export
 #'
@@ -321,7 +319,7 @@ All_Skipped_tag <- function(steps.status, tag) {
 #' @return NA
 #' @examples
 #' NULL
-#' 
+#'
 #' @export
 #'
 GetFirstMandatoryNotValidated <- function(range, rv) {
@@ -457,7 +455,7 @@ ToggleState_NavBtns <- function(current.pos, nSteps) {
 #' @export
 #' @examples
 #' NULL
-#' 
+#'
 ToggleState_ResetBtn <- function(cond) {
     shinyjs::toggleState("rstBtn", condition = cond)
 }

@@ -8,11 +8,11 @@
 #' @name infos_dataset
 #'
 #' @examples
-#' if(interactive()){
-#' data(lldata)
-#' shiny::runApp(infos_dataset(lldata))
+#' if (interactive()) {
+#'     data(lldata)
+#'     shiny::runApp(infos_dataset(lldata))
 #' }
-#' 
+#'
 #' @return NA
 #'
 NULL
