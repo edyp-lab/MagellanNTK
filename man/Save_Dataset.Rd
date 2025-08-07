@@ -21,12 +21,14 @@ Save_Dataset(data)
 NA
 
 NA
+
+NA
 }
 \description{
 A shiny Module to load a dataset.
 }
 \examples{
-\dontrun{
+if(interactive()){
 data(sub_R25)
 shiny::runApp(Save_Dataset(sub_R25))
 }

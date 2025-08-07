@@ -20,11 +20,14 @@ popover_for_help(title, content)
 
 \item{content}{xxx}
 }
+\value{
+NA
+}
 \description{
 A shiny Module.
 }
 \examples{
-\dontrun{
+if(interactive()){
 shiny::runApp(popover_for_help("myTitle", "myContent"))
 }
 

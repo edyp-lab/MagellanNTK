@@ -16,3 +16,6 @@ A `integer(1)`
 \description{
 xxx
 }
+\examples{
+NULL
+}

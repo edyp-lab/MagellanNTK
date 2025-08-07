@@ -27,11 +27,14 @@ mod_errorModal(title = NULL, text = NULL)
 
 \item{footer}{xxx}
 }
+\value{
+NA
+}
 \description{
 xxx
 }
 \examples{
-\dontrun{
+if (interactive()){
 shiny::runApp(mod_errorModal("myTitle", "myContent"))
 }
 

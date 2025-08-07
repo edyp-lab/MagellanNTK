@@ -22,11 +22,14 @@ infos_dataset(dataIn)
 
 \item{dataIn}{xxx}
 }
+\value{
+NA
+}
 \description{
 A shiny Module.
 }
 \examples{
-\dontrun{
+if(interactive()){
 data(lldata)
 shiny::runApp(infos_dataset(lldata))
 }

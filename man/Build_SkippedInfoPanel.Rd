@@ -19,3 +19,8 @@ A `wellPanel`
 \description{
 xxx
 }
+\examples{
+NULL
+
+
+}

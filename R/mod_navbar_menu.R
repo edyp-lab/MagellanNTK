@@ -5,8 +5,17 @@
 #'
 #' @param id shiny id
 #'
+#' @name mod_navbar_menu
+#' 
+#' @examples
+#' NULL
+#' 
+#' @return NA
+#' 
+NULL
+
+
 #' @rdname mod_navbar_menu
-#'
 #' @export
 #' @importFrom shiny NS tagList
 #' @importFrom shinyjs extendShinyjs

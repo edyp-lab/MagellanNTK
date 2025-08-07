@@ -16,7 +16,13 @@ shinyInput(FUN, id, num, ...)
 
 \item{...}{xxx}
 }
+\value{
+NA
+}
 \description{
 function for dynamic inputs in DT
 #'description xxx
+}
+\examples{
+NULL
 }

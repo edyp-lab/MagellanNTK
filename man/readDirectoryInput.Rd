@@ -11,10 +11,17 @@ readDirectoryInput(session, inputId)
 
 \item{inputId}{The id of the input object}
 }
+\value{
+NA
+}
 \description{
 Read the value of a directoryInput
 }
 \details{
 Reads the value of the text field associated with a \code{directoryInput}
 object that stores the user selected directory path.
+}
+\examples{
+NULL
+
 }

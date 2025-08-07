@@ -17,3 +17,7 @@ A `list(2)` of two items:
 \description{
 Get item in a FIFO
 }
+\examples{
+NULL
+
+}

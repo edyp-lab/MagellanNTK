@@ -6,6 +6,12 @@
 \usage{
 initComplete()
 }
+\value{
+NA
+}
 \description{
 A short description...
+}
+\examples{
+NULL
 }

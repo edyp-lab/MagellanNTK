@@ -5,7 +5,7 @@
 #'
 #' @examples
 #' NULL
-#'
+#' @return NA
 #' @export
 #'
 is.validated <- function(test) {
@@ -22,9 +22,7 @@ is.validated <- function(test) {
 #' @import tidyverse
 #'
 #' @examples
-#' \dontrun{
 #' find_funs("filter")
-#' }
 #'
 #' @importFrom dplyr filter select
 #' @return
@@ -77,12 +75,11 @@ find_funs <- function(f) {
 #' @param usermod xxxxx
 #'
 #' @examples
-#' \dontrun{
 #' path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
 #' readConfigFile(path)
-#' }
 #'
 #' @export
+#' @return NA
 #'
 #' @importFrom stringr str_locate_all
 #'
@@ -188,6 +185,8 @@ readConfigFile <- function(
 #' @export
 #' @examples
 #' foo1 <- GetListDatasets()
+#' 
+#' @return NA
 #'
 GetListDatasets <- function(class = NULL, demo_package = NULL) {
     print(paste0("demo_package: ", demo_package))
@@ -242,7 +241,8 @@ GetListDatasets <- function(class = NULL, demo_package = NULL) {
 #' source_wf_files(path)
 #'
 #' @export
-#'
+#' @return NA
+#' 
 source_wf_files <- function(
         dirpath,
         verbose = FALSE) {
@@ -271,7 +271,7 @@ source_wf_files <- function(
 #' source_shinyApp_files()
 #'
 #' @export
-#'
+#' @return NA
 source_shinyApp_files <- function() {
     # Checks if app can be found
     # file_path_ui <- system.file("app/ui.R", package = "MagellanNTK")
@@ -295,7 +295,8 @@ source_shinyApp_files <- function() {
 #'
 #' @return A boolean
 #' @export
-#'
+#' @examples
+#' NULL
 is.substr <- function(pattern, target) {
     length(grep(pattern, target, fixed = TRUE)) > 0
 }
@@ -330,7 +331,7 @@ is.substr <- function(pattern, target) {
 #'
 #' data(lldata)
 #' is.Magellan.compliant(lldata)
-#'
+#' @return NA
 is.Magellan.compliant <- function(obj) {
     passed <- FALSE
 
@@ -380,7 +381,8 @@ is.Magellan.compliant <- function(obj) {
 #'
 #' @return A boolean
 #' @export
-#'
+#' @examples
+#' NULL
 module.exists <- function(base_name) {
     server.exists <- exists(paste0(base_name, "_server"),
         envir = .GlobalEnv, mode = "function"
@@ -419,7 +421,8 @@ module.exists <- function(base_name) {
 #' @return A `boolean(1)`
 #'
 #' @export
-#'
+#' @examples
+#' NULL
 CheckWorkflowDir <- function(path) {
     is.valid <- TRUE
 
@@ -478,7 +481,8 @@ CheckWorkflowDir <- function(path) {
 #'
 #' @export
 #'
-
+#' @examples
+#' NULL
 toggleWidget <- function(widget, condition) {
     tagList(
         shinyjs::useShinyjs(),
@@ -501,7 +505,8 @@ toggleWidget <- function(widget, condition) {
 #'
 #' @return A `integer()`.
 #' @export
-#'
+#' @examples
+#' NULL
 Timestamp <- function() {
     as.numeric(Sys.time())
 }
@@ -551,7 +556,8 @@ Timestamp <- function() {
 #'
 #' @importFrom methods setMethod new
 #'
-#'
+#' @examples
+#' NULL
 NULL
 
 ## -------------------------------------------------------

@@ -23,6 +23,9 @@ load_package(funcs = NULL)
 
 \item{funcs}{A list}
 }
+\value{
+NA
+}
 \description{
 This module allows to change the default functions
 embedded in the package `MagellanNTK`. These fucntions are the following:
@@ -31,8 +34,7 @@ embedded in the package `MagellanNTK`. These fucntions are the following:
 * infos_dataset: xxx
 }
 \examples{
-\dontrun{
-
+if (interactive()){
 funcs <- list(convert_dataset = "DaparToolshed::convert_dataset",
 open_dataset = "MagellanNTK::open_dataset",
 open_demoDataset = "MagellanNTK::open_demoDataset",

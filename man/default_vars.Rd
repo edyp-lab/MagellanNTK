@@ -20,9 +20,15 @@ default.workflow()
 
 default.layout
 }
+\value{
+NA
+}
 \description{
 left_panel = left_sidebar + width_sidebar
 top_sidebar = top_panel
 width_sidebar = width_process_btns
+}
+\examples{
+NULL
 }
 \keyword{datasets}

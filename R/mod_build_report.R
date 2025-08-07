@@ -12,7 +12,7 @@
 #'
 #' @name build_report
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' data(sub_R25)
 #' shiny::runApp(build_report(sub_R25))
 #'
@@ -27,7 +27,8 @@ NULL
 #' @rdname build_report
 #'
 #' @export
-#'
+#' @examples
+#' NULL
 build_report_ui <- function(id) {
     ns <- NS(id)
     tagList(
@@ -40,7 +41,8 @@ build_report_ui <- function(id) {
 #' @importFrom shiny moduleServer reactiveValues observeEvent
 #'
 #' @export
-#'
+#' @examples
+#' NULL
 build_report_server <- function(
         id,
         dataIn = reactive({
@@ -65,6 +67,9 @@ build_report_server <- function(
 #' @importFrom shiny shinyApp reactive
 #'
 #' @export
+#' @examples
+#' NULL
+#' 
 #'
 build_report <- function(data, filename = "myDataset") {
     ui <- build_report_ui("report")

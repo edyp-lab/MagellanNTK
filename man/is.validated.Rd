@@ -9,10 +9,12 @@ is.validated(test)
 \arguments{
 \item{test}{xxx}
 }
+\value{
+NA
+}
 \description{
 xxx
 }
 \examples{
 NULL
-
 }

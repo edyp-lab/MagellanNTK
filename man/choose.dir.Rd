@@ -72,6 +72,10 @@ determined by defaul behavior of the zenity script.
 The new windows batch script allows both initial folder and caption to be set.
 In the old batch script for Windows the initial folder is always ignored.
 }
+\examples{
+NULL
+
+}
 \seealso{
 \code{\link{choose.dir}}
 

@@ -9,6 +9,9 @@ Insert_Call_to_Config(name)
 \arguments{
 \item{name}{xxx}
 }
+\value{
+NA
+}
 \description{
 xxx
 }

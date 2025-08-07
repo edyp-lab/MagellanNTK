@@ -18,11 +18,14 @@ release_notes(URL_releaseNotes)
 
 \item{URL_releaseNotes}{xxx}
 }
+\value{
+NA
+}
 \description{
 A shiny Module.
 }
 \examples{
-\dontrun{
+if(interactive()){
 url <- "http://www.prostar-proteomics.org/md/versionNotes.md"
 shiny::runApp(release_notes(url))
 }

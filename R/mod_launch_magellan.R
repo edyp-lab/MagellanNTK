@@ -5,13 +5,23 @@
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' shiny::runApp(mod_launch_magellan())
 #' }
 #'
-#' @noRd
+#' @name mod_launch_magellan
 #'
 #' @importFrom shiny NS tagList
+#' 
+#' @return NA
+NULL
+
+
+#' launch_magellan Server Function
+#'
+#' @rdname mod_launch_magellan
+#' @export
+#' 
 mod_launch_magellan_ui <- function(id) {
     ns <- NS(id)
     tagList(
@@ -37,7 +47,7 @@ mod_launch_magellan_ui <- function(id) {
 
 #' launch_magellan Server Function
 #'
-#' @noRd
+#' @rdname mod_launch_magellan
 mod_launch_magellan_server <- function(id) {
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
@@ -93,7 +103,7 @@ mod_launch_magellan_server <- function(id) {
 
 
 #' @export
-#' @rdname generic_mod_open_dataset
+#' @rdname mod_launch_magellan
 #'
 #'
 mod_launch_magellan <- function() {

@@ -16,6 +16,14 @@ dyn_widgets()
 \arguments{
 \item{id}{xxx}
 }
+\value{
+NA
+}
 \description{
 A shiny Module to create a dynamic number of widgets.
+}
+\examples{
+NULL
+
+NULL
 }

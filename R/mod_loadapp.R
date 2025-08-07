@@ -26,7 +26,7 @@
 #' chosen.
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()){
 #' app <- loadApp()
 #' shiny::runApp(app)
 #' }

@@ -9,6 +9,9 @@ pkgs.require(ll.deps)
 \arguments{
 \item{ll.deps}{A `character()` vector which contains packages names}
 }
+\value{
+NA
+}
 \description{
 Checks if a package is available to load it
 }
@@ -16,7 +19,6 @@ Checks if a package is available to load it
 \dontrun{
 pkgs.require(c("omXplore"))
 }
-
 }
 \author{
 Samuel Wieczorek

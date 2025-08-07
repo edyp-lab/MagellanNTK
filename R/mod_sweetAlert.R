@@ -8,11 +8,13 @@
 #' @param type xxx
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' shiny::runApp(mod_SweetAlert("my title", "my message"))
 #' }
 #'
 #' @name mod_sweetAlert
+#' 
+#' @return NA
 #'
 NULL
 

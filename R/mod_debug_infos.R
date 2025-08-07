@@ -19,7 +19,7 @@
 #' @param is.enabled A `logical(1)` xxxx
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()){
 #' shiny::runApp(Debug_Infos(sub_R25))
 #' }
 #'

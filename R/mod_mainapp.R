@@ -16,9 +16,11 @@
 #'
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()){
 #' shiny::runApp(mainapp())
 #' }
+#' 
+#' @return NA
 #'
 NULL
 

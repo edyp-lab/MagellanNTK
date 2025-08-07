@@ -6,7 +6,9 @@
 #'
 #' @return NA
 #'
-#'
+#' @examples
+#' NULL
+#' 
 #' @export
 #'
 Found_Mod_Funcs <- function(id) {
@@ -47,7 +49,9 @@ Found_Mod_Funcs <- function(id) {
 #'
 #' @author Samuel Wieczorek
 #'
-#'
+#' @examples
+#' NULL
+#' 
 #' @export
 #'
 CleanSourceCode <- function(file = NULL) {
@@ -87,6 +91,10 @@ CleanSourceCode <- function(file = NULL) {
 #' @return A `integer`
 #'
 #' @export
+#' 
+#' @examples
+#' NULL
+#' 
 #'
 FindClosingParenthesis <- function(text, openPos) {
     closePos <- openPos
@@ -124,6 +132,10 @@ FindClosingParenthesis <- function(text, openPos) {
 #' @author Samuel Wieczorek
 #'
 #' @export
+#' 
+#' @examples
+#' NULL
+#' 
 #'
 CheckProcessCode <- function(sourcefile = NULL) {
     s.code <- readLines(file(sourcefile))

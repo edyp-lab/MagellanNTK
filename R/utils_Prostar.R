@@ -2,6 +2,8 @@
 #' #'description xxx
 #' @param pkg xxx
 #' @export
+#' @examples NULL
+#' @return NA
 GetPackageVersion <- function(pkg) {
     tryCatch(
         {
@@ -37,6 +39,10 @@ call.func <- function(fname, args) {
 #' @param id xxx
 #' @param num xxx
 #' @export
+#' 
+#' @examples
+#' NULL
+#' @return NA
 shinyValue <- function(id, num) {
     unlist(lapply(seq_len(num), function(i) {
         value <- input[[paste0(id, i)]]
@@ -52,6 +58,10 @@ shinyValue <- function(id, num) {
 #' @param num xxx
 #' @param ... xxx
 #' @export
+#' 
+#' @examples
+#' NULL
+#' @return NA
 shinyOutput <- function(FUN, id, num, ...) {
     inputs <- character(num)
     for (i in seq_len(num)) {
@@ -68,6 +78,9 @@ shinyOutput <- function(FUN, id, num, ...) {
 #' @param num xxx
 #' @param ... xxx
 #' @export
+#' @examples
+#' NULL
+#' @return NA
 shinyInput <- function(FUN, id, num, ...) {
     inputs <- character(num)
     for (i in seq_len(num)) {
@@ -85,6 +98,9 @@ shinyInput <- function(FUN, id, num, ...) {
 #' @param ... xxx
 #' @param text xxx
 #' @export
+#' @examples
+#' NULL
+#' @return NA
 navbarPageWithText <- function(..., text) {
     navbar <- navbarPage(...)
     textEl <- tags$p(class = "navbar-text", text)
@@ -101,7 +117,9 @@ navbarPageWithText <- function(..., text) {
 #' @param ... xxx
 #' @param inputs xxx
 #' @export
-#'
+#' @examples
+#' NULL
+#' @return NA
 navbarPageWithInputs <- function(..., inputs) {
     navbar <- navbarPage(...)
     form <- tags$form(class = "navbar-form", inputs)
@@ -122,7 +140,9 @@ navbarPageWithInputs <- function(..., inputs) {
 #' @description
 #' A short description...
 #' @export
-#'
+#' @examples
+#' NULL
+#' @return NA
 launchGA <- function() {
     if (system("hostname") == "prabig-prostar") {
         tags$head(includeScript("www/google-analytics.js"))
@@ -136,7 +156,9 @@ launchGA <- function() {
 #' @description
 #' A short description...
 #' @export
-#'
+#' @examples
+#' NULL
+#' @return NA
 initComplete <- function() {
     return(JS(
         "function(settings, json) {",
@@ -154,7 +176,7 @@ initComplete <- function() {
 #'
 #' @examples
 #' GetExtension("foo.xlsx")
-#' #
+#' 
 #' @return The extension of the given filename
 #'
 #'
@@ -175,7 +197,7 @@ GetExtension <- function(name) {
 #' \dontrun{
 #' pkgs.require(c("omXplore"))
 #' }
-#'
+#' @return NA
 #' @export
 #'
 #' @author Samuel Wieczorek

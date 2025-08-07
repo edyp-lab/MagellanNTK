@@ -70,7 +70,7 @@ NA
 A shiny Module.
 }
 \examples{
-\dontrun{
+if (interactive()){
 library(SummarizedExperiment)
 data(lldata)
 obj <- assay(lldata[[1]])

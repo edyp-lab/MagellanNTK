@@ -37,6 +37,9 @@ Config(
 
 \item{.Object}{xxx}
 }
+\value{
+NA
+}
 \description{
 This class is used to store the configuration of any process
 used with MagellanNTK It contains a validity function to ensure

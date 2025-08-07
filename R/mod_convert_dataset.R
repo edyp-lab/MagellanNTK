@@ -8,7 +8,7 @@
 #'
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()){
 #' shiny::runApp(convert_dataset())
 #' }
 #'

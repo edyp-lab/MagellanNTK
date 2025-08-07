@@ -7,9 +7,11 @@
 #' @name mod_homepage
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()){
 #' shiny::runApp(mod_homepage())
 #' }
+#' 
+#' @return NA
 #'
 NULL
 

@@ -20,7 +20,7 @@
 #' @return A Shiny modal-dialog
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()){
 #' shiny::runApp(mod_bsmodal())
 #' }
 #'

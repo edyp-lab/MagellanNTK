@@ -39,7 +39,7 @@
 #' * reset xxxx
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()){
 #' nav_process()
 #' }
 #'

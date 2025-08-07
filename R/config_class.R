@@ -72,6 +72,8 @@
 #' generic.pipe
 #' root.pipe
 #' description.process
+#' 
+#' @return NA
 #'
 NULL
 
@@ -147,7 +149,7 @@ Config <- setClass(
     }
 )
 
-
+#' @noRd
 RemoveDescriptionStep <- function(obj) {
     obj@ll.UI <- obj@ll.UI[-1]
     obj@mandatory <- obj@mandatory[-1]
@@ -155,14 +157,20 @@ RemoveDescriptionStep <- function(obj) {
     obj
 }
 
+
+#' @noRd
 is.process <- function(obj) {
     obj@mode == "process"
 }
 
+
+#' @noRd
 is.pipeline <- function(obj) {
     obj@mode == "pipeline"
 }
 
+
+#' @noRd
 has.parent <- function(obj) {
     length(obj@parent) == 1 && obj@parent != ""
 }
@@ -171,7 +179,7 @@ has.parent <- function(obj) {
 ###
 ### Check functions
 ###
-
+#' @noRd
 is.GenericProcess <- function(.Object) {
     passed <- validity(.Object)
 
@@ -194,7 +202,7 @@ is.GenericProcess <- function(.Object) {
 #   return(passed)
 # }
 
-
+#' @noRd
 is.GenericPipeline <- function(.Object) {
     passed <- validity(.Object)
     passed <- passed && is.pipeline(.Object)
@@ -205,6 +213,8 @@ is.GenericPipeline <- function(.Object) {
     return(passed)
 }
 
+
+#' @noRd
 is.GenericNode <- function(obj) {
     passed <- validity(obj)
     passed <- passed && (is.pipeline(obj) || is.process(obj))
@@ -248,6 +258,8 @@ is.GenericNode <- function(obj) {
 #   return(passed)
 # }
 
+
+#' @noRd
 is.SpecialProcess <- function(obj, nameOfProcess) {
     passed <- validity(obj)
     passed <- passed && is.process(obj)
@@ -265,6 +277,7 @@ is.SpecialProcess <- function(obj, nameOfProcess) {
 # A GenericProcess is a process with a given number of steps
 # The first and last steps are mandatory and are automatically added within
 # this function
+#' @noRd
 init.GenericProcess <- function(.Object) {
     # .Object@steps <- c(.Object@steps, 'Save')
     # .Object@mandatory <- c(.Object@mandatory, TRUE)
@@ -281,7 +294,7 @@ init.GenericProcess <- function(.Object) {
     return(.Object)
 }
 
-
+#' @noRd
 init.GenericNode <- function(.Object) {
     # .Object@steps <- c(.Object@steps, 'Save')
     # .Object@mandatory <- c(.Object@mandatory, TRUE)
@@ -335,7 +348,7 @@ init.GenericNode <- function(.Object) {
 
 
 
-
+#' @noRd
 init.GenericPipeline <- function(.Object) {
     # A pipeline may have a parent or not (in this case, it is the first node
     # level of the whole workflow
@@ -367,6 +380,7 @@ init.GenericPipeline <- function(.Object) {
 }
 
 
+#' @noRd
 init.DescriptionProcess <- function(.Object) {
     # A process has a parent
     .stepname <- "Description"
@@ -383,7 +397,7 @@ init.DescriptionProcess <- function(.Object) {
 }
 
 
-
+#' @noRd
 init.SaveProcess <- function(.Object) {
     # A process has a parent
     .stepname <- "Save"
@@ -403,7 +417,8 @@ init.SaveProcess <- function(.Object) {
 #' @description xxx
 #' @param object xxx
 #' @importFrom crayon green
-#'
+#' @export
+#' @return NA
 setMethod(
     "show", "Config",
     function(object) {

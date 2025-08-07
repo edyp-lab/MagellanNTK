@@ -9,6 +9,9 @@
 #' @return A `wellPanel`
 #'
 #' @export
+#' @examples
+#' NULL
+#' 
 #'
 Build_SkippedInfoPanel <- function(steps.status, current.pos, config) {
     req(steps.status[current.pos] == stepStatus$SKIPPED)
@@ -96,7 +99,9 @@ Build_SkippedInfoPanel <- function(steps.status, current.pos, config) {
 #' @return A `integer(1)`
 #'
 #' @export
-#'
+#' @examples
+#' NULL
+#' 
 GetMaxValidated_BeforePos <- function(
         pos = NULL,
         rv) {
@@ -127,7 +132,8 @@ GetMaxValidated_BeforePos <- function(
 #' @return A `integer(1)`
 #'
 #' @export
-#'
+#' @examples
+#' NULL
 GetMaxValidated_AllSteps <- function(steps.status) {
     val <- 0
     ind <- grep(stepStatus$VALIDATED, steps.status)
@@ -152,7 +158,8 @@ GetMaxValidated_AllSteps <- function(steps.status) {
 #' @return NA
 #'
 #' @export
-#'
+#' @examples
+#' NULL
 ToggleState_Screens <- function(cond,
     range,
     is.enabled,
@@ -182,7 +189,8 @@ ToggleState_Screens <- function(cond,
 #'
 #' @return NA
 #' @export
-#'
+#' @examples
+#' NULL
 GetStringStatus <- function(i, title.style = FALSE) {
     txt <- names(which(global == i))
 
@@ -208,7 +216,8 @@ GetStringStatus <- function(i, title.style = FALSE) {
 #'
 #' @return A `integer(1)` which is the new current position.
 #' @export
-#'
+#' @examples
+#' NULL
 NavPage <- function(direction, current.pos, len) {
     newval <- current.pos + direction
     newval <- max(1, newval)
@@ -231,7 +240,8 @@ NavPage <- function(direction, current.pos, len) {
 #'
 #'
 #' @export
-#'
+#' @examples
+#' NULL
 dataModal <- function(ns, mode) {
     # Used to show an explanation for the reset feature whether the navigation
     # mode is 'process' nor 'pipeline'.
@@ -264,7 +274,8 @@ dataModal <- function(ns, mode) {
 #'
 #'
 #' @export
-#'
+#' @examples
+#' NULL
 Discover_Skipped_Steps <- function(steps.status) {
     for (i in seq_len(length(steps.status))) {
         max.val <- GetMaxValidated_AllSteps(steps.status)

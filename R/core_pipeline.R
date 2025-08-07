@@ -37,7 +37,7 @@
 #' * reset xxxx
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()){
 #' library(shiny)
 #' nav_pipeline()
 #' }

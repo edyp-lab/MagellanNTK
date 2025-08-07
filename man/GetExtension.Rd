@@ -17,5 +17,5 @@ Get file extension
 }
 \examples{
 GetExtension("foo.xlsx")
-#
+
 }

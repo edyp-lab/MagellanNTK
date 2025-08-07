@@ -41,11 +41,14 @@ mainapp(usermod = "dev")
 
 \item{usermod}{= 'dev'}
 }
+\value{
+NA
+}
 \description{
 A shiny Module.
 }
 \examples{
-\dontrun{
+if (interactive()){
 shiny::runApp(mainapp())
 }
 

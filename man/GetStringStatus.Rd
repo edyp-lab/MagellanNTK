@@ -17,3 +17,6 @@ NA
 \description{
 Converts status code (intefer) into a readable string.
 }
+\examples{
+NULL
+}

@@ -20,14 +20,16 @@ insert_md(url)
 
 \item{link_URL}{xxx}
 }
+\value{
+NA
+}
 \description{
 A shiny Module.
 }
 \examples{
-\dontrun{
+if (interactive()){
 base <- system.file("app/md", package = "MagellanNTK")
 url <- file.path(base, "presentation.Rmd")
 shiny::runApp(insert_md(url))
 }
-
 }

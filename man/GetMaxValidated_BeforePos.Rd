@@ -63,3 +63,7 @@ Build_EncapsulateScreens_ui <- function(ns, id, config) {
     })
 }
 }
+\examples{
+NULL
+
+}

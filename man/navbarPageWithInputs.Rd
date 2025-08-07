@@ -11,7 +11,13 @@ navbarPageWithInputs(..., inputs)
 
 \item{inputs}{xxx}
 }
+\value{
+NA
+}
 \description{
 Call this function with all the regular navbarPage() parameters,
  plus a text parameter, if you want to add text to the navbar
+}
+\examples{
+NULL
 }

@@ -20,3 +20,6 @@ A `integer(1)` which is the new current position.
 \description{
 xxx
 }
+\examples{
+NULL
+}

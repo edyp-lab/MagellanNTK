@@ -12,7 +12,13 @@ shinyValue(id, num)
 
 \item{num}{xxx}
 }
+\value{
+NA
+}
 \description{
 function to read DT inputs
 #'description xxx
+}
+\examples{
+NULL
 }

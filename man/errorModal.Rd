@@ -24,7 +24,7 @@ NA
 A shiny module that shows messages in modal.
 }
 \examples{
-\dontrun{
+if (interactive()){
 shiny::runApp(errorModal("my error text"))
 }
 

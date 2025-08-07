@@ -70,7 +70,7 @@ The module navigation can be launched via a Shiny app.
 This is the core module of MagellanNTK
 }
 \examples{
-\dontrun{
+if (interactive()){
 library(shiny)
 nav_pipeline()
 }

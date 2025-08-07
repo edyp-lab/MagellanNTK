@@ -34,11 +34,16 @@ NA
 A shiny Module.
 }
 \examples{
-\dontrun{
+if(interactive()){
 data(sub_R25)
 shiny::runApp(build_report(sub_R25))
 
 shiny::runApp(build_report(sub_R25, filename = "myDataset"))
 }
+
+NULL
+NULL
+NULL
+
 
 }

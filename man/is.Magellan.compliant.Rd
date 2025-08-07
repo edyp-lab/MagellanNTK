@@ -10,6 +10,9 @@ is.Magellan.compliant(obj)
 \arguments{
 \item{obj}{xxx}
 }
+\value{
+NA
+}
 \description{
 Checks and accept the following data formats:
 * An instance of class `MSnSet`
@@ -31,5 +34,4 @@ is.Magellan.compliant(ll)
 
 data(lldata)
 is.Magellan.compliant(lldata)
-
 }

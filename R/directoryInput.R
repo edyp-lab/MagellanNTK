@@ -1,4 +1,4 @@
-#' @name choose.dir
+
 #'
 #' @title Choose a Folder Interactively
 #'
@@ -26,11 +26,13 @@
 #'
 #' The new windows batch script allows both initial folder and caption to be set.
 #' In the old batch script for Windows the initial folder is always ignored.
-#'
+#' @name choose.dir
 #' @return
 #' A length one character vector, character NA if 'Cancel' was selected.
 #'
-#'
+#' @examples
+#' NULL
+#' 
 NULL
 
 
@@ -197,7 +199,7 @@ choose.dir.linux <- function(default = NA, caption = NA) {
 #'
 #' @return
 #' A length one character vector, character NA if 'Cancel' was selected.
-#'
+#' 
 choose.dir.windows <- function(default = NA, caption = NA, useNew = TRUE) {
     if (useNew) {
         ## uses a powershell script rather than the bat version, gives a nicer interface
@@ -252,6 +254,10 @@ choose.dir.windows <- function(default = NA, caption = NA, useNew = TRUE) {
 #' @export
 #'
 #' @import htmltools
+#' 
+#' @examples
+#' NULL
+#' 
 #'
 directoryInput <- function(inputId, label, value = NULL) {
     if (!is.null(value) && !is.na(value)) {
@@ -344,6 +350,11 @@ updateDirectoryInput <- function(session, inputId, value = NULL, ...) {
 #' object that stores the user selected directory path.
 #'
 #' @export
+#' @return NA
+#' @examples
+#' NULL
+#' 
+
 readDirectoryInput <- function(session, inputId) {
     session$input[[sprintf("%s__chosen_dir", inputId)]]
 }
@@ -360,9 +371,11 @@ readDirectoryInput <- function(session, inputId) {
 #' how this is accomplished.
 #'
 #' @examples
-#' \dontrun{
+#' if(interacttive()){
 #' shiny::runApp(runDirinputExample())
 #' }
+#' 
+#' @return NA
 #'
 #' @export
 runDirinputExample <- function() {

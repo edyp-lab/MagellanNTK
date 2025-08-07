@@ -11,6 +11,9 @@ source_wf_files(dirpath, verbose = FALSE)
 
 \item{verbose}{A boolean}
 }
+\value{
+NA
+}
 \description{
 xxx
 }

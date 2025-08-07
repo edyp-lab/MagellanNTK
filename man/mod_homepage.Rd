@@ -20,11 +20,14 @@ mod_homepage()
 
 \item{mdfile}{xxx}
 }
+\value{
+NA
+}
 \description{
 A shiny Module.
 }
 \examples{
-\dontrun{
+if (interactive()){
 shiny::runApp(mod_homepage())
 }
 

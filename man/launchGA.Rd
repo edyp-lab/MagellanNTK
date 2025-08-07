@@ -6,6 +6,12 @@
 \usage{
 launchGA()
 }
+\value{
+NA
+}
 \description{
 A short description...
+}
+\examples{
+NULL
 }

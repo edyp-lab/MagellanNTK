@@ -16,11 +16,14 @@ bug_report()
 \arguments{
 \item{id}{shiny id}
 }
+\value{
+NA
+}
 \description{
 A shiny Module.
 }
 \examples{
-\dontrun{
+if (interactive()){
 shiny::runApp(bug_report())
 }
 

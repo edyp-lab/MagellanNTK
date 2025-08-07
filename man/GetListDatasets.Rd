@@ -11,6 +11,9 @@ GetListDatasets(class = NULL, demo_package = NULL)
 
 \item{demo_package}{xxx}
 }
+\value{
+NA
+}
 \description{
 Get filtered datasets
 }

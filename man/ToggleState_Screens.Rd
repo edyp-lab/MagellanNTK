@@ -21,3 +21,6 @@ NA
 \description{
 Updates the status of steps in range
 }
+\examples{
+NULL
+}

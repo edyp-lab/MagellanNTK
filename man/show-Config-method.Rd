@@ -9,6 +9,9 @@
 \arguments{
 \item{object}{xxx}
 }
+\value{
+NA
+}
 \description{
 xxx
 }

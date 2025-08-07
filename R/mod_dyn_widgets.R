@@ -5,6 +5,11 @@
 #' @param id xxx
 #'
 #' @name DynamicWidgets
+#' 
+#' @return NA
+#' 
+#' @examples
+#' NULL
 #'
 NULL
 
@@ -14,6 +19,8 @@ NULL
 #' @importFrom shiny NS fluidPage fluidRow column textInput actionButton
 #' selectInput
 #' @export
+#' @examples
+#' NULL
 dyn_widgets_ui <- function(id) {
     ns <- NS(id)
     fluidPage(

@@ -10,12 +10,12 @@
 #' @name mod_insert_md
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()){
 #' base <- system.file("app/md", package = "MagellanNTK")
 #' url <- file.path(base, "presentation.Rmd")
 #' shiny::runApp(insert_md(url))
 #' }
-#'
+#' @return NA
 
 #' @rdname mod_insert_md
 #' @export

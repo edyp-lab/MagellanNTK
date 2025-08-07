@@ -44,7 +44,7 @@ NA
 A shiny module that shows download buttons in different formats.
 }
 \examples{
-\dontrun{
+if (interactive()){
 data(lldata)
 shiny::runApp(download_btns(lldata))
 }

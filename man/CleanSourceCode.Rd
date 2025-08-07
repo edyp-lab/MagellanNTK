@@ -16,6 +16,10 @@ A string which contains the source code condensed
 \description{
 xxx
 }
+\examples{
+NULL
+
+}
 \author{
 Samuel Wieczorek
 }

@@ -9,8 +9,8 @@
 #' @param id shiny id
 #' @param funcs A list
 #'
-#' @examples\dontrun{
-#'
+#' @examples
+#' if (interactive()){
 #' funcs <- list(convert_dataset = "DaparToolshed::convert_dataset",
 #' open_dataset = "MagellanNTK::open_dataset",
 #' open_demoDataset = "MagellanNTK::open_demoDataset",
@@ -28,6 +28,8 @@
 #'
 #' @name mod_load_package
 #' @author Samuel Wieczorek
+#' 
+#' @return NA
 #'
 NULL
 

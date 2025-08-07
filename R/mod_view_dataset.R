@@ -12,7 +12,7 @@
 #' NA
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' data(lldata)
 #' shiny::runApp(view_dataset(lldata))
 #' }

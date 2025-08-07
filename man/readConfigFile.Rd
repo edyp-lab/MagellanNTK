@@ -11,13 +11,14 @@ readConfigFile(path, usermod = "dev")
 
 \item{usermod}{xxxxx}
 }
+\value{
+NA
+}
 \description{
 xxx
 }
 \examples{
-\dontrun{
 path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
 readConfigFile(path)
-}
 
 }

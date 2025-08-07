@@ -10,7 +10,13 @@ GetPackageVersion(pkg)
 \arguments{
 \item{pkg}{xxx}
 }
+\value{
+NA
+}
 \description{
 Package version
 #'description xxx
+}
+\examples{
+NULL
 }

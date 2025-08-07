@@ -8,6 +8,10 @@
 #' @export
 #'
 #' @return NA
+#' 
+#' @examples
+#' NULL
+#' 
 #'
 Save_Object <- function(object, file) {
     if (is.null(object)) {
@@ -30,6 +34,10 @@ Save_Object <- function(object, file) {
 #' @export
 #'
 #' @return NA
+#' 
+#' @examples
+#' NULL
+#' 
 #'
 #'
 Upload_Object <- function(file) {

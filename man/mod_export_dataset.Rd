@@ -27,7 +27,7 @@ A list
 A shiny Module.
 }
 \examples{
-\dontrun{
+if (interactive()){
 data(lldata)
 shiny::runApp(export_dataset(lldata))
 }

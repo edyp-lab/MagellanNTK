@@ -1,5 +1,7 @@
 #' @title Default vars
 #' @name default_vars
+#' @examples NULL
+#' @return NA
 #'
 
 

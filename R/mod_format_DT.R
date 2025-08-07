@@ -19,7 +19,7 @@
 #' @name format_DT
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()){
 #' library(SummarizedExperiment)
 #' data(lldata)
 #' obj <- assay(lldata[[1]])

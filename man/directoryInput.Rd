@@ -26,6 +26,11 @@ this widget is intended for shiny apps that are run locally - i.e. on the
 same system that files/directories are to be accessed - and not from hosted
 applications (e.g. from shinyapps.io).
 }
+\examples{
+NULL
+
+
+}
 \seealso{
 \code{\link{updateDirectoryInput}}, \code{\link{readDirectoryInput}}, \code{\link{choose.dir}}
 }

@@ -48,6 +48,9 @@ MagellanNTK(
 
 \item{...}{xxx}
 }
+\value{
+NA
+}
 \description{
 xxx
 
@@ -65,11 +68,11 @@ The list of customizable funcs (param `funcs`) contains the following items:
  * inside the UI of MagellanNTK, in the settings panels
 }
 \examples{
-\dontrun{
+if (interactive()){
 MagellanNTK()
 }
 
-\dontrun{
+if (interactive()){
 # launch without initial config
 shiny::runApp(MagellanNTK())
 }

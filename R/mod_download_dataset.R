@@ -13,7 +13,7 @@
 #'
 #' @name download_dataset
 #' @examples
-#' \dontrun{
+#' if (interactive()){
 #' data(sub_R25)
 #' shiny::runApp(download_dataset(sub_R25))
 #'

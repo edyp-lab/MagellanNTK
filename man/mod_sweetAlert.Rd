@@ -30,11 +30,14 @@ mod_SweetAlert(title, text, type = "warning")
 
 \item{type}{xxx}
 }
+\value{
+NA
+}
 \description{
 xxxxx
 }
 \examples{
-\dontrun{
+if(interactive()){
 shiny::runApp(mod_SweetAlert("my title", "my message"))
 }
 

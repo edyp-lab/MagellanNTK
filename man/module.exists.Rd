@@ -16,3 +16,6 @@ A boolean
 This function checks if the ui() and server() parts of a
 Shiny module are available in the global environment.
 }
+\examples{
+NULL
+}

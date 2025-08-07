@@ -7,9 +7,11 @@
 #' @param footer xxx
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()){
 #' shiny::runApp(mod_errorModal("myTitle", "myContent"))
 #' }
+#' 
+#' @return NA
 #'
 NULL
 

@@ -4,7 +4,9 @@
 #'
 #' @examples
 #' NULL
-#'
+#' 
+#' @return NA
+#' 
 NULL
 
 

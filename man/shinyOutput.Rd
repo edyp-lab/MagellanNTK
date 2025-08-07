@@ -16,7 +16,13 @@ shinyOutput(FUN, id, num, ...)
 
 \item{...}{xxx}
 }
+\value{
+NA
+}
 \description{
 Package version
 #'description xxx
+}
+\examples{
+NULL
 }

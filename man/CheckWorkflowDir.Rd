@@ -26,3 +26,6 @@ The 'data' directory can be empty.
 For a full description of the nomenclature of workflows filename, please refer
 to xxx.
 }
+\examples{
+NULL
+}

@@ -5,6 +5,9 @@
 #' @return NA
 #'
 #' @export
+#' @examples
+#' NULL
+#' 
 #'
 catchToList <- function(expr) {
     val <- NULL

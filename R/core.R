@@ -38,7 +38,7 @@
 #' * reset xxxx
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()){
 #' shiny::runApp(nav())
 #' }
 #'

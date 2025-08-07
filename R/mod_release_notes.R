@@ -7,10 +7,12 @@
 #' @name mod_release_notes
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' url <- "http://www.prostar-proteomics.org/md/versionNotes.md"
 #' shiny::runApp(release_notes(url))
 #' }
+#' 
+#' @return NA
 #'
 NULL
 

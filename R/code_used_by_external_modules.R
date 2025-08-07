@@ -528,6 +528,7 @@ Get_Workflow_Core_Code <- function(
 #' @description xxx
 #' @param name xxx
 #' @export
+#' @return NA
 Insert_Call_to_Config <- function(name) {
     code <- "
 

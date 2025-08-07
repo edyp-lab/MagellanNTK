@@ -153,7 +153,8 @@ ActionOn_Child_Changed <- function(
 #' @export
 #'
 #' @return NA
-#'
+#' @examples
+#' NULL
 GetValuesFromChildren <- function(config, tmp.return) {
     stepsnames <- names(config@steps)
 
@@ -195,7 +196,8 @@ GetValuesFromChildren <- function(config, tmp.return) {
 #' @export
 #'
 #' @return NA
-#'
+#' @examples
+#' NULL
 ResetChildren <- function(range, resetChildren) {
     resetChildren[range] <- resetChildren[range] + 1
     return(resetChildren)
@@ -212,7 +214,9 @@ ResetChildren <- function(range, resetChildren) {
 #' @export
 #'
 #' @return NA
-#'
+#' @examples
+#' NULL
+#' 
 #'
 Update_Data2send_Vector <- function(rv, keepdataset_func) {
     # One only update the current position because the vector has been entirely
@@ -250,7 +254,8 @@ Update_Data2send_Vector <- function(rv, keepdataset_func) {
 #' @importFrom crayon blue
 #'
 #' @return NA
-#'
+#' @examples
+#' NULL
 PrepareData2Send <- function(
         rv,
         pos,

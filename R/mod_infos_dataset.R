@@ -8,10 +8,12 @@
 #' @name infos_dataset
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' data(lldata)
 #' shiny::runApp(infos_dataset(lldata))
 #' }
+#' 
+#' @return NA
 #'
 NULL
 

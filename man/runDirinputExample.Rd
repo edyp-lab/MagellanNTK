@@ -6,6 +6,9 @@
 \usage{
 runDirinputExample()
 }
+\value{
+NA
+}
 \description{
 Runs a demo app with the code
 }
@@ -14,7 +17,7 @@ Runs a demo app with the code. See the code in the example_application folder fo
 how this is accomplished.
 }
 \examples{
-\dontrun{
+if(interacttive()){
 shiny::runApp(runDirinputExample())
 }
 

@@ -10,6 +10,13 @@ launch_app(mode = "user")
 \item{mode}{A  `character(1)` which indicates xxxx. Available values are:
 'user' (default) and 'dev'.}
 }
+\value{
+NA
+}
 \description{
 xxxx
+}
+\examples{
+NULL
+
 }

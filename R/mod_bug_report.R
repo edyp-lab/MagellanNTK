@@ -7,9 +7,11 @@
 #' @name mod_bug_report
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()){
 #' shiny::runApp(bug_report())
 #' }
+#' 
+#' @return NA
 #'
 NULL
 

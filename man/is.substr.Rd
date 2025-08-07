@@ -17,3 +17,6 @@ A boolean
 \description{
 xxx
 }
+\examples{
+NULL
+}

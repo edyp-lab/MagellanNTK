@@ -14,6 +14,8 @@
 #' @export
 #'
 #' @example inst/extdata/funcs_examples/test_load_code.R
+#' 
+#' @return NA
 #'
 
 LoadCode <- function(name, path, recursive = FALSE) {
@@ -65,6 +67,10 @@ LoadCode <- function(name, path, recursive = FALSE) {
 #' @param value A string
 #'
 #' @return A `vector` of strings
+#' 
+#' @examples
+#' NULL
+#' 
 #'
 #' @export
 #'
@@ -81,6 +87,9 @@ push_fifo <- function(fifo, value) {
 #' @return A `list(2)` of two items:
 #' * xxx
 #' * xxx
+#' 
+#' @examples 
+#' NULL
 #'
 #' @export
 #'

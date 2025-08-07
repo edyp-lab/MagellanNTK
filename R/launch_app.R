@@ -6,6 +6,11 @@
 #' 'user' (default) and 'dev'.
 #'
 #' @export
+#' 
+#' @examples
+#' NULL
+#' 
+#' @return NA
 #'
 launch_app <- function(mode = "user") {
     ui_file_path <- system.file("app/ui.R", package = "MagellanNTK")

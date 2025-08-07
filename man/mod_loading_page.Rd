@@ -39,7 +39,7 @@ it. Once the user has make its choices, the module returns a list containing
 the infos.
 }
 \examples{
-\dontrun{
+if (interactive()){
 app <- loadApp()
 shiny::runApp(app)
 }

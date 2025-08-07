@@ -17,3 +17,8 @@ A `vector` of strings
 \description{
 Push item in a FIFO
 }
+\examples{
+NULL
+
+
+}

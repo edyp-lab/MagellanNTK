@@ -10,10 +10,12 @@
 #' @name generic_mod_open_dataset
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' shiny::runApp(open_dataset(class = "QFeatures", extension = ".qf"))
 #' shiny::runApp(open_dataset(class = "QFeatures", extension = ".qf", demo_package = "DaparToolshedData"))
 #' }
+#' 
+#' @return NA
 #'
 NULL
 
