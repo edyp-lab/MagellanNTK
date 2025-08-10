@@ -34,7 +34,6 @@ mdEditor_ui <- function(id) {
 
 
 #' @rdname mdEditor
-#' @importFrom shinyjqui jqui_draggable
 #'
 #' @export
 #'
@@ -46,7 +45,7 @@ mdEditor_server <- function(id) { # height auto
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
-          pkgs.require('shinyAce')
+          pkgs.require(c('shinyjqui', 'shinyAce'))
 
         dataOut <- reactiveVal(NULL)
 

@@ -32,31 +32,28 @@ Imports:
     S4Vectors,
     methods,
     DT, 
+    DaparToolshed,
     shiny,
     shinyEffects,
     htmlwidgets,
-    shinyWidgets,
     shinyBS,
     shinyjs,
     shinyFiles,
     sass,
-    shinyjqui,
     stats,
     utils,
     markdown,
     BiocGenerics, 
-    rclipboard,
     htmltools,
     crayon,
     tidyverse,
     dplyr,
     stringr,
-    waiter,
-    omXplore
+    waiter
 Suggests: 
-    rmarkdown, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
+    rmarkdown, shinyjqui, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
     gtools, XML, R.utils, RColorBrewer, MultiAssayExperiment, openxlsx,
-    shinyAce
+    shinyAce, rclipboard, shinyWidgets
 Collate: 
     MagellanNTK.R
     settings.R

@@ -50,7 +50,6 @@ mod_bsmodal_ui <- function(id) {
 #' @importFrom shiny moduleServer observe reactiveVal reactive observeEvent
 #' req renderUI tagList actionButton
 #' @importFrom shinyBS bsModal
-#' @importFrom shinyjqui jqui_resizable jqui_draggable
 #'
 mod_bsmodal_server <- function(id,
     label = "Edit md",
@@ -62,7 +61,7 @@ mod_bsmodal_server <- function(id,
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
-
+pkgs.require('shinyjqui')
         observe({
             if (!is.null(uiContent) && !is.null(shiny.module)) {
                 warning("There can be only one non-NULL among uiContent and shiny.module")

@@ -16,7 +16,6 @@
 #' @param styleWidget = NULL,
 #' @param classWidget = NULL
 #'
-#' @importFrom shinyjqui jqui_draggable
 #'
 #' @name mod_modalDialog
 #'
@@ -118,7 +117,6 @@ mod_modalDialog_ui <- function(id) {
 #' @importFrom shiny moduleServer reactiveValues renderUI actionButton actionLink
 #' observeEvent showModal modalDialog modalButton reactive
 #' @import shinyBS
-#' @import shinyjqui
 #'
 mod_modalDialog_server <- function(
         id,
@@ -203,8 +201,6 @@ mod_modalDialog_server <- function(
             } else {
                 rv$dataOut <- Timestamp()
             }
-
-
             removeModal()
             RemoveModule()
         })

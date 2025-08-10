@@ -25,8 +25,7 @@ NULL
 #' @rdname mod_sweetAlert
 mod_SweetAlert_ui <- function(id) {}
 
-#' @importFrom shinyWidgets sendSweetAlert
-#' @importFrom rclipboard rclipButton
+
 #' @importFrom shiny moduleServer p
 #'
 #' @export
@@ -41,6 +40,7 @@ mod_SweetAlert_server <- function(
     shiny::moduleServer(
         id,
         function(input, output, session) {
+          pkgs.require(c('rclipboard', 'shinyWidgets'))
             shinyWidgets::sendSweetAlert(
                 session = session,
                 title = NULL,
