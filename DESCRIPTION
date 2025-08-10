@@ -32,7 +32,6 @@ Imports:
     S4Vectors,
     methods,
     DT, 
-    DaparToolshed,
     shiny,
     shinyEffects,
     htmlwidgets,
