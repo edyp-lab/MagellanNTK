@@ -18,6 +18,4 @@ xxx
 \examples{
 NULL
 
-
-
 }

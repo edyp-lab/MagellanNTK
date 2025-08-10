@@ -108,6 +108,8 @@ Tools_Templates_server <- function(id,
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
+    pkgs.require('shinyAce')
+    
     # Insert necessary code which is hosted by MagellanNTK
     # DO NOT MODIFY THIS LINE
     core.code <- Get_Workflow_Core_Code(

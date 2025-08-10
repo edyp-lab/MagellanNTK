@@ -23,8 +23,8 @@ NA
 A shiny Module.
 }
 \examples{
-if (interactive()){
-shiny::runApp(bug_report())
+if (interactive()) {
+    shiny::runApp(bug_report())
 }
 
 }

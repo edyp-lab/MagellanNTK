@@ -55,8 +55,8 @@ Displays of formatted modal-dialog with 'Cancel' and
 'Ok' buttons.
 }
 \examples{
-if (interactive()){
-shiny::runApp(mod_bsmodal())
+if (interactive()) {
+    shiny::runApp(mod_bsmodal())
 }
 
 }

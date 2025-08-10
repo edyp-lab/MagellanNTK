@@ -46,6 +46,7 @@ mdEditor_server <- function(id) { # height auto
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
+          pkgs.require('shinyAce')
 
         dataOut <- reactiveVal(NULL)
 

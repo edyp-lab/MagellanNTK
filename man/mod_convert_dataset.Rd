@@ -23,8 +23,8 @@ A list
 A shiny Module.
 }
 \examples{
-if (interactive()){
-shiny::runApp(convert_dataset())
+if (interactive()) {
+    shiny::runApp(convert_dataset())
 }
 
 }

@@ -25,9 +25,9 @@ NA
 A shiny Module.
 }
 \examples{
-if(interactive()){
-url <- "http://www.prostar-proteomics.org/md/versionNotes.md"
-shiny::runApp(release_notes(url))
+if (interactive()) {
+    url <- "http://www.prostar-proteomics.org/md/versionNotes.md"
+    shiny::runApp(release_notes(url))
 }
 
 }

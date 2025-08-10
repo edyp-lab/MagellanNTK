@@ -37,11 +37,11 @@ NA
 A shiny Module.
 }
 \examples{
-if (interactive()){
-data(sub_R25)
-shiny::runApp(download_dataset(sub_R25))
+if (interactive()) {
+    data(sub_R25)
+    shiny::runApp(download_dataset(sub_R25))
 
-shiny::runApp(download_dataset(sub_R25, filename = "myDataset"))
+    shiny::runApp(download_dataset(sub_R25, filename = "myDataset"))
 }
 
 }

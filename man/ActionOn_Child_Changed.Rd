@@ -52,8 +52,6 @@ NA
 \examples{
 NULL
 
-
-
 }
 \author{
 Samuel Wieczorek

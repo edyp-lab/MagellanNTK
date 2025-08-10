@@ -39,9 +39,9 @@ it. Once the user has make its choices, the module returns a list containing
 the infos.
 }
 \examples{
-if (interactive()){
-app <- loadApp()
-shiny::runApp(app)
+if (interactive()) {
+    app <- loadApp()
+    shiny::runApp(app)
 }
 
 }

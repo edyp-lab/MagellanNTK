@@ -34,8 +34,8 @@ NA
 xxx
 }
 \examples{
-if (interactive()){
-shiny::runApp(mod_errorModal("myTitle", "myContent"))
+if (interactive()) {
+    shiny::runApp(mod_errorModal("myTitle", "myContent"))
 }
 
 }

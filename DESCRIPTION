@@ -43,9 +43,7 @@ Imports:
     shinyjqui,
     stats,
     utils,
-    openxlsx,
     markdown,
-    shinyAce,
     BiocGenerics, 
     rclipboard,
     htmltools,
@@ -57,7 +55,8 @@ Imports:
     omXplore
 Suggests: 
     rmarkdown, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
-    gtools, XML, R.utils, RColorBrewer, MultiAssayExperiment
+    gtools, XML, R.utils, RColorBrewer, MultiAssayExperiment, openxlsx,
+    shinyAce
 Collate: 
     MagellanNTK.R
     settings.R

@@ -20,5 +20,4 @@ Push item in a FIFO
 \examples{
 NULL
 
-
 }

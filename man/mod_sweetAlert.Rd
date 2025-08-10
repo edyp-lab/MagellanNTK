@@ -37,8 +37,8 @@ NA
 xxxxx
 }
 \examples{
-if(interactive()){
-shiny::runApp(mod_SweetAlert("my title", "my message"))
+if (interactive()) {
+    shiny::runApp(mod_SweetAlert("my title", "my message"))
 }
 
 }

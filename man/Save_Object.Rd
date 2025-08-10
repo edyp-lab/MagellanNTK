@@ -20,5 +20,4 @@ This function saves an R object to a '.rda' file.
 \examples{
 NULL
 
-
 }

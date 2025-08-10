@@ -68,13 +68,13 @@ The list of customizable funcs (param `funcs`) contains the following items:
  * inside the UI of MagellanNTK, in the settings panels
 }
 \examples{
-if (interactive()){
-MagellanNTK()
+if (interactive()) {
+    MagellanNTK()
 }
 
-if (interactive()){
-# launch without initial config
-shiny::runApp(MagellanNTK())
+if (interactive()) {
+    # launch without initial config
+    shiny::runApp(MagellanNTK())
 }
 
 }

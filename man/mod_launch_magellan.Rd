@@ -22,8 +22,8 @@ NA
 A shiny Module.
 }
 \examples{
-if(interactive()){
-shiny::runApp(mod_launch_magellan())
+if (interactive()) {
+    shiny::runApp(mod_launch_magellan())
 }
 
 }

@@ -27,8 +27,8 @@ NA
 A shiny Module.
 }
 \examples{
-if(interactive()){
-shiny::runApp(popover_for_help("myTitle", "myContent"))
+if (interactive()) {
+    shiny::runApp(popover_for_help("myTitle", "myContent"))
 }
 
 }

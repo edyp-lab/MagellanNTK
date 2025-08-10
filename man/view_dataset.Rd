@@ -28,9 +28,9 @@ NA
 A shiny Module.
 }
 \examples{
-if(interactive()){
-data(lldata)
-shiny::runApp(view_dataset(lldata))
+if (interactive()) {
+    data(lldata)
+    shiny::runApp(view_dataset(lldata))
 }
 
 }

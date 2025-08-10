@@ -25,7 +25,6 @@ xxxx
 \examples{
 NULL
 
-
 }
 \author{
 Samuel Wieczorek

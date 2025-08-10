@@ -48,8 +48,8 @@ NA
 A shiny Module.
 }
 \examples{
-if (interactive()){
-shiny::runApp(mainapp())
+if (interactive()) {
+    shiny::runApp(mainapp())
 }
 
 }

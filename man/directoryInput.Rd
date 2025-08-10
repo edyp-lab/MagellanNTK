@@ -29,7 +29,6 @@ applications (e.g. from shinyapps.io).
 \examples{
 NULL
 
-
 }
 \seealso{
 \code{\link{updateDirectoryInput}}, \code{\link{readDirectoryInput}}, \code{\link{choose.dir}}
