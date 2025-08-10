@@ -120,7 +120,6 @@ nav_pipeline_ui <- function(id) {
 #' @rdname nav_pipeline
 #' @importFrom stats setNames
 #' @importFrom crayon blue yellow
-#' @import DaparToolshed
 #'
 nav_pipeline_server <- function(
         id = NULL,
@@ -217,7 +216,8 @@ nav_pipeline_server <- function(
 
 
         output$datasetNameUI <- renderUI({
-            h3(DaparToolshed::filename(dataIn()))
+           # h3(DaparToolshed::filename(dataIn()))
+          h3('toto')
         })
 
 
