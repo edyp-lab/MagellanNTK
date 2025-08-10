@@ -368,7 +368,7 @@ readDirectoryInput <- function(session, inputId) {
 #' how this is accomplished.
 #'
 #' @examples
-#' if (interacttive()) {
+#' if (interactive()) {
 #'     shiny::runApp(runDirinputExample())
 #' }
 #'

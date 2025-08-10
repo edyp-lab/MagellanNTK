@@ -17,7 +17,7 @@ Runs a demo app with the code. See the code in the example_application folder fo
 how this is accomplished.
 }
 \examples{
-if (interacttive()) {
+if (interactive()) {
     shiny::runApp(runDirinputExample())
 }
 
