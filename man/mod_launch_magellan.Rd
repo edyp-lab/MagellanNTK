@@ -13,7 +13,7 @@ mod_launch_magellan_server(id)
 mod_launch_magellan()
 }
 \arguments{
-\item{id, input, output, session}{Internal parameters for {shiny}.}
+\item{id}{xxx}
 }
 \value{
 NA

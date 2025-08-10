@@ -36,6 +36,7 @@ insert_md_ui <- function(id) {
 #' @importFrom shinyjs info
 #'
 #' @rdname mod_insert_md
+#' @importFrom utils browseURL
 #' @export
 insert_md_server <- function(
         id,
@@ -54,7 +55,7 @@ insert_md_server <- function(
 
 
         observeEvent(input$openURL, {
-            browseURL(link_URL)
+            utils::browseURL(link_URL)
         })
 
         output$insertMD <- renderUI({

@@ -49,9 +49,10 @@ is.validated <- function(test) {
 #' @import tidyverse
 #'
 #' @examples
+#' \dontrun{
 #' find_funs("filter")
+#' }
 #'
-#' @importFrom dplyr filter select
 #' @return
 #' A dataframe with two columns:
 # `package_name`: packages(s) which the function is part of (chr)
@@ -63,6 +64,7 @@ is.validated <- function(test) {
 #'
 #'
 find_funs <- function(f) {
+  pkgs.require('dplyr')
     # search for help in list of installed packages
     help_installed <- help.search(f, agrep = TRUE)
 

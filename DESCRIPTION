@@ -47,13 +47,12 @@ Imports:
     htmltools,
     crayon,
     tidyverse,
-    dplyr,
     stringr,
     waiter
 Suggests: 
     rmarkdown, shinyjqui, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
     gtools, XML, R.utils, RColorBrewer, MultiAssayExperiment, openxlsx,
-    shinyAce, rclipboard, shinyWidgets
+    shinyAce, rclipboard, shinyWidgets, dplyr
 Collate: 
     MagellanNTK.R
     settings.R

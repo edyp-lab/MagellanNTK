@@ -20,28 +20,9 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'     library(SummarizedExperiment)
 #'     data(lldata)
 #'     obj <- assay(lldata[[1]])
 #'     shiny::runApp(format_DT(obj))
-#'
-#'
-#'     #
-#'     # Compute style from within main tab
-#'     #
-#'     data(Exp1_R25_prot, package = "DaparToolshedData")
-#'     obj <- data.frame(colData(Exp1_R25_prot))
-#'
-#'     style <- list(
-#'         cols = colnames(obj),
-#'         vals = colnames(obj)[2],
-#'         unique = unique(obj$Condition),
-#'         pal = RColorBrewer::brewer.pal(3, "Dark2")[1:2]
-#'     )
-#'     shiny::runApp(format_DT(obj, hc_style = style))
-#'
-#'
-#'
 #'     #
 #'     # Compute style from within third party tab
 #'     #

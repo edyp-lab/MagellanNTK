@@ -1,8 +1,8 @@
-#' launch_magellan UI Function
+#' @title launch_magellan UI Function
 #'
 #' @description A shiny Module.
-#'
-#' @param id,input,output,session Internal parameters for {shiny}.
+#' 
+#' @param id xxx
 #'
 #' @examples
 #' if (interactive()) {
