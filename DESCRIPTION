@@ -27,7 +27,7 @@ Description: MagellanNTK (Magellan Navigation ToolKit) is a collection of Shiny
     required.
 BiocViews: Proteomics, Preprocessing, Software, GUI, WorkflowStep
 License: Artistic-2.0
-Depends: R (>= 4.5.0)
+Depends: R (>= 4.4.0)
 Imports: 
     S4Vectors,
     methods,
