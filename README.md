@@ -2,6 +2,9 @@
 # MagellanNTK
 
 <!-- badges: start -->
+[![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![R-CMD-check-bioc](https://github.com/edyp-lab/MagellanNTK/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions?query=workflow%3AR-CMD-check-bioc)
+[![R-CMD-check](https://github.com/edyp-lab/omXplore/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions/workflows/R-CMD-check.yaml)
 [![Bioc release status](http://www.bioconductor.org/shields/build/release/bioc/MagellanNTK.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/MagellanNTK)
 [![Bioc devel status](http://www.bioconductor.org/shields/build/devel/bioc/MagellanNTK.svg)](https://bioconductor.org/checkResults/devel/bioc-LATEST/MagellanNTK)
 [![Bioc downloads rank](https://bioconductor.org/shields/downloads/release/MagellanNTK.svg)](http://bioconductor.org/packages/stats/bioc/MagellanNTK/)

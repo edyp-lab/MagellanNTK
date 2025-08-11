@@ -4,99 +4,71 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>MagellanNTK user manual • MagellanNTK</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="MagellanNTK user manual">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="MagellanNTK user manual">
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">MagellanNTK</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.5</span>
-      </span>
-    </div>
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../articles/MagellanNTK.html">Get started</a>
-</li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
+    <a class="navbar-brand me-2" href="../index.html">MagellanNTK</a>
 
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/Build-a-pipeline-module.html">Build-a-pipeline-module tutorial</a>
-    </li>
-    <li>
-      <a href="../articles/Create-a-new-pipeline-tutorial.html">Create a template</a>
-    </li>
-    <li>
-      <a href="../articles/insideMagellanNTK.html">Inside MagellanNTK</a>
-    </li>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.10</small>
+
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="active nav-item"><a class="nav-link" href="../articles/MagellanNTK.html">Get started</a></li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/Build-a-pipeline-module.html">Build-a-pipeline-module tutorial</a></li>
+    <li><a class="dropdown-item" href="../articles/Create-a-new-pipeline-tutorial.html">Create a template</a></li>
+    <li><a class="dropdown-item" href="../articles/insideMagellanNTK.html">Inside MagellanNTK</a></li>
   </ul>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/edyp-lab/MagellanNTK/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
-
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/edyp-lab/MagellanNTK/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
+</nav><div class="container template-article">
 
 
 
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>MagellanNTK user manual</h1>
+
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+
+      <h1>MagellanNTK user manual</h1>
                         <h4 data-toc-skip class="author">Samuel
 Wieczorek</h4>
                                     <h4 data-toc-skip class="author">Thomas
 Burger</h4>
                         
-            <h4 data-toc-skip class="date">2024-10-11</h4>
+            <h4 data-toc-skip class="date">2025-08-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/edyp-lab/MagellanNTK/blob/HEAD/vignettes/MagellanNTK.Rmd" class="external-link"><code>vignettes/MagellanNTK.Rmd</code></a></small>
-      <div class="hidden name"><code>MagellanNTK.Rmd</code></div>
-
+      <div class="d-none name"><code>MagellanNTK.Rmd</code></div>
     </div>
 
     
@@ -160,7 +132,7 @@ parts:</p>
 </h3>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs%2FMagellanNTK_annote.png" alt="A single task composed of data analysis functions and user interface." width="50%" style="border-style: solid;"><p class="caption">
+<img src="figs/MagellanNTK_annote.png" alt="A single task composed of data analysis functions and user interface." width="50%" style="border-style: solid;"><p class="caption">
 A single task composed of data analysis functions and user interface.
 </p>
 </div>
@@ -226,7 +198,7 @@ object as output. Within MagellanNTK, those objects are <em>lists</em>
 in which each item is a dataset (several formats are possible).</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs%2FsingleTask.png" alt="A single task composed of data analysis functions and user interface." width="50%" style="border-style: solid;"><p class="caption">
+<img src="figs/singleTask.png" alt="A single task composed of data analysis functions and user interface." width="50%" style="border-style: solid;"><p class="caption">
 A single task composed of data analysis functions and user interface.
 </p>
 </div>
@@ -245,7 +217,7 @@ applications and embed the functions and UI of each of their single
 tasks.</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs%2Fprocess.png" alt="A process is a sequence of single tasks." width="100%"><p class="caption">
+<img src="figs/process.png" alt="A process is a sequence of single tasks." width="100%"><p class="caption">
 A process is a sequence of single tasks.
 </p>
 </div>
@@ -300,7 +272,7 @@ at output</p></li>
 <p>As shown in xxx, a pipeline is at third level of such a
 structure.</p>
 <div class="figure" style="text-align: center">
-<img src="figs%2Fpipeline.png" alt="A pipeline is a sequence of processes (eclated view)." width="100%"><p class="caption">
+<img src="figs/pipeline.png" alt="A pipeline is a sequence of processes (eclated view)." width="100%"><p class="caption">
 A pipeline is a sequence of processes (eclated view).
 </p>
 </div>
@@ -375,7 +347,7 @@ Process 1, Process 2 and Process 3). Remark that the content of the UI
 area of the pipeline is exactly the whole UI of its current process
 (e.g. in Fig @ref(fig:layout)).</p>
 <div class="figure" style="text-align: center">
-<img src="figs%2Flayout.png" alt="(a) Horizontal layout, (b) Vertical layout" width="100%"><p class="caption">
+<img src="figs/layout.png" alt="(a) Horizontal layout, (b) Vertical layout" width="100%"><p class="caption">
 </p>
 <ol style="list-style-type: lower-alpha"><li>Horizontal layout, (b) Vertical layout
 
@@ -399,7 +371,7 @@ widgets of this step are enabled (as well as the Perform button). In the
 contrary, a bullet that is disabled means that all the widgets and the
 ‘Perform’ button in the UI are disabled.</p>
 <div class="figure" style="text-align: center">
-<img src="figs%2Ftimeline.png" alt="Timeline example." width="100%"><p class="caption">
+<img src="figs/timeline.png" alt="Timeline example." width="100%"><p class="caption">
 Timeline example.
 </p>
 </div>
@@ -420,31 +392,31 @@ name of the step.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="center"><img src="figs%2Fbullet_empty_red_disabled.png" width="15" height="15"></td>
+<td align="center"><img src="figs/bullet_empty_red_disabled.png" width="15" height="15"></td>
 <td align="center">Skipped</td>
 <td align="center">Disabled</td>
 <td align="center">Undone</td>
 </tr>
 <tr class="even">
-<td align="center"><img src="figs%2Fbullet_empty_red_disabled.png" width="15" height="15"></td>
+<td align="center"><img src="figs/bullet_empty_red_disabled.png" width="15" height="15"></td>
 <td align="center">Mandatory</td>
 <td align="center">Disabled</td>
 <td align="center">Undone</td>
 </tr>
 <tr class="odd">
-<td align="center"><img src="figs%2Fbullet_empty_red_enabled.png" width="15"></td>
+<td align="center"><img src="figs/bullet_empty_red_enabled.png" width="15"></td>
 <td align="center">Mandatory</td>
 <td align="center">Enabled</td>
 <td align="center">Undone</td>
 </tr>
 <tr class="even">
-<td align="center"><img src="figs%2Fbullet_full_green_disabled.png" width="15" height="15"></td>
+<td align="center"><img src="figs/bullet_full_green_disabled.png" width="15" height="15"></td>
 <td align="center">-</td>
 <td align="center">Disabled</td>
 <td align="center">Done</td>
 </tr>
 <tr class="odd">
-<td align="center"><img src="figs%2Fbullet_empty_red_disabled.png" width="15" height="15"></td>
+<td align="center"><img src="figs/bullet_empty_red_disabled.png" width="15" height="15"></td>
 <td align="center">Not mandatory</td>
 <td align="center"></td>
 <td align="center">Undone</td>
@@ -458,7 +430,7 @@ name of the step.</p>
 <p>Three buttons are available to interact with the whole current step
 and navigate through the different steps of the process:</p>
 <div class="figure" style="text-align: center">
-<img src="figs%2Fcommands.png" alt="Commands (Previous step, Reset workflow, Next step." width="50%"><p class="caption">
+<img src="figs/commands.png" alt="Commands (Previous step, Reset workflow, Next step." width="50%"><p class="caption">
 Commands (Previous step, Reset workflow, Next step.
 </p>
 </div>
@@ -511,7 +483,7 @@ yet disabled (this is because th Description step is mandatory and none
 of the further steps is enabled until this steps is validated).</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs%2Fdemo_1.png" alt="UI process" width="100%"><p class="caption">
+<img src="figs/demo_1.png" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -520,7 +492,7 @@ UI process
 if they are disabled (Fig @ref(fig:demo12)).</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs%2Fdemo_1_2.png" alt="UI process" width="100%"><p class="caption">
+<img src="figs/demo_1_2.png" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -539,7 +511,7 @@ a non-validated mandatory step.</p></li>
 </ul>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs%2Fdemo_1_3.png" alt="UI process" width="100%"><p class="caption">
+<img src="figs/demo_1_3.png" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -549,7 +521,7 @@ UI process
 becomes the new current step (Fig @ref(fig:demo2)).</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs%2Fdemo_2.png" alt="New current step" width="100%"><p class="caption">
+<img src="figs/demo_2.png" alt="New current step" width="100%"><p class="caption">
 New current step
 </p>
 </div>
@@ -560,7 +532,7 @@ the ‘Next’ button. The user set it own values to the widgets and then
 validate his choices by clicking on the button ‘Perform’.</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs%2Fdemo_3.png" alt="UI process" width="100%"><p class="caption">
+<img src="figs/demo_3.png" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -589,7 +561,7 @@ processes. We will see that the workflows for pipelines are a bit more
 flexible.</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs%2Fdemo_3_3.png" alt="UI process" width="100%"><p class="caption">
+<img src="figs/demo_3_3.png" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -602,7 +574,7 @@ appending the new dataset to the list of datasets passed as input to the
 workflow.</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs%2Fdemo_4.png" alt="UI process" width="100%"><p class="caption">
+<img src="figs/demo_4.png" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -621,7 +593,7 @@ step. A popup warns the user of the effects (Fig
 @ref(fig:demoreset)).</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs%2Fdemo_reset.png" alt="UI process" width="100%"><p class="caption">
+<img src="figs/demo_reset.png" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -651,14 +623,14 @@ have any steps besides a Description one. This is an exception to the
 rule that any process have at least one real step.</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs%2Fdemo_pipeline_1.png" alt="UI process2" width="100%"><p class="caption">
+<img src="figs/demo_pipeline_1.png" alt="UI process2" width="100%"><p class="caption">
 UI process2
 </p>
 </div>
 </div>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs%2Fdemo_pipeline_1_3.png" alt="UI process3" width="100%"><p class="caption">
+<img src="figs/demo_pipeline_1_3.png" alt="UI process3" width="100%"><p class="caption">
 UI process3
 </p>
 </div>
@@ -670,7 +642,7 @@ validate the Process2. Once done, the bullet for Process2 will change to
 the same behaviour as for processes workflows.</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs%2Fdemo_pipeline_5.png" alt="UI process" width="100%"><p class="caption">
+<img src="figs/demo_pipeline_5.png" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -703,12 +675,12 @@ of isDone vector)</p>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## R version 4.4.1 (2024-06-14 ucrt)</span></span>
+<pre><code><span><span class="co">## R version 4.5.0 (2025-04-11 ucrt)</span></span>
 <span><span class="co">## Platform: x86_64-w64-mingw32/x64</span></span>
-<span><span class="co">## Running under: Windows 10 x64 (build 19045)</span></span>
+<span><span class="co">## Running under: Windows 11 x64 (build 22631)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Matrix products: default</span></span>
-<span><span class="co">## </span></span>
+<span><span class="co">##   LAPACK version 3.12.1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## locale:</span></span>
 <span><span class="co">## [1] LC_COLLATE=French_France.utf8  LC_CTYPE=French_France.utf8   </span></span>
@@ -722,43 +694,38 @@ of isDone vector)</p>
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] BiocStyle_2.32.1</span></span>
+<span><span class="co">## [1] BiocStyle_2.36.0</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span><span class="co">##  [1] cli_3.6.3           knitr_1.48          rlang_1.1.4        </span></span>
-<span><span class="co">##  [4] xfun_0.48           highr_0.11          textshaping_0.4.0  </span></span>
-<span><span class="co">##  [7] jsonlite_1.8.9      htmltools_0.5.8.1   ragg_1.3.3         </span></span>
-<span><span class="co">## [10] sass_0.4.9          rmarkdown_2.28      evaluate_1.0.0     </span></span>
-<span><span class="co">## [13] jquerylib_0.1.4     fastmap_1.2.0       yaml_2.3.10        </span></span>
-<span><span class="co">## [16] lifecycle_1.0.4     bookdown_0.40       BiocManager_1.30.25</span></span>
-<span><span class="co">## [19] compiler_4.4.1      fs_1.6.4            htmlwidgets_1.6.4  </span></span>
-<span><span class="co">## [22] rstudioapi_0.16.0   systemfonts_1.1.0   digest_0.6.37      </span></span>
-<span><span class="co">## [25] R6_2.5.1            bslib_0.8.0         tools_4.4.1        </span></span>
-<span><span class="co">## [28] pkgdown_2.1.1       cachem_1.1.0        desc_1.4.3</span></span></code></pre>
+<span><span class="co">##  [1] digest_0.6.37       desc_1.4.3          R6_2.6.1           </span></span>
+<span><span class="co">##  [4] bookdown_0.43       fastmap_1.2.0       xfun_0.52          </span></span>
+<span><span class="co">##  [7] cachem_1.1.0        knitr_1.50          htmltools_0.5.8.1  </span></span>
+<span><span class="co">## [10] rmarkdown_2.29      lifecycle_1.0.4     cli_3.6.4          </span></span>
+<span><span class="co">## [13] sass_0.4.10         pkgdown_2.1.3       textshaping_1.0.1  </span></span>
+<span><span class="co">## [16] jquerylib_0.1.4     systemfonts_1.2.3   compiler_4.5.0     </span></span>
+<span><span class="co">## [19] rstudioapi_0.17.1   tools_4.5.0         ragg_1.4.0         </span></span>
+<span><span class="co">## [22] bslib_0.9.0         evaluate_1.0.4      yaml_2.3.10        </span></span>
+<span><span class="co">## [25] BiocManager_1.30.26 jsonlite_2.0.0      rlang_1.1.6        </span></span>
+<span><span class="co">## [28] fs_1.6.6            htmlwidgets_1.6.4</span></span></code></pre>
 </div>
 </div>
 </div>
+</main>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-      </div>
-
+  <aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p></p>
-<p>Developed by Samuel Wieczorek, Thomas Burger.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p>Developed by Samuel Wieczorek, Thomas Burger.</p>
 </div>
 
-<div class="pkgdown">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+<div class="pkgdown-footer-right">
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
-      </footer>
+    </footer>
 </body>
 </html>
