@@ -25,10 +25,12 @@
 NULL
 
 
-#' @importFrom shiny NS tagList span uiOutput
+#' @importFrom shiny NS tagList span uiOutput icon
 #' @import shinyjs
 #' @import shinyEffects
 #' @import waiter
+#' @import shinydashboard
+#' @import bs4Dash
 #'
 #' @rdname mod_main_page
 #'
@@ -38,11 +40,11 @@ mainapp_ui <- function(id, session) {
     ns <- NS(id)
 
     dashboardPage(
-        preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
-        options = list(
-            fixed = TRUE,
-            sidebarExpandOnHover = TRUE
-        ),
+        #preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
+        # options = list(
+        #     fixed = TRUE,
+        #     sidebarExpandOnHover = TRUE
+        # ),
         header = dashboardHeader(
             disable = TRUE
         ),

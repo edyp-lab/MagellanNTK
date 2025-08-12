@@ -14,6 +14,8 @@ NULL
 
 
 #' @rdname sidebars
+#' @importFrom shiny icon
+#' 
 #' @export
 Insert_Dev_Sidebar <- function() {
     sidebarMenu(
@@ -109,6 +111,7 @@ Insert_Dev_Sidebar <- function() {
 
 
 #' @rdname sidebars
+#' @importFrom shiny icon
 #' @export
 Insert_User_Sidebar <- function() {
     # dashboardSidebar(

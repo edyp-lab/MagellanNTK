@@ -2,6 +2,7 @@ if (interactive()){
   
   library(shiny)
   library(shinyjs)
+  library(shinyDashboard)
   library(shinyWidgets)
   library(shinyFiles)
   options(shiny.fullstacktrace = TRUE)

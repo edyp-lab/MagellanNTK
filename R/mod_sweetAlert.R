@@ -26,7 +26,7 @@ NULL
 mod_SweetAlert_ui <- function(id) {}
 
 
-#' @importFrom shiny moduleServer p
+#' @importFrom shiny moduleServer p icon
 #'
 #' @export
 #' @rdname mod_sweetAlert

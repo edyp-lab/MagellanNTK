@@ -48,7 +48,7 @@ mod_bsmodal_ui <- function(id) {
 #' @rdname mod_bsmodal
 #' @export
 #' @importFrom shiny moduleServer observe reactiveVal reactive observeEvent
-#' req renderUI tagList actionButton
+#' req renderUI tagList actionButton icon
 #' @importFrom shinyBS bsModal
 #'
 mod_bsmodal_server <- function(id,

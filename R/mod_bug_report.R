@@ -19,7 +19,7 @@ NULL
 #' @rdname mod_bug_report
 #'
 #' @export
-#' @importFrom shiny NS tagList
+#' @importFrom shiny NS tagList icon
 #'
 mod_bug_report_ui <- function(id) {
     ns <- NS(id)
