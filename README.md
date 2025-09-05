@@ -12,6 +12,7 @@
 [![Bioc history](https://bioconductor.org/shields/years-in-bioc/MagellanNTK.svg)](https://bioconductor.org/packages/release/bioc/html/MagellanNTK.html#since)
 [![Bioc last commit](https://bioconductor.org/shields/lastcommit/devel/bioc/MagellanNTK.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/MagellanNTK/)
 [![Bioc dependencies](https://bioconductor.org/shields/dependencies/release/MagellanNTK.svg)](https://bioconductor.org/packages/release/bioc/html/MagellanNTK.html#since)
+[![R-CMD-check](https://github.com/edyp-lab/MagellanNTK/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of MagellanNTK is to ...
