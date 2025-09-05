@@ -209,14 +209,14 @@ MagellanNTK <- function(
     if (usermod == "dev") {
         shiny::runApp(app,
             launch.browser = TRUE,
-            port = 3838,
-            host = "0.0.0.0"
+            port = 3838
+            #host = "0.0.0.0"
         )
     } else if (usermod == "user") {
         shiny::runApp(app,
             launch.browser = TRUE,
-            port = 3838,
-            host = "0.0.0.0"
+            port = 3838
+            #host = "0.0.0.0"
         )
     }
 }

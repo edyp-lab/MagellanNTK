@@ -39,16 +39,16 @@ NULL
 mainapp_ui <- function(id, session) {
     ns <- NS(id)
 
-    dashboardPage(
-        #preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
+    bs4Dash::dashboardPage(
+        # preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
         # options = list(
         #     fixed = TRUE,
         #     sidebarExpandOnHover = TRUE
         # ),
-        header = dashboardHeader(
+        header = bs4DashNavbar(
             disable = TRUE
         ),
-        sidebar = dashboardSidebar(
+        sidebar = bs4DashSidebar(
             id = ns("mySidebar"),
             style = "padding-top: 0px;",
 
@@ -59,74 +59,74 @@ mainapp_ui <- function(id, session) {
                 label = icon("bars", width = 20),
                 class = PrevNextBtnClass
             ),
-            sidebarMenu(
-                menuItem(
+            bs4SidebarMenu(
+                bs4SidebarMenuItem(
                     p("Home", style = "color: white;"),
                     tabName = "Home",
                     icon = icon("home")
                 ),
-                menuItem(
+              bs4SidebarMenuItem(
                     p("Dataset", style = "color: white;"),
                     icon = icon("home"),
-                    menuSubItem(
+                bs4SidebarMenuSubItem(
                         p("Open (qf)", style = "color: white;"),
                         tabName = "openDataset",
                         icon = icon("gear")
                     ),
-                    menuSubItem(
+                bs4SidebarMenuSubItem(
                         p("Import", style = "color: white;"),
                         tabName = "convertDataset",
                         icon = icon("gear")
                     ),
-                    menuSubItem(
+                bs4SidebarMenuSubItem(
                         p("Save As", style = "color: white;"),
                         tabName = "SaveAs",
                         icon = icon("gear")
                     ),
-                    menuSubItem(
+                bs4SidebarMenuSubItem(
                         p("Build report (Beta)", style = "color: white;"),
                         tabName = "BuildReport",
                         icon = icon("gear")
                     )
                 ),
-                menuItem(
+              bs4SidebarMenuItem(
                     p("Workflow", style = "color: white;"),
                     icon = icon("home"),
-                    menuSubItem(
+                bs4SidebarMenuSubItem(
                         p("Load", style = "color: white;"),
                         tabName = "openWorkflow",
                         icon = icon("gear")
                     ),
-                    menuSubItem(
+                bs4SidebarMenuSubItem(
                         p("Run", style = "color: white;"),
                         tabName = "workflow",
                         icon = icon("gear")
                     ),
-                    menuSubItem(
+                bs4SidebarMenuSubItem(
                         p("Manual", style = "color: white;"),
                         tabName = "Manual",
                         icon = icon("gear")
                     ),
-                    menuSubItem(
+                bs4SidebarMenuSubItem(
                         p("FAQ", style = "color: white;"),
                         tabName = "faq",
                         icon = icon("gear")
                     ),
-                    menuSubItem(
+                bs4SidebarMenuSubItem(
                         p("Release Notes", style = "color: white;"),
                         tabName = "releaseNotes",
                         icon = icon("gear")
                     )
                 ),
-                menuItem(
+              bs4SidebarMenuItem(
                     p("Vizualize data", style = "color: white;"),
                     icon = icon("home"),
-                    menuSubItem(
+                bs4SidebarMenuSubItem(
                         p("Info", style = "color: white;"),
                         tabName = "infosDataset",
                         icon = icon("gear")
                     ),
-                    menuSubItem(
+                bs4SidebarMenuSubItem(
                         p("EDA", style = "color: white;"),
                         tabName = "eda",
                         icon = icon("gear")
@@ -134,7 +134,7 @@ mainapp_ui <- function(id, session) {
                 )
             )
         ),
-        body = dashboardBody(
+        body = bs4DashBody(
             tags$style(".content-wrapper {background-color: white;}"),
 
             # style = "padding: 0px; overflow-y: auto;",
@@ -213,6 +213,7 @@ mainapp_ui <- function(id, session) {
 #' renderUI tagList h4 observeEvent actionButton h3 observe wellPanel helpText
 #' @import shinyjs
 #' @import shinyEffects
+#' @import S4Vectors
 #'
 #' @rdname mod_main_page
 #' @export
