@@ -27,7 +27,8 @@ PipelineDemo_Description_server <- function(id,
     remoteReset = reactive({FALSE}),
     steps.status = reactive({NULL}),
     current.pos = reactive({1}),
-    timeline = reactive({NULL})
+    path = NULL,
+    btnEvents = reactive({NULL})
     ){
   
   
@@ -61,44 +62,31 @@ PipelineDemo_Description_server <- function(id,
     output$Description <- renderUI({
       file <- normalizePath(file.path(session$userData$workflow.path, 
         'md', paste0(id, '.md')))
-      tagList(
-        if (file.exists(file))
-          includeMarkdown(file)
-        else
-          p('No Description available'),
-        
-        uiOutput(ns('datasetDescription_ui')),
-        
-        # Insert validation button
-        uiOutput(ns('Description_btn_validate_ui'))
+      
+      MagellanNTK::process_layout(
+        ns = NS(id),
+        sidebar = NULL,
+        content = tagList(
+          if (file.exists(file))
+            includeMarkdown(file)
+          else
+            p('No Description available'),
+        )
       )
     })
     
     
     
-    output$datasetDescription_ui <- renderUI({
-      # Insert your own code to visualize some information
-      # about your dataset. It will appear once the 'Start' button
-      # has been clicked
-      
-    })
-    
-    output$Description_btn_validate_ui <- renderUI({
-      widget <- actionButton(ns("Description_btn_validate"),
-                             "Start",
-                             class = btn_success_color)
-      toggleWidget(widget, rv$steps.enabled['Description'])
-    })
-    
-    
-    observeEvent(input$Description_btn_validate, {
+    observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
+      req(btnEvents()=='Description')
       rv$dataIn <- dataIn()
-      dataOut$trigger <- Timestamp()
+      
+      dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$value <- rv$dataIn
       rv$steps.status['Description'] <- stepStatus$VALIDATED
     })
     
-    
+
     # Insert necessary code which is hosted by MagellanNTK
     # DO NOT MODIFY THIS LINE
     eval(parse(text = Module_Return_Func()))

@@ -1,7 +1,7 @@
 #' @title Shiny example process module.
 #'
 #' @description
-#' This module contains the configuration informations for the corresponding pipeline.
+#' This module contains the configuration information for the corresponding pipeline.
 #' It is called by the nav_pipeline module of the package MagellanNTK
 #' 
 #' The name of the server and ui functions are formatted with keywords separated by '_', as follows:
@@ -13,9 +13,9 @@
 #' server and ui functions by building dynamically their name.
 #' 
 #' In this example, `PipelineDemo_Process2_ui()` and `PipelineDemo_Process2_server()` define
-#' the code for the process `Process1` which is part of the pipeline called `PipelineDemo`.
+#' the code for the process `ProcessDemo` which is part of the pipeline called `PipelineDemo`.
 #'
-#' @name example_module_process1
+#' @name example_module_Process2
 #' 
 #' @param id xxx
 #' @param dataIn The dataset
@@ -39,20 +39,20 @@
 #' 
 NULL
 
-#' @rdname example_module_process1
+#' @rdname example_module_Process2
 #' @export
 #' 
 PipelineDemo_Process2_conf <- function(){
   Config(
     fullname = 'PipelineDemo_Process2',
     mode = 'process',
-    steps = c('Step 1', 'Step 2', 'Step 3'),
-    mandatory = c(FALSE, TRUE, FALSE)
+    steps = c('Step 1'),
+    mandatory = c(FALSE)
   )
 }
 
 
-#' @rdname example_module_process1
+#' @rdname example_module_Process2
 #' 
 #' @export
 #'
@@ -62,19 +62,20 @@ PipelineDemo_Process2_ui <- function(id){
 
 
 
-#' @rdname example_module_process1
+#' @rdname example_module_Process2
 #' 
 #' @importFrom stats setNames rnorm
 #' 
 #' @export
 #' 
-PipelineDemo_Process2_server <- function(
-    id,
+PipelineDemo_Process2_server <- function(id,
   dataIn = reactive({NULL}),
   steps.enabled = reactive({NULL}),
-  remoteReset = reactive({FALSE}),
+  remoteReset = reactive({NULL}),
   steps.status = reactive({NULL}),
-  current.pos = reactive({1})
+  current.pos = reactive({1}),
+  path = NULL,
+  btnEvents = reactive({NULL})
 ){
   
   #source(paste0(path, '/foo.R'), local=TRUE)$value
@@ -88,8 +89,7 @@ PipelineDemo_Process2_server <- function(
     Step1_radio1 = NULL,
     Step1_btn1 = NULL,
     Step2_select1 = 1,
-    Step2_select2 = 1,
-    Step3_select1 = 1
+    Step2_select2 = 1
   )
   
   
@@ -123,91 +123,58 @@ PipelineDemo_Process2_server <- function(
     
     
     output$Description <- renderUI({
-      md.file <- paste0(id, '.md')
-      path <- system.file('workflow/PipelineDemo/md', package='MagellanNTK')
-      file <- file.path(path, md.file)
+      file <- normalizePath(file.path(session$userData$workflow.path, 
+        'md', paste0(id, '.md')))
       
-      tagList(
-        ### In this example, the md file is found in the extdata/module_examples 
-        ### directory but with a real app, it should be provided by the package 
-        ### which contains the UI for the different steps of the process module.
-        ### system.file(xxx)
-        
-        if (file.exists(file))
-          includeMarkdown(file)
-        else
-          p('No Description available'),
-        
-        
-        # Used to show some information about the dataset which is loaded
-        # This function must be provided by the package of the process module
-        uiOutput(ns('datasetDescription_ui')),
-        
-        # Insert validation button
-        uiOutput(ns('Description_btn_validate_ui'))
+      req(file)
+      MagellanNTK::process_layout(
+        ns = NS(id),
+        sidebar = tagList(),
+        #timeline_process_ui(ns('Description_timeline')),
+        content = tagList(
+          if (file.exists(file))
+            includeMarkdown(file)
+          else
+            p('No Description available')
+        )
       )
-    })
-    
-    output$datasetDescription_ui <- renderUI({
-      # Insert your own code to visualize some information
-      # about your dataset. It will appear once the 'Start' button
-      # has been clicked
       
     })
     
-    output$Description_btn_validate_ui <- renderUI({
-      widget <- actionButton(ns("Description_btn_validate"),
-                             "Start",
-                             class = btn_success_color)
-      toggleWidget(widget, rv$steps.enabled['Description'])
-    })
-    
-    
-    observeEvent(input$Description_btn_validate, {
+    observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
+      req(btnEvents()=='Description')
+      req(dataIn())
       rv$dataIn <- dataIn()
-      dataOut$trigger <- Timestamp()
+      rv.custom$dataIn1 <- dataIn()
+      rv.custom$dataIn2 <- dataIn()
+      
+      dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$value <- rv$dataIn
       rv$steps.status['Description'] <- stepStatus$VALIDATED
     })
     
-    # observe({
-    #   req(dataIn())
-    #   rv$dataIn <- dataIn()
-    #   dataOut$trigger <- Timestamp()
-    #   dataOut$value <- rv$dataIn
-    #   rv$steps.status['Description'] <- stepStatus$VALIDATED
-    # })
     
     # >>>
     # >>> START ------------- Code for step 1 UI---------------
     # >>> 
     
-    # >>>> -------------------- STEP 1 : Global UI ----------------------
+    # >>>> -------------------- STEP 1 : Global UI ------------------------------------
     output$Step1 <- renderUI({
-      wellPanel(
-        # uiOutput for all widgets in this UI
-        # This part is mandatory
-        # The renderUI() function of each widget is managed by MagellanNTK
-        # The dev only have to define a reactive() function for each
-        # widget he want to insert
-        # Be aware of the naming convention for ids in uiOutput()
-        # For more details, please refer to the dev document.
-        fluidRow(
-          column(width = 3, uiOutput(ns('Step1_btn1_ui'))),
-          column(width = 3, uiOutput(ns('Step1_radio1_ui')))
+      shinyjs::useShinyjs()
+      path <- file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')
+      includeCSS(path)
+      
+      MagellanNTK::process_layout(
+        ns = NS(id),
+        sidebar = tagList(
+          # timeline_process_ui(ns('POVImputation_timeline')),
+          uiOutput(ns("Step1_btn1_ui")),
+          uiOutput(ns("Step1_select1_ui")),
+          uiOutput(ns("Step1_select2_ui"))
         ),
-        
-        fluidRow(
-          column(width = 3, uiOutput(ns('Step1_select1_ui'))),
-          column(width = 3, uiOutput(ns('Step1_select2_ui'))),
-          column(width = 3, uiOutput(ns('Step1_select3_ui')))
-        ),
-        #foo_ui(ns('foo')),
-        # Insert validation button
-        uiOutput(ns('Step1_btn_validate_ui')),
-        
-        # Additional code
-        plotOutput(ns('showPlot'))
+        content = tagList(
+          plotOutput(ns("Step1_showPlot"))
+        )
       )
     })
     
@@ -227,61 +194,36 @@ PipelineDemo_Process2_server <- function(
     
     output$Step1_btn1_ui <- renderUI({
       widget <- actionButton(ns('Step1_btn1'), 'Button',
-                             class = btn_success_color)
+        class = btn_success_color)
       toggleWidget(widget, rv$steps.enabled['Step1'] )
+      #toggleWidget(widget, TRUE )
     })
     
     # This part must be customized by the developer of a new module
     output$Step1_select1_ui <- renderUI({
       widget <- selectInput(ns('Step1_select1'), 'Select',
-                            choices = 1:4,
-                            selected = rv.widgets$Step1_select1,
-                            width = '150px')
+        choices = 1:4,
+        selected = rv.widgets$Step1_select1,
+        width = '150px')
       toggleWidget(widget, rv$steps.enabled['Step1'] )
     })
     
     
     output$Step1_select2_ui <- renderUI({
       widget <- selectInput(ns('Step1_select2'), 'Select',
-                            choices = 1:4,
-                            selected = rv.widgets$Step1_select2,
-                            width = '150px')
+        choices = 1:4,
+        selected = rv.widgets$Step1_select2,
+        width = '150px')
       toggleWidget(widget, rv$steps.enabled['Step1'])
     })
     
     
-    output$Step1_select3_ui <- renderUI({
-      widget <- selectInput(ns('Step1_select3'), 'Select',
-                            choices = 1:4,
-                            selected = rv.widgets$Step1_select3,
-                            width = '150px')
-      toggleWidget(widget, rv$steps.enabled['Step1'])
-    })
-    
-    output$Step1_radio1_ui <- renderUI({
-      widget <- radioButtons(ns('Step1_radio1'), 'Choose',
-                             c("choice 1" = "choice1", "choice 2" = "choice2"),
-                             selected = rv.widgets$Step1_radio1
-      )
-      toggleWidget(widget, rv$steps.enabled['Step1'])
-    })
-    
-    output$Step1_btn_validate_ui <- renderUI({
-      widget <-  actionButton(ns("Step1_btn_validate"),
-                              "Perform",
-                              class = btn_success_color)
-      toggleWidget(widget, rv$steps.enabled['Step1'] )
+    observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
+      req(btnEvents()=='Step1')
+      req(rv$dataIn)
       
-    })
-    # >>> END: Definition of the widgets
-    
-    
-    observeEvent(input$Step1_btn_validate, {
+      
       # Do some stuff
-      # new.dataset <- 10*rv$dataIn[[length(rv$dataIn)]]
-      # rv$dataIn <- addDatasets(object = rv$dataIn,
-      #                          dataset = new.dataset,
-      #                          name = paste0('temp_',id))
       
       # DO NOT MODIFY THE THREE FOLLOWINF LINES
       dataOut$trigger <- Timestamp()
@@ -291,58 +233,57 @@ PipelineDemo_Process2_server <- function(
     })
     
     
-    # output$showPlot <- renderPlot({
-    #   req(rv$dataIn)
-    #   plot(as.matrix(rv$dataIn[[1]][,1]))
-    # })
+    output$Step1_showPlot <- renderPlot({
+      plot(1:10)
+    })
     # <<< END ------------- Code for step 1 UI---------------
     
     
     # >>> START ------------- Code for step 2 UI---------------
     
     output$Step2 <- renderUI({
-      wellPanel(
-        # Two examples of widgets in a renderUI() function
-        fluidRow(
-          column(width = 3, uiOutput(ns('Step2_select1_ui'))),
-          column(width = 3, uiOutput(ns('Step2_select2_ui')))
+      shinyjs::useShinyjs()
+      path <- file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')
+      includeCSS(path)
+      
+      MagellanNTK::process_layout(
+        ns = NS(id),
+        sidebar = tagList(
+          uiOutput(ns("Step2_select1_ui")),
+          uiOutput(ns("Step2_select2_ui"))
         ),
-        # Insert validation button
-        # This line is necessary. DO NOT MODIFY
-        uiOutput(ns('Step2_btn_validate_ui'))
+        content = tagList(
+          uiOutput(ns("POVImputation_showDetQuantValues")),
+          htmlOutput("helpForImputation"),
+          tags$hr(),
+          uiOutput(ns('mvplots_ui'))
+        )
       )
     })
     
     
     output$Step2_select1_ui <- renderUI({
       widget <- selectInput(ns('Step2_select1'), 'Select',
-                            choices = 1:4,
-                            selected = rv.widgets$Step2_select1,
-                            width = '150px')
+        choices = 1:4,
+        selected = rv.widgets$Step2_select1,
+        width = '150px')
       toggleWidget(widget, rv$steps.enabled['Step2'] )
     })
     
     output$Step2_select2_ui <- renderUI({
       widget <- selectInput(ns('Step2_select2'), 'Select',
-                            choices = 1:4,
-                            selected = rv.widgets$Step2_select2,
-                            width = '150px')
+        choices = 1:4,
+        selected = rv.widgets$Step2_select2,
+        width = '150px')
       toggleWidget(widget, rv$steps.enabled['Step2'] )
     })
     
-    output$Step2_btn_validate_ui <- renderUI({
-      widget <- actionButton(ns("Step2_btn_validate"),
-                             "Perform",
-                             class = btn_success_color)
-      toggleWidget(widget, rv$steps.enabled['Step2'] )
-    })
-    
-    observeEvent(input$Step2_btn_validate, {
+    observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
+      req(btnEvents()=='Step2')
+      req(rv$dataIn)
+      
+      
       # Do some stuff
-      # new.dataset <- 10*rv$dataIn[[length(rv$dataIn)]]
-      # rv$dataIn <- addDatasets(object = rv$dataIn,
-      #                          dataset = new.dataset,
-      #                          name = paste0('temp_',id))
       
       # DO NOT MODIFY THE THREE FOLLOWINF LINES
       dataOut$trigger <- Timestamp()
@@ -353,92 +294,44 @@ PipelineDemo_Process2_server <- function(
     # <<< END ------------- Code for step 2 UI---------------
     
     
-    
-    # >>> START ------------- Code for step 3 UI---------------
-    
-    output$Step3 <- renderUI({
-      wellPanel(
-        # Two examples of widgets in a renderUI() function
-        fluidRow(
-          column(width=4, uiOutput(ns('Step3_select1_ui'))),
-          column(width=8, plotOutput(ns('Step3_plot_ui')))
-          ),
-        # Insert validation button
-        # This line is necessary. DO NOT MODIFY
-        uiOutput(ns('Step3_btn_validate_ui'))
-      )
-    })
-    
-    
-    output$Step3_select1_ui <- renderUI({
-      widget <- selectInput(ns('Step3_select1'), 'Select number of points',
-                            choices = 1:20,
-                            selected = rv.widgets$Step2_select1,
-                            width = '150px')
-      toggleWidget(widget, rv$steps.enabled['Step3'] )
-    })
-    
-    output$Step3_plot_ui <- renderPlot({
-      req(input$Step3_select1)
-      plot(runif(1:input$Step3_select1))
-    })
-
-    
-    output$Step3_btn_validate_ui <- renderUI({
-      widget <- actionButton(ns("Step3_btn_validate"),
-                             "Perform",
-                             class = btn_success_color)
-      toggleWidget(widget, rv$steps.enabled['Step3'] )
-    })
-    
-    observeEvent(input$Step3_btn_validate, {
-      # Do some stuff
-      # new.dataset <- 10*rv$dataIn[[length(rv$dataIn)]]
-      # rv$dataIn <- addDatasets(object = rv$dataIn,
-      #                          dataset = new.dataset,
-      #                          name = paste0('temp_',id))
-      
-      # DO NOT MODIFY THE THREE FOLLOWINF LINES
-      dataOut$trigger <- Timestamp()
-      dataOut$value <- NULL
-      rv$steps.status['Step3'] <- stepStatus$VALIDATED
-    })
-    
-    # <<< END ------------- Code for step 2 UI---------------
-    
-    
-    
     # >>> START ------------- Code for step 'Save' UI---------------
     output$Save <- renderUI({
-      tagList(
-        # Insert validation button
-        # This line is necessary. DO NOT MODIFY
-        uiOutput(ns('Save_btn_validate_ui')),
-        uiOutput(ns('dl_ui'))
+      MagellanNTK::process_layout(
+        ns = NS(id),
+        sidebar = tagList(
+          #timeline_process_ui(ns('Save_timeline'))
+        ),
+        content = uiOutput(ns('dl_ui'))
       )
     })
     
     output$dl_ui <- renderUI({
-      req(config@mode == 'process')
       req(rv$steps.status['Save'] == stepStatus$VALIDATED)
-      download_dataset_ui(ns('createQuickLink'))
+      req(config@mode == 'process')
+      
+      MagellanNTK::download_dataset_ui(ns('createQuickLink'))
     })
     
     output$Save_btn_validate_ui <- renderUI({
-      toggleWidget(
-        actionButton(ns("Save_btn_validate"), "Save",
-                     class = btn_success_color),
-        rv$steps.enabled['Save']
+      tagList(
+        if (config@mode == 'process' && 
+            rv$steps.status['Save'] == stepStatus$VALIDATED) {
+          download_dataset_ui(ns('createQuickLink'))
+        }
       )
     })
-    observeEvent(input$Save_btn_validate, {
+    
+    observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
+      req(btnEvents()=='Save')
       # Do some stuff
-      rv$dataIn <- MagellanNTK::addDatasets(object = rv$dataIn,
-                               dataset = 10*rv$dataIn[[length(rv$dataIn)]],
-                               name = 'Process2')
+      #browser()
+      rv$dataIn <- MagellanNTK::addDatasets(
+        object = rv$dataIn,
+        dataset = 10*rv$dataIn[[length(rv$dataIn)]],
+        name = 'Process2')
       
       # DO NOT MODIFY THE THREE FOLLOWINF LINES
-      dataOut$trigger <- Timestamp()
+      dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$value <- rv$dataIn
       rv$steps.status['Save'] <- stepStatus$VALIDATED
       download_dataset_server('createQuickLink', 
@@ -448,7 +341,7 @@ PipelineDemo_Process2_server <- function(
     # <<< END ------------- Code for step 3 UI---------------
     
     
-    
+    #dataOu$widgets <- 
     # Insert necessary code which is hosted by MagellanNTK
     # DO NOT MODIFY THIS LINE
     eval(parse(text = Module_Return_Func()))
