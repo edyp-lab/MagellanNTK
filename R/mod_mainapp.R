@@ -30,7 +30,7 @@ NULL
 #' @import shinyEffects
 #' @import waiter
 #' @import shinydashboard
-#' @import bs4Dash
+#' @importFrom bs4Dash dashboardPage bs4DashNavbar bs4DashSidebar bs4SidebarMenu bs4SidebarMenuSubItem bs4SidebarMenuItem bs4DashBody
 #'
 #' @rdname mod_main_page
 #'
