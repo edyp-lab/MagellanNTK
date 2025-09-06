@@ -29,7 +29,6 @@ NULL
 #' @import shinyjs
 #' @import shinyEffects
 #' @import waiter
-#' @import shinydashboard
 #' @importFrom bs4Dash dashboardPage bs4DashNavbar bs4DashSidebar bs4SidebarMenu bs4SidebarMenuSubItem bs4SidebarMenuItem bs4DashBody
 #'
 #' @rdname mod_main_page
@@ -213,7 +212,7 @@ mainapp_ui <- function(id, session) {
 #' renderUI tagList h4 observeEvent actionButton h3 observe wellPanel helpText
 #' @import shinyjs
 #' @import shinyEffects
-#' @import S4Vectors
+#' @importFrom S4Vectors metadata
 #'
 #' @rdname mod_main_page
 #' @export
