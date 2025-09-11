@@ -324,10 +324,10 @@ PipelineDemo_Process1_server <- function(id,
     observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
       req(btnEvents()=='Save')
       # Do some stuff
-      browser()
+      assay(rv$dataIn[[length(rv$dataIn)]]) <- 10 * assay(rv$dataIn[[length(rv$dataIn)]])
       rv$dataIn <- MagellanNTK::addDatasets(
         object = rv$dataIn,
-        dataset = 10 * rv$dataIn[[length(rv$dataIn)]],
+        dataset = rv$dataIn[[length(rv$dataIn)]],
         name = 'Process1')
       
       # DO NOT MODIFY THE THREE FOLLOWINF LINES
