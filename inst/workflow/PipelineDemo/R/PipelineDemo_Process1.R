@@ -122,7 +122,7 @@ PipelineDemo_Process1_server <- function(id,
 
     output$Description <- renderUI({
       file <- normalizePath(file.path(session$userData$workflow.path, 
-        'md', paste0(id, '.md')))
+        'md', paste0(id, '.Rmd')))
       
       req(file)
       MagellanNTK::process_layout(

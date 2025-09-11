@@ -24,7 +24,7 @@ Create_md_file <- function(mode, fullname, path, rawText){
   if (!dir.exists(desc.dir)) 
     dir.create(desc.dir)          
   
-  md.file <- paste0(fullname, ".md")
+  md.file <- paste0(fullname, ".Rmd")
   desc.filename <- file.path(desc.dir, md.file)
   if (file.exists(desc.filename)) {
     file.remove(desc.filename)

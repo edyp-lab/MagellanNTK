@@ -358,7 +358,7 @@ code <- "
   # >>> 
 
   output$Description <- renderUI({
-    md.file <- paste0(id, '.md')
+    md.file <- paste0(id, '.Rmd')
     file <- file.path(path, 'md', md.file)
   
     tagList(

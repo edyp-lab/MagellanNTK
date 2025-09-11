@@ -476,7 +476,7 @@ CheckWorkflowDir <- function(path) {
 
 
     files.R <- gsub(".R", "", files.R)
-    files.md <- gsub(".md", "", files.md)
+    files.md <- gsub(".Rmd", "", files.md)
     n.R <- length(files.R)
     n.md <- length(files.md)
 

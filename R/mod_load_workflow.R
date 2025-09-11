@@ -271,11 +271,11 @@ mod_load_workflow_server <- function(id,
 
 
             if (!is.null(rv$folder) && length(rv$folder) == 1) {
-                file <- file.path(rv$folder, "md", "summary.md")
+                file <- file.path(rv$folder, "md", "summary.Rmd")
             } else if (!is.null(rv$package) && length(rv$package) == 1) {
                 file <- file.path(
                     system.file("workflows", package = rv$package),
-                    rv$workflow, "md", "summary.md"
+                    rv$workflow, "md", "summary.Rmd"
                 )
             }
 

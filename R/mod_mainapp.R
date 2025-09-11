@@ -295,7 +295,7 @@ mainapp_server <- function(id,
 
                 rv.core$filepath <- file.path(
                     session$userData$workflow.path, "md",
-                    paste0(session$userData$workflow.name, ".md")
+                    paste0(session$userData$workflow.name, ".Rmd")
                 )
 
                 rv.core$funcs <- readConfigFile(rv.core$workflow.path)
@@ -748,7 +748,7 @@ mainapp_server <- function(id,
             #
             insert_md_server(
                 "FAQ_MD",
-                file.path(rv.core$workflow.path, "md", "FAQ.md")
+                file.path(rv.core$workflow.path, "md", "FAQ.Rmd")
             )
             # mod_bug_report_server("bug_report")
             #

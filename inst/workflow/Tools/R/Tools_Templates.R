@@ -129,7 +129,7 @@ Tools_Templates_server <- function(id,
     
     
     output$Description <- renderUI({
-      md.file <- paste0(id, '.md')
+      md.file <- paste0(id, '.Rmd')
       path <- system.file('workflow/Tools/md', package='MagellanNTK')
       file <- file.path(path, md.file)
       

@@ -61,7 +61,7 @@ PipelineDemo_Description_server <- function(id,
     ###### ------------------- Code for Description (step 0) -------------------------    #####
     output$Description <- renderUI({
       file <- normalizePath(file.path(session$userData$workflow.path, 
-        'md', paste0(id, '.md')))
+        'md', paste0(id, '.Rmd')))
       
       MagellanNTK::process_layout(
         ns = NS(id),

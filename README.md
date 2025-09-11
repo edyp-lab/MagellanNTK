@@ -3,19 +3,18 @@
 
 <!-- badges: start -->
 [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![R-CMD-check-bioc](https://github.com/edyp-lab/MagellanNTK/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions?query=workflow%3AR-CMD-check-bioc)
 [![R-CMD-check](https://github.com/edyp-lab/omXplore/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions/workflows/R-CMD-check.yaml)
-[![Bioc release status](http://www.bioconductor.org/shields/build/release/bioc/MagellanNTK.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/MagellanNTK)
-[![Bioc devel status](http://www.bioconductor.org/shields/build/devel/bioc/MagellanNTK.svg)](https://bioconductor.org/checkResults/devel/bioc-LATEST/MagellanNTK)
-[![Bioc downloads rank](https://bioconductor.org/shields/downloads/release/MagellanNTK.svg)](http://bioconductor.org/packages/stats/bioc/MagellanNTK/)
-[![Bioc support](https://bioconductor.org/shields/posts/MagellanNTK.svg)](https://support.bioconductor.org/tag/MagellanNTK)
-[![Bioc history](https://bioconductor.org/shields/years-in-bioc/MagellanNTK.svg)](https://bioconductor.org/packages/release/bioc/html/MagellanNTK.html#since)
-[![Bioc last commit](https://bioconductor.org/shields/lastcommit/devel/bioc/MagellanNTK.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/MagellanNTK/)
-[![Bioc dependencies](https://bioconductor.org/shields/dependencies/release/MagellanNTK.svg)](https://bioconductor.org/packages/release/bioc/html/MagellanNTK.html#since)
-[![R-CMD-check](https://github.com/edyp-lab/MagellanNTK/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of MagellanNTK is to ...
+Le package MagellanNTK est un moteur de gestion de workflows qui permet d'exécuter une série de process d'analyses sur des jeux de données.
+Il contient des fonctions génériques d'entrée/sortie de dataset qui sont adaptées à des formats de données de type list.
+
+Pour utiliser les fonctionnalités de MagellanNTK, il est nécessaire d'utiliser des workflows soit enregistrés sur l'ordinateur, soit disponibles
+dans un package
+
+
+
+La principale puissance de ce package est que ces fonctions sont entièrement configurableI
 
 ## Installation
 
