@@ -324,18 +324,17 @@ PipelineDemo_Process1_server <- function(id,
     observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
       req(btnEvents()=='Save')
       # Do some stuff
-      #browser()
+      browser()
       rv$dataIn <- MagellanNTK::addDatasets(
         object = rv$dataIn,
-        dataset = 10*rv$dataIn[[length(rv$dataIn)]],
+        dataset = 10 * rv$dataIn[[length(rv$dataIn)]],
         name = 'Process1')
       
       # DO NOT MODIFY THE THREE FOLLOWINF LINES
       dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$value <- rv$dataIn
       rv$steps.status['Save'] <- stepStatus$VALIDATED
-      download_dataset_server('createQuickLink', 
-        dataIn = reactive({rv$dataIn}))
+      download_dataset_server('createQuickLink', dataIn = reactive({rv$dataIn}))
       
     })
     # <<< END ------------- Code for step 3 UI---------------
