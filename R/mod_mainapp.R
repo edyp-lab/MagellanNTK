@@ -694,14 +694,31 @@ mainapp_server <- function(id,
           req(rv.core$funcs$funcs)
           req(rv.core$processed.obj)
           
-          #omXplore::view_dataset_server("eda1", dataIn = reactive({rv.core$processed.obj}))
-               call.func(
-                   fname = paste0(rv.core$funcs$funcs$view_dataset, "_server"),
-                   args = list(
-                     id = ns("infos_dataset"),
-                     dataIn = reactive({rv.core$processed.obj})
-                     )
-               )
+          
+          
+          do.call(
+            eval(parse(text = paste0(rv.core$funcs$funcs$infos_dataset, "_server"))),
+            list(
+              id = "eda1",
+              dataIn = reactive({rv.core$processed.obj})
+            )
+          )
+          
+          do.call(
+            eval(parse(text = paste0(rv.core$funcs$funcs$view_dataset, "_server"))),
+            list(
+              id = "eda2",
+              dataIn = reactive({rv.core$processed.obj})
+            )
+          )
+          
+          # call.func(
+          #          fname = paste0(rv.core$funcs$funcs$view_dataset, "_server"),
+          #          args = list(
+          #            id = ns("infos_dataset"),
+          #            dataIn = reactive({rv.core$processed.obj})
+          #            )
+          #      )
           
           # shinyjqui::jqui_resizable(paste0("#", ns("window_eda"), " .modal-content"),
           #   options = list(minHeight = 500, minWidth = 500)
@@ -711,15 +728,28 @@ mainapp_server <- function(id,
           #   options = list(revert = TRUE)
           # )
           
+          #omXplore::view_dataset_server("eda1", dataIn = reactive({rv.core$processed.obj}))
           
           showModal(
             shinyjqui::jqui_draggable(
               modalDialog(
-            #omXplore::view_dataset_ui(ns("eda1")),
-                call.func(
-                  fname = paste0(rv.core$funcs$funcs$view_dataset, "_ui"),
-                  args = list(id = ns("infos_dataset"))
-                ),
+                tabsetPanel(id = ns("tabcard"),
+               
+               tabPanel(
+                 title = "Infos", 
+                 do.call(
+                 eval(parse(text = paste0(rv.core$funcs$funcs$infos_dataset, "_ui"))),
+                 list(id = ns("eda1"))
+               )
+                 ),
+                 tabPanel(
+                   title = "EDA",
+                   do.call(
+                     eval(parse(text = paste0(rv.core$funcs$funcs$view_dataset, "_ui"))),
+                     list(id = ns("eda2"))
+                   )
+             )
+                 ),
             title = "EDA", 
             size = "l"
           ))
