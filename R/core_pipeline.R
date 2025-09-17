@@ -216,9 +216,9 @@ nav_pipeline_server <- function(
 
 
         output$datasetNameUI <- renderUI({
-          req(inherits(dataIn(), 'QFeatures'))
-           h3(DaparToolshed::filename(dataIn()))
-          #h3('toto')
+          #req(inherits(dataIn(), 'QFeatures'))
+          # h3(DaparToolshed::filename(dataIn()))
+          h3('FILENAME TO DO')
         })
 
 

@@ -656,46 +656,10 @@ mainapp_server <- function(id,
         })
 
 
-
-        # output$InfosDataset_UI <- renderUI({
-        #     req(rv.core$funcs$funcs)
-        # 
-        #     call.func(
-        #         fname = paste0(rv.core$funcs$funcs$infos_dataset, "_server"),
-        #         args = list(
-        #             id = "infos_dataset",
-        #             dataIn = reactive({rv.core$processed.obj})
-        #         )
-        #     )
-        # 
-        #     call.func(
-        #         fname = paste0(rv.core$funcs$funcs$infos_dataset, "_ui"),
-        #         args = list(id = ns("infos_dataset"))
-        #     )
-        # })
-
-        
-        # MagellanNTK::mod_bsmodal_server(
-        #   id = "modal_EDA",
-        #   title = "EDA",
-        #   shiny.module = list(
-        #     ui.func = paste0(rv.core$funcs$funcs$infos_dataset, "_ui"),
-        #     ui.params = list(),
-        #     server.func = paste0(rv.core$funcs$funcs$infos_dataset, "_server"),
-        #     server.params = list(
-        #       dataIn = reactive({rv.core$processed.obj})
-        #     )
-        #   )
-        # )
-        
-  
-        
         observeEvent(input$btn_eda, {
           req(rv.core$funcs$funcs)
           req(rv.core$processed.obj)
-          
-          
-          
+
           do.call(
             eval(parse(text = paste0(rv.core$funcs$funcs$infos_dataset, "_server"))),
             list(
@@ -711,25 +675,7 @@ mainapp_server <- function(id,
               dataIn = reactive({rv.core$processed.obj})
             )
           )
-          
-          # call.func(
-          #          fname = paste0(rv.core$funcs$funcs$view_dataset, "_server"),
-          #          args = list(
-          #            id = ns("infos_dataset"),
-          #            dataIn = reactive({rv.core$processed.obj})
-          #            )
-          #      )
-          
-          # shinyjqui::jqui_resizable(paste0("#", ns("window_eda"), " .modal-content"),
-          #   options = list(minHeight = 500, minWidth = 500)
-          # )
-          # 
-          # shinyjqui::jqui_draggable(paste0("#", ns("window_eda"), " .modal-content"),
-          #   options = list(revert = TRUE)
-          # )
-          
-          #omXplore::view_dataset_server("eda1", dataIn = reactive({rv.core$processed.obj}))
-          
+
           showModal(
             shinyjqui::jqui_draggable(
               modalDialog(
