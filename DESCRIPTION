@@ -31,7 +31,6 @@ Depends: R (>= 4.4.0)
 Imports: 
     S4Vectors,
     methods,
-    shinydashboard,
     bs4Dash,
     DT, 
     shiny,
