@@ -116,26 +116,19 @@ mainapp_ui <- function(id, session) {
                         tabName = "releaseNotes",
                         icon = icon("gear")
                     )
-                ),
-              bs4SidebarMenuItem(
-                    p("Vizualize data", style = "color: white;"),
-                    icon = icon("home"),
-                bs4SidebarMenuSubItem(
-                        p("Info", style = "color: white;"),
-                        tabName = "infosDataset",
-                        icon = icon("gear")
-                    ),
-                bs4SidebarMenuSubItem(
-                        p("EDA", style = "color: white;"),
-                        tabName = "eda",
-                        icon = icon("gear")
-                    )
                 )
+              # bs4SidebarMenuItem(
+              #       p("Vizualize data", style = "color: white;"),
+              #       tabName = "eda",
+              #       icon = icon("home")
+              #   )
             )
         ),
         body = bs4DashBody(
             tags$style(".content-wrapper {background-color: white;}"),
-
+          actionButton(ns("btn_eda"), label = "EDA"),
+          
+          
             # style = "padding: 0px; overflow-y: auto;",
             includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css")),
             tabItems(
@@ -160,15 +153,15 @@ mainapp_ui <- function(id, session) {
                     icon = "home",
                     uiOutput(ns("SaveAs_UI"))
                 ),
-                tabItem(
-                    tabName = "infosDataset",
-                    icon = "home",
-                    uiOutput(ns("InfosDataset_UI"))
-                ),
-                tabItem(
-                    tabName = "eda",
-                    uiOutput(ns("EDA_UI"))
-                ),
+                # tabItem(
+                #     tabName = "infosDataset",
+                #     icon = "home",
+                #     uiOutput(ns("InfosDataset_UI"))
+                # ),
+                # tabItem(
+                #     tabName = "eda",
+                #     uiOutput(ns("EDA_UI"))
+                # ),
                 tabItem(
                     tabName = "tools",
                     uiOutput(ns("tools_UI"))
@@ -664,46 +657,67 @@ mainapp_server <- function(id,
 
 
 
-        output$InfosDataset_UI <- renderUI({
-            req(rv.core$funcs$funcs)
+        # output$InfosDataset_UI <- renderUI({
+        #     req(rv.core$funcs$funcs)
+        # 
+        #     call.func(
+        #         fname = paste0(rv.core$funcs$funcs$infos_dataset, "_server"),
+        #         args = list(
+        #             id = "infos_dataset",
+        #             dataIn = reactive({rv.core$processed.obj})
+        #         )
+        #     )
+        # 
+        #     call.func(
+        #         fname = paste0(rv.core$funcs$funcs$infos_dataset, "_ui"),
+        #         args = list(id = ns("infos_dataset"))
+        #     )
+        # })
 
-            call.func(
-                fname = paste0(rv.core$funcs$funcs$infos_dataset, "_server"),
-                args = list(
-                    id = "infos_dataset",
-                    dataIn = reactive({
-                        rv.core$processed.obj
-                    })
-                )
-            )
-
-            call.func(
-                fname = paste0(rv.core$funcs$funcs$infos_dataset, "_ui"),
-                args = list(id = ns("infos_dataset"))
-            )
+        
+        # MagellanNTK::mod_bsmodal_server(
+        #   id = "modal_EDA",
+        #   title = "EDA",
+        #   shiny.module = list(
+        #     ui.func = paste0(rv.core$funcs$funcs$infos_dataset, "_ui"),
+        #     ui.params = list(),
+        #     server.func = paste0(rv.core$funcs$funcs$infos_dataset, "_server"),
+        #     server.params = list(
+        #       dataIn = reactive({rv.core$processed.obj})
+        #     )
+        #   )
+        # )
+        
+  
+        
+        observeEvent(input$btn_eda, {
+          req(rv.core$funcs$funcs)
+          req(rv.core$processed.obj)
+          
+          omXplore::view_dataset_server("eda1", dataIn = reactive({rv.core$processed.obj}))
+          
+          # shinyjqui::jqui_resizable(paste0("#", ns("window_eda"), " .modal-content"),
+          #   options = list(minHeight = 500, minWidth = 500)
+          # )
+          # 
+          # shinyjqui::jqui_draggable(paste0("#", ns("window_eda"), " .modal-content"),
+          #   options = list(revert = TRUE)
+          # )
+          
+          
+          showModal(
+            shinyjqui::jqui_draggable(
+              modalDialog(
+            omXplore::view_dataset_ui(ns("eda1")),
+            title = "EDA", 
+            size = "l"
+          ))
+          )
         })
-
-
-        output$EDA_UI <- renderUI({
-            req(rv.core$funcs$funcs)
-
-            call.func(
-                fname = paste0(rv.core$funcs$funcs$view_dataset, "_server"),
-                args = list(
-                    id = "view_dataset",
-                    dataIn = reactive({
-                        rv.core$processed.obj
-                    }),
-                    useModal = FALSE,
-                    verbose = TRUE
-                )
-            )
-
-            call.func(
-                fname = paste0(rv.core$funcs$funcs$view_dataset, "_ui"),
-                args = list(id = ns("view_dataset"))
-            )
-        })
+        
+        
+          
+         
 
 
         observe({

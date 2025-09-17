@@ -93,7 +93,7 @@ pkgs.require('shinyjqui')
                 ui <- uiContent
             } else if (!is.null(shiny.module$ui.func)) {
                 ui <- do.call(
-                    shiny.module$ui.func,
+                  eval(parse(text=shiny.module$ui.func)),
                     append(
                         list(id = ns("id")),
                         shiny.module$ui.params
@@ -111,7 +111,7 @@ pkgs.require('shinyjqui')
 
             if (!is.null(shiny.module$server.func)) {
                 dataOut(do.call(
-                    shiny.module$server.func,
+                  eval(parse(text=shiny.module$server.func)),
                     append(
                         list(id = "id"),
                         shiny.module$server.params
