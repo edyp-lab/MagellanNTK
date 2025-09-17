@@ -694,7 +694,14 @@ mainapp_server <- function(id,
           req(rv.core$funcs$funcs)
           req(rv.core$processed.obj)
           
-          omXplore::view_dataset_server("eda1", dataIn = reactive({rv.core$processed.obj}))
+          #omXplore::view_dataset_server("eda1", dataIn = reactive({rv.core$processed.obj}))
+               call.func(
+                   fname = paste0(rv.core$funcs$funcs$view_dataset, "_server"),
+                   args = list(
+                     id = ns("infos_dataset"),
+                     dataIn = reactive({rv.core$processed.obj})
+                     )
+               )
           
           # shinyjqui::jqui_resizable(paste0("#", ns("window_eda"), " .modal-content"),
           #   options = list(minHeight = 500, minWidth = 500)
@@ -708,7 +715,11 @@ mainapp_server <- function(id,
           showModal(
             shinyjqui::jqui_draggable(
               modalDialog(
-            omXplore::view_dataset_ui(ns("eda1")),
+            #omXplore::view_dataset_ui(ns("eda1")),
+                call.func(
+                  fname = paste0(rv.core$funcs$funcs$view_dataset, "_ui"),
+                  args = list(id = ns("infos_dataset"))
+                ),
             title = "EDA", 
             size = "l"
           ))
