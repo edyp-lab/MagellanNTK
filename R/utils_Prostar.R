@@ -36,23 +36,6 @@ call.func <- function(fname, args) {
     do.call(eval(parse(text = fname)), args)
 }
 
-#' @title function to read DT inputs
-#' #'description xxx
-#' @param id xxx
-#' @param num xxx
-#' @param ... xxx
-#' @export
-#'
-#' @examples
-#' NULL
-#' @return NA
-shinyValue <- function(id, num, ...) {
-    unlist(lapply(seq_len(num), function(i) {
-        value <- input[[paste0(id, i)]]
-        if (is.null(value)) NA else value
-    }))
-}
-
 
 #' @title Package version
 #' #'description xxx

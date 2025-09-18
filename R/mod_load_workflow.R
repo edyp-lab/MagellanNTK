@@ -284,7 +284,7 @@ mod_load_workflow_server <- function(id,
 
             insert_md_server("summary", file)
 
-            box(
+            wellPanel(
                 title = "Inputs",
                 status = "warning",
                 solidHeader = TRUE,
