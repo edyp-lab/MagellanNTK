@@ -14,10 +14,10 @@
 #' @name download_dataset
 #' @examples
 #' if (interactive()) {
-#'     data(sub_R25)
-#'     shiny::runApp(download_dataset(sub_R25))
+#'     data(lldata)
+#'     shiny::runApp(download_dataset(lldata))
 #'
-#'     shiny::runApp(download_dataset(sub_R25, filename = "myDataset"))
+#'     shiny::runApp(download_dataset(lldata, filename = "myDataset"))
 #' }
 #'
 NULL

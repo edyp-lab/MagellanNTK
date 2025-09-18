@@ -928,10 +928,10 @@ nav_pipeline <- function() {
     server <- function(input, output, session) {
         session$userData$workflow.path <- path
 
-        data(sub_R25)
+        data(lldata)
 
         rv <- reactiveValues(
-            dataIn = sub_R25,
+            dataIn = lldata,
             dataOut = NULL
         )
 

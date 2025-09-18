@@ -27,7 +27,7 @@
 #'     library(MagellanNTK)
 #'     library(shiny)
 #'     data(lldata)
-#'     data(sub_R25)
+#'     data(lldata)
 #'     path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
 #'     files <- list.files(file.path(path, "R"), full.names = TRUE)
 #'     for (f in files) {

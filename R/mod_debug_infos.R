@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'     shiny::runApp(Debug_Infos(sub_R25))
+#'     shiny::runApp(Debug_Infos(lldata))
 #' }
 #'
 #' @author Samuel Wieczorek

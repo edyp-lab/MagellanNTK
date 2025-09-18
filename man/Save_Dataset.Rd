@@ -29,8 +29,8 @@ A shiny Module to load a dataset.
 }
 \examples{
 if (interactive()) {
-    data(sub_R25)
-    shiny::runApp(Save_Dataset(sub_R25))
+    data(lldata)
+    shiny::runApp(Save_Dataset(lldata))
 }
 
 }

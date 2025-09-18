@@ -4,21 +4,14 @@
 \name{datasets}
 \alias{datasets}
 \alias{lldata}
-\alias{sub_R25}
 \title{lldata dataset}
 \format{
-An object of class `list()`
-
 An object of class `list()`
 }
 \usage{
 data(lldata)
-
-data(sub_R25)
 }
 \description{
-xxx
-
 xxx
 }
 \keyword{data}

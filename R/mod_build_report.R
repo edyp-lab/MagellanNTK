@@ -13,10 +13,10 @@
 #' @name build_report
 #' @examples
 #' if (interactive()) {
-#'     data(sub_R25)
-#'     shiny::runApp(build_report(sub_R25))
+#'     data(lldata)
+#'     shiny::runApp(build_report(lldata))
 #'
-#'     shiny::runApp(build_report(sub_R25, filename = "myDataset"))
+#'     shiny::runApp(build_report(lldata, filename = "myDataset"))
 #' }
 #'
 NULL
