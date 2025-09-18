@@ -103,16 +103,9 @@ Config <- setClass(
         # General conditions
         #
         if (length(.Object@fullname) != 1 && .Object@fullname != "") {
-            warning(paste0("The slot 'fullname' must contain one string. Current value is: ", object@name))
+            warning(paste0("The slot 'fullname' must contain one string. Current value is: ", .Object@name))
             passed <- FALSE
         }
-
-        # if (length(.Object@name) != 1){
-        #     warning(paste0("The slot 'name' must contain one string. Current value is: ", object@name))
-        #     passed <- FALSE
-        # }
-
-
 
         # Check if mode exists and is an available keyword
         if (!(.Object@mode %in% c("process", "pipeline"))) {
