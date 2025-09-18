@@ -47,6 +47,9 @@ is.validated <- function(test) {
 #' @param f name of function for which the package(s) are to be identified.
 #'
 #' @import tidyverse
+#' 
+#' @importFrom utils help.search installed.packages maintainer 
+#' packageVersion tail write.table
 #'
 #' @examples
 #' \dontrun{
@@ -385,10 +388,10 @@ is.Magellan.compliant <- function(obj) {
 
 
 
-    passed <- passed || inherits(obj, "MSnset")
-    passed <- passed || inherits(obj, "QFeatures")
-    passed <- passed || inherits(obj, "SummarizedExperiment")
-    passed <- passed || inherits(obj, "MultiAssayExperiment")
+    # passed <- passed || inherits(obj, "MSnset")
+    # passed <- passed || inherits(obj, "QFeatures")
+    # passed <- passed || inherits(obj, "SummarizedExperiment")
+    # passed <- passed || inherits(obj, "MultiAssayExperiment")
     passed <- passed || inherits(obj, "data.frame")
     passed <- passed || inherits(obj, "matrix")
 

@@ -11,6 +11,9 @@
 #' @examples
 #' NULL
 #'
+#' @importFrom utils help.search installed.packages maintainer 
+#' packageVersion tail write.table
+#' 
 #' @export
 #'
 clipboard <- function(x, sep = "\t", ...) {

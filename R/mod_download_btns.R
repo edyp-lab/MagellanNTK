@@ -38,6 +38,9 @@ download_btns_ui <- function(id, settings = list()) {
 
 #' @rdname download_btns
 #' @return NA
+#' 
+#' @importFrom utils help.search installed.packages maintainer 
+#' packageVersion tail write.table
 #'
 #' @export
 #'

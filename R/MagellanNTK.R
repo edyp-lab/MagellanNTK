@@ -51,7 +51,7 @@ MagellanNTK_ui <- function(id) {
     #     text = "shinyjs.resetProstar = function() {history.go(0)}",
     #     functions = c("resetProstar")),
     #
-    #   shiny::titlePanel("", windowTitle = "Prostar"),
+    #   shiny::titlePanel("", windowTitle = "Prostar2"),
     # hidden(div(id = 'div_mainapp_module',
     #
     mainapp_ui(ns("mainapp_module"))

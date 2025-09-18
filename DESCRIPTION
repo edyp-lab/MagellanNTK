@@ -1,6 +1,6 @@
 Package: MagellanNTK
 Title: A Pipeline Manager
-Version: 0.99.10
+Version: 0.99.11
 Authors@R: 
   c(person(given = "Samuel", 
       family = "Wieczorek",
@@ -51,7 +51,7 @@ Imports:
     waiter
 Suggests: 
     rmarkdown, shinyjqui, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
-    gtools, XML, R.utils, RColorBrewer, MultiAssayExperiment, openxlsx,
+    gtools, XML, R.utils, RColorBrewer,  openxlsx,
     shinyAce, rclipboard, shinyWidgets, dplyr
 Collate: 
     MagellanNTK.R

@@ -68,6 +68,9 @@ mod_load_workflow_ui <- function(id) {
 
 
 #' @return NA
+#' 
+#' @importFrom utils help.search installed.packages maintainer 
+#' packageVersion tail write.table
 #'
 #' @rdname load_workflow
 #'

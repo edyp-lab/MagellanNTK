@@ -253,6 +253,8 @@ choose.dir.windows <- function(default = NA, caption = NA, useNew = TRUE) {
 #' @export
 #'
 #' @import htmltools
+#' @importFrom utils help.search installed.packages maintainer 
+#' packageVersion tail write.table
 #'
 #' @examples
 #' NULL

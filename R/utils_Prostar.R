@@ -2,6 +2,8 @@
 #' #'description xxx
 #' @param pkg xxx
 #' @export
+#' @importFrom utils help.search installed.packages maintainer 
+#' packageVersion tail write.table
 #' @examples NULL
 #' @return NA
 GetPackageVersion <- function(pkg) {

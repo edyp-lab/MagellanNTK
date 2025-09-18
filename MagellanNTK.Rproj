@@ -18,3 +18,4 @@ PackageUseDevtools: Yes
 PackageInstallArgs: --no-multiarch --with-keep.source --resave-data
 PackageBuildArgs: --resave-data
 PackageBuildBinaryArgs: --resave-data --build-vignettes
+PackageCheckArgs: --as-cran

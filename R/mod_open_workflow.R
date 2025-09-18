@@ -50,6 +50,8 @@ open_workflow_ui <- function(id) {
 #' @export
 #' @importFrom shinyjs info
 #' @importFrom shiny moduleServer reactiveValues observeEvent
+#' @importFrom utils help.search installed.packages maintainer 
+#' packageVersion tail write.table
 #'
 open_workflow_server <- function(id) {
     moduleServer(id, function(input, output, session) {
