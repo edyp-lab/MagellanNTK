@@ -5,12 +5,14 @@
 \title{function to read DT inputs
 #'description xxx}
 \usage{
-shinyValue(id, num)
+shinyValue(id, num, ...)
 }
 \arguments{
 \item{id}{xxx}
 
 \item{num}{xxx}
+
+\item{...}{xxx}
 }
 \value{
 NA

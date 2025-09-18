@@ -40,12 +40,13 @@ call.func <- function(fname, args) {
 #' #'description xxx
 #' @param id xxx
 #' @param num xxx
+#' @param ... xxx
 #' @export
 #'
 #' @examples
 #' NULL
 #' @return NA
-shinyValue <- function(id, num) {
+shinyValue <- function(id, num, ...) {
     unlist(lapply(seq_len(num), function(i) {
         value <- input[[paste0(id, i)]]
         if (is.null(value)) NA else value

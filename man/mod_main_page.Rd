@@ -33,9 +33,9 @@ mainapp(usermod = "dev")
 
 \item{dataIn}{xxx}
 
-\item{workflow.name}{= reactive({NULL}),}
+\item{workflow.name}{Default is NULL,}
 
-\item{workflow.path}{= reactive({NULL}),}
+\item{workflow.path}{Default is NULL,}
 
 \item{verbose}{= FALSE,}
 

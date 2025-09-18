@@ -49,7 +49,7 @@ is deciding by this module.}
 indicates is the pipeline has been reseted by a program of higher level
 Basically, it is the program which has called this module}
 
-\item{wholeReset}{= reactive({0}),}
+\item{wholeReset}{Default is 0,}
 
 \item{is.skipped}{xxx}
 

@@ -53,7 +53,7 @@ server <- shinyServer(function(input, output, session) {
     }
   )
   
-  output$directory = renderText({
+  output$directory = shiny::renderText({
     readDirectoryInput(session, 'directory')
   })
   

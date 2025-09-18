@@ -215,7 +215,7 @@ mod_modalDialog_server <- function(
         }
 
         RemoveModule <- reactive({
-            removeUI(selector = "#module_content")
+            shiny::removeUI(selector = "#module_content")
             remove_shiny_inputs("my_module", input)
             session$userData$clicks_observer$destroy()
         })

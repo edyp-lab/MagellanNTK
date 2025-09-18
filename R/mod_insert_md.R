@@ -1,6 +1,6 @@
 # Module UI
 
-#' @title   mod_insert_md_ui and mod_insert_md_server
+#' @title   insert_md_ui and insert_md_server
 #' @description  A shiny Module.
 #'
 #' @param id shiny id

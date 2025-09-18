@@ -52,6 +52,7 @@ open_dataset_ui <- function(id) {
 #' @importFrom BiocGenerics get
 #' @importFrom utils data
 #' @importFrom shinyjs info
+#' @import shiny
 #'
 open_dataset_server <- function(
         id,
@@ -113,15 +114,15 @@ open_dataset_server <- function(
         output$choosePkg <- renderUI({
             req(input$chooseSource == "packageDataset")
 
-            withProgress(message = "", detail = "", value = 0.5, {
-                incProgress(0.5, detail = paste0("Searching for ", class, " datasets"))
+          shiny::withProgress(message = "", detail = "", value = 0.5, {
+                shiny::incProgress(0.5, detail = paste0("Searching for ", class, " datasets"))
                 rv.open$packages <- GetListDatasets(class, demo_package)
             })
 
 
             req(rv.open$packages)
 
-            selectizeInput(ns("pkg"), "Choose package",
+            shiny::selectizeInput(ns("pkg"), "Choose package",
                 choices = rv.open$packages[, "Package"],
                 width = "200px"
             )

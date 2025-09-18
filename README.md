@@ -72,7 +72,6 @@ MagellanNTK(Exp1_R25_prot, wf.path, wf.name)
 
 ```
 library(MagellanNTK)
-data(lldata)
 path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
 shiny::runApp(workflowApp("PipelineDemo_Process1", path, dataIn = lldata))
 

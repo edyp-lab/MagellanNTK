@@ -38,6 +38,7 @@ chooseDir_ui <- function(id) {
 
 
 #' @import shinyFiles
+#' @importFrom shiny checkboxInput
 #' @export
 #' @rdname choose_dir
 chooseDir_server <- function(id,
@@ -74,7 +75,7 @@ chooseDir_server <- function(id,
 
 
         output$details_ckb_ui <- renderUI({
-            widget <- checkboxInput(ns("details_ckb"), "Show files details", value = FALSE)
+            widget <- shiny::checkboxInput(ns("details_ckb"), "Show files details", value = FALSE)
             toggleWidget(widget, condition = is.enabled())
         })
 
@@ -98,7 +99,7 @@ chooseDir_server <- function(id,
         })
 
 
-        output$directory <- renderText({
+        output$directory <- shiny::renderText({
             readDirectoryInput(session, "directory")
         })
 

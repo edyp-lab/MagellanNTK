@@ -98,6 +98,7 @@ nav_process_ui <- function(id) {
 #' @rdname nav_process
 #' @importFrom stats setNames
 #' @importFrom crayon blue yellow
+#' @import shiny
 #'
 nav_process_server <- function(
         id = NULL,
@@ -573,7 +574,7 @@ nav_process_server <- function(
                     uiOutput(ns("SkippedInfoPanel")),
                     uiOutput(ns("EncapsulateScreens_ui"))
                 ),
-                absolutePanel(
+                shiny::absolutePanel(
                     id = ns("btns_process_panel"),
                     top = default.layout$top_process_btns,
                     left = default.layout$left_process_btns,
@@ -770,10 +771,8 @@ nav_process <- function() {
     server <- function(input, output, session) {
         session$userData$workflow.path <- path
 
-        data(lldata)
-
         rv <- reactiveValues(
-            dataIn = lldata,
+            dataIn = NULL,
             dataOut = NULL
         )
 
@@ -782,7 +781,7 @@ nav_process <- function() {
         })
 
         output$debugInfos_ui <- renderUI({
-            req(dev_mode)
+            req(server_env$dev_mode)
             Debug_Infos_server(
                 id = "debug_infos",
                 title = "Infos from shiny app",

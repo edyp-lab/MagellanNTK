@@ -22,7 +22,7 @@
 #'
 #' @param is.skipped xxx
 #'
-#' @param wholeReset = reactive({0}),
+#' @param wholeReset Default is 0,
 #' @param verbose = FALSE,
 #' @param usermod = 'user'
 #'
@@ -792,7 +792,7 @@ nav_server <- function(
             }
 
             # browser()
-            DisplayWholeUI(ns)
+            #DisplayWholeUI(ns)
         })
 
 
@@ -1204,10 +1204,8 @@ nav <- function() {
     )
 
     server <- function(input, output, session) {
-        data(lldata)
-
         rv <- reactiveValues(
-            dataIn = lldata,
+            dataIn = NULL,
             dataOut = NULL
         )
 
@@ -1218,7 +1216,7 @@ nav <- function() {
         })
 
         output$debugInfos_ui <- renderUI({
-            req(dev_mode)
+            req(server_env$dev_mode)
             Debug_Infos_server(
                 id = "debug_infos",
                 title = "Infos from shiny app",

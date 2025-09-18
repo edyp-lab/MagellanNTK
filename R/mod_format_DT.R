@@ -7,20 +7,19 @@
 #'
 #' @param id shiny id
 #' @param dataIn xxx
-#' @param hidden Default is reactive({NULL}),
+#' @param hidden Default is NULL,
 #' @param withDLBtns Default is FALSE,
 #' @param showRownames Default is FALSE,
 #' @param dom Default is 'Bt',
 #' @param max.rows Default is 20,
-#' @param hc_style Default is reactive({NULL}),
-#' @param remoteReset Default is reactive({0}),
+#' @param hc_style Default is NULL,
+#' @param remoteReset Default is 0,
 #' @param is.enabled Default is TRUE
 #'
 #' @name format_DT
 #'
 #' @examples
 #' if (interactive()) {
-#'     data(lldata)
 #'     obj <- assay(lldata[[1]])
 #'     shiny::runApp(format_DT(obj))
 #'     #

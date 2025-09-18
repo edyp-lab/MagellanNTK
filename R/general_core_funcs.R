@@ -39,53 +39,6 @@ Build_SkippedInfoPanel <- function(steps.status, current.pos, config) {
 
 
 
-#' #' @title xxx
-#' #'
-#' #' @description Encapsulates each UI steps in a <div> tag so as to be able
-#' #' to manage hide/show commands applied on the div itself rether than on the
-#' #' ui.
-#' #'
-#' #' @param ns xxx
-#' #' @param id xxx
-#' #' @param config xxx
-#' #'
-#' #' @return A `renderUI` function
-#' #' @export
-#' #'
-#' Build_EncapsulateScreens_ui <- function(ns, id, config) {
-#'     len <- length(config@ll.UI)
-#'     if(rv.core$mode == 'dev'){
-#'       cat ('Entering Build_EncapsulateScreens_ui()')
-#'       show(config)
-#'     }
-#'
-#'
-#'     renderUI({
-#'         tagList(
-#'             lapply(seq_len(len), function(i) {
-#'                 if (i == 1) {
-#'                     div(
-#'                         id = ns(names(config@steps)[i]),
-#'                         class = paste0("page_", id),
-#'                         config@ll.UI[[i]]
-#'                     )
-#'                 } else {
-#'                     shinyjs::hidden(
-#'                         div(
-#'                             id = ns(names(config@steps)[i]),
-#'                             class = paste0("page_", id),
-#'                             config@ll.UI[[i]]
-#'                         )
-#'                     )
-#'                 }
-#'             })
-#'         )
-#'     })
-#' }
-
-
-
-
 
 #' @title Get the last validated step before current position.
 #'
@@ -191,7 +144,7 @@ ToggleState_Screens <- function(cond,
 #' @examples
 #' NULL
 GetStringStatus <- function(i, title.style = FALSE) {
-    txt <- names(which(global == i))
+    txt <- names(which(stepStatus == i))
 
     if (title.style) {
         txt <- paste(substr(txt, 1, 1),

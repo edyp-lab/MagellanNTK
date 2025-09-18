@@ -8,7 +8,7 @@
 #'
 #' @rdname process_layout
 #'
-#' @importFrom shiny NS tagList
+#' @import shiny
 #' @importFrom sass sass sass_file
 #' @return NA
 #' @export
@@ -19,7 +19,7 @@ process_layout <- function(ns, sidebar, content) {
         div(
             sidebar
         ),
-        absolutePanel(
+        shiny::absolutePanel(
             style = paste0(
                 "position: absolute; ",
                 "width: ", default.layout$width_process_content, ";}"

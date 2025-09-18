@@ -423,7 +423,7 @@ runDirinputExample <- function() {
             }
         )
 
-        output$directory <- renderText({
+        output$directory <- shiny::renderText({
             readDirectoryInput(session, "directory")
         })
 

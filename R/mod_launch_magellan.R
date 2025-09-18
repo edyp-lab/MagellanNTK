@@ -33,7 +33,7 @@ mod_launch_magellan_ui <- function(id) {
                 # style="display:inline-block; vertical-align: middle; padding-right: 20px;",
                 shinyjs::hidden(div(
                     id = ns("div_demoDataset"),
-                    mod_open_demoDataset_ui(ns("rl"))
+                  open_dataset_ui(ns("rl"))
                 ))
             ),
             div(
@@ -59,7 +59,7 @@ mod_launch_magellan_server <- function(id) {
             dataIn = NULL
         )
 
-        rv$demoData <- mod_open_demoDataset_server("rl")
+        rv$demoData <- open_dataset_server("rl")
 
         # rv$pipeline.name <- choose_pipeline_server('pipe',
         #                                                package = 'MSPipelines')

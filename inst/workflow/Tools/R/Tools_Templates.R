@@ -510,14 +510,7 @@ Tools_Templates_server <- function(id,
         #uiOutput(ns('dl_ui'))
       )
     })
-    
-    # output$dl_ui <- renderUI({
-    #   req(config@mode == 'process')
-    #   req(rv$steps.status['Save'] == stepStatus$VALIDATED)
-    #   dl_ui(ns('createQuickLink'))
-    # })
-    
-    
+
     rv.custom$path <- chooseDir_server('Save_chooseDir',
                                        path = reactive({'~'}),
                                        is.enabled = reactive({rv$steps.enabled['Save']}))

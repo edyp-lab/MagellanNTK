@@ -345,7 +345,7 @@ In the second screen, three widgets are defined:
 ```{r ui_screen_2, eval=FALSE}
 output$Screen_Process_2 <- renderUI({
     tagList(
-        radioButtons(ns("operator"), "Choose operator",
+        shiny::radioButtons(ns("operator"), "Choose operator",
             choices = c(
                 "addition" = "addition",
                 "soustraction" = "soustraction",

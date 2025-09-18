@@ -31,7 +31,4 @@ is.Magellan.compliant(data.frame())
 
 ll <- list(data.frame(), data.frame())
 is.Magellan.compliant(ll)
-
-data(lldata)
-is.Magellan.compliant(lldata)
 }

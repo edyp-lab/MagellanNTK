@@ -8,8 +8,8 @@
 #' @param id shiny id
 #' @param dataIn xxx
 #' @param session xxx
-#' @param workflow.name = reactive({NULL}),
-#' @param workflow.path = reactive({NULL}),
+#' @param workflow.name Default is NULL,
+#' @param workflow.path Default is NULL,
 #' @param verbose = FALSE,
 #' @param usermod = 'dev'
 #'
@@ -48,82 +48,17 @@ mainapp_ui <- function(id, session) {
             disable = TRUE
         ),
         sidebar = bs4DashSidebar(
-            id = ns("mySidebar"),
-            style = "padding-top: 0px;",
-
-            # expandOnHover = TRUE,
-            collapsed = TRUE,
-            actionButton(
-                inputId = ns("toggleSidebarBar"),
-                label = icon("bars", width = 20),
-                class = PrevNextBtnClass
-            ),
-            bs4SidebarMenu(
-                bs4SidebarMenuItem(
-                    p("Home", style = "color: white;"),
-                    tabName = "Home",
-                    icon = icon("home")
-                ),
-              bs4SidebarMenuItem(
-                    p("Dataset", style = "color: white;"),
-                    icon = icon("home"),
-                bs4SidebarMenuSubItem(
-                        p("Open (qf)", style = "color: white;"),
-                        tabName = "openDataset",
-                        icon = icon("gear")
-                    ),
-                bs4SidebarMenuSubItem(
-                        p("Import", style = "color: white;"),
-                        tabName = "convertDataset",
-                        icon = icon("gear")
-                    ),
-                bs4SidebarMenuSubItem(
-                        p("Save As", style = "color: white;"),
-                        tabName = "SaveAs",
-                        icon = icon("gear")
-                    ),
-                bs4SidebarMenuSubItem(
-                        p("Build report (Beta)", style = "color: white;"),
-                        tabName = "BuildReport",
-                        icon = icon("gear")
-                    )
-                ),
-              bs4SidebarMenuItem(
-                    p("Workflow", style = "color: white;"),
-                    icon = icon("home"),
-                bs4SidebarMenuSubItem(
-                        p("Load", style = "color: white;"),
-                        tabName = "openWorkflow",
-                        icon = icon("gear")
-                    ),
-                bs4SidebarMenuSubItem(
-                        p("Run", style = "color: white;"),
-                        tabName = "workflow",
-                        icon = icon("gear")
-                    ),
-                bs4SidebarMenuSubItem(
-                        p("Manual", style = "color: white;"),
-                        tabName = "Manual",
-                        icon = icon("gear")
-                    ),
-                bs4SidebarMenuSubItem(
-                        p("FAQ", style = "color: white;"),
-                        tabName = "faq",
-                        icon = icon("gear")
-                    ),
-                bs4SidebarMenuSubItem(
-                        p("Release Notes", style = "color: white;"),
-                        tabName = "releaseNotes",
-                        icon = icon("gear")
-                    )
-                )
-              # bs4SidebarMenuItem(
-              #       p("Vizualize data", style = "color: white;"),
-              #       tabName = "eda",
-              #       icon = icon("home")
-              #   )
-            )
-        ),
+          id = ns("mySidebar"),
+          style = "padding-top: 0px;",
+          
+          # expandOnHover = TRUE,
+          collapsed = TRUE,
+          actionButton(inputId = ns("toggleSidebarBar"),
+            label = icon("bars", width = 20),
+            class = PrevNextBtnClass
+          ),
+          Insert_User_Sidebar()
+          ),
         body = bs4DashBody(
             tags$style(".content-wrapper {background-color: white;}"),
           actionButton(ns("btn_eda"), label = "EDA"),
@@ -131,24 +66,24 @@ mainapp_ui <- function(id, session) {
           
             # style = "padding: 0px; overflow-y: auto;",
             includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css")),
-            tabItems(
-                tabItem(
+          bs4Dash::tabItems(
+            bs4Dash::tabItem(
                     tabName = "Home",
                     icon = "home",
                     class = "active",
                     mod_homepage_ui(ns("home"))
                 ),
-                tabItem(
+            bs4Dash::tabItem(
                     tabName = "openDataset",
                     icon = "home",
                     uiOutput(ns("open_dataset_UI"))
                 ),
-                tabItem(
+            bs4Dash::tabItem(
                     tabName = "convertDataset",
                     icon = "home",
                     uiOutput(ns("open_convert_dataset_UI"))
                 ),
-                tabItem(
+            bs4Dash::tabItem(
                     tabName = "SaveAs",
                     icon = "home",
                     uiOutput(ns("SaveAs_UI"))
@@ -162,33 +97,33 @@ mainapp_ui <- function(id, session) {
                 #     tabName = "eda",
                 #     uiOutput(ns("EDA_UI"))
                 # ),
-                tabItem(
+            bs4Dash::tabItem(
                     tabName = "tools",
                     uiOutput(ns("tools_UI"))
                 ),
-                tabItem(
+            bs4Dash::tabItem(
                     tabName = "BuildReport",
                     icon = "home",
                     uiOutput(ns("BuildReport_UI"))
                 ),
-                tabItem(
+            bs4Dash::tabItem(
                     tabName = "openWorkflow",
                     uiOutput(ns("open_workflow_UI"))
                 ),
-                tabItem(
+            bs4Dash::tabItem(
                     tabName = "workflow",
                     icon = "home",
                     uiOutput(ns("workflow_UI"))
                 ),
-                tabItem(
+            bs4Dash::tabItem(
                     tabName = "releaseNotes",
                     uiOutput(ns("ReleaseNotes_UI"))
                 ),
-                tabItem(
+            bs4Dash::tabItem(
                     tabName = "faq",
                     insert_md_ui(ns("FAQ_MD"))
                 ),
-                tabItem(
+            bs4Dash::tabItem(
                     tabName = "Manual",
                     uiOutput(ns("manual_UI"))
                 )
@@ -225,9 +160,9 @@ mainapp_server <- function(id,
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
-        observeEvent(input$toggleSidebarBar, {
-            updateSidebar("mySidebar", session = session)
-        })
+        # observeEvent(input$toggleSidebarBar, {
+        #     updateSidebar("mySidebar", session = session)
+        # })
 
 
         rv.core <- reactiveValues(
@@ -325,27 +260,7 @@ mainapp_server <- function(id,
 
             switch(usermod,
                 dev = {
-                    sidebarMenu(
-                        id = "sidebarmenu",
-                        menuItem(
-                            "Item 1",
-                            tabName = "item1",
-                            icon = icon("sliders")
-                        ),
-                        menuItem(
-                            "Item 2",
-                            tabName = "item2",
-                            icon = icon("id-card"),
-                            menuSubItem(
-                                text = "toto1",
-                                tabName = "titi1"
-                            ),
-                            menuSubItem(
-                                text = "toto2",
-                                tabName = "titi2"
-                            )
-                        )
-                    )
+                    
 
 
                     # sidebarMenu(id = "sb_dev",

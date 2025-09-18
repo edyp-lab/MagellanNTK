@@ -26,7 +26,7 @@ launch_app <- function(mode = "user") {
     server_env <- environment(server)
 
     # Here you add any variables that your server can find
-    server_env$dev_mode <- dev_mode
+    #server_env$dev_mode <- dev_mode
 
     app <- shiny::shinyApp(ui, server)
     shiny::runApp(

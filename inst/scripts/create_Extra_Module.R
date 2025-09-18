@@ -124,7 +124,7 @@ NAME_server <- function(id,
     observeEvent(input$valid_btn, {
       dataOut$trigger <- as.numeric(Sys.time())
       dataOut$value <- dataIn()
-      dataOut$widgets <- reactiveValuesToList(rv.widgets)
+      dataOut$widgets <- shiny::reactiveValuesToList(rv.widgets)
     })
     
     

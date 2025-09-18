@@ -431,7 +431,7 @@ code <- "
   output$dl_ui <- renderUI({
     req(config@mode == 'process')
     req(rv$steps.status['Save'] == stepStatus$VALIDATED)
-    dl_ui(ns('createQuickLink'))
+    download_dataset_ui(ns('createQuickLink'))
     })
     
   output$Save_btn_validate_ui <- renderUI({
@@ -451,7 +451,7 @@ code <- "
       dataOut$trigger <- Timestamp()
       dataOut$value <- rv$dataIn
       rv$steps.status['Save'] <- stepStatus$VALIDATED
-      dl_server('createQuickLink', dataIn = reactive({rv$dataIn}))
+      download_dataset_server('createQuickLink', dataIn = reactive({rv$dataIn}))
       
       })
       

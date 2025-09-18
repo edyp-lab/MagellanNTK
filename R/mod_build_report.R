@@ -13,7 +13,6 @@
 #' @name build_report
 #' @examples
 #' if (interactive()) {
-#'     data(lldata)
 #'     shiny::runApp(build_report(lldata))
 #'
 #'     shiny::runApp(build_report(lldata, filename = "myDataset"))

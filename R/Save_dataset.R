@@ -8,7 +8,6 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'     data(lldata)
 #'     shiny::runApp(Save_Dataset(lldata))
 #' }
 #'
@@ -18,12 +17,13 @@ NULL
 
 
 #' @rdname Save_Dataset
+#' @importFrom shiny downloadLink
 #'
 #' @export
 #'
 Save_Dataset_ui <- function(id) {
     ns <- NS(id)
-    downloadLink(ns("downloadData"), "Download")
+    shiny::downloadLink(ns("downloadData"), "Download")
 }
 
 

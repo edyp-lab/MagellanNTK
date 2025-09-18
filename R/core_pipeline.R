@@ -21,7 +21,7 @@
 #' Basically, it is the program which has called this module
 #'
 #' @param is.skipped xxx
-#' @param wholeReset = reactive({0}),
+#' @param wholeReset Default is 0,
 #' @param verbose = FALSE,
 #' @param usermod = 'user'
 #'
@@ -53,6 +53,7 @@ NULL
 #' It is the same as for the server() function.
 #'
 #' @rdname nav_pipeline
+#' @import shiny
 #'
 #' @export
 #'
@@ -60,7 +61,7 @@ nav_pipeline_ui <- function(id) {
     ns <- NS(id)
 
     div(
-        absolutePanel(
+        shiny::absolutePanel(
             left = default.layout$left_pipeline_sidebar,
             top = default.layout$top_pipeline_sidebar,
             height = default.layout$height_pipeline_sidebar,
@@ -927,18 +928,15 @@ nav_pipeline <- function() {
 
     server <- function(input, output, session) {
         session$userData$workflow.path <- path
-
-        data(lldata)
-
         rv <- reactiveValues(
-            dataIn = lldata,
+            dataIn = NULL,
             dataOut = NULL
         )
 
         #  output$UI <- renderUI({nav_pipeline_ui(pipe.name)})
 
         output$debugInfos_ui <- renderUI({
-            req(dev_mode)
+            req(server_env$dev_mode)
             Debug_Infos_server(
                 id = "debug_infos",
                 title = "Infos from shiny app",

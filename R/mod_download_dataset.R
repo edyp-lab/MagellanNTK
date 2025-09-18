@@ -14,7 +14,6 @@
 #' @name download_dataset
 #' @examples
 #' if (interactive()) {
-#'     data(lldata)
 #'     shiny::runApp(download_dataset(lldata))
 #'
 #'     shiny::runApp(download_dataset(lldata, filename = "myDataset"))
@@ -50,9 +49,7 @@ download_dataset_ui <- function(id) {
 #'
 download_dataset_server <- function(
         id,
-        dataIn = reactive({
-            NULL
-        }),
+        dataIn = reactive({NULL}),
         widget.type = "Link",
         filename = "myDataset") {
     moduleServer(id, function(input, output, session) {

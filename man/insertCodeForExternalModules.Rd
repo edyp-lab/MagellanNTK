@@ -157,67 +157,6 @@ This function xxx
 
 This function generates dynamically the observeEvent function for each widget
 }
-\details{
-#' @title Code for declaring xxx
-#'
-#' @description xxx
-#' @param add.code Add additional code
-#'
-#' @export
-#'
-#' @rdname insertCodeForExternalModules
-#'
-#' @return NA
-#'
-Get_Code_for_remoteReset2_observeEvents <- function(add.code = NULL) {
-  code <- "
-
-observeEvent(req(remoteReset()), ignoreInit = FALSE, ignoreNULL = TRUE,{
-      lapply(names(rv.widgets), function(x){
-          rv.widgets[[x]] <- widgets.default.values[[x]]
-        })
-
-            lapply(names(rv.custom), function(x){
-        rv.custom[[x]] <- rv.custom.default.values[[x]]
-    })
-
-    rv$dataIn <- NULL
-    "
-  code <- paste0(code, add.code, "})")
-
-
-  code
-}
-#' @title Code for declaring xxx
-#'
-#' @description xxx
-#'
-#' @export
-#'
-#' @rdname insertCodeForExternalModules
-#'
-#' @return NA
-#'
-Get_Code_for_remoteReset_observeEvents <- function() {
-  code <- "
-
-observeEvent(req(remoteReset() >=1), ignoreInit = TRUE, ignoreNULL = TRUE,{
-      lapply(names(rv.widgets), function(x){
-          rv.widgets[[x]] <- widgets.default.values[[x]]
-        })
-
-            lapply(names(rv.custom), function(x){
-        rv.custom[[x]] <- rv.custom.default.values[[x]]
-    })
-
-    rv$dataIn <- NULL
-})
-
-"
-
-  code
-}
-}
 \author{
 Samuel Wieczorek
 }

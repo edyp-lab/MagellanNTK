@@ -42,6 +42,7 @@ Imports:
     sass,
     stats,
     utils,
+    dplyr,
     markdown,
     BiocGenerics, 
     htmltools,
@@ -52,7 +53,7 @@ Imports:
 Suggests: 
     rmarkdown, shinyjqui, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
     gtools, XML, R.utils, RColorBrewer,  openxlsx,
-    shinyAce, rclipboard, shinyWidgets, dplyr
+    shinyAce, rclipboard, shinyWidgets
 Collate: 
     MagellanNTK.R
     settings.R
@@ -102,6 +103,7 @@ Collate:
     mod_view_dataset.R
     mod_convert_dataset.R
     mod_export_dataset.R
+    globals.R
     mod_error_modal.R
     mod_bug_report.R
     mod_load_package.R
@@ -120,3 +122,4 @@ URL: https://github.com/edyp-lab/MagellanNTK, https://edyp-lab.github.io/Magella
 BugReports: https://github.com/edyp-lab/MagellanNTK/issues
 VignetteBuilder: knitr
 StagedInstall: yes
+LazyLoad: yes

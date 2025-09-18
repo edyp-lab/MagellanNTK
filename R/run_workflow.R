@@ -26,8 +26,6 @@
 #' if (interactive()) {
 #'     library(MagellanNTK)
 #'     library(shiny)
-#'     data(lldata)
-#'     data(lldata)
 #'     path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
 #'     files <- list.files(file.path(path, "R"), full.names = TRUE)
 #'     for (f in files) {
@@ -86,9 +84,7 @@ pipe_workflow_ui <- function(id) {
 pipe_workflow_server <- function(
         id,
         path = NULL,
-        dataIn = reactive({
-            NULL
-        }),
+        dataIn = reactive({NULL}),
         usermod = "dev",
         verbose = FALSE) {
     if (is.null(path)) {
@@ -104,30 +100,24 @@ pipe_workflow_server <- function(
 
         dataOut <- reactiveVal()
 
-        output$debugInfos_ui <- renderUI({
-            req(usermod == "dev")
-            Debug_Infos_server(
-                id = "debug_infos",
-                title = "Infos from shiny app",
-                rv.dataIn = reactive({
-                    dataIn
-                }),
-                dataOut = reactive({
-                    rv$dataOut$dataOut()
-                })
-            )
-            Debug_Infos_ui("debug_infos")
-        })
+        # output$debugInfos_ui <- renderUI({
+        #     req(usermod == "dev")
+        #     Debug_Infos_server(
+        #         id = "debug_infos",
+        #         title = "Infos from shiny app",
+        #         rv.dataIn = reactive({dataIn}),
+        #         dataOut = reactive({dataOut$dataOut()})
+        #     )
+        #     Debug_Infos_ui("debug_infos")
+        # })
 
         output$save_dataset_ui <- renderUI({
             req(c(dataOut(), dataOut()$dataOut()$value))
 
-            dl_ui(ns("saveDataset"))
-            dl_server(
+          download_dataset_ui(ns("saveDataset"))
+            download_dataset_server(
                 id = "saveDataset",
-                dataIn = reactive({
-                    dataOut()$dataOut()$value
-                })
+                dataIn = reactive({dataOut()$dataOut()$value})
             )
         })
 
@@ -142,9 +132,7 @@ pipe_workflow_server <- function(
             dataOut(
                 nav_pipeline_server(
                     id = id,
-                    dataIn = reactive({
-                        dataIn
-                    }),
+                    dataIn = reactive({dataIn}),
                     verbose = verbose,
                     usermod = usermod
                 )
@@ -230,30 +218,28 @@ proc_workflow_server <- function(
 
         dataOut <- reactiveVal()
 
-        output$debugInfos_ui <- renderUI({
-            req(usermod == "dev")
-            Debug_Infos_server(
-                id = "debug_infos",
-                title = "Infos from shiny app",
-                rv.dataIn = reactive({
-                    dataIn
-                }),
-                dataOut = reactive({
-                    rv$dataOut$dataOut()
-                })
-            )
-            Debug_Infos_ui("debug_infos")
-        })
+        # output$debugInfos_ui <- renderUI({
+        #     req(usermod == "dev")
+        #     Debug_Infos_server(
+        #         id = "debug_infos",
+        #         title = "Infos from shiny app",
+        #         rv.dataIn = reactive({
+        #             dataIn
+        #         }),
+        #         dataOut = reactive({
+        #             dataOut$dataOut()
+        #         })
+        #     )
+        #     Debug_Infos_ui("debug_infos")
+        # })
 
         output$save_dataset_ui <- renderUI({
             req(c(dataOut(), dataOut()$dataOut()$value))
 
-            dl_ui(ns("saveDataset"))
-            dl_server(
+          download_dataset_ui(ns("saveDataset"))
+          download_dataset_server(
                 id = "saveDataset",
-                dataIn = reactive({
-                    dataOut()$dataOut()$value
-                })
+                dataIn = reactive({dataOut()$dataOut()$value})
             )
         })
 
@@ -268,21 +254,15 @@ proc_workflow_server <- function(
             dataOut(
                 nav_process_server(
                     id = id,
-                    dataIn = reactive({
-                        dataIn
-                    }),
+                    dataIn = reactive({dataIn}),
                     verbose = verbose,
                     usermod = usermod,
-                    remoteReset = reactive({
-                        NULL
-                    })
+                    remoteReset = reactive({NULL})
                 )
             )
         })
 
-        return(reactive({
-            dataOut()
-        }))
+        return(reactive({dataOut()}))
     })
 }
 

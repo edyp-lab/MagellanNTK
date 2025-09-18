@@ -47,7 +47,7 @@ format_DT(
 
 \item{dataIn}{xxx}
 
-\item{hidden}{Default is reactive({NULL}),}
+\item{hidden}{Default is NULL,}
 
 \item{withDLBtns}{Default is FALSE,}
 
@@ -57,9 +57,9 @@ format_DT(
 
 \item{max.rows}{Default is 20,}
 
-\item{hc_style}{Default is reactive({NULL}),}
+\item{hc_style}{Default is NULL,}
 
-\item{remoteReset}{Default is reactive({0}),}
+\item{remoteReset}{Default is 0,}
 
 \item{is.enabled}{Default is TRUE}
 }
@@ -71,7 +71,6 @@ A shiny Module.
 }
 \examples{
 if (interactive()) {
-    data(lldata)
     obj <- assay(lldata[[1]])
     shiny::runApp(format_DT(obj))
     #

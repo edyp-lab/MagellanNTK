@@ -5,7 +5,7 @@
 \alias{insert_md_ui}
 \alias{insert_md_server}
 \alias{insert_md}
-\title{mod_insert_md_ui and mod_insert_md_server}
+\title{insert_md_ui and insert_md_server}
 \usage{
 insert_md_ui(id)
 

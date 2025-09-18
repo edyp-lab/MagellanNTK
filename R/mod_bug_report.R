@@ -29,7 +29,7 @@ mod_bug_report_ui <- function(id) {
         uiOutput(ns("BugReport_output")),
         tags$br(),
         tags$head(tags$style("#fileReaderText{font-size:12px; font-style:italic;overflow-y:scroll; max-height: 400px; background: ghostwhite;}")),
-        verbatimTextOutput(ns("fileReaderText"))
+        shiny::verbatimTextOutput(ns("fileReaderText"))
     )
 }
 
@@ -51,7 +51,7 @@ mod_bug_report_server <- function(id) {
         # 0.5 second (500 milliseconds).
         fileReaderData <- reactiveFileReader(500, session, logfile, readLines)
 
-        output$fileReaderText <- renderText({
+        output$fileReaderText <- shiny::renderText({
             # Read the text, and make it a consistent number of lines so
             # that the output box doesn't grow in height.
             text <- fileReaderData()

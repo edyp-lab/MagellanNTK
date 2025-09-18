@@ -74,8 +74,6 @@ pipelines nor processes to be managed with `MagellanNTK`.
 if (interactive()) {
     library(MagellanNTK)
     library(shiny)
-    data(lldata)
-    data(lldata)
     path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
     files <- list.files(file.path(path, "R"), full.names = TRUE)
     for (f in files) {

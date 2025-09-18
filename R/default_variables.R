@@ -5,7 +5,6 @@
 #'
 
 
-
 #' @rdname default_vars
 #' @export
 default.funcs <- function() {

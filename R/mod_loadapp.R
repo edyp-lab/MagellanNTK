@@ -109,7 +109,7 @@ loadapp_server <- function(id) {
                     if (!is.null(content)) {
                         list(
                             h3(x),
-                            radioButtons(ns(x), "", choices = content)
+                            shiny::radioButtons(ns(x), "", choices = content)
                         )
                     }
                 })
@@ -120,7 +120,7 @@ loadapp_server <- function(id) {
 
         observeEvent(input$ok, {
             dataOut$files.sourced <- TRUE
-            rv$dataOut <- reactiveValuesToList(input)[funcs]
+            rv$dataOut <- shiny::reactiveValuesToList(input)[funcs]
             removeModal()
         })
 

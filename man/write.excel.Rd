@@ -22,8 +22,9 @@ A Excel file (.xlsx)
 This is the default function fo export the current dataset as an Excel file.
 }
 \examples{
-data(lldata)
-write.excel(lldata, filename = "foo.xlsx")
+\dontrun{
+write.excel(data.frame(), filename = "foo.xlsx")
+}
 
 }
 \author{

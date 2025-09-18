@@ -35,7 +35,6 @@ A shiny Module.
 }
 \examples{
 if (interactive()) {
-    data(lldata)
     shiny::runApp(build_report(lldata))
 
     shiny::runApp(build_report(lldata, filename = "myDataset"))

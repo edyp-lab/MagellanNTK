@@ -38,7 +38,6 @@ A shiny Module.
 }
 \examples{
 if (interactive()) {
-    data(lldata)
     shiny::runApp(download_dataset(lldata))
 
     shiny::runApp(download_dataset(lldata, filename = "myDataset"))

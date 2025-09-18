@@ -17,8 +17,9 @@
 #'
 #'
 #' @examples
-#' data(lldata)
-#' write.excel(lldata, filename = "foo.xlsx")
+#' \dontrun{
+#' write.excel(data.frame(), filename = "foo.xlsx")
+#' }
 #'
 write.excel <- function(
         df,

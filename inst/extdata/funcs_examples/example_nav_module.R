@@ -48,7 +48,7 @@ server <- function(input, output){
   output$UI <- renderUI({nav_ui(name)})
   
   output$debugInfos_ui <- renderUI({
-    req(dev_mode)
+    req(server_env$dev_mode)
     Debug_Infos_server(id = 'debug_infos',
                        title = 'Infos from shiny app',
                        rv.dataIn = reactive({rv$dataIn}),

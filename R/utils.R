@@ -50,6 +50,7 @@ is.validated <- function(test) {
 #' 
 #' @importFrom utils help.search installed.packages maintainer 
 #' packageVersion tail write.table
+#' @import dplyr
 #'
 #' @examples
 #' \dontrun{
@@ -79,15 +80,15 @@ find_funs <- function(f) {
 
     # get list of built-in packages
 
-    pckgs <- installed.packages() %>% as_tibble()
+    pckgs <- installed.packages() %>% dplyr::as_tibble()
     pckgs %>%
-        dplyr::filter(Priority %in% c("base", "recommended")) %>%
-        dplyr::select(Package) %>%
-        distinct() -> builtin_pckgs_df
+        dplyr::filter(pckgs$Priority %in% c("base", "recommended")) %>%
+        dplyr::select(pckgs$Package) %>%
+        dplyr::distinct() -> builtin_pckgs_df
 
     # check for each element of 'pckg hit' whether its built-in and loaded (via match). Then print results.
 
-    results <- tibble(
+    results <- dplyr::tibble(
         package_name = pckg_hits,
         builtin_pckage = match(pckg_hits, builtin_pckgs_df$Package, nomatch = 0) > 0,
         loaded = match(paste("package:", pckg_hits, sep = ""), search(), nomatch = 0) > 0
@@ -360,10 +361,8 @@ is.substr <- function(pattern, target) {
 #'
 #' ll <- list(data.frame(), data.frame())
 #' is.Magellan.compliant(ll)
-#'
-#' data(lldata)
-#' is.Magellan.compliant(lldata)
 #' @return NA
+#' 
 is.Magellan.compliant <- function(obj) {
     passed <- FALSE
 

@@ -1,4 +1,4 @@
-#' @title mod_open_demo_dataset_ui and mod_open_demo_dataset_server
+#' @title infos_dataset_ui and infos_dataset_server
 #'
 #' @description A shiny Module.
 #'
@@ -9,7 +9,6 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'     data(lldata)
 #'     shiny::runApp(infos_dataset(lldata))
 #' }
 #'

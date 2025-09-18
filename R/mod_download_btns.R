@@ -13,7 +13,6 @@
 #' @name download_btns
 #' @examples
 #' if (interactive()) {
-#'     data(lldata)
 #'     shiny::runApp(download_btns(lldata))
 #' }
 #'
@@ -27,9 +26,9 @@ download_btns_ui <- function(id, settings = list()) {
     ns <- NS(id)
 
     tagList(
-        downloadButton(ns("download_as_Excel_btn"), "Excel", class = settings$actionBtnClass),
-        downloadButton(ns("download_as_csv_btn"), "csv", class = settings$actionBtnClass),
-        downloadButton(ns("download_as_RData_btn"), "RData", class = settings$actionBtnClass)
+        shiny::downloadButton(ns("download_as_Excel_btn"), "Excel", class = settings$actionBtnClass),
+      shiny::downloadButton(ns("download_as_csv_btn"), "csv", class = settings$actionBtnClass),
+      shiny::downloadButton(ns("download_as_RData_btn"), "RData", class = settings$actionBtnClass)
     )
 }
 

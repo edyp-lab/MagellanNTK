@@ -106,7 +106,7 @@ mod_load_workflow_server <- function(id,
                 user = c("plugin")
             )
 
-            radioButtons(ns("chooseLoad"), "Open a workflow",
+            shiny::radioButtons(ns("chooseLoad"), "Open a workflow",
                 choices = .choices,
                 selected = character(0)
             )
@@ -282,13 +282,13 @@ mod_load_workflow_server <- function(id,
                 )
             }
 
-            mod_insert_md_server("summary", file)
+            insert_md_server("summary", file)
 
             box(
                 title = "Inputs",
                 status = "warning",
                 solidHeader = TRUE,
-                mod_insert_md_ui(ns("summary"))
+                insert_md_ui(ns("summary"))
             )
         })
 
