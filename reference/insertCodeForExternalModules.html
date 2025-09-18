@@ -249,48 +249,6 @@ steps of the module.</p></dd>
 <p>NA</p>
     </div>
     <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>#' @title Code for declaring xxx
-#'
-#' @description xxx
-#' @param add.code Add additional code
-#'
-#' @export
-#'
-#' @rdname insertCodeForExternalModules
-#'
-#' @return NA
-#'
-Get_Code_for_remoteReset2_observeEvents &lt;- function(add.code = NULL)
-  code &lt;- "observeEvent(req(remoteReset()), ignoreInit = FALSE, ignoreNULL = TRUE,
-      lapply(names(rv.widgets), function(x)
-          rv.widgets[[x]] &lt;- widgets.default.values[[x]]
-        )            lapply(names(rv.custom), function(x)
-        rv.custom[[x]] &lt;- rv.custom.default.values[[x]]
-    )    rv$dataIn &lt;- NULL
-    "
-  code &lt;- paste0(code, add.code, ")")  code
-
-#' @title Code for declaring xxx
-#'
-#' @description xxx
-#'
-#' @export
-#'
-#' @rdname insertCodeForExternalModules
-#'
-#' @return NA
-#'
-Get_Code_for_remoteReset_observeEvents &lt;- function()
-  code &lt;- "observeEvent(req(remoteReset() &gt;=1), ignoreInit = TRUE, ignoreNULL = TRUE,
-      lapply(names(rv.widgets), function(x)
-          rv.widgets[[x]] &lt;- widgets.default.values[[x]]
-        )            lapply(names(rv.custom), function(x)
-        rv.custom[[x]] &lt;- rv.custom.default.values[[x]]
-    )    rv$dataIn &lt;- NULL
-)"  code</p>
-    </div>
-    <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Samuel Wieczorek</p>
     </div>
