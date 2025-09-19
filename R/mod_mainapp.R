@@ -26,7 +26,8 @@ NULL
 
 
 #' @importFrom shiny NS tagList span uiOutput icon
-#' @import shinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #' @import shinyEffects
 #' @import waiter
 #' @importFrom bs4Dash dashboardPage bs4DashNavbar bs4DashSidebar bs4SidebarMenu bs4SidebarMenuSubItem bs4SidebarMenuItem bs4DashBody
@@ -138,7 +139,8 @@ mainapp_ui <- function(id, session) {
 
 #' @importFrom shiny reactive moduleServer reactiveValues observeEvent req
 #' renderUI tagList h4 observeEvent actionButton h3 observe wellPanel helpText
-#' @import shinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs js
 #' @import shinyEffects
 #' @importFrom S4Vectors metadata
 #'
@@ -368,7 +370,7 @@ mainapp_server <- function(id,
         # observeEvent(input$browser,{browser()})
 
         observeEvent(input$ReloadProstar, {
-            js$reset()
+            shinyjs::js$reset()
         })
 
         rv.core$tmp.funcs <- mod_modalDialog_server("loadPkg_modal",

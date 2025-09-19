@@ -39,7 +39,8 @@ infos_dataset_ui <- function(id) {
 #' @export
 #' @importFrom BiocGenerics get
 #' @importFrom utils data
-#' @importFrom shinyjs info
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #' @importFrom shiny moduleServer observe req reactive selectInput renderUI
 #'
 #'

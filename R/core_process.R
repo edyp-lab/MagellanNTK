@@ -46,6 +46,9 @@
 #' @name nav_process
 #'
 #' @author Samuel Wieczorek
+#' 
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #'
 NULL
 

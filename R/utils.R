@@ -511,6 +511,9 @@ CheckWorkflowDir <- function(path) {
 #' @author Samuel Wieczorek
 #'
 #' @export
+#' 
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #'
 #' @examples
 #' NULL

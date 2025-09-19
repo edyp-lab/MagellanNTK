@@ -21,7 +21,8 @@ NULL
 #'
 #' @export
 #' @importFrom shiny NS tagList div uiOutput
-#' @importFrom shinyjs inlineCSS useShinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #'
 mod_popover_for_help_ui <- function(id) {
     ns <- NS(id)

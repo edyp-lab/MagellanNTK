@@ -54,6 +54,8 @@ NULL
 #'
 #' @rdname nav_pipeline
 #' @import shiny
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #'
 #' @export
 #'
@@ -121,6 +123,8 @@ nav_pipeline_ui <- function(id) {
 #' @rdname nav_pipeline
 #' @importFrom stats setNames
 #' @importFrom crayon blue yellow
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #'
 nav_pipeline_server <- function(
         id = NULL,

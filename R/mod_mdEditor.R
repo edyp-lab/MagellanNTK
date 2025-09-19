@@ -7,7 +7,9 @@
 #'
 #' @name mdEditor
 #'
-#'
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
+#' 
 #' @examples
 #' \dontrun{
 #' shiny::runApp(mdEditor())

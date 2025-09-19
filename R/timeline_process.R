@@ -25,6 +25,9 @@ NULL
 
 #' @export
 #' @rdname timelines
+#' 
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #'
 timeline_process_ui <- function(id) {
     ns <- NS(id)

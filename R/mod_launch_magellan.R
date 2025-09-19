@@ -21,6 +21,9 @@ NULL
 #'
 #' @rdname mod_launch_magellan
 #' @export
+#' 
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #'
 mod_launch_magellan_ui <- function(id) {
     ns <- NS(id)

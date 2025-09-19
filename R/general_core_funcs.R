@@ -387,6 +387,9 @@ Update_State_Screens <- function(is.skipped,
 #' @examples
 #' NULL
 #' @export
+#' 
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #'
 ToggleState_NavBtns <- function(current.pos, nSteps) {
     # If the cursor is not on the first position, show the 'prevBtn'

@@ -53,6 +53,9 @@ NULL
 #' It is the same as for the server() function.
 #'
 #' @rdname nav
+#' 
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #'
 #' @export
 #'

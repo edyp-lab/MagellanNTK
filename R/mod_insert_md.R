@@ -33,7 +33,8 @@ insert_md_ui <- function(id) {
 
 #' @importFrom shiny tagList uiOutput htmlOutput observeEvent
 #'  tagList uiOutput htmlOutput actionLink req includeMarkdown p
-#' @importFrom shinyjs info
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #'
 #' @rdname mod_insert_md
 #' @importFrom utils browseURL

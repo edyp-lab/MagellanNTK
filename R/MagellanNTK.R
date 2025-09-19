@@ -36,7 +36,8 @@ NULL
 #' The application User-Interface
 #'     DO NOT REMOVE.
 #' @importFrom shiny shinyUI tagList
-#' @importFrom shinyjs useShinyjs extendShinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #'
 #' @rdname magellanNTK
 #'

@@ -34,7 +34,8 @@ convert_dataset_ui <- function(id) {
 #' @rdname mod_convert_dataset
 #'
 #' @export
-#' @importFrom shinyjs info
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #' @importFrom shiny moduleServer reactiveValues observeEvent reactive
 #'
 convert_dataset_server <- function(id) {

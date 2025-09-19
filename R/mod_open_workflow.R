@@ -48,7 +48,8 @@ open_workflow_ui <- function(id) {
 #' @rdname mod_open_workflow
 #'
 #' @export
-#' @importFrom shinyjs info
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #' @importFrom shiny moduleServer reactiveValues observeEvent
 #' @importFrom utils help.search installed.packages maintainer 
 #' packageVersion tail write.table

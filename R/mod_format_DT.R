@@ -49,9 +49,9 @@
 NULL
 
 
-
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #' @importFrom shiny NS tagList
-#' @importFrom DT dataTableOutput
 #' @export
 #' @rdname format_DT
 #'
@@ -59,7 +59,7 @@ format_DT_ui <- function(id) {
     ns <- NS(id)
     tagList(
         shinyjs::useShinyjs(),
-        DT::dataTableOutput(ns("StaticDataTable"))
+        dataTableOutput(ns("StaticDataTable"))
     )
 }
 
@@ -67,7 +67,7 @@ format_DT_ui <- function(id) {
 #' @export
 #'
 #' @importFrom htmlwidgets JS
-#' @importFrom DT dataTableOutput dataTableProxy replaceData formatStyle styleEqual renderDataTable datatable
+#' @importFrom DT dataTableProxy replaceData formatStyle styleEqual datatable
 #'
 #' @rdname format_DT
 format_DT_server <- function(

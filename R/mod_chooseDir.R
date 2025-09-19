@@ -11,6 +11,9 @@
 #'
 #' @examples
 #' NULL
+#' 
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #'
 #' @return NA
 #' @author Samuel Wieczorek

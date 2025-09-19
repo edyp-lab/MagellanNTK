@@ -22,7 +22,8 @@ NULL
 #' @export
 #' @rdname generic_mod_open_dataset
 #' @importFrom shiny NS tagList
-#' @importFrom shinyjs useShinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #'
 open_dataset_ui <- function(id) {
     ns <- NS(id)
@@ -51,7 +52,8 @@ open_dataset_ui <- function(id) {
 #' @export
 #' @importFrom BiocGenerics get
 #' @importFrom utils data
-#' @importFrom shinyjs info
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
 #' @import shiny
 #'
 open_dataset_server <- function(

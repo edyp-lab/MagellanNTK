@@ -12,20 +12,20 @@ Authors@R:
       email = "thomas.burger@cea.fr",
       role = c("aut"))
       )
-Description: MagellanNTK (Magellan Navigation ToolKit) is a collection of Shiny 
+Description: Proteomics data often needs a series of statistical processes to 
+    be analyzed. MagellanNTK (Magellan Navigation ToolKit) is a collection of Shiny 
     modules which provide the basis 
     for a generic workflow manager for data processing toolswith several steps. 
     It works in combination with any package which implements data processing 
     pipelines compliant with MagellanNTK such as MSPipelines and Prostar. It can 
     handle lists of objects and manage a hierarchy of levels.
-    This package provides a GUI interface for the DAPAR package. The 
+    This package provides a GUI interface for the DaparToolshed package. The 
     package Prostar (Proteomics statistical analysis with R) is a Bioconductor 
     distributed R package which provides all the necessary functions to 
     analyze quantitative data from label-free proteomics experiments. 
     Contrarily to most other similar R packages, it is endowed with rich and 
     user-friendly graphical interfaces, so that no programming skill is 
     required.
-BiocViews: Proteomics, Preprocessing, Software, GUI, WorkflowStep
 License: Artistic-2.0
 Depends: R (>= 4.4.0)
 Imports: 
@@ -115,7 +115,6 @@ Collate:
     mod_loadapp.R
     mod_mainapp.R
     utils_Prostar.R
-biocViews: Software, WorkflowStep, Proteomics, GUI
 Encoding: UTF-8
 RoxygenNote: 7.3.3
 URL: https://github.com/edyp-lab/MagellanNTK, https://edyp-lab.github.io/MagellanNTK/
