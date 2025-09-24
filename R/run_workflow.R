@@ -45,7 +45,7 @@
 #'     pipe_workflowApp("PipelineB", path, tl.layout = c("v", "h"))
 #'
 #'     pipe_workflowApp("PipelineDemo", path,
-#'         dataIn = sub_R25,
+#'         dataIn = lldata,
 #'         tl.layout = c("v", "h")
 #'     )
 #'
@@ -53,13 +53,13 @@
 #'     # Nothing happens when dataIn is NULL
 #'     proc_workflowApp("PipelineDemo_Process1", path, dataIn = NULL)
 #'
-#'     proc_workflowApp("PipelineDemo_Process1", path, dataIn = sub_R25)
+#'     proc_workflowApp("PipelineDemo_Process1", path, dataIn = lldata)
 #'
 #'     proc_workflowApp("PipelineDemo_Process1", path, dataIn = data.frame(), tl.layout = "v")
 #'
-#'     proc_workflowApp("PipelineDemo", path, dataIn = sub_R25, tl.layout = c("v", "h"))
+#'     proc_workflowApp("PipelineDemo", path, dataIn = lldata, tl.layout = c("v", "h"))
 #'
-#'     proc_workflowApp("PipelineDemo", path, dataIn = sub_R25, tl.layout = c("v", "h"))
+#'     proc_workflowApp("PipelineDemo", path, dataIn = lldata, tl.layout = c("v", "h"))
 #' }
 #'
 NULL

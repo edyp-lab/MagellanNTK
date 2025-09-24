@@ -14,6 +14,9 @@ mainapp_server(
   dataIn = reactive({
      NULL
  }),
+  data.name = reactive({
+     "myDataset"
+ }),
   workflow.name = reactive({
      NULL
  }),
@@ -32,6 +35,8 @@ mainapp(usermod = "dev")
 \item{session}{xxx}
 
 \item{dataIn}{xxx}
+
+\item{data.name}{The name of the dataset. Default is 'myDataset'}
 
 \item{workflow.name}{Default is NULL,}
 

@@ -7,6 +7,7 @@
 #'
 #' @param id shiny id
 #' @param dataIn xxx
+#' @param data.name The name of the dataset. Default is 'myDataset'
 #' @param session xxx
 #' @param workflow.name Default is NULL,
 #' @param workflow.path Default is NULL,
@@ -58,11 +59,14 @@ mainapp_ui <- function(id, session) {
             label = icon("bars", width = 20),
             class = PrevNextBtnClass
           ),
+          actionButton(ns("btn_eda"), label = "EDA"),
           Insert_User_Sidebar()
           ),
         body = bs4DashBody(
-            tags$style(".content-wrapper {background-color: white;}"),
-          actionButton(ns("btn_eda"), label = "EDA"),
+          #   div(style = "z-index: 9999999;",
+          #   tags$style(".content-wrapper {background-color: white;}"),
+          # actionButton(ns("btn_eda"), label = "EDA")
+          #     ),
           
           
             # style = "padding: 0px; overflow-y: auto;",
@@ -148,15 +152,10 @@ mainapp_ui <- function(id, session) {
 #' @export
 #'
 mainapp_server <- function(id,
-    dataIn = reactive({
-        NULL
-    }),
-    workflow.name = reactive({
-        NULL
-    }),
-    workflow.path = reactive({
-        NULL
-    }),
+    dataIn = reactive({NULL}),
+    data.name = reactive({"myDataset"}),
+    workflow.name = reactive({NULL}),
+    workflow.path = reactive({NULL}),
     verbose = FALSE,
     usermod = "dev") {
     moduleServer(id, function(input, output, session) {
@@ -208,7 +207,8 @@ mainapp_server <- function(id,
                 rv.core$current.obj <- dataIn()
                 rv.core$processed.obj <- dataIn()
                 if (!is.null(rv.core$current.obj)) {
-                    rv.core$current.obj.name <- metadata(rv.core$current.obj)$file
+                    #rv.core$current.obj.name <- metadata(rv.core$current.obj)$file
+                    rv.core$current.obj.name <- data.name()
                 }
 
                 rv.core$workflow.path <- workflow.path()

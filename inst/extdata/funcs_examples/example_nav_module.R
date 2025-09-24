@@ -36,10 +36,10 @@
 
 server <- function(input, output){
   
-  data(sub_R25)
+  data(lldata)
   
   rv <- reactiveValues(
-    dataIn = sub_R25,
+    dataIn = lldata,
     dataOut = NULL
   )
   

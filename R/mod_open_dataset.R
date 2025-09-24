@@ -171,6 +171,8 @@ open_dataset_server <- function(
                 print("erreur")
             }
         })
+        
+        
         # Part of open custom dataset
         ## -- Open a MSnset File --------------------------------------------
         observeEvent(input$load_dataset_btn, ignoreInit = TRUE, {
