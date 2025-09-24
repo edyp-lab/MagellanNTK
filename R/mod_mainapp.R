@@ -37,7 +37,7 @@ NULL
 #'
 #' @export
 #'
-mainapp_ui <- function(id, session) {
+mainapp_ui <- function(id, session, size = '300px') {
     ns <- NS(id)
 
     bs4Dash::dashboardPage(
@@ -52,7 +52,7 @@ mainapp_ui <- function(id, session) {
         sidebar = bs4DashSidebar(
           id = ns("mySidebar"),
           style = "padding-top: 0px;",
-          
+          width = size,
           # expandOnHover = TRUE,
           collapsed = TRUE,
           actionButton(inputId = ns("toggleSidebarBar"),

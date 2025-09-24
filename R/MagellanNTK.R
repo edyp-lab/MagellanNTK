@@ -43,7 +43,7 @@ NULL
 #'
 #' @export
 #'
-MagellanNTK_ui <- function(id) {
+MagellanNTK_ui <- function(id, sidebarSize = 'medium') {
     ns <- NS(id)
     # shiny::tagList(
     #   #launchGA(),
@@ -55,7 +55,13 @@ MagellanNTK_ui <- function(id) {
     #   shiny::titlePanel("", windowTitle = "Prostar2"),
     # hidden(div(id = 'div_mainapp_module',
     #
-    mainapp_ui(ns("mainapp_module"))
+    .size <- switch(sidebarSize, 
+      small = '150px',
+      medium = '300px',
+      large = '400px'
+    )      
+      
+      mainapp_ui(ns("mainapp_module"), size = .size)
     # )
     # )
 }
@@ -83,15 +89,9 @@ options(
 #'
 MagellanNTK_server <- function(
         id,
-        dataIn = reactive({
-            NULL
-        }),
-        workflow.path = reactive({
-            NULL
-        }),
-        workflow.name = reactive({
-            NULL
-        }),
+        dataIn = reactive({ NULL}),
+        workflow.path = reactive({NULL}),
+        workflow.name = reactive({NULL}),
         verbose = FALSE,
         usermod = "dev") {
     moduleServer(id, function(input, output, session) {
@@ -115,15 +115,9 @@ MagellanNTK_server <- function(
 
         # shinyjs::toggle('mainapp_module', condition = !is.null(funcs))
         mainapp_server("mainapp_module",
-            dataIn = reactive({
-                dataIn()
-            }),
-            workflow.path = reactive({
-                workflow.path()
-            }),
-            workflow.name = reactive({
-                workflow.name()
-            }),
+            dataIn = reactive({dataIn()}),
+            workflow.path = reactive({workflow.path()}),
+            workflow.name = reactive({workflow.name()}),
             verbose = verbose,
             usermod = usermod
         )
@@ -154,6 +148,7 @@ MagellanNTK <- function(
         workflow.name = NULL,
         verbose = FALSE,
         usermod = "dev",
+        sidebarSize = 'medium',
         ...) {
     # options(
     #   shiny.maxRequestSize = 1024^3,
@@ -185,7 +180,8 @@ MagellanNTK <- function(
 
     # source_wf_files(workflow$path)
     #
-    ui <- MagellanNTK_ui("infos")
+    ui <- MagellanNTK_ui("infos",
+      sidebarSize = sidebarSize)
 
 
     server <- function(input, output, session) {
