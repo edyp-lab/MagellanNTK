@@ -153,7 +153,7 @@ pipelines nor processes to be managed with `MagellanNTK`.</p>
 <span class="r-in"><span>    <span class="fu">pipe_workflowApp</span><span class="op">(</span><span class="st">"PipelineB"</span>, <span class="va">path</span>, tl.layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"v"</span>, <span class="st">"h"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>    <span class="fu">pipe_workflowApp</span><span class="op">(</span><span class="st">"PipelineDemo"</span>, <span class="va">path</span>,</span></span>
-<span class="r-in"><span>        dataIn <span class="op">=</span> <span class="va">sub_R25</span>,</span></span>
+<span class="r-in"><span>        dataIn <span class="op">=</span> <span class="va">lldata</span>,</span></span>
 <span class="r-in"><span>        tl.layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"v"</span>, <span class="st">"h"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -161,13 +161,13 @@ pipelines nor processes to be managed with `MagellanNTK`.</p>
 <span class="r-in"><span>    <span class="co"># Nothing happens when dataIn is NULL</span></span></span>
 <span class="r-in"><span>    <span class="fu">proc_workflowApp</span><span class="op">(</span><span class="st">"PipelineDemo_Process1"</span>, <span class="va">path</span>, dataIn <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>    <span class="fu">proc_workflowApp</span><span class="op">(</span><span class="st">"PipelineDemo_Process1"</span>, <span class="va">path</span>, dataIn <span class="op">=</span> <span class="va">sub_R25</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu">proc_workflowApp</span><span class="op">(</span><span class="st">"PipelineDemo_Process1"</span>, <span class="va">path</span>, dataIn <span class="op">=</span> <span class="va">lldata</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>    <span class="fu">proc_workflowApp</span><span class="op">(</span><span class="st">"PipelineDemo_Process1"</span>, <span class="va">path</span>, dataIn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="op">)</span>, tl.layout <span class="op">=</span> <span class="st">"v"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>    <span class="fu">proc_workflowApp</span><span class="op">(</span><span class="st">"PipelineDemo"</span>, <span class="va">path</span>, dataIn <span class="op">=</span> <span class="va">sub_R25</span>, tl.layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"v"</span>, <span class="st">"h"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu">proc_workflowApp</span><span class="op">(</span><span class="st">"PipelineDemo"</span>, <span class="va">path</span>, dataIn <span class="op">=</span> <span class="va">lldata</span>, tl.layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"v"</span>, <span class="st">"h"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>    <span class="fu">proc_workflowApp</span><span class="op">(</span><span class="st">"PipelineDemo"</span>, <span class="va">path</span>, dataIn <span class="op">=</span> <span class="va">sub_R25</span>, tl.layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"v"</span>, <span class="st">"h"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu">proc_workflowApp</span><span class="op">(</span><span class="st">"PipelineDemo"</span>, <span class="va">path</span>, dataIn <span class="op">=</span> <span class="va">lldata</span>, tl.layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"v"</span>, <span class="st">"h"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
