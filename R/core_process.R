@@ -356,13 +356,13 @@ nav_process_server <- function(
 
         observeEvent(input$DoProceedBtn, ignoreInit = TRUE, {
             # Catch the event to send it to the process server
-            rv$btnEvents <- names(rv$steps.status)[rv$current.pos]
+            rv$btnEvents <- paste0(names(rv$steps.status)[rv$current.pos], '_', input$DoProceedBtn)
             rv$doProceedAction <- "Do_Proceed"
         })
 
         observeEvent(input$DoBtn, ignoreInit = TRUE, {
             # Catch the event to send it to the process server
-            rv$btnEvents <- names(rv$steps.status)[rv$current.pos]
+            rv$btnEvents <- paste0(names(rv$steps.status)[rv$current.pos], '_', input$DoBtn)
             rv$doProceedAction <- "Do"
         })
 
