@@ -74,12 +74,12 @@ nav_process_ui <- function(id) {
             mod_modalDialog_ui(id = ns("rstBtn")),
             actionButton(ns("DoBtn"),
                 "Do X",
-                class = PrevNextBtnClass,
+                class = "btn btn-success",
                 style = btn_css_style
             ),
             actionButton(ns("DoProceedBtn"),
                 "Do X & proceed",
-                class = PrevNextBtnClass,
+                class = "btn btn-success",
                 style = btn_css_style
             ),
             actionButton(ns("nextBtn"),

@@ -164,13 +164,13 @@ open_dataset_server <- function(
             req(input$chooseSource == "packageDataset")
         })
 
-
-        observeEvent(input$file$datapath, {
-            if (!inherits(readRDS(input$file$datapath), class)) {
-                errorModal("test")
-                print("erreur")
-            }
-        })
+# 
+#         observeEvent(input$file$datapath, {
+#             if (!inherits(readRDS(input$file$datapath), class)) {
+#                 errorModal("test")
+#                 print("erreur")
+#             }
+#         })
         
         
         # Part of open custom dataset

@@ -533,14 +533,10 @@ mainapp_server <- function(id,
             {
                 rv.core$result_run_workflow <- nav_pipeline_server(
                     id = rv.core$workflow.name,
-                    dataIn = reactive({
-                        rv.core$current.obj
-                    }),
+                    dataIn = reactive({rv.core$current.obj}),
                     verbose = verbose,
                     usermod = usermod,
-                    remoteReset = reactive({
-                        rv.core$resetWF
-                    })
+                    remoteReset = reactive({rv.core$resetWF})
                     # wholeReset = reactive({
                     #   !is.null(rv.core$result_open_dataset()$name)
                     #   + !is.null(rv.core$result_convert()$dataOut()$value$name) })
@@ -575,13 +571,13 @@ mainapp_server <- function(id,
 
         observeEvent(input$btn_eda, {
           req(rv.core$funcs$funcs)
-          req(rv.core$processed.obj)
+          req(rv.core$current.obj)
 
           do.call(
             eval(parse(text = paste0(rv.core$funcs$funcs$infos_dataset, "_server"))),
             list(
               id = "eda1",
-              dataIn = reactive({rv.core$processed.obj})
+              dataIn = reactive({rv.core$current.obj})
             )
           )
           
@@ -589,7 +585,7 @@ mainapp_server <- function(id,
             eval(parse(text = paste0(rv.core$funcs$funcs$view_dataset, "_server"))),
             list(
               id = "eda2",
-              dataIn = reactive({rv.core$processed.obj})
+              dataIn = reactive({rv.core$current.obj})
             )
           )
 
