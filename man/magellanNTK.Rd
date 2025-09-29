@@ -7,7 +7,7 @@
 \alias{MagellanNTK}
 \title{Main Shiny application}
 \usage{
-MagellanNTK_ui(id)
+MagellanNTK_ui(id, sidebarSize = "medium")
 
 MagellanNTK_server(
   id,
@@ -30,6 +30,7 @@ MagellanNTK(
   workflow.name = NULL,
   verbose = FALSE,
   usermod = "dev",
+  sidebarSize = "medium",
   ...
 )
 }

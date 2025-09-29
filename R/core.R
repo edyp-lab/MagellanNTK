@@ -553,6 +553,8 @@ nav_server <- function(
         # See https://github.com/daattali/shinyjs/issues/166
         # https://github.com/daattali/shinyjs/issues/25
         observeEvent(rv$steps.status, ignoreInit = TRUE, {
+          
+          
             print("observeEvent(rv$steps.status, ignoreInit = TRUE")
             rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
 

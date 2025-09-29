@@ -7,7 +7,7 @@
 \alias{mainapp}
 \title{mod_main_page_ui and mod_loading_page_server}
 \usage{
-mainapp_ui(id, session)
+mainapp_ui(id, session, size = "300px")
 
 mainapp_server(
   id,

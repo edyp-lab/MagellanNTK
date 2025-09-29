@@ -116,17 +116,13 @@ ToggleState_Screens <- function(cond,
     range,
     is.enabled,
     rv) {
-    # print(rv$steps.status[range])
     if (isTRUE(is.enabled)) {
-        # rv$steps.enabled[range] <- rep(cond, length(range)) &&
-        #    !(rv$steps.status[range] == SKIPPED)
         rv$steps.enabled[range] <- unlist(
             lapply(range, function(x) {
                 cond && !(rv$steps.status[x] == stepStatus$SKIPPED)
             })
         )
     }
-
     return(rv$steps.enabled)
 }
 
@@ -312,6 +308,8 @@ GetFirstMandatoryNotValidated <- function(range, rv) {
 Update_State_Screens <- function(is.skipped,
     is.enabled,
     rv) {
+  
+  #browser()
     len <- length(rv$steps.status)
 
     if (isTRUE(is.skipped)) {
@@ -397,6 +395,8 @@ ToggleState_NavBtns <- function(current.pos, nSteps) {
 
     # If the cursor is set before the last step, show the 'nextBtn'
     shinyjs::toggleState(id = "nextBtn", condition = current.pos < nSteps)
+    
+    
 }
 
 
