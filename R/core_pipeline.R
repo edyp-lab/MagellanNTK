@@ -420,11 +420,6 @@ nav_pipeline_server <- function(
                         cat(paste0(id, ": Launch nav_process_server(", id, "_", x, ")\n"))
                     }
 
-                  
-                  print("totoooooooooooooooooooooooooooooooooooooo")
-                  print(paste0(id, "_", x))
-                  print(rv$resetChildren)
-                  #browser()
                     tmp.return[[x]] <- nav_process_server(
                         id = paste0(id, "_", x),
                         dataIn = reactive({rv$child.data2send[[x]]}),

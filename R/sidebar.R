@@ -17,59 +17,59 @@ NULL
 Insert_User_Sidebar <- function() {
   bs4SidebarMenu(
       bs4SidebarMenuItem(
-        p("Home", style = "color: white;"),
+        p("Home", class = "sidebarMenuItem"),
         tabName = "Home",
         icon = icon("home")
       ),
       bs4SidebarMenuItem(
-        p("Dataset", style = "color: white;"),
+        p("Dataset", class = "sidebarMenuItem"),
         icon = icon("home"),
         bs4SidebarMenuSubItem(
-          p("Open (qf)", style = "color: white;"),
+          p("Open (qf)", class = "sidebarMenuSubItem"),
           tabName = "openDataset",
           icon = icon("gear")
         ),
         bs4SidebarMenuSubItem(
-          p("Import", style = "color: white;"),
+          p("Import", class = "sidebarMenuSubItem"),
           tabName = "convertDataset",
           icon = icon("gear")
         ),
         bs4SidebarMenuSubItem(
-          p("Save As", style = "color: white;"),
+          p("Save As", class = "sidebarMenuSubItem"),
           tabName = "SaveAs",
           icon = icon("gear")
         ),
         bs4SidebarMenuSubItem(
-          p("Build report (Beta)", style = "color: white;"),
+          p("Build report (Beta)", class = "sidebarMenuSubItem"),
           tabName = "BuildReport",
           icon = icon("gear")
         )
       ),
       bs4SidebarMenuItem(
-        p("Workflow", style = "color: white;"),
+        p("Workflow", class = "sidebarMenuItem"),
         icon = icon("home"),
         bs4SidebarMenuSubItem(
-          p("Load", style = "color: white;"),
+          p("Load", class = "sidebarMenuSubItem"),
           tabName = "openWorkflow",
           icon = icon("gear")
         ),
         bs4SidebarMenuSubItem(
-          p("Run", style = "color: white;"),
+          p("Run", class = "sidebarMenuSubItem"),
           tabName = "workflow",
           icon = icon("gear")
         ),
         bs4SidebarMenuSubItem(
-          p("Manual", style = "color: white;"),
+          p("Manual", class = "sidebarMenuSubItem"),
           tabName = "Manual",
           icon = icon("gear")
         ),
         bs4SidebarMenuSubItem(
-          p("FAQ", style = "color: white;"),
+          p("FAQ", class = "sidebarMenuSubItem"),
           tabName = "faq",
           icon = icon("gear")
         ),
         bs4SidebarMenuSubItem(
-          p("Release Notes", style = "color: white;"),
+          p("Release Notes", class = "sidebarMenuSubItem"),
           tabName = "releaseNotes",
           icon = icon("gear")
         )

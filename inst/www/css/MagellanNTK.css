@@ -79,31 +79,46 @@
   }
     
     /* h2 text styling for the app */
-h1 {
+.h1 {
 font-size: 25px;
 font-family: Arial;
 }
 
-h2 {
+.h2 {
 font-size: 18px;
 font-family: Arial;
 }
 
-h3 {
+.h3 {
 font-size: 16px;
 font-family: Arial;
 }
 
-h4 {
+.h4 {
 font-size: 14px;
 font-family: Arial;
 }
 
-p {
+.p {
 font-size: 18px;
 font-family: Arial;
 /* color: orange; */
 }
+
+
+.sidebarMenuItem {
+font-size: 20px;
+font-family: Arial;
+color: orange;
+font-weight: bold;
+}
+
+.sidebarMenuSubItem {
+font-size: 16px;
+font-family: Arial;
+color: green;
+}
+
     
     .main-header {
       max-height: 40px; /* Sert pour la hauteur de la controlbar */

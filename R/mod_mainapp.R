@@ -39,7 +39,7 @@ NULL
 #'
 mainapp_ui <- function(id, session, size = '300px') {
     ns <- NS(id)
-
+    includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css"))
     bs4Dash::dashboardPage(
         # preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
         # options = list(
