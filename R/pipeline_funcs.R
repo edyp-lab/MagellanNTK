@@ -53,9 +53,6 @@ ActionOn_Child_Changed <- function(
     # browser()
     if (is.null(newValue)) {
         # A process has been reseted (it has returned a NULL value)
-
-
-
         validated.steps <- which(steps.status == stepStatus$VALIDATED)
         if (length(validated.steps) > 0) {
             ind.last.validated <- max(validated.steps)
@@ -83,23 +80,17 @@ ActionOn_Child_Changed <- function(
             } else {
                 dataIn <- temp.dataIn
             }
-
-            # browser()
-            # name.last.validated <- steps[ind.last.validated]
-            # dataIn.ind.last.validated <- which(names(dataIn) == names(name.last.validated))
-            # #browser()
-            # dataIn <- call.func(
-            #   fname = keepdataset_func,
-            #   args = list(object = dataIn,
-            #     range = seq_len(dataIn.ind.last.validated))
-            # )
         }
 
+        
+        
         # One take the last validated step (before the one
         # corresponding to processHasChanges
         # but it is straightforward because we just updates rv$status
         steps.status[ind.processHasChanged:len] <- stepStatus$UNDONE
 
+        #rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
+        
         # All the following processes (after the one which has changed) are disabled
         steps.enabled[(ind.processHasChanged + 1):len] <- FALSE
 
@@ -110,14 +101,11 @@ ActionOn_Child_Changed <- function(
         steps.enabled[ind.processHasChanged] <- TRUE
 
         steps.skipped[ind.processHasChanged:len] <- FALSE
-
-
-
         Update_State_Screens(steps.skipped, steps.enabled, rv)
     } else {
         # A process has been validated
         steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
-
+        #browser()
         if (ind.processHasChanged < len) {
             steps.status[(1 + ind.processHasChanged):len] <- stepStatus$UNDONE
 
@@ -125,8 +113,12 @@ ActionOn_Child_Changed <- function(
             # print('proceed to reset all further children')
             #
             # steps.status[(1 + ind.processHasChanged):len] <-
+            #browser()
+            #rv$resetChildren <- ResetChildren((1 + ind.processHasChanged):len, rv$resetChildren)
         }
 
+        
+        
         steps.status <- Discover_Skipped_Steps(steps.status)
         dataIn <- newValue
     }

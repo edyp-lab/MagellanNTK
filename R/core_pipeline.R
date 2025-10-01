@@ -226,70 +226,72 @@ nav_pipeline_server <- function(
           h3('FILENAME TO DO')
         })
 
-
-        ActionOn_Data_Trigger <- function() {
-            processHasChanged <- newValue <- NULL
-
-            # Get the values returned by all children (steps) of
-            # the module
-            values.children <- GetValuesFromChildren(
-                tmp.return = tmp.return,
-                config = rv$config
-            )
-
-            triggerValues <- values.children$triggers
-            return.values <- values.children$values
-
-            if (verbose) {
-                cat(crayon::blue("---------- Data received from children ---\n"))
-                print(return.values)
-                cat(crayon::blue("------------------------------------------\n"))
-            }
-
-            if (is.null(return.values)) {
-                # The entire pipeline has been reseted
-                rv$dataIn <- NULL
-                rv$steps.status[seq_len(length(rv$config@steps))] <- stepStatus$UNDONE
-            } else {
-                .cd <- max(triggerValues, na.rm = TRUE) == triggerValues
-                # ind.process.has.changed <- which(.cd)
-                processHasChanged <- GetStepsNames()[which(.cd)]
-
-                # Get the new value
-                newValue <- tmp.return[[processHasChanged]]$dataOut()$value
-
-
-                if (verbose) {
-                    cat(crayon::blue("---------- New children data status ---\n"))
-                    print(newValue)
-                    cat(crayon::blue("------------------------------------------\n"))
-                }
-
-
-
-                ret <- ActionOn_Child_Changed(
-                    temp.dataIn = rv$temp.dataIn,
-                    dataIn = rv$dataIn,
-                    steps.status = rv$steps.status,
-                    steps = rv$config@steps,
-                    steps.enabled = rv$steps.enabled,
-                    steps.skipped = rv$steps.skipped,
-                    processHasChanged = processHasChanged,
-                    newValue = newValue,
-                    keepdataset_func = session$userData$funcs$keepDatasets,
-                    rv = rv
-                )
-
-                rv$dataIn <- ret$dataIn
-                rv$steps.status <- ret$steps.status
-                rv$steps.enabled <- ret$steps.enabled
-                rv$steps.skipped <- ret$steps.skipped
-            }
-
-            # Send result
-            dataOut$trigger <- Timestamp()
-            dataOut$value <- rv$dataIn
-        }
+# 
+#         ActionOn_Data_Trigger <- function() {
+#             processHasChanged <- newValue <- NULL
+# 
+#             # Get the values returned by all children (steps) of
+#             # the module
+#             values.children <- GetValuesFromChildren(
+#                 tmp.return = tmp.return,
+#                 config = rv$config
+#             )
+# 
+#             triggerValues <- values.children$triggers
+#             return.values <- values.children$values
+# 
+#             if (verbose) {
+#                 cat(crayon::blue("---------- Data received from children ---\n"))
+#                 print(return.values)
+#                 cat(crayon::blue("------------------------------------------\n"))
+#             }
+# 
+#             
+#          
+#             if (is.null(return.values)) {
+#                 # The entire pipeline has been reseted
+#                 rv$dataIn <- NULL
+#                 rv$steps.status[seq_len(length(rv$config@steps))] <- stepStatus$UNDONE
+#             } else {
+#                 .cd <- max(triggerValues, na.rm = TRUE) == triggerValues
+#                 # ind.process.has.changed <- which(.cd)
+#                 processHasChanged <- GetStepsNames()[which(.cd)]
+# 
+#                 # Get the new value
+#                 newValue <- tmp.return[[processHasChanged]]$dataOut()$value
+# 
+# 
+#                 if (verbose) {
+#                     cat(crayon::blue("---------- New children data status ---\n"))
+#                     print(newValue)
+#                     cat(crayon::blue("------------------------------------------\n"))
+#                 }
+# 
+# 
+# 
+#                 ret <- ActionOn_Child_Changed(
+#                     temp.dataIn = rv$temp.dataIn,
+#                     dataIn = rv$dataIn,
+#                     steps.status = rv$steps.status,
+#                     steps = rv$config@steps,
+#                     steps.enabled = rv$steps.enabled,
+#                     steps.skipped = rv$steps.skipped,
+#                     processHasChanged = processHasChanged,
+#                     newValue = newValue,
+#                     keepdataset_func = session$userData$funcs$keepDatasets,
+#                     rv = rv
+#                 )
+# 
+#                 rv$dataIn <- ret$dataIn
+#                 rv$steps.status <- ret$steps.status
+#                 rv$steps.enabled <- ret$steps.enabled
+#                 rv$steps.skipped <- ret$steps.skipped
+#             }
+# 
+#             # Send result
+#             dataOut$trigger <- Timestamp()
+#             dataOut$value <- rv$dataIn
+#         }
 
         # Catch any event on the 'id' parameter. As this parameter is static
         # and is attached to the server, this function can be view as the
@@ -321,19 +323,10 @@ nav_pipeline_server <- function(
                     paste0(id, "_server"),
                     list(
                         id = id,
-                        dataIn = reactive({
-                            rv$temp.dataIn
-                        }),
-                        steps.enabled = reactive({
-                            rv$steps.enabled
-                        }),
-                        remoteReset = reactive({
-                            rv$rstBtn() + remoteReset()
-                        }),
-                        steps.status = reactive({
-                            rv$steps.status
-                        })
-                        # current.pos = reactive({1})
+                        dataIn = reactive({rv$temp.dataIn}),
+                        steps.enabled = reactive({rv$steps.enabled}),
+                        remoteReset = reactive({ rv$rstBtn() + remoteReset()}),
+                        steps.status = reactive({rv$steps.status})
                     )
                 )
 
@@ -341,11 +334,7 @@ nav_pipeline_server <- function(
                 # pipeline
                 rv$config <- rv$proc$config()
 
-                # rv$config <- RemoveDescriptionStep(rv$config)
-
                 # Remove the step 'Description'
-
-
 
                 if (verbose) {
                     cat(crayon::blue(paste0(id, ": call ", paste0(id, "_conf()"), "\n")))
@@ -431,20 +420,17 @@ nav_pipeline_server <- function(
                         cat(paste0(id, ": Launch nav_process_server(", id, "_", x, ")\n"))
                     }
 
+                  
+                  print("totoooooooooooooooooooooooooooooooooooooo")
+                  print(paste0(id, "_", x))
+                  print(rv$resetChildren)
+                  #browser()
                     tmp.return[[x]] <- nav_process_server(
                         id = paste0(id, "_", x),
-                        dataIn = reactive({
-                            rv$child.data2send[[x]]
-                        }),
-                        is.enabled = reactive({
-                            isTRUE(rv$steps.enabled[x])
-                        }),
-                        remoteReset = reactive({
-                            rv$resetChildren[x]
-                        }),
-                        is.skipped = reactive({
-                            isTRUE(rv$steps.skipped[x])
-                        }),
+                        dataIn = reactive({rv$child.data2send[[x]]}),
+                        is.enabled = reactive({isTRUE(rv$steps.enabled[x])}),
+                        remoteReset = reactive({rv$resetChildren[x]}),
+                        is.skipped = reactive({isTRUE(rv$steps.skipped[x])}),
                         verbose = verbose,
                         usermod = usermod
                     )
@@ -463,7 +449,70 @@ nav_pipeline_server <- function(
                 tmp.return[[x]]$dataOut()$trigger
             }
         ), ignoreInit = FALSE, {
-            ActionOn_Data_Trigger()
+           # ActionOn_Data_Trigger()
+          processHasChanged <- newValue <- NULL
+          
+          # Get the values returned by all children (steps) of
+          # the module
+          values.children <- GetValuesFromChildren(
+            tmp.return = tmp.return,
+            config = rv$config
+          )
+          
+          triggerValues <- values.children$triggers
+          return.values <- values.children$values
+          
+          if (verbose) {
+            cat(crayon::blue("---------- Data received from children ---\n"))
+            print(return.values)
+            cat(crayon::blue("------------------------------------------\n"))
+          }
+          
+          
+          
+          if (is.null(return.values)) {
+            # The entire pipeline has been reseted
+            rv$dataIn <- NULL
+            rv$steps.status[seq_len(length(rv$config@steps))] <- stepStatus$UNDONE
+          } else {
+            .cd <- max(triggerValues, na.rm = TRUE) == triggerValues
+            # ind.process.has.changed <- which(.cd)
+            processHasChanged <- GetStepsNames()[which(.cd)]
+            
+            # Get the new value
+            newValue <- tmp.return[[processHasChanged]]$dataOut()$value
+            
+            
+            if (verbose) {
+              cat(crayon::blue("---------- New children data status ---\n"))
+              print(newValue)
+              cat(crayon::blue("------------------------------------------\n"))
+            }
+            
+            
+            
+            ret <- ActionOn_Child_Changed(
+              temp.dataIn = rv$temp.dataIn,
+              dataIn = rv$dataIn,
+              steps.status = rv$steps.status,
+              steps = rv$config@steps,
+              steps.enabled = rv$steps.enabled,
+              steps.skipped = rv$steps.skipped,
+              processHasChanged = processHasChanged,
+              newValue = newValue,
+              keepdataset_func = session$userData$funcs$keepDatasets,
+              rv = rv
+            )
+            
+            rv$dataIn <- ret$dataIn
+            rv$steps.status <- ret$steps.status
+            rv$steps.enabled <- ret$steps.enabled
+            rv$steps.skipped <- ret$steps.skipped
+          }
+          
+          # Send result
+          dataOut$trigger <- Timestamp()
+          dataOut$value <- rv$dataIn
         })
 
 
@@ -520,7 +569,8 @@ nav_pipeline_server <- function(
         # See https://github.com/daattali/shinyjs/issues/166
         # https://github.com/daattali/shinyjs/issues/25
         observeEvent(rv$steps.status, ignoreInit = TRUE, {
-            print("observeEvent(rv$steps.status, ignoreInit = TRUE")
+            print("---------observeEvent(rv$steps.status, ignoreInit = TRUE-------------")
+          print(rv$steps.status)
             rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
 
             rv$steps.enabled <- Update_State_Screens(
@@ -530,15 +580,28 @@ nav_pipeline_server <- function(
             )
 
             n <- length(rv$config@steps)
+            
+
+            print(rv$resetChildren)
+            print(rv$config@mode)
+            #browser() 
+            # Reset all further processes that are undone
+            ind.undone <- unname(which(rv$steps.status == stepStatus$UNDONE))
+            #rv$resetChildren <- ResetChildren(ind.undone, rv$resetChildren)
+            for (i in ind.undone){
+              
+            }
+            
             if (rv$steps.status[n] == stepStatus$VALIDATED) {
                 # Set current position to the last one
                 rv$current.pos <- n
 
-                # If the last step is validated, it is time to send result by
+            #    # If the last step is validated, it is time to send result by
                 # updating the 'dataOut' reactiveValue.
                 dataOut$trigger <- Timestamp()
                 dataOut$value <- rv$dataIn
             }
+            
         })
 
 
@@ -612,51 +675,6 @@ nav_pipeline_server <- function(
             # widget
 
 
-            # browser()
-            # if (is.null(rv$dataIn)) {
-            #   res <- PrepareData2Send(
-            #     rv = rv,
-            #     pos = rv$current.pos,
-            #     verbose = verbose,
-            #     keepdataset_func = session$userData$funcs$keepDatasets
-            #   )
-            #
-            #   rv$child.data2send <- res$data2send
-            #   rv$steps.enabled <- res$steps.enabled
-            # }
-            #
-            # if (is.null(dataIn())) {
-            #   # The process has been reseted or is not concerned
-            #   # Disable all screens of the process
-            #   rv$steps.enabled <- ToggleState_Screens(
-            #     cond = FALSE,
-            #     range = seq_len(length(rv$config@steps)),
-            #     is.enabled = is.enabled,
-            #     rv = rv
-            #   )
-            # } else {
-            #
-            #   # A new dataset has been loaded
-            #   # # Update the different screens in the process
-            #   rv$steps.enabled <- Update_State_Screens(
-            #     is.skipped = is.skipped(),
-            #     is.enabled = is.enabled(),
-            #     rv = rv
-            #   )
-            #
-            #
-            #   # Enable the first screen
-            #   rv$steps.enabled <- ToggleState_Screens(
-            #     cond = TRUE,
-            #     range = 1,
-            #     is.enabled = is.enabled(),
-            #     rv = rv
-            #   )
-            # }
-            #
-
-
-
             rv$resetChildren <- ResetChildren(seq_len(n), rv$resetChildren)
 
             # Return the NULL value as dataset
@@ -674,8 +692,6 @@ nav_pipeline_server <- function(
         # the local module or in the module parent UI (in this case,
         # it is called a 'remoteReset')
         observeEvent(req(rv$rstBtn()), ignoreInit = FALSE, ignoreNULL = TRUE, {
-            print("In core.R : observeEvent(req(rv$rstBtn())")
-            # browser()
             ResetPipeline()
         })
 

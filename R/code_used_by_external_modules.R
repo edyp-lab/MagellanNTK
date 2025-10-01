@@ -274,6 +274,7 @@ Get_Code_for_remoteReset <- function(
     code <- "
 
 observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
+print(paste0('new value for remoteReset(): ', remoteReset()))
 #browser()
   "
 
@@ -334,6 +335,47 @@ Get_Code_for_resetting_custom <- function() {
 "
 }
 
+
+
+#' @title Code for declaring xxx
+#'
+#' @description xxx
+#'
+#' @export
+#'
+#' @rdname insertCodeForExternalModules
+#'
+#' @return NA
+#'
+Get_Code_for_newDataset <- function(
+    widgets = TRUE,
+  custom = TRUE,
+  dataIn = "dataIn()",
+  addon = "") {
+  code <- "
+
+observeEvent(req(dataIn()), ignoreInit = TRUE, ignoreNULL = TRUE, {
+print(paste0('new value for dataIn(): ', dataIn()))
+#browser()
+  "
+  
+  if (widgets) {
+    code <- paste0(code, Get_Code_for_resetting_widgets())
+  }
+  if (custom) {
+    code <- paste0(code, Get_Code_for_resetting_custom())
+  }
+  
+  code <- paste0(code, "rv$dataIn <- ", dataIn, "
+    ")
+  code <- paste0(code, "
+  ", addon, "
+    ")
+  code <- paste0(code, "})
+    ")
+  
+  code
+}
 
 #' @title Code for declaring xxx
 #'
@@ -433,6 +475,7 @@ Get_Workflow_Core_Code <- function(
         Get_Code_for_dataOut(),
         Get_Code_for_General_observeEvents(),
         Get_Code_for_remoteReset(),
+       # Get_Code_for_newDataset(),
         sep = "\n"
     )
 
@@ -502,6 +545,7 @@ Get_AdditionalModule_Core_Code <- function(
         Get_Code_Declare_rv_custom(rv.custom.names),
         Get_Code_for_dataOut(),
         Get_Code_for_remoteReset(),
+      #Get_Code_for_newDataset(),
         sep = "\n"
     )
 

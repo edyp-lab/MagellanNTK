@@ -529,9 +529,10 @@ mainapp_server <- function(id,
         })
 
 
-        observe(
-            {
-                rv.core$result_run_workflow <- nav_pipeline_server(
+        observe({
+              rv.core$current.obj
+              #browser()
+              rv.core$result_run_workflow <- nav_pipeline_server(
                     id = rv.core$workflow.name,
                     dataIn = reactive({rv.core$current.obj}),
                     verbose = verbose,
@@ -571,13 +572,17 @@ mainapp_server <- function(id,
 
         observeEvent(input$btn_eda, {
           req(rv.core$funcs$funcs)
-          req(rv.core$current.obj)
+          req(rv.core$processed.obj)
 
+          
+          print("in observeEvent(input$btn_eda")
+          print(rv.core$processed.obj)
+          #browser()
           do.call(
             eval(parse(text = paste0(rv.core$funcs$funcs$infos_dataset, "_server"))),
             list(
               id = "eda1",
-              dataIn = reactive({rv.core$current.obj})
+              dataIn = reactive({rv.core$processed.obj})
             )
           )
           
@@ -585,7 +590,7 @@ mainapp_server <- function(id,
             eval(parse(text = paste0(rv.core$funcs$funcs$view_dataset, "_server"))),
             list(
               id = "eda2",
-              dataIn = reactive({rv.core$current.obj})
+              dataIn = reactive({rv.core$processed.obj})
             )
           )
 
