@@ -168,18 +168,10 @@ mainapp_server <- function(id,
 
         rv.core <- reactiveValues(
             dataIn = NULL,
-            result_convert = reactive({
-                NULL
-            }),
-            result_open_dataset = reactive({
-                NULL
-            }),
-            result_open_workflow = reactive({
-                NULL
-            }),
-            result_run_workflow = reactive({
-                NULL
-            }),
+            result_convert = reactive({NULL}),
+            result_open_dataset = reactive({NULL}),
+            result_open_workflow = reactive({NULL}),
+            result_run_workflow = reactive({NULL}),
             current.obj = NULL,
             current.obj.name = NULL,
             resetWF = 0,
@@ -369,6 +361,9 @@ mainapp_server <- function(id,
 
         # observeEvent(input$browser,{browser()})
 
+        #observe({browser()})
+        
+        
         observeEvent(input$ReloadProstar, {
             shinyjs::js$reset()
         })
@@ -402,31 +397,37 @@ mainapp_server <- function(id,
         })
 
 
-
+###### Code for the convert dataset module ######
         output$open_convert_dataset_UI <- renderUI({
             req(rv.core$funcs$funcs$convert_dataset)
 
             rv.core$result_convert <- call.func(
                 fname = paste0(rv.core$funcs$funcs$convert_dataset, "_server"),
-                args = list(id = "Convert")
+                args = list(
+                  id = "Convert",
+                  remoteReset = reactive({rv.core$resetWF}))
             )
 
             call.func(
                 fname = paste0(rv.core$funcs$funcs$convert_dataset, "_ui"),
                 args = list(id = ns("Convert"))
             )
+            
+            
         })
-
-        # observeEvent(req(rv.core$result_convert$dataOut()),
-        #   ignoreInit = TRUE, ignoreNULL = TRUE,{
-        #     if(verbose)
-        #       cat('Data converted')
-        #     req(rv.core$result_convert$dataOut()$value)
-        #     rv.core$current.obj <- rv.core$result_convert$dataOut()$value$data
-        #     rv.core$current.obj.name <- rv.core$result_convert$dataOut()$value$name
-        #     rv.core$processed.obj <- rv.core$current.obj
-        #     rv.core$resetWF <- rv.core$resetWF + 1
-        #   })
+        
+        #req(rv.core$result_convert()$dataOut()$trigger)
+        
+        observeEvent(req(rv.core$result_convert(),rv.core$result_convert()$dataOut()$trigger),
+          ignoreInit = TRUE, ignoreNULL = TRUE,{
+            if(verbose)
+              cat('Data converted')
+            req(rv.core$result_convert()$dataOut()$value)
+            rv.core$current.obj <- rv.core$result_convert()$dataOut()$value$data
+            rv.core$current.obj.name <- rv.core$result_convert()$dataOut()$value$name
+            rv.core$processed.obj <- rv.core$current.obj
+            rv.core$resetWF <- rv.core$resetWF + 1
+          })
 
 
         output$BuildReport_UI <- renderUI({
@@ -531,7 +532,6 @@ mainapp_server <- function(id,
 
         observe({
               rv.core$current.obj
-              #browser()
               rv.core$result_run_workflow <- nav_pipeline_server(
                     id = rv.core$workflow.name,
                     dataIn = reactive({rv.core$current.obj}),
@@ -574,10 +574,6 @@ mainapp_server <- function(id,
           req(rv.core$funcs$funcs)
           req(rv.core$processed.obj)
 
-          
-          print("in observeEvent(input$btn_eda")
-          print(rv.core$processed.obj)
-          #browser()
           do.call(
             eval(parse(text = paste0(rv.core$funcs$funcs$infos_dataset, "_server"))),
             list(

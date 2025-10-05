@@ -198,9 +198,7 @@ proc_workflow_ui <- function(id) {
 proc_workflow_server <- function(
         id,
         path = NULL,
-        dataIn = reactive({
-            NULL
-        }),
+        dataIn = reactive({NULL}),
         usermod = "dev",
         verbose = FALSE) {
     if (is.null(path)) {
@@ -257,7 +255,7 @@ proc_workflow_server <- function(
                     dataIn = reactive({dataIn}),
                     verbose = verbose,
                     usermod = usermod,
-                    remoteReset = reactive({NULL})
+                    remoteReset = reactive({0})
                 )
             )
         })

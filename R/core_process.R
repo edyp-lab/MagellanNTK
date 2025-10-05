@@ -191,24 +191,12 @@ nav_process_server <- function(
                     paste0(id, "_server"),
                     list(
                         id = id,
-                        dataIn = reactive({
-                            rv$temp.dataIn
-                        }),
-                        steps.enabled = reactive({
-                            rv$steps.enabled
-                        }),
-                        remoteReset = reactive({
-                            rv$rstBtn() + remoteReset()
-                        }),
-                        steps.status = reactive({
-                            rv$steps.status
-                        }),
-                        current.pos = reactive({
-                            rv$current.pos
-                        }),
-                        btnEvents = reactive({
-                            rv$btnEvents
-                        })
+                        dataIn = reactive({rv$temp.dataIn}),
+                        steps.enabled = reactive({rv$steps.enabled}),
+                        remoteReset = reactive({rv$rstBtn() + remoteReset()}),
+                        steps.status = reactive({rv$steps.status}),
+                        current.pos = reactive({rv$current.pos}),
+                        btnEvents = reactive({rv$btnEvents})
                     )
                 )
 
