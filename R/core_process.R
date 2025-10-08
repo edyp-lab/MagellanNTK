@@ -171,10 +171,10 @@ nav_process_server <- function(
         # and is attached to the server, this function can be view as the
         # initialization of the server module. This code is generic to both
         # process and pipeline modules
-        observeEvent(id,
-            ignoreInit = FALSE,
-            ignoreNULL = TRUE,
-            {
+        observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
+
+            rv$rstBtn()
+            remoteReset()
                 # When the server starts, the default position is 1
                 # Not necessary ?
                 # rv$current.pos <- 2
@@ -251,14 +251,14 @@ nav_process_server <- function(
                 if (rv$current.pos == 1) {
                     rv$dataIn <- rv$temp.dataIn
 
-                    if (rv$doProceedAction == "Do_Proceed") {
+                    if (rv$doProceedAction == "Do_Proceed" && rv$current.pos < length(rv$config@steps)) {
                         rv$current.pos <- rv$current.pos + 1
                     }
                 } # View intermediate datasets
                 else if (rv$current.pos > 1 && rv$current.pos < length(rv$config@steps)) {
                     rv$dataIn <- rv$proc$dataOut()$value
 
-                    if (rv$doProceedAction == "Do_Proceed") {
+                    if (rv$doProceedAction == "Do_Proceed" && rv$current.pos < length(rv$config@steps)) {
                         rv$current.pos <- rv$current.pos + 1
                     }
                 }
@@ -366,7 +366,7 @@ nav_process_server <- function(
         # https://github.com/daattali/shinyjs/issues/25
         observeEvent(rv$steps.status, ignoreInit = TRUE, {
           
-          #browser()
+          #
             rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
 
             rv$steps.enabled <- Update_State_Screens(
@@ -375,15 +375,23 @@ nav_process_server <- function(
                 rv = rv
             )
 
-            enableBtns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
-              unname(rv$steps.status[length(rv$steps.status)]) != stepStatus$VALIDATED
             
-            shinyjs::toggleState("DoProceedBtn", condition = enableBtns &&
-                rv$current.pos != length(rv$steps.status))
-            shinyjs::toggleState("DoBtn", condition = enableBtns)
-            
-            
+            enable.do.Btns <- enable.doProceed.Btns <- FALSE
             n <- length(rv$config@steps)
+            
+            enable.do.Btns <- enable.doProceed.Btns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
+              unname(rv$steps.status[n]) != stepStatus$VALIDATED
+            
+            
+            if (n > 1)
+              enable.doProceed.Btns <- enable.doProceed.Btns && 
+                rv$current.pos != length(n)
+            
+            shinyjs::toggleState("DoProceedBtn", condition = enable.doProceed.Btns)
+            shinyjs::toggleState("DoBtn", condition = enable.do.Btns)
+
+            
+            
             if (rv$steps.status[n] == stepStatus$VALIDATED) {
                 # Set current position to the last one
                 rv$current.pos <- n
@@ -429,7 +437,7 @@ nav_process_server <- function(
             dataOut$value <- NULL
         }
 
-        observeEvent(c(remoteReset(), rv$rstBtn()), ignoreInit = TRUE, ignoreNULL = TRUE, {
+        observeEvent(remoteReset()+ rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
             req(rv$config)
             ResetProcess()
         })
@@ -692,12 +700,20 @@ nav_process_server <- function(
                 nSteps = length(rv$config@steps)
             )
           
-          enableBtns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
-            unname(rv$steps.status[length(rv$steps.status)]) != stepStatus$VALIDATED
+          enable.do.Btns <- enable.doProceed.Btns <- FALSE
+          n <- length(rv$config@steps)
           
-          shinyjs::toggleState("DoProceedBtn", condition = enableBtns &&
-              rv$current.pos != length(rv$steps.status))
-          shinyjs::toggleState("DoBtn", condition = enableBtns)
+          enable.do.Btns <- enable.doProceed.Btns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
+            unname(rv$steps.status[n]) != stepStatus$VALIDATED
+          
+          
+          if (n > 1)
+            enable.doProceed.Btns <- enable.doProceed.Btns && 
+            rv$current.pos != length(n)
+          
+          shinyjs::toggleState("DoProceedBtn", condition = enable.doProceed.Btns)
+          shinyjs::toggleState("DoBtn", condition = enable.do.Btns)
+          
           
           
             shinyjs::hide(selector = paste0(".page_", id))

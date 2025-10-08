@@ -128,21 +128,11 @@ nav_pipeline_ui <- function(id) {
 #'
 nav_pipeline_server <- function(
         id = NULL,
-        dataIn = reactive({
-            NULL
-        }),
-        is.enabled = reactive({
-            TRUE
-        }),
-        remoteReset = reactive({
-            0
-        }),
-        wholeReset = reactive({
-            0
-        }),
-        is.skipped = reactive({
-            FALSE
-        }),
+        dataIn = reactive({NULL}),
+        is.enabled = reactive({TRUE}),
+        remoteReset = reactive({0}),
+        wholeReset = reactive({0}),
+        is.skipped = reactive({FALSE}),
         verbose = FALSE,
         usermod = "user") {
     ### -------------------------------------------------------------###
@@ -213,9 +203,7 @@ nav_pipeline_server <- function(
 
             # xxxx
             child.data2send = NULL,
-            rstBtn = reactive({
-                0
-            })
+            rstBtn = reactive({0})
         )
 
 
@@ -297,18 +285,11 @@ nav_pipeline_server <- function(
         # and is attached to the server, this function can be view as the
         # initialization of the server module. This code is generic to both
         # process and pipeline modules
-        observeEvent(id,
-            ignoreInit = FALSE,
-            ignoreNULL = TRUE,
-            {
+        observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
+        #observe({
+          #req(id)
                 rv$dataIn.original <- dataIn()
                 session$userData$dataIn.original <- dataIn()
-                # browser()
-
-
-                # When the server starts, the default position is 1
-                # Not necessary ?
-                # rv$current.pos <- 2
 
                 ### Call the server module of the process/pipeline which name is
                 ### the parameter 'id'.
@@ -363,15 +344,9 @@ nav_pipeline_server <- function(
                 timeline_pipeline_server(
                     "timeline_pipeline",
                     config = rv$config,
-                    status = reactive({
-                        rv$steps.status
-                    }),
-                    enabled = reactive({
-                        rv$steps.enabled
-                    }),
-                    position = reactive({
-                        rv$current.pos
-                    })
+                    status = reactive({rv$steps.status}),
+                    enabled = reactive({rv$steps.enabled}),
+                    position = reactive({rv$current.pos})
                 )
 
 
@@ -564,10 +539,8 @@ nav_pipeline_server <- function(
         # See https://github.com/daattali/shinyjs/issues/166
         # https://github.com/daattali/shinyjs/issues/25
         observeEvent(rv$steps.status, ignoreInit = TRUE, {
-            print("---------observeEvent(rv$steps.status, ignoreInit = TRUE-------------")
-          print(rv$steps.status)
-            rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
 
+            rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
             rv$steps.enabled <- Update_State_Screens(
                 is.skipped = is.skipped(),
                 is.enabled = is.enabled(),
@@ -575,11 +548,8 @@ nav_pipeline_server <- function(
             )
 
             n <- length(rv$config@steps)
-            
 
-            print(rv$resetChildren)
-            print(rv$config@mode)
-            #browser() 
+
             # Reset all further processes that are undone
             ind.undone <- unname(which(rv$steps.status == stepStatus$UNDONE))
             #rv$resetChildren <- ResetChildren(ind.undone, rv$resetChildren)
@@ -650,8 +620,8 @@ nav_pipeline_server <- function(
 
 
         ResetPipeline <- function() {
-            rv$dataIn <- session$userData$dataIn.original
-
+            #rv$dataIn <- session$userData$dataIn.original
+            rv$dataIn <- NULL
             # The cursor is set to the first step
             rv$current.pos <- 1
 
@@ -677,18 +647,39 @@ nav_pipeline_server <- function(
             dataOut$value <- rv$dataIn
         }
 
-        observeEvent(req(remoteReset()), ignoreInit = TRUE, ignoreNULL = TRUE, {
-            req(rv$config)
-            ResetPipeline()
+        
+        # ResetProcess <- function() {
+        #   rv$dataIn <- NULL
+        #   # The cursor is set to the first step
+        #   rv$current.pos <- 1
+        #   
+        #   n <- length(rv$config@steps)
+        #   # The status of the steps are reinitialized to the default
+        #   # configuration of the process
+        #   rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
+        #   
+        #   # Return the NULL value as dataset
+        #   dataOut$trigger <- Timestamp()
+        #   dataOut$value <- NULL
+        # }
+        
+        observeEvent(remoteReset()+rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
+          req(rv$config)
+          ResetPipeline()
         })
-
-
-        # Catch a click of a the button 'Ok' of a reset modal. This can be in
-        # the local module or in the module parent UI (in this case,
-        # it is called a 'remoteReset')
-        observeEvent(req(rv$rstBtn()), ignoreInit = FALSE, ignoreNULL = TRUE, {
-            ResetPipeline()
-        })
+        
+        # observeEvent(req(remoteReset()), ignoreInit = TRUE, ignoreNULL = TRUE, {
+        #     req(rv$config)
+        #     ResetPipeline()
+        # })
+        # 
+        # 
+        # # Catch a click of a the button 'Ok' of a reset modal. This can be in
+        # # the local module or in the module parent UI (in this case,
+        # # it is called a 'remoteReset')
+        # observeEvent(req(rv$rstBtn()), ignoreInit = FALSE, ignoreNULL = TRUE, {
+        #     ResetPipeline()
+        # })
 
 
         # Show the info panel of a skipped module
@@ -709,33 +700,15 @@ nav_pipeline_server <- function(
             Debug_Infos_server(
                 id = "debug_infos",
                 title = paste0("Infos from ", rv$config@mode, ": ", id),
-                config = reactive({
-                    rv$config
-                }),
-                rv.dataIn = reactive({
-                    rv$dataIn
-                }),
-                dataIn = reactive({
-                    dataIn()
-                }),
-                dataOut = reactive({
-                    dataOut
-                }),
-                steps.status = reactive({
-                    rv$steps.status
-                }),
-                steps.skipped = reactive({
-                    rv$steps.skipped
-                }),
-                current.pos = reactive({
-                    rv$current.pos
-                }),
-                steps.enabled = reactive({
-                    rv$steps.enabled
-                }),
-                is.enabled = reactive({
-                    is.enabled()
-                })
+                config = reactive({rv$config}),
+                rv.dataIn = reactive({rv$dataIn}),
+                dataIn = reactive({dataIn()}),
+                dataOut = reactive({dataOut}),
+                steps.status = reactive({rv$steps.status}),
+                steps.skipped = reactive({rv$steps.skipped}),
+                current.pos = reactive({rv$current.pos}),
+                steps.enabled = reactive({rv$steps.enabled}),
+                is.enabled = reactive({is.enabled()})
             )
 
             Debug_Infos_ui(ns("debug_infos"))
@@ -891,15 +864,9 @@ nav_pipeline_server <- function(
         # can be a module, a Shiny app or another nav module for example,
         # nav_pipeline)
         list(
-            dataOut = reactive({
-                dataOut
-            }),
-            steps.enabled = reactive({
-                rv$steps.enabled
-            }),
-            status = reactive({
-                rv$steps.status
-            })
+            dataOut = reactive({dataOut}),
+            steps.enabled = reactive({rv$steps.enabled}),
+            status = reactive({rv$steps.status})
         )
     })
 }

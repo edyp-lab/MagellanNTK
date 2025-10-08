@@ -274,8 +274,7 @@ Get_Code_for_remoteReset <- function(
     code <- "
 
 observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
-print(paste0('new value for remoteReset(): ', remoteReset()))
-#browser()
+
   "
 
     if (widgets) {
@@ -312,6 +311,7 @@ Get_Code_for_resetting_widgets <- function() {
     "
 lapply(names(rv.widgets), function(x){
           rv.widgets[[x]] <- widgets.default.values[[x]]
+          #shinyjs::reset(x)
         })
 "
 }

@@ -40,6 +40,7 @@ NULL
 mainapp_ui <- function(id, session, size = '300px') {
     ns <- NS(id)
     includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css"))
+
     bs4Dash::dashboardPage(
         # preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
         # options = list(
@@ -60,6 +61,7 @@ mainapp_ui <- function(id, session, size = '300px') {
             class = PrevNextBtnClass
           ),
           actionButton(ns("btn_eda"), label = "EDA"),
+          actionButton(ns('resetWF'), 'resetWF'),
           Insert_User_Sidebar()
           ),
         body = bs4DashBody(
@@ -68,8 +70,9 @@ mainapp_ui <- function(id, session, size = '300px') {
           # actionButton(ns("btn_eda"), label = "EDA")
           #     ),
           
-          
-            # style = "padding: 0px; overflow-y: auto;",
+          shinyjs::useShinyjs(),
+
+             # style = "padding: 0px; overflow-y: auto;",
             includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css")),
           bs4Dash::tabItems(
             bs4Dash::tabItem(
@@ -229,6 +232,7 @@ mainapp_server <- function(id,
                 }
                 session$userData$funcs <- rv.core$funcs$funcs
 
+                # Reset of all workflow
                 rv.core$resetWF <- rv.core$resetWF + 1
             },
             priority = 1000
@@ -245,6 +249,7 @@ mainapp_server <- function(id,
             }
             session$userData$funcs <- rv.core$funcs$funcs
             source_wf_files(session$userData$workflow.path)
+            rv.core$resetWF <- rv.core$resetWF + 1
         })
 
 
@@ -437,9 +442,7 @@ mainapp_server <- function(id,
                 fname = paste0(rv.core$funcs$funcs$build_report, "_server"),
                 args = list(
                     id = "build_report",
-                    dataIn = reactive({
-                        rv.core$processed.obj
-                    })
+                    dataIn = reactive({rv.core$processed.obj})
                 )
             )
 
@@ -455,9 +458,7 @@ mainapp_server <- function(id,
                 fname = paste0(rv.core$funcs$funcs$download_dataset, "_server"),
                 args = list(
                     id = "download_dataset",
-                    dataIn = reactive({
-                        rv.core$processed.obj
-                    })
+                    dataIn = reactive({rv.core$processed.obj})
                 )
             )
 
@@ -500,19 +501,21 @@ mainapp_server <- function(id,
                 }
 
                 req(rv.core$result_open_dataset()$dataset)
-                rv.core$resetWF <- rv.core$resetWF + 1
-
+                
                 rv.core$current.obj <- rv.core$result_open_dataset()$dataset
                 rv.core$current.obj.name <- rv.core$result_open_dataset()$name
                 rv.core$processed.obj <- rv.core$current.obj
+                rv.core$resetWF <- rv.core$resetWF + 1
+
             }
         )
 
 
 
-
+        
         observeEvent(req(rv.core$result_open_workflow()), {
-            rv.core$workflow.name <- rv.core$result_open_workflow()$wf_name
+
+          rv.core$workflow.name <- rv.core$result_open_workflow()$wf_name
             session$userData$workflow.name <- rv.core$result_open_workflow()$wf_name
 
             rv.core$workflow.path <- rv.core$result_open_workflow()$path
@@ -521,29 +524,32 @@ mainapp_server <- function(id,
             # Load the package which contains the workflow
             call.func("library", list(rv.core$result_open_workflow()$pkg))
             source_wf_files(session$userData$workflow.path)
+
         })
 
+        
+        
         output$open_workflow_UI <- renderUI({
             # Get workflow directory
             rv.core$result_open_workflow <- open_workflow_server("wf")
-            open_workflow_ui(ns("wf"))
+            tagList(
+              div(id = ns("chunk"), style = "width: 100px; height: 100px;" ),
+              open_workflow_ui(ns("wf"))
+            )
         })
 
 
         observe({
               rv.core$current.obj
+          rv.core$resetWF
               rv.core$result_run_workflow <- nav_pipeline_server(
                     id = rv.core$workflow.name,
                     dataIn = reactive({rv.core$current.obj}),
                     verbose = verbose,
                     usermod = usermod,
                     remoteReset = reactive({rv.core$resetWF})
-                    # wholeReset = reactive({
-                    #   !is.null(rv.core$result_open_dataset()$name)
-                    #   + !is.null(rv.core$result_convert()$dataOut()$value$name) })
-                )
-            },
-            priority = 1000
+                    )
+            }
         )
 
 
@@ -562,7 +568,7 @@ mainapp_server <- function(id,
 
 
         observeEvent(req(input$resetWF), {
-            rv.core$resetWF <- input$resetWF
+            rv.core$resetWF <- rv.core$resetWF + 1
         })
 
         output$tools_UI <- renderUI({
