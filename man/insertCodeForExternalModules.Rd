@@ -12,6 +12,7 @@
 \alias{Get_Code_for_remoteReset}
 \alias{Get_Code_for_resetting_widgets}
 \alias{Get_Code_for_resetting_custom}
+\alias{Get_Code_for_newDataset}
 \alias{Module_Return_Func}
 \alias{AdditionnalCodeForExternalModules}
 \alias{Get_Workflow_Core_Code}
@@ -42,6 +43,13 @@ Get_Code_for_remoteReset(
 Get_Code_for_resetting_widgets()
 
 Get_Code_for_resetting_custom()
+
+Get_Code_for_newDataset(
+  widgets = TRUE,
+  custom = TRUE,
+  dataIn = "dataIn()",
+  addon = ""
+)
 
 Module_Return_Func()
 
@@ -104,6 +112,8 @@ NA
 NA
 
 NA
+
+NA
 }
 \description{
 This function generates the necessary code to
@@ -137,6 +147,8 @@ This function xxx
 This function createxxx
 
 Returned value of the process
+
+xxx
 
 xxx
 

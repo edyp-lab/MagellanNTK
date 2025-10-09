@@ -233,7 +233,7 @@ mainapp_server <- function(id,
                 session$userData$funcs <- rv.core$funcs$funcs
 
                 # Reset of all workflow
-                rv.core$resetWF <- rv.core$resetWF + 1
+                rv.core$resetWF <- MagellanNTK::Timestamp()
             },
             priority = 1000
         )
@@ -249,7 +249,7 @@ mainapp_server <- function(id,
             }
             session$userData$funcs <- rv.core$funcs$funcs
             source_wf_files(session$userData$workflow.path)
-            rv.core$resetWF <- rv.core$resetWF + 1
+            rv.core$resetWF <- MagellanNTK::Timestamp()
         })
 
 
@@ -421,7 +421,6 @@ mainapp_server <- function(id,
             
         })
         
-        #req(rv.core$result_convert()$dataOut()$trigger)
         
         observeEvent(req(rv.core$result_convert(),rv.core$result_convert()$dataOut()$trigger),
           ignoreInit = TRUE, ignoreNULL = TRUE,{
@@ -431,7 +430,7 @@ mainapp_server <- function(id,
             rv.core$current.obj <- rv.core$result_convert()$dataOut()$value$data
             rv.core$current.obj.name <- rv.core$result_convert()$dataOut()$value$name
             rv.core$processed.obj <- rv.core$current.obj
-            rv.core$resetWF <- rv.core$resetWF + 1
+            rv.core$resetWF <- MagellanNTK::Timestamp()
           })
 
 
@@ -505,7 +504,7 @@ mainapp_server <- function(id,
                 rv.core$current.obj <- rv.core$result_open_dataset()$dataset
                 rv.core$current.obj.name <- rv.core$result_open_dataset()$name
                 rv.core$processed.obj <- rv.core$current.obj
-                rv.core$resetWF <- rv.core$resetWF + 1
+                rv.core$resetWF <- MagellanNTK::Timestamp()
 
             }
         )
@@ -524,11 +523,8 @@ mainapp_server <- function(id,
             # Load the package which contains the workflow
             call.func("library", list(rv.core$result_open_workflow()$pkg))
             source_wf_files(session$userData$workflow.path)
-
         })
 
-        
-        
         output$open_workflow_UI <- renderUI({
             # Get workflow directory
             rv.core$result_open_workflow <- open_workflow_server("wf")
@@ -540,8 +536,6 @@ mainapp_server <- function(id,
 
 
         observe({
-              rv.core$current.obj
-          rv.core$resetWF
               rv.core$result_run_workflow <- nav_pipeline_server(
                     id = rv.core$workflow.name,
                     dataIn = reactive({rv.core$current.obj}),
@@ -568,7 +562,7 @@ mainapp_server <- function(id,
 
 
         observeEvent(req(input$resetWF), {
-            rv.core$resetWF <- rv.core$resetWF + 1
+            rv.core$resetWF <- MagellanNTK::Timestamp()
         })
 
         output$tools_UI <- renderUI({

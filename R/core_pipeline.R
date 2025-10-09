@@ -21,7 +21,6 @@
 #' Basically, it is the program which has called this module
 #'
 #' @param is.skipped xxx
-#' @param wholeReset Default is 0,
 #' @param verbose = FALSE,
 #' @param usermod = 'user'
 #'
@@ -131,7 +130,6 @@ nav_pipeline_server <- function(
         dataIn = reactive({NULL}),
         is.enabled = reactive({TRUE}),
         remoteReset = reactive({0}),
-        wholeReset = reactive({0}),
         is.skipped = reactive({FALSE}),
         verbose = FALSE,
         usermod = "user") {
@@ -214,72 +212,6 @@ nav_pipeline_server <- function(
           h3('FILENAME TO DO')
         })
 
-# 
-#         ActionOn_Data_Trigger <- function() {
-#             processHasChanged <- newValue <- NULL
-# 
-#             # Get the values returned by all children (steps) of
-#             # the module
-#             values.children <- GetValuesFromChildren(
-#                 tmp.return = tmp.return,
-#                 config = rv$config
-#             )
-# 
-#             triggerValues <- values.children$triggers
-#             return.values <- values.children$values
-# 
-#             if (verbose) {
-#                 cat(crayon::blue("---------- Data received from children ---\n"))
-#                 print(return.values)
-#                 cat(crayon::blue("------------------------------------------\n"))
-#             }
-# 
-#             
-#          
-#             if (is.null(return.values)) {
-#                 # The entire pipeline has been reseted
-#                 rv$dataIn <- NULL
-#                 rv$steps.status[seq_len(length(rv$config@steps))] <- stepStatus$UNDONE
-#             } else {
-#                 .cd <- max(triggerValues, na.rm = TRUE) == triggerValues
-#                 # ind.process.has.changed <- which(.cd)
-#                 processHasChanged <- GetStepsNames()[which(.cd)]
-# 
-#                 # Get the new value
-#                 newValue <- tmp.return[[processHasChanged]]$dataOut()$value
-# 
-# 
-#                 if (verbose) {
-#                     cat(crayon::blue("---------- New children data status ---\n"))
-#                     print(newValue)
-#                     cat(crayon::blue("------------------------------------------\n"))
-#                 }
-# 
-# 
-# 
-#                 ret <- ActionOn_Child_Changed(
-#                     temp.dataIn = rv$temp.dataIn,
-#                     dataIn = rv$dataIn,
-#                     steps.status = rv$steps.status,
-#                     steps = rv$config@steps,
-#                     steps.enabled = rv$steps.enabled,
-#                     steps.skipped = rv$steps.skipped,
-#                     processHasChanged = processHasChanged,
-#                     newValue = newValue,
-#                     keepdataset_func = session$userData$funcs$keepDatasets,
-#                     rv = rv
-#                 )
-# 
-#                 rv$dataIn <- ret$dataIn
-#                 rv$steps.status <- ret$steps.status
-#                 rv$steps.enabled <- ret$steps.enabled
-#                 rv$steps.skipped <- ret$steps.skipped
-#             }
-# 
-#             # Send result
-#             dataOut$trigger <- Timestamp()
-#             dataOut$value <- rv$dataIn
-#         }
 
         # Catch any event on the 'id' parameter. As this parameter is static
         # and is attached to the server, this function can be view as the
@@ -490,10 +422,7 @@ nav_pipeline_server <- function(
         # Used to store the return values (lists) of child processes
         tmp.return <- reactiveValues()
 
-
-        observeEvent(input$closeModal, {
-            removeModal()
-        })
+       
 
         # Update the current position after a click  on the 'Previous' button
         observeEvent(input$prevBtn, ignoreInit = TRUE, {
@@ -548,15 +477,8 @@ nav_pipeline_server <- function(
             )
 
             n <- length(rv$config@steps)
-
-
             # Reset all further processes that are undone
             ind.undone <- unname(which(rv$steps.status == stepStatus$UNDONE))
-            #rv$resetChildren <- ResetChildren(ind.undone, rv$resetChildren)
-            for (i in ind.undone){
-              
-            }
-            
             if (rv$steps.status[n] == stepStatus$VALIDATED) {
                 # Set current position to the last one
                 rv$current.pos <- n
@@ -588,41 +510,9 @@ nav_pipeline_server <- function(
 
 
 
-
-        observeEvent(wholeReset(), ignoreInit = FALSE, ignoreNULL = TRUE, {
-            req(rv$config)
-            rv$dataIn <- NULL
-            # The cursor is set to the first step
-            rv$current.pos <- 1
-
-            n <- length(rv$config@steps)
-            # The status of the steps are reinitialized to the default
-            # configuration of the process
-            rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
-
-            # If the current module is a pipeline type (node and not
-            # leaf), then sent to its children the information that
-            # they must reset themself
-            # rv$resetChildren <- NULL
-            # The reset of the children is made by incrementing
-            # the values by 1. This has for effect to be detected
-            # by the observeEvent function. It works like an actionButton
-            # widget
-            rv$resetChildren <- ResetChildren(seq_len(n), rv$resetChildren)
-
-            # Return the NULL value as dataset
-            dataOut$trigger <- Timestamp()
-            dataOut$value <- rv$dataIn
-
-            # Finally, close the modal
-            # removeModal()
-        })
-
-
         ResetPipeline <- function() {
             #rv$dataIn <- session$userData$dataIn.original
             rv$dataIn <- NULL
-            # The cursor is set to the first step
             rv$current.pos <- 1
 
             n <- length(rv$config@steps)
@@ -630,15 +520,10 @@ nav_pipeline_server <- function(
             # configuration of the process
             rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
 
-            # If the current module is a pipeline type (node and not
-            # leaf), then sent to its children the information that
-            # they must reset themself
-            # rv$resetChildren <- NULL
             # The reset of the children is made by incrementing
             # the values by 1. This has for effect to be detected
             # by the observeEvent function. It works like an actionButton
             # widget
-
 
             rv$resetChildren <- ResetChildren(seq_len(n), rv$resetChildren)
 
@@ -647,41 +532,18 @@ nav_pipeline_server <- function(
             dataOut$value <- rv$dataIn
         }
 
-        
-        # ResetProcess <- function() {
-        #   rv$dataIn <- NULL
-        #   # The cursor is set to the first step
-        #   rv$current.pos <- 1
-        #   
-        #   n <- length(rv$config@steps)
-        #   # The status of the steps are reinitialized to the default
-        #   # configuration of the process
-        #   rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
-        #   
-        #   # Return the NULL value as dataset
-        #   dataOut$trigger <- Timestamp()
-        #   dataOut$value <- NULL
-        # }
-        
-        observeEvent(remoteReset()+rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
+
+        observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           req(rv$config)
           ResetPipeline()
         })
         
-        # observeEvent(req(remoteReset()), ignoreInit = TRUE, ignoreNULL = TRUE, {
-        #     req(rv$config)
-        #     ResetPipeline()
-        # })
-        # 
-        # 
-        # # Catch a click of a the button 'Ok' of a reset modal. This can be in
-        # # the local module or in the module parent UI (in this case,
-        # # it is called a 'remoteReset')
-        # observeEvent(req(rv$rstBtn()), ignoreInit = FALSE, ignoreNULL = TRUE, {
-        #     ResetPipeline()
-        # })
 
-
+        observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
+          req(rv$config)
+          ResetPipeline()
+        })
+        
         # Show the info panel of a skipped module
         output$SkippedInfoPanel <- renderUI({
             Build_SkippedInfoPanel(
@@ -773,6 +635,10 @@ nav_pipeline_server <- function(
             title = "Reset",
             uiContent = p(txt)
         )
+        
+        observeEvent(input$closeModal, {
+          removeModal()
+        })
 
 
         # Catch a new value on the parameter 'dataIn()' variable, sent by the
@@ -783,7 +649,10 @@ nav_pipeline_server <- function(
         # 2 - if the variable contains a dataset. xxx
         observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
             req(rv$config)
-
+            
+          # in case of a new dataset, reset the whole pipeline
+          ResetPipeline()
+          
             # Get the new dataset in a temporary variable
             rv$temp.dataIn <- dataIn()
             # session$userData$dataIn.original <- dataIn()
@@ -922,12 +791,8 @@ nav_pipeline <- function() {
             Debug_Infos_server(
                 id = "debug_infos",
                 title = "Infos from shiny app",
-                rv.dataIn = reactive({
-                    rv$dataIn
-                }),
-                dataOut = reactive({
-                    rv$dataOut$dataOut()
-                })
+                rv.dataIn = reactive({rv$dataIn}),
+                dataOut = reactive({rv$dataOut$dataOut()})
             )
             Debug_Infos_ui("debug_infos")
         })
@@ -937,18 +802,10 @@ nav_pipeline <- function() {
         observe({
             rv$dataOut <- nav_pipeline_server(
                 id = pipe.name,
-                dataIn = reactive({
-                    rv$dataIn
-                }),
-                remoteReset = reactive({
-                    input$simReset
-                }),
-                is.skipped = reactive({
-                    input$simSkipped %% 2 != 0
-                }),
-                is.enabled = reactive({
-                    input$simEnabled %% 2 == 0
-                })
+                dataIn = reactive({rv$dataIn}),
+                remoteReset = reactive({input$simReset}),
+                is.skipped = reactive({input$simSkipped %% 2 != 0}),
+                is.enabled = reactive({input$simEnabled %% 2 == 0})
             )
         })
     }

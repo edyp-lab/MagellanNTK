@@ -86,7 +86,6 @@ Collate:
     mod_debug_infos.R
     timeline_process.R
     timeline_pipeline.R
-    core.R
     core_process.R
     core_pipeline.R
     launch_app.R

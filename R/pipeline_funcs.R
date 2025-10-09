@@ -60,8 +60,6 @@ ActionOn_Child_Changed <- function(
             ind.last.validated <- 0
         }
 
-        # browser()
-
         # There is no validated step (the first step has been reseted)
         if (ind.last.validated == 0) {
             dataIn <- NULL
@@ -89,14 +87,10 @@ ActionOn_Child_Changed <- function(
         # but it is straightforward because we just updates rv$status
         steps.status[ind.processHasChanged:len] <- stepStatus$UNDONE
 
-        #rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
-        
         # All the following processes (after the one which has changed) are disabled
         steps.enabled[(ind.processHasChanged + 1):len] <- FALSE
 
-        # browser()
-
-        # test <- GetFirstMandatoryNotValidated((ind.processHasChanged + 1):len, rv)
+        
         # The process that has been rested is enabled so as to rerun it
         steps.enabled[ind.processHasChanged] <- TRUE
 
@@ -108,15 +102,7 @@ ActionOn_Child_Changed <- function(
         #browser()
         if (ind.processHasChanged < len) {
             steps.status[(1 + ind.processHasChanged):len] <- stepStatus$UNDONE
-
-            # Reset all further processes
-            # print('proceed to reset all further children')
-            #
-            # steps.status[(1 + ind.processHasChanged):len] <-
-            #browser()
-            #rv$resetChildren <- ResetChildren((1 + ind.processHasChanged):len, rv$resetChildren)
         }
-
         
         
         steps.status <- Discover_Skipped_Steps(steps.status)

@@ -19,9 +19,6 @@ nav_pipeline_server(
   remoteReset = reactive({
      0
  }),
-  wholeReset = reactive({
-     0
- }),
   is.skipped = reactive({
      FALSE
  }),
@@ -48,8 +45,6 @@ is deciding by this module.}
 \item{remoteReset}{It is a remote command to reset the module. A boolen that
 indicates is the pipeline has been reseted by a program of higher level
 Basically, it is the program which has called this module}
-
-\item{wholeReset}{Default is 0,}
 
 \item{is.skipped}{xxx}
 
