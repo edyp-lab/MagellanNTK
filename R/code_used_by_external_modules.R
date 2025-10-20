@@ -274,7 +274,8 @@ Get_Code_for_remoteReset <- function(
     code <- "
 
 observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
-
+print(paste0('entre dans le remoteReset du process : ', id))
+#browser()
   "
 
     if (widgets) {

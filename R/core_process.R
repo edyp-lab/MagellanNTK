@@ -108,7 +108,8 @@ nav_process_server <- function(
         dataIn = reactive({NULL}),
         is.enabled = reactive({TRUE}),
         remoteReset = reactive({0}),
-        is.skipped = reactive({FALSE}),
+  remoteResetUI = reactive({0}),
+  is.skipped = reactive({FALSE}),
         verbose = FALSE,
         usermod = "user",
         btnEvents = reactive({NULL})) {
@@ -154,8 +155,8 @@ nav_process_server <- function(
             # the corresponding process is skipped or not
             # ONLY USED WITH PIPELINE
             steps.skipped = NULL,
-
-
+          prev.remoteReset = 1,
+          prev.remoteResetUI = 1,
             # current.pos Stores the current cursor position in the
             # timeline and indicates which of the process' steps is active
             current.pos = 1,
@@ -175,6 +176,10 @@ nav_process_server <- function(
 
             rv$rstBtn()
             remoteReset()
+            
+            rv$prev.remoteReset < remoteReset()
+            rv$prev.remoteResetUI < remoteResetUI()
+            
                 # When the server starts, the default position is 1
                 # Not necessary ?
                 # rv$current.pos <- 2
@@ -420,10 +425,25 @@ nav_process_server <- function(
             }
         })
 
-
+        ResetProcessUI <- function() {
+          print(paste0("in resetChildrenUI de ", id))#browser()
+          #browser()#rv$dataIn <- rv$temp.dataIn <- dataIn()
+          
+          # The cursor is set to the first step
+          rv$current.pos <- 1
+          
+          n <- length(rv$config@steps)
+          # The status of the steps are reinitialized to the default
+          # configuration of the process
+          rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
+          
+          
+        }
 
         ResetProcess <- function() {
-            rv$dataIn <- NULL
+          #browser()
+            rv$dataIn <- rv$temp.dataIn <- dataIn()
+            
             # The cursor is set to the first step
             rv$current.pos <- 1
 
@@ -437,56 +457,31 @@ nav_process_server <- function(
             dataOut$value <- NULL
         }
 
-        observeEvent(remoteReset()+ rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
+        observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
             req(rv$config)
             ResetProcess()
         })
 
+        observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
+          req(rv$config)
+          print(paste0("wea are in the process : ", id))
+          #browser()
+          if (rv$prev.remoteReset < remoteReset()){
+            ResetProcess()
+            rv$prev.remoteReset < remoteReset()
+          }
+        })
 
-
-
-        # # Catch a click of a the button 'Ok' of a reset modal. This can be in
-        # # the local module or in the module parent UI (in this case,
-        # # it is called a 'remoteReset')
-        # observeEvent(req(rv$rstBtn()), ignoreInit = FALSE, ignoreNULL = TRUE,{
-        #   print("In core.R : observeEvent(req(rv$rstBtn())")
-        #   ResetProcess()
-        # }
-        # )
-
-
-        # Show the info panel of a skipped module
-        # output$SkippedInfoPanel <- renderUI({
-        #   Build_SkippedInfoPanel(steps.status = rv$steps.status,
-        #     current.pos = rv$current.pos,
-        #     config = rv$config
-        #   )
-        # })
-
-        # Show the debug infos if requested (dev_mode mode)
-        # This function is not directly implemented in the main UI of nav_ui
-        # because it is hide/show w.r.t. the value of dev_mode
-        # output$debug_infos_ui <- renderUI({
-        #   req(verbose)
-        #
-        #   Debug_Infos_server(
-        #     id = "debug_infos",
-        #     title = paste0("Infos from ",rv$config@mode, ": ", id),
-        #     config = reactive({rv$config}),
-        #     rv.dataIn = reactive({rv$dataIn}),
-        #     dataIn = reactive({dataIn()}),
-        #     dataOut = reactive({dataOut}),
-        #     steps.status = reactive({rv$steps.status}),
-        #     steps.skipped = reactive({rv$steps.skipped}),
-        #     current.pos = reactive({rv$current.pos}),
-        #     steps.enabled = reactive({rv$steps.enabled}),
-        #     is.enabled = reactive({is.enabled()})
-        #   )
-        #
-        #   Debug_Infos_ui(ns("debug_infos"))
-        # })
-
-
+        observeEvent(remoteResetUI(), ignoreInit = TRUE, ignoreNULL = TRUE, {
+          req(rv$config)
+          print(paste0("wea are in the process : ", id))
+          #browser()
+          if (rv$prev.remoteResetUI < remoteResetUI()){
+            ResetProcessUI()
+            rv$prev.remoteResetUI < remoteResetUI()
+          }
+        })
+        
         GetStepsNames <- reactive({
             names(rv$config@steps)
         })
@@ -542,15 +537,6 @@ nav_process_server <- function(
         })
 
 
-        # observeEvent(rv$proc$dataOut()$sidebarState,
-        #   ignoreNULL = TRUE, ignoreInit = TRUE, {
-        #     shinyjs::toggle('btns_process_panel',
-        #       anim = TRUE,
-        #       animType = "fade",
-        #       time = 0.1,
-        #       condition = rv$proc$dataOut()$sidebarState
-        #       )
-        #   })
 
         # Launch the UI for the user interface of the module
         # Note for devs: apparently, the renderUI() cannot be stored in the
@@ -647,7 +633,8 @@ nav_process_server <- function(
         observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
             req(rv$config)
 
-
+print(paste0("in the process : ", id, ", the event on dataIn() ="))
+print(dataIn())
             # isolate({
             # A new value on dataIn() means a new dataset sent to the
             # process

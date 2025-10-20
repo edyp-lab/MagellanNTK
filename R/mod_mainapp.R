@@ -560,6 +560,18 @@ mainapp_server <- function(id,
             rv.core$processed.obj <- rv.core$result_run_workflow$dataOut()$value
         })
 
+        
+        observeEvent(rv.core$processed.obj, {
+          print("in the mainapp.R, rv.core$processed.obj = ")
+          print(rv.core$processed.obj)
+        })
+        
+        observeEvent(rv.core$current.obj, {
+          print("in the mainapp.R, rv.core$current.obj = ")
+          print(rv.core$current.obj)
+        })
+        
+        
 
         observeEvent(req(input$resetWF), {
             rv.core$resetWF <- MagellanNTK::Timestamp()

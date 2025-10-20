@@ -181,7 +181,7 @@ nav_pipeline_server <- function(
             # catched by Shiny observers
             # ---ONLY USED WITH PIPELINE---
             resetChildren = NULL,
-
+          resetChildrenUI = NULL,
             # current.pos Stores the current cursor position in the
             # timeline and indicates which of the process' steps is active
             current.pos = 1,
@@ -261,7 +261,8 @@ nav_pipeline_server <- function(
 
                 rv$steps.skipped <- setNames(rep(FALSE, n), nm = stepsnames)
                 rv$resetChildren <- setNames(rep(0, n), nm = stepsnames)
-
+                rv$resetChildrenUI <- setNames(rep(0, n), nm = stepsnames)
+                
                 rv$child.data2send <- setNames(
                     lapply(as.list(stepsnames), function(x) NULL),
                     nm = stepsnames
@@ -290,13 +291,13 @@ nav_pipeline_server <- function(
                 # Before continuing the initialization, check if all
                 # modules functions (the steps contained in the slot
                 # `rv$config@steps` are found in the Global environment
-
-                rv$steps.skipped <- setNames(rep(FALSE, length(rv$config@steps)),
-                    nm = GetStepsNames()
-                )
-                rv$resetChildren <- setNames(rep(0, length(rv$config@steps)),
-                    nm = GetStepsNames()
-                )
+# 
+#                 rv$steps.skipped <- setNames(rep(FALSE, length(rv$config@steps)),
+#                     nm = GetStepsNames()
+#                 )
+#                 rv$resetChildren <- setNames(rep(0, length(rv$config@steps)),
+#                     nm = GetStepsNames()
+#                 )
 
                 # Launch the ui for each step of the pipeline
                 # This function could be stored in the source file of the
@@ -332,7 +333,8 @@ nav_pipeline_server <- function(
                         dataIn = reactive({rv$child.data2send[[x]]}),
                         is.enabled = reactive({isTRUE(rv$steps.enabled[x])}),
                         remoteReset = reactive({rv$resetChildren[x]}),
-                        is.skipped = reactive({isTRUE(rv$steps.skipped[x])}),
+                      remoteResetUI = reactive({rv$resetChildrenUI[x]}),
+                      is.skipped = reactive({isTRUE(rv$steps.skipped[x])}),
                         verbose = verbose,
                         usermod = usermod
                     )
@@ -371,12 +373,15 @@ nav_pipeline_server <- function(
           }
           
           
-          
           if (is.null(return.values)) {
             # The entire pipeline has been reseted
             rv$dataIn <- NULL
             rv$steps.status[seq_len(length(rv$config@steps))] <- stepStatus$UNDONE
           } else {
+            
+            #browser()
+            # verifier ce qui se passe quand un process ets resete
+            # et regadeer quel dataset il recupere
             .cd <- max(triggerValues, na.rm = TRUE) == triggerValues
             # ind.process.has.changed <- which(.cd)
             processHasChanged <- GetStepsNames()[which(.cd)]
@@ -478,7 +483,14 @@ nav_pipeline_server <- function(
 
             n <- length(rv$config@steps)
             # Reset all further processes that are undone
+            #ind.undone <- unname(which(rv$steps.status == stepStatus$UNDONE))
+            #browser()
+            
             ind.undone <- unname(which(rv$steps.status == stepStatus$UNDONE))
+            #rv$resetChildren[ind.undone] <- rv$resetChildren[ind.undone] + 1
+            #rv$resetChildrenUI[ind.undone] <- rv$resetChildrenUI[ind.undone] + 1
+            
+            
             if (rv$steps.status[n] == stepStatus$VALIDATED) {
                 # Set current position to the last one
                 rv$current.pos <- n
@@ -526,6 +538,7 @@ nav_pipeline_server <- function(
             # widget
 
             rv$resetChildren <- ResetChildren(seq_len(n), rv$resetChildren)
+            #resetChildren[seq_len(n)] <- resetChildren[seq_len(n)] + 1
 
             # Return the NULL value as dataset
             dataOut$trigger <- Timestamp()
@@ -606,21 +619,6 @@ nav_pipeline_server <- function(
                 }
             })
         })
-
-        #
-        # # Launch the UI for the user interface of the module
-        # # Note for devs: apparently, the renderUI() cannot be stored in the
-        # # function 'Build..'
-        # output$nav_pipeline_mod_ui <- renderUI({
-        #  # req(rv$tl.layout)
-        #   if(verbose)
-        #     cat(crayon::blue(paste0(id, ': Entering output$nav_mod_ui <- renderUI({...})\n')))
-        #
-        #   #DisplayWholeUI(ns, 'pipeline')
-        #   pipelineUI <-Build_nav_pipeline_ui(ns)
-        #
-        #   pipelineUI
-        # })
 
 
         # Define message when the Reset button is clicked
@@ -709,6 +707,12 @@ nav_pipeline_server <- function(
             shinyjs::hide(selector = paste0(".page_", id))
             shinyjs::show(GetStepsNames()[rv$current.pos])
 
+            #browser()
+            #Il faut verifier le dataset qui,est envoye quand on fait des resets des process en arrivant avec le curseur
+            #peut-être qu'il faut deplacer ce reset avant ou après la gestion du dataset qui doit partir'
+            
+            
+            #rv$resetChildren[ind.undone] <- rv$resetChildren[ind.undone] + 1
             # Specific to pipeline code
             # browser()
             res <- PrepareData2Send(
@@ -720,6 +724,7 @@ nav_pipeline_server <- function(
 
             rv$child.data2send <- res$data2send
             rv$steps.enabled <- res$steps.enabled
+            
 
             if (rv$steps.status[rv$current.pos] == stepStatus$VALIDATED) {
                 rv$child.position[rv$current.pos] <- paste0("last_", Timestamp())
