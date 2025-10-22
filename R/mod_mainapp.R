@@ -557,6 +557,9 @@ mainapp_server <- function(id,
         })
 
         observeEvent(rv.core$result_run_workflow$dataOut()$value, {
+          
+          print("*****************on a recepetionne une nouvelle valeur en provenance du pipeline*******************")
+          print(rv.core$result_run_workflow$dataOut()$value)
             rv.core$processed.obj <- rv.core$result_run_workflow$dataOut()$value
         })
 

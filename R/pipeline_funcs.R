@@ -1,124 +1,124 @@
-#' @title xxx
-#'
-#' @description
-#' # A process has changed
-# Either it has returned a value (newValue contains a dataset)
-# or it has been reseted (newValue is NULL)
-
-#'
-#' @param temp.dataIn xxx
-#' @param dataIn xxx
-#' @param steps.status xxx
-#' @param steps A vector of names which are the names of the steps
-#' in the process
-#' @param steps.enabled xxx
-#' @param steps.skipped xxx
-#' @param processHasChanged A character(1) which is the name of the process
-#' which has changed its return value.
-#' @param newValue The new value given by the step which has changed.
-#' It can be either NULL (the process has been reseted) or contain
-#' a dataset (the process has been validated and returned the result
-#' of its calculations)
-#' @param keepdataset_func xxxx
-#' @param rv xxxx
-#'
-#' @author Samuel Wieczorek
-#'
-#' @export
-#'
-#' @return NA
-#'
-#' @examples
-#' NULL
-#'
-ActionOn_Child_Changed <- function(
-        temp.dataIn,
-        dataIn,
-        steps.status,
-        steps,
-        steps.enabled,
-        steps.skipped,
-        processHasChanged,
-        newValue,
-        keepdataset_func,
-        rv) {
-    # Indice of the dataset in the object
-    # If the original length is not 1, then this indice is different
-    # than the above one
-    ind.processHasChanged <- which(names(steps) == processHasChanged)
-    validatedBeforeReset <- names(dataIn)[length(names(dataIn))] == processHasChanged
-
-    len <- length(steps)
-
-    # browser()
-    if (is.null(newValue)) {
-        # A process has been reseted (it has returned a NULL value)
-        validated.steps <- which(steps.status == stepStatus$VALIDATED)
-        if (length(validated.steps) > 0) {
-            ind.last.validated <- max(validated.steps)
-        } else {
-            ind.last.validated <- 0
-        }
-
-        # There is no validated step (the first step has been reseted)
-        if (ind.last.validated == 0) {
-            dataIn <- NULL
-        } else if (ind.last.validated == 1) {
-            dataIn <- temp.dataIn
-        } else {
-            # Check if the reseted process has been validated before reset or not
-            if (isTRUE(validatedBeforeReset)) {
-                dataIn <- call.func(
-                    fname = keepdataset_func,
-                    args = list(
-                        object = dataIn,
-                        range = seq_len(length(dataIn) - 1)
-                    )
-                )
-            } else {
-                dataIn <- temp.dataIn
-            }
-        }
-
-        
-        
-        # One take the last validated step (before the one
-        # corresponding to processHasChanges
-        # but it is straightforward because we just updates rv$status
-        steps.status[ind.processHasChanged:len] <- stepStatus$UNDONE
-
-        # All the following processes (after the one which has changed) are disabled
-        steps.enabled[(ind.processHasChanged + 1):len] <- FALSE
-
-        
-        # The process that has been rested is enabled so as to rerun it
-        steps.enabled[ind.processHasChanged] <- TRUE
-
-        steps.skipped[ind.processHasChanged:len] <- FALSE
-        Update_State_Screens(steps.skipped, steps.enabled, rv)
-    } else {
-        # A process has been validated
-        steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
-        #browser()
-        if (ind.processHasChanged < len) {
-            steps.status[(1 + ind.processHasChanged):len] <- stepStatus$UNDONE
-        }
-        
-        
-        steps.status <- Discover_Skipped_Steps(steps.status)
-        dataIn <- newValue
-    }
-
-
-    return(
-        list(
-            dataIn = dataIn,
-            steps.status = steps.status,
-            steps.enabled = steps.enabled,
-            steps.skipped = steps.skipped
-        )
-    )
-}
+#' #' @title xxx
+#' #'
+#' #' @description
+#' #' # A process has changed
+#' # Either it has returned a value (newValue contains a dataset)
+#' # or it has been reseted (newValue is NULL)
+#' 
+#' #'
+#' #' @param temp.dataIn xxx
+#' #' @param dataIn xxx
+#' #' @param steps.status xxx
+#' #' @param steps A vector of names which are the names of the steps
+#' #' in the process
+#' #' @param steps.enabled xxx
+#' #' @param steps.skipped xxx
+#' #' @param processHasChanged A character(1) which is the name of the process
+#' #' which has changed its return value.
+#' #' @param newValue The new value given by the step which has changed.
+#' #' It can be either NULL (the process has been reseted) or contain
+#' #' a dataset (the process has been validated and returned the result
+#' #' of its calculations)
+#' #' @param keepdataset_func xxxx
+#' #' @param rv xxxx
+#' #'
+#' #' @author Samuel Wieczorek
+#' #'
+#' #' @export
+#' #'
+#' #' @return NA
+#' #'
+#' #' @examples
+#' #' NULL
+#' #'
+#' ActionOn_Child_Changed <- function(
+#'         temp.dataIn,
+#'         dataIn,
+#'         steps.status,
+#'         steps,
+#'         steps.enabled,
+#'         steps.skipped,
+#'         processHasChanged,
+#'         newValue,
+#'         keepdataset_func,
+#'         rv) {
+#'     # Indice of the dataset in the object
+#'     # If the original length is not 1, then this indice is different
+#'     # than the above one
+#'     ind.processHasChanged <- which(names(steps) == processHasChanged)
+#'     validatedBeforeReset <- names(dataIn)[length(names(dataIn))] == processHasChanged
+#' 
+#'     len <- length(steps)
+#' 
+#'     # browser()
+#'     if (is.null(newValue)) {
+#'         # A process has been reseted (it has returned a NULL value)
+#'         validated.steps <- which(steps.status == stepStatus$VALIDATED)
+#'         if (length(validated.steps) > 0) {
+#'             ind.last.validated <- max(validated.steps)
+#'         } else {
+#'             ind.last.validated <- 0
+#'         }
+#' 
+#'         # There is no validated step (the first step has been reseted)
+#'         if (ind.last.validated == 0) {
+#'             dataIn <- NULL
+#'         } else if (ind.last.validated == 1) {
+#'             dataIn <- temp.dataIn
+#'         } else {
+#'             # Check if the reseted process has been validated before reset or not
+#'             if (isTRUE(validatedBeforeReset)) {
+#'                 dataIn <- call.func(
+#'                     fname = keepdataset_func,
+#'                     args = list(
+#'                         object = dataIn,
+#'                         range = seq_len(length(dataIn) - 1)
+#'                     )
+#'                 )
+#'             } else {
+#'                 dataIn <- temp.dataIn
+#'             }
+#'         }
+#' 
+#'         
+#'         
+#'         # One take the last validated step (before the one
+#'         # corresponding to processHasChanges
+#'         # but it is straightforward because we just updates rv$status
+#'         steps.status[ind.processHasChanged:len] <- stepStatus$UNDONE
+#' 
+#'         # All the following processes (after the one which has changed) are disabled
+#'         steps.enabled[(ind.processHasChanged + 1):len] <- FALSE
+#' 
+#'         
+#'         # The process that has been rested is enabled so as to rerun it
+#'         steps.enabled[ind.processHasChanged] <- TRUE
+#' 
+#'         steps.skipped[ind.processHasChanged:len] <- FALSE
+#'         Update_State_Screens(steps.skipped, steps.enabled, rv)
+#'     } else {
+#'         # A process has been validated
+#'         steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
+#'         #browser()
+#'         if (ind.processHasChanged < len) {
+#'             steps.status[(1 + ind.processHasChanged):len] <- stepStatus$UNDONE
+#'         }
+#'         
+#'         
+#'         steps.status <- Discover_Skipped_Steps(steps.status)
+#'         dataIn <- newValue
+#'     }
+#' 
+#' 
+#'     return(
+#'         list(
+#'             dataIn = dataIn,
+#'             steps.status = steps.status,
+#'             steps.enabled = steps.enabled,
+#'             steps.skipped = steps.skipped
+#'         )
+#'     )
+#' }
 
 #' @title xxxx
 #' @description xxx

@@ -198,7 +198,7 @@ nav_process_server <- function(
                         id = id,
                         dataIn = reactive({rv$temp.dataIn}),
                         steps.enabled = reactive({rv$steps.enabled}),
-                        remoteReset = reactive({rv$rstBtn() + remoteReset()}),
+                        remoteReset = reactive({rv$rstBtn() + remoteReset() + remoteResetUI()}),
                         steps.status = reactive({rv$steps.status}),
                         current.pos = reactive({rv$current.pos}),
                         btnEvents = reactive({rv$btnEvents})
@@ -426,8 +426,8 @@ nav_process_server <- function(
         })
 
         ResetProcessUI <- function() {
-          print(paste0("in resetChildrenUI de ", id))#browser()
-          #browser()#rv$dataIn <- rv$temp.dataIn <- dataIn()
+          print(paste0("in resetChildrenUI de ", id))
+          browser()
           
           # The cursor is set to the first step
           rv$current.pos <- 1
@@ -444,27 +444,31 @@ nav_process_server <- function(
           #browser()
             rv$dataIn <- rv$temp.dataIn <- dataIn()
             
+            print(paste0("in resetChildrenUI de ", id))
+            browser()
+            
             # The cursor is set to the first step
             rv$current.pos <- 1
-
+            
             n <- length(rv$config@steps)
             # The status of the steps are reinitialized to the default
             # configuration of the process
             rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
-
-            # Return the NULL value as dataset
-            dataOut$trigger <- Timestamp()
-            dataOut$value <- NULL
+            
         }
 
         observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
             req(rv$config)
-            ResetProcess()
+          #browser()
+          ResetProcess()
+          # Return the NULL value as dataset
+          dataOut$trigger <- Timestamp()
+          dataOut$value <- NULL
         })
 
         observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           req(rv$config)
-          print(paste0("wea are in the process : ", id))
+          print(paste0("Call remoteResetUI() from process : ", id))
           #browser()
           if (rv$prev.remoteReset < remoteReset()){
             ResetProcess()
@@ -474,7 +478,7 @@ nav_process_server <- function(
 
         observeEvent(remoteResetUI(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           req(rv$config)
-          print(paste0("wea are in the process : ", id))
+          print(paste0("Call remoteResetUI() from process : ", id))
           #browser()
           if (rv$prev.remoteResetUI < remoteResetUI()){
             ResetProcessUI()

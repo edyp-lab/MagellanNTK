@@ -19,6 +19,9 @@ nav_process_server(
   remoteReset = reactive({
      0
  }),
+  remoteResetUI = reactive({
+     0
+ }),
   is.skipped = reactive({
      FALSE
  }),

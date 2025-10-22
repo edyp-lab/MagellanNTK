@@ -191,7 +191,7 @@ nav_pipeline_server <- function(
             # A vector of boolean where each element indicates if the
             # corresponding child if enable or disable
             child.enabled = NULL,
-
+prev.children.trigger = NULL,
             # xxxx
             child.reset = NULL,
 
@@ -257,6 +257,8 @@ nav_pipeline_server <- function(
                 n <- length(rv$config@steps)
                 stepsnames <- names(rv$config@steps)
                 rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = stepsnames)
+                rv$prev.children.trigger <- setNames(rep(NA, n), nm = stepsnames)
+                
                 rv$steps.enabled <- setNames(rep(FALSE, n), nm = stepsnames)
 
                 rv$steps.skipped <- setNames(rep(FALSE, n), nm = stepsnames)
@@ -345,26 +347,70 @@ nav_pipeline_server <- function(
 
 
 
-        # Catch the returned values of the processes attached to
-        # pipeline
-        observeEvent(lapply(
+        GetChildrenValues <- reactive({
+          lapply(
             GetStepsNames(),
             function(x) {
-                tmp.return[[x]]$dataOut()$trigger
+              tmp.return[[x]]$dataOut()$trigger
             }
-        ), ignoreInit = FALSE, {
-           # ActionOn_Data_Trigger()
-          processHasChanged <- newValue <- NULL
+          )
+        })
+        
+        
+        
+        
+        GetValuesFromChildren <- reactive({
+          stepsnames <- names(rv$config@steps)
           
-          # Get the values returned by all children (steps) of
-          # the module
-          values.children <- GetValuesFromChildren(
-            tmp.return = tmp.return,
-            config = rv$config
+          # Get the trigger values for each steps of the module
+          return.trigger.values <- setNames(lapply(stepsnames, function(x) {
+            tmp.return[[x]]$dataOut()$trigger
+          }), nm = stepsnames)
+          
+          # Replace NULL values by NA
+          return.trigger.values[sapply(return.trigger.values, is.null)] <- NA
+          triggerValues <- unlist(return.trigger.values)
+          
+          
+          # Get the values returned by each step of the modules
+          return.values <- setNames(
+            lapply(
+              stepsnames,
+              function(x) {
+                tmp.return[[x]]$dataOut()$value
+              }
+            ),
+            nm = stepsnames
           )
           
-          triggerValues <- values.children$triggers
-          return.values <- values.children$values
+          
+          list(
+            triggers = triggerValues,
+            values = unlist(return.values)
+          )
+        })
+        
+        
+        
+        
+        # Catch the returned values of the processes attached to
+        # pipeline
+        observeEvent(GetValuesFromChildren()$triggers, ignoreInit = FALSE, {
+           # ActionOn_Data_Trigger()
+          #browser()
+          
+          processHasChanged <- newValue <- NULL
+          
+          rv$prev.children.trigger
+          # Get the values returned by all children (steps) of
+          # the module
+          # values.children <- GetValuesFromChildren(
+          #   tmp.return = tmp.return,
+          #   config = rv$config
+          # )
+          
+          triggerValues <- GetValuesFromChildren()$triggers
+          return.values <- GetValuesFromChildren()$values
           
           if (verbose) {
             cat(crayon::blue("---------- Data received from children ---\n"))
@@ -379,8 +425,17 @@ nav_pipeline_server <- function(
             rv$steps.status[seq_len(length(rv$config@steps))] <- stepStatus$UNDONE
           } else {
             
+            
+            
+            # Reset all further processes that are undone
+            #ind.undone <- unname(which(rv$steps.status == stepStatus$UNDONE))
             #browser()
-            # verifier ce qui se passe quand un process ets resete
+           
+            
+            # Quand on reset un process, les UI des suivants le sont obligatoirement
+            # mais on ne touche pas au dataset
+            # 
+            # verifier ce qui se passe quand un process est resete
             # et regadeer quel dataset il recupere
             .cd <- max(triggerValues, na.rm = TRUE) == triggerValues
             # ind.process.has.changed <- which(.cd)
@@ -396,27 +451,82 @@ nav_pipeline_server <- function(
               cat(crayon::blue("------------------------------------------\n"))
             }
             
+            ##############################################################
+            ##############################################################
+            ############################################################### Indice of the dataset in the object
+            # If the original length is not 1, then this indice is different
+            # than the above one
+            ind.processHasChanged <- which(names(rv$config@steps) == processHasChanged)
+            validatedBeforeReset <- names(rv$dataIn)[length(names(rv$dataIn))] == processHasChanged
             
+            len <- length(rv$config@steps)
             
-            ret <- ActionOn_Child_Changed(
-              temp.dataIn = rv$temp.dataIn,
-              dataIn = rv$dataIn,
-              steps.status = rv$steps.status,
-              steps = rv$config@steps,
-              steps.enabled = rv$steps.enabled,
-              steps.skipped = rv$steps.skipped,
-              processHasChanged = processHasChanged,
-              newValue = newValue,
-              keepdataset_func = session$userData$funcs$keepDatasets,
-              rv = rv
-            )
+            # browser()
+            if (is.null(newValue)) {
+              # A process has been reseted (it has returned a NULL value)
+              validated.steps <- which(rv$steps.status == stepStatus$VALIDATED)
+              if (length(validated.steps) > 0) {
+                ind.last.validated <- max(validated.steps)
+              } else {
+                ind.last.validated <- 0
+              }
+              
+              # There is no validated step (the first step has been reseted)
+              if (ind.last.validated == 0) {
+                rv$dataIn <- NULL
+              } else if (ind.last.validated == 1) {
+                rv$dataIn <- rv$temp.dataIn
+              } else {
+                # Check if the reseted process has been validated before reset or not
+                if (isTRUE(validatedBeforeReset)) {
+                  rv$dataIn <- call.func(
+                    fname = session$userData$funcs$keepdataset_func,
+                    args = list(
+                      object = rv$dataIn,
+                      range = seq_len(length(rv$dataIn) - 1)
+                    )
+                  )
+                } else {
+                  rv$dataIn <- rv$temp.dataIn
+                }
+              }
+              
+              
+              
+              # One take the last validated step (before the one
+              # corresponding to processHasChanges
+              # but it is straightforward because we just updates rv$status
+              rv$steps.status[ind.processHasChanged:len] <- stepStatus$UNDONE
+              
+              # All the following processes (after the one which has changed) are disabled
+              rv$steps.enabled[(ind.processHasChanged + 1):len] <- FALSE
+              
+              
+              # The process that has been rested is enabled so as to rerun it
+              rv$steps.enabled[ind.processHasChanged] <- TRUE
+              
+              rv$steps.skipped[ind.processHasChanged:len] <- FALSE
+              Update_State_Screens(rv$steps.skipped, rv$steps.enabled, rv)
+            } else {
+              # A process has been validated
+              rv$steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
+              #browser()
+              if (ind.processHasChanged < len) {
+                rv$steps.status[(1 + ind.processHasChanged):len] <- stepStatus$UNDONE
+              }
+              
+              
+              rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
+              rv$dataIn <- newValue
+            }
             
-            rv$dataIn <- ret$dataIn
-            rv$steps.status <- ret$steps.status
-            rv$steps.enabled <- ret$steps.enabled
-            rv$steps.skipped <- ret$steps.skipped
+            #######################################################################
+            #######################################################################
+            #######################################################################
           }
           
+          
+          rv$prev.children.trigger <- triggerValues
           # Send result
           dataOut$trigger <- Timestamp()
           dataOut$value <- rv$dataIn
@@ -482,24 +592,26 @@ nav_pipeline_server <- function(
             )
 
             n <- length(rv$config@steps)
-            # Reset all further processes that are undone
-            #ind.undone <- unname(which(rv$steps.status == stepStatus$UNDONE))
-            #browser()
             
+            
+            #browser()
             ind.undone <- unname(which(rv$steps.status == stepStatus$UNDONE))
             #rv$resetChildren[ind.undone] <- rv$resetChildren[ind.undone] + 1
-            #rv$resetChildrenUI[ind.undone] <- rv$resetChildrenUI[ind.undone] + 1
+            rv$resetChildrenUI[ind.undone] <- rv$resetChildrenUI[ind.undone] + 1
             
             
-            if (rv$steps.status[n] == stepStatus$VALIDATED) {
-                # Set current position to the last one
-                rv$current.pos <- n
-
-            #    # If the last step is validated, it is time to send result by
-                # updating the 'dataOut' reactiveValue.
-                dataOut$trigger <- Timestamp()
-                dataOut$value <- rv$dataIn
-            }
+            
+            
+            # 
+            # if (rv$steps.status[n] == stepStatus$VALIDATED) {
+            #     # Set current position to the last one
+            #     rv$current.pos <- n
+            # 
+            # #    # If the last step is validated, it is time to send result by
+            #     # updating the 'dataOut' reactiveValue.
+            #     dataOut$trigger <- Timestamp()
+            #     dataOut$value <- rv$dataIn
+            # }
             
         })
 
@@ -523,8 +635,10 @@ nav_pipeline_server <- function(
 
 
         ResetPipeline <- function() {
-            #rv$dataIn <- session$userData$dataIn.original
-            rv$dataIn <- NULL
+            
+            #browser()
+         # rv$dataIn <- session$userData$dataIn.original
+         rv$dataIn <- NULL
             rv$current.pos <- 1
 
             n <- length(rv$config@steps)
@@ -649,7 +763,7 @@ nav_pipeline_server <- function(
             req(rv$config)
             
           # in case of a new dataset, reset the whole pipeline
-          ResetPipeline()
+          #ResetPipeline()
           
             # Get the new dataset in a temporary variable
             rv$temp.dataIn <- dataIn()
