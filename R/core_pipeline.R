@@ -347,7 +347,7 @@ nav_pipeline_server <- function(
         
         # Catch the returned values of the processes attached to pipeline
         observeEvent(GetValuesFromChildren()$triggers, ignoreInit = FALSE, {
-          browser()
+          #browser()
           
           stepsnames <- names(rv$config@steps)
           processHasChanged <- newValue <- NULL
