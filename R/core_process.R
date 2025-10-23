@@ -106,10 +106,11 @@ nav_process_ui <- function(id) {
 nav_process_server <- function(
         id = NULL,
         dataIn = reactive({NULL}),
+        status = reactive({NULL}),
         is.enabled = reactive({TRUE}),
         remoteReset = reactive({0}),
-  remoteResetUI = reactive({0}),
-  is.skipped = reactive({FALSE}),
+        remoteResetUI = reactive({0}),
+        is.skipped = reactive({FALSE}),
         verbose = FALSE,
         usermod = "user",
         btnEvents = reactive({NULL})) {
@@ -155,8 +156,8 @@ nav_process_server <- function(
             # the corresponding process is skipped or not
             # ONLY USED WITH PIPELINE
             steps.skipped = NULL,
-          prev.remoteReset = 1,
-          prev.remoteResetUI = 1,
+            prev.remoteReset = 1,
+            prev.remoteResetUI = 1,
             # current.pos Stores the current cursor position in the
             # timeline and indicates which of the process' steps is active
             current.pos = 1,
@@ -180,10 +181,6 @@ nav_process_server <- function(
             rv$prev.remoteReset < remoteReset()
             rv$prev.remoteResetUI < remoteResetUI()
             
-                # When the server starts, the default position is 1
-                # Not necessary ?
-                # rv$current.pos <- 2
-
                 ### Call the server module of the process/pipeline which name is
                 ### the parameter 'id'.
                 ### The name of the server function is prefixed by 'mod_' and
@@ -197,6 +194,7 @@ nav_process_server <- function(
                     list(
                         id = id,
                         dataIn = reactive({rv$temp.dataIn}),
+                        #status = reactive({status()}),
                         steps.enabled = reactive({rv$steps.enabled}),
                         remoteReset = reactive({rv$rstBtn() + remoteReset() + remoteResetUI()}),
                         steps.status = reactive({rv$steps.status}),
@@ -208,12 +206,6 @@ nav_process_server <- function(
                 # Update the reactive value config with the config of the
                 # pipeline
                 rv$config <- rv$proc$config()
-
-                # rv$config <- RemoveDescriptionStep(rv$config)
-
-                # Remove the step 'Description'
-
-
 
                 if (verbose) {
                     cat(crayon::blue(paste0(id, ": call ", paste0(id, "_conf()"), "\n")))
@@ -280,7 +272,7 @@ nav_process_server <- function(
 
                     # Update the 'dataOut' reactive value to return
                     #  this dataset to the caller. this `nav_process`
-                    #  is only a bridge between the process and  the
+                    #  is only a bridge between the process and the
                     #  caller
                     # For a pipeline, the output is updated each
                     # time a process has been validated
@@ -340,7 +332,8 @@ nav_process_server <- function(
         })
 
         observeEvent(input$DoBtn, ignoreInit = TRUE, {
-            # Catch the event to send it to the process server
+            #browser()
+          # Catch the event to send it to the process server
             rv$btnEvents <- paste0(names(rv$steps.status)[rv$current.pos], '_', input$DoBtn)
             rv$doProceedAction <- "Do"
         })
@@ -365,6 +358,11 @@ nav_process_server <- function(
           
         })
 
+        
+        observeEvent(req(status()), ignoreInit = TRUE, {
+          shinyjs::toggleState("DoProceedBtn", condition = unname(status()) == stepStatus$UNDONE)
+        shinyjs::toggleState("DoBtn", condition = unname(status()) == stepStatus$UNDONE)
+        })
 
         # Catch new status event
         # See https://github.com/daattali/shinyjs/issues/166
@@ -381,12 +379,15 @@ nav_process_server <- function(
             )
 
             
-            enable.do.Btns <- enable.doProceed.Btns <- FALSE
+            enable.do.Btns <- FALSE
+            enable.doProceed.Btns <- FALSE
             n <- length(rv$config@steps)
             
-            enable.do.Btns <- enable.doProceed.Btns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
-              unname(rv$steps.status[n]) != stepStatus$VALIDATED
+            enable.do.Btns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
+              unname(rv$steps.status[n]) != stepStatus$VALIDATED 
             
+            enable.doProceed.Btns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
+              unname(rv$steps.status[n]) != stepStatus$VALIDATED 
             
             if (n > 1)
               enable.doProceed.Btns <- enable.doProceed.Btns && 
@@ -426,8 +427,7 @@ nav_process_server <- function(
         })
 
         ResetProcessUI <- function() {
-          print(paste0("in resetChildrenUI de ", id))
-          browser()
+          #browser()
           
           # The cursor is set to the first step
           rv$current.pos <- 1
@@ -443,9 +443,6 @@ nav_process_server <- function(
         ResetProcess <- function() {
           #browser()
             rv$dataIn <- rv$temp.dataIn <- dataIn()
-            
-            print(paste0("in resetChildrenUI de ", id))
-            browser()
             
             # The cursor is set to the first step
             rv$current.pos <- 1
@@ -468,7 +465,6 @@ nav_process_server <- function(
 
         observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           req(rv$config)
-          print(paste0("Call remoteResetUI() from process : ", id))
           #browser()
           if (rv$prev.remoteReset < remoteReset()){
             ResetProcess()
@@ -478,7 +474,6 @@ nav_process_server <- function(
 
         observeEvent(remoteResetUI(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           req(rv$config)
-          print(paste0("Call remoteResetUI() from process : ", id))
           #browser()
           if (rv$prev.remoteResetUI < remoteResetUI()){
             ResetProcessUI()
@@ -565,10 +560,7 @@ nav_process_server <- function(
           
             div(
                 style = "position: relative;  ",
-
-                # tags$style(".bslib-sidebar-layout .collapse-toggle{display:true;}"),
-
-                div(
+ div(
                     id = ns("Screens"),
                     style = "z-index: 0;",
                     uiOutput(ns("SkippedInfoPanel")),
@@ -637,18 +629,8 @@ nav_process_server <- function(
         observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
             req(rv$config)
 
-print(paste0("in the process : ", id, ", the event on dataIn() ="))
-print(dataIn())
-            # isolate({
-            # A new value on dataIn() means a new dataset sent to the
-            # process
-
-            # rv$current.pos <- 1
-
             # Get the new dataset in a temporary variable
             rv$temp.dataIn <- dataIn()
-
-
 
             if (is.null(dataIn())) {
                 # The process has been reseted or is not concerned
@@ -667,7 +649,6 @@ print(dataIn())
                     is.enabled = is.enabled(),
                     rv = rv
                 )
-
 
                 # Enable the first screen
                 rv$steps.enabled <- ToggleState_Screens(
@@ -692,20 +673,18 @@ print(dataIn())
             )
           
           enable.do.Btns <- enable.doProceed.Btns <- FALSE
-          n <- length(rv$config@steps)
+          len <- length(rv$config@steps)
           
           enable.do.Btns <- enable.doProceed.Btns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
-            unname(rv$steps.status[n]) != stepStatus$VALIDATED
+            unname(rv$steps.status[len]) != stepStatus$VALIDATED
           
-          
-          if (n > 1)
+         
+          if (len > 1)
             enable.doProceed.Btns <- enable.doProceed.Btns && 
-            rv$current.pos != length(n)
+            rv$current.pos != len
           
           shinyjs::toggleState("DoProceedBtn", condition = enable.doProceed.Btns)
           shinyjs::toggleState("DoBtn", condition = enable.do.Btns)
-          
-          
           
             shinyjs::hide(selector = paste0(".page_", id))
             shinyjs::show(GetStepsNames()[rv$current.pos])

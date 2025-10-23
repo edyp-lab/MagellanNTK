@@ -274,7 +274,6 @@ Get_Code_for_remoteReset <- function(
     code <- "
 
 observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
-print(paste0('entre dans le remoteReset du process : ', id))
 #browser()
   "
 
@@ -356,7 +355,6 @@ Get_Code_for_newDataset <- function(
   code <- "
 
 observeEvent(req(dataIn()), ignoreInit = TRUE, ignoreNULL = TRUE, {
-print(paste0('new value for dataIn(): ', dataIn()))
 #browser()
   "
   

@@ -181,39 +181,6 @@ ResetChildren <- function(range, resetChildren) {
 
 
 
-#' @title xxxx
-#' @description xxx
-#'
-#' @param rv xxxx
-#' @param keepdataset_func xxx
-#'
-#' @export
-#'
-#' @return NA
-#' @examples
-#' NULL
-#'
-Update_Data2send_Vector <- function(rv, keepdataset_func) {
-    # One only update the current position because the vector has been entirely
-    # initialized to NULL so the other processes are already ready to be sent
-    ind.last.validated <- GetMaxValidated_BeforePos(rv = rv)
-    name.last.validated <- names(rv$steps.status)[ind.last.validated]
-    if (is.null(ind.last.validated) ||
-        ind.last.validated == 1 ||
-        name.last.validated == "Save") {
-        data <- rv$temp.dataIn
-    } else {
-        .ind <- which(grepl(name.last.validated, names(rv$dataIn)))
-        data <- call.func(
-            fname = keepdataset_func,
-            args = list(object = rv$dataIn, range = seq_len(.ind))
-        )
-    }
-    return(data)
-}
-
-
-
 
 #' @title xxxx
 #' @description xxx
@@ -240,7 +207,7 @@ PrepareData2Send <- function(
     # first module
 
     # The dataset to send is contained in the variable 'rv$dataIn'
-
+  #browser()
     stepsnames <- names(rv$config@steps)
     nsteps <- length(rv$config@steps)
     # Initialize vector to all NULL values
@@ -262,7 +229,23 @@ PrepareData2Send <- function(
         })
     } else {
         current.step.name <- stepsnames[rv$current.pos]
-        data2send[[current.step.name]] <- Update_Data2send_Vector(rv, keepdataset_func)
+        
+        # One only update the current position because the vector has been entirely
+        # initialized to NULL so the other processes are already ready to be sent
+        ind.last.validated <- GetMaxValidated_BeforePos(rv = rv)
+        name.last.validated <- names(rv$steps.status)[ind.last.validated]
+        if (is.null(ind.last.validated) ||
+            ind.last.validated == 1 ||
+            name.last.validated == "Save") {
+          data2send[[current.step.name]] <- rv$temp.dataIn
+        } else {
+          .ind <- which(grepl(name.last.validated, names(rv$dataIn)))
+          data2send[[current.step.name]] <- call.func(
+            fname = keepdataset_func,
+            args = list(object = rv$dataIn, range = seq_len(.ind))
+          )
+        }
+
     }
 
     if (verbose) {
@@ -277,4 +260,98 @@ PrepareData2Send <- function(
             steps.enabled = rv$steps.enabled
         )
     )
+}
+
+
+
+
+
+
+#' @title xxxx
+#' @description xxx
+#'
+#' @param rv xxxx
+#' @param pos xxx
+#' @param verbose xxx
+#' @param keepdataset_func xxx
+#'
+#' @export
+#'
+#' @importFrom crayon blue
+#'
+#' @return NA
+#' @examples
+#' NULL
+PrepareData2Send2 <- function(
+    rv,
+  pos,
+  verbose = FALSE,
+  keepdataset_func) {
+  # Returns NULL to all modules except the one pointed by the current position
+  # Initialization of the pipeline : one send dataIn() to the
+  # first module
+  
+  # The dataset to send is contained in the variable 'rv$dataIn'
+  #browser()
+  stepsnames <- names(rv$config@steps)
+  nsteps <- length(rv$config@steps)
+  # Initialize vector to all NULL values
+  data2send <- setNames(lapply(stepsnames, function(x) {
+    NULL
+  }), nm = stepsnames)
+  
+  if (is.null(rv$dataIn)) { # Init of core engine
+    
+    # Only the first process will receive the data
+    if (!is.null(rv$temp.dataIn)) {
+      #data2send[[1]] <- rv$temp.dataIn
+      data2send <- setNames(lapply(stepsnames, function(x) {
+        rv$temp.dataIn
+      }), nm = stepsnames)
+    }
+    
+    # The other processes are by default disabled.
+    # If they have to be enabled, they will be by another function later
+    lapply(seq_len(nsteps), function(x) {
+      rv$steps.enabled[x] <- x == 1
+    })
+  } else {
+    current.step.name <- stepsnames[rv$current.pos]
+    
+    # One only update the current position because the vector has been entirely
+    # initialized to NULL so the other processes are already ready to be sent
+    ind.last.validated <- GetMaxValidated_BeforePos(rv = rv)
+    name.last.validated <- names(rv$steps.status)[ind.last.validated]
+    if (is.null(ind.last.validated) ||
+        ind.last.validated == 1 ||
+        name.last.validated == "Save") {
+      #data2send[[current.step.name]] <- rv$temp.dataIn
+      data2send <- setNames(lapply(stepsnames, function(x) {
+        rv$temp.dataIn
+      }), nm = stepsnames)
+    } else {
+      # .ind <- which(grepl(name.last.validated, names(rv$dataIn)))
+      # data2send[[current.step.name]] <- call.func(
+      #   fname = keepdataset_func,
+      #   args = list(object = rv$dataIn, range = seq_len(.ind))
+      # )
+      data2send <- setNames(lapply(stepsnames, function(x) {
+        rv$temp.dataIn
+      }), nm = stepsnames)
+    }
+    
+  }
+  
+  if (verbose) {
+    cat(crayon::blue("<----------------- Data sent to children ------------------> \n"))
+    print(data2send)
+    cat(crayon::blue("<----------------------------------------------------> \n"))
+  }
+  
+  return(
+    list(
+      data2send = data2send,
+      steps.enabled = rv$steps.enabled
+    )
+  )
 }
