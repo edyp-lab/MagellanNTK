@@ -378,7 +378,7 @@ nav_pipeline_server <- function(
             
             
             len <- length(rv$config@steps)
-            
+
              if (is.null(newValue)) {
                lastValidated <- GetMaxValidated_BeforePos(pos = ind.processHasChanged, rv = rv)
                
@@ -393,7 +393,7 @@ nav_pipeline_server <- function(
               rv$steps.status[(lastValidated + 1):len] <- stepStatus$UNDONE
               
               # All the following processes (after the one which has changed) are disabled
-              rv$steps.enabled[(lastValidated + 1):len] <- FALSE
+              #rv$steps.enabled[(lastValidated + 1):len] <- FALSE
               
               
               # The process that has been rested is enabled so as to rerun it
