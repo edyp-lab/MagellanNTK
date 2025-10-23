@@ -57,18 +57,19 @@ Build_SkippedInfoPanel <- function(steps.status, current.pos, config) {
 GetMaxValidated_BeforePos <- function(
         pos = NULL,
         rv) {
-    if (is.null(pos)) {
+  ind.max <- NULL
+  
+  
+  if (is.null(pos)) {
         pos <- rv$current.pos
+    } else if (pos == 1)
+      ind.max <- NULL
+  else {
+    indices.validated <- unname(which(rv$steps.status[1:(pos-1)] == stepStatus$VALIDATED))
+    if (length(indices.validated) > 0) 
+        ind.max <- max(indices.validated)
     }
 
-    ind.max <- NULL
-    indices.validated <- match(rv$steps.status, stepStatus$VALIDATED)
-    if (length(indices.validated) > 0) {
-        ind <- which(indices.validated < pos)
-        if (length(ind) > 0) {
-            ind.max <- max(ind)
-        }
-    }
     return(ind.max)
 }
 

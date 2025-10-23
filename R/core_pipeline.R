@@ -228,10 +228,6 @@ nav_pipeline_server <- function(
           ### the parameter 'id'.
           ### The name of the server function is prefixed by 'mod_' and
           ### suffixed by '_server'. This will give access to its config
-          if (verbose) {
-            cat(crayon::blue(paste0(id, ": call ", paste0(id, "_server()"), "\n")))
-          }
-
           rv$proc <- do.call(
             paste0(id, "_server"),
             list(
@@ -245,11 +241,6 @@ nav_pipeline_server <- function(
 
           # Update the reactive value config with the config of the pipeline
           rv$config <- rv$proc$config()
-
-          if (verbose) {
-            cat(crayon::blue(paste0(id, ": call ", paste0(id, "_conf()"), "\n")))
-            rv$config
-          }
 
           n <- length(rv$config@steps)
           stepsnames <- names(rv$config@steps)
@@ -290,13 +281,6 @@ nav_pipeline_server <- function(
           rv$config@ll.UI <- setNames(lapply(
             GetStepsNames(),
             function(x) {
-              if (verbose) {
-                cat(paste0(
-                  id, ": Launch: ", "nav_process_ui(",
-                  ns(paste0(id, "_", x)), ")\n"
-                ))
-              }
-
               nav_process_ui(ns(paste0(id, "_", x)))
             }
           ), nm = paste0(GetStepsNames()))
@@ -305,9 +289,6 @@ nav_pipeline_server <- function(
           ### Launch the server for each step of the pipeline
           ###
           lapply(GetStepsNames(), function(x) {
-            if (verbose) {
-              cat(paste0(id, ": Launch nav_process_server(", id, "_", x, ")\n"))
-            }
             tmp.return[[x]] <- nav_process_server(
               id = paste0(id, "_", x),
               dataIn = reactive({rv$child.data2send[[x]]}),
@@ -372,13 +353,6 @@ nav_pipeline_server <- function(
           triggerValues <- GetValuesFromChildren()$triggers
           return.values <- GetValuesFromChildren()$values
           
-          if (verbose) {
-            cat(crayon::blue("---------- Data received from children ---\n"))
-            print(return.values)
-            cat(crayon::blue("------------------------------------------\n"))
-          }
-          
-          
           if (is.null(return.values)) {
             # The entire pipeline has been reseted
             rv$dataIn <- dataIn()
@@ -402,58 +376,35 @@ nav_pipeline_server <- function(
             ind.processHasChanged <- which(names(rv$config@steps) == processHasChanged)
             validatedBeforeReset <- names(rv$dataIn)[length(names(rv$dataIn))] == processHasChanged
             
+            
             len <- length(rv$config@steps)
             
-            # browser()
-            if (is.null(newValue)) {
+             if (is.null(newValue)) {
+               lastValidated <- GetMaxValidated_BeforePos(pos = ind.processHasChanged, rv = rv)
+               
+               # If no process has been validated yet
+               if (is.null(lastValidated))
+                 lastValidated <- 0
+               
               # # A process has been reseted (it has returned a NULL value)
-              # validated.steps <- which(rv$steps.status == stepStatus$VALIDATED)
-              # if (length(validated.steps) > 0) {
-              #   ind.last.validated <- max(validated.steps)
-              # } else {
-              #   ind.last.validated <- 0
-              # }
-              # 
-              # # There is no validated step (the first step has been reseted)
-              # if (ind.last.validated == 0) {
-              #   rv$dataIn <- NULL
-              # } else if (ind.last.validated == 1) {
-              #   rv$dataIn <- rv$temp.dataIn
-              # } else {
-              #   # Check if the reseted process has been validated before reset or not
-              #   if (isTRUE(validatedBeforeReset)) {
-              #     rv$dataIn <- call.func(
-              #       fname = session$userData$funcs$keepdataset_func,
-              #       args = list(
-              #         object = rv$dataIn,
-              #         range = seq_len(length(rv$dataIn) - 1)
-              #       )
-              #     )
-              #   } else {
-              #     rv$dataIn <- rv$temp.dataIn
-              #   }
-              # }
-              
-              
-              
               # One take the last validated step (before the one
               # corresponding to processHasChanges
               # but it is straightforward because we just updates rv$status
-              rv$steps.status[ind.processHasChanged:len] <- stepStatus$UNDONE
+              rv$steps.status[(lastValidated + 1):len] <- stepStatus$UNDONE
               
               # All the following processes (after the one which has changed) are disabled
-              rv$steps.enabled[(ind.processHasChanged + 1):len] <- FALSE
+              rv$steps.enabled[(lastValidated + 1):len] <- FALSE
               
               
               # The process that has been rested is enabled so as to rerun it
               rv$steps.enabled[ind.processHasChanged] <- TRUE
               
-              rv$steps.skipped[ind.processHasChanged:len] <- FALSE
+              rv$steps.skipped[(lastValidated + 1):len] <- FALSE
               Update_State_Screens(rv$steps.skipped, rv$steps.enabled, rv)
               
               # Update the datasend Vector
-              lapply((ind.processHasChanged + 1):len, function(x){
-                rv$child.data2send[[x]] <- rv$child.data2send[[ind.processHasChanged]]
+              lapply((lastValidated + 1):len, function(x){
+                rv$child.data2send[[x]] <- rv$child.data2send[[lastValidated]]
               })
             } else {
               # A process has been validated

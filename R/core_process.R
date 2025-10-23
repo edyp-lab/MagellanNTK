@@ -185,9 +185,6 @@ nav_process_server <- function(
                 ### the parameter 'id'.
                 ### The name of the server function is prefixed by 'mod_' and
                 ### suffixed by '_server'. This will give access to its config
-                if (verbose) {
-                    cat(crayon::blue(paste0(id, ": call ", paste0(id, "_server()"), "\n")))
-                }
 
                 rv$proc <- do.call(
                     paste0(id, "_server"),
@@ -207,11 +204,6 @@ nav_process_server <- function(
                 # pipeline
                 rv$config <- rv$proc$config()
 
-                if (verbose) {
-                    cat(crayon::blue(paste0(id, ": call ", paste0(id, "_conf()"), "\n")))
-                    rv$config
-                }
-
                 n <- length(rv$config@steps)
                 stepsnames <- names(rv$config@steps)
                 rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = stepsnames)
@@ -220,10 +212,6 @@ nav_process_server <- function(
                 rv$currentStepName <- reactive({
                     stepsnames[rv$current.pos]
                 })
-
-                if (verbose) {
-                    cat(crayon::yellow(paste0(id, ": Entering observeEvent(req(rv$config), {...})\n")))
-                }
             },
             priority = 1000
         )
@@ -441,8 +429,7 @@ nav_process_server <- function(
         }
 
         ResetProcess <- function() {
-          #browser()
-            rv$dataIn <- rv$temp.dataIn <- dataIn()
+          rv$dataIn <- rv$temp.dataIn <- dataIn()
             
             # The cursor is set to the first step
             rv$current.pos <- 1
@@ -457,15 +444,13 @@ nav_process_server <- function(
         }
 
         observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
-            req(rv$config)
-          #browser()
+          req(rv$config)
           ResetProcess()
           
         })
 
         observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           req(rv$config)
-          #browser()
           if (rv$prev.remoteReset < unname(remoteReset())){
             ResetProcess()
             rv$prev.remoteReset <- remoteReset()
@@ -474,7 +459,6 @@ nav_process_server <- function(
 
         observeEvent(remoteResetUI(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           req(rv$config)
-          #browser()
           if (rv$prev.remoteResetUI < unname(remoteResetUI())){
             ResetProcessUI()
             rv$prev.remoteResetUI <- remoteResetUI()
@@ -492,15 +476,9 @@ nav_process_server <- function(
             timeline_process_server(
                 id = "process_timeline",
                 config = rv$config,
-                status = reactive({
-                    rv$steps.status
-                }),
-                position = reactive({
-                    rv$current.pos
-                }),
-                enabled = reactive({
-                    rv$steps.enabled
-                })
+                status = reactive({rv$steps.status}),
+                position = reactive({rv$current.pos}),
+                enabled = reactive({rv$steps.enabled})
             )
 
             timeline_process_ui(ns("process_timeline"))
@@ -541,9 +519,6 @@ nav_process_server <- function(
         # Note for devs: apparently, the renderUI() cannot be stored in the
         # function 'Build..'
         output$nav_process_mod_ui <- renderUI({
-            if (verbose) {
-                cat(crayon::blue(paste0(id, ": Entering output$nav_mod_ui <- renderUI({...})\n")))
-            }
 
           do.btn <- actionButton(ns("DoBtn"),
             "Do X",

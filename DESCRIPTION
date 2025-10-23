@@ -91,7 +91,6 @@ Collate:
     launch_app.R
     Save_dataset.R
     general_core_funcs.R
-    pipeline_funcs.R
     load_save.R
     run_workflow.R
     mod_modalDialog.R

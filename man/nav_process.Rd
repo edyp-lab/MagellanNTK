@@ -13,6 +13,9 @@ nav_process_server(
   dataIn = reactive({
      NULL
  }),
+  status = reactive({
+     NULL
+ }),
   is.enabled = reactive({
      TRUE
  }),
