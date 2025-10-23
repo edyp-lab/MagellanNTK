@@ -451,33 +451,33 @@ nav_process_server <- function(
             # The status of the steps are reinitialized to the default
             # configuration of the process
             rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
-            
+            # Return the NULL value as dataset
+            dataOut$trigger <- Timestamp()
+            dataOut$value <- NULL
         }
 
         observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
             req(rv$config)
           #browser()
           ResetProcess()
-          # Return the NULL value as dataset
-          dataOut$trigger <- Timestamp()
-          dataOut$value <- NULL
+          
         })
 
         observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           req(rv$config)
           #browser()
-          if (rv$prev.remoteReset < remoteReset()){
+          if (rv$prev.remoteReset < unname(remoteReset())){
             ResetProcess()
-            rv$prev.remoteReset < remoteReset()
+            rv$prev.remoteReset <- remoteReset()
           }
         })
 
         observeEvent(remoteResetUI(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           req(rv$config)
           #browser()
-          if (rv$prev.remoteResetUI < remoteResetUI()){
+          if (rv$prev.remoteResetUI < unname(remoteResetUI())){
             ResetProcessUI()
-            rv$prev.remoteResetUI < remoteResetUI()
+            rv$prev.remoteResetUI <- remoteResetUI()
           }
         })
         
