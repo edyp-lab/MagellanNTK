@@ -347,6 +347,8 @@ nav_pipeline_server <- function(
         
         # Catch the returned values of the processes attached to pipeline
         observeEvent(GetValuesFromChildren()$triggers, ignoreInit = FALSE, {
+          browser()
+          
           stepsnames <- names(rv$config@steps)
           processHasChanged <- newValue <- NULL
           
@@ -374,12 +376,12 @@ nav_pipeline_server <- function(
             # If the original length is not 1, then this indice is different
             # than the above one
             ind.processHasChanged <- which(names(rv$config@steps) == processHasChanged)
-            validatedBeforeReset <- names(rv$dataIn)[length(names(rv$dataIn))] == processHasChanged
             
             
             len <- length(rv$config@steps)
 
-             if (is.null(newValue)) {
+             if (is.null(newValue)) { # A process has been reseted
+               
                lastValidated <- GetMaxValidated_BeforePos(pos = ind.processHasChanged, rv = rv)
                
                # If no process has been validated yet
@@ -404,7 +406,7 @@ nav_pipeline_server <- function(
               
               # Update the datasend Vector
               lapply((lastValidated + 1):len, function(x){
-                rv$child.data2send[[x]] <- rv$child.data2send[[lastValidated]]
+                rv$child.data2send[[x]] <- rv$child.data2send[[lastValidated + 1]]
               })
             } else {
               # A process has been validated
@@ -508,7 +510,6 @@ nav_pipeline_server <- function(
 
 
         ResetPipeline <- function() {
-            #browser()
          # rv$dataIn <- session$userData$dataIn.original
          rv$dataIn <- NULL
             rv$current.pos <- 1

@@ -438,15 +438,15 @@ nav_process_server <- function(
             # The status of the steps are reinitialized to the default
             # configuration of the process
             rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
-            # Return the NULL value as dataset
-            dataOut$trigger <- Timestamp()
-            dataOut$value <- NULL
+
         }
 
         observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           req(rv$config)
           ResetProcess()
-          
+          # Return the NULL value as dataset
+          dataOut$trigger <- Timestamp()
+          dataOut$value <- NULL
         })
 
         observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
