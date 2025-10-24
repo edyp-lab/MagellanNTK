@@ -42,7 +42,7 @@ mainapp_ui <- function(id, session, size = '300px') {
     includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css"))
 
     bs4Dash::dashboardPage(
-        # preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
+         preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
         # options = list(
         #     fixed = TRUE,
         #     sidebarExpandOnHover = TRUE
@@ -61,15 +61,10 @@ mainapp_ui <- function(id, session, size = '300px') {
             class = PrevNextBtnClass
           ),
           actionButton(ns("btn_eda"), label = "EDA"),
-          actionButton(ns('resetWF'), 'resetWF'),
+          #actionButton(ns('resetWF'), 'resetWF'),
           Insert_User_Sidebar()
           ),
         body = bs4DashBody(
-          #   div(style = "z-index: 9999999;",
-          #   tags$style(".content-wrapper {background-color: white;}"),
-          # actionButton(ns("btn_eda"), label = "EDA")
-          #     ),
-          
           shinyjs::useShinyjs(),
 
              # style = "padding: 0px; overflow-y: auto;",
@@ -96,15 +91,6 @@ mainapp_ui <- function(id, session, size = '300px') {
                     icon = "home",
                     uiOutput(ns("SaveAs_UI"))
                 ),
-                # tabItem(
-                #     tabName = "infosDataset",
-                #     icon = "home",
-                #     uiOutput(ns("InfosDataset_UI"))
-                # ),
-                # tabItem(
-                #     tabName = "eda",
-                #     uiOutput(ns("EDA_UI"))
-                # ),
             bs4Dash::tabItem(
                     tabName = "tools",
                     uiOutput(ns("tools_UI"))
@@ -422,7 +408,7 @@ mainapp_server <- function(id,
         })
         
         
-        observeEvent(req(rv.core$result_convert(),rv.core$result_convert()$dataOut()$trigger),
+        observe_result_convert <- observeEvent(req(rv.core$result_convert(),rv.core$result_convert()$dataOut()$trigger),
           ignoreInit = TRUE, ignoreNULL = TRUE,{
 
             req(rv.core$result_convert()$dataOut()$value)
@@ -490,7 +476,7 @@ mainapp_server <- function(id,
 
 
 
-        observeEvent(rv.core$result_open_dataset()$trigger,
+        observe_result_open_dataset <- observeEvent(rv.core$result_open_dataset()$trigger,
             ignoreInit = TRUE,
             ignoreNULL = TRUE,
             {
@@ -511,7 +497,7 @@ mainapp_server <- function(id,
 
 
         
-        observeEvent(req(rv.core$result_open_workflow()), {
+        observe_result_open_workflow <- observeEvent(req(rv.core$result_open_workflow()), {
 
           rv.core$workflow.name <- rv.core$result_open_workflow()$wf_name
             session$userData$workflow.name <- rv.core$result_open_workflow()$wf_name
@@ -555,28 +541,14 @@ mainapp_server <- function(id,
             )
         })
 
-        observeEvent(rv.core$result_run_workflow$dataOut()$value, {
-          #print("*****************on a recepetionne une nouvelle valeur en provenance du pipeline*******************")
-          #print(rv.core$result_run_workflow$dataOut()$value)
-            rv.core$processed.obj <- rv.core$result_run_workflow$dataOut()$value
+        observe_result_run_workflow <- observeEvent(rv.core$result_run_workflow$dataOut()$value, {
+          rv.core$processed.obj <- rv.core$result_run_workflow$dataOut()$value
         })
 
-        
-        # observeEvent(rv.core$processed.obj, {
-        #   print("in the mainapp.R, rv.core$processed.obj = ")
-        #   print(rv.core$processed.obj)
-        # })
-        # 
-        # observeEvent(rv.core$current.obj, {
-        #   print("in the mainapp.R, rv.core$current.obj = ")
-        #   print(rv.core$current.obj)
-        # })
-        
-        
 
-        observeEvent(req(input$resetWF), {
-            rv.core$resetWF <- MagellanNTK::Timestamp()
-        })
+        # observeEvent(req(input$resetWF), {
+        #     rv.core$resetWF <- MagellanNTK::Timestamp()
+        # })
 
         output$tools_UI <- renderUI({
             h3("tools")

@@ -310,7 +310,6 @@ Update_State_Screens <- function(is.skipped,
     is.enabled,
     rv) {
   
-  #browser()
     len <- length(rv$steps.status)
 
     if (isTRUE(is.skipped)) {
@@ -364,10 +363,10 @@ Update_State_Screens <- function(is.skipped,
             }
         }
 
-        ToggleState_NavBtns(
-            current.pos = rv$current.pos,
-            nSteps = rv$length
-        )
+        # ToggleState_NavBtns(
+        #     current.pos = rv$current.pos,
+        #     nSteps = rv$length
+        # )
     }
 
     return(steps.enabled)
@@ -386,18 +385,22 @@ Update_State_Screens <- function(is.skipped,
 #' @examples
 #' NULL
 #' @export
-#' 
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#'
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show
 #' disabled inlineCSS extendShinyjs
 #'
 ToggleState_NavBtns <- function(current.pos, nSteps) {
+  if (nSteps == 1){
+    .shinyjs::toggleState(id = "prevBtn", condition = FALSE)
+    shinyjs::toggleState(id = "nextBtn", condition = FALSE)
+} else {
     # If the cursor is not on the first position, show the 'prevBtn'
     shinyjs::toggleState(id = "prevBtn", condition = current.pos != 1)
 
     # If the cursor is set before the last step, show the 'nextBtn'
     shinyjs::toggleState(id = "nextBtn", condition = current.pos < nSteps)
-    
-    
+}
+
 }
 
 

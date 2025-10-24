@@ -66,11 +66,7 @@ nav_process_ui <- function(id) {
     tagList(
         div(
             style = "display: flex; align-items: center; justify-content: center;",
-            actionButton(ns("prevBtn"),
-                tl_h_prev_icon,
-                class = PrevNextBtnClass,
-                style = btn_css_style
-            ),
+            uiOutput(ns('prevBtnUI')),
             mod_modalDialog_ui(id = ns("rstBtn")),
             actionButton(ns("DoBtn"),
                 "Do X",
@@ -82,11 +78,7 @@ nav_process_ui <- function(id) {
                 class = "btn btn-success",
                 style = btn_css_style
             ),
-            actionButton(ns("nextBtn"),
-                tl_h_next_icon,
-                class = PrevNextBtnClass,
-                style = btn_css_style
-            )
+            uiOutput(ns('nextBtnUI'))
         ),
         uiOutput(ns("testTL")),
         uiOutput(ns("EncapsulateScreens_ui"))
@@ -169,6 +161,48 @@ nav_process_server <- function(
         )
 
 
+        
+        
+        
+        output$prevBtnUI <- renderUI({
+          req(rv$config)
+          widget <- actionButton(ns("prevBtn"),
+            tl_h_prev_icon,
+            class = PrevNextBtnClass,
+            style = btn_css_style
+          )
+          
+          if (length(rv$config@steps) == 1)
+            .cond <- FALSE
+           else 
+            .cond <- rv$current.pos != 1
+
+          MagellanNTK::toggleWidget(widget, .cond)
+          
+        })
+        
+        output$nextBtnUI <- renderUI({
+          req(rv$config)
+          widget <-actionButton(ns("nextBtn"),
+            tl_h_next_icon,
+            class = PrevNextBtnClass,
+            style = btn_css_style
+          )
+          
+          if (length(rv$config@steps) == 1)
+            .cond <- FALSE
+          else 
+            .cond <-  rv$current.pos < length(rv$config@steps)
+          
+          MagellanNTK::toggleWidget(widget, .cond)
+        })
+        
+        
+        
+        
+        
+        
+        
         # Catch any event on the 'id' parameter. As this parameter is static
         # and is attached to the server, this function can be view as the
         # initialization of the server module. This code is generic to both
@@ -629,11 +663,19 @@ nav_process_server <- function(
         })
 
 
-        observeEvent(rv$current.pos, ignoreInit = TRUE, {
-            ToggleState_NavBtns(
-                current.pos = rv$current.pos,
-                nSteps = length(rv$config@steps)
-            )
+        observeEvent(rv$current.pos, ignoreInit = FALSE, {
+
+          if (length(rv$config@steps) == 1){
+            shinyjs::toggleState(id = "prevBtn", condition = FALSE)
+            shinyjs::toggleState(id = "nextBtn", condition = FALSE)
+          } else {
+            # If the cursor is not on the first position, show the 'prevBtn'
+            shinyjs::toggleState(id = "prevBtn", condition = rv$current.pos != 1)
+            
+            # If the cursor is set before the last step, show the 'nextBtn'
+            shinyjs::toggleState(id = "nextBtn", condition = rv$current.pos < length(rv$config@steps))
+          }
+          
           
           enable.do.Btns <- enable.doProceed.Btns <- FALSE
           len <- length(rv$config@steps)
