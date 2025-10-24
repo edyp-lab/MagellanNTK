@@ -1,6 +1,6 @@
 Package: MagellanNTK
 Title: A Pipeline Manager
-Version: 0.99.17
+Version: 0.99.18
 Authors@R: 
   c(person(given = "Samuel", 
       family = "Wieczorek",
@@ -27,7 +27,7 @@ Description: Proteomics data often needs a series of statistical processes to
     user-friendly graphical interfaces, so that no programming skill is 
     required.
 License: Artistic-2.0
-Depends: R (>= 4.4.0)
+Depends: R (>= 4.5.0)
 Imports: 
     S4Vectors,
     methods,
