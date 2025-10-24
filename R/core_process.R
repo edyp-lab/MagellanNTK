@@ -356,8 +356,6 @@ nav_process_server <- function(
         # See https://github.com/daattali/shinyjs/issues/166
         # https://github.com/daattali/shinyjs/issues/25
         observeEvent(rv$steps.status, ignoreInit = TRUE, {
-          
-          #
             rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
 
             rv$steps.enabled <- Update_State_Screens(
@@ -414,35 +412,19 @@ nav_process_server <- function(
             }
         })
 
-        ResetProcessUI <- function() {
-          #browser()
-          
-          # The cursor is set to the first step
-          rv$current.pos <- 1
-          
-          n <- length(rv$config@steps)
-          # The status of the steps are reinitialized to the default
-          # configuration of the process
-          rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
-          
-          
-        }
-
         ResetProcess <- function() {
-          rv$dataIn <- rv$temp.dataIn <- dataIn()
-            
-            # The cursor is set to the first step
+# The cursor is set to the first step
             rv$current.pos <- 1
             
             n <- length(rv$config@steps)
             # The status of the steps are reinitialized to the default
             # configuration of the process
             rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
-
         }
 
         observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           req(rv$config)
+          rv$dataIn <- rv$temp.dataIn <- dataIn()
           ResetProcess()
           # Return the NULL value as dataset
           dataOut$trigger <- Timestamp()
@@ -452,6 +434,7 @@ nav_process_server <- function(
         observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           req(rv$config)
           if (rv$prev.remoteReset < unname(remoteReset())){
+            rv$dataIn <- rv$temp.dataIn <- dataIn()
             ResetProcess()
             rv$prev.remoteReset <- remoteReset()
           }
@@ -459,10 +442,15 @@ nav_process_server <- function(
 
         observeEvent(remoteResetUI(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           req(rv$config)
+          shiny::withProgress(message = paste0("Reseting process", id), {
+            shiny::incProgress(0.5)
+            
           if (rv$prev.remoteResetUI < unname(remoteResetUI())){
-            ResetProcessUI()
+            ResetProcess()
             rv$prev.remoteResetUI <- remoteResetUI()
           }
+            shiny::incProgress(1)
+          })
         })
         
         GetStepsNames <- reactive({

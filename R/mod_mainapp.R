@@ -424,8 +424,7 @@ mainapp_server <- function(id,
         
         observeEvent(req(rv.core$result_convert(),rv.core$result_convert()$dataOut()$trigger),
           ignoreInit = TRUE, ignoreNULL = TRUE,{
-            if(verbose)
-              cat('Data converted')
+
             req(rv.core$result_convert()$dataOut()$value)
             rv.core$current.obj <- rv.core$result_convert()$dataOut()$value$data
             rv.core$current.obj.name <- rv.core$result_convert()$dataOut()$value$name
