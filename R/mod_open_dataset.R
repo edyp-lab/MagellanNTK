@@ -31,7 +31,8 @@ open_dataset_ui <- function(id) {
         h3(style = "color: blue;", "Open dataset (default)"),
         shinyjs::useShinyjs(),
         tagList(
-            selectInput(ns("chooseSource"), "Dataset source",
+            div(style = "display:inline-block; vertical-align: middle; padding: 7px;",
+              selectInput(ns("chooseSource"), "Dataset source",
                 choices = c(
                     "Custom dataset" = "customDataset",
                     "package dataset" = "packageDataset"
@@ -41,8 +42,9 @@ open_dataset_ui <- function(id) {
             uiOutput(ns("customDataset_UI")),
             uiOutput(ns("packageDataset_UI")),
             uiOutput(ns("load_btn_UI"))
+              ),
+          uiOutput(ns("infos_dataset"))
         )
-        # uiOutput(ns('datasetInfos_UI'))
     )
 }
 
@@ -214,6 +216,28 @@ open_dataset_server <- function(
                     )
                 }
             }
+          
+          output$msgFileLoaded <- renderUI({
+            req(rv.open$dataRead)
+              h3(paste0('the file has been loaded'))
+          })
+          
+          output$infos_dataset <- renderUI({
+            req(rv.open$dataRead)
+            do.call(
+              eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_server"))),
+              list(
+                id = "eda1",
+                dataIn = reactive({rv.open$dataRead})
+              )
+            )
+            
+            do.call(
+              eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_ui"))),
+              list(id = ns("eda1"))
+            )
+          })
+          
 
             dataOut$dataset <- rv.open$dataRead
             dataOut$trigger <- MagellanNTK::Timestamp()

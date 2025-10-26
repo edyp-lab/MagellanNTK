@@ -608,7 +608,9 @@ mainapp_server <- function(id,
 
         observe({
             req(rv.core$filepath)
-            mod_homepage_server("home", rv.core$filepath)
+            mod_homepage_server("home", 
+              mdfile = rv.core$filepath,
+              dataset = reactive({rv.core$current.obj}))
         })
 
 
