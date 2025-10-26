@@ -30,22 +30,23 @@ open_dataset_ui <- function(id) {
     tagList(
         h3(style = "color: blue;", "Open dataset (default)"),
         shinyjs::useShinyjs(),
-        tagList(
-            div(style = "display:inline-block; vertical-align: middle; padding: 7px;",
-              selectInput(ns("chooseSource"), "Dataset source",
+            fluidRow(
+              column(width = 2,selectInput(ns("chooseSource"), "Dataset source",
                 choices = c(
                     "Custom dataset" = "customDataset",
                     "package dataset" = "packageDataset"
                 ),
                 width = "200px"
-            ),
-            uiOutput(ns("customDataset_UI")),
-            uiOutput(ns("packageDataset_UI")),
-            uiOutput(ns("load_btn_UI"))
+            )
+                ),
+              column(width = 8,
+                uiOutput(ns("customDataset_UI")),
+            uiOutput(ns("packageDataset_UI"))
+                ),
+              column(width = 2,uiOutput(ns("load_btn_UI")))
               ),
           uiOutput(ns("infos_dataset"))
         )
-    )
 }
 
 
