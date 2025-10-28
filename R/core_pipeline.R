@@ -223,7 +223,7 @@ nav_pipeline_server <- function(
         observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
           rv$dataIn.original <- dataIn()
           session$userData$dataIn.original <- dataIn()
-
+          rv$temp.dataIn <- dataIn()
           ### Call the server module of the process/pipeline which name is
           ### the parameter 'id'.
           ### The name of the server function is prefixed by 'mod_' and
@@ -244,22 +244,22 @@ nav_pipeline_server <- function(
 
           n <- length(rv$config@steps)
           stepsnames <- names(rv$config@steps)
-          rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = stepsnames)
+          rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = GetStepsNames())
           #rv$prev.children.trigger <- setNames(rep(NA, n), nm = stepsnames)
           
-          rv$steps.enabled <- setNames(rep(FALSE, n), nm = stepsnames)
+          rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
 
-          rv$steps.skipped <- setNames(rep(FALSE, n), nm = stepsnames)
-          rv$resetChildren <- setNames(rep(0, n), nm = stepsnames)
-          rv$resetChildrenUI <- setNames(rep(0, n), nm = stepsnames)
+          rv$steps.skipped <- setNames(rep(FALSE, n), nm = GetStepsNames())
+          rv$resetChildren <- setNames(rep(0, n), nm = GetStepsNames())
+          rv$resetChildrenUI <- setNames(rep(0, n), nm = GetStepsNames())
           
           rv$child.data2send <- setNames(
-            lapply(as.list(stepsnames), function(x) NULL),
-            nm = stepsnames
+            lapply(as.list(GetStepsNames()), function(x) NULL),
+            nm = GetStepsNames()
           )
 
           rv$currentStepName <- reactive({
-            stepsnames[rv$current.pos]
+            GetStepsNames()[rv$current.pos]
           })
 
           # Launch the server timeline for this process/pipeline
@@ -314,12 +314,13 @@ nav_pipeline_server <- function(
         
         
         GetValuesFromChildren <- reactive({
+          req(rv$config)
           stepsnames <- names(rv$config@steps)
           
           # Get the trigger values for each steps of the module
-          return.trigger.values <- setNames(lapply(stepsnames, function(x) {
+          return.trigger.values <- setNames(lapply(GetStepsNames(), function(x) {
             tmp.return[[x]]$dataOut()$trigger
-          }), nm = stepsnames)
+          }), nm = GetStepsNames())
           
           # Replace NULL values by NA
           return.trigger.values[sapply(return.trigger.values, is.null)] <- NA
@@ -329,11 +330,11 @@ nav_pipeline_server <- function(
           # Get the values returned by each step of the modules
           return.values <- setNames(
             lapply(
-              stepsnames,
+              GetStepsNames(),
               function(x) {
                 tmp.return[[x]]$dataOut()$value
               }
-            ), nm = stepsnames)
+            ), nm = GetStepsNames())
           
           
           list(
@@ -361,9 +362,9 @@ nav_pipeline_server <- function(
             rv$steps.status[seq_len(length(rv$config@steps))] <- stepStatus$UNDONE
             
             
-            rv$child.data2send <- setNames(lapply(stepsnames, function(x) {
+            rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
               rv$dataIn
-            }), nm = stepsnames)
+            }), nm = GetStepsNames())
             
           } else {
             .cd <- max(triggerValues, na.rm = TRUE) == triggerValues
@@ -639,15 +640,18 @@ nav_pipeline_server <- function(
           
             # Get the new dataset in a temporary variable
             rv$temp.dataIn <- dataIn()
+            rv$dataIn.original <- dataIn()
             session$userData$dataIn.original <- dataIn()
-
+            
             # The mode pipeline is a node and has to send
             # datasets to its children
             if (is.null(rv$dataIn)) {
                 
-                rv$child.data2send <- setNames(lapply(stepsnames, function(x) {
+                rv$child.data2send <- setNames(
+                  lapply(names(rv$config@steps), function(x) {
                   rv$dataIn
-                }), nm = stepsnames)
+                }), nm = names(rv$config@steps))
+
 
                # rv$steps.enabled <- res$steps.enabled
             }

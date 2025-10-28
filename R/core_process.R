@@ -207,11 +207,12 @@ nav_process_server <- function(
         # and is attached to the server, this function can be view as the
         # initialization of the server module. This code is generic to both
         # process and pipeline modules
-        observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
-
+        #observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
+          observe({
+            req(id)
             rv$rstBtn()
             remoteReset()
-            
+            rv$temp.dataIn
             rv$prev.remoteReset < remoteReset()
             rv$prev.remoteResetUI < remoteResetUI()
             
