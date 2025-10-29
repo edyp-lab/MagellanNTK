@@ -243,7 +243,7 @@ nav_pipeline_server <- function(
           rv$config <- rv$proc$config()
 
           n <- length(rv$config@steps)
-          stepsnames <- names(rv$config@steps)
+          #stepsnames <- names(rv$config@steps)
           rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = GetStepsNames())
           #rv$prev.children.trigger <- setNames(rep(NA, n), nm = stepsnames)
           
@@ -315,7 +315,7 @@ nav_pipeline_server <- function(
         
         GetValuesFromChildren <- reactive({
           req(rv$config)
-          stepsnames <- names(rv$config@steps)
+          #stepsnames <- names(rv$config@steps)
           
           # Get the trigger values for each steps of the module
           return.trigger.values <- setNames(lapply(GetStepsNames(), function(x) {
@@ -350,7 +350,7 @@ nav_pipeline_server <- function(
         observeEvent(GetValuesFromChildren()$triggers, ignoreInit = FALSE, {
           #browser()
           
-          stepsnames <- names(rv$config@steps)
+          #stepsnames <- names(rv$config@steps)
           processHasChanged <- newValue <- NULL
           
           triggerValues <- GetValuesFromChildren()$triggers
