@@ -243,23 +243,22 @@ nav_pipeline_server <- function(
           rv$config <- rv$proc$config()
 
           n <- length(rv$config@steps)
-          stepsnames <- names(rv$config@steps)
-          rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = stepsnames)
-          #rv$prev.children.trigger <- setNames(rep(NA, n), nm = stepsnames)
+          rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = GetStepsNames())
+          #rv$prev.children.trigger <- setNames(rep(NA, n), nm = GetStepsNames())
           
-          rv$steps.enabled <- setNames(rep(FALSE, n), nm = stepsnames)
+          rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
 
-          rv$steps.skipped <- setNames(rep(FALSE, n), nm = stepsnames)
-          rv$resetChildren <- setNames(rep(0, n), nm = stepsnames)
-          rv$resetChildrenUI <- setNames(rep(0, n), nm = stepsnames)
+          rv$steps.skipped <- setNames(rep(FALSE, n), nm = GetStepsNames())
+          rv$resetChildren <- setNames(rep(0, n), nm = GetStepsNames())
+          rv$resetChildrenUI <- setNames(rep(0, n), nm = GetStepsNames())
           
           rv$child.data2send <- setNames(
-            lapply(as.list(stepsnames), function(x) NULL),
-            nm = stepsnames
+            lapply(as.list(GetStepsNames()), function(x) NULL),
+            nm = GetStepsNames()
           )
 
           rv$currentStepName <- reactive({
-            stepsnames[rv$current.pos]
+            GetStepsNames()[rv$current.pos]
           })
 
           # Launch the server timeline for this process/pipeline
@@ -314,12 +313,11 @@ nav_pipeline_server <- function(
         
         
         GetValuesFromChildren <- reactive({
-          stepsnames <- names(rv$config@steps)
           
           # Get the trigger values for each steps of the module
-          return.trigger.values <- setNames(lapply(stepsnames, function(x) {
+          return.trigger.values <- setNames(lapply(GetStepsNames(), function(x) {
             tmp.return[[x]]$dataOut()$trigger
-          }), nm = stepsnames)
+          }), nm = GetStepsNames())
           
           # Replace NULL values by NA
           return.trigger.values[sapply(return.trigger.values, is.null)] <- NA
@@ -329,11 +327,11 @@ nav_pipeline_server <- function(
           # Get the values returned by each step of the modules
           return.values <- setNames(
             lapply(
-              stepsnames,
+              GetStepsNames(),
               function(x) {
                 tmp.return[[x]]$dataOut()$value
               }
-            ), nm = stepsnames)
+            ), nm = GetStepsNames())
           
           
           list(
@@ -349,7 +347,6 @@ nav_pipeline_server <- function(
         observeEvent(GetValuesFromChildren()$triggers, ignoreInit = FALSE, {
           #browser()
           
-          stepsnames <- names(rv$config@steps)
           processHasChanged <- newValue <- NULL
           
           triggerValues <- GetValuesFromChildren()$triggers
@@ -361,9 +358,9 @@ nav_pipeline_server <- function(
             rv$steps.status[seq_len(length(rv$config@steps))] <- stepStatus$UNDONE
             
             
-            rv$child.data2send <- setNames(lapply(stepsnames, function(x) {
+            rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
               rv$dataIn
-            }), nm = stepsnames)
+            }), nm = GetStepsNames())
             
           } else {
             .cd <- max(triggerValues, na.rm = TRUE) == triggerValues
@@ -645,9 +642,9 @@ nav_pipeline_server <- function(
             # datasets to its children
             if (is.null(rv$dataIn)) {
                 
-                rv$child.data2send <- setNames(lapply(stepsnames, function(x) {
+                rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
                   rv$dataIn
-                }), nm = stepsnames)
+                }), nm = GetStepsNames())
 
                # rv$steps.enabled <- res$steps.enabled
             }
