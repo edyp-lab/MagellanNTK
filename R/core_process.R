@@ -207,12 +207,11 @@ nav_process_server <- function(
         # and is attached to the server, this function can be view as the
         # initialization of the server module. This code is generic to both
         # process and pipeline modules
-        #observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
-          observe({
-            req(id)
+        observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
+
             rv$rstBtn()
             remoteReset()
-            rv$temp.dataIn
+            
             rv$prev.remoteReset < remoteReset()
             rv$prev.remoteResetUI < remoteResetUI()
             
@@ -477,9 +476,9 @@ nav_process_server <- function(
 
         observeEvent(remoteResetUI(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           req(rv$config)
-          shiny::withProgress(message = paste0("Reseting process", id), {
+          shiny::withProgress(message = paste0("Reseting UI in process", id), {
             shiny::incProgress(0.5)
-            
+            print(paste0(id, ' : shiny::withProgress(message = paste0("Reseting UI in process", id), {'))
           if (rv$prev.remoteResetUI < unname(remoteResetUI())){
             ResetProcess()
             rv$prev.remoteResetUI <- remoteResetUI()

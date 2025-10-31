@@ -512,10 +512,10 @@ mainapp_server <- function(id,
 
         output$open_workflow_UI <- renderUI({
             # Get workflow directory
-            rv.core$result_open_workflow <- MagellanNTK::open_workflow_server("wf")
+            rv.core$result_open_workflow <- open_workflow_server("wf")
             tagList(
               div(id = ns("chunk"), style = "width: 100px; height: 100px;" ),
-              MagellanNTK::open_workflow_ui(ns("wf"))
+              open_workflow_ui(ns("wf"))
             )
         })
 

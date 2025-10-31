@@ -220,10 +220,13 @@ nav_pipeline_server <- function(
         # and is attached to the server, this function can be view as the
         # initialization of the server module. This code is generic to both
         # process and pipeline modules
-        observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
+        observeEvent(c(id, dataIn()), ignoreInit = FALSE, ignoreNULL = TRUE, {
+          
+          # Get the new dataset in a temporary variable
+          rv$temp.dataIn <- dataIn()
           rv$dataIn.original <- dataIn()
           session$userData$dataIn.original <- dataIn()
-          rv$temp.dataIn <- dataIn()
+
           ### Call the server module of the process/pipeline which name is
           ### the parameter 'id'.
           ### The name of the server function is prefixed by 'mod_' and
@@ -243,9 +246,8 @@ nav_pipeline_server <- function(
           rv$config <- rv$proc$config()
 
           n <- length(rv$config@steps)
-          #stepsnames <- names(rv$config@steps)
           rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = GetStepsNames())
-          #rv$prev.children.trigger <- setNames(rep(NA, n), nm = stepsnames)
+          #rv$prev.children.trigger <- setNames(rep(NA, n), nm = GetStepsNames())
           
           rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
 
@@ -285,6 +287,27 @@ nav_pipeline_server <- function(
             }
           ), nm = paste0(GetStepsNames()))
 
+          # ###
+          # ### Launch the server for each step of the pipeline
+          # ###
+          # lapply(GetStepsNames(), function(x) {
+          #   tmp.return[[x]] <- nav_process_server(
+          #     id = paste0(id, "_", x),
+          #     dataIn = reactive({rv$child.data2send[[x]]}),
+          #     status = reactive({rv$steps.status[x]}),
+          #     is.enabled = reactive({isTRUE(rv$steps.enabled[x])}),
+          #     remoteReset = reactive({rv$resetChildren[x]}),
+          #     remoteResetUI = reactive({rv$resetChildrenUI[x]}),
+          #     is.skipped = reactive({isTRUE(rv$steps.skipped[x])}),
+          #     verbose = verbose,
+          #     usermod = usermod
+          #   )
+          # })
+        }, priority = 1000)
+
+        
+        
+        observe({
           ###
           ### Launch the server for each step of the pipeline
           ###
@@ -301,8 +324,9 @@ nav_pipeline_server <- function(
               usermod = usermod
             )
           })
-        }, priority = 1000)
-
+        })
+        
+        
         GetChildrenValues <- reactive({
           lapply(
             GetStepsNames(),
@@ -314,8 +338,6 @@ nav_pipeline_server <- function(
         
         
         GetValuesFromChildren <- reactive({
-          req(rv$config)
-          #stepsnames <- names(rv$config@steps)
           
           # Get the trigger values for each steps of the module
           return.trigger.values <- setNames(lapply(GetStepsNames(), function(x) {
@@ -350,7 +372,6 @@ nav_pipeline_server <- function(
         observeEvent(GetValuesFromChildren()$triggers, ignoreInit = FALSE, {
           #browser()
           
-          #stepsnames <- names(rv$config@steps)
           processHasChanged <- newValue <- NULL
           
           triggerValues <- GetValuesFromChildren()$triggers
@@ -624,66 +645,63 @@ nav_pipeline_server <- function(
         observeEvent(input$closeModal, {
           removeModal()
         })
-
-
-        # Catch a new value on the parameter 'dataIn()' variable, sent by the
-        # caller. This value may be NULL or contain a dataset.
-        # The first action is to store the dataset in the temporary variable
-        # temp.dataIn. Then, two behaviours:
-        # 1 - if the variable is NULL. xxxx
-        # 2 - if the variable contains a dataset. xxx
-        observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
-            req(rv$config)
-            
-          # in case of a new dataset, reset the whole pipeline
-          # ResetPipeline()
-          
-            # Get the new dataset in a temporary variable
-            rv$temp.dataIn <- dataIn()
-            rv$dataIn.original <- dataIn()
-            session$userData$dataIn.original <- dataIn()
-            
-            # The mode pipeline is a node and has to send
-            # datasets to its children
-            if (is.null(rv$dataIn)) {
-                
-                rv$child.data2send <- setNames(
-                  lapply(names(rv$config@steps), function(x) {
-                  rv$dataIn
-                }), nm = names(rv$config@steps))
-
-
-               # rv$steps.enabled <- res$steps.enabled
-            }
-
-            if (is.null(dataIn())) {
-                # The process has been reseted or is not concerned
-                # Disable all screens of the process
-                rv$steps.enabled <- ToggleState_Screens(
-                    cond = FALSE,
-                    range = seq_len(length(rv$config@steps)),
-                    is.enabled = is.enabled,
-                    rv = rv
-                )
-            } else {
-                # A new dataset has been loaded
-                # # Update the different screens in the process
-                rv$steps.enabled <- Update_State_Screens(
-                    is.skipped = is.skipped(),
-                    is.enabled = is.enabled(),
-                    rv = rv
-                )
-
-
-                # Enable the first screen
-                rv$steps.enabled <- ToggleState_Screens(
-                    cond = TRUE,
-                    range = 1,
-                    is.enabled = is.enabled(),
-                    rv = rv
-                )
-            }
-        })
+# 
+# 
+#         # Catch a new value on the parameter 'dataIn()' variable, sent by the
+#         # caller. This value may be NULL or contain a dataset.
+#         # The first action is to store the dataset in the temporary variable
+#         # temp.dataIn. Then, two behaviours:
+#         # 1 - if the variable is NULL. xxxx
+#         # 2 - if the variable contains a dataset. xxx
+#         observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
+#             req(rv$config)
+#             
+#           # in case of a new dataset, reset the whole pipeline
+#           # ResetPipeline()
+#           
+#             # Get the new dataset in a temporary variable
+#             rv$temp.dataIn <- dataIn()
+#             session$userData$dataIn.original <- dataIn()
+# 
+#             # The mode pipeline is a node and has to send
+#             # datasets to its children
+#             if (is.null(rv$dataIn)) {
+#                 
+#                 rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
+#                   rv$dataIn
+#                 }), nm = GetStepsNames())
+# 
+#                # rv$steps.enabled <- res$steps.enabled
+#             }
+# 
+#             if (is.null(dataIn())) {
+#                 # The process has been reseted or is not concerned
+#                 # Disable all screens of the process
+#                 rv$steps.enabled <- ToggleState_Screens(
+#                     cond = FALSE,
+#                     range = seq_len(length(rv$config@steps)),
+#                     is.enabled = is.enabled,
+#                     rv = rv
+#                 )
+#             } else {
+#                 # A new dataset has been loaded
+#                 # # Update the different screens in the process
+#                 rv$steps.enabled <- Update_State_Screens(
+#                     is.skipped = is.skipped(),
+#                     is.enabled = is.enabled(),
+#                     rv = rv
+#                 )
+# 
+# 
+#                 # Enable the first screen
+#                 rv$steps.enabled <- ToggleState_Screens(
+#                     cond = TRUE,
+#                     range = 1,
+#                     is.enabled = is.enabled(),
+#                     rv = rv
+#                 )
+#             }
+#         })
 
 
         observeEvent(rv$current.pos, ignoreInit = TRUE, {

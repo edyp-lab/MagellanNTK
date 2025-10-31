@@ -36,7 +36,7 @@ open_workflow_ui <- function(id) {
             column(width = 3, uiOutput(ns("chooseProcess_UI")))
         ),
         uiOutput(ns("wf_preview_ui")),
-        uiOutput(ns('loadBtn_UI')),
+        actionButton(ns("load_btn"), "Load"),
         uiOutput(ns("infos_wf_UI"))
         # infos_workflow_ui(ns("infos")),
         # tags$h3('Files'),
@@ -63,15 +63,6 @@ open_workflow_server <- function(id) {
             dataOut = NULL
         )
 
-        
-        output$loadBtn_UI <- renderUI({
-          req(input$choosePkg)
-          req(input$chooseWF1)
-          req(rv.wf$path)
-          req(input$chooseProcess)
-          
-          actionButton(ns("load_btn"), "Load")
-        })
         session$onSessionEnded(function() {
             stopApp()
         })
