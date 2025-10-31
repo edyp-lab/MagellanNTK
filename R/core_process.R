@@ -476,9 +476,9 @@ nav_process_server <- function(
 
         observeEvent(remoteResetUI(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           req(rv$config)
-          shiny::withProgress(message = paste0("Reseting process", id), {
+          shiny::withProgress(message = paste0("Reseting UI in process", id), {
             shiny::incProgress(0.5)
-            
+            print(paste0(id, ' : shiny::withProgress(message = paste0("Reseting UI in process", id), {'))
           if (rv$prev.remoteResetUI < unname(remoteResetUI())){
             ResetProcess()
             rv$prev.remoteResetUI <- remoteResetUI()
