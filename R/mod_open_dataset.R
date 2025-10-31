@@ -119,9 +119,8 @@ open_dataset_server <- function(
         output$choosePkg <- renderUI({
             req(input$chooseSource == "packageDataset")
 
-          shiny::withProgress(message = paste0("Searching for ", class, " datasets"), detail = "", value = 0.5, {
-                shiny::incProgress(0.5)
-            print(paste0(id, ' : shiny::withProgress(message = paste0("Searching for ", class, " datasets"), detail = "", value = 0.5,'))
+          shiny::withProgress(message = "", detail = "", value = 0.5, {
+                shiny::incProgress(0.5, detail = paste0("Searching for ", class, " datasets"))
                 rv.open$packages <- GetListDatasets(class, demo_package)
             })
 
