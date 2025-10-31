@@ -653,55 +653,55 @@ nav_pipeline_server <- function(
     #         # temp.dataIn. Then, two behaviours:
     #         # 1 - if the variable is NULL. xxxx
     #         # 2 - if the variable contains a dataset. xxx
-    #         observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
-    #             req(rv$config)
-    #             
-    #           # in case of a new dataset, reset the whole pipeline
-    #           # ResetPipeline()
-    #           
-    #             # Get the new dataset in a temporary variable
-    #             rv$temp.dataIn <- dataIn()
-    #             session$userData$dataIn.original <- dataIn()
-    # 
-    #             # The mode pipeline is a node and has to send
-    #             # datasets to its children
-    #             if (is.null(rv$dataIn)) {
-    #                 
-    #                 rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
-    #                   rv$dataIn
-    #                 }), nm = GetStepsNames())
-    # 
-    #                # rv$steps.enabled <- res$steps.enabled
-    #             }
-    # 
-    #             if (is.null(dataIn())) {
-    #                 # The process has been reseted or is not concerned
-    #                 # Disable all screens of the process
-    #                 rv$steps.enabled <- ToggleState_Screens(
-    #                     cond = FALSE,
-    #                     range = seq_len(length(rv$config@steps)),
-    #                     is.enabled = is.enabled,
-    #                     rv = rv
-    #                 )
-    #             } else {
-    #                 # A new dataset has been loaded
-    #                 # # Update the different screens in the process
-    #                 rv$steps.enabled <- Update_State_Screens(
-    #                     is.skipped = is.skipped(),
-    #                     is.enabled = is.enabled(),
-    #                     rv = rv
-    #                 )
-    # 
-    # 
-    #                 # Enable the first screen
-    #                 rv$steps.enabled <- ToggleState_Screens(
-    #                     cond = TRUE,
-    #                     range = 1,
-    #                     is.enabled = is.enabled(),
-    #                     rv = rv
-    #                 )
-    #             }
-    #         })
+            observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
+                req(rv$config)
+
+              # in case of a new dataset, reset the whole pipeline
+              # ResetPipeline()
+
+                # Get the new dataset in a temporary variable
+                rv$temp.dataIn <- dataIn()
+                session$userData$dataIn.original <- dataIn()
+
+                # The mode pipeline is a node and has to send
+                # datasets to its children
+                if (is.null(rv$dataIn)) {
+
+                    rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
+                      rv$dataIn
+                    }), nm = GetStepsNames())
+
+                   # rv$steps.enabled <- res$steps.enabled
+                }
+
+                if (is.null(dataIn())) {
+                    # The process has been reseted or is not concerned
+                    # Disable all screens of the process
+                    rv$steps.enabled <- ToggleState_Screens(
+                        cond = FALSE,
+                        range = seq_len(length(rv$config@steps)),
+                        is.enabled = is.enabled,
+                        rv = rv
+                    )
+                } else {
+                    # A new dataset has been loaded
+                    # # Update the different screens in the process
+                    rv$steps.enabled <- Update_State_Screens(
+                        is.skipped = is.skipped(),
+                        is.enabled = is.enabled(),
+                        rv = rv
+                    )
+
+
+                    # Enable the first screen
+                    rv$steps.enabled <- ToggleState_Screens(
+                        cond = TRUE,
+                        range = 1,
+                        is.enabled = is.enabled(),
+                        rv = rv
+                    )
+                }
+            })
     
     
     observeEvent(rv$current.pos, ignoreInit = TRUE, {
