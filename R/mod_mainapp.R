@@ -391,6 +391,12 @@ mainapp_server <- function(id,
 ###### Code for the convert dataset module ######
         output$open_convert_dataset_UI <- renderUI({
             req(rv.core$funcs$funcs$convert_dataset)
+          
+          # It is mandatory to select a pipeline first to allows the load
+          # of a custom convert function
+          if (is.null(rv.core$workflow.name)){
+            h3('Please open a pipeline first')
+          } else {
 
             rv.core$result_convert <- call.func(
                 fname = paste0(rv.core$funcs$funcs$convert_dataset, "_server"),
@@ -403,7 +409,7 @@ mainapp_server <- function(id,
                 fname = paste0(rv.core$funcs$funcs$convert_dataset, "_ui"),
                 args = list(id = ns("Convert"))
             )
-            
+          }
             
         })
         
@@ -457,6 +463,11 @@ mainapp_server <- function(id,
         output$open_dataset_UI <- renderUI({
             req(rv.core$funcs$funcs$open_dataset)
 
+          # It is mandatory to select a pipeline first to allows the load
+          # of a custom convert function
+          if (is.null(rv.core$workflow.name)){
+            h3('Please open a pipeline first')
+          } else {
             rv.core$result_open_dataset <- call.func(
                 fname = paste0(rv.core$funcs$funcs$open_dataset, "_server"),
                 args = list(
@@ -471,6 +482,7 @@ mainapp_server <- function(id,
                 fname = paste0(rv.core$funcs$funcs$open_dataset, "_ui"),
                 args = list(id = ns("open_dataset"))
             )
+          }
         })
 
 

@@ -599,6 +599,7 @@ nav_pipeline_server <- function(
     
     
     GetStepsNames <- reactive({
+      req(rv$config@steps)
       names(rv$config@steps)
     })
     

@@ -207,8 +207,9 @@ nav_process_server <- function(
     # and is attached to the server, this function can be view as the
     # initialization of the server module. This code is generic to both
     # process and pipeline modules
-    observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
-      
+    #observeEvent(c(id, dataIn()), ignoreInit = FALSE, ignoreNULL = TRUE, {
+      observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
+        
       rv$rstBtn()
       remoteReset()
       
@@ -249,6 +250,57 @@ nav_process_server <- function(
     },
       priority = 1000
     )
+    
+    
+    
+    
+    
+    
+    # Catch a new value on the parameter 'dataIn()' variable, sent by the
+    # caller. This value may be NULL or contain a dataset.
+    # The first action is to store the dataset in the temporary variable
+    # temp.dataIn. Then, two behaviours:
+    # 1 - if the variable is NULL. xxxx
+    # 2 - if the variable contains a dataset. xxx
+    observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
+      req(rv$config)
+      
+      # Get the new dataset in a temporary variable
+      rv$temp.dataIn <- dataIn()
+      
+      if (is.null(dataIn())) {
+        # The process has been reseted or is not concerned
+        # Disable all screens of the process
+        rv$steps.enabled <- ToggleState_Screens(
+          cond = FALSE,
+          range = seq_len(length(rv$config@steps)),
+          is.enabled = is.enabled,
+          rv = rv
+        )
+      } else {
+        # A new dataset has been loaded
+        # # Update the different screens in the process
+        rv$steps.enabled <- Update_State_Screens(
+          is.skipped = is.skipped(),
+          is.enabled = is.enabled(),
+          rv = rv
+        )
+        
+        # Enable the first screen
+        rv$steps.enabled <- ToggleState_Screens(
+          cond = TRUE,
+          range = 1,
+          is.enabled = is.enabled(),
+          rv = rv
+        )
+      }
+      
+      # Update the initial length of the dataset with the length
+      # of the one that has been received
+      # rv$original.length <- length(dataIn())
+      # })
+    })
+    
     
     
     
@@ -615,52 +667,7 @@ nav_process_server <- function(
     )
     
     
-    
-    
-    # Catch a new value on the parameter 'dataIn()' variable, sent by the
-    # caller. This value may be NULL or contain a dataset.
-    # The first action is to store the dataset in the temporary variable
-    # temp.dataIn. Then, two behaviours:
-    # 1 - if the variable is NULL. xxxx
-    # 2 - if the variable contains a dataset. xxx
-    observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
-      req(rv$config)
-      
-      # Get the new dataset in a temporary variable
-      rv$temp.dataIn <- dataIn()
-      
-      if (is.null(dataIn())) {
-        # The process has been reseted or is not concerned
-        # Disable all screens of the process
-        rv$steps.enabled <- ToggleState_Screens(
-          cond = FALSE,
-          range = seq_len(length(rv$config@steps)),
-          is.enabled = is.enabled,
-          rv = rv
-        )
-      } else {
-        # A new dataset has been loaded
-        # # Update the different screens in the process
-        rv$steps.enabled <- Update_State_Screens(
-          is.skipped = is.skipped(),
-          is.enabled = is.enabled(),
-          rv = rv
-        )
-        
-        # Enable the first screen
-        rv$steps.enabled <- ToggleState_Screens(
-          cond = TRUE,
-          range = 1,
-          is.enabled = is.enabled(),
-          rv = rv
-        )
-      }
-      
-      # Update the initial length of the dataset with the length
-      # of the one that has been received
-      # rv$original.length <- length(dataIn())
-      # })
-    })
+ 
     
     
     observeEvent(rv$current.pos, ignoreInit = FALSE, {
