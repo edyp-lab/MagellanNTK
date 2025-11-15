@@ -1,0 +1,150 @@
+# Predefined modal
+
+Displays of formatted modal-dialog with 'Cancel' and 'Ok' buttons.
+
+## Usage
+
+``` r
+mod_modalDialog_ui(id)
+
+mod_modalDialog_server(
+  id,
+  title = NULL,
+  typeWidget = "button",
+  styleWidget = NULL,
+  classWidget = NULL,
+  width = NULL,
+  uiContent = NULL,
+  external_mod = NULL,
+  external_mod_args = list()
+)
+
+mod_modalDialog(
+  title,
+  typeWidget = "button",
+  uiContent = NULL,
+  external_mod = NULL,
+  external_mod_args = list()
+)
+```
+
+## Arguments
+
+- id:
+
+  A \`character(1)\` which is the id of the instance of the module
+
+- title:
+
+  A \`character(1)\`
+
+- typeWidget:
+
+  = 'button',
+
+- styleWidget:
+
+  = NULL,
+
+- classWidget:
+
+  = NULL
+
+- width:
+
+  A \`character(1)\` indicating the size of the modal window. Can be "s"
+  for small (the default), "m" for medium, or "l" for large.
+
+- uiContent:
+
+  The content of the modal dialog.
+
+- external_mod:
+
+  xxx
+
+- external_mod_args:
+
+  xxx
+
+## Value
+
+A Shiny modal-dialog
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+
+########################################################
+##
+# Example with a simple static HTML
+##
+########################################################
+
+shiny::runApp(mod_modalDialog(title = "test modalDialog", uiContent = p("test")))
+
+########################################################
+##
+##   Example with a simple Shiny module without any return value
+##
+########################################################
+
+simple_mod_ui <- function(id) {
+    # create the namespace from the id
+    ns <- NS(id)
+    fluidPage(
+        actionButton(ns("test"), "Test")
+    )
+}
+
+
+simple_mod_server <- function(id) { # height auto
+
+    moduleServer(id, function(input, output, session) {
+        ns <- session$ns
+
+        # reactiveValues object for storing current data set.
+        dataOut <- reactiveVal(NULL)
+
+        observeEvent(input$test, {
+            dataOut(paste0("Clicked ", input$test, " times."))
+        })
+
+
+        return(reactive({
+            dataOut()
+        }))
+    })
+}
+
+
+shiny::runApp(mod_modalDialog(title = "test modalDialog", uiContent = p("test")))
+
+
+########################################################
+##
+## Example with a more complex Shiny module with a return value
+##
+########################################################
+
+funcs <- list(
+    convert_dataset = "DaparToolshed::convert_dataset",
+    open_dataset = "MagellanNTK::open_dataset",
+    open_demoDataset = "MagellanNTK::open_demoDataset",
+    infos_dataset = "MagellanNTK::infos_dataset",
+    export_dataset = "MagellanNTK::export_dataset",
+    addDatasets = "MagellanNTK::addDatasets",
+    keepDatasets = "MagellanNTK::keepDatasets"
+)
+
+
+shiny::runApp(
+    mod_modalDialog(
+        title = "test modalDialog",
+        external_mod = "mod_load_package",
+        external_mod_args = list(funcs = funcs)
+    )
+)
+} # }
+```

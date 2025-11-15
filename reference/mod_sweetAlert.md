@@ -1,0 +1,53 @@
+# xxx
+
+xxxxx
+
+## Usage
+
+``` r
+mod_SweetAlert_ui(id)
+
+mod_SweetAlert_server(
+  id,
+  title = NULL,
+  text = NULL,
+  showClipBtn = TRUE,
+  type = "error"
+)
+
+mod_SweetAlert(title, text, type = "warning")
+```
+
+## Arguments
+
+- id:
+
+  xxx
+
+- title:
+
+  xxx
+
+- text:
+
+  xxx
+
+- showClipBtn:
+
+  xxx
+
+- type:
+
+  xxx
+
+## Value
+
+NA
+
+## Examples
+
+``` r
+if (interactive()) {
+    shiny::runApp(mod_SweetAlert("my title", "my message"))
+}
+```
