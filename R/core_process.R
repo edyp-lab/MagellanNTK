@@ -211,7 +211,7 @@ nav_process_server <- function(
       observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
         
       rv$rstBtn()
-      remoteReset()
+      #remoteReset()
       
       rv$prev.remoteReset < remoteReset()
       rv$prev.remoteResetUI < remoteResetUI()
