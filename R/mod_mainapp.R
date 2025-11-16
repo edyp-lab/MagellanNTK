@@ -388,41 +388,6 @@ mainapp_server <- function(id,
         })
 
 
-###### Code for the convert dataset module ######
-        output$open_convert_dataset_UI <- renderUI({
-            req(rv.core$funcs$funcs$convert_dataset)
-          
-          # It is mandatory to select a pipeline first to allows the load
-          # of a custom convert function
-          if (is.null(rv.core$workflow.name)){
-            h3('Please open a pipeline first')
-          } else {
-
-            rv.core$result_convert <- call.func(
-                fname = paste0(rv.core$funcs$funcs$convert_dataset, "_server"),
-                args = list(
-                  id = "Convert",
-                  remoteReset = reactive({rv.core$resetWF}))
-            )
-
-            call.func(
-                fname = paste0(rv.core$funcs$funcs$convert_dataset, "_ui"),
-                args = list(id = ns("Convert"))
-            )
-          }
-            
-        })
-        
-        
-        observe_result_convert <- observeEvent(req(rv.core$result_convert(),rv.core$result_convert()$dataOut()$trigger),
-          ignoreInit = TRUE, ignoreNULL = TRUE,{
-
-            req(rv.core$result_convert()$dataOut()$value)
-            rv.core$current.obj <- rv.core$result_convert()$dataOut()$value$data
-            rv.core$current.obj.name <- rv.core$result_convert()$dataOut()$value$name
-            rv.core$processed.obj <- rv.core$current.obj
-            rv.core$resetWF <- MagellanNTK::Timestamp()
-          })
 
 
         output$BuildReport_UI <- renderUI({
@@ -506,7 +471,55 @@ mainapp_server <- function(id,
             }
         )
 
-
+        observe({
+          req(rv.core$funcs$funcs$convert_dataset)
+        rv.core$result_convert <- call.func(
+          fname = paste0(rv.core$funcs$funcs$convert_dataset, "_server"),
+          args = list(
+            id = "Convert",
+            remoteReset = reactive({rv.core$resetWF}))
+        )
+        })
+        
+        ###### Code for the convert dataset module ######
+        output$open_convert_dataset_UI <- renderUI({
+          req(rv.core$funcs$funcs$convert_dataset)
+          
+          # It is mandatory to select a pipeline first to allows the load
+          # of a custom convert function
+          if (is.null(rv.core$workflow.name)){
+            h3('Please open a pipeline first')
+          } else {
+            
+            
+            # result_convert <- call.func(
+            #   fname = paste0(rv.core$funcs$funcs$convert_dataset, "_server"),
+            #   args = list(
+            #     id = "Convert",
+            #     remoteReset = reactive({rv.core$resetWF}))
+            # )
+            
+            call.func(
+              fname = paste0(rv.core$funcs$funcs$convert_dataset, "_ui"),
+              args = list(id = ns("Convert"))
+            )
+          }
+          
+        })
+        
+        
+        
+        observe_result_convert <- observeEvent(rv.core$result_convert()$dataOut()$trigger,{
+            browser()
+            req(rv.core$result_convert()$dataOut()$value)
+           
+           rv.core$current.obj <- rv.core$result_convert()$dataOut()$value$data
+            rv.core$current.obj.name <- rv.core$result_convert()$dataOut()$value$name
+            rv.core$processed.obj <- rv.core$current.obj
+            rv.core$resetWF <- MagellanNTK::Timestamp()
+          })
+        
+        
 
         
         observe_result_open_workflow <- observeEvent(req(rv.core$result_open_workflow()), {
