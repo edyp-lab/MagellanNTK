@@ -477,7 +477,8 @@ mainapp_server <- function(id,
           fname = paste0(rv.core$funcs$funcs$convert_dataset, "_server"),
           args = list(
             id = "Convert",
-            remoteReset = reactive({rv.core$resetWF}))
+            #remoteReset = reactive({rv.core$resetWF}))
+          remoteReset = reactive({NULL}))
         )
         })
         
@@ -491,14 +492,6 @@ mainapp_server <- function(id,
             h3('Please open a pipeline first')
           } else {
             
-            
-            # result_convert <- call.func(
-            #   fname = paste0(rv.core$funcs$funcs$convert_dataset, "_server"),
-            #   args = list(
-            #     id = "Convert",
-            #     remoteReset = reactive({rv.core$resetWF}))
-            # )
-            
             call.func(
               fname = paste0(rv.core$funcs$funcs$convert_dataset, "_ui"),
               args = list(id = ns("Convert"))
@@ -510,7 +503,6 @@ mainapp_server <- function(id,
         
         
         observe_result_convert <- observeEvent(rv.core$result_convert()$dataOut()$trigger,{
-            browser()
             req(rv.core$result_convert()$dataOut()$value)
            
            rv.core$current.obj <- rv.core$result_convert()$dataOut()$value$data
@@ -519,9 +511,7 @@ mainapp_server <- function(id,
             rv.core$resetWF <- MagellanNTK::Timestamp()
           })
         
-        
 
-        
         observe_result_open_workflow <- observeEvent(req(rv.core$result_open_workflow()), {
 
           rv.core$workflow.name <- rv.core$result_open_workflow()$wf_name
