@@ -68,16 +68,8 @@ nav_process_ui <- function(id) {
       style = "display: flex; align-items: center; justify-content: center;",
       uiOutput(ns('prevBtnUI')),
       mod_modalDialog_ui(id = ns("rstBtn")),
-      actionButton(ns("DoBtn"),
-        "Do X",
-        class = "btn btn-success",
-        style = btn_css_style
-      ),
-      actionButton(ns("DoProceedBtn"),
-        "Do X & proceed",
-        class = "btn btn-success",
-        style = btn_css_style
-      ),
+      uiOutput(ns('DoBtn')),
+      uiOutput(ns('DoProceedBtn')),
       uiOutput(ns('nextBtnUI'))
     ),
     uiOutput(ns("testTL")),
@@ -198,9 +190,30 @@ nav_process_server <- function(
     })
     
     
+    output$DoBtn <- renderUI({
+
+    widget <- actionButton(ns("DoBtn"),
+      "Do X",
+      class = "btn btn-success",
+      style = btn_css_style
+    )
+    
+    .cond <- !is.null(dataIn())
+    MagellanNTK::toggleWidget(widget, .cond)
+    })
     
     
-    
+    output$DoProceedBtn <- renderUI({
+      
+      widget <- actionButton(ns("DoProceedBtn"),
+        "Do X & proceed",
+        class = "btn btn-success",
+        style = btn_css_style
+      )
+      
+      cond <- !is.null(dataIn())
+      MagellanNTK::toggleWidget(widget, .cond)
+    })
     
     
     # Catch any event on the 'id' parameter. As this parameter is static
@@ -295,10 +308,19 @@ nav_process_server <- function(
         )
       }
       
-      # Update the initial length of the dataset with the length
-      # of the one that has been received
-      # rv$original.length <- length(dataIn())
-      # })
+      enable.do.Btns <- enable.doProceed.Btns <- FALSE
+      len <- length(rv$config@steps)
+      
+      enable.do.Btns <- enable.doProceed.Btns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
+        unname(rv$steps.status[len]) != stepStatus$VALIDATED && (!is.null(dataIn()))
+      
+      
+      if (len > 1)
+        enable.doProceed.Btns <- enable.doProceed.Btns && 
+        rv$current.pos != len
+      #browser()
+      shinyjs::toggleState("DoProceedBtn", condition = enable.doProceed.Btns)
+      shinyjs::toggleState("DoBtn", condition = enable.do.Btns)
     })
     
     
@@ -450,17 +472,17 @@ nav_process_server <- function(
         rv = rv
       )
       
-      
+      #browser()
       enable.do.Btns <- FALSE
       enable.doProceed.Btns <- FALSE
       n <- length(rv$config@steps)
       
       enable.do.Btns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
-        unname(rv$steps.status[n]) != stepStatus$VALIDATED 
+        unname(rv$steps.status[n]) != stepStatus$VALIDATED
       
       enable.doProceed.Btns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
-        unname(rv$steps.status[n]) != stepStatus$VALIDATED 
-      
+        unname(rv$steps.status[n]) != stepStatus$VALIDATED
+
       if (n > 1)
         enable.doProceed.Btns <- enable.doProceed.Btns && 
         rv$current.pos != length(n)
@@ -587,71 +609,7 @@ nav_process_server <- function(
       )
     })
     
-    
-    
-    # Launch the UI for the user interface of the module
-    # Note for devs: apparently, the renderUI() cannot be stored in the
-    # function 'Build..'
-    output$nav_process_mod_ui <- renderUI({
-      
-      do.btn <- actionButton(ns("DoBtn"),
-        "Do X",
-        class = PrevNextBtnClass,
-        style = btn_css_style
-      )
-      
-      doProceed.btn <- actionButton(ns("DoProceedBtn"),
-        "Do X & proceed",
-        class = PrevNextBtnClass,
-        style = btn_css_style
-      )
-      
-      
-      div(
-        style = "position: relative;  ",
-        div(
-          id = ns("Screens"),
-          style = "z-index: 0;",
-          uiOutput(ns("SkippedInfoPanel")),
-          uiOutput(ns("EncapsulateScreens_ui"))
-        ),
-        shiny::absolutePanel(
-          id = ns("btns_process_panel"),
-          top = default.layout$top_process_btns,
-          left = default.layout$left_process_btns,
-          width = default.layout$width_process_btns,
-          height = default.layout$height_process_btns,
-          draggable = TRUE,
-          style = "
-              padding: 0px 0px 0px 0px;
-              margin: 0px 0px 0px 0px;
-              padding-bottom: 2mm;
-              padding-top: 1mm;",
-          fluidRow(
-            column(width = 3, shinyjs::disabled(
-              actionButton(ns("prevBtn"),
-                tl_h_prev_icon,
-                class = PrevNextBtnClass,
-                style = btn_css_style
-              )
-            )),
-            column(width = 3, mod_modalDialog_ui(id = ns("rstBtn"))),
-            column(width = 3, actionButton(ns("nextBtn"),
-              tl_h_next_icon,
-              class = PrevNextBtnClass,
-              style = btn_css_style
-            ))
-          ),
-          fluidRow(
-            column(width = 4, 
-              toggleWidget(do.btn, is.enabled())),
-            column(width = 8, 
-              toggleWidget(doProceed.btn, is.enabled()))
-          )
-        )
-      )
-    })
-    
+
     
     # Define message when the Reset button is clicked
     template_reset_modal_txt <- "This action will reset the current process.
@@ -671,7 +629,7 @@ nav_process_server <- function(
     
     
     observeEvent(rv$current.pos, ignoreInit = FALSE, {
-      
+      #browser()
       if (length(rv$config@steps) == 1){
         shinyjs::toggleState(id = "prevBtn", condition = FALSE)
         shinyjs::toggleState(id = "nextBtn", condition = FALSE)
