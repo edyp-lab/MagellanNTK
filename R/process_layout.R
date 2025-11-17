@@ -14,15 +14,15 @@
 #' @export
 #'
 process_layout <- function(ns, sidebar, content) {
-    # shinybrowser::detect()
     div(
-        div(
+        div(style = paste0("background-color: ", default.layout$bgcolor_process_sidebar, ";}"),
             sidebar
         ),
         shiny::absolutePanel(
             style = paste0(
                 "position: absolute; ",
-                "width: ", default.layout$width_process_content, ";}"
+                "width: ", default.layout$width_process_content, ";",
+                "background-color: ", default.layout$bgcolor_process_content, ";}"
             ),
             top = default.layout$top_process_content,
             left = default.layout$left_process_content,

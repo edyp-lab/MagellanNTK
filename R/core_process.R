@@ -577,7 +577,10 @@ nav_process_server <- function(
         enabled = reactive({rv$steps.enabled})
       )
       
-      timeline_process_ui(ns("process_timeline"))
+      div(
+        style = "background-color: orange;",
+        timeline_process_ui(ns("process_timeline"))
+      )
     })
     
     

@@ -66,7 +66,7 @@ mainapp_ui <- function(id, session, size = '300px') {
           ),
         body = bs4DashBody(
           shinyjs::useShinyjs(),
-
+            
              # style = "padding: 0px; overflow-y: auto;",
             includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css")),
           bs4Dash::tabItems(

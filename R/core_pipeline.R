@@ -100,18 +100,19 @@ nav_pipeline_ui <- function(id) {
           )
         ),
         column(width = 1, mod_modalDialog_ui(id = ns("rstBtn"))),
-        column(
-          width = 1,
+        column(width = 1,
           actionButton(ns("nextBtn"),
             tl_h_next_icon,
             class = PrevNextBtnClass,
             style = btn_css_style
           )
         ),
-        column(width = 9, timeline_pipeline_ui(ns("timeline_pipeline")))
+        column(width = 9, 
+        
+            timeline_pipeline_ui(ns("timeline_pipeline")))
+        )
       )
     )
-  )
 }
 
 
