@@ -590,25 +590,26 @@ mainapp_server <- function(id,
             )
           )
 
-          showModal(
+            showModal(
             shinyjqui::jqui_draggable(
               modalDialog(
-                tabsetPanel(id = ns("tabcard"),
+                  shiny::tabsetPanel(
+                    id = ns("tabcard"),
                
-               tabPanel(
-                 title = "Infos", 
+               shiny::tabPanel(
+                 title = h3("Infos", style = "margin-right: 30px;"), 
                  do.call(
                  eval(parse(text = paste0(rv.core$funcs$funcs$infos_dataset, "_ui"))),
                  list(id = ns("eda1"))
                )
                  ),
-                 tabPanel(
-                   title = "EDA",
+                  shiny::tabPanel(
+                   title = h3("EDA"),
                    do.call(
                      eval(parse(text = paste0(rv.core$funcs$funcs$view_dataset, "_ui"))),
                      list(id = ns("eda2"))
                    )
-             )
+                  )
                  ),
             title = "EDA", 
             size = "l"

@@ -211,7 +211,7 @@ nav_process_server <- function(
         style = btn_css_style
       )
       
-      cond <- !is.null(dataIn())
+      .cond <- !is.null(dataIn())
       MagellanNTK::toggleWidget(widget, .cond)
     })
     
