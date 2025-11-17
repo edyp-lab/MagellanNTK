@@ -38,11 +38,6 @@ Insert_User_Sidebar <- function() {
           p("Save As", class = "sidebarMenuSubItem"),
           tabName = "SaveAs",
           icon = icon("gear")
-        ),
-        bs4SidebarMenuSubItem(
-          p("Build report (Beta)", class = "sidebarMenuSubItem"),
-          tabName = "BuildReport",
-          icon = icon("gear")
         )
       ),
       bs4SidebarMenuItem(
@@ -74,11 +69,6 @@ Insert_User_Sidebar <- function() {
           icon = icon("gear")
         )
       )
-      # bs4SidebarMenuItem(
-      #       p("Vizualize data", style = "color: white;"),
-      #       tabName = "eda",
-      #       icon = icon("home")
-      #   )
     )
   
 }
