@@ -55,7 +55,7 @@ default.layout <- list(
     height_process_timeline = NULL,
     bgcolor_process_timeline = "transparent",
     top_process_content = 76,
-    left_process_content = 255,
+    left_process_content = 265,
     #width_process_content = "100vh",
   width_process_content = "75vw",
   bgcolor_process_content = "transparent",
