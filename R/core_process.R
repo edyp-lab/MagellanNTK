@@ -65,7 +65,10 @@ nav_process_ui <- function(id) {
   
   tagList(
     div(
-      style = "display: flex; align-items: center; justify-content: center;",
+      style = paste0("display: flex; ",
+      "align-items: center; ",
+      "justify-content: center;",
+      "background-color: ", default.layout$bgcolor_process_timeline, ";"),
       uiOutput(ns('prevBtnUI')),
       mod_modalDialog_ui(id = ns("rstBtn")),
       uiOutput(ns('DoBtn')),
@@ -578,7 +581,9 @@ nav_process_server <- function(
       )
       
       div(
-        style = "background-color: orange;",
+        style = paste0(
+          "background-color: ", default.layout$bgcolor_process_timeline, ";",
+          "padding-top: ", default.layout$padding_top_process_sidebar, "px;"),
         timeline_process_ui(ns("process_timeline"))
       )
     })
