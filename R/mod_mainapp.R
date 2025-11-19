@@ -52,21 +52,32 @@ mainapp_ui <- function(id, session, size = '300px') {
         ),
         sidebar = bs4DashSidebar(
           id = ns("mySidebar"),
-          style = "padding-top: 0px;",
+          style = "padding-top: 0px; background-color: grey;",
           width = size,
-          # expandOnHover = TRUE,
+          expandOnHover = FALSE,
           collapsed = TRUE,
           actionButton(inputId = ns("toggleSidebarBar"),
             label = icon("bars", width = 20),
             class = PrevNextBtnClass
           ),
-          actionButton(ns("btn_eda"), label = "EDA"),
-          #actionButton(ns('resetWF'), 'resetWF'),
+          
           Insert_User_Sidebar()
           ),
+      controlbar= bs4DashControlbar(),
+      
         body = bs4DashBody(
           shinyjs::useShinyjs(),
-            
+          absolutePanel(
+            draggable = TRUE,
+            fixed = FALSE,
+            top = 75,
+            left = '95%',
+            actionButton(ns("btn_eda"), 
+              label = h3("EDA"),
+              style = "z-index: 999999999; background-color: red;",
+              icon = shiny::icon('fa-magnifying-glass'),
+              class = "info"),
+            ),
              # style = "padding: 0px; overflow-y: auto;",
             includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css")),
           bs4Dash::tabItems(
@@ -154,7 +165,11 @@ mainapp_server <- function(id,
         #     updateSidebar("mySidebar", session = session)
         # })
 
-
+        observeEvent(input$controlbarToggle, {
+          updateControlbar(id = "myControlbar", session = session)
+        })
+        
+        
         rv.core <- reactiveValues(
             dataIn = NULL,
             result_convert = reactive({NULL}),
