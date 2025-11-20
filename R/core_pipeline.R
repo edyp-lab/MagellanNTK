@@ -81,7 +81,7 @@ nav_pipeline_ui <- function(id) {
       )
     ),
     div(
-      style = "padding-left: 240px; margin-top: -15px;",
+      style = paste0("padding-left: ", default.layout$left_pipeline_timeline, "px; margin-top: -15px;"),
       fluidRow(
         style = paste0(
           "background-color: ", default.layout$bgcolor_pipeline_timeline, " ; ",
