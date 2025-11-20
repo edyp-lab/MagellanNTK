@@ -40,45 +40,74 @@ NULL
 mainapp_ui <- function(id, session, size = '300px') {
     ns <- NS(id)
     includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css"))
-
+tags$head(
+  tags$script(
+    "
+    Shiny.addCustomMessageHandler('bindTooltip', function(data){
+      $('#' + data.id).tooltip();
+    });
+  "
+  )
+)
     bs4Dash::dashboardPage(
          preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
-        # options = list(
-        #     fixed = TRUE,
-        #     sidebarExpandOnHover = TRUE
-        # ),
+         
         header = bs4DashNavbar(
             disable = TRUE
         ),
         sidebar = bs4DashSidebar(
+          actionButton(inputId = ns("toggleSidebarBar"),
+            label = icon("bars", width = 20),
+            class = PrevNextBtnClass
+          ),
+
+          actionButton(ns("btn_eda"), 
+            label = h3("EDA"),
+            style = paste0(
+              "background-color: ", default.layout$edaBackgroundColor, " red;"),
+            icon = shiny::icon('fa-magnifying-glass'),
+            class = "info"),
+          
+          Insert_User_Sidebar(),
           id = ns("mySidebar"),
           style = "padding-top: 0px;",
           width = size,
           expandOnHover = FALSE,
           collapsed = TRUE,
-          actionButton(inputId = ns("toggleSidebarBar"),
-            label = icon("bars", width = 20),
-            class = PrevNextBtnClass
-          ),
-          
-          Insert_User_Sidebar()
           ),
       controlbar= bs4DashControlbar(),
       
         body = bs4DashBody(
-          shinyjs::useShinyjs(),
-          absolutePanel(
-            draggable = TRUE,
-            fixed = FALSE,
-            top = 75,
-            left = '95%',
-            actionButton(ns("btn_eda"), 
-              label = h3("EDA"),
-              style = paste0("z-index: 999999999; ",
-                "background-color: ", default.layout$edaBackgroundColor, " red;"),
-              icon = shiny::icon('fa-magnifying-glass'),
-              class = "info"),
+          options = list(
+            fixed = TRUE,
+            sidebarExpandOnHover = FALSE
+          ),
+          tags$head(
+            tags$style(
+              "
+        .skin-blue .main-header .navbar .sidebar-toggle:hover {
+          background-color: red;
+        }
+        "
             ),
+            tags$script(
+              '
+        $(document).ready(function(){
+          $(".sidebar-toggle").attr("data-toggle", "tooltip");
+          $(".sidebar-toggle").attr("data-placement", "bottom");
+          $(".sidebar-toggle").attr("title", "Sidebar hover");
+          $("[data-toggle=\'tooltip\']").tooltip();
+          
+          $(".sidebar-toggle").click(function(){
+            $("body").toggleClass("sidebar-collapse");
+            $(this).tooltip("hide");
+          });
+        });
+        '
+            )
+          ),
+
+          
              # style = "padding: 0px; overflow-y: auto;",
             includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css")),
           bs4Dash::tabItems(
@@ -166,6 +195,7 @@ mainapp_server <- function(id,
         #     updateSidebar("mySidebar", session = session)
         # })
 
+
         observeEvent(input$controlbarToggle, {
           updateControlbar(id = "myControlbar", session = session)
         })
@@ -240,6 +270,30 @@ mainapp_server <- function(id,
             priority = 1000
         )
 
+        
+        # 
+        # shinyBS::addTooltip(session, id = ns('btn_eda'), title = "Lets delay ",
+        #   placement = "right", 
+        #   trigger = "hover", 
+        #   options = list(delay = list(show=500, hide=100)))
+        session$onFlushed(function() { 
+        addTooltip(
+          session = session,
+          id = "btn_eda",
+          title = "Lets delay",
+          placement = "right",
+          trigger = "hover",
+          options = list(delay = list(show = 500, hide = 100))
+        )
+        }, once = TRUE)
+        
+        
+        
+    
+        # observeEvent(input$btn_eda, {
+        #   add_bs_tooltip(session, ns("btn_eda"), "Lets delay")
+        # })
+        # 
 
         observeEvent(req(rv.core$workflow.path), {
             rv.core$funcs <- readConfigFile(rv.core$workflow.path)

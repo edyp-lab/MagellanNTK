@@ -210,10 +210,29 @@ nav_process_server <- function(
       style = btn_css_style
     )
     
+    
     .cond <- !is.null(dataIn())
     MagellanNTK::toggleWidget(widget, .cond)
     })
+
     
+    add_bs_tooltip <- function(session, id, title, placement = "right", delay = 500) {
+      
+      session$sendCustomMessage(
+        "add-bs-tooltip",
+        list(
+          id = id,
+          title = title,
+          placement = placement,
+          delay = delay
+        )
+      )
+    }
+    
+    
+    session$onFlushed(function() {
+      add_bs_tooltip(session, "DoBtn", "Lets delay", placement = "right", delay = 500)
+    }, once = TRUE)
     
     output$DoProceedBtn <- renderUI({
       
