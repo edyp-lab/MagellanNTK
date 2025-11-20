@@ -213,7 +213,10 @@ nav_pipeline_server <- function(
     output$datasetNameUI <- renderUI({
       #req(inherits(dataIn(), 'QFeatures'))
       # h3(DaparToolshed::filename(dataIn()))
-      h3(id)
+      div(
+        style = paste0("padding-left: ", 100, "px;"),
+        h3(id)
+      )
     })
     
     
