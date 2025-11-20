@@ -65,7 +65,12 @@ nav_process_ui <- function(id) {
   
   tagList(
     div(
-      style = paste0("display: flex; ",
+      #style = paste0('padding-left: ', default.layout$padding_left_nav_process_ui, 'px;'),
+      div(
+      style = paste0("
+        display: flex; ",
+        #'padding-right: ', default.layout$padding_right_nav_process_ui, 'px;',
+        'padding-left: ', default.layout$padding_left_nav_process_ui, 'px;',
       "align-items: center; ",
       "justify-content: center;",
       "background-color: ", default.layout$bgcolor_process_timeline, ";"),
@@ -75,9 +80,10 @@ nav_process_ui <- function(id) {
       uiOutput(ns('DoProceedBtn')),
       uiOutput(ns('nextBtnUI'))
     ),
-    uiOutput(ns("testTL")),
+      uiOutput(ns("testTL")),
+      
     uiOutput(ns("EncapsulateScreens_ui"))
-  )
+  ))
 }
 
 

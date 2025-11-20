@@ -15,7 +15,9 @@
 #'
 process_layout <- function(ns, sidebar, content) {
     div(
-        div(style = paste0("background-color: ", default.layout$bgcolor_process_sidebar, ";}"),
+        div(style = paste0(
+          "background-color: ", default.layout$bgcolor_process_sidebar, ";",
+          "padding-left: ", default.layout$left_process_timeline, "px;"),
             sidebar
         ),
         shiny::absolutePanel(

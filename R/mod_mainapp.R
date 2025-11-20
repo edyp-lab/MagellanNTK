@@ -52,7 +52,7 @@ mainapp_ui <- function(id, session, size = '300px') {
         ),
         sidebar = bs4DashSidebar(
           id = ns("mySidebar"),
-          style = "padding-top: 0px; background-color: grey;",
+          style = "padding-top: 0px;",
           width = size,
           expandOnHover = FALSE,
           collapsed = TRUE,
@@ -74,7 +74,8 @@ mainapp_ui <- function(id, session, size = '300px') {
             left = '95%',
             actionButton(ns("btn_eda"), 
               label = h3("EDA"),
-              style = "z-index: 999999999; background-color: red;",
+              style = paste0("z-index: 999999999; ",
+                "background-color: ", default.layout$edaBackgroundColor, " red;"),
               icon = shiny::icon('fa-magnifying-glass'),
               class = "info"),
             ),
