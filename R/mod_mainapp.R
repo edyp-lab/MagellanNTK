@@ -40,15 +40,42 @@ NULL
 mainapp_ui <- function(id, session, size = '300px') {
     ns <- NS(id)
     includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css"))
-tags$head(
-  tags$script(
-    "
-    Shiny.addCustomMessageHandler('bindTooltip', function(data){
-      $('#' + data.id).tooltip();
-    });
-  "
-  )
-)
+# tags$head(
+#   tags$head(
+#     # Empêche BS4Dash d’élargir la sidebar au survol
+#     tags$style(HTML("
+#     /* Empêche l'auto-expand au survol */
+#     body.sidebar-mini.sidebar-collapse .main-sidebar:hover,
+#     .main-sidebar:hover {
+#       width: 80px !important; /* largeur de la sidebar fermée */
+#       transition: none !important;
+#     }
+#     /* Empêche aussi le contenu de se pousser */
+#     body.sidebar-mini.sidebar-collapse .content-wrapper,
+#     body.sidebar-mini.sidebar-collapse .main-footer,
+#     body.sidebar-mini.sidebar-collapse .main-header {
+#       margin-left: 80px !important;
+#       transition: none !important;
+#     }
+#   ")),
+#     
+#     # Supprime le code JS interne de bs4Dash qui gère l'hover
+#     tags$script(HTML("
+#     $(document).ready(function(){
+#       // Force la sidebar à rester collée en mode fermé
+#       $('body').addClass('sidebar-collapse');
+#       
+#       // Supprime la classe permettant l'expansion au hover
+#       $('body').removeClass('sidebar-expand-hover');
+#       
+#       // Bloque les triggers internes de bs4Dash
+#       $(document).off('mouseenter', '.main-sidebar');
+#       $(document).off('mouseover', '.main-sidebar');
+#       $(document).off('hover', '.main-sidebar');
+#     });
+#   "))
+#   )
+# )
     bs4Dash::dashboardPage(
          preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
          
@@ -78,34 +105,11 @@ tags$head(
       controlbar= bs4DashControlbar(),
       
         body = bs4DashBody(
-          options = list(
-            fixed = TRUE,
-            sidebarExpandOnHover = FALSE
-          ),
-          tags$head(
-            tags$style(
-              "
-        .skin-blue .main-header .navbar .sidebar-toggle:hover {
-          background-color: red;
-        }
-        "
-            ),
-            tags$script(
-              '
-        $(document).ready(function(){
-          $(".sidebar-toggle").attr("data-toggle", "tooltip");
-          $(".sidebar-toggle").attr("data-placement", "bottom");
-          $(".sidebar-toggle").attr("title", "Sidebar hover");
-          $("[data-toggle=\'tooltip\']").tooltip();
+          # options = list(
+          #   fixed = TRUE,
+          #   sidebarExpandOnHover = FALSE   # ⬅️ Désactive l’expansion au survol
+          # ),
           
-          $(".sidebar-toggle").click(function(){
-            $("body").toggleClass("sidebar-collapse");
-            $(this).tooltip("hide");
-          });
-        });
-        '
-            )
-          ),
 
           
              # style = "padding: 0px; overflow-y: auto;",
@@ -192,15 +196,18 @@ mainapp_server <- function(id,
         ns <- session$ns
 
         # observeEvent(input$toggleSidebarBar, {
+        #   tags$style(".main-sidebar:hover {width: 150px !important;}")
         #     updateSidebar("mySidebar", session = session)
+        #   
+        #   
         # })
-
-
-        observeEvent(input$controlbarToggle, {
-          updateControlbar(id = "myControlbar", session = session)
-        })
-        
-        
+# 
+# 
+#         observeEvent(input$controlbarToggle, {
+#           updateControlbar(id = "myControlbar", session = session)
+#         })
+#         
+#         
         rv.core <- reactiveValues(
             dataIn = NULL,
             result_convert = reactive({NULL}),

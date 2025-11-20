@@ -5,6 +5,12 @@
     opacity: 0.8;
   }
 
+/*
+.main-sidebar:hover {
+    width: 70px !important;
+  }
+  */
+  
 /* Sidebar parameters 
   .control-sidebar {
     background-color: black;
