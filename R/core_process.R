@@ -589,7 +589,8 @@ nav_process_server <- function(
       div(
         style = paste0(
           "background-color: ", default.layout$bgcolor_process_timeline, ";",
-          "padding-top: ", default.layout$padding_top_process_sidebar, "px;"),
+          "padding-top: ", default.layout$padding_top_process_sidebar, "px;",
+          "padding-left: ", default.layout$padding_left_process_sidebar, "px;"),
         timeline_process_ui(ns("process_timeline"))
       )
     })

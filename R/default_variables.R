@@ -66,6 +66,7 @@ default.layout <- list(
     left_process_content = 360,
   
     padding_top_process_sidebar = 5,
+  padding_left_process_sidebar = 100,
     padding_right_nav_process_ui = 10,
   
   
