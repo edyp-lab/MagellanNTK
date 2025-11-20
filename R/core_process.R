@@ -74,8 +74,9 @@ nav_process_ui <- function(id) {
       "align-items: center; ",
       "justify-content: center;",
       "background-color: ", default.layout$bgcolor_process_timeline, ";",
-        "border_top: 5px solid #000;",
-        "border_bottom: 5px solid #000;"),
+        "border-top: 5px solid #000;"
+        #"border-bottom: 5px solid #000;"
+        ),
       uiOutput(ns('prevBtnUI')),
       mod_modalDialog_ui(id = ns("rstBtn")),
       uiOutput(ns('DoBtn')),
@@ -593,7 +594,8 @@ nav_process_server <- function(
           "background-color: ", default.layout$bgcolor_process_timeline, ";",
           "padding-top: ", default.layout$padding_top_process_sidebar, "px;",
           "padding-bottom: ", default.layout$padding_bottom_process_sidebar, "px;",
-          "padding-left: ", default.layout$padding_left_process_sidebar, "px;"),
+          "padding-left: ", default.layout$padding_left_process_sidebar, "px;",
+          "border-bottom: 5px solid #000;"),
         timeline_process_ui(ns("process_timeline"))
       )
     })
