@@ -69,7 +69,7 @@ nav_process_ui <- function(id) {
       div(
       style = paste0("
         display: flex; ",
-        #'padding-right: ', default.layout$padding_right_nav_process_ui, 'px;',
+        'padding-top: ', default.layout$padding_top_nav_process_ui, 'px;',
         'padding-left: ', default.layout$padding_left_nav_process_ui, 'px;',
       "align-items: center; ",
       "justify-content: center;",
@@ -590,6 +590,7 @@ nav_process_server <- function(
         style = paste0(
           "background-color: ", default.layout$bgcolor_process_timeline, ";",
           "padding-top: ", default.layout$padding_top_process_sidebar, "px;",
+          "padding-bottom: ", default.layout$padding_bottom_process_sidebar, "px;",
           "padding-left: ", default.layout$padding_left_process_sidebar, "px;"),
         timeline_process_ui(ns("process_timeline"))
       )

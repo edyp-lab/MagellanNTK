@@ -67,9 +67,11 @@ nav_pipeline_ui <- function(id) {
       top = default.layout$top_pipeline_sidebar,
       height = default.layout$height_pipeline_sidebar,
       width = default.layout$width_pipeline_sidebar,
+      # style de la sidebar contenant les infos des process (timeline, boutons et parametres
       style = paste0(
         "position : absolute; ",
         "background-color: ", default.layout$bgcolor_pipeline_sidebar, "; ",
+        "border-right: px, solid, #000;",
         "height: 100vh;"
       ),
       div(
@@ -81,13 +83,16 @@ nav_pipeline_ui <- function(id) {
       )
     ),
     div(
-      style = paste0("padding-left: ", default.layout$left_pipeline_timeline, "px; margin-top: -15px;"),
+      style = paste0(
+        "padding-left: ", default.layout$left_pipeline_timeline, "px; margin-top: -15px;"
+      ),
       fluidRow(
         style = paste0(
           "background-color: ", default.layout$bgcolor_pipeline_timeline, " ; ",
           "display: flex; ",
           "align-items: center; ",
-          "justify-content: center;"
+          "justify-content: center;",
+          "border-bottom : 5px solid #000;"
         ),
         column(
           width = 1,

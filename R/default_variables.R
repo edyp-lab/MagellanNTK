@@ -65,11 +65,20 @@ default.layout <- list(
   # decalage du panneau general des process vers la droite
     left_process_content = 360,
   
-    padding_top_process_sidebar = 5,
+    # espace au-dessus la timeline des process
+    padding_top_process_sidebar = 10,
+  
+  # espace en-dessous la timeline des process
+  padding_bottom_process_sidebar = 10,
+  
+  # espace à gauche de la timeline des process
   padding_left_process_sidebar = 100,
+  
+  
     padding_right_nav_process_ui = 10,
   
-  
+  # espace au-dessus de la timeline des process
+  padding_top_nav_process_ui = 10,
   
     #width_process_content = "100vh",
   width_process_content = "75vw",
