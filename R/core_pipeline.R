@@ -71,7 +71,7 @@ nav_pipeline_ui <- function(id) {
       style = paste0(
         "position : absolute; ",
         "background-color: ", default.layout$bgcolor_pipeline_sidebar, "; ",
-        "border-right: px, solid, #000;",
+        "border-right: 5px solid #000;",
         "height: 100vh;"
       ),
       div(

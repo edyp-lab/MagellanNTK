@@ -54,6 +54,12 @@ default.layout <- list(
     # decalage à droite de la timeline des process
     left_process_timeline = 100,
   
+  # espace au-dessus des parametres des process
+  top_process_timeline = 10,
+  
+  # espace en-dessous des parametres des process
+  bottom_process_timeline = 10,
+  
   # Permet de decaler le contenu de la sidebar générale vers la droite
   padding_left_nav_process_ui = 100,
   
