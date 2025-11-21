@@ -53,11 +53,9 @@ mainapp_ui <- function(id, session, size = '300px') {
           # ),
 
           actionButton(ns("btn_eda"), 
-            label = h3("EDA"),
-            style = paste0(
-              "background-color: ", default.layout$edaBackgroundColor, " red;"),
-            icon = shiny::icon('fa-magnifying-glass'),
-            class = "info"),
+            label = p("EDA"),
+            icon = icon("magnifying-glass")
+          ),
           
           Insert_User_Sidebar(),
           id = ns("mySidebar"),
