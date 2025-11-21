@@ -17,7 +17,7 @@ default.layout
 
 ## Format
 
-An object of class `list` of length 32.
+An object of class `list` of length 41.
 
 ## Value
 

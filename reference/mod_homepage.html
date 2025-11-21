@@ -50,7 +50,10 @@
 <span></span>
 <span><span class="fu">mod_homepage_server</span><span class="op">(</span></span>
 <span>  <span class="va">id</span>,</span>
-<span>  mdfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"app/md"</span>, package <span class="op">=</span> <span class="st">"MagellanNTK"</span><span class="op">)</span>, <span class="st">"Presentation.Rmd"</span><span class="op">)</span></span>
+<span>  mdfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"app/md"</span>, package <span class="op">=</span> <span class="st">"MagellanNTK"</span><span class="op">)</span>, <span class="st">"Presentation.Rmd"</span><span class="op">)</span>,</span>
+<span>  dataset <span class="op">=</span> <span class="fu">reactive</span><span class="op">(</span><span class="op">{</span></span>
+<span>     <span class="cn">NULL</span></span>
+<span> <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">mod_homepage</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>

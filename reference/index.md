@@ -171,10 +171,6 @@
   [`mdEditor_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mdEditor.md)
   [`mdEditor()`](https://edyp-lab.github.io/MagellanNTK/reference/mdEditor.md)
   : Markdown editor module
-- [`mod_bsmodal_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_bsmodal.md)
-  [`mod_bsmodal_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_bsmodal.md)
-  [`mod_bsmodal()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_bsmodal.md)
-  : Predefined modal
 - [`mod_bug_report_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_bug_report.md)
   [`mod_bug_report_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_bug_report.md)
   [`bug_report()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_bug_report.md)
