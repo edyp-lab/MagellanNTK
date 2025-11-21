@@ -36,7 +36,6 @@ Imports:
     shiny,
     shinyEffects,
     htmlwidgets,
-    shinyBS,
     shinyjs,
     shinyFiles,
     sass,
@@ -72,7 +71,6 @@ Collate:
     default_variables.R
     write_excel.R
     mod_download_dataset.R
-    mod_bsModal.R
     mod_mdEditor.R
     mod_dyn_widgets.R
     config_class.R

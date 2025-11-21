@@ -116,7 +116,6 @@ mod_modalDialog_ui <- function(id) {
 #'
 #' @importFrom shiny moduleServer reactiveValues renderUI actionButton actionLink
 #' observeEvent showModal modalDialog modalButton reactive
-#' @import shinyBS
 #'
 mod_modalDialog_server <- function(
         id,

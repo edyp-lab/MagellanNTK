@@ -41,7 +41,6 @@ NULL
 #' @importFrom shiny NS tagList
 #' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
 #' disabled inlineCSS extendShinyjs
-#' @importFrom shinyBS bsModal
 #'
 loadapp_ui <- function(id) {
     ns <- NS(id)

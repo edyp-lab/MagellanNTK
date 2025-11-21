@@ -51,7 +51,6 @@ mod_popover_for_help_ui <- function(id) {
 #' @export
 #'
 #'
-#' @importFrom shinyBS bsPopover addPopover bsTooltip
 #' @importFrom shiny renderUI req moduleServer
 #'
 mod_popover_for_help_server <- function(id, title, content) {
@@ -66,10 +65,10 @@ mod_popover_for_help_server <- function(id, title, content) {
             tags$button(tags$sup("[?]"), class = "custom_tooltip")
         })
 
-        output$show_Pop <- renderUI({
-            req(content)
-            shinyBS::bsTooltip(ns("dot"), content, trigger = "hover")
-        })
+        # output$show_Pop <- renderUI({
+        #     req(content)
+        #     shinyBS::bsTooltip(ns("dot"), content, trigger = "hover")
+        # })
     })
 }
 

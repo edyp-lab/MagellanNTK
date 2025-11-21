@@ -21,23 +21,17 @@ NULL
 #' @rdname mod_release_notes
 #' @export
 #' @importFrom shiny NS tagList
-#' @importFrom shinyBS bsCollapse bsCollapsePanel
 mod_release_notes_ui <- function(id) {
     ns <- NS(id)
 
-    tagList(
-        shinyBS::bsCollapse(
-            id = "collapseFormerReleases",
-            open = "Current release",
-            multiple = TRUE,
-            shinyBS::bsCollapsePanel("Current release",
-                insert_md_ui(ns("versionNotes_MD")),
-                style = "info"
+    tabsetPanel(
+        tabPanel(
+            id = "Current release",
+                insert_md_ui(ns("versionNotes_MD"))
             )
             # shinyBS::bsCollapsePanel("Former releases",
             #                          insert_md_ui(ns("formerReleases_MD")), style = "info")
         )
-    )
 }
 
 

@@ -277,22 +277,16 @@ mainapp_server <- function(id,
             priority = 1000
         )
 
-        
-        # 
-        # shinyBS::addTooltip(session, id = ns('btn_eda'), title = "Lets delay ",
-        #   placement = "right", 
-        #   trigger = "hover", 
-        #   options = list(delay = list(show=500, hide=100)))
-        session$onFlushed(function() { 
-        addTooltip(
-          session = session,
-          id = "btn_eda",
-          title = "Lets delay",
-          placement = "right",
-          trigger = "hover",
-          options = list(delay = list(show = 500, hide = 100))
-        )
-        }, once = TRUE)
+        # session$onFlushed(function() { 
+        # addTooltip(
+        #   session = session,
+        #   id = "btn_eda",
+        #   title = "Lets delay",
+        #   placement = "right",
+        #   trigger = "hover",
+        #   options = list(delay = list(show = 500, hide = 100))
+        # )
+        # }, once = TRUE)
         
         
         
