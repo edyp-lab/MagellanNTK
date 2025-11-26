@@ -204,18 +204,18 @@ nav_pipeline_server <- function(
             width = 1,
             shinyjs::disabled(
               actionButton(ns("prevBtn"),
-                tl_h_prev_icon
+                tl_h_prev_icon,
                # class = PrevNextBtnClass,
-               # style = btn_css_style
+                style = btn_css_style
               )
             )
           ),
           column(width = 1, mod_modalDialog_ui(id = ns("rstBtn"))),
           column(width = 1,
             actionButton(ns("nextBtn"),
-              tl_h_next_icon
+              tl_h_next_icon,
               #class = PrevNextBtnClass,
-             # style = btn_css_style
+              style = btn_css_style
             )
           ),
           column(width = 9, 

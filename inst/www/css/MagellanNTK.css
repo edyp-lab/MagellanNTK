@@ -126,6 +126,11 @@ font-family: Arial;
 color: green;
 }
 
+
+.texteSurUneLigne {
+  white-space: nowrap;
+}
+
     
     .main-header {
       max-height: 40px; /* Sert pour la hauteur de la controlbar */

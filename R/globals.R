@@ -14,7 +14,7 @@ optionsBtnClass <- "info"
 redBtnClass <- "btn btn-danger"
 PrevNextBtnClass <- "btn btn-info"
 btn_success_color <- "btn btn-success"
-btn_css_style <- "font-size:60%; display:inline-block; vertical-align: middle; padding: 7px;"
+btn_css_style <- "font-size:60%; display:inline-block; vertical-align: middle; padding: 7px; margin: 4px;"
 
 
 #' @export

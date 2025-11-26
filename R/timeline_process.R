@@ -114,7 +114,7 @@ timeline_process_server <- function(
                             # style = paste0("height: ", .size, "; width: ", .size, ";")
                             style = paste0("height: 30px; width: 30px;")
                         ),
-                        tags$div(class = "label", config@steps[i])
+                        tags$div(class = "label texteSurUneLigne", config@steps[i])
                     )
                 })
             )

@@ -171,9 +171,9 @@ nav_process_server <- function(
     output$prevBtnUI <- renderUI({
       req(rv$config)
       widget <- actionButton(ns("prevBtn"),
-        tl_h_prev_icon
+        tl_h_prev_icon,
         #class = PrevNextBtnClass,
-        #style = btn_css_style
+        style = btn_css_style
       )
       
       if (length(rv$config@steps) == 1)
@@ -188,9 +188,9 @@ nav_process_server <- function(
     output$nextBtnUI <- renderUI({
       req(rv$config)
       widget <-actionButton(ns("nextBtn"),
-        tl_h_next_icon
+        tl_h_next_icon,
         #class = PrevNextBtnClass,
-        #style = btn_css_style
+        style = btn_css_style
       )
       
       if (length(rv$config@steps) == 1)
@@ -205,9 +205,9 @@ nav_process_server <- function(
     output$DoBtn <- renderUI({
 
     widget <- actionButton(ns("DoBtn"),
-      "Run"
+      "Run",
       #class = "btn btn-success",
-      #style = btn_css_style
+      style = btn_css_style
     )
     
     
@@ -237,7 +237,9 @@ nav_process_server <- function(
     output$DoProceedBtn <- renderUI({
       
       widget <- actionButton(ns("DoProceedBtn"),
-        tagList("Run ", shiny::icon('arrow-right'))
+        tagList("Run ", shiny::icon('arrow-right')),
+        #class = "btn btn-success",
+        style = btn_css_style
       )
       
       .cond <- !is.null(dataIn())
