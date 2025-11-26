@@ -187,7 +187,7 @@ nav_pipeline_server <- function(
     })
     
     output$pipeline_tl_btn_ui <- renderUI({
-      browser()
+
       div(
         style = paste0(
           "padding-left: ", default.layout$left_pipeline_timeline, "px; margin-top: -15px;"
