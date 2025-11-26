@@ -48,8 +48,7 @@ default.layout <- list(
     top_process_sidebar = NULL,
     left_process_sidebar = NULL,
     width_process_sidebar = NULL,
-    top_process_timeline = NULL,
-  
+    
     # decalage à droite de la timeline des process
     left_process_timeline = 100,
   
@@ -102,6 +101,8 @@ default.layout <- list(
   # et leurs parametres
     width_pipeline_sidebar = 350,
   
+    line_width = 0.5,
+  line_color = 'DarkGray',
     heigth_pipeline_sidebar = 100,
 
     top_pipeline_timeline = 0,
@@ -132,13 +133,17 @@ default.theme <- function(mode){
       edaBackgroundColor = "red"
     ),
     user = list(
-      bgcolor_process_sidebar = "transparent",
-      bgcolor_process_timeline = "transparent",
+      # #F0FFFF Azure
+      bgcolor_process_sidebar = "white",
+      bgcolor_process_timeline = "white",
       bgcolor_process_content = "transparent",
       bgcolor_process_panel = "transparent",
-      bgcolor_process_btns = "transparent",
-      bgcolor_pipeline_sidebar = "lightblue",
-      bgcolor_pipeline_timeline = "lightgrey",
+      bgcolor_process_btns = "white",
+      
+      #couleur de la sidebar des process
+      bgcolor_pipeline_sidebar = "white",
+      
+      bgcolor_pipeline_timeline = "white",
       edaBackgroundColor = "red"
     )
   )

@@ -26,6 +26,7 @@ process_layout <- function(session, ns, sidebar, content) {
             style = paste0(
                 "position: absolute; ",
                 "width: ", default.layout$width_process_content, ";",
+              "padding-top: ", default.layout$top_process_content, "px;",
                 "background-color: ", default.theme(session$userData$usermod)$bgcolor_process_content, ";}"
             ),
             top = default.layout$top_process_content,

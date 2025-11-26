@@ -158,7 +158,7 @@ nav_process_server <- function(
           "align-items: center; ",
           "justify-content: center;",
           "background-color: ", default.theme(session$userData$usermod)$bgcolor_process_timeline, ";",
-          "border-top: 5px solid #000;"
+          "border-top: ", default.layout$line_width, "px solid ", default.layout$line_color, ";"
         ),
         uiOutput(ns('prevBtnUI')),
         mod_modalDialog_ui(id = ns("rstBtn")),
@@ -171,9 +171,9 @@ nav_process_server <- function(
     output$prevBtnUI <- renderUI({
       req(rv$config)
       widget <- actionButton(ns("prevBtn"),
-        tl_h_prev_icon,
-        class = PrevNextBtnClass,
-        style = btn_css_style
+        tl_h_prev_icon
+        #class = PrevNextBtnClass,
+        #style = btn_css_style
       )
       
       if (length(rv$config@steps) == 1)
@@ -188,9 +188,9 @@ nav_process_server <- function(
     output$nextBtnUI <- renderUI({
       req(rv$config)
       widget <-actionButton(ns("nextBtn"),
-        tl_h_next_icon,
-        class = PrevNextBtnClass,
-        style = btn_css_style
+        tl_h_next_icon
+        #class = PrevNextBtnClass,
+        #style = btn_css_style
       )
       
       if (length(rv$config@steps) == 1)
@@ -205,9 +205,9 @@ nav_process_server <- function(
     output$DoBtn <- renderUI({
 
     widget <- actionButton(ns("DoBtn"),
-      "Do X",
-      class = "btn btn-success",
-      style = btn_css_style
+      "Run"
+      #class = "btn btn-success",
+      #style = btn_css_style
     )
     
     
@@ -237,9 +237,7 @@ nav_process_server <- function(
     output$DoProceedBtn <- renderUI({
       
       widget <- actionButton(ns("DoProceedBtn"),
-        "Do X & proceed",
-        class = "btn btn-success",
-        style = btn_css_style
+        tagList("Run ", shiny::icon('arrow-right'))
       )
       
       .cond <- !is.null(dataIn())
@@ -614,7 +612,7 @@ nav_process_server <- function(
           "padding-top: ", default.layout$padding_top_process_sidebar, "px;",
           "padding-bottom: ", default.layout$padding_bottom_process_sidebar, "px;",
           "padding-left: ", default.layout$padding_left_process_sidebar, "px;",
-          "border-bottom: 5px solid #000;"),
+          "border-bottom: ", default.layout$line_width, "px solid ", default.layout$line_color, ";"),
         timeline_process_ui(ns("process_timeline"))
       )
     })

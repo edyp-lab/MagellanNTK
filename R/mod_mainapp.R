@@ -57,7 +57,7 @@ mainapp_ui <- function(id, session, size = '300px') {
           Insert_User_Sidebar(),
           actionButton(ns("btn_eda"), 
             label = tagList(
-              tags$img(src = "desc_mv.png", height = "50px"),
+              tags$img(src = "desc_mv.png", height = "20px"),
               "EDA"
             )
           ),
@@ -75,7 +75,6 @@ mainapp_ui <- function(id, session, size = '300px') {
           #   fixed = TRUE,
           #   sidebarExpandOnHover = FALSE   # ⬅️ Désactive l’expansion au survol,
           # ),
-          
           
           
              # style = "padding: 0px; overflow-y: auto;",

@@ -173,7 +173,7 @@ nav_pipeline_server <- function(
         style = paste0(
           "position : absolute; ",
           "background-color: ", default.theme(session$userData$usermod)$bgcolor_pipeline_sidebar, "; ",
-          "border-right: 5px solid #000;",
+          "border-right: ", default.layout$line_width, "px solid ", default.layout$line_color, ";",
           "height: 100vh;"
         ),
         div(
@@ -198,24 +198,24 @@ nav_pipeline_server <- function(
             "display: flex; ",
             "align-items: center; ",
             "justify-content: center;",
-            "border-bottom : 5px solid #000;"
+            "border-bottom : ", default.layout$line_width, "px solid ", default.layout$line_color, ";"
           ),
           column(
             width = 1,
             shinyjs::disabled(
               actionButton(ns("prevBtn"),
-                tl_h_prev_icon,
-                class = PrevNextBtnClass,
-                style = btn_css_style
+                tl_h_prev_icon
+               # class = PrevNextBtnClass,
+               # style = btn_css_style
               )
             )
           ),
           column(width = 1, mod_modalDialog_ui(id = ns("rstBtn"))),
           column(width = 1,
             actionButton(ns("nextBtn"),
-              tl_h_next_icon,
-              class = PrevNextBtnClass,
-              style = btn_css_style
+              tl_h_next_icon
+              #class = PrevNextBtnClass,
+             # style = btn_css_style
             )
           ),
           column(width = 9, 
