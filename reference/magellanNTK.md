@@ -21,7 +21,7 @@ MagellanNTK_server(
      NULL
  }),
   verbose = FALSE,
-  usermod = "dev"
+  usermod = "user"
 )
 
 MagellanNTK(

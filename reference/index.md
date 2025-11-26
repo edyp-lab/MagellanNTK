@@ -102,6 +102,7 @@
   [`default.base.URL()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
   [`default.workflow()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
   [`default.layout`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
+  [`default.theme()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
   : Default vars
 - [`directoryInput()`](https://edyp-lab.github.io/MagellanNTK/reference/directoryInput.md)
   : Directory Selection Control

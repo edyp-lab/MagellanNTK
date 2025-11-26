@@ -66,7 +66,7 @@ readConfigFile(path)
 #> [1] TRUE
 #> 
 #> $UI_view_open_pipeline
-#> [1] FALSE
+#> [1] TRUE
 #> 
 #> $UI_view_convert_dataset
 #> [1] TRUE
@@ -75,7 +75,7 @@ readConfigFile(path)
 #> [1] TRUE
 #> 
 #> $UI_view_change_core_funcs
-#> [1] FALSE
+#> [1] TRUE
 #> 
 #> $extension
 #> NULL

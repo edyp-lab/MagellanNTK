@@ -3,6 +3,9 @@
 left_panel = left_sidebar + width_sidebar top_sidebar = top_panel
 width_sidebar = width_process_btns
 
+left_panel = left_sidebar + width_sidebar top_sidebar = top_panel
+width_sidebar = width_process_btns
+
 ## Usage
 
 ``` r
@@ -13,11 +16,19 @@ default.base.URL()
 default.workflow()
 
 default.layout
+
+default.theme(mode)
 ```
 
 ## Format
 
-An object of class `list` of length 41.
+An object of class `list` of length 33.
+
+## Arguments
+
+- mode:
+
+  xxx
 
 ## Value
 
