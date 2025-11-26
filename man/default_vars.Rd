@@ -7,9 +7,10 @@
 \alias{default.base.URL}
 \alias{default.workflow}
 \alias{default.layout}
+\alias{default.theme}
 \title{Default vars}
 \format{
-An object of class \code{list} of length 41.
+An object of class \code{list} of length 33.
 }
 \usage{
 default.funcs()
@@ -19,11 +20,20 @@ default.base.URL()
 default.workflow()
 
 default.layout
+
+default.theme(mode)
+}
+\arguments{
+\item{mode}{xxx}
 }
 \value{
 NA
 }
 \description{
+left_panel = left_sidebar + width_sidebar
+top_sidebar = top_panel
+width_sidebar = width_process_btns
+
 left_panel = left_sidebar + width_sidebar
 top_sidebar = top_panel
 width_sidebar = width_process_btns

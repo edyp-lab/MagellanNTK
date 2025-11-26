@@ -13,10 +13,10 @@
 #' @return NA
 #' @export
 #'
-process_layout <- function(ns, sidebar, content) {
+process_layout <- function(session, ns, sidebar, content) {
     div(
         div(style = paste0(
-          "background-color: ", default.layout$bgcolor_process_sidebar, ";",
+          "background-color: ", default.theme(session$userData$usermod)$bgcolor_process_sidebar, ";",
           "padding-left: ", default.layout$left_process_timeline, "px;",
           "padding-bottom: ", default.layout$bottom_process_timeline, "px;",
           "padding-top: ", default.layout$top_process_timeline, "px;"),
@@ -26,7 +26,7 @@ process_layout <- function(ns, sidebar, content) {
             style = paste0(
                 "position: absolute; ",
                 "width: ", default.layout$width_process_content, ";",
-                "background-color: ", default.layout$bgcolor_process_content, ";}"
+                "background-color: ", default.theme(session$userData$usermod)$bgcolor_process_content, ";}"
             ),
             top = default.layout$top_process_content,
             left = default.layout$left_process_content,

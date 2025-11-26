@@ -38,9 +38,6 @@ open_workflow_ui <- function(id) {
         uiOutput(ns("wf_preview_ui")),
         actionButton(ns("load_btn"), "Load"),
         uiOutput(ns("infos_wf_UI"))
-        # infos_workflow_ui(ns("infos")),
-        # tags$h3('Files'),
-        # dataTableOutput(ns('files'))
     )
 }
 
@@ -148,12 +145,6 @@ open_workflow_server <- function(id) {
             # Load customizable functions if config.txt file exists
             rv.wf$dataOut$funcs <- MagellanNTK::readConfigFile(rv.wf$path)$funcs
         })
-
-        # output$files = renderDataTable({
-        #   files = list.files(rv.wf$path, full.names = TRUE)
-        #   data.frame(name = basename(files), file.info(files))
-        # })
-
 
         output$infos_wf_UI <- renderUI({
             req(rv.wf$dataOut$wf_name)

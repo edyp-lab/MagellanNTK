@@ -118,7 +118,7 @@ find_funs <- function(f) {
 #'
 readConfigFile <- function(
         path,
-        usermod = "dev") {
+        usermod = "user") {
     config.file <- normalizePath(file.path(path, "config.txt"))
     if (!file.exists(config.file)) {
         stop("file does not exist")

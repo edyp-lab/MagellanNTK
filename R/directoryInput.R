@@ -392,7 +392,7 @@ runDirinputExample <- function() {
                         value = "~"
                     ),
                     tags$h5("Files"),
-                    dataTableOutput("files")
+                    DT::DTOutput("files")
                 ),
                 column(1)
             )
@@ -427,7 +427,7 @@ runDirinputExample <- function() {
             readDirectoryInput(session, "directory")
         })
 
-        output$files <- renderDataTable({
+        output$files <- DT::renderDT({
             files <- list.files(readDirectoryInput(session, "directory"), full.names = TRUE)
             data.frame(name = basename(files), file.info(files))
         })

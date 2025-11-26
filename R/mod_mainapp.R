@@ -40,24 +40,27 @@ NULL
 mainapp_ui <- function(id, session, size = '300px') {
     ns <- NS(id)
     includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css"))
+    addResourcePath("www", system.file("app/images", package = "MagellanNTK"))
+    #addResourcePath("www", system.file("app/www", package = "MagellanNTK"))
+    
     bs4Dash::dashboardPage(
          preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
          
-        header = bs4DashNavbar(
+        header = bs4Dash::bs4DashNavbar(
             disable = TRUE
         ),
-        sidebar = bs4DashSidebar(
+        sidebar = bs4Dash::bs4DashSidebar(
           # actionButton(inputId = ns("toggleSidebarBar"),
           #   label = icon("bars", width = 20),
           #   class = PrevNextBtnClass
           # ),
-
-          actionButton(ns("btn_eda"), 
-            label = p("EDA"),
-            icon = icon("magnifying-glass")
-          ),
-          
           Insert_User_Sidebar(),
+          actionButton(ns("btn_eda"), 
+            label = tagList(
+              tags$img(src = "desc_mv.png", height = "50px"),
+              "EDA"
+            )
+          ),
           id = ns("mySidebar"),
           style = "padding-top: 0px;",
           width = size,
@@ -65,9 +68,9 @@ mainapp_ui <- function(id, session, size = '300px') {
           collapsed = TRUE,
           minified = TRUE
           ),
-      controlbar= bs4DashControlbar(),
+      controlbar= bs4Dash::bs4DashControlbar(),
       
-        body = bs4DashBody(
+        body = bs4Dash::bs4DashBody(
           # options = list(
           #   fixed = TRUE,
           #   sidebarExpandOnHover = FALSE   # ⬅️ Désactive l’expansion au survol,
@@ -154,7 +157,7 @@ mainapp_server <- function(id,
     workflow.name = reactive({NULL}),
     workflow.path = reactive({NULL}),
     verbose = FALSE,
-    usermod = "dev") {
+    usermod = "user") {
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
@@ -207,7 +210,6 @@ mainapp_server <- function(id,
                 session$userData$usermod <- usermod
                 session$userData$verbose <- verbose
                 session$userData$funcs <- rv.core$funcs
-
 
                 req(session$userData$workflow.path)
                 req(session$userData$workflow.name)
@@ -362,11 +364,13 @@ mainapp_server <- function(id,
 
         output$WF_Name_UI <- renderUI({
             req(rv.core$workflow.name)
-            h4(paste0("Workflow: ", rv.core$workflow.name), style = "background-color: lightgrey;")
+         
+          h4(paste0("Workflow: ", rv.core$workflow.name), style = "background-color: lightgrey;")
         })
 
         output$Dataset_Name_UI <- renderUI({
             req(rv.core$current.obj.name)
+          
             h4(paste0("Dataset: ", rv.core$current.obj.name), style = "background-color: lightgrey;")
         })
 
@@ -708,7 +712,7 @@ mainapp_server <- function(id,
 #' @rdname mod_main_page
 #' @importFrom shiny fluidPage shinyApp
 #'
-mainapp <- function(usermod = "dev") {
+mainapp <- function(usermod = "user") {
     ui <- fluidPage(
         mainapp_ui("main")
     )

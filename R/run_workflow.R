@@ -85,7 +85,7 @@ pipe_workflow_server <- function(
         id,
         path = NULL,
         dataIn = reactive({NULL}),
-        usermod = "dev",
+        usermod = "user",
         verbose = FALSE) {
     if (is.null(path)) {
         message("'path' is not correctly configured. Abort...")
@@ -154,7 +154,7 @@ pipe_workflowApp <- function(
         id,
         path = NULL,
         dataIn = NULL,
-        usermod = "dev",
+        usermod = "user",
         verbose = FALSE) {
     ui <- pipe_workflow_ui(id)
 
@@ -199,7 +199,7 @@ proc_workflow_server <- function(
         id,
         path = NULL,
         dataIn = reactive({NULL}),
-        usermod = "dev",
+        usermod = "user",
         verbose = FALSE) {
     if (is.null(path)) {
         message("'path' is not correctly configured. Abort...")
@@ -273,7 +273,7 @@ proc_workflowApp <- function(
         id,
         path = NULL,
         dataIn = NULL,
-        usermod = "dev",
+        usermod = "user",
         verbose = FALSE) {
     ui <- proc_workflow_ui(id)
 

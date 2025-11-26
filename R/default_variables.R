@@ -48,7 +48,6 @@ default.layout <- list(
     top_process_sidebar = NULL,
     left_process_sidebar = NULL,
     width_process_sidebar = NULL,
-    bgcolor_process_sidebar = "yellow",
     top_process_timeline = NULL,
   
     # decalage à droite de la timeline des process
@@ -65,7 +64,6 @@ default.layout <- list(
   
     width_process_timeline = NULL,
     height_process_timeline = NULL,
-    bgcolor_process_timeline = "orange",
     top_process_content = 85,
     
   # decalage du panneau general des process vers la droite
@@ -88,16 +86,16 @@ default.layout <- list(
   
     #width_process_content = "100vh",
   width_process_content = "75vw",
-  bgcolor_process_content = "transparent",
+
     top_process_panel = NULL,
     left_process_panel = NULL,
     width_process_panel = "100%",
-    bgcolor_process_panel = "transparent",
+
     top_process_btns = NULL,
     left_process_btns = NULL,
     width_process_btns = NULL,
     height_process_btns = NULL,
-    bgcolor_process_btns = "transparent",
+
     top_pipeline_sidebar = 0,
     left_pipeline_sidebar = 0,
   # Largeur de la sidebar generale qui contient le timeline des process 
@@ -105,13 +103,45 @@ default.layout <- list(
     width_pipeline_sidebar = 350,
   
     heigth_pipeline_sidebar = 100,
-    bgcolor_pipeline_sidebar = "lightblue",
+
     top_pipeline_timeline = 0,
     left_pipeline_timeline = 260,
     width_pipeline_timeline = 250,
-    heigth_pipeline_timeline = 100,
-    bgcolor_pipeline_timeline = "lightgrey",
-  
-  
-  edaBackgroundColor = "red"
+    heigth_pipeline_timeline = 100
 )
+
+
+#' @rdname default_vars
+#' @param mode xxx
+#' @description
+#' left_panel = left_sidebar + width_sidebar
+#' top_sidebar = top_panel
+#' width_sidebar = width_process_btns
+#' @export
+default.theme <- function(mode){
+  theme <- NULL
+  theme <- switch(mode,
+    dev = list(
+      bgcolor_process_sidebar = "yellow",
+      bgcolor_process_timeline = "orange",
+      bgcolor_process_content = "transparent",
+      bgcolor_process_panel = "transparent",
+      bgcolor_process_btns = "transparent",
+      bgcolor_pipeline_sidebar = "lightblue",
+      bgcolor_pipeline_timeline = "lightgrey",
+      edaBackgroundColor = "red"
+    ),
+    user = list(
+      bgcolor_process_sidebar = "transparent",
+      bgcolor_process_timeline = "transparent",
+      bgcolor_process_content = "transparent",
+      bgcolor_process_panel = "transparent",
+      bgcolor_process_btns = "transparent",
+      bgcolor_pipeline_sidebar = "lightblue",
+      bgcolor_pipeline_timeline = "lightgrey",
+      edaBackgroundColor = "red"
+    )
+  )
+  return(theme)
+}
+

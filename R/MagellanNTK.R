@@ -93,27 +93,12 @@ MagellanNTK_server <- function(
         workflow.path = reactive({NULL}),
         workflow.name = reactive({NULL}),
         verbose = FALSE,
-        usermod = "dev") {
+        usermod = "user") {
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
         # addResourcePath(prefix = "www", directoryPath = "./www")
         addResourcePath("www", system.file("app/www", package = "MagellanNTK"))
-
-        # shiny::observeEvent(funcs, {
-        #  for(i in names(funcs))
-        #    requireNamespace(unlist(strsplit(funcs[[i]], split='::'))[1])
-
-
-        # observeEvent(path, {
-        #   session$userData$workflow.path <- path
-        #
-        #   session$userData$funcs <- readConfigFile(path)$funcs
-        #
-        # })
-        #
-
-
-        # shinyjs::toggle('mainapp_module', condition = !is.null(funcs))
+        
         mainapp_server("mainapp_module",
             dataIn = reactive({dataIn()}),
             workflow.path = reactive({workflow.path()}),
@@ -147,7 +132,7 @@ MagellanNTK <- function(
         workflow.path = NULL,
         workflow.name = NULL,
         verbose = FALSE,
-        usermod = "dev",
+        usermod = "user",
         sidebarSize = 'medium',
         ...) {
     # options(

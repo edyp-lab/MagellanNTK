@@ -62,61 +62,8 @@ nav_pipeline_ui <- function(id) {
   ns <- NS(id)
   
   div(
-    shiny::absolutePanel(
-      left = default.layout$left_pipeline_sidebar,
-      top = default.layout$top_pipeline_sidebar,
-      height = default.layout$height_pipeline_sidebar,
-      width = default.layout$width_pipeline_sidebar,
-      # style de la sidebar contenant les infos des process (timeline, boutons et parametres
-      style = paste0(
-        "position : absolute; ",
-        "background-color: ", default.layout$bgcolor_pipeline_sidebar, "; ",
-        "border-right: 5px solid #000;",
-        "height: 100vh;"
-      ),
-      div(
-        style = " align-items: center; justify-content: center; margin-bottom: 20px;",
-        uiOutput(ns("datasetNameUI"))
-      ),
-      div(
-        uiOutput(ns("EncapsulateScreens_ui"))
-      )
-    ),
-    div(
-      style = paste0(
-        "padding-left: ", default.layout$left_pipeline_timeline, "px; margin-top: -15px;"
-      ),
-      fluidRow(
-        style = paste0(
-          "background-color: ", default.layout$bgcolor_pipeline_timeline, " ; ",
-          "display: flex; ",
-          "align-items: center; ",
-          "justify-content: center;",
-          "border-bottom : 5px solid #000;"
-        ),
-        column(
-          width = 1,
-          shinyjs::disabled(
-            actionButton(ns("prevBtn"),
-              tl_h_prev_icon,
-              class = PrevNextBtnClass,
-              style = btn_css_style
-            )
-          )
-        ),
-        column(width = 1, mod_modalDialog_ui(id = ns("rstBtn"))),
-        column(width = 1,
-          actionButton(ns("nextBtn"),
-            tl_h_next_icon,
-            class = PrevNextBtnClass,
-            style = btn_css_style
-          )
-        ),
-        column(width = 9, 
-        
-            timeline_pipeline_ui(ns("timeline_pipeline")))
-        )
-      )
+    uiOutput(ns('pipeline_panel_ui')),
+    uiOutput(ns('pipeline_tl_btn_ui'))
     )
 }
 
@@ -214,6 +161,69 @@ nav_pipeline_server <- function(
     tmp.return <- reactiveValues()
     
     
+    
+    
+    output$pipeline_panel_ui <- renderUI({
+      shiny::absolutePanel(
+        left = default.layout$left_pipeline_sidebar,
+        top = default.layout$top_pipeline_sidebar,
+        height = default.layout$height_pipeline_sidebar,
+        width = default.layout$width_pipeline_sidebar,
+        # style de la sidebar contenant les infos des process (timeline, boutons et parametres
+        style = paste0(
+          "position : absolute; ",
+          "background-color: ", default.theme(session$userData$usermod)$bgcolor_pipeline_sidebar, "; ",
+          "border-right: 5px solid #000;",
+          "height: 100vh;"
+        ),
+        div(
+          style = " align-items: center; justify-content: center; margin-bottom: 20px;",
+          uiOutput(ns("datasetNameUI"))
+        ),
+        div(
+          uiOutput(ns("EncapsulateScreens_ui"))
+        )
+      )
+    })
+    
+    output$pipeline_tl_btn_ui <- renderUI({
+      browser()
+      div(
+        style = paste0(
+          "padding-left: ", default.layout$left_pipeline_timeline, "px; margin-top: -15px;"
+        ),
+        fluidRow(
+          style = paste0(
+            "background-color: ", default.theme(session$userData$usermod)$bgcolor_pipeline_timeline, " ; ",
+            "display: flex; ",
+            "align-items: center; ",
+            "justify-content: center;",
+            "border-bottom : 5px solid #000;"
+          ),
+          column(
+            width = 1,
+            shinyjs::disabled(
+              actionButton(ns("prevBtn"),
+                tl_h_prev_icon,
+                class = PrevNextBtnClass,
+                style = btn_css_style
+              )
+            )
+          ),
+          column(width = 1, mod_modalDialog_ui(id = ns("rstBtn"))),
+          column(width = 1,
+            actionButton(ns("nextBtn"),
+              tl_h_next_icon,
+              class = PrevNextBtnClass,
+              style = btn_css_style
+            )
+          ),
+          column(width = 9, 
+            
+            timeline_pipeline_ui(ns("timeline_pipeline")))
+        )
+      )
+    })
     
     output$datasetNameUI <- renderUI({
       #req(inherits(dataIn(), 'QFeatures'))

@@ -65,24 +65,7 @@ nav_process_ui <- function(id) {
   
   tagList(
     div(
-      #style = paste0('padding-left: ', default.layout$padding_left_nav_process_ui, 'px;'),
-      div(
-      style = paste0("
-        display: flex; ",
-        'padding-top: ', default.layout$padding_top_nav_process_ui, 'px;',
-        'padding-left: ', default.layout$padding_left_nav_process_ui, 'px;',
-      "align-items: center; ",
-      "justify-content: center;",
-      "background-color: ", default.layout$bgcolor_process_timeline, ";",
-        "border-top: 5px solid #000;"
-        #"border-bottom: 5px solid #000;"
-        ),
-      uiOutput(ns('prevBtnUI')),
-      mod_modalDialog_ui(id = ns("rstBtn")),
-      uiOutput(ns('DoBtn')),
-      uiOutput(ns('DoProceedBtn')),
-      uiOutput(ns('nextBtnUI'))
-    ),
+      uiOutput(ns('process_btns_ui')),
       uiOutput(ns("testTL")),
       
     uiOutput(ns("EncapsulateScreens_ui"))
@@ -166,7 +149,24 @@ nav_process_server <- function(
     
     
     
-    
+    output$process_btns_ui <- renderUI({
+      div(
+        style = paste0("
+        display: flex; ",
+          'padding-top: ', default.layout$padding_top_nav_process_ui, 'px;',
+          'padding-left: ', default.layout$padding_left_nav_process_ui, 'px;',
+          "align-items: center; ",
+          "justify-content: center;",
+          "background-color: ", default.theme(session$userData$usermod)$bgcolor_process_timeline, ";",
+          "border-top: 5px solid #000;"
+        ),
+        uiOutput(ns('prevBtnUI')),
+        mod_modalDialog_ui(id = ns("rstBtn")),
+        uiOutput(ns('DoBtn')),
+        uiOutput(ns('DoProceedBtn')),
+        uiOutput(ns('nextBtnUI'))
+      )
+    })
     
     output$prevBtnUI <- renderUI({
       req(rv$config)
@@ -610,7 +610,7 @@ nav_process_server <- function(
       
       div(
         style = paste0(
-          "background-color: ", default.layout$bgcolor_process_timeline, ";",
+          "background-color: ", default.theme(session$userData$usermod)$bgcolor_process_timeline, ";",
           "padding-top: ", default.layout$padding_top_process_sidebar, "px;",
           "padding-bottom: ", default.layout$padding_bottom_process_sidebar, "px;",
           "padding-left: ", default.layout$padding_left_process_sidebar, "px;",

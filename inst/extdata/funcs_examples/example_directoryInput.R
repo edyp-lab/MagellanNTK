@@ -18,7 +18,7 @@ ui <- shiny::shinyUI(fluidPage(
       titlePanel("Directory Input Demo"),
       directoryInput('directory', label = 'Select directory', value = '~', width='600px'),
       tags$h5('Files'),
-      dataTableOutput('files')
+      DT::DTOutput('files')
     ),
     column(1)
   )
@@ -57,7 +57,7 @@ server <- shinyServer(function(input, output, session) {
     readDirectoryInput(session, 'directory')
   })
   
-  output$files = renderDataTable({
+  output$files = DT::renderDT({
     files = list.files(readDirectoryInput(session, 'directory'), full.names = TRUE)
     data.frame(name = basename(files), file.info(files))
   })

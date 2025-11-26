@@ -59,7 +59,7 @@ format_DT_ui <- function(id) {
     ns <- NS(id)
     tagList(
         shinyjs::useShinyjs(),
-        dataTableOutput(ns("StaticDataTable"))
+      DT::DTOutput(ns("StaticDataTable"))
     )
 }
 
@@ -147,7 +147,7 @@ format_DT_server <- function(
         })
 
 
-        output$StaticDataTable <- DT::renderDataTable(server = TRUE, {
+        output$StaticDataTable <- DT::renderDT(server = TRUE, {
             req(length(rv.infos$obj) > 0)
             # .jscode <- DT::JS("$.fn.dataTable.render.ellipsis( 30 )")
             dt <- DT::datatable(

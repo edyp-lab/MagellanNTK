@@ -33,7 +33,7 @@ chooseDir_ui <- function(id) {
             div(
                 id = ns("div_details"),
                 tags$h5("Files"),
-                dataTableOutput(ns("files"))
+              DT::DTOutput(ns("files"))
             )
         )
     )
@@ -106,7 +106,7 @@ chooseDir_server <- function(id,
             readDirectoryInput(session, "directory")
         })
 
-        output$files <- renderDataTable({
+        output$files <- DT::renderDT({
             files <- list.files(readDirectoryInput(session, "directory"), full.names = TRUE)
             data.frame(name = basename(files), file.info(files))
         })
