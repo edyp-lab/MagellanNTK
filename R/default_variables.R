@@ -102,7 +102,8 @@ default.layout <- list(
     width_pipeline_sidebar = 350,
   
     line_width = 0.5,
-  line_color = 'Gainsboro',
+  #line_color = 'Gainsboro',
+  line_color = 'silver',
     heigth_pipeline_sidebar = 100,
 
     top_pipeline_timeline = 0,
@@ -144,7 +145,7 @@ default.theme <- function(mode){
       bgcolor_pipeline_sidebar = "lightgrey",
       
       bgcolor_pipeline_timeline = "lightgrey",
-      bgcolor_dashboardbody = 'white'
+      bgcolor_content_wrapper = 'white'
     )
   )
   return(theme)

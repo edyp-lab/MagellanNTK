@@ -61,7 +61,7 @@ MagellanNTK_ui <- function(id, sidebarSize = 'medium') {
       large = '400px'
     )      
       
-      mainapp_ui(ns("mainapp_module"), size = .size)
+      mainapp_ui(id = ns("mainapp_module"), size = .size)
     # )
     # )
 }

@@ -70,10 +70,12 @@ mainapp_ui <- function(id, session, size = '300px') {
           #   fixed = TRUE,
           #   sidebarExpandOnHover = FALSE   # ⬅️ Désactive l’expansion au survol,
           # ),
-          tags$head(tags$style(HTML('
+          tags$head(tags$style(HTML(
+          paste0('
                .content-wrapper, .right-side {
-               background-color: #7da2d1;
-               }'))),
+               background-color: ', 
+               'white' , ';
+               }')))),
             includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css")),
           bs4Dash::tabItems(
             bs4Dash::tabItem(
