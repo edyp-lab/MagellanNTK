@@ -55,12 +55,7 @@ mainapp_ui <- function(id, session, size = '300px') {
           #   class = PrevNextBtnClass
           # ),
           Insert_User_Sidebar(),
-          actionButton(ns("btn_eda"), 
-            label = tagList(
-              tags$img(src = "desc_mv.png", height = "20px"),
-              "EDA"
-            )
-          ),
+
           id = ns("mySidebar"),
           style = "padding-top: 0px;",
           width = size,

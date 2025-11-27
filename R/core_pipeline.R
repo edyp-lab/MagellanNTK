@@ -64,7 +64,7 @@ nav_pipeline_ui <- function(id) {
   div(
     uiOutput(ns('pipeline_panel_ui')),
     uiOutput(ns('pipeline_tl_btn_ui'))
-    )
+  )
 }
 
 
@@ -187,7 +187,7 @@ nav_pipeline_server <- function(
     })
     
     output$pipeline_tl_btn_ui <- renderUI({
-
+      
       div(
         style = paste0(
           "padding-left: ", default.layout$left_pipeline_timeline, "px; margin-top: -15px;"
@@ -200,27 +200,33 @@ nav_pipeline_server <- function(
             "justify-content: center;",
             "border-bottom : ", default.layout$line_width, "px solid ", default.layout$line_color, ";"
           ),
-          column(
-            width = 1,
-            shinyjs::disabled(
-              actionButton(ns("prevBtn"),
-                tl_h_prev_icon,
-               # class = PrevNextBtnClass,
-                style = btn_css_style
-              )
-            )
-          ),
-          column(width = 1, mod_modalDialog_ui(id = ns("rstBtn"))),
-          column(width = 1,
-            actionButton(ns("nextBtn"),
-              tl_h_next_icon,
-              #class = PrevNextBtnClass,
-              style = btn_css_style
+          column(width = 2,
+            div(id = ns('div_btns_pipeline_ui'),
+              style = paste0(
+                "display: inline-block;",
+                "vertical-align: middle; "
+              ),
+              shinyjs::disabled(
+                actionButton(ns("prevBtn"), tl_h_prev_icon, style = btn_css_style)
+              ),
+              div(style="display: inline-block;",
+                mod_modalDialog_ui(id = ns("rstBtn"))
+              ),
+              actionButton(ns("nextBtn"), tl_h_next_icon, style = btn_css_style)
             )
           ),
           column(width = 9, 
             
-            timeline_pipeline_ui(ns("timeline_pipeline")))
+            timeline_pipeline_ui(ns("timeline_pipeline"))
+            ),
+          column(width = 1, 
+            actionButton(ns("btn_eda"), 
+              label = tagList(
+                tags$img(src = "desc_mv.png", height = "10px"),
+                "EDA"
+              )
+            ),
+          )
         )
       )
     })
@@ -673,55 +679,55 @@ nav_pipeline_server <- function(
     #         # temp.dataIn. Then, two behaviours:
     #         # 1 - if the variable is NULL. xxxx
     #         # 2 - if the variable contains a dataset. xxx
-            observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
-                req(rv$config)
-
-              # in case of a new dataset, reset the whole pipeline
-              # ResetPipeline()
-
-                # Get the new dataset in a temporary variable
-                rv$temp.dataIn <- dataIn()
-                session$userData$dataIn.original <- dataIn()
-
-                # The mode pipeline is a node and has to send
-                # datasets to its children
-                if (is.null(rv$dataIn)) {
-
-                    rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
-                      rv$dataIn
-                    }), nm = GetStepsNames())
-
-                   # rv$steps.enabled <- res$steps.enabled
-                }
-
-                if (is.null(dataIn())) {
-                    # The process has been reseted or is not concerned
-                    # Disable all screens of the process
-                    rv$steps.enabled <- ToggleState_Screens(
-                        cond = FALSE,
-                        range = seq_len(length(rv$config@steps)),
-                        is.enabled = is.enabled,
-                        rv = rv
-                    )
-                } else {
-                    # A new dataset has been loaded
-                    # # Update the different screens in the process
-                    rv$steps.enabled <- Update_State_Screens(
-                        is.skipped = is.skipped(),
-                        is.enabled = is.enabled(),
-                        rv = rv
-                    )
-
-
-                    # Enable the first screen
-                    rv$steps.enabled <- ToggleState_Screens(
-                        cond = TRUE,
-                        range = 1,
-                        is.enabled = is.enabled(),
-                        rv = rv
-                    )
-                }
-            })
+    observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
+      req(rv$config)
+      
+      # in case of a new dataset, reset the whole pipeline
+      # ResetPipeline()
+      
+      # Get the new dataset in a temporary variable
+      rv$temp.dataIn <- dataIn()
+      session$userData$dataIn.original <- dataIn()
+      
+      # The mode pipeline is a node and has to send
+      # datasets to its children
+      if (is.null(rv$dataIn)) {
+        
+        rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
+          rv$dataIn
+        }), nm = GetStepsNames())
+        
+        # rv$steps.enabled <- res$steps.enabled
+      }
+      
+      if (is.null(dataIn())) {
+        # The process has been reseted or is not concerned
+        # Disable all screens of the process
+        rv$steps.enabled <- ToggleState_Screens(
+          cond = FALSE,
+          range = seq_len(length(rv$config@steps)),
+          is.enabled = is.enabled,
+          rv = rv
+        )
+      } else {
+        # A new dataset has been loaded
+        # # Update the different screens in the process
+        rv$steps.enabled <- Update_State_Screens(
+          is.skipped = is.skipped(),
+          is.enabled = is.enabled(),
+          rv = rv
+        )
+        
+        
+        # Enable the first screen
+        rv$steps.enabled <- ToggleState_Screens(
+          cond = TRUE,
+          range = 1,
+          is.enabled = is.enabled(),
+          rv = rv
+        )
+      }
+    })
     
     
     observeEvent(rv$current.pos, ignoreInit = TRUE, {

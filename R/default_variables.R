@@ -107,8 +107,8 @@ default.layout <- list(
 
     top_pipeline_timeline = 0,
     left_pipeline_timeline = 260,
-    width_pipeline_timeline = 250,
-    heigth_pipeline_timeline = 100
+    width_pipeline_timeline = "100%",
+    height_pipeline_timeline = 75
 )
 
 
