@@ -72,7 +72,8 @@ mainapp_ui <- function(id, session, size = '300px') {
           # ),
           
           
-             # style = "padding: 0px; overflow-y: auto;",
+             style = paste0(
+               "background-color: ", default.theme(session$userData$usermod)$bgcolor_dashboardbody, ";"),
             includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css")),
           bs4Dash::tabItems(
             bs4Dash::tabItem(

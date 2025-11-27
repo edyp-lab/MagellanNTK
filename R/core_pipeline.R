@@ -62,8 +62,10 @@ nav_pipeline_ui <- function(id) {
   ns <- NS(id)
   
   div(
+    style = "width: 100%;",
     uiOutput(ns('pipeline_panel_ui')),
     uiOutput(ns('pipeline_tl_btn_ui'))
+  
   )
 }
 
@@ -190,7 +192,9 @@ nav_pipeline_server <- function(
       
       div(
         style = paste0(
-          "padding-left: ", default.layout$left_pipeline_timeline, "px; margin-top: -15px;"
+          "padding-left: ", default.layout$left_pipeline_timeline, "px; margin-top: -15px;",
+          "width: 100%;",
+          "background-color: red;"
         ),
         fluidRow(
           style = paste0(

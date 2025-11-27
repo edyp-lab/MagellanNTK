@@ -144,7 +144,8 @@ default.theme <- function(mode){
       bgcolor_pipeline_sidebar = "white",
       
       bgcolor_pipeline_timeline = "white",
-      edaBackgroundColor = "red"
+      edaBackgroundColor = "red",
+      bgcolor_dashboardbody = 'white'
     )
   )
   return(theme)
