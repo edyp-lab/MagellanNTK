@@ -182,7 +182,8 @@ nav_pipeline_server <- function(
           style = " align-items: center; justify-content: center; margin-bottom: 20px;",
           uiOutput(ns("datasetNameUI"))
         ),
-        div(
+        div(id = ns('div_EncapsulateScreens_ui'),
+          style = "background-color: yellow;",
           uiOutput(ns("EncapsulateScreens_ui"))
         )
       )

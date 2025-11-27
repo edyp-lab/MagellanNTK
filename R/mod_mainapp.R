@@ -42,8 +42,8 @@ mainapp_ui <- function(id, session, size = '300px') {
     includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css"))
     addResourcePath("www", system.file("app/images", package = "MagellanNTK"))
     #addResourcePath("www", system.file("app/www", package = "MagellanNTK"))
-    
     bs4Dash::dashboardPage(
+      
          preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
          
         header = bs4Dash::bs4DashNavbar(
@@ -70,10 +70,10 @@ mainapp_ui <- function(id, session, size = '300px') {
           #   fixed = TRUE,
           #   sidebarExpandOnHover = FALSE   # ⬅️ Désactive l’expansion au survol,
           # ),
-          
-          
-             style = paste0(
-               "background-color: ", default.theme(session$userData$usermod)$bgcolor_dashboardbody, ";"),
+          tags$head(tags$style(HTML('
+               .content-wrapper, .right-side {
+               background-color: #7da2d1;
+               }'))),
             includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css")),
           bs4Dash::tabItems(
             bs4Dash::tabItem(

@@ -134,17 +134,16 @@ default.theme <- function(mode){
     ),
     user = list(
       # #F0FFFF Azure
-      bgcolor_process_sidebar = "white",
-      bgcolor_process_timeline = "white",
+      bgcolor_process_sidebar = "lightgrey",
+      bgcolor_process_timeline = "lightgrey",
       bgcolor_process_content = "transparent",
       bgcolor_process_panel = "transparent",
-      bgcolor_process_btns = "white",
+      bgcolor_process_btns = "lightgrey",
       
       #couleur de la sidebar des process
-      bgcolor_pipeline_sidebar = "white",
+      bgcolor_pipeline_sidebar = "lightgrey",
       
-      bgcolor_pipeline_timeline = "white",
-      edaBackgroundColor = "red",
+      bgcolor_pipeline_timeline = "lightgrey",
       bgcolor_dashboardbody = 'white'
     )
   )
