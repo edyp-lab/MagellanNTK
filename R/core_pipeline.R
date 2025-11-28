@@ -183,14 +183,18 @@ nav_pipeline_server <- function(
           uiOutput(ns("datasetNameUI"))
         ),
         div(id = ns('div_EncapsulateScreens_ui'),
-          style = "background-color: yellow;",
           uiOutput(ns("EncapsulateScreens_ui"))
         )
       )
     })
     
     output$pipeline_tl_btn_ui <- renderUI({
-      
+      addResourcePath(
+        prefix = "images_Prostar2",
+        directoryPath = system.file("images", package = "Prostar2")
+      )
+      #browser()
+      #resourcePaths()
       div(
         style = paste0(
           "padding-left: ", default.layout$left_pipeline_timeline, "px; margin-top: -15px;",
@@ -225,12 +229,13 @@ nav_pipeline_server <- function(
             timeline_pipeline_ui(ns("timeline_pipeline"))
             ),
           column(width = 1, 
+            
             actionButton(ns("btn_eda"), 
-              label = tagList(
-                tags$img(src = "desc_mv.png", height = "10px"),
-                "EDA"
-              )
-            ),
+              label = tagList("EDA",
+                tags$img(src = "images_Prostar2/logoEDA_50.png", width = '40px')
+                ),
+                style = "padding: 0px; border: none;
+          background-position: center; background-color: transparent;")
           )
         )
       )

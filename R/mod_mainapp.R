@@ -59,7 +59,6 @@ mainapp_ui <- function(id, session, size = '300px') {
           id = ns("mySidebar"),
           style = "padding-top: 0px;",
           width = size,
-          #expandOnHover = FALSE,
           collapsed = TRUE,
           minified = TRUE
           ),
