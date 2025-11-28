@@ -231,11 +231,13 @@ nav_pipeline_server <- function(
           column(width = 1, 
             
             actionButton(ns("btn_eda"), 
-              label = tagList("EDA",
-                tags$img(src = "images_Prostar2/logoEDA_50.png", width = '40px')
+              label = tagList(
+                "EDA",
+                tags$img(src = "images_Prostar2/logoEDA_50.png", width = '50px')
                 ),
-                style = "padding: 0px; border: none;
-          background-position: center; background-color: transparent;")
+                style = "padding: 0px; margin: 0px; border: none;
+          background-size: cover; background-position: center;
+          background-color: transparent; font-size: 12px;")
           )
         )
       )
