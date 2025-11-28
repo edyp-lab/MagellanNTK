@@ -232,7 +232,7 @@ nav_pipeline_server <- function(
             
             actionButton(ns("btn_eda"), 
               label = tagList(
-                "EDA",
+                p("EDA", style = "margin: 0px;"),
                 tags$img(src = "images_Prostar2/logoEDA_50.png", width = '50px')
                 ),
                 style = "padding: 0px; margin: 0px; border: none;
