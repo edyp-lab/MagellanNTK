@@ -103,7 +103,7 @@ default.layout <- list(
   
     line_width = 0.5,
   #line_color = 'Gainsboro',
-  line_color = 'silver',
+  line_color = 'gray',
     heigth_pipeline_sidebar = 100,
 
     top_pipeline_timeline = 0,
