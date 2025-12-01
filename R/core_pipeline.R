@@ -237,11 +237,63 @@ nav_pipeline_server <- function(
                 ),
                 style = "padding: 0px; margin: 0px; border: none;
           background-size: cover; background-position: center;
-          background-color: transparent; font-size: 12px;")
+          background-color: transparent; font-size: 12px; z-index: 9999999;")
           )
         )
       )
     })
+    
+    
+    observeEvent(input$btn_eda, {
+      
+      #browser()
+      req(session$userData$funcs)
+      req(dataOut$value)
+      
+      do.call(
+        eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_server"))),
+        list(
+          id = "eda1",
+          dataIn = reactive({dataOut$value})
+        )
+      )
+      
+      do.call(
+        eval(parse(text = paste0(session$userData$funcs$view_dataset, "_server"))),
+        list(
+          id = "eda2",
+          dataIn = reactive({dataOut$value})
+        )
+      )
+      
+      showModal(
+        shinyjqui::jqui_draggable(
+          modalDialog(
+            shiny::tabsetPanel(
+              id = ns("tabcard"),
+              
+              shiny::tabPanel(
+                title = h3("Infos", style = "margin-right: 30px;"), 
+                do.call(
+                  eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_ui"))),
+                  list(id = ns("eda1"))
+                )
+              ),
+              shiny::tabPanel(
+                title = h3("EDA"),
+                do.call(
+                  eval(parse(text = paste0(session$userData$funcs$view_dataset, "_ui"))),
+                  list(id = ns("eda2"))
+                )
+              )
+            ),
+            title = "EDA", 
+            size = "l"
+          ))
+      )
+    })
+    
+    
     
     output$datasetNameUI <- renderUI({
       #req(inherits(dataIn(), 'QFeatures'))

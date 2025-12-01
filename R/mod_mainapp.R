@@ -596,52 +596,6 @@ mainapp_server <- function(id,
         })
 
 
-        observeEvent(input$btn_eda, {
-          req(rv.core$funcs$funcs)
-          req(rv.core$processed.obj)
-
-          do.call(
-            eval(parse(text = paste0(rv.core$funcs$funcs$infos_dataset, "_server"))),
-            list(
-              id = "eda1",
-              dataIn = reactive({rv.core$processed.obj})
-            )
-          )
-          
-          do.call(
-            eval(parse(text = paste0(rv.core$funcs$funcs$view_dataset, "_server"))),
-            list(
-              id = "eda2",
-              dataIn = reactive({rv.core$processed.obj})
-            )
-          )
-
-            showModal(
-            shinyjqui::jqui_draggable(
-              modalDialog(
-                  shiny::tabsetPanel(
-                    id = ns("tabcard"),
-               
-               shiny::tabPanel(
-                 title = h3("Infos", style = "margin-right: 30px;"), 
-                 do.call(
-                 eval(parse(text = paste0(rv.core$funcs$funcs$infos_dataset, "_ui"))),
-                 list(id = ns("eda1"))
-               )
-                 ),
-                  shiny::tabPanel(
-                   title = h3("EDA"),
-                   do.call(
-                     eval(parse(text = paste0(rv.core$funcs$funcs$view_dataset, "_ui"))),
-                     list(id = ns("eda2"))
-                   )
-                  )
-                 ),
-            title = "EDA", 
-            size = "l"
-          ))
-          )
-        })
         
         
           
