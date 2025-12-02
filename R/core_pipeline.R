@@ -287,7 +287,7 @@ nav_pipeline_server <- function(
                 )
               )
             ),
-            title = "EDA", 
+            #title = "EDA", 
             size = "l"
           ))
       )
