@@ -52,6 +52,9 @@ readConfigFile(path)
 #> $funcs$infos_dataset
 #> [1] "MagellanNTK::infos_dataset"
 #> 
+#> $funcs$history_dataset
+#> NULL
+#> 
 #> $funcs$addDatasets
 #> [1] "MagellanNTK::addDatasets"
 #> 
