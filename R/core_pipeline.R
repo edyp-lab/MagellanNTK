@@ -246,9 +246,9 @@ nav_pipeline_server <- function(
     
     observeEvent(input$btn_eda, {
       
-      #browser()
       req(session$userData$funcs)
       req(dataOut$value)
+      #browser()
       
       do.call(
         eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_server"))),
@@ -259,9 +259,17 @@ nav_pipeline_server <- function(
       )
       
       do.call(
-        eval(parse(text = paste0(session$userData$funcs$view_dataset, "_server"))),
+        eval(parse(text = paste0(session$userData$funcs$history_dataset, "_server"))),
         list(
           id = "eda2",
+          dataIn = reactive({dataOut$value})
+        )
+      )
+      
+      do.call(
+        eval(parse(text = paste0(session$userData$funcs$view_dataset, "_server"))),
+        list(
+          id = "eda3",
           dataIn = reactive({dataOut$value})
         )
       )
@@ -280,10 +288,17 @@ nav_pipeline_server <- function(
                 )
               ),
               shiny::tabPanel(
+                title = h3("History", style = "margin-right: 30px;"), 
+                do.call(
+                  eval(parse(text = paste0(session$userData$funcs$history_dataset, "_ui"))),
+                  list(id = ns("eda2"))
+                )
+              ),
+              shiny::tabPanel(
                 title = h3("EDA"),
                 do.call(
                   eval(parse(text = paste0(session$userData$funcs$view_dataset, "_ui"))),
-                  list(id = ns("eda2"))
+                  list(id = ns("eda3"))
                 )
               )
             ),

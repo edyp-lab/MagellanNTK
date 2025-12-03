@@ -94,6 +94,7 @@ Collate:
     mod_modalDialog.R
     mod_format_DT.R
     mod_infos_dataset.R
+    mod_history_dataset.R
     mod_insert_md.R
     mod_homepage.R
     mod_view_dataset.R

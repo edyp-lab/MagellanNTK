@@ -17,6 +17,7 @@ default.funcs <- function() {
         export_dataset = "MagellanNTK::export_dataset",
         build_report = "MagellanNTK::build_report",
         infos_dataset = "MagellanNTK::infos_dataset",
+        history_dataset = "MagellanNTK::history_dataset",
         addDatasets = "MagellanNTK::addDatasets",
         keepDatasets = "MagellanNTK::keepDatasets"
     )
