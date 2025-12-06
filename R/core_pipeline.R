@@ -430,15 +430,15 @@ nav_pipeline_server <- function(
       })
     })
     
-    
-    GetChildrenValues <- reactive({
-      lapply(
-        GetStepsNames(),
-        function(x) {
-          tmp.return[[x]]$dataOut()$trigger
-        }
-      )
-    })
+    # 
+    # GetChildrenValues <- reactive({
+    #   lapply(
+    #     GetStepsNames(),
+    #     function(x) {
+    #       tmp.return[[x]]$dataOut()$trigger
+    #     }
+    #   )
+    # })
     
     
     GetValuesFromChildren <- reactive({
@@ -452,7 +452,7 @@ nav_pipeline_server <- function(
       return.trigger.values[sapply(return.trigger.values, is.null)] <- NA
       triggerValues <- unlist(return.trigger.values)
       
-      
+      #browser()
       # Get the values returned by each step of the modules
       return.values <- setNames(
         lapply(
@@ -474,7 +474,6 @@ nav_pipeline_server <- function(
     
     # Catch the returned values of the processes attached to pipeline
     observeEvent(GetValuesFromChildren()$triggers, ignoreInit = FALSE, {
-      #browser()
       
       processHasChanged <- newValue <- NULL
       
@@ -678,29 +677,29 @@ nav_pipeline_server <- function(
       )
     })
     
-    # Show the debug infos if requested (dev_mode mode)
-    # This function is not directly implemented in the main UI of nav_ui
-    # because it is hide/show w.r.t. the value of dev_mode
-    output$debug_infos_ui <- renderUI({
-      req(verbose)
-      
-      Debug_Infos_server(
-        id = "debug_infos",
-        title = paste0("Infos from ", rv$config@mode, ": ", id),
-        config = reactive({rv$config}),
-        rv.dataIn = reactive({rv$dataIn}),
-        dataIn = reactive({dataIn()}),
-        dataOut = reactive({dataOut}),
-        steps.status = reactive({rv$steps.status}),
-        steps.skipped = reactive({rv$steps.skipped}),
-        current.pos = reactive({rv$current.pos}),
-        steps.enabled = reactive({rv$steps.enabled}),
-        is.enabled = reactive({is.enabled()})
-      )
-      
-      Debug_Infos_ui(ns("debug_infos"))
-    })
-    
+    # # Show the debug infos if requested (dev_mode mode)
+    # # This function is not directly implemented in the main UI of nav_ui
+    # # because it is hide/show w.r.t. the value of dev_mode
+    # output$debug_infos_ui <- renderUI({
+    #   req(verbose)
+    #   
+    #   Debug_Infos_server(
+    #     id = "debug_infos",
+    #     title = paste0("Infos from ", rv$config@mode, ": ", id),
+    #     config = reactive({rv$config}),
+    #     rv.dataIn = reactive({rv$dataIn}),
+    #     dataIn = reactive({dataIn()}),
+    #     dataOut = reactive({dataOut}),
+    #     steps.status = reactive({rv$steps.status}),
+    #     steps.skipped = reactive({rv$steps.skipped}),
+    #     current.pos = reactive({rv$current.pos}),
+    #     steps.enabled = reactive({rv$steps.enabled}),
+    #     is.enabled = reactive({is.enabled()})
+    #   )
+    #   
+    #   Debug_Infos_ui(ns("debug_infos"))
+    # })
+    # 
     
     GetStepsNames <- reactive({
       req(rv$config@steps)

@@ -215,22 +215,8 @@ proc_workflow_server <- function(
         ns <- session$ns
 
         dataOut <- reactiveVal()
-
-        # output$debugInfos_ui <- renderUI({
-        #     req(usermod == "dev")
-        #     Debug_Infos_server(
-        #         id = "debug_infos",
-        #         title = "Infos from shiny app",
-        #         rv.dataIn = reactive({
-        #             dataIn
-        #         }),
-        #         dataOut = reactive({
-        #             dataOut$dataOut()
-        #         })
-        #     )
-        #     Debug_Infos_ui("debug_infos")
-        # })
-
+        session$userData$usermod <- usermod
+        
         output$save_dataset_ui <- renderUI({
             req(c(dataOut(), dataOut()$dataOut()$value))
 

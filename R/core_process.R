@@ -211,28 +211,29 @@ nav_process_server <- function(
     )
     
     
-    .cond <- !is.null(dataIn())
-    MagellanNTK::toggleWidget(widget, .cond)
+    #.cond <- !is.null(dataIn()) || !is.null()
+
+    MagellanNTK::toggleWidget(widget, TRUE)
     })
 
     
-    add_bs_tooltip <- function(session, id, title, placement = "right", delay = 500) {
-      
-      session$sendCustomMessage(
-        "add-bs-tooltip",
-        list(
-          id = id,
-          title = title,
-          placement = placement,
-          delay = delay
-        )
-      )
-    }
+    # add_bs_tooltip <- function(session, id, title, placement = "right", delay = 500) {
+    #   
+    #   session$sendCustomMessage(
+    #     "add-bs-tooltip",
+    #     list(
+    #       id = id,
+    #       title = title,
+    #       placement = placement,
+    #       delay = delay
+    #     )
+    #   )
+    # }
     
     
-    session$onFlushed(function() {
-      add_bs_tooltip(session, "DoBtn", "Lets delay", placement = "right", delay = 500)
-    }, once = TRUE)
+    # session$onFlushed(function() {
+    #   add_bs_tooltip(session, "DoBtn", "Lets delay", placement = "right", delay = 500)
+    # }, once = TRUE)
     
     output$DoProceedBtn <- renderUI({
       
@@ -265,6 +266,8 @@ nav_process_server <- function(
       ### The name of the server function is prefixed by 'mod_' and
       ### suffixed by '_server'. This will give access to its config
       
+      
+      #browser()
       rv$proc <- do.call(
         paste0(id, "_server"),
         list(
@@ -347,11 +350,13 @@ nav_process_server <- function(
       
       
       if (len > 1)
-        enable.doProceed.Btns <- enable.doProceed.Btns && 
-        rv$current.pos != len
+        enable.doProceed.Btns <- enable.doProceed.Btns && rv$current.pos != len
       #browser()
-      shinyjs::toggleState("DoProceedBtn", condition = enable.doProceed.Btns)
-      shinyjs::toggleState("DoBtn", condition = enable.do.Btns)
+      
+      #shinyjs::toggleState("DoProceedBtn", condition = enable.doProceed.Btns)
+      #shinyjs::toggleState("DoBtn", condition = enable.do.Btns)
+      shinyjs::toggleState("DoProceedBtn", condition = TRUE)
+      shinyjs::toggleState("DoBtn", condition = TRUE)
     })
     
     
@@ -365,6 +370,7 @@ nav_process_server <- function(
         # If a value is returned, this is because the
         # # current step has been validated
         
+        #browser()
         rv$steps.status[rv$current.pos] <- stepStatus$VALIDATED
         
         # Look for new skipped steps
@@ -374,6 +380,10 @@ nav_process_server <- function(
         # load the dataset in work variable 'dataIn'
         if (rv$current.pos == 1) {
           rv$dataIn <- rv$temp.dataIn
+          
+          # Add this for the loading of a dataset in the descciption step
+          if (!is.null(rv$proc$dataOut()$value))
+            rv$dataIn <- rv$proc$dataOut()$value
           
           if (rv$doProceedAction == "Do_Proceed" && rv$current.pos < length(rv$config@steps)) {
             rv$current.pos <- rv$current.pos + 1
@@ -518,9 +528,10 @@ nav_process_server <- function(
         enable.doProceed.Btns <- enable.doProceed.Btns && 
         rv$current.pos != length(n)
       
-      shinyjs::toggleState("DoProceedBtn", condition = enable.doProceed.Btns)
-      shinyjs::toggleState("DoBtn", condition = enable.do.Btns)
-      
+      #shinyjs::toggleState("DoProceedBtn", condition = enable.doProceed.Btns)
+      #shinyjs::toggleState("DoBtn", condition = enable.do.Btns)
+      shinyjs::toggleState("DoProceedBtn", condition = TRUE)
+      shinyjs::toggleState("DoBtn", condition = TRUE)
       
       
       if (rv$steps.status[n] == stepStatus$VALIDATED) {
@@ -692,8 +703,10 @@ nav_process_server <- function(
         enable.doProceed.Btns <- enable.doProceed.Btns && 
         rv$current.pos != len
       
-      shinyjs::toggleState("DoProceedBtn", condition = enable.doProceed.Btns)
-      shinyjs::toggleState("DoBtn", condition = enable.do.Btns)
+      #shinyjs::toggleState("DoProceedBtn", condition = enable.doProceed.Btns)
+      #shinyjs::toggleState("DoBtn", condition = enable.do.Btns)
+      shinyjs::toggleState("DoProceedBtn", condition = TRUE)
+      shinyjs::toggleState("DoBtn", condition = TRUE)
       
       shinyjs::hide(selector = paste0(".page_", id))
       shinyjs::show(GetStepsNames()[rv$current.pos])
