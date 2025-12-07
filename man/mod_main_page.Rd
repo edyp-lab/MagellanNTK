@@ -24,10 +24,10 @@ mainapp_server(
      NULL
  }),
   verbose = FALSE,
-  usermod = "dev"
+  usermod = "user"
 )
 
-mainapp(usermod = "dev")
+mainapp(usermod = "user")
 }
 \arguments{
 \item{id}{shiny id}

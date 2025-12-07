@@ -29,7 +29,7 @@ MagellanNTK(
   workflow.path = NULL,
   workflow.name = NULL,
   verbose = FALSE,
-  usermod = "dev",
+  usermod = "user",
   sidebarSize = "medium",
   ...
 )

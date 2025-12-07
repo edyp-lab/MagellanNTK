@@ -4,7 +4,7 @@
 \alias{readConfigFile}
 \title{Read pipelines configuration files}
 \usage{
-readConfigFile(path, usermod = "dev")
+readConfigFile(path, usermod = "user")
 }
 \arguments{
 \item{path}{xxx}

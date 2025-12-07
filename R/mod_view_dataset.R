@@ -29,7 +29,7 @@ NULL
 view_dataset_ui <- function(id) {
     ns <- NS(id)
     tagList(
-        h3(style = "color: blue;", "Dataset viewer (default)"),
+        h3(style = "color: blue;", "Dataset viewer"),
         uiOutput(ns("chooseAssay_UI")),
         plotOutput(ns("plot"))
     )

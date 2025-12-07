@@ -9,7 +9,18 @@
 \usage{
 open_dataset_ui(id)
 
-open_dataset_server(id, class = NULL, extension = NULL, demo_package = NULL)
+open_dataset_server(
+  id,
+  class = NULL,
+  extension = NULL,
+  demo_package = NULL,
+  remoteReset = reactive({
+     NULL
+ }),
+  is.enabled = reactive({
+     TRUE
+ })
+)
 
 open_dataset(class = NULL, extension = NULL, demo_package = NULL)
 }
@@ -29,6 +40,6 @@ NA
 This module allows to change
 }
 \examples{
-NULL
+shiny::runApp(open_dataset(extension = "df"))
 
 }

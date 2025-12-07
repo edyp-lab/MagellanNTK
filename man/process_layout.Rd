@@ -4,7 +4,7 @@
 \alias{process_layout}
 \title{Timelines}
 \usage{
-process_layout(ns, sidebar, content)
+process_layout(session, ns, sidebar, content)
 }
 \arguments{
 \item{ns}{xxx}
