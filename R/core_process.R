@@ -65,10 +65,12 @@ nav_process_ui <- function(id) {
   
   tagList(
     div(
-      uiOutput(ns('process_btns_ui')),
-      uiOutput(ns("testTL")),
+      uiOutput(ns('process_panel_ui_process')),
       
-    uiOutput(ns("EncapsulateScreens_ui"))
+      
+      uiOutput(ns('process_panel_ui_pipeline')),
+      uiOutput(ns("EncapsulateScreens_pipeline_ui"))
+      
   ))
 }
 
@@ -92,7 +94,8 @@ nav_process_server <- function(
   is.skipped = reactive({FALSE}),
   verbose = FALSE,
   usermod = "user",
-  btnEvents = reactive({NULL})) {
+  btnEvents = reactive({NULL}),
+  runmode = "process") {
   ### -------------------------------------------------------------###
   ###                                                             ###
   ### ------------------- MODULE SERVER --------------------------###
@@ -149,6 +152,42 @@ nav_process_server <- function(
     
     
     
+    output$process_panel_ui_process <- renderUI({
+    
+      req(session$userData$wf_mode == 'process')
+      shiny::absolutePanel(
+        left = default.layout$left_pipeline_sidebar,
+        top = 0,
+        height = default.layout$height_pipeline_sidebar,
+        width = '350px',
+        # style de la sidebar contenant les infos des process (timeline, boutons et parametres
+        style = paste0(
+          "position : absolute; ",
+          "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_pipeline_sidebar, "; ",
+          "border-right: ", default.layout$line_width, "px solid ", default.layout$line_color, ";",
+          "height: 100vh;"
+        ),
+        div(
+          style = " align-items: center; justify-content: center; margin-bottom: 20px;",
+          uiOutput(ns("proc_datasetNameUI"))
+        ),
+        div(id = ns('div_process_panel_ui_process_ui'),
+          uiOutput(ns('process_btns_ui')),
+        uiOutput(ns("testTL")),
+          uiOutput(ns("EncapsulateScreens_process_ui"))
+        )
+      )
+    })
+    
+    
+    output$process_panel_ui_pipeline <- renderUI({
+      req(session$userData$wf_mode == 'pipeline')
+      tagList(
+          uiOutput(ns('process_btns_ui')),
+          uiOutput(ns("testTL"))
+        )
+    })
+    
     output$process_btns_ui <- renderUI({
       div(
         style = paste0("
@@ -157,7 +196,7 @@ nav_process_server <- function(
           'padding-left: ', default.layout$padding_left_nav_process_ui, 'px;',
           "align-items: center; ",
           "justify-content: center;",
-          "background-color: ", default.theme(session$userData$usermod)$bgcolor_process_timeline, ";",
+          "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_process_timeline, ";",
           "border-top: ", default.layout$line_width, "px solid ", default.layout$line_color, ";"
         ),
         uiOutput(ns('prevBtnUI')),
@@ -216,25 +255,7 @@ nav_process_server <- function(
     MagellanNTK::toggleWidget(widget, TRUE)
     })
 
-    
-    # add_bs_tooltip <- function(session, id, title, placement = "right", delay = 500) {
-    #   
-    #   session$sendCustomMessage(
-    #     "add-bs-tooltip",
-    #     list(
-    #       id = id,
-    #       title = title,
-    #       placement = placement,
-    #       delay = delay
-    #     )
-    #   )
-    # }
-    
-    
-    # session$onFlushed(function() {
-    #   add_bs_tooltip(session, "DoBtn", "Lets delay", placement = "right", delay = 500)
-    # }, once = TRUE)
-    
+
     output$DoProceedBtn <- renderUI({
       
       widget <- actionButton(ns("DoProceedBtn"),
@@ -245,6 +266,14 @@ nav_process_server <- function(
       
       .cond <- !is.null(dataIn())
       MagellanNTK::toggleWidget(widget, .cond)
+    })
+    
+    
+    output$proc_datasetNameUI <- renderUI({
+      div(
+        style = paste0("padding-left: ", 100, "px;"),
+        h3(id)
+      )
     })
     
     
@@ -266,7 +295,7 @@ nav_process_server <- function(
       ### The name of the server function is prefixed by 'mod_' and
       ### suffixed by '_server'. This will give access to its config
       
-      
+     # browser()
       #browser()
       rv$proc <- do.call(
         paste0(id, "_server"),
@@ -300,7 +329,88 @@ nav_process_server <- function(
     
     
     
-    
+      
+      
+      output$testTL <- renderUI({
+        timeline_process_server(
+          id = "process_timeline",
+          config = rv$config,
+          status = reactive({rv$steps.status}),
+          position = reactive({rv$current.pos}),
+          enabled = reactive({rv$steps.enabled})
+        )
+        
+        div(
+          style = paste0(
+            "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_process_timeline, ";",
+            "padding-top: ", default.layout$padding_top_process_sidebar, "px;",
+            "padding-bottom: ", default.layout$padding_bottom_process_sidebar, "px;",
+            "padding-left: ", default.layout$padding_left_process_sidebar, "px;",
+            "border-bottom: ", default.layout$line_width, "px solid ", default.layout$line_color, ";"),
+          timeline_process_ui(ns("process_timeline"))
+        )
+      })
+      
+      
+      # This function uses the UI definition to:
+      # 1 - initialize the UI (only the first screen is shown),
+      # 2 - encapsulate the UI in a div (used to hide all screens at a time
+      #     before showing the one corresponding to the current position)
+      output$EncapsulateScreens_pipeline_ui <- renderUI({
+        req(session$userData$wf_mode == 'pipeline')
+        len <- length(rv$config@ll.UI)
+        
+        tagList(
+          lapply(seq_len(len), function(i) {
+            if (i == 1) {
+              div(
+                id = ns(GetStepsNames()[i]),
+                class = paste0("page_", id),
+                rv$config@ll.UI[[i]]
+              )
+            } else {
+              shinyjs::hidden(
+                div(
+                  id = ns(GetStepsNames()[i]),
+                  class = paste0("page_", id),
+                  rv$config@ll.UI[[i]]
+                )
+              )
+            }
+          })
+        )
+      })
+      
+      
+      output$EncapsulateScreens_process_ui <- renderUI({
+        
+        req(session$userData$wf_mode == 'process')
+        
+        len <- length(rv$config@ll.UI)
+        
+        tagList(
+          lapply(seq_len(len), function(i) {
+            if (i == 1) {
+              div(
+                id = ns(GetStepsNames()[i]),
+                class = paste0("page_", id),
+                rv$config@ll.UI[[i]]
+              )
+            } else {
+              shinyjs::hidden(
+                div(
+                  id = ns(GetStepsNames()[i]),
+                  class = paste0("page_", id),
+                  rv$config@ll.UI[[i]]
+                )
+              )
+            }
+          })
+        )
+      })
+      
+      
+      #---------------------------------------------------------------------
     
     
     # Catch a new value on the parameter 'dataIn()' variable, sent by the
@@ -591,6 +701,7 @@ nav_process_server <- function(
     })
     
     observeEvent(remoteResetUI(), ignoreInit = TRUE, ignoreNULL = TRUE, {
+      #browser()
       req(rv$config)
       shiny::withProgress(message = paste0("Reseting UI in process", id), {
         shiny::incProgress(0.5)
@@ -608,56 +719,6 @@ nav_process_server <- function(
     })
     
     
-    
-    
-    output$testTL <- renderUI({
-      timeline_process_server(
-        id = "process_timeline",
-        config = rv$config,
-        status = reactive({rv$steps.status}),
-        position = reactive({rv$current.pos}),
-        enabled = reactive({rv$steps.enabled})
-      )
-      
-      div(
-        style = paste0(
-          "background-color: ", default.theme(session$userData$usermod)$bgcolor_process_timeline, ";",
-          "padding-top: ", default.layout$padding_top_process_sidebar, "px;",
-          "padding-bottom: ", default.layout$padding_bottom_process_sidebar, "px;",
-          "padding-left: ", default.layout$padding_left_process_sidebar, "px;",
-          "border-bottom: ", default.layout$line_width, "px solid ", default.layout$line_color, ";"),
-        timeline_process_ui(ns("process_timeline"))
-      )
-    })
-    
-    
-    # This function uses the UI definition to:
-    # 1 - initialize the UI (only the first screen is shown),
-    # 2 - encapsulate the UI in a div (used to hide all screens at a time
-    #     before showing the one corresponding to the current position)
-    output$EncapsulateScreens_ui <- renderUI({
-      len <- length(rv$config@ll.UI)
-      
-      tagList(
-        lapply(seq_len(len), function(i) {
-          if (i == 1) {
-            div(
-              id = ns(GetStepsNames()[i]),
-              class = paste0("page_", id),
-              rv$config@ll.UI[[i]]
-            )
-          } else {
-            shinyjs::hidden(
-              div(
-                id = ns(GetStepsNames()[i]),
-                class = paste0("page_", id),
-                rv$config@ll.UI[[i]]
-              )
-            )
-          }
-        })
-      )
-    })
     
 
     

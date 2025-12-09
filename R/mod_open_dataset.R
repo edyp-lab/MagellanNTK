@@ -30,22 +30,10 @@ open_dataset_ui <- function(id) {
     tagList(
         h3(style = "color: blue;", "Open dataset"),
         shinyjs::useShinyjs(),
-            fluidRow(
-              column(width = 2,selectInput(ns("chooseSource"), "Dataset source",
-                choices = c(
-                    "Custom dataset" = "customDataset",
-                    "package dataset" = "packageDataset"
-                ),
-                width = "200px"
-            )
-                ),
-              column(width = 8,
-                uiOutput(ns("customDataset_UI")),
+            uiOutput(ns('chooseSource_UI')),
+            uiOutput(ns("customDataset_UI")),
             uiOutput(ns("packageDataset_UI"))
-                ),
-              column(width = 2,uiOutput(ns("load_btn_UI")))
-              ),
-          uiOutput(ns("infos_dataset"))
+             # column(width = 2,uiOutput(ns("load_btn_UI")))
         )
 }
 
@@ -68,7 +56,7 @@ open_dataset_server <- function(
   is.enabled = reactive({TRUE})) {
   
   widgets.default.values <- list(
-    chooseSource = "None",
+    chooseSource = "customDataset",
     file = character(0),
     load_dataset_btn = 0,
     pkg = "None",
@@ -76,14 +64,14 @@ open_dataset_server <- function(
   )
   
   rv.custom.default.values <- list(
-    #remoteReset = NULL,
+    remoteReset = NULL,
     dataRead = NULL,
     name = "default.name",
     packages = NULL
   )
   
   dataOut <- reactiveValues(
-    trigger = NULL,
+    trigger = MagellanNTK::Timestamp(),
     name = NULL,
     dataset = NULL
   )
@@ -96,7 +84,7 @@ open_dataset_server <- function(
           MagellanNTK::Get_Code_for_ObserveEvent_widgets(names(widgets.default.values)),
           MagellanNTK::Get_Code_for_rv_reactiveValues(),
           MagellanNTK::Get_Code_Declare_rv_custom(names(rv.custom.default.values)),
-          MagellanNTK::Get_Code_for_dataOut(),
+          #MagellanNTK::Get_Code_for_dataOut(),
           #MagellanNTK::Get_Code_for_remoteReset(widgets = TRUE, custom = TRUE, dataIn = 'NULL'),
           sep = "\n"
         )
@@ -106,22 +94,54 @@ open_dataset_server <- function(
         observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
           #browser()
           
-        # lapply(names(rv.widgets), function(x){
-        #   rv.widgets[[x]] <- widgets.default.values[[x]]
-        # })
+        lapply(names(rv.widgets), function(x){
+          rv.widgets[[x]] <- widgets.default.values[[x]]
+        })
           
-          lapply(names(rv.custom), function(x){
-            rv.custom[[x]] <- rv.custom.default.values[[x]]
-          })
+          # lapply(names(rv.custom), function(x){
+          #   rv.custom[[x]] <- rv.custom.default.values[[x]]
+          # })
           
-          rv.custom$dataRead <- NULL
-          rv.widgets$file <- NULL
-          dataOut$trigger <- MagellanNTK::Timestamp()
-          dataOut$name <- NULL
-          dataOut$dataset <- NULL
+           rv.custom$dataRead <- NULL
+           rv.custom$remoteReset <- remoteReset()
+          # rv.widgets$file <- NULL
+           dataOut$trigger <- MagellanNTK::Timestamp()
+           dataOut$name <- NULL
+           dataOut$dataset <- NULL
           
 })
 
+        
+        
+        output$chooseSource_UI <- renderUI({
+          widget <- selectInput(ns("chooseSource"), "Dataset source",
+            choices = c(
+              "Custom dataset" = "customDataset",
+              "package dataset" = "packageDataset"
+            ),
+            selected = rv.widgets$chooseSource,
+            width = "200px"
+          )
+          
+          MagellanNTK::toggleWidget(widget, is.enabled())
+          
+        })
+        
+        
+        
+        output$customDataset_UI <- renderUI({
+          req(rv.widgets$chooseSource == "customDataset")
+          rv.custom$remoteReset
+          
+          widget <- fileInput(ns("file"), "Open file",
+            accept = extension, 
+            multiple = FALSE, 
+            width = "400px"
+          )
+          
+          MagellanNTK::toggleWidget(widget, is.enabled())
+        })
+        
         
         isEmptyNumeric <- function(x) {
           return(identical(x, numeric(0)))
@@ -137,25 +157,13 @@ open_dataset_server <- function(
         })
 
 
-        output$customDataset_UI <- renderUI({
-            req(rv.widgets$chooseSource == "customDataset")
-            remoteReset()
-
-             widget <- fileInput(ns("file"), "Open file",
-                    accept = extension, 
-                  multiple = FALSE, 
-                  width = "400px"
-                )
-             
-             MagellanNTK::toggleWidget(widget, is.enabled())
-        })
 
 
-        output$load_btn_UI <- renderUI({
-          req(rv.widgets$file)
-            widget <- actionButton(ns("load_dataset_btn"), "Load file")
-            MagellanNTK::toggleWidget(widget, is.enabled())
-        })
+        # output$load_btn_UI <- renderUI({
+        #   req(rv.widgets$file)
+        #     widget <- actionButton(ns("load_dataset_btn"), "Load file")
+        #     MagellanNTK::toggleWidget(widget, is.enabled())
+        # })
 
         
         
@@ -218,54 +226,106 @@ open_dataset_server <- function(
         })
 
 
+        
+        observeEvent( input$file, {
+          
+          #browser()
+          rv.widgets$file <- input$file
+          rv.custom$dataRead <- NULL
+          tryCatch({
+            # Try with readRDS()
+            rv.custom$name <- rv.widgets$file$name
+            rv.custom$dataRead <- readRDS(rv.widgets$file$datapath)
+          },
+            warning = function(w) {return(NULL)},
+            error = function(e) {return(NULL)}
+          )
+          
+          if (is.null(rv.custom$dataRead)) {
+            rv.custom$dataRead <- tryCatch(
+              {
+                load(file = rv.widgets$file$datapath)
+                rv.custom$name <- unlist(strsplit(rv.widgets$file$name, split = ".", fixed = TRUE))[1]
+                get(rv.custom$name)
+              },
+              warning = function(w) {return(NULL)},
+              error = function(e) {return(NULL)}
+            )
+          }
+          dataOut$dataset <- rv.custom$dataRead
+          dataOut$trigger <- MagellanNTK::Timestamp()
+          dataOut$name <- rv.custom$name
+          
+        })
+        
+        
+        
         # Part of open custom dataset
         ## -- Open a  File --------------------------------------------
-        observeEvent(rv.widgets$load_dataset_btn, ignoreInit = TRUE, {
-            if (rv.widgets$chooseSource == "packageDataset") {
-                req(rv.widgets$demoDataset != "None")
-                utils::data(list = rv.widgets$demoDataset, package = rv.widgets$pkg)
+        observeEvent(req(rv.widgets$demoDataset != "None"), ignoreInit = FALSE, {
+
+          utils::data(list = rv.widgets$demoDataset, package = rv.widgets$pkg)
                 rv.custom$name <- rv.widgets$demoDataset
                 rv.custom$dataRead <- BiocGenerics::get(rv.widgets$demoDataset)
-            } else if (rv.widgets$chooseSource == "customDataset") {
-              rv.widgets$file
-              rv.custom$dataRead <- NULL
-                tryCatch({
-                      # Try with readRDS()
-                      rv.custom$name <- rv.widgets$file$name
-                      rv.custom$dataRead <- readRDS(rv.widgets$file$datapath)
-                    },
-                    warning = function(w) {return(NULL)},
-                    error = function(e) {return(NULL)}
-                )
+          #rv.custom$remoteReset <- rv.custom$remoteReset + 1
 
-                if (is.null(rv.custom$dataRead)) {
-                  rv.custom$dataRead <- tryCatch(
-                        {
-                            load(file = rv.widgets$file$datapath)
-                          rv.custom$name <- unlist(strsplit(rv.widgets$file$name, split = ".", fixed = TRUE))[1]
-                            get(rv.custom$name)
-                        },
-                        warning = function(w) {return(NULL)},
-                        error = function(e) {return(NULL)}
-                    )
-                }
-            }
-          
-          output$msgFileLoaded <- renderUI({
-            req(rv.custom$dataRead)
-              h3(paste0('the file has been loaded'))
-          })
-          
-          
-          rv.custom$remoteReset <- rv.custom$remoteReset + 1
-          
             dataOut$dataset <- rv.custom$dataRead
             dataOut$trigger <- MagellanNTK::Timestamp()
             dataOut$name <- rv.custom$name
         })
+
+
+        # # Part of open custom dataset
+        # ## -- Open a  File --------------------------------------------
+        # observeEvent(input$load_dataset_btn, ignoreInit = FALSE, {
+        #   
+        # 
+        #     if (rv.widgets$chooseSource == "packageDataset") {
+        #         req(rv.widgets$demoDataset != "None")
+        #         utils::data(list = rv.widgets$demoDataset, package = rv.widgets$pkg)
+        #         rv.custom$name <- rv.widgets$demoDataset
+        #         rv.custom$dataRead <- BiocGenerics::get(rv.widgets$demoDataset)
+        #     } else if (rv.widgets$chooseSource == "customDataset") {
+        #       rv.widgets$file
+        #       rv.custom$dataRead <- NULL
+        #         tryCatch({
+        #               # Try with readRDS()
+        #               rv.custom$name <- rv.widgets$file$name
+        #               rv.custom$dataRead <- readRDS(rv.widgets$file$datapath)
+        #             },
+        #             warning = function(w) {return(NULL)},
+        #             error = function(e) {return(NULL)}
+        #         )
+        # 
+        #         if (is.null(rv.custom$dataRead)) {
+        #           rv.custom$dataRead <- tryCatch(
+        #                 {
+        #                     load(file = rv.widgets$file$datapath)
+        #                   rv.custom$name <- unlist(strsplit(rv.widgets$file$name, split = ".", fixed = TRUE))[1]
+        #                     get(rv.custom$name)
+        #                 },
+        #                 warning = function(w) {return(NULL)},
+        #                 error = function(e) {return(NULL)}
+        #             )
+        #         }
+        #     }
+        #   
+        #   output$msgFileLoaded <- renderUI({
+        #     req(rv.custom$dataRead)
+        #       h3(paste0('the file has been loaded'))
+        #   })
+        #   
+        #   
+        #   #rv.custom$remoteReset <- rv.custom$remoteReset + 1
+        #   
+        #     dataOut$dataset <- rv.custom$dataRead
+        #     dataOut$trigger <- MagellanNTK::Timestamp()
+        #     dataOut$name <- rv.custom$name
+        # })
+        # 
         
-        
-        reactive({dataOut})
+        return(reactive({dataOut}))
+
     })
 }
 
@@ -282,7 +342,8 @@ open_dataset <- function(
     ui <- fluidPage(
         tagList(
           open_dataset_ui("demo"),
-          actionButton('reset', 'reset')
+          actionButton('reset', 'reset'),
+          uiOutput('Description_infos_dataset_UI')
         )
     )
 
@@ -299,8 +360,21 @@ open_dataset <- function(
           remoteReset = reactive({input$reset})
         )
 
+        
+        output$Description_infos_dataset_UI <- renderUI({
+          req(rv$obj()$dataset)
+          
+          infos_dataset_server(
+            id = "Description_infosdataset",
+            dataIn = reactive({rv$obj()$dataset})
+          )
+          
+          infos_dataset_ui(id = "Description_infosdataset")
+        })
+        
         observeEvent(rv$obj()$trigger, {
-            print(rv$obj()$name)
+          print(rv$obj()$trigger)
+          print(rv$obj()$name)
             print(rv$obj()$dataset)
         })
     }

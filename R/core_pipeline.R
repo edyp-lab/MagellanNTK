@@ -174,7 +174,7 @@ nav_pipeline_server <- function(
         # style de la sidebar contenant les infos des process (timeline, boutons et parametres
         style = paste0(
           "position : absolute; ",
-          "background-color: ", default.theme(session$userData$usermod)$bgcolor_pipeline_sidebar, "; ",
+          "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_pipeline_sidebar, "; ",
           "border-right: ", default.layout$line_width, "px solid ", default.layout$line_color, ";",
           "height: 100vh;"
         ),
@@ -203,7 +203,7 @@ nav_pipeline_server <- function(
         ),
         fluidRow(
           style = paste0(
-            "background-color: ", default.theme(session$userData$usermod)$bgcolor_pipeline_timeline, " ; ",
+            "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_pipeline_timeline, " ; ",
             "display: flex; ",
             "align-items: center; ",
             "justify-content: center;",
@@ -425,7 +425,8 @@ nav_pipeline_server <- function(
           remoteResetUI = reactive({rv$resetChildrenUI[x]}),
           is.skipped = reactive({isTRUE(rv$steps.skipped[x])}),
           verbose = verbose,
-          usermod = usermod
+          usermod = usermod,
+          runmode = 'aschild'
         )
       })
     })
@@ -635,7 +636,6 @@ nav_pipeline_server <- function(
     
     
     ResetPipeline <- function() {
-      # rv$dataIn <- session$userData$dataIn.original
       rv$dataIn <- NULL
       rv$current.pos <- 1
       
@@ -677,29 +677,7 @@ nav_pipeline_server <- function(
       )
     })
     
-    # # Show the debug infos if requested (dev_mode mode)
-    # # This function is not directly implemented in the main UI of nav_ui
-    # # because it is hide/show w.r.t. the value of dev_mode
-    # output$debug_infos_ui <- renderUI({
-    #   req(verbose)
-    #   
-    #   Debug_Infos_server(
-    #     id = "debug_infos",
-    #     title = paste0("Infos from ", rv$config@mode, ": ", id),
-    #     config = reactive({rv$config}),
-    #     rv.dataIn = reactive({rv$dataIn}),
-    #     dataIn = reactive({dataIn()}),
-    #     dataOut = reactive({dataOut}),
-    #     steps.status = reactive({rv$steps.status}),
-    #     steps.skipped = reactive({rv$steps.skipped}),
-    #     current.pos = reactive({rv$current.pos}),
-    #     steps.enabled = reactive({rv$steps.enabled}),
-    #     is.enabled = reactive({is.enabled()})
-    #   )
-    #   
-    #   Debug_Infos_ui(ns("debug_infos"))
-    # })
-    # 
+
     
     GetStepsNames <- reactive({
       req(rv$config@steps)

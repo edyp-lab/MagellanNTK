@@ -165,21 +165,14 @@ MagellanNTK <- function(
 
     # source_wf_files(workflow$path)
     #
-    ui <- MagellanNTK_ui("infos",
-      sidebarSize = sidebarSize)
+    ui <- MagellanNTK_ui("infos", sidebarSize = sidebarSize)
 
 
     server <- function(input, output, session) {
         MagellanNTK_server("infos",
-            dataIn = reactive({
-                dataIn
-            }),
-            workflow.path = reactive({
-                workflow.path
-            }),
-            workflow.name = reactive({
-                workflow.name
-            }),
+            dataIn = reactive({dataIn}),
+            workflow.path = reactive({workflow.path}),
+            workflow.name = reactive({workflow.name}),
             verbose = verbose,
             usermod = usermod
         )
