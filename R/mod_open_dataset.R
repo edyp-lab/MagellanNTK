@@ -28,7 +28,6 @@ NULL
 open_dataset_ui <- function(id) {
     ns <- NS(id)
     tagList(
-        h3(style = "color: blue;", "Open dataset"),
         shinyjs::useShinyjs(),
             uiOutput(ns('chooseSource_UI')),
             uiOutput(ns("customDataset_UI")),

@@ -215,6 +215,7 @@ mainapp_server <- function(id,
           list()
         )
         
+        session$userData$wf_config <- wf_conf
         session$userData$wf_mode <- wf_conf@mode
           
           rv.core$filepath <- file.path(
