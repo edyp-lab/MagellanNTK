@@ -10,7 +10,7 @@
 \alias{default.theme}
 \title{Default vars}
 \format{
-An object of class \code{list} of length 34.
+An object of class \code{list} of length 37.
 }
 \usage{
 default.funcs()

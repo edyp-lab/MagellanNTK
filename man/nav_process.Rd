@@ -32,7 +32,8 @@ nav_process_server(
   usermod = "user",
   btnEvents = reactive({
      NULL
- })
+ }),
+  runmode = "process"
 )
 
 nav_process()

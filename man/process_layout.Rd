@@ -2,9 +2,15 @@
 % Please edit documentation in R/process_layout.R
 \name{process_layout}
 \alias{process_layout}
+\alias{process_layout_process}
+\alias{process_layout_pipeline}
 \title{Timelines}
 \usage{
 process_layout(session, ns, sidebar, content)
+
+process_layout_process(session, ns, sidebar, content)
+
+process_layout_pipeline(session, ns, sidebar, content)
 }
 \arguments{
 \item{ns}{xxx}
@@ -15,7 +21,15 @@ process_layout(session, ns, sidebar, content)
 }
 \value{
 NA
+
+NA
+
+NA
 }
 \description{
+xxx
+
+xxx
+
 xxx
 }
