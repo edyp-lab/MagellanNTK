@@ -135,15 +135,6 @@ MagellanNTK <- function(
         usermod = "user",
         sidebarSize = 'medium',
         ...) {
-    # options(
-    #   shiny.maxRequestSize = 1024^3,
-    #   port = 3838,
-    #   host = "0.0.0.0",
-    #   launch.browser = FALSE,
-    #   browser = NULL
-    # )
-
-
 
     app.path <- system.file("app", package = "MagellanNTK")
     source(file.path(app.path, "global.R"), local = FALSE, chdir = TRUE)

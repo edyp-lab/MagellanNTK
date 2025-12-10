@@ -295,8 +295,7 @@ nav_process_server <- function(
       ### The name of the server function is prefixed by 'mod_' and
       ### suffixed by '_server'. This will give access to its config
       
-     # browser()
-      #browser()
+
       rv$proc <- do.call(
         paste0(id, "_server"),
         list(
@@ -781,15 +780,9 @@ nav_process_server <- function(
     # can be a module, a Shiny app or another nav_process module for example,
     # nav_process_pipeline)
     list(
-      dataOut = reactive({
-        dataOut
-      }),
-      steps.enabled = reactive({
-        rv$steps.enabled
-      }),
-      status = reactive({
-        rv$steps.status
-      })
+      dataOut = reactive({dataOut}),
+      steps.enabled = reactive({rv$steps.enabled}),
+      status = reactive({rv$steps.status})
     )
   })
 }
