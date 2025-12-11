@@ -103,10 +103,10 @@ mainapp_ui <- function(id, session, size = '300px') {
           icon = "home",
           uiOutput(ns("BuildReport_UI"))
         ),
-        bs4Dash::tabItem(
-          tabName = "openWorkflow",
-          uiOutput(ns("open_workflow_UI"))
-        ),
+        # bs4Dash::tabItem(
+        #   tabName = "openWorkflow",
+        #   uiOutput(ns("open_workflow_UI"))
+        # ),
         bs4Dash::tabItem(
           tabName = "workflow",
           icon = "home",
@@ -161,7 +161,7 @@ mainapp_server <- function(id,
       dataIn = NULL,
       result_convert = reactive({NULL}),
       result_open_dataset = reactive({NULL}),
-      result_open_workflow = reactive({NULL}),
+      #result_open_workflow = reactive({NULL}),
       result_run_workflow = list(dataOut = reactive({NULL})),
       current.obj = NULL,
       current.obj.name = NULL,
@@ -417,32 +417,33 @@ mainapp_server <- function(id,
     
   
     
-    
-    observe_result_open_workflow <- observeEvent(req(rv.core$result_open_workflow()), {
-      
-      rv.core$workflow.name <- rv.core$result_open_workflow()$wf_name
-      session$userData$workflow.name <- rv.core$result_open_workflow()$wf_name
-      
-      rv.core$workflow.path <- rv.core$result_open_workflow()$path
-      session$userData$workflow.path <- rv.core$result_open_workflow()$path
-      
-      # Load the package which contains the workflow
-      call.func("library", list(rv.core$result_open_workflow()$pkg))
-      source_wf_files(session$userData$workflow.path)
-    })
-    
-    output$open_workflow_UI <- renderUI({
-      # Get workflow directory
-      rv.core$result_open_workflow <- open_workflow_server("wf")
-      tagList(
-        div(id = ns("chunk"), style = "width: 100px; height: 100px;" ),
-        open_workflow_ui(ns("wf"))
-      )
-    })
+    # 
+    # observe_result_open_workflow <- observeEvent(req(rv.core$result_open_workflow()), {
+    #   
+    #   rv.core$workflow.name <- rv.core$result_open_workflow()$wf_name
+    #   session$userData$workflow.name <- rv.core$result_open_workflow()$wf_name
+    #   
+    #   rv.core$workflow.path <- rv.core$result_open_workflow()$path
+    #   session$userData$workflow.path <- rv.core$result_open_workflow()$path
+    #   
+    #   # Load the package which contains the workflow
+    #   call.func("library", list(rv.core$result_open_workflow()$pkg))
+    #   source_wf_files(session$userData$workflow.path)
+    # })
+    # 
+    # output$open_workflow_UI <- renderUI({
+    #   # Get workflow directory
+    #   rv.core$result_open_workflow <- open_workflow_server("wf")
+    #   tagList(
+    #     div(id = ns("chunk"), style = "width: 100px; height: 100px;" ),
+    #     open_workflow_ui(ns("wf"))
+    #   )
+    # })
     
     
     # 
     observe({
+    
       rv.core$result_convert <- nav_process_server(
         id = 'PipelineConvert_Convert',
         dataIn = reactive({NULL}),

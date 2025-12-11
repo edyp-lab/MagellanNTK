@@ -136,6 +136,15 @@ MagellanNTK <- function(
         sidebarSize = 'medium',
         ...) {
 
+  
+  if(!is.null(workflow.path)){
+    warning('workflow.path is NULL')
+  }
+  
+  if(!is.null(workflow.name)){
+    warning('workflow.name is NULL')
+  }
+
     app.path <- system.file("app", package = "MagellanNTK")
     source(file.path(app.path, "global.R"), local = FALSE, chdir = TRUE)
 

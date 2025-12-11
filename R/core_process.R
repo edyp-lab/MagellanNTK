@@ -94,12 +94,11 @@ nav_process_server <- function(
   is.skipped = reactive({FALSE}),
   verbose = FALSE,
   usermod = "user",
-  btnEvents = reactive({NULL}),
-  runmode = "process") {
+  btnEvents = reactive({NULL})) {
   ### -------------------------------------------------------------###
-  ###                                                             ###
-  ### ------------------- MODULE SERVER --------------------------###
-  ###                                                             ###
+  ###                                                              ###
+  ### ------------------- MODULE SERVER ------------------------- -###
+  ###                                                              ###
   ### -------------------------------------------------------------###
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
