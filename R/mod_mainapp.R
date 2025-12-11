@@ -188,44 +188,13 @@ mainapp_server <- function(id,
         options(shiny.fullstacktrace = TRUE)
         
         
+        # Actions when a dataset is loaded
         DatasetLoaderActions()
-        WorkflowLoaderActions()
-        browser()
         
         # Actions when a workflow is loaded
-        rv.core$workflow.path <- workflow.path()
-        rv.core$workflow.name <- workflow.name()
-        session$userData$workflow.path <- workflow.path()
-        session$userData$workflow.name <- workflow.name()
-        session$userData$usermod <- usermod
-        session$userData$verbose <- verbose
-        session$userData$funcs <- rv.core$funcs
-        
-        req(session$userData$workflow.path)
-        req(session$userData$workflow.name)
-        
-        wf_conf <- do.call(
-          paste0(rv.core$workflow.name, '_conf'),
-          list()
-        )
-        
-        session$userData$wf_config <- wf_conf
-        session$userData$wf_mode <- wf_conf@mode
-          
-          rv.core$filepath <- file.path(
-            session$userData$workflow.path, "md",
-            paste0(session$userData$workflow.name, ".Rmd")
-          )
-        
-        rv.core$funcs <- readConfigFile(rv.core$workflow.path)
-        
-        for (f in names(rv.core$funcs$funcs)) {
-          if (is.null(rv.core$funcs$funcs[[f]])) {
-            rv.core$funcs$funcs[[f]] <- default.funcs()[[f]]
-          }
-        }
-        session$userData$funcs <- rv.core$funcs$funcs
-        
+        WorkflowLoaderActions()
+        #browser()
+
         # Reset of all workflow
         rv.core$resetWF <- MagellanNTK::Timestamp()
       },
@@ -257,7 +226,38 @@ mainapp_server <- function(id,
     }
     
     WorkflowLoaderActions <- function(){
+      rv.core$workflow.path <- workflow.path()
+      rv.core$workflow.name <- workflow.name()
+      session$userData$workflow.path <- workflow.path()
+      session$userData$workflow.name <- workflow.name()
+      session$userData$usermod <- usermod
+      session$userData$verbose <- verbose
+      session$userData$funcs <- rv.core$funcs
       
+      req(session$userData$workflow.path)
+      req(session$userData$workflow.name)
+      
+      wf_conf <- do.call(
+        paste0(rv.core$workflow.name, '_conf'),
+        list()
+      )
+      
+      session$userData$wf_config <- wf_conf
+      session$userData$wf_mode <- wf_conf@mode
+      
+      rv.core$filepath <- file.path(
+        session$userData$workflow.path, "md",
+        paste0(session$userData$workflow.name, ".Rmd")
+      )
+      
+      rv.core$funcs <- readConfigFile(rv.core$workflow.path)
+      
+      for (f in names(rv.core$funcs$funcs)) {
+        if (is.null(rv.core$funcs$funcs[[f]])) {
+          rv.core$funcs$funcs[[f]] <- default.funcs()[[f]]
+        }
+      }
+      session$userData$funcs <- rv.core$funcs$funcs
     }
     
     output$sidebar <- renderUI({
