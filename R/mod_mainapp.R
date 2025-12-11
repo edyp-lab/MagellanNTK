@@ -99,10 +99,6 @@ mainapp_ui <- function(id, session, size = '300px') {
           uiOutput(ns("SaveAs_UI"))
         ),
         bs4Dash::tabItem(
-          tabName = "tools",
-          uiOutput(ns("tools_UI"))
-        ),
-        bs4Dash::tabItem(
           tabName = "BuildReport",
           icon = "home",
           uiOutput(ns("BuildReport_UI"))
@@ -158,7 +154,6 @@ mainapp_server <- function(id,
     ns <- session$ns
     
     observeEvent(input$toggleSidebarBar, {
-      #tags$style(".main-sidebar:hover {width: 150px !important;}")
       updateSidebar("mySidebar", session = session)
     })
     
@@ -167,7 +162,7 @@ mainapp_server <- function(id,
       result_convert = reactive({NULL}),
       result_open_dataset = reactive({NULL}),
       result_open_workflow = reactive({NULL}),
-      result_run_workflow = reactive({NULL}),
+      result_run_workflow = list(dataOut = reactive({NULL})),
       current.obj = NULL,
       current.obj.name = NULL,
       resetWF = 0,
@@ -190,15 +185,14 @@ mainapp_server <- function(id,
         }
         
         options(shiny.maxRequestSize = 1024^3)
+        options(shiny.fullstacktrace = TRUE)
         
         
-        rv.core$current.obj <- dataIn()
-        rv.core$processed.obj <- dataIn()
-        if (!is.null(rv.core$current.obj)) {
-          #rv.core$current.obj.name <- metadata(rv.core$current.obj)$file
-          rv.core$current.obj.name <- data.name()
-        }
+        DatasetLoaderActions()
+        WorkflowLoaderActions()
+        browser()
         
+        # Actions when a workflow is loaded
         rv.core$workflow.path <- workflow.path()
         rv.core$workflow.name <- workflow.name()
         session$userData$workflow.path <- workflow.path()
@@ -253,80 +247,24 @@ mainapp_server <- function(id,
     
     
     
+    # Actions when a dataset is loaded
+    DatasetLoaderActions <- function(){
+      rv.core$current.obj <- dataIn()
+      rv.core$processed.obj <- dataIn()
+      if (!is.null(rv.core$current.obj)) {
+        rv.core$current.obj.name <- data.name()
+      }
+    }
+    
+    WorkflowLoaderActions <- function(){
+      
+    }
+    
     output$sidebar <- renderUI({
       req(usermod)
       
       switch(usermod,
-        dev = {
-          
-          
-          
-          # sidebarMenu(id = "sb_dev",
-          #   #tags$style(".sidebar-menu li a { height: 40px; color: grey;}"),
-          #   minified = TRUE, collapsed = TRUE,
-          #   menuItem("Home",
-          #     tabName = "Home",
-          #     icon = icon("home"),
-          #     selected = TRUE),
-          #   menuItem(
-          #     h4('Dataset', style="color: lightgrey;"),
-          #     menuSubItem(
-          #       "Open (qf)",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "openDataset"
-          #     ),
-          #   menuSubItem(
-          #       "Import",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "convertDataset"),
-          #     menuSubItem(
-          #       "Save As",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "SaveAs"),
-          #     menuSubItem(
-          #       "Build report (Beta)",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "BuildReport")
-          #   ),
-          #   menuItem(
-          #     'Workflow',
-          #     icon = icon("home"),
-          #     menuSubItem(
-          #       "Load",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "openWorkflow"),
-          #     menuSubItem(
-          #       "Run",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "workflow"),
-          #     menuSubItem(
-          #       "Manual",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "Manual"),
-          #     menuSubItem(
-          #       "FAQ",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "faq"),
-          #     menuSubItem(
-          #       "Release Notes",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "releaseNotes")
-          #   ),
-          #   menuItem(
-          #     'Vizualize data',
-          #     icon = icon("home"),
-          #
-          #     menuSubItem("Info",
-          #       tabName = "infosDataset",
-          #       icon = icon("info")
-          #     ),
-          #     menuSubItem("EDA",
-          #       tabName = "eda",
-          #       icon = icon("cogs")
-          #     )
-          #   )
-          #   )
-        },
+        dev = { },
         user = Insert_User_Sidebar()
       )
     })
@@ -393,24 +331,24 @@ mainapp_server <- function(id,
     })
     
     
-    
-    
-    output$BuildReport_UI <- renderUI({
-      req(rv.core$funcs$funcs$build_report)
-      
-      call.func(
-        fname = paste0(rv.core$funcs$funcs$build_report, "_server"),
-        args = list(
-          id = "build_report",
-          dataIn = reactive({rv.core$processed.obj})
-        )
-      )
-      
-      call.func(
-        fname = paste0(rv.core$funcs$funcs$build_report, "_ui"),
-        args = list(id = ns("build_report"))
-      )
-    })
+    # 
+    # 
+    # output$BuildReport_UI <- renderUI({
+    #   req(rv.core$funcs$funcs$build_report)
+    #   
+    #   call.func(
+    #     fname = paste0(rv.core$funcs$funcs$build_report, "_server"),
+    #     args = list(
+    #       id = "build_report",
+    #       dataIn = reactive({rv.core$processed.obj})
+    #     )
+    #   )
+    #   
+    #   call.func(
+    #     fname = paste0(rv.core$funcs$funcs$build_report, "_ui"),
+    #     args = list(id = ns("build_report"))
+    #   )
+    # })
     
     output$SaveAs_UI <- renderUI({
       req(rv.core$funcs$funcs$download_dataset)
@@ -521,7 +459,8 @@ mainapp_server <- function(id,
     })
 
 
-    observe_result_convert <- observeEvent(req(rv.core$result_convert$dataOut()$trigger), {
+    observe_result_convert <- observeEvent(req(rv.core$result_convert$dataOut()$trigger), 
+      ignoreInit = TRUE, {
       req(rv.core$result_convert$dataOut()$value)
 
       rv.core$current.obj <- rv.core$result_convert$dataOut()$value
@@ -535,6 +474,7 @@ mainapp_server <- function(id,
     
     observe({
       req(session$userData$wf_mode)
+    req(rv.core$workflow.name)
     
       switch(session$userData$wf_mode, 
         pipeline = {
@@ -571,7 +511,8 @@ mainapp_server <- function(id,
       )
     })
     
-    observe_result_run_workflow <- observeEvent(rv.core$result_run_workflow$dataOut()$value, {
+    observe_result_run_workflow <- observeEvent(rv.core$result_run_workflow$dataOut()$value, 
+      ignoreInit = TRUE, {
       rv.core$processed.obj <- rv.core$result_run_workflow$dataOut()$value
     })
     
@@ -579,18 +520,7 @@ mainapp_server <- function(id,
     # observeEvent(req(input$resetWF), {
     #     rv.core$resetWF <- MagellanNTK::Timestamp()
     # })
-    
-    output$tools_UI <- renderUI({
-      h3("tools")
-    })
-    
-    
-    
-    
-    
-    
-    
-    
+
     observe({
       req(rv.core$filepath)
       mod_homepage_server("home", 
@@ -617,28 +547,16 @@ mainapp_server <- function(id,
       req(rv.core$funcs$URL_ReleaseNotes)
       
       MagellanNTK::mod_release_notes_server("rl", rv.core$funcs$URL_ReleaseNotes)
-      
       MagellanNTK::mod_release_notes_ui(ns("rl"))
     })
     
     
     observe({
-      # insert_md_server("usermanual",
-      #   file.path(rv.core$workflow.path, 'md', "FAQ.md"))
-      #
-      
-      # mod_settings_server("global_settings", obj = reactive({Exp1_R25_prot}))
-      
-      # mod_check_updates_server("check_updates")
-      # insert_md_server("links_MD",
-      #   file.path(rv.core$workflow.path, 'md', "links.md"))
-      #
+      req(rv.core$workflow.path)
       insert_md_server(
         "FAQ_MD",
         file.path(rv.core$workflow.path, "md", "FAQ.Rmd")
       )
-      # mod_bug_report_server("bug_report")
-      #
     })
   })
 }
