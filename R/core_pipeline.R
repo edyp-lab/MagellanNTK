@@ -311,6 +311,8 @@ nav_pipeline_server <- function(
     
     
     output$datasetNameUI <- renderUI({
+      #req(inherits(dataIn(), 'QFeatures'))
+      # h3(DaparToolshed::filename(dataIn()))
       div(
         style = paste0("padding-left: ", 100, "px;"),
         h3(id)
@@ -423,8 +425,7 @@ nav_pipeline_server <- function(
           remoteResetUI = reactive({rv$resetChildrenUI[x]}),
           is.skipped = reactive({isTRUE(rv$steps.skipped[x])}),
           verbose = verbose,
-          usermod = usermod,
-          runmode = 'aschild'
+          usermod = usermod
         )
       })
     })
