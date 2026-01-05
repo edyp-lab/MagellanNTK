@@ -183,8 +183,11 @@ mainapp_server <- function(id,
     )
     
     
-    observeEvent(id,
-      {
+    observeEvent(id,{
+      
+      req(workflow.name())
+      req(workflow.path())
+      
         if (usermod == "dev") {
           options(shiny.fullstacktrace = TRUE)
         }
@@ -195,7 +198,6 @@ mainapp_server <- function(id,
         rv.core$current.obj <- dataIn()
         rv.core$processed.obj <- dataIn()
         if (!is.null(rv.core$current.obj)) {
-          #rv.core$current.obj.name <- metadata(rv.core$current.obj)$file
           rv.core$current.obj.name <- data.name()
         }
         
@@ -257,76 +259,7 @@ mainapp_server <- function(id,
       req(usermod)
       
       switch(usermod,
-        dev = {
-          
-          
-          
-          # sidebarMenu(id = "sb_dev",
-          #   #tags$style(".sidebar-menu li a { height: 40px; color: grey;}"),
-          #   minified = TRUE, collapsed = TRUE,
-          #   menuItem("Home",
-          #     tabName = "Home",
-          #     icon = icon("home"),
-          #     selected = TRUE),
-          #   menuItem(
-          #     h4('Dataset', style="color: lightgrey;"),
-          #     menuSubItem(
-          #       "Open (qf)",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "openDataset"
-          #     ),
-          #   menuSubItem(
-          #       "Import",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "convertDataset"),
-          #     menuSubItem(
-          #       "Save As",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "SaveAs"),
-          #     menuSubItem(
-          #       "Build report (Beta)",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "BuildReport")
-          #   ),
-          #   menuItem(
-          #     'Workflow',
-          #     icon = icon("home"),
-          #     menuSubItem(
-          #       "Load",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "openWorkflow"),
-          #     menuSubItem(
-          #       "Run",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "workflow"),
-          #     menuSubItem(
-          #       "Manual",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "Manual"),
-          #     menuSubItem(
-          #       "FAQ",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "faq"),
-          #     menuSubItem(
-          #       "Release Notes",
-          #       icon = img(src="www/logo-simple.png", width = 20),
-          #       tabName = "releaseNotes")
-          #   ),
-          #   menuItem(
-          #     'Vizualize data',
-          #     icon = icon("home"),
-          #
-          #     menuSubItem("Info",
-          #       tabName = "infosDataset",
-          #       icon = icon("info")
-          #     ),
-          #     menuSubItem("EDA",
-          #       tabName = "eda",
-          #       icon = icon("cogs")
-          #     )
-          #   )
-          #   )
-        },
+        dev = {  },
         user = Insert_User_Sidebar()
       )
     })
@@ -478,46 +411,49 @@ mainapp_server <- function(id,
     
     
   
-    
-    
-    observe_result_open_workflow <- observeEvent(req(rv.core$result_open_workflow()), {
-      
-      rv.core$workflow.name <- rv.core$result_open_workflow()$wf_name
-      session$userData$workflow.name <- rv.core$result_open_workflow()$wf_name
-      
-      rv.core$workflow.path <- rv.core$result_open_workflow()$path
-      session$userData$workflow.path <- rv.core$result_open_workflow()$path
-      
-      # Load the package which contains the workflow
-      call.func("library", list(rv.core$result_open_workflow()$pkg))
-      source_wf_files(session$userData$workflow.path)
-    })
-    
-    output$open_workflow_UI <- renderUI({
-      # Get workflow directory
-      rv.core$result_open_workflow <- open_workflow_server("wf")
-      tagList(
-        div(id = ns("chunk"), style = "width: 100px; height: 100px;" ),
-        open_workflow_ui(ns("wf"))
-      )
-    })
+    # 
+    # 
+    # observe_result_open_workflow <- observeEvent(req(rv.core$result_open_workflow()), {
+    #   
+    #   rv.core$workflow.name <- rv.core$result_open_workflow()$wf_name
+    #   session$userData$workflow.name <- rv.core$result_open_workflow()$wf_name
+    #   
+    #   rv.core$workflow.path <- rv.core$result_open_workflow()$path
+    #   session$userData$workflow.path <- rv.core$result_open_workflow()$path
+    #   
+    #   # Load the package which contains the workflow
+    #   call.func("library", list(rv.core$result_open_workflow()$pkg))
+    #   source_wf_files(session$userData$workflow.path)
+    # })
+    # 
+    # output$open_workflow_UI <- renderUI({
+    #   # Get workflow directory
+    #   rv.core$result_open_workflow <- open_workflow_server("wf")
+    #   tagList(
+    #     div(id = ns("chunk"), style = "width: 100px; height: 100px;" ),
+    #     open_workflow_ui(ns("wf"))
+    #   )
+    # })
     
     
     # 
     observe({
+     # browser()
+      
       rv.core$result_convert <- nav_process_server(
-        id = 'PipelineConvert_Convert',
+        id = paste0(unlist(strsplit(rv.core$workflow.name, '_'))[1], '_Convert'),
         dataIn = reactive({NULL}),
         verbose = verbose,
         usermod = usermod,
-        remoteReset = reactive({rv.core$resetWF})
+        remoteReset = reactive({rv.core$resetWF}),
+        runmode = 'process'
       )
     })
 
 
     ###### Code for the convert dataset module ######
     output$open_convert_dataset_UI <- renderUI({
-      nav_process_ui(ns('PipelineConvert_Convert'))
+      nav_process_ui(ns(paste0(unlist(strsplit(rv.core$workflow.name, '_'))[1], '_Convert')))
     })
 
 

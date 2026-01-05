@@ -95,7 +95,7 @@ nav_process_server <- function(
   verbose = FALSE,
   usermod = "user",
   btnEvents = reactive({NULL}),
-  runmode = "process") {
+  runmode = NULL) {
   ### -------------------------------------------------------------###
   ###                                                             ###
   ### ------------------- MODULE SERVER --------------------------###
@@ -153,8 +153,10 @@ nav_process_server <- function(
     
     
     output$process_panel_ui_process <- renderUI({
-    
-      req(session$userData$wf_mode == 'process')
+   
+      .runmode <- if(!is.null(runmode)) runmode else session$userData$wf_mode
+        
+      req(.runmode == 'process')
       shiny::absolutePanel(
         left = default.layout$left_pipeline_sidebar,
         top = 0,
@@ -181,7 +183,9 @@ nav_process_server <- function(
     
     
     output$process_panel_ui_pipeline <- renderUI({
-      req(session$userData$wf_mode == 'pipeline')
+      .runmode <- if(!is.null(runmode)) runmode else session$userData$wf_mode
+      
+      req(.runmode == 'pipeline')
       tagList(
           uiOutput(ns('process_btns_ui')),
           uiOutput(ns("testTL"))
@@ -295,7 +299,7 @@ nav_process_server <- function(
       ### The name of the server function is prefixed by 'mod_' and
       ### suffixed by '_server'. This will give access to its config
       
-
+browser()
       rv$proc <- do.call(
         paste0(id, "_server"),
         list(
@@ -356,7 +360,9 @@ nav_process_server <- function(
       # 2 - encapsulate the UI in a div (used to hide all screens at a time
       #     before showing the one corresponding to the current position)
       output$EncapsulateScreens_pipeline_ui <- renderUI({
-        req(session$userData$wf_mode == 'pipeline')
+        .runmode <- if(!is.null(runmode)) runmode else session$userData$wf_mode
+        
+        req(.runmode == 'pipeline')
         len <- length(rv$config@ll.UI)
         
         tagList(
@@ -382,8 +388,9 @@ nav_process_server <- function(
       
       
       output$EncapsulateScreens_process_ui <- renderUI({
+        .runmode <- if(!is.null(runmode)) runmode else session$userData$wf_mode
         
-        req(session$userData$wf_mode == 'process')
+        req(.runmode == 'process')
         
         len <- length(rv$config@ll.UI)
         

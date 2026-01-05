@@ -131,11 +131,26 @@ MagellanNTK <- function(
         dataIn = NULL,
         workflow.path = NULL,
         workflow.name = NULL,
+        convert.path = NULL,
         verbose = FALSE,
         usermod = "user",
         sidebarSize = 'medium',
         ...) {
 
+  
+  if (is.null(workflow.path))
+  {
+    warning("workflow.path is NULL. Abort...")
+  }
+  
+  if (is.null(workflow.name))
+  {
+    warning("workflow.name is NULL. Abort...")
+  }
+  
+  if(is.null(workflow.name) || is.null(workflow.path)) return(NULL)
+  
+  
     app.path <- system.file("app", package = "MagellanNTK")
     source(file.path(app.path, "global.R"), local = FALSE, chdir = TRUE)
 
@@ -143,6 +158,14 @@ MagellanNTK <- function(
     for (f in files) {
         source(f, local = FALSE, chdir = TRUE)
     }
+
+    
+    if(!is.null(convert.path)){
+      files <- list.files(file.path(convert.path, "R"), full.names = TRUE)
+      for (f in files) {
+        source(f, local = FALSE, chdir = TRUE)
+      }
+      }
 
 
     source_shinyApp_files()
