@@ -99,14 +99,18 @@ mainapp_ui <- function(id, session, size = '300px') {
           uiOutput(ns("SaveAs_UI"))
         ),
         bs4Dash::tabItem(
+          tabName = "tools",
+          uiOutput(ns("tools_UI"))
+        ),
+        bs4Dash::tabItem(
           tabName = "BuildReport",
           icon = "home",
           uiOutput(ns("BuildReport_UI"))
         ),
-        # bs4Dash::tabItem(
-        #   tabName = "openWorkflow",
-        #   uiOutput(ns("open_workflow_UI"))
-        # ),
+        bs4Dash::tabItem(
+          tabName = "openWorkflow",
+          uiOutput(ns("open_workflow_UI"))
+        ),
         bs4Dash::tabItem(
           tabName = "workflow",
           icon = "home",
@@ -154,6 +158,7 @@ mainapp_server <- function(id,
     ns <- session$ns
     
     observeEvent(input$toggleSidebarBar, {
+      #tags$style(".main-sidebar:hover {width: 150px !important;}")
       updateSidebar("mySidebar", session = session)
     })
     
@@ -161,8 +166,8 @@ mainapp_server <- function(id,
       dataIn = NULL,
       result_convert = reactive({NULL}),
       result_open_dataset = reactive({NULL}),
-      #result_open_workflow = reactive({NULL}),
-      result_run_workflow = list(dataOut = reactive({NULL})),
+      result_open_workflow = reactive({NULL}),
+      result_run_workflow = reactive({NULL}),
       current.obj = NULL,
       current.obj.name = NULL,
       resetWF = 0,
@@ -178,23 +183,57 @@ mainapp_server <- function(id,
     )
     
     
-    observeEvent(id,
-      {
+    observeEvent(id,{
+      
+      req(workflow.name())
+      req(workflow.path())
+      
         if (usermod == "dev") {
           options(shiny.fullstacktrace = TRUE)
         }
         
         options(shiny.maxRequestSize = 1024^3)
-        options(shiny.fullstacktrace = TRUE)
         
         
-        # Actions when a dataset is loaded
-        DatasetLoaderActions()
+        rv.core$current.obj <- dataIn()
+        rv.core$processed.obj <- dataIn()
+        if (!is.null(rv.core$current.obj)) {
+          rv.core$current.obj.name <- data.name()
+        }
         
-        # Actions when a workflow is loaded
-        WorkflowLoaderActions()
-        #browser()
-
+        rv.core$workflow.path <- workflow.path()
+        rv.core$workflow.name <- workflow.name()
+        session$userData$workflow.path <- workflow.path()
+        session$userData$workflow.name <- workflow.name()
+        session$userData$usermod <- usermod
+        session$userData$verbose <- verbose
+        session$userData$funcs <- rv.core$funcs
+        
+        req(session$userData$workflow.path)
+        req(session$userData$workflow.name)
+        
+        wf_conf <- do.call(
+          paste0(rv.core$workflow.name, '_conf'),
+          list()
+        )
+        
+        session$userData$wf_config <- wf_conf
+        session$userData$wf_mode <- wf_conf@mode
+          
+          rv.core$filepath <- file.path(
+            session$userData$workflow.path, "md",
+            paste0(session$userData$workflow.name, ".Rmd")
+          )
+        
+        rv.core$funcs <- readConfigFile(rv.core$workflow.path)
+        
+        for (f in names(rv.core$funcs$funcs)) {
+          if (is.null(rv.core$funcs$funcs[[f]])) {
+            rv.core$funcs$funcs[[f]] <- default.funcs()[[f]]
+          }
+        }
+        session$userData$funcs <- rv.core$funcs$funcs
+        
         # Reset of all workflow
         rv.core$resetWF <- MagellanNTK::Timestamp()
       },
@@ -216,55 +255,11 @@ mainapp_server <- function(id,
     
     
     
-    # Actions when a dataset is loaded
-    DatasetLoaderActions <- function(){
-      rv.core$current.obj <- dataIn()
-      rv.core$processed.obj <- dataIn()
-      if (!is.null(rv.core$current.obj)) {
-        rv.core$current.obj.name <- data.name()
-      }
-    }
-    
-    WorkflowLoaderActions <- function(){
-      rv.core$workflow.path <- workflow.path()
-      rv.core$workflow.name <- workflow.name()
-      session$userData$workflow.path <- workflow.path()
-      session$userData$workflow.name <- workflow.name()
-      session$userData$usermod <- usermod
-      session$userData$verbose <- verbose
-      session$userData$funcs <- rv.core$funcs
-      
-      req(session$userData$workflow.path)
-      req(session$userData$workflow.name)
-      
-      wf_conf <- do.call(
-        paste0(rv.core$workflow.name, '_conf'),
-        list()
-      )
-      
-      session$userData$wf_config <- wf_conf
-      session$userData$wf_mode <- wf_conf@mode
-      
-      rv.core$filepath <- file.path(
-        session$userData$workflow.path, "md",
-        paste0(session$userData$workflow.name, ".Rmd")
-      )
-      
-      rv.core$funcs <- readConfigFile(rv.core$workflow.path)
-      
-      for (f in names(rv.core$funcs$funcs)) {
-        if (is.null(rv.core$funcs$funcs[[f]])) {
-          rv.core$funcs$funcs[[f]] <- default.funcs()[[f]]
-        }
-      }
-      session$userData$funcs <- rv.core$funcs$funcs
-    }
-    
     output$sidebar <- renderUI({
       req(usermod)
       
       switch(usermod,
-        dev = { },
+        dev = {  },
         user = Insert_User_Sidebar()
       )
     })
@@ -331,24 +326,24 @@ mainapp_server <- function(id,
     })
     
     
-    # 
-    # 
-    # output$BuildReport_UI <- renderUI({
-    #   req(rv.core$funcs$funcs$build_report)
-    #   
-    #   call.func(
-    #     fname = paste0(rv.core$funcs$funcs$build_report, "_server"),
-    #     args = list(
-    #       id = "build_report",
-    #       dataIn = reactive({rv.core$processed.obj})
-    #     )
-    #   )
-    #   
-    #   call.func(
-    #     fname = paste0(rv.core$funcs$funcs$build_report, "_ui"),
-    #     args = list(id = ns("build_report"))
-    #   )
-    # })
+    
+    
+    output$BuildReport_UI <- renderUI({
+      req(rv.core$funcs$funcs$build_report)
+      
+      call.func(
+        fname = paste0(rv.core$funcs$funcs$build_report, "_server"),
+        args = list(
+          id = "build_report",
+          dataIn = reactive({rv.core$processed.obj})
+        )
+      )
+      
+      call.func(
+        fname = paste0(rv.core$funcs$funcs$build_report, "_ui"),
+        args = list(id = ns("build_report"))
+      )
+    })
     
     output$SaveAs_UI <- renderUI({
       req(rv.core$funcs$funcs$download_dataset)
@@ -400,10 +395,7 @@ mainapp_server <- function(id,
       ignoreInit = TRUE,
       ignoreNULL = TRUE,
       {
-        if (verbose) {
-          cat("new dataset loaded\n")
-        }
-        
+        #browser()
         req(rv.core$result_open_dataset()$dataset)
         
         rv.core$current.obj <- rv.core$result_open_dataset()$dataset
@@ -416,7 +408,7 @@ mainapp_server <- function(id,
     
     
   
-    
+    # 
     # 
     # observe_result_open_workflow <- observeEvent(req(rv.core$result_open_workflow()), {
     #   
@@ -443,25 +435,27 @@ mainapp_server <- function(id,
     
     # 
     observe({
-    
+     # browser()
+      
       rv.core$result_convert <- nav_process_server(
-        id = 'PipelineConvert_Convert',
+        id = paste0(unlist(strsplit(rv.core$workflow.name, '_'))[1], '_Convert'),
         dataIn = reactive({NULL}),
         verbose = verbose,
         usermod = usermod,
-        remoteReset = reactive({rv.core$resetWF})
+        #remoteReset = reactive({rv.core$resetWF}),
+        runmode = 'process'
       )
     })
 
 
     ###### Code for the convert dataset module ######
     output$open_convert_dataset_UI <- renderUI({
-      nav_process_ui(ns('PipelineConvert_Convert'))
+      nav_process_ui(ns(paste0(unlist(strsplit(rv.core$workflow.name, '_'))[1], '_Convert')))
     })
 
 
-    observe_result_convert <- observeEvent(req(rv.core$result_convert$dataOut()$trigger), 
-      ignoreInit = TRUE, {
+    observe_result_convert <- observeEvent(req(rv.core$result_convert$dataOut()$trigger), {
+      #browser()
       req(rv.core$result_convert$dataOut()$value)
 
       rv.core$current.obj <- rv.core$result_convert$dataOut()$value
@@ -475,7 +469,6 @@ mainapp_server <- function(id,
     
     observe({
       req(session$userData$wf_mode)
-    req(rv.core$workflow.name)
     
       switch(session$userData$wf_mode, 
         pipeline = {
@@ -512,8 +505,7 @@ mainapp_server <- function(id,
       )
     })
     
-    observe_result_run_workflow <- observeEvent(rv.core$result_run_workflow$dataOut()$value, 
-      ignoreInit = TRUE, {
+    observe_result_run_workflow <- observeEvent(rv.core$result_run_workflow$dataOut()$value, {
       rv.core$processed.obj <- rv.core$result_run_workflow$dataOut()$value
     })
     
@@ -521,7 +513,18 @@ mainapp_server <- function(id,
     # observeEvent(req(input$resetWF), {
     #     rv.core$resetWF <- MagellanNTK::Timestamp()
     # })
-
+    
+    output$tools_UI <- renderUI({
+      h3("tools")
+    })
+    
+    
+    
+    
+    
+    
+    
+    
     observe({
       req(rv.core$filepath)
       mod_homepage_server("home", 
@@ -548,16 +551,28 @@ mainapp_server <- function(id,
       req(rv.core$funcs$URL_ReleaseNotes)
       
       MagellanNTK::mod_release_notes_server("rl", rv.core$funcs$URL_ReleaseNotes)
+      
       MagellanNTK::mod_release_notes_ui(ns("rl"))
     })
     
     
     observe({
-      req(rv.core$workflow.path)
+      # insert_md_server("usermanual",
+      #   file.path(rv.core$workflow.path, 'md', "FAQ.md"))
+      #
+      
+      # mod_settings_server("global_settings", obj = reactive({Exp1_R25_prot}))
+      
+      # mod_check_updates_server("check_updates")
+      # insert_md_server("links_MD",
+      #   file.path(rv.core$workflow.path, 'md', "links.md"))
+      #
       insert_md_server(
         "FAQ_MD",
         file.path(rv.core$workflow.path, "md", "FAQ.Rmd")
       )
+      # mod_bug_report_server("bug_report")
+      #
     })
   })
 }

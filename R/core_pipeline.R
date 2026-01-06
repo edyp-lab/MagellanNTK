@@ -425,8 +425,7 @@ nav_pipeline_server <- function(
           remoteResetUI = reactive({rv$resetChildrenUI[x]}),
           is.skipped = reactive({isTRUE(rv$steps.skipped[x])}),
           verbose = verbose,
-          usermod = usermod
-        )
+          usermod = usermod)
       })
     })
     
