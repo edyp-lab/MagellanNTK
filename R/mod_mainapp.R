@@ -395,10 +395,7 @@ mainapp_server <- function(id,
       ignoreInit = TRUE,
       ignoreNULL = TRUE,
       {
-        if (verbose) {
-          cat("new dataset loaded\n")
-        }
-        
+        #browser()
         req(rv.core$result_open_dataset()$dataset)
         
         rv.core$current.obj <- rv.core$result_open_dataset()$dataset
@@ -445,7 +442,7 @@ mainapp_server <- function(id,
         dataIn = reactive({NULL}),
         verbose = verbose,
         usermod = usermod,
-        remoteReset = reactive({rv.core$resetWF}),
+        #remoteReset = reactive({rv.core$resetWF}),
         runmode = 'process'
       )
     })
@@ -458,6 +455,7 @@ mainapp_server <- function(id,
 
 
     observe_result_convert <- observeEvent(req(rv.core$result_convert$dataOut()$trigger), {
+      #browser()
       req(rv.core$result_convert$dataOut()$value)
 
       rv.core$current.obj <- rv.core$result_convert$dataOut()$value

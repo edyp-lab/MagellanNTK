@@ -299,7 +299,7 @@ nav_process_server <- function(
       ### The name of the server function is prefixed by 'mod_' and
       ### suffixed by '_server'. This will give access to its config
       
-browser()
+
       rv$proc <- do.call(
         paste0(id, "_server"),
         list(
