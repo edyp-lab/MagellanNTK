@@ -193,8 +193,6 @@ nav_pipeline_server <- function(
         prefix = "images_Prostar2",
         directoryPath = system.file("images", package = "Prostar2")
       )
-      #browser()
-      #resourcePaths()
       div(
         style = paste0(
           "padding-left: ", default.layout$left_pipeline_timeline, "px; margin-top: -15px;",
