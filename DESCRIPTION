@@ -1,6 +1,6 @@
 Package: MagellanNTK
 Title: A Pipeline Manager
-Version: 0.99.20
+Version: 0.99.21
 Authors@R: 
   c(person(given = "Samuel", 
       family = "Wieczorek",

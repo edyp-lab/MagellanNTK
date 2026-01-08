@@ -33,7 +33,7 @@ nav_process_server(
   btnEvents = reactive({
      NULL
  }),
-  runmode = "process"
+  runmode = NULL
 )
 
 nav_process()

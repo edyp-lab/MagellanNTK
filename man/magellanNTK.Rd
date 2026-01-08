@@ -28,6 +28,7 @@ MagellanNTK(
   dataIn = NULL,
   workflow.path = NULL,
   workflow.name = NULL,
+  convert.path = NULL,
   verbose = FALSE,
   usermod = "user",
   sidebarSize = "medium",

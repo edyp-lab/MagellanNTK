@@ -43,11 +43,11 @@ Insert_User_Sidebar <- function() {
       bs4SidebarMenuItem(
         p("Workflow", class = "sidebarMenuItem"),
         icon = icon("home"),
-        bs4SidebarMenuSubItem(
-          p("Load", class = "sidebarMenuSubItem"),
-          tabName = "openWorkflow",
-          icon = icon("gear")
-        ),
+        # bs4SidebarMenuSubItem(
+        #   p("Load", class = "sidebarMenuSubItem"),
+        #   tabName = "openWorkflow",
+        #   icon = icon("gear")
+        # ),
         bs4SidebarMenuSubItem(
           p("Run", class = "sidebarMenuSubItem"),
           tabName = "workflow",
