@@ -41,7 +41,6 @@ mainapp_ui <- function(id, session, size = '300px') {
   ns <- NS(id)
   includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css"))
   addResourcePath("www", system.file("app/images", package = "MagellanNTK"))
-  #addResourcePath("www", system.file("app/www", package = "MagellanNTK"))
   bs4Dash::dashboardPage(
     
     preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
@@ -50,12 +49,7 @@ mainapp_ui <- function(id, session, size = '300px') {
       disable = TRUE
     ),
     sidebar = bs4Dash::bs4DashSidebar(
-      # actionButton(inputId = ns("toggleSidebarBar"),
-      #   label = icon("bars", width = 20),
-      #   class = PrevNextBtnClass
-      # ),
       Insert_User_Sidebar(),
-      
       id = ns("mySidebar"),
       style = "padding-top: 0px;",
       width = size,
@@ -209,6 +203,11 @@ mainapp_server <- function(id,
         session$userData$verbose <- verbose
         session$userData$funcs <- rv.core$funcs
         
+        if (workflow.path() == workflow.name())
+          session$userData$runmode <- 'pipeline'
+        else
+          session$userData$runmode <- 'process'
+        
         req(session$userData$workflow.path)
         req(session$userData$workflow.name)
         
@@ -255,7 +254,7 @@ mainapp_server <- function(id,
     
     
     
-    output$sidebar <- renderUI({
+    output$Insert_User_Sidebar_UI <- renderUI({
       req(usermod)
       
       switch(usermod,

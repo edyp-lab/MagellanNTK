@@ -45,25 +45,12 @@ NULL
 #'
 MagellanNTK_ui <- function(id, sidebarSize = 'medium') {
     ns <- NS(id)
-    # shiny::tagList(
-    #   #launchGA(),
-    #   shinyjs::useShinyjs(),
-    #   shinyjs::extendShinyjs(
-    #     text = "shinyjs.resetProstar = function() {history.go(0)}",
-    #     functions = c("resetProstar")),
-    #
-    #   shiny::titlePanel("", windowTitle = "Prostar2"),
-    # hidden(div(id = 'div_mainapp_module',
-    #
     .size <- switch(sidebarSize, 
       small = '150px',
       medium = '300px',
       large = '400px'
     )      
-      
       mainapp_ui(id = ns("mainapp_module"), size = .size)
-    # )
-    # )
 }
 
 
@@ -98,6 +85,7 @@ MagellanNTK_server <- function(
         ns <- session$ns
         # addResourcePath(prefix = "www", directoryPath = "./www")
         addResourcePath("www", system.file("app/www", package = "MagellanNTK"))
+        
         
         mainapp_server("mainapp_module",
             dataIn = reactive({dataIn()}),
