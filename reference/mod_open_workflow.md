@@ -25,7 +25,7 @@ A list
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 shiny::runApp(open_workflow())
-} # }
+}
 ```

@@ -15,5 +15,7 @@ NA
 ## Examples
 
 ``` r
+if (interactive()) {
 source_shinyApp_files()
+}
 ```

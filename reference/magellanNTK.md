@@ -28,8 +28,9 @@ MagellanNTK(
   dataIn = NULL,
   workflow.path = NULL,
   workflow.name = NULL,
+  convert.path = NULL,
   verbose = FALSE,
-  usermod = "dev",
+  usermod = "user",
   sidebarSize = "medium",
   ...
 )
@@ -40,6 +41,11 @@ MagellanNTK(
 - id:
 
   xxx
+
+- sidebarSize:
+
+  The width of the sidebar. Available values are 'small', 'medium',
+  'large'
 
 - dataIn:
 
@@ -58,6 +64,10 @@ MagellanNTK(
   A \`boolean(1)\`
 
 - usermod:
+
+  xxx
+
+- convert.path:
 
   xxx
 

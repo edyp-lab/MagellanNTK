@@ -16,7 +16,7 @@ pipe_workflow_server(
   dataIn = reactive({
      NULL
  }),
-  usermod = "dev",
+  usermod = "user",
   verbose = FALSE
 )
 
@@ -24,7 +24,7 @@ pipe_workflowApp(
   id,
   path = NULL,
   dataIn = NULL,
-  usermod = "dev",
+  usermod = "user",
   verbose = FALSE
 )
 
@@ -36,7 +36,7 @@ proc_workflow_server(
   dataIn = reactive({
      NULL
  }),
-  usermod = "dev",
+  usermod = "user",
   verbose = FALSE
 )
 
@@ -44,7 +44,7 @@ proc_workflowApp(
   id,
   path = NULL,
   dataIn = NULL,
-  usermod = "dev",
+  usermod = "user",
   verbose = FALSE
 )
 ```

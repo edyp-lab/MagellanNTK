@@ -22,7 +22,7 @@ default.theme(mode)
 
 ## Format
 
-An object of class `list` of length 33.
+An object of class `list` of length 37.
 
 ## Arguments
 

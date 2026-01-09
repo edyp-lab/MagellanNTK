@@ -32,7 +32,8 @@ nav_process_server(
   usermod = "user",
   btnEvents = reactive({
      NULL
- })
+ }),
+  runmode = NULL
 )
 
 nav_process()
@@ -49,6 +50,10 @@ nav_process()
 
   The dataset
 
+- status:
+
+  xxx
+
 - is.enabled:
 
   A \`boolean\`. This variable is a remote command to specify if the
@@ -63,6 +68,10 @@ nav_process()
   It is a remote command to reset the module. A boolen that indicates is
   the pipeline has been reseted by a program of higher level Basically,
   it is the program which has called this module
+
+- remoteResetUI:
+
+  xxx
 
 - is.skipped:
 
@@ -79,6 +88,10 @@ nav_process()
 - btnEvents:
 
   xxxx
+
+- runmode:
+
+  xxx
 
 ## Value
 

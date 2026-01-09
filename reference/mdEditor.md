@@ -27,7 +27,7 @@ A Shiny modal-dialog
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 shiny::runApp(mdEditor())
-} # }
+}
 ```

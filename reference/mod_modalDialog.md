@@ -74,7 +74,7 @@ A Shiny modal-dialog
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
 
 ########################################################
 ##
@@ -146,5 +146,5 @@ shiny::runApp(
         external_mod_args = list(funcs = funcs)
     )
 )
-} # }
+}
 ```

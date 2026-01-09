@@ -7,7 +7,18 @@ This module allows to change
 ``` r
 open_dataset_ui(id)
 
-open_dataset_server(id, class = NULL, extension = NULL, demo_package = NULL)
+open_dataset_server(
+  id,
+  class = NULL,
+  extension = NULL,
+  demo_package = NULL,
+  remoteReset = reactive({
+     NULL
+ }),
+  is.enabled = reactive({
+     TRUE
+ })
+)
 
 open_dataset(class = NULL, extension = NULL, demo_package = NULL)
 ```
@@ -30,6 +41,14 @@ open_dataset(class = NULL, extension = NULL, demo_package = NULL)
 
   xxx
 
+- remoteReset:
+
+  xxx
+
+- is.enabled:
+
+  xxx
+
 ## Value
 
 NA
@@ -37,6 +56,7 @@ NA
 ## Examples
 
 ``` r
-NULL
-#> NULL
+if (interactive()) {
+shiny::runApp(open_dataset(extension = "df"))
+}
 ```

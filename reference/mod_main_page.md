@@ -22,10 +22,10 @@ mainapp_server(
      NULL
  }),
   verbose = FALSE,
-  usermod = "dev"
+  usermod = "user"
 )
 
-mainapp(usermod = "dev")
+mainapp(usermod = "user")
 ```
 
 ## Arguments
@@ -37,6 +37,10 @@ mainapp(usermod = "dev")
 - session:
 
   xxx
+
+- size:
+
+  The width of the sidebar.in pixels
 
 - dataIn:
 

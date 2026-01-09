@@ -5,7 +5,7 @@ xxx
 ## Usage
 
 ``` r
-readConfigFile(path, usermod = "dev")
+readConfigFile(path, usermod = "user")
 ```
 
 ## Arguments
