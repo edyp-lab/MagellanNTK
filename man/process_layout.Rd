@@ -13,6 +13,8 @@ process_layout_process(session, ns, sidebar, content)
 process_layout_pipeline(session, ns, sidebar, content)
 }
 \arguments{
+\item{session}{The R session parameter}
+
 \item{ns}{xxx}
 
 \item{sidebar}{xxx}

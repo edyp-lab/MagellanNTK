@@ -34,6 +34,8 @@ mainapp(usermod = "user")
 
 \item{session}{xxx}
 
+\item{size}{The width of the sidebar.in pixels}
+
 \item{dataIn}{xxx}
 
 \item{data.name}{The name of the dataset. Default is 'myDataset'}

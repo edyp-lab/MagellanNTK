@@ -11,7 +11,7 @@
 #' disabled inlineCSS extendShinyjs
 #' 
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' shiny::runApp(mdEditor())
 #' }
 #'

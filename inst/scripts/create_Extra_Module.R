@@ -9,7 +9,7 @@
 #'
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' data(ft_na)
 #' ui <- foo_ui('query')
 #' 

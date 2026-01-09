@@ -7,7 +7,7 @@
 #' @name mod_open_workflow
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' shiny::runApp(open_workflow())
 #' }
 #'

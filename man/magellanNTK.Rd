@@ -38,6 +38,8 @@ MagellanNTK(
 \arguments{
 \item{id}{xxx}
 
+\item{sidebarSize}{The width of the sidebar. Available values are 'small', 'medium', 'large'}
+
 \item{dataIn}{xxx}
 
 \item{workflow.path}{xxx}
@@ -47,6 +49,8 @@ MagellanNTK(
 \item{verbose}{A `boolean(1)`}
 
 \item{usermod}{xxx}
+
+\item{convert.path}{xxx}
 
 \item{...}{xxx}
 }

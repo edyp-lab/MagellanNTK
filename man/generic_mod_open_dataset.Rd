@@ -32,6 +32,10 @@ open_dataset(class = NULL, extension = NULL, demo_package = NULL)
 \item{extension}{xxx}
 
 \item{demo_package}{xxx}
+
+\item{remoteReset}{xxx}
+
+\item{is.enabled}{xxx}
 }
 \value{
 NA
@@ -40,6 +44,8 @@ NA
 This module allows to change
 }
 \examples{
+if (interactive()) {
 shiny::runApp(open_dataset(extension = "df"))
+}
 
 }

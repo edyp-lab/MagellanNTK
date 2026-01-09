@@ -23,7 +23,7 @@ A list
 A shiny Module.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 shiny::runApp(open_workflow())
 }
 

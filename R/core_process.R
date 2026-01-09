@@ -19,6 +19,10 @@
 #' @param remoteReset It is a remote command to reset the module. A boolen that
 #' indicates is the pipeline has been reseted by a program of higher level
 #' Basically, it is the program which has called this module
+#' 
+#' @param remoteResetUI xxx
+#' @param status xxx
+#' @param runmode xxx
 #'
 #' @param is.skipped xxx
 #'

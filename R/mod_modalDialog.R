@@ -22,7 +22,7 @@
 #' @return A Shiny modal-dialog
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #'
 #' ########################################################
 #' ##

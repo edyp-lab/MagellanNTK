@@ -301,7 +301,9 @@ source_wf_files <- function(
 #' @description xxx
 #'
 #' @examples
+#' if (interactive()) {
 #' source_shinyApp_files()
+#' }
 #'
 #' @export
 #' @return NA

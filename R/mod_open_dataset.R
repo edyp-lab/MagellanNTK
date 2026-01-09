@@ -6,11 +6,15 @@
 #' @param class xxx
 #' @param extension xxx
 #' @param demo_package xxx
+#' @param remoteReset xxx
+#' @param is.enabled xxx
 #'
 #' @name generic_mod_open_dataset
 #'
 #' @examples
+#' if (interactive()) {
 #' shiny::runApp(open_dataset(extension = "df"))
+#' }
 #'
 #' @return NA
 #'

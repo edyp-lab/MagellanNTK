@@ -3,6 +3,7 @@
 #'
 #' @param id shiny id
 #' @param mdfile xxx
+#' @param dataset xxx
 #'
 #' @name mod_homepage
 #'

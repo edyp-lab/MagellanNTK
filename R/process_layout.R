@@ -2,6 +2,7 @@
 #'
 #' @description xxx
 #'
+#' @param session The R session parameter
 #' @param ns xxx
 #' @param sidebar xxx
 #' @param content xxx

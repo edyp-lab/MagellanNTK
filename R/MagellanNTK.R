@@ -8,7 +8,8 @@
 #' @param verbose A `boolean(1)`
 #' @param usermod xxx
 #' @param ... xxx
-#'
+#' @param sidebarSize The width of the sidebar. Available values are 'small', 'medium', 'large'
+#' @param convert.path xxx
 #'
 #'
 #' @details

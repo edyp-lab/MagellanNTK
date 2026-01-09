@@ -22,6 +22,8 @@ mod_homepage()
 \item{id}{shiny id}
 
 \item{mdfile}{xxx}
+
+\item{dataset}{xxx}
 }
 \value{
 NA

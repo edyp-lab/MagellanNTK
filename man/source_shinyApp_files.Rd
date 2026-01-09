@@ -13,6 +13,8 @@ NA
 xxx
 }
 \examples{
+if (interactive()) {
 source_shinyApp_files()
+}
 
 }

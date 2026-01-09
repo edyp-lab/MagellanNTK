@@ -13,6 +13,7 @@
 #' @param workflow.path Default is NULL,
 #' @param verbose = FALSE,
 #' @param usermod = 'dev'
+#' @param size The width of the sidebar.in pixels
 #'
 #'
 #'
@@ -137,6 +138,7 @@ mainapp_ui <- function(id, session, size = '300px') {
 #' disabled inlineCSS extendShinyjs js
 #' @import shinyEffects
 #' @importFrom S4Vectors metadata
+#' @importFrom bs4Dash updateSidebar
 #'
 #' @rdname mod_main_page
 #' @export
@@ -153,7 +155,7 @@ mainapp_server <- function(id,
     
     observeEvent(input$toggleSidebarBar, {
       #tags$style(".main-sidebar:hover {width: 150px !important;}")
-      updateSidebar("mySidebar", session = session)
+      bs4Dash::updateSidebar("mySidebar", session = session)
     })
     
     rv.core <- reactiveValues(
