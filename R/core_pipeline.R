@@ -75,9 +75,7 @@ nav_pipeline_ui <- function(id) {
 nav_pipeline_server <- function(
     id = NULL,
   dataIn = reactive({NULL}),
-#  is.enabled = reactive({TRUE}),
   remoteReset = reactive({0}),
-  is.skipped = reactive({FALSE}),
   verbose = FALSE,
   usermod = "user") {
   ### -------------------------------------------------------------###
@@ -473,22 +471,13 @@ nav_pipeline_server <- function(
         
         
         rv$steps.skipped <- rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
-        
-        
-        #browser()
+
         rv$steps.enabled <- Update_State_Screens(
           is.skipped = FALSE,
           is.enabled = TRUE,
           rv = rv
         )
-        
-        # rv$steps.enabled <- Update_State_Screens(
-        #   is.skipped = is.skipped(),
-        #   is.enabled = is.enabled(),
-        #   rv = rv
-        # )
-        
-        
+
         # Enable the first screen
         if (rv$steps.status[1] == stepStatus$UNDONE)
           rv$steps.enabled <- ToggleState_Screens(
@@ -672,25 +661,6 @@ nav_pipeline_server <- function(
     })
     
     
-    # The parameter 'is.enabled()' is updated by the caller and tells the
-    # process if it is enabled or disabled (remote action from the caller)
-    # This enables/disables an entire process/pipeline
-    # observeEvent(is.enabled(), ignoreNULL = TRUE, ignoreInit = TRUE, {
-    #   
-    #   browser()
-    #   if (isTRUE(is.enabled())) {
-    #     rv$steps.enabled <- Update_State_Screens(
-    #       is.skipped = is.skipped(),
-    #       is.enabled = is.enabled(),
-    #       rv = rv
-    #     )
-    #   } else {
-    #     rv$steps.enabled <- setNames(rep(is.enabled(), length(rv$config@steps)),
-    #       nm = names(rv$config@steps)
-    #     )
-    #   }
-    # })
-    
     
     # Catch new status event
     # See https://github.com/daattali/shinyjs/issues/166
@@ -710,29 +680,9 @@ nav_pipeline_server <- function(
     })
     
     
-    # The parameter is.skipped() is set by the caller and tells the process
-    # if it is skipped or not (remote action from the caller)
-    # observeEvent(is.skipped(), ignoreNULL = FALSE, ignoreInit = TRUE, {
-    #   
-    #   browser()
-    #   
-    #   if (isTRUE(is.skipped())) {
-    #     rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$SKIPPED)
-    #   } else {
-    #     rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$UNDONE)
-    #     rv$steps.enabled <- Update_State_Screens(
-    #       is.skipped = is.skipped(),
-    #       is.enabled = is.enabled(),
-    #       rv = rv
-    #     )
-    #   }
-    # })
-    
-    
     
     ResetPipeline <- function() {
-      
-      #browser()
+
       rv$dataIn <- NULL
       
       n <- length(rv$config@steps)
@@ -758,14 +708,12 @@ nav_pipeline_server <- function(
     
     
     observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
-      #browser()
       req(rv$config)
       ResetPipeline()
     })
     
     
     observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
-      #browser()
       req(rv$config)
       ResetPipeline()
     })

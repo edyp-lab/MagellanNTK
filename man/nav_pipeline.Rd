@@ -16,9 +16,6 @@ nav_pipeline_server(
   remoteReset = reactive({
      0
  }),
-  is.skipped = reactive({
-     FALSE
- }),
   verbose = FALSE,
   usermod = "user"
 )

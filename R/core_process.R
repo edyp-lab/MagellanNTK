@@ -749,7 +749,10 @@ nav_process_server <- function(
     
     
     
-
+    observeEvent(rv$current.pos, ignoreInit = FALSE, {
+      shinyjs::hide(selector = paste0(".page_", id))
+      shinyjs::show(GetStepsNames()[rv$current.pos])
+    })
     
     # Define message when the Reset button is clicked
     template_reset_modal_txt <- "This action will reset the current process.
