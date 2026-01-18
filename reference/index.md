@@ -169,6 +169,8 @@
   : xxx
 - [`is.validated()`](https://edyp-lab.github.io/MagellanNTK/reference/is.validated.md)
   : xxx
+- [`keepAssay()`](https://edyp-lab.github.io/MagellanNTK/reference/keepAssay.md)
+  : xxx
 - [`launchGA()`](https://edyp-lab.github.io/MagellanNTK/reference/launchGA.md)
   : xxx
 - [`launch_app()`](https://edyp-lab.github.io/MagellanNTK/reference/launch_app.md)
