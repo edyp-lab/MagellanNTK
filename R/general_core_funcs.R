@@ -273,6 +273,7 @@ All_Skipped_tag <- function(steps.status, tag) {
 #' @export
 #'
 GetFirstMandatoryNotValidated <- function(range, rv) {
+  #browser()
     .ind <- NULL
     first <- NULL
     first <- unlist((lapply(
@@ -290,7 +291,100 @@ GetFirstMandatoryNotValidated <- function(range, rv) {
 }
 
 
+#' @title xxx
+#'
+#' @description xxx
+#'
+#' @param dataIn xxx
+#' @param config xxx
+#' @param steps.status xxx
+#' @return A vector of boolean
+#'
+#' @examples
+#' NULL
+#' @export
+#'
+UpdateStepsStatus <- function(dataIn, config){
+  
+  #browser()
+  nSteps <- length(config@steps)
+  steps.names <- names(config@steps)
+  steps.status <- setNames(rep(stepStatus$UNDONE, nSteps), nm = steps.names)
+  
+  for (i in steps.names){
+    steps.status[i] <- as.numeric(i %in% names(dataIn))
+  }
+  
+  if ('Description' %in% names(steps.status))
+    steps.status['Description'] <- sum(steps.status) > 0
+  
+  return(steps.status)
+}
 
+
+#' @title xxx
+#'
+#' @description xxx
+#'
+#' @param x xxx
+#' @param range xxx
+
+#' @return A QF dataset
+#'
+#' @examples
+#' NULL
+#' @export
+#'
+keepAssay <- function (x, range) 
+{
+  x[, , range]
+}
+
+
+
+#' @title xxx
+#'
+#' @description xxx
+#'
+#' @param dataIn xxx
+#' @param stepsNames xxx
+
+#' @return A vector of QF datasets
+#'
+#' @examples
+#' NULL
+#' @export
+#'
+BuildData2Send <- function(dataIn, stepsNames){
+child.data2send <- setNames(
+  lapply(as.list(stepsNames), function(x) NULL),
+  nm = names(stepsNames)
+  ) 
+
+if (!is.null(dataIn)){
+  dataInNames <- names(dataIn)
+  
+  child.data2send <- setNames(lapply(as.list(stepsNames), 
+    function(x) keepAssay(dataIn, 1:2)), 
+    nm = names(stepsNames))
+  
+  if (length(dataInNames) > 2){
+  for (i in 3:length(dataInNames)){
+       offset <- 1
+       ind.names <- names(dataIn)[i]
+       indInstepsNames <- which(ind.names == stepsNames)
+       #browser()
+       for (j in (indInstepsNames + 1):length(stepsNames))
+         child.data2send[j] <- keepAssay(dataIn, 1:i)
+     }
+  }
+
+
+}
+
+names(child.data2send) <- stepsNames
+return (child.data2send)
+}
 
 
 #' @title xxx
@@ -311,7 +405,7 @@ Update_State_Screens <- function(is.skipped,
     rv) {
   
     len <- length(rv$steps.status)
-
+#browser()
     if (isTRUE(is.skipped)) {
         steps.enabled <- ToggleState_Screens(
             cond = FALSE,
@@ -334,7 +428,8 @@ Update_State_Screens <- function(is.skipped,
         if (ind.max < len) {
             # Enable all steps after the current one but the ones
             # after the first mandatory not validated
-            firstM <- GetFirstMandatoryNotValidated(
+            #browser() 
+          firstM <- GetFirstMandatoryNotValidated(
                 range = (ind.max + 1):len,
                 rv = rv
             )
@@ -362,11 +457,6 @@ Update_State_Screens <- function(is.skipped,
                 }
             }
         }
-
-        # ToggleState_NavBtns(
-        #     current.pos = rv$current.pos,
-        #     nSteps = rv$length
-        # )
     }
 
     return(steps.enabled)

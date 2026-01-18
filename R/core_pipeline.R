@@ -8,19 +8,11 @@
 #'
 #' @param dataIn The dataset
 #'
-#' @param is.enabled A `boolean`. This variable is a remote command to specify
-#' if the corresponding module is enabled/disabled in the calling module of
-#' upper level.
-#' For example, if this module is part of a pipeline and the pipeline calculates
-#' that it is disabled (i.e. skipped), then this variable is set to TRUE. Then,
-#' all the widgets will be disabled. If not, the enabling/disabling of widgets
-#' is deciding by this module.
 #'
 #' @param remoteReset It is a remote command to reset the module. A boolen that
 #' indicates is the pipeline has been reseted by a program of higher level
 #' Basically, it is the program which has called this module
 #'
-#' @param is.skipped xxx
 #' @param verbose = FALSE,
 #' @param usermod = 'user'
 #'
@@ -83,7 +75,7 @@ nav_pipeline_ui <- function(id) {
 nav_pipeline_server <- function(
     id = NULL,
   dataIn = reactive({NULL}),
-  is.enabled = reactive({TRUE}),
+#  is.enabled = reactive({TRUE}),
   remoteReset = reactive({0}),
   is.skipped = reactive({FALSE}),
   verbose = FALSE,
@@ -228,6 +220,8 @@ nav_pipeline_server <- function(
             ),
           column(width = 1, 
             
+            
+            
             actionButton(ns("btn_eda"), 
               label = tagList(
                 p("EDA", style = "margin: 0px;"),
@@ -348,32 +342,43 @@ nav_pipeline_server <- function(
       rv$config <- rv$proc$config()
       
       n <- length(rv$config@steps)
-      rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = GetStepsNames())
-      #rv$prev.children.trigger <- setNames(rep(NA, n), nm = GetStepsNames())
       
-      rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
-      
-      rv$steps.skipped <- setNames(rep(FALSE, n), nm = GetStepsNames())
       rv$resetChildren <- setNames(rep(0, n), nm = GetStepsNames())
       rv$resetChildrenUI <- setNames(rep(0, n), nm = GetStepsNames())
       
-      rv$child.data2send <- setNames(
-        lapply(as.list(GetStepsNames()), function(x) NULL),
-        nm = GetStepsNames()
+      
+      # update these variables wrt the SE already present in dataIn()
+       
+      rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
+      rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
+      #rv$steps.skipped <- setNames(rep(FALSE, n), nm = GetStepsNames())
+      
+      rv$steps.skipped <- Discover_Skipped_Steps(rv$steps.status)
+      
+      rv$steps.enabled <- Update_State_Screens(
+        is.skipped = rv$steps.skipped,
+        is.enabled = TRUE,
+        rv = rv
       )
+      
+      
+      #browser()
+      
+      rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
+      
       
       rv$currentStepName <- reactive({
         GetStepsNames()[rv$current.pos]
       })
       
-      # Launch the server timeline for this process/pipeline
-      timeline_pipeline_server(
-        "timeline_pipeline",
-        config = rv$config,
-        status = reactive({rv$steps.status}),
-        enabled = reactive({rv$steps.enabled}),
-        position = reactive({rv$current.pos})
-      )
+      # # Launch the server timeline for this process/pipeline
+      # timeline_pipeline_server(
+      #   "timeline_pipeline",
+      #   config = rv$config,
+      #   status = reactive({rv$steps.status}),
+      #   enabled = reactive({rv$steps.enabled}),
+      #   position = reactive({rv$current.pos})
+      # )
       
       # Launch the ui for each step of the pipeline
       # This function could be stored in the source file of the
@@ -388,31 +393,124 @@ nav_pipeline_server <- function(
           nav_process_ui(ns(paste0(id, "_", x)))
         }
       ), nm = paste0(GetStepsNames()))
-      
-      # ###
-      # ### Launch the server for each step of the pipeline
-      # ###
-      # lapply(GetStepsNames(), function(x) {
-      #   tmp.return[[x]] <- nav_process_server(
-      #     id = paste0(id, "_", x),
-      #     dataIn = reactive({rv$child.data2send[[x]]}),
-      #     status = reactive({rv$steps.status[x]}),
-      #     is.enabled = reactive({isTRUE(rv$steps.enabled[x])}),
-      #     remoteReset = reactive({rv$resetChildren[x]}),
-      #     remoteResetUI = reactive({rv$resetChildrenUI[x]}),
-      #     is.skipped = reactive({isTRUE(rv$steps.skipped[x])}),
-      #     verbose = verbose,
-      #     usermod = usermod
-      #   )
-      # })
+
     }, priority = 1000)
     
     
     
     observe({
-      ###
-      ### Launch the server for each step of the pipeline
-      ###
+      rv$steps.status
+      rv$steps.enabled
+      rv$current.pos
+
+
+      # Launch the server timeline for this process/pipeline
+      timeline_pipeline_server(
+        "timeline_pipeline",
+        config = rv$config,
+        status = reactive({rv$steps.status}),
+        enabled = reactive({rv$steps.enabled}),
+        position = reactive({rv$current.pos})
+      )
+    })
+    
+    
+    
+    
+    
+    
+    
+    
+    #         # Catch a new value on the parameter 'dataIn()' variable, sent by the
+    #         # caller. This value may be NULL or contain a dataset.
+    #         # The first action is to store the dataset in the temporary variable
+    #         # temp.dataIn. Then, two behaviours:
+    #         # 1 - if the variable is NULL. xxxx
+    #         # 2 - if the variable contains a dataset. xxx
+    observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
+      req(rv$config)
+      
+      # in case of a new dataset, reset the whole pipeline
+      # ResetPipeline()
+      
+      # Get the new dataset in a temporary variable
+      rv$temp.dataIn <- dataIn()
+      session$userData$dataIn.original <- dataIn()
+      
+      # The mode pipeline is a node and has to send
+      # datasets to its children
+      # if (is.null(rv$dataIn)) {
+      #   
+      #   rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
+      #     rv$dataIn
+      #   }), nm = GetStepsNames())
+      #   
+      #   # rv$steps.enabled <- res$steps.enabled
+      # }
+      
+      
+      #browser()
+      
+      if (is.null(dataIn())) {
+        # The process has been reseted or is not concerned
+        # Disable all screens of the process
+        rv$steps.enabled <- ToggleState_Screens(
+          cond = FALSE,
+          range = seq_len(length(rv$config@steps)),
+          is.enabled = TRUE,
+          rv = rv
+        )
+      } else {
+        # A new dataset has been loaded
+        # # Update the different screens in the process
+        # 
+        # rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
+        #   rv$dataIn
+        # }), nm = GetStepsNames())
+        # 
+        
+        rv$steps.status <- UpdateStepsStatus(dataIn(), rv$config)
+        
+        
+        rv$steps.skipped <- rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
+        
+        
+        #browser()
+        rv$steps.enabled <- Update_State_Screens(
+          is.skipped = FALSE,
+          is.enabled = TRUE,
+          rv = rv
+        )
+        
+        # rv$steps.enabled <- Update_State_Screens(
+        #   is.skipped = is.skipped(),
+        #   is.enabled = is.enabled(),
+        #   rv = rv
+        # )
+        
+        
+        # Enable the first screen
+        if (rv$steps.status[1] == stepStatus$UNDONE)
+          rv$steps.enabled <- ToggleState_Screens(
+          cond = TRUE,
+          range = 1,
+          is.enabled = TRUE,
+          rv = rv
+        )
+      }
+      
+      rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
+    })
+    
+    
+    
+    
+    
+    ###
+    ### Launch the server for each step of the pipeline
+    ###
+    observe({
+
       lapply(GetStepsNames(), function(x) {
         tmp.return[[x]] <- nav_process_server(
           id = paste0(id, "_", x),
@@ -427,16 +525,7 @@ nav_pipeline_server <- function(
       })
     })
     
-    # 
-    # GetChildrenValues <- reactive({
-    #   lapply(
-    #     GetStepsNames(),
-    #     function(x) {
-    #       tmp.return[[x]]$dataOut()$trigger
-    #     }
-    #   )
-    # })
-    
+
     
     GetValuesFromChildren <- reactive({
       
@@ -477,15 +566,21 @@ nav_pipeline_server <- function(
       triggerValues <- GetValuesFromChildren()$triggers
       return.values <- GetValuesFromChildren()$values
       
+      #browser()
       if (is.null(return.values)) {
         # The entire pipeline has been reseted
         rv$dataIn <- dataIn()
+        
+        
         rv$steps.status[seq_len(length(rv$config@steps))] <- stepStatus$UNDONE
+        rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
         
         
-        rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
-          rv$dataIn
-        }), nm = GetStepsNames())
+        # rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
+        #   rv$dataIn
+        # }), nm = GetStepsNames())
+        rv$child.data2send <- BuildData2Send(rv$dataIn, GetStepsNames())
+        
         
       } else {
         .cd <- max(triggerValues, na.rm = TRUE) == triggerValues
@@ -514,7 +609,9 @@ nav_pipeline_server <- function(
           # One take the last validated step (before the one
           # corresponding to processHasChanges
           # but it is straightforward because we just updates rv$status
+          #browser()
           rv$steps.status[(lastValidated + 1):len] <- stepStatus$UNDONE
+          rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
           
           # All the following processes (after the one which has changed) are disabled
           #rv$steps.enabled[(lastValidated + 1):len] <- FALSE
@@ -532,12 +629,13 @@ nav_pipeline_server <- function(
           })
         } else {
           # A process has been validated
-          rv$steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
           #browser()
+          rv$steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
+          rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
+          
           if (ind.processHasChanged < len) {
             rv$steps.status[(1 + ind.processHasChanged):len] <- stepStatus$UNDONE
           }
-          
           
           rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
           rv$dataIn <- newValue
@@ -549,8 +647,6 @@ nav_pipeline_server <- function(
         }
         
       }
-      
-      print(rv$child.data2send)
       
       # Send result
       dataOut$trigger <- Timestamp()
@@ -579,66 +675,74 @@ nav_pipeline_server <- function(
     # The parameter 'is.enabled()' is updated by the caller and tells the
     # process if it is enabled or disabled (remote action from the caller)
     # This enables/disables an entire process/pipeline
-    observeEvent(is.enabled(), ignoreNULL = TRUE, ignoreInit = TRUE, {
-      if (isTRUE(is.enabled())) {
-        rv$steps.enabled <- Update_State_Screens(
-          is.skipped = is.skipped(),
-          is.enabled = is.enabled(),
-          rv = rv
-        )
-      } else {
-        rv$steps.enabled <- setNames(rep(is.enabled(), length(rv$config@steps)),
-          nm = names(rv$config@steps)
-        )
-      }
-    })
+    # observeEvent(is.enabled(), ignoreNULL = TRUE, ignoreInit = TRUE, {
+    #   
+    #   browser()
+    #   if (isTRUE(is.enabled())) {
+    #     rv$steps.enabled <- Update_State_Screens(
+    #       is.skipped = is.skipped(),
+    #       is.enabled = is.enabled(),
+    #       rv = rv
+    #     )
+    #   } else {
+    #     rv$steps.enabled <- setNames(rep(is.enabled(), length(rv$config@steps)),
+    #       nm = names(rv$config@steps)
+    #     )
+    #   }
+    # })
     
     
     # Catch new status event
     # See https://github.com/daattali/shinyjs/issues/166
     # https://github.com/daattali/shinyjs/issues/25
-    observeEvent(rv$steps.status, ignoreInit = TRUE, {
+    observeEvent(rv$steps.status, ignoreInit = FALSE, {
+      
+      #browser()
       rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
       rv$steps.enabled <- Update_State_Screens(
-        is.skipped = is.skipped(),
-        is.enabled = is.enabled(),
+        is.skipped = FALSE,
+        is.enabled = TRUE,
         rv = rv
       )
       
-      n <- length(rv$config@steps)
-      
-      
-      #browser()
-      ind.undone <- unname(which(rv$steps.status == stepStatus$UNDONE))
+     ind.undone <- unname(which(rv$steps.status == stepStatus$UNDONE))
       rv$resetChildrenUI[ind.undone] <- rv$resetChildrenUI[ind.undone] + 1
     })
     
     
     # The parameter is.skipped() is set by the caller and tells the process
     # if it is skipped or not (remote action from the caller)
-    observeEvent(is.skipped(), ignoreNULL = FALSE, ignoreInit = TRUE, {
-      if (isTRUE(is.skipped())) {
-        rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$SKIPPED)
-      } else {
-        rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$UNDONE)
-        rv$steps.enabled <- Update_State_Screens(
-          is.skipped = is.skipped(),
-          is.enabled = is.enabled(),
-          rv = rv
-        )
-      }
-    })
+    # observeEvent(is.skipped(), ignoreNULL = FALSE, ignoreInit = TRUE, {
+    #   
+    #   browser()
+    #   
+    #   if (isTRUE(is.skipped())) {
+    #     rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$SKIPPED)
+    #   } else {
+    #     rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$UNDONE)
+    #     rv$steps.enabled <- Update_State_Screens(
+    #       is.skipped = is.skipped(),
+    #       is.enabled = is.enabled(),
+    #       rv = rv
+    #     )
+    #   }
+    # })
     
     
     
     ResetPipeline <- function() {
+      
+      #browser()
       rv$dataIn <- NULL
-      rv$current.pos <- 1
       
       n <- length(rv$config@steps)
       # The status of the steps are reinitialized to the default
       # configuration of the process
       rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
+      rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
+      
+      
+      rv$current.pos <- 1
       
       # The reset of the children is made by incrementing
       # the values by 1. This has for effect to be detected
@@ -654,12 +758,14 @@ nav_pipeline_server <- function(
     
     
     observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
+      #browser()
       req(rv$config)
       ResetPipeline()
     })
     
     
     observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
+      #browser()
       req(rv$config)
       ResetPipeline()
     })
@@ -723,63 +829,9 @@ nav_pipeline_server <- function(
     observeEvent(input$closeModal, {
       removeModal()
     })
-    # 
-    # 
-    #         # Catch a new value on the parameter 'dataIn()' variable, sent by the
-    #         # caller. This value may be NULL or contain a dataset.
-    #         # The first action is to store the dataset in the temporary variable
-    #         # temp.dataIn. Then, two behaviours:
-    #         # 1 - if the variable is NULL. xxxx
-    #         # 2 - if the variable contains a dataset. xxx
-    observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
-      req(rv$config)
-      
-      # in case of a new dataset, reset the whole pipeline
-      # ResetPipeline()
-      
-      # Get the new dataset in a temporary variable
-      rv$temp.dataIn <- dataIn()
-      session$userData$dataIn.original <- dataIn()
-      
-      # The mode pipeline is a node and has to send
-      # datasets to its children
-      if (is.null(rv$dataIn)) {
-        
-        rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
-          rv$dataIn
-        }), nm = GetStepsNames())
-        
-        # rv$steps.enabled <- res$steps.enabled
-      }
-      
-      if (is.null(dataIn())) {
-        # The process has been reseted or is not concerned
-        # Disable all screens of the process
-        rv$steps.enabled <- ToggleState_Screens(
-          cond = FALSE,
-          range = seq_len(length(rv$config@steps)),
-          is.enabled = is.enabled,
-          rv = rv
-        )
-      } else {
-        # A new dataset has been loaded
-        # # Update the different screens in the process
-        rv$steps.enabled <- Update_State_Screens(
-          is.skipped = is.skipped(),
-          is.enabled = is.enabled(),
-          rv = rv
-        )
-        
-        
-        # Enable the first screen
-        rv$steps.enabled <- ToggleState_Screens(
-          cond = TRUE,
-          range = 1,
-          is.enabled = is.enabled(),
-          rv = rv
-        )
-      }
-    })
+
+    
+   
     
     
     observeEvent(rv$current.pos, ignoreInit = TRUE, {
@@ -872,9 +924,7 @@ nav_pipeline <- function() {
       rv$dataOut <- nav_pipeline_server(
         id = pipe.name,
         dataIn = reactive({rv$dataIn}),
-        remoteReset = reactive({input$simReset}),
-        is.skipped = reactive({input$simSkipped %% 2 != 0}),
-        is.enabled = reactive({input$simEnabled %% 2 == 0})
+        remoteReset = reactive({input$simReset})
       )
     })
   }
