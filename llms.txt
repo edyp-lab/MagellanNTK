@@ -89,6 +89,8 @@ MagellanNTK can be launched in two different modes: a ‘user’ mode and a
 
 - [`All_Skipped_tag()`](https://edyp-lab.github.io/MagellanNTK/reference/All_Skipped_tag.md)
   : xxx
+- [`BuildData2Send()`](https://edyp-lab.github.io/MagellanNTK/reference/BuildData2Send.md)
+  : xxx
 - [`Build_SkippedInfoPanel()`](https://edyp-lab.github.io/MagellanNTK/reference/Build_SkippedInfoPanel.md)
   : xxx
 - [`CheckProcessCode()`](https://edyp-lab.github.io/MagellanNTK/reference/CheckProcessCode.md)
@@ -147,6 +149,8 @@ MagellanNTK can be launched in two different modes: a ‘user’ mode and a
 - [`ToggleState_ResetBtn()`](https://edyp-lab.github.io/MagellanNTK/reference/ToggleState_ResetBtn.md)
   : xxx
 - [`ToggleState_Screens()`](https://edyp-lab.github.io/MagellanNTK/reference/ToggleState_Screens.md)
+  : xxx
+- [`UpdateStepsStatus()`](https://edyp-lab.github.io/MagellanNTK/reference/UpdateStepsStatus.md)
   : xxx
 - [`Update_State_Screens()`](https://edyp-lab.github.io/MagellanNTK/reference/Update_State_Screens.md)
   : xxx
