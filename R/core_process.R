@@ -217,7 +217,7 @@ nav_process_server <- function(
     
     output$prevBtnUI <- renderUI({
       req(rv$config)
-      rv$current.pos
+      #rv$current.pos
       
       widget <- actionButton(ns("prevBtn"), tl_h_prev_icon, style = btn_css_style)
 
@@ -232,7 +232,7 @@ nav_process_server <- function(
     
     output$nextBtnUI <- renderUI({
       req(rv$config)
-      rv$current.pos
+      #rv$current.pos
       
       widget <-actionButton(ns("nextBtn"), tl_h_next_icon,  style = btn_css_style)
       
@@ -246,9 +246,9 @@ nav_process_server <- function(
     
     
     output$DoBtn <- renderUI({
-      dataIn()
-      rv$current.pos
-      rv$steps.status
+      #dataIn()
+      #rv$current.pos
+      #rv$steps.status
       
       
       enable.do.Btns <- FALSE
@@ -266,9 +266,9 @@ nav_process_server <- function(
 
     output$DoProceedBtn <- renderUI({
       
-      dataIn()
-      rv$current.pos
-      rv$steps.status
+      #dataIn()
+      #rv$current.pos
+      #rv$steps.status
       
       widget <- actionButton(ns("DoProceedBtn"),
         tagList("Run ", shiny::icon('arrow-right')),
@@ -305,7 +305,7 @@ nav_process_server <- function(
     # process and pipeline modules
     #observeEvent(c(id, dataIn()), ignoreInit = FALSE, ignoreNULL = TRUE, {
       observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
-        
+        #browser()
       rv$rstBtn()
       
       rv$prev.remoteReset < remoteReset()
@@ -342,6 +342,8 @@ nav_process_server <- function(
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = stepsnames)
       rv$steps.skipped <- setNames(rep(FALSE, n), nm = stepsnames)
       rv$currentStepName <- reactive({stepsnames[rv$current.pos]})
+      
+      
     },
       priority = 1000
     )
@@ -444,6 +446,8 @@ nav_process_server <- function(
       req(rv$config)
       req(status())
       
+      
+      #browser()
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
       
@@ -479,22 +483,12 @@ nav_process_server <- function(
           rv = rv
         )
       }
+
       
-      # enable.do.Btns <- enable.doProceed.Btns <- FALSE
-      # len <- length(rv$config@steps)
-      # 
-      # enable.do.Btns <- enable.doProceed.Btns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
-      #   unname(rv$steps.status[len]) != stepStatus$VALIDATED && (!is.null(dataIn()))
-      # 
-      # 
-      # if (len > 1)
-      #   enable.doProceed.Btns <- enable.doProceed.Btns && rv$current.pos != len
-      # browser()
-      # 
-      # #shinyjs::toggleState("DoProceedBtn", condition = enable.doProceed.Btns)
-      # #shinyjs::toggleState("DoBtn", condition = enable.do.Btns)
-      # shinyjs::toggleState(id = "DoProceedBtn", condition = enable.doProceed.Btns)
-      # shinyjs::toggleState(id = "DoBtn", condition = enable.do.Btns)
+      dataOut$trigger <- Timestamp()
+      dataOut$value <- rv$dataIn
+
+      
     })
     
     
@@ -544,7 +538,7 @@ nav_process_server <- function(
           # this  workflow and will be used in case of
           # reset
           rv$dataIn <- rv$proc$dataOut()$value
-          
+         # browser()
           # Update the 'dataOut' reactive value to return
           #  this dataset to the caller. this `nav_process`
           #  is only a bridge between the process and the
@@ -561,7 +555,7 @@ nav_process_server <- function(
     
     observeEvent(req(!is.null(rv$position)), ignoreInit = TRUE, {
       pos <- strsplit(rv$position, "_")[[1]][1]
-      
+      #browser()
       if (pos == "last") {
         rv$current.pos <- length(rv$config@steps)
       } else if (is.numeric(pos)) {
@@ -635,9 +629,17 @@ nav_process_server <- function(
     })
     
     
-    observeEvent(req(status()), ignoreInit = TRUE, {
+    observeEvent(status(), ignoreInit = FALSE, {
+      
+      
       shinyjs::toggleState("DoProceedBtn", condition = unname(status()) == stepStatus$UNDONE)
       shinyjs::toggleState("DoBtn", condition = unname(status()) == stepStatus$UNDONE)
+      
+      # browser()
+      # if (status() == stepStatus$VALIDATED){
+      #   dataOut$trigger <- Timestamp()
+      #   dataOut$value <- dataIn()
+      # }
     })
     
     # Catch new status event
@@ -656,27 +658,11 @@ nav_process_server <- function(
       # enable.do.Btns <- FALSE
       # enable.doProceed.Btns <- FALSE
        n <- length(rv$config@steps)
-      # 
-      # enable.do.Btns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
-      #   unname(rv$steps.status[n]) != stepStatus$VALIDATED
-      # 
-      # enable.doProceed.Btns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
-      #   unname(rv$steps.status[n]) != stepStatus$VALIDATED
-      # 
-      # if (n > 1)
-      #   enable.doProceed.Btns <- enable.doProceed.Btns && 
-      #   rv$current.pos != length(n)
-      # 
-      # #shinyjs::toggleState("DoProceedBtn", condition = enable.doProceed.Btns)
-      # #shinyjs::toggleState("DoBtn", condition = enable.do.Btns)
-      # shinyjs::toggleState("DoProceedBtn", condition = enable.doProceed.Btns)
-      # shinyjs::toggleState("DoBtn", condition = enable.do.Btns)
-      
-      
+
       if (rv$steps.status[n] == stepStatus$VALIDATED) {
         # Set current position to the last one
         rv$current.pos <- n
-        
+        #browser()
         # If the last step is validated, it is time to send result by
         # updating the 'dataOut' reactiveValue.
         dataOut$trigger <- Timestamp()
@@ -699,6 +685,10 @@ nav_process_server <- function(
           rv = rv
         )
       }
+      #browser()
+      dataOut$trigger <- Timestamp()
+      dataOut$value <- rv$dataIn
+      
     })
     
     ResetProcess <- function() {
@@ -709,19 +699,54 @@ nav_process_server <- function(
       # The status of the steps are reinitialized to the default
       # configuration of the process
       rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
+      
+      stepsnames <- names(rv$config@steps)
+      
+      
+      rv$steps.enabled <- setNames(rep(FALSE, n), nm = stepsnames)
+      rv$steps.skipped <- setNames(rep(FALSE, n), nm = stepsnames)
+      rv$currentStepName <- reactive({stepsnames[rv$current.pos]})
+      
+      
+      
+      
+      rv$steps.status <- setNames(
+        rep(unname(status()), length(rv$steps.status)), 
+        nm = names(rv$config@steps))
+      
+      #rv$steps.status <- UpdateStepsStatus(dataIn(), rv$config)
+      
+      
+       rv$steps.enabled <- Update_State_Screens(
+          is.skipped = is.skipped(),
+          is.enabled = is.enabled(),
+          rv = rv
+        )
+        
+        # Enable the first screen
+        rv$steps.enabled <- ToggleState_Screens(
+          cond = TRUE,
+          range = 1,
+          is.enabled = is.enabled(),
+          rv = rv
+        )
+
     }
+    
     
     observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
       req(rv$config)
       rv$dataIn <- rv$temp.dataIn <- dataIn()
       ResetProcess()
       # Return the NULL value as dataset
+      #browser()
       dataOut$trigger <- Timestamp()
-      dataOut$value <- NULL
+      dataOut$value <- -10
     })
     
     observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
       req(rv$config)
+      #browser()
       if (rv$prev.remoteReset < unname(remoteReset())){
         rv$dataIn <- rv$temp.dataIn <- dataIn()
         ResetProcess()
@@ -734,7 +759,6 @@ nav_process_server <- function(
       req(rv$config)
       shiny::withProgress(message = paste0("Reseting UI in process", id), {
         shiny::incProgress(0.5)
-        print(paste0(id, ' : shiny::withProgress(message = paste0("Reseting UI in process", id), {'))
         if (rv$prev.remoteResetUI < unname(remoteResetUI())){
           ResetProcess()
           rv$prev.remoteResetUI <- remoteResetUI()
@@ -748,12 +772,7 @@ nav_process_server <- function(
     })
     
     
-    
-    observeEvent(rv$current.pos, ignoreInit = FALSE, {
-      shinyjs::hide(selector = paste0(".page_", id))
-      shinyjs::show(GetStepsNames()[rv$current.pos])
-    })
-    
+
     # Define message when the Reset button is clicked
     template_reset_modal_txt <- "This action will reset the current process.
         The input dataset will be the output of the last previous validated
@@ -768,43 +787,12 @@ nav_process_server <- function(
     )
     
     
- 
-    # 
-    # 
-    # observeEvent(rv$current.pos, ignoreInit = FALSE, {
-    #   #browser()
-    #   if (length(rv$config@steps) == 1){
-    #     shinyjs::toggleState(id = "prevBtn", condition = FALSE)
-    #     shinyjs::toggleState(id = "nextBtn", condition = FALSE)
-    #   } else {
-    #     # If the cursor is not on the first position, show the 'prevBtn'
-    #     shinyjs::toggleState(id = "prevBtn", condition = rv$current.pos != 1)
-    #     
-    #     # If the cursor is set before the last step, show the 'nextBtn'
-    #     shinyjs::toggleState(id = "nextBtn", condition = rv$current.pos < length(rv$config@steps))
-    #   }
-    #   
-    #   # 
-    #   # enable.do.Btns <- enable.doProceed.Btns <- FALSE
-    #   # len <- length(rv$config@steps)
-    #   # 
-    #   # enable.do.Btns <- enable.doProceed.Btns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
-    #   #   unname(rv$steps.status[len]) != stepStatus$VALIDATED
-    #   # 
-    #   # 
-    #   # if (len > 1)
-    #   #   enable.doProceed.Btns <- enable.doProceed.Btns && rv$current.pos != len
-    #   # 
-    #   # #browser()
-    #   # #shinyjs::toggleState("DoProceedBtn", condition = enable.doProceed.Btns)
-    #   # #shinyjs::toggleState("DoBtn", condition = enable.do.Btns)
-    #   # shinyjs::toggleState(id = "DoProceedBtn", condition = enable.doProceed.Btns)
-    #   # shinyjs::toggleState(id = "DoBtn", condition = enable.do.Btns)
-    #   # 
-    #   # shinyjs::hide(selector = paste0(".page_", id))
-    #   # shinyjs::show(GetStepsNames()[rv$current.pos])
-    # })
-    # 
+
+     observeEvent(rv$current.pos, ignoreInit = FALSE, {
+          shinyjs::hide(selector = paste0(".page_", id))
+        shinyjs::show(GetStepsNames()[rv$current.pos])
+     })
+
     
     
     # The return value of the nav_process module server

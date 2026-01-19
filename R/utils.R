@@ -544,6 +544,7 @@ toggleWidget <- function(widget, condition) {
 #' @examples
 #' NULL
 Timestamp <- function() {
+  options(digits = 20)
     as.numeric(Sys.time())
 }
 

@@ -507,6 +507,7 @@ mainapp_server <- function(id,
     })
     
     observe_result_run_workflow <- observeEvent(rv.core$result_run_workflow$dataOut()$value, {
+      #browser()
       rv.core$processed.obj <- rv.core$result_run_workflow$dataOut()$value
     })
     

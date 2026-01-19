@@ -301,8 +301,6 @@ nav_pipeline_server <- function(
     
     
     output$datasetNameUI <- renderUI({
-      #req(inherits(dataIn(), 'QFeatures'))
-      # h3(DaparToolshed::filename(dataIn()))
       div(
         style = paste0("padding-left: ", 100, "px;"),
         h3(id)
@@ -360,9 +358,9 @@ nav_pipeline_server <- function(
       )
       
       
-      #browser()
+      browser()
       
-      rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
+      rv$child.data2send <- BuildData2Send(rv$temp.dataIn, GetStepsNames())
       
       
       rv$currentStepName <- reactive({
@@ -449,7 +447,7 @@ nav_pipeline_server <- function(
       
       #browser()
       
-      if (is.null(dataIn())) {
+      if (is.null(rv$temp.dataIn)) {
         # The process has been reseted or is not concerned
         # Disable all screens of the process
         rv$steps.enabled <- ToggleState_Screens(
@@ -467,7 +465,7 @@ nav_pipeline_server <- function(
         # }), nm = GetStepsNames())
         # 
         
-        rv$steps.status <- UpdateStepsStatus(dataIn(), rv$config)
+        rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
         
         
         rv$steps.skipped <- rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
@@ -488,7 +486,8 @@ nav_pipeline_server <- function(
         )
       }
       
-      rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
+      browser()
+      rv$child.data2send <- BuildData2Send(rv$temp.dataIn, GetStepsNames())
     })
     
     
@@ -517,7 +516,7 @@ nav_pipeline_server <- function(
 
     
     GetValuesFromChildren <- reactive({
-      
+      #browser()
       # Get the trigger values for each steps of the module
       return.trigger.values <- setNames(lapply(GetStepsNames(), function(x) {
         tmp.return[[x]]$dataOut()$trigger
@@ -548,29 +547,31 @@ nav_pipeline_server <- function(
     
     
     # Catch the returned values of the processes attached to pipeline
-    observeEvent(GetValuesFromChildren()$triggers, ignoreInit = FALSE, {
+    observeEvent(GetValuesFromChildren()$triggers, ignoreInit = TRUE, {
       
+      #req (sum (is.na()))
       processHasChanged <- newValue <- NULL
       
       triggerValues <- GetValuesFromChildren()$triggers
       return.values <- GetValuesFromChildren()$values
       
-      #browser()
+     
+       # if (length(unique(triggerValues)) == 1 && is.null(return.values)){
+       #   #Initialisation de Prostar sans dataset
+       #   rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
+       #   
+       # } else {
+      
       if (is.null(return.values)) {
         # The entire pipeline has been reseted
         rv$dataIn <- dataIn()
-        
-        
-        rv$steps.status[seq_len(length(rv$config@steps))] <- stepStatus$UNDONE
-        rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
-        
-        
-        # rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
-        #   rv$dataIn
-        # }), nm = GetStepsNames())
-        rv$child.data2send <- BuildData2Send(rv$dataIn, GetStepsNames())
-        
-        
+
+
+        #rv$steps.status[seq_len(length(rv$config@steps))] <- stepStatus$UNDONE
+        #rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
+        rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
+
+
       } else {
         .cd <- max(triggerValues, na.rm = TRUE) == triggerValues
         processHasChanged <- GetStepsNames()[which(.cd)]
@@ -585,8 +586,8 @@ nav_pipeline_server <- function(
         
         
         len <- length(rv$config@steps)
-        
-        if (is.null(newValue)) { # A process has been reseted
+        browser()
+        if (is.numeric(newValue) && newValue == -10) { # A process has been reseted
           
           lastValidated <- GetMaxValidated_BeforePos(pos = ind.processHasChanged, rv = rv)
           
@@ -600,7 +601,6 @@ nav_pipeline_server <- function(
           # but it is straightforward because we just updates rv$status
           #browser()
           rv$steps.status[(lastValidated + 1):len] <- stepStatus$UNDONE
-          rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
           
           # All the following processes (after the one which has changed) are disabled
           #rv$steps.enabled[(lastValidated + 1):len] <- FALSE
@@ -620,7 +620,6 @@ nav_pipeline_server <- function(
           # A process has been validated
           #browser()
           rv$steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
-          rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
           
           if (ind.processHasChanged < len) {
             rv$steps.status[(1 + ind.processHasChanged):len] <- stepStatus$UNDONE
@@ -635,7 +634,9 @@ nav_pipeline_server <- function(
           })
         }
         
-      }
+      #}
+       }
+      
       
       # Send result
       dataOut$trigger <- Timestamp()
@@ -667,7 +668,7 @@ nav_pipeline_server <- function(
     # https://github.com/daattali/shinyjs/issues/25
     observeEvent(rv$steps.status, ignoreInit = FALSE, {
       
-      #browser()
+      browser()
       rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
       rv$steps.enabled <- Update_State_Screens(
         is.skipped = FALSE,
@@ -684,15 +685,9 @@ nav_pipeline_server <- function(
     ResetPipeline <- function() {
 
       rv$dataIn <- NULL
-      
       n <- length(rv$config@steps)
-      # The status of the steps are reinitialized to the default
-      # configuration of the process
-      rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
-      rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
       
-      
-      rv$current.pos <- 1
+      #browser()
       
       # The reset of the children is made by incrementing
       # the values by 1. This has for effect to be detected
@@ -701,9 +696,35 @@ nav_pipeline_server <- function(
       
       rv$resetChildren[seq_len(n)] <- rv$resetChildren[seq_len(n)] + 1
       
+      
+      # The status of the steps are reinitialized to the default
+      # configuration of the process
+      rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
+      rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
+      
+      #rv$steps.status <- UpdateStepsStatus(dataIn(), rv$config)
+      
+      
+      rv$steps.skipped <- rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
+      
+      rv$steps.enabled <- Update_State_Screens(
+        is.skipped = FALSE,
+        is.enabled = TRUE,
+        rv = rv
+      )
+      
+      browser()
+      
+      #rv$current.pos <- GetMaxValidated_AllSteps(rv$steps.status) + 1
+      rv$current.pos <- 1
+      
+      
+      rv$child.data2send <- BuildData2Send(rv$temp.dataIn, GetStepsNames())
+      
+       
       # Return the NULL value as dataset
       dataOut$trigger <- Timestamp()
-      dataOut$value <- rv$dataIn
+      dataOut$value <- NULL
     }
     
     
@@ -713,10 +734,10 @@ nav_pipeline_server <- function(
     })
     
     
-    observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
-      req(rv$config)
-      ResetPipeline()
-    })
+    # observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
+    #   req(rv$config)
+    #   ResetPipeline()
+    # })
     
     # Show the info panel of a skipped module
     output$SkippedInfoPanel <- renderUI({
