@@ -13,8 +13,14 @@ nav_pipeline_server(
   dataIn = reactive({
      NULL
  }),
+  is.enabled = reactive({
+     TRUE
+ }),
   remoteReset = reactive({
      0
+ }),
+  is.skipped = reactive({
+     FALSE
  }),
   verbose = FALSE,
   usermod = "user"
@@ -34,11 +40,24 @@ nav_pipeline()
 
   The dataset
 
+- is.enabled:
+
+  A \`boolean\`. This variable is a remote command to specify if the
+  corresponding module is enabled/disabled in the calling module of
+  upper level. For example, if this module is part of a pipeline and the
+  pipeline calculates that it is disabled (i.e. skipped), then this
+  variable is set to TRUE. Then, all the widgets will be disabled. If
+  not, the enabling/disabling of widgets is deciding by this module.
+
 - remoteReset:
 
   It is a remote command to reset the module. A boolen that indicates is
   the pipeline has been reseted by a program of higher level Basically,
   it is the program which has called this module
+
+- is.skipped:
+
+  xxx
 
 - verbose:
 

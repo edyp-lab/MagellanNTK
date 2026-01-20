@@ -6,8 +6,6 @@
   : xxx
 - [`BuildData2Send()`](https://edyp-lab.github.io/MagellanNTK/reference/BuildData2Send.md)
   : xxx
-- [`Build_SkippedInfoPanel()`](https://edyp-lab.github.io/MagellanNTK/reference/Build_SkippedInfoPanel.md)
-  : xxx
 - [`CheckProcessCode()`](https://edyp-lab.github.io/MagellanNTK/reference/CheckProcessCode.md)
   : Check source code of a module process
 - [`CheckWorkflowDir()`](https://edyp-lab.github.io/MagellanNTK/reference/CheckWorkflowDir.md)
