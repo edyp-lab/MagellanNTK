@@ -28,13 +28,7 @@ timeline_pipeline_server <- function(
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
-        observeEvent(id, {
-          
-          #browser()
-        })
         UpdateTags <- reactive({
-          
-          
             req(config@steps != "")
             tl_status <- rep("undone", length(config@steps))
             tl_status[which(status() == stepStatus$VALIDATED)] <- "completed"

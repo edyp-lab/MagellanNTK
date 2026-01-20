@@ -8,11 +8,19 @@
 #'
 #' @param dataIn The dataset
 #'
+#' @param is.enabled A `boolean`. This variable is a remote command to specify
+#' if the corresponding module is enabled/disabled in the calling module of
+#' upper level.
+#' For example, if this module is part of a pipeline and the pipeline calculates
+#' that it is disabled (i.e. skipped), then this variable is set to TRUE. Then,
+#' all the widgets will be disabled. If not, the enabling/disabling of widgets
+#' is deciding by this module.
 #'
 #' @param remoteReset It is a remote command to reset the module. A boolen that
 #' indicates is the pipeline has been reseted by a program of higher level
 #' Basically, it is the program which has called this module
 #'
+#' @param is.skipped xxx
 #' @param verbose = FALSE,
 #' @param usermod = 'user'
 #'
@@ -75,7 +83,9 @@ nav_pipeline_ui <- function(id) {
 nav_pipeline_server <- function(
     id = NULL,
   dataIn = reactive({NULL}),
+  is.enabled = reactive({TRUE}),
   remoteReset = reactive({0}),
+  is.skipped = reactive({FALSE}),
   verbose = FALSE,
   usermod = "user") {
   ### -------------------------------------------------------------###
@@ -145,8 +155,8 @@ nav_pipeline_server <- function(
       child.position = NULL,
       
       # xxxx
-      child.data2send = NULL,
-      rstBtn = reactive({0})
+      child.data2send = NULL
+      #rstBtn = reactive({0})
     )
     
     # Store the return values (lists) of child processes
@@ -203,13 +213,11 @@ nav_pipeline_server <- function(
                 "display: inline-block;",
                 "vertical-align: middle; "
               ),
-              shinyjs::disabled(
-                actionButton(ns("prevBtn"), tl_h_prev_icon, style = btn_css_style)
-              ),
-              div(style="display: inline-block;",
-                mod_modalDialog_ui(id = ns("rstBtn"))
-              ),
-              actionButton(ns("nextBtn"), tl_h_next_icon, style = btn_css_style)
+              div(id = ns('div_btns_prev_ui'), style="display: inline-block;", uiOutput(ns('prevBtnUI'))),
+              # div(style="display: inline-block;",
+              #   mod_modalDialog_ui(id = ns("rstBtn"))
+              # ),
+              div(id = ns('div_btns_next_ui'), style="display: inline-block;", uiOutput(ns('nextBtnUI')))
             )
           ),
           column(width = 9, 
@@ -217,8 +225,6 @@ nav_pipeline_server <- function(
             timeline_pipeline_ui(ns("timeline_pipeline"))
             ),
           column(width = 1, 
-            
-            
             
             actionButton(ns("btn_eda"), 
               label = tagList(
@@ -232,6 +238,41 @@ nav_pipeline_server <- function(
         )
       )
     })
+    
+    
+    
+    
+    
+    output$prevBtnUI <- renderUI({
+      req(rv$config)
+      rv$current.pos
+      
+      widget <- actionButton(ns("prevBtn"), tl_h_prev_icon, style = btn_css_style)
+      
+      if (length(rv$config@steps) == 1)
+        .cond <- FALSE
+      else 
+        .cond <- rv$current.pos != 1
+      
+      MagellanNTK::toggleWidget(widget, .cond)
+    })
+    
+    output$nextBtnUI <- renderUI({
+      req(rv$config)
+      rv$current.pos
+      
+      widget <-actionButton(ns("nextBtn"), tl_h_next_icon,  style = btn_css_style)
+      
+      if (length(rv$config@steps) == 1)
+        .cond <- FALSE
+      else 
+        .cond <-  rv$current.pos < length(rv$config@steps)
+      
+      MagellanNTK::toggleWidget(widget, .cond)
+    })
+    
+    
+    
     
     
     observeEvent(input$btn_eda, {
@@ -312,12 +353,12 @@ nav_pipeline_server <- function(
     # and is attached to the server, this function can be view as the
     # initialization of the server module. This code is generic to both
     # process and pipeline modules
-    observeEvent(c(id, dataIn()), ignoreInit = FALSE, ignoreNULL = TRUE, {
+    observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
       
       # Get the new dataset in a temporary variable
-      rv$temp.dataIn <- dataIn()
-      rv$dataIn.original <- dataIn()
-      session$userData$dataIn.original <- dataIn()
+      # rv$temp.dataIn <- dataIn()
+      # rv$dataIn.original <- dataIn()
+      # session$userData$dataIn.original <- dataIn()
       
       ### Call the server module of the process/pipeline which name is
       ### the parameter 'id'.
@@ -327,9 +368,10 @@ nav_pipeline_server <- function(
         paste0(id, "_server"),
         list(
           id = id,
-          dataIn = reactive({rv$temp.dataIn}),
+          dataIn = reactive({NULL}),
           steps.enabled = reactive({rv$steps.enabled}),
-          remoteReset = reactive({ rv$rstBtn() + remoteReset()}),
+          #remoteReset = reactive({ rv$rstBtn() + remoteReset()}),
+          remoteReset = reactive({remoteReset()}),
           steps.status = reactive({rv$steps.status})
         )
       )
@@ -343,39 +385,17 @@ nav_pipeline_server <- function(
       rv$resetChildrenUI <- setNames(rep(0, n), nm = GetStepsNames())
       
       
-      # update these variables wrt the SE already present in dataIn()
-       
       rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
-      #rv$steps.skipped <- setNames(rep(FALSE, n), nm = GetStepsNames())
-      
       rv$steps.skipped <- Discover_Skipped_Steps(rv$steps.status)
       
-      rv$steps.enabled <- Update_State_Screens(
-        is.skipped = rv$steps.skipped,
-        is.enabled = TRUE,
-        rv = rv
-      )
-      
-      
-      browser()
-      
-      rv$child.data2send <- BuildData2Send(rv$temp.dataIn, GetStepsNames())
-      
+      #rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
       
       rv$currentStepName <- reactive({
         GetStepsNames()[rv$current.pos]
       })
-      
-      # # Launch the server timeline for this process/pipeline
-      # timeline_pipeline_server(
-      #   "timeline_pipeline",
-      #   config = rv$config,
-      #   status = reactive({rv$steps.status}),
-      #   enabled = reactive({rv$steps.enabled}),
-      #   position = reactive({rv$current.pos})
-      # )
-      
+
+     
       # Launch the ui for each step of the pipeline
       # This function could be stored in the source file of the
       # pipeline but the strategy is to insert minimum extra
@@ -394,12 +414,14 @@ nav_pipeline_server <- function(
     
     
     
+    
+    # 
     observe({
       rv$steps.status
       rv$steps.enabled
       rv$current.pos
 
-
+      #browser()
       # Launch the server timeline for this process/pipeline
       timeline_pipeline_server(
         "timeline_pipeline",
@@ -411,94 +433,63 @@ nav_pipeline_server <- function(
     })
     
     
-    
-    
-    
-    
-    
-    
     #         # Catch a new value on the parameter 'dataIn()' variable, sent by the
     #         # caller. This value may be NULL or contain a dataset.
     #         # The first action is to store the dataset in the temporary variable
     #         # temp.dataIn. Then, two behaviours:
     #         # 1 - if the variable is NULL. xxxx
     #         # 2 - if the variable contains a dataset. xxx
-    observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
+    observeEvent(req(dataIn()), ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
+      
+      #browser()
+      # Get the new dataset in a temporary variable
+      rv$temp.dataIn <- dataIn()
+      rv$dataIn.original <- dataIn()
+      session$userData$dataIn.original <- dataIn()
+      
       
       # in case of a new dataset, reset the whole pipeline
       # ResetPipeline()
       
-      # Get the new dataset in a temporary variable
-      rv$temp.dataIn <- dataIn()
-      session$userData$dataIn.original <- dataIn()
+      n <- length(rv$config@steps)
       
-      # The mode pipeline is a node and has to send
-      # datasets to its children
-      # if (is.null(rv$dataIn)) {
-      #   
-      #   rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
-      #     rv$dataIn
-      #   }), nm = GetStepsNames())
-      #   
-      #   # rv$steps.enabled <- res$steps.enabled
-      # }
+      rv$resetChildren <- setNames(rep(0, n), nm = GetStepsNames())
+      rv$resetChildrenUI <- setNames(rep(0, n), nm = GetStepsNames())
       
       
-      #browser()
+      rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
+      rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
+      rv$steps.skipped <- Discover_Skipped_Steps(rv$steps.status)
       
-      if (is.null(rv$temp.dataIn)) {
-        # The process has been reseted or is not concerned
-        # Disable all screens of the process
-        rv$steps.enabled <- ToggleState_Screens(
-          cond = FALSE,
-          range = seq_len(length(rv$config@steps)),
-          is.enabled = TRUE,
-          rv = rv
-        )
-      } else {
-        # A new dataset has been loaded
+      rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
+      
+      
+             # A new dataset has been loaded
         # # Update the different screens in the process
-        # 
-        # rv$child.data2send <- setNames(lapply(GetStepsNames(), function(x) {
-        #   rv$dataIn
-        # }), nm = GetStepsNames())
-        # 
-        
-        rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
-        
-        
-        rv$steps.skipped <- rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
-
         rv$steps.enabled <- Update_State_Screens(
-          is.skipped = FALSE,
-          is.enabled = TRUE,
+          is.skipped = is.skipped(),
+          is.enabled = is.enabled(),
           rv = rv
         )
-
+        
+        
         # Enable the first screen
-        if (rv$steps.status[1] == stepStatus$UNDONE)
-          rv$steps.enabled <- ToggleState_Screens(
+        rv$steps.enabled <- ToggleState_Screens(
           cond = TRUE,
           range = 1,
-          is.enabled = TRUE,
+          is.enabled = is.enabled(),
           rv = rv
         )
-      }
-      
-      browser()
-      rv$child.data2send <- BuildData2Send(rv$temp.dataIn, GetStepsNames())
+
     })
     
     
     
-    
-    
-    ###
-    ### Launch the server for each step of the pipeline
-    ###
     observe({
-
+      ###
+      ### Launch the server for each step of the pipeline
+      ###
       lapply(GetStepsNames(), function(x) {
         tmp.return[[x]] <- nav_process_server(
           id = paste0(id, "_", x),
@@ -516,7 +507,7 @@ nav_pipeline_server <- function(
 
     
     GetValuesFromChildren <- reactive({
-      #browser()
+      
       # Get the trigger values for each steps of the module
       return.trigger.values <- setNames(lapply(GetStepsNames(), function(x) {
         tmp.return[[x]]$dataOut()$trigger
@@ -543,36 +534,20 @@ nav_pipeline_server <- function(
       )
     })
     
-    
-    
-    
+
     # Catch the returned values of the processes attached to pipeline
     observeEvent(GetValuesFromChildren()$triggers, ignoreInit = TRUE, {
       
-      #req (sum (is.na()))
       processHasChanged <- newValue <- NULL
+      len <- length(rv$steps.status)
+      
       
       triggerValues <- GetValuesFromChildren()$triggers
       return.values <- GetValuesFromChildren()$values
       
-     
-       # if (length(unique(triggerValues)) == 1 && is.null(return.values)){
-       #   #Initialisation de Prostar sans dataset
-       #   rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
-       #   
-       # } else {
-      
-      if (is.null(return.values)) {
-        # The entire pipeline has been reseted
-        rv$dataIn <- dataIn()
-
-
-        #rv$steps.status[seq_len(length(rv$config@steps))] <- stepStatus$UNDONE
-        #rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
-        rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
-
-
-      } else {
+      if (sum(is.na(triggerValues)) == length(triggerValues) || is.null(return.values)){
+        # Initialisation
+      } else {    
         .cd <- max(triggerValues, na.rm = TRUE) == triggerValues
         processHasChanged <- GetStepsNames()[which(.cd)]
         
@@ -583,12 +558,11 @@ nav_pipeline_server <- function(
         # If the original length is not 1, then this indice is different
         # than the above one
         ind.processHasChanged <- which(names(rv$config@steps) == processHasChanged)
-        
-        
-        len <- length(rv$config@steps)
-        browser()
-        if (is.numeric(newValue) && newValue == -10) { # A process has been reseted
+        if (is.null(newValue)){
           
+        } else if (is.numeric(newValue) && newValue == -10){
+          # A process has been reseted
+          browser()
           lastValidated <- GetMaxValidated_BeforePos(pos = ind.processHasChanged, rv = rv)
           
           # If no process has been validated yet
@@ -599,11 +573,12 @@ nav_pipeline_server <- function(
           # One take the last validated step (before the one
           # corresponding to processHasChanges
           # but it is straightforward because we just updates rv$status
-          #browser()
+          
           rv$steps.status[(lastValidated + 1):len] <- stepStatus$UNDONE
           
           # All the following processes (after the one which has changed) are disabled
           #rv$steps.enabled[(lastValidated + 1):len] <- FALSE
+          #rv$steps.status <- UpdateStepsStatus(dataIn(), rv$config)
           
           
           # The process that has been rested is enabled so as to rerun it
@@ -613,30 +588,32 @@ nav_pipeline_server <- function(
           Update_State_Screens(rv$steps.skipped, rv$steps.enabled, rv)
           
           # Update the datasend Vector
-          lapply((lastValidated + 1):len, function(x){
-            rv$child.data2send[[x]] <- rv$child.data2send[[lastValidated + 1]]
-          })
-        } else {
-          # A process has been validated
-          #browser()
-          rv$steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
+           lapply((lastValidated + 1):len, function(x){
+             rv$child.data2send[[x]] <- rv$child.data2send[[lastValidated + 1]]
+           })
           
+          
+        } else {# A process has been validated
+          rv$steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
+          #browser()
           if (ind.processHasChanged < len) {
             rv$steps.status[(1 + ind.processHasChanged):len] <- stepStatus$UNDONE
           }
+          
           
           rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
           rv$dataIn <- newValue
           
           # Update the datasend Vector
-          lapply((ind.processHasChanged + 1):len, function(x){
-            rv$child.data2send[[x]] <- rv$dataIn
-          })
+           lapply((ind.processHasChanged + 1):len, function(x){
+           rv$child.data2send[[x]] <- rv$dataIn
+           })
+
         }
         
-      #}
-       }
+      }
       
+      print(rv$child.data2send)
       
       # Send result
       dataOut$trigger <- Timestamp()
@@ -662,97 +639,33 @@ nav_pipeline_server <- function(
     })
     
     
-    
     # Catch new status event
     # See https://github.com/daattali/shinyjs/issues/166
     # https://github.com/daattali/shinyjs/issues/25
-    observeEvent(rv$steps.status, ignoreInit = FALSE, {
-      
-      browser()
+    observeEvent(rv$steps.status, ignoreInit = TRUE, {
       rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
       rv$steps.enabled <- Update_State_Screens(
-        is.skipped = FALSE,
-        is.enabled = TRUE,
+        is.skipped = is.skipped(),
+        is.enabled = is.enabled(),
         rv = rv
       )
       
-     ind.undone <- unname(which(rv$steps.status == stepStatus$UNDONE))
+      n <- length(rv$config@steps)
+      browser()
+      ind.last.validated <- GetMaxValidated_AllSteps(rv$steps.status)
+      if (ind.last.validated == 0)
+        rv$current.pos <- 1
+      else
+        rv$current.pos <- ind.last.validated
+      
+      ind.undone <- unname(which(rv$steps.status == stepStatus$UNDONE))
       rv$resetChildrenUI[ind.undone] <- rv$resetChildrenUI[ind.undone] + 1
     })
     
-    
-    
-    ResetPipeline <- function() {
 
-      rv$dataIn <- NULL
-      n <- length(rv$config@steps)
-      
-      #browser()
-      
-      # The reset of the children is made by incrementing
-      # the values by 1. This has for effect to be detected
-      # by the observeEvent function. It works like an actionButton
-      # widget
-      
-      rv$resetChildren[seq_len(n)] <- rv$resetChildren[seq_len(n)] + 1
-      
-      
-      # The status of the steps are reinitialized to the default
-      # configuration of the process
-      rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = names(rv$config@steps))
-      rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
-      
-      #rv$steps.status <- UpdateStepsStatus(dataIn(), rv$config)
-      
-      
-      rv$steps.skipped <- rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
-      
-      rv$steps.enabled <- Update_State_Screens(
-        is.skipped = FALSE,
-        is.enabled = TRUE,
-        rv = rv
-      )
-      
-      browser()
-      
-      #rv$current.pos <- GetMaxValidated_AllSteps(rv$steps.status) + 1
-      rv$current.pos <- 1
-      
-      
-      rv$child.data2send <- BuildData2Send(rv$temp.dataIn, GetStepsNames())
-      
-       
-      # Return the NULL value as dataset
-      dataOut$trigger <- Timestamp()
-      dataOut$value <- NULL
-    }
-    
-    
-    observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
-      req(rv$config)
-      ResetPipeline()
-    })
-    
-    
-    # observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
-    #   req(rv$config)
-    #   ResetPipeline()
-    # })
-    
-    # Show the info panel of a skipped module
-    output$SkippedInfoPanel <- renderUI({
-      Build_SkippedInfoPanel(
-        steps.status = rv$steps.status,
-        current.pos = rv$current.pos,
-        config = rv$config
-      )
-    })
-    
-
-    
     GetStepsNames <- reactive({
       req(rv$config@steps)
-      names(rv$config@steps)
+      names(rv$config@steps) 
     })
     
     # This function uses the UI definition to:
@@ -760,10 +673,12 @@ nav_pipeline_server <- function(
     # 2 - encapsulate the UI in a div (used to hide all screens at a time
     #     before showing the one corresponding to the current position)
     output$EncapsulateScreens_ui <- renderUI({
+      rv$current.pos
       len <- length(rv$config@ll.UI)
       
+      #browser()
       lapply(seq_len(len), function(i) {
-        if (i == 1) {
+        if (i == rv$current.pos) {
           div(
             id = ns(GetStepsNames()[i]),
             class = paste0("page_", id),
@@ -789,31 +704,27 @@ nav_pipeline_server <- function(
     
     txt <- span(gsub("mode", "mode_Test", template_reset_modal_txt))
     
-    rv$rstBtn <- mod_modalDialog_server(
-      id = "rstBtn",
-      title = "Reset",
-      uiContent = p(txt)
-    )
+    # rv$rstBtn <- mod_modalDialog_server(
+    #   id = "rstBtn",
+    #   title = "Reset",
+    #   uiContent = p(txt)
+    # )
     
     observeEvent(input$closeModal, {
       removeModal()
     })
 
-    
    
     
     
     observeEvent(rv$current.pos, ignoreInit = TRUE, {
+      #browser()
       ToggleState_NavBtns(
         current.pos = rv$current.pos,
         nSteps = length(rv$config@steps)
       )
       shinyjs::hide(selector = paste0(".page_", id))
       shinyjs::show(GetStepsNames()[rv$current.pos])
-      
-      if (rv$steps.status[rv$current.pos] == stepStatus$VALIDATED) {
-        rv$child.position[rv$current.pos] <- paste0("last_", Timestamp())
-      }
     })
     
     
@@ -893,7 +804,9 @@ nav_pipeline <- function() {
       rv$dataOut <- nav_pipeline_server(
         id = pipe.name,
         dataIn = reactive({rv$dataIn}),
-        remoteReset = reactive({input$simReset})
+        remoteReset = reactive({input$simReset}),
+        is.skipped = reactive({input$simSkipped %% 2 != 0}),
+        is.enabled = reactive({input$simEnabled %% 2 == 0})
       )
     })
   }
