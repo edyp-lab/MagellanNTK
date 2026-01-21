@@ -213,6 +213,7 @@ nav_pipeline_server <- function(
                 "display: inline-block;",
                 "vertical-align: middle; "
               ),
+              div(id = ns('div_btns_start_ui'), style="display: inline-block;", uiOutput(ns('startBtnUI'))),
               div(id = ns('div_btns_prev_ui'), style="display: inline-block;", uiOutput(ns('prevBtnUI'))),
               # div(style="display: inline-block;",
               #   mod_modalDialog_ui(id = ns("rstBtn"))
@@ -271,7 +272,10 @@ nav_pipeline_server <- function(
       MagellanNTK::toggleWidget(widget, .cond)
     })
     
-    
+    output$startBtnUI <- renderUI({
+      widget <-actionButton(ns("startBtn"), '|<<',  style = btn_css_style)
+      MagellanNTK::toggleWidget(widget, TRUE)
+    })
     
     
     
@@ -639,6 +643,11 @@ nav_pipeline_server <- function(
         current.pos = rv$current.pos,
         len = length(rv$config@steps)
       )
+    })
+    
+    # Update the current position after a click on the 'Next' button
+    observeEvent(input$startBtn, ignoreInit = TRUE, {
+      rv$current.pos <- 1
     })
     
     
