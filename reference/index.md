@@ -55,6 +55,8 @@
   : Load dataset shiny module
 - [`Save_Object()`](https://edyp-lab.github.io/MagellanNTK/reference/Save_Object.md)
   : Save an R object.
+- [`SetCurrentPosition()`](https://edyp-lab.github.io/MagellanNTK/reference/SetCurrentPosition.md)
+  : xxx
 - [`Timestamp()`](https://edyp-lab.github.io/MagellanNTK/reference/Timestamp.md)
   : Timestamp in UNIX format.
 - [`ToggleState_NavBtns()`](https://edyp-lab.github.io/MagellanNTK/reference/ToggleState_NavBtns.md)

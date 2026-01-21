@@ -5,22 +5,18 @@ xxx
 ## Usage
 
 ``` r
-UpdateStepsStatus(dataIn, config)
+SetCurrentPosition(stepsstatus)
 ```
 
 ## Arguments
 
-- dataIn:
-
-  xxx
-
-- config:
+- stepsstatus:
 
   xxx
 
 ## Value
 
-A vector of boolean
+NA
 
 ## Examples
 
