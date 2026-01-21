@@ -592,8 +592,8 @@ nav_pipeline_server <- function(
           
           rv$steps.skipped[(lastValidated + 1):len] <- FALSE
           Update_State_Screens(rv$steps.skipped, rv$steps.enabled, rv)
-          
-          rv$current.pos <- SetCurrentPosition(rv$steps.status)
+          #browser()
+          rv$current.pos <- which(.cd)
           # Update the datasend Vector
            lapply((lastValidated + 1):len, function(x){
              rv$child.data2send[[x]] <- rv$child.data2send[[lastValidated + 1]]
