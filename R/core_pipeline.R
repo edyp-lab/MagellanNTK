@@ -548,7 +548,9 @@ nav_pipeline_server <- function(
         # Initialisation
         # 
         rv$current.pos <- SetCurrentPosition(rv$steps.status)
-      } else {    
+      } else {   
+        
+        #browser()
         .cd <- max(triggerValues, na.rm = TRUE) == triggerValues
         processHasChanged <- GetStepsNames()[which(.cd)]
         
@@ -587,7 +589,7 @@ nav_pipeline_server <- function(
           rv$steps.skipped[(lastValidated + 1):len] <- FALSE
           Update_State_Screens(rv$steps.skipped, rv$steps.enabled, rv)
           
-          rv$current.pos <- SetCurrentPosition(rv$steps.status) + 1
+          rv$current.pos <- SetCurrentPosition(rv$steps.status)
           # Update the datasend Vector
            lapply((lastValidated + 1):len, function(x){
              rv$child.data2send[[x]] <- rv$child.data2send[[lastValidated + 1]]
