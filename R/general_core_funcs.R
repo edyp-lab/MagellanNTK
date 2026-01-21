@@ -233,7 +233,6 @@ All_Skipped_tag <- function(steps.status, tag) {
 #' @export
 #'
 GetFirstMandatoryNotValidated <- function(range, rv) {
-  #browser()
   .ind <- NULL
   first <- NULL
   first <- unlist((lapply(
@@ -257,7 +256,6 @@ GetFirstMandatoryNotValidated <- function(range, rv) {
 #'
 #' @param dataIn xxx
 #' @param config xxx
-#' @param steps.status xxx
 #' @return A vector of boolean
 #'
 #' @examples
@@ -265,8 +263,7 @@ GetFirstMandatoryNotValidated <- function(range, rv) {
 #' @export
 #'
 UpdateStepsStatus <- function(dataIn, config){
-  
-  #browser()
+
   nSteps <- length(config@steps)
   steps.names <- names(config@steps)
   steps.status <- setNames(rep(stepStatus$UNDONE, nSteps), nm = steps.names)
@@ -333,7 +330,7 @@ BuildData2Send <- function(dataIn, stepsNames){
         offset <- 1
         ind.names <- names(dataIn)[i]
         indInstepsNames <- which(ind.names == stepsNames)
-        #browser()
+
         for (j in (indInstepsNames + 1):length(stepsNames))
           child.data2send[j] <- keepAssay(dataIn, 1:i)
       }
@@ -346,6 +343,27 @@ BuildData2Send <- function(dataIn, stepsNames){
   return (child.data2send)
 }
 
+
+#' @title xxx
+#'
+#' @description xxx
+#'
+#' @param stepsstatus xxx
+#' @return NA
+#'
+#' @examples
+#' NULL
+#' @export
+#'
+SetCurrentPosition <- function(stepsstatus){
+  position <- 1
+  ind.last.validated <- GetMaxValidated_AllSteps(stepsstatus)
+  if (ind.last.validated == 0)
+    position <- 1
+  else
+    position <- ind.last.validated
+  return(position)
+}
 
 #' @title xxx
 #'
@@ -365,7 +383,7 @@ Update_State_Screens <- function(is.skipped,
   rv) {
   
   len <- length(rv$steps.status)
-  #browser()
+
   if (isTRUE(is.skipped)) {
     steps.enabled <- ToggleState_Screens(
       cond = FALSE,
@@ -388,7 +406,6 @@ Update_State_Screens <- function(is.skipped,
     if (ind.max < len) {
       # Enable all steps after the current one but the ones
       # after the first mandatory not validated
-      #browser() 
       firstM <- GetFirstMandatoryNotValidated(
         range = (ind.max + 1):len,
         rv = rv

@@ -494,7 +494,6 @@ nav_process_server <- function(
         # If a value is returned, this is because the
         # # current step has been validated
         
-        #browser()
         rv$steps.status[rv$current.pos] <- stepStatus$VALIDATED
         
         # Look for new skipped steps
@@ -593,7 +592,6 @@ nav_process_server <- function(
     })
     
     observeEvent(input$DoBtn, ignoreInit = TRUE, {
-      #browser()
       # Catch the event to send it to the process server
       rv$btnEvents <- paste0(names(rv$steps.status)[rv$current.pos], '_', input$DoBtn)
       rv$doProceedAction <- "Do"
@@ -695,7 +693,6 @@ nav_process_server <- function(
     })
     
     observeEvent(remoteResetUI(), ignoreInit = TRUE, ignoreNULL = TRUE, {
-      #browser()
       req(rv$config)
       shiny::withProgress(message = paste0("Reseting UI in process", id), {
         shiny::incProgress(0.5)
@@ -734,7 +731,6 @@ nav_process_server <- function(
     
     
     observeEvent(rv$current.pos, ignoreInit = FALSE, {
-      #browser()
       if (length(rv$config@steps) == 1){
         shinyjs::toggleState(id = "prevBtn", condition = FALSE)
         shinyjs::toggleState(id = "nextBtn", condition = FALSE)

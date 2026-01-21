@@ -279,7 +279,6 @@ nav_pipeline_server <- function(
       
       req(session$userData$funcs)
       req(dataOut$value)
-      #browser()
       
       do.call(
         eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_server"))),
@@ -421,7 +420,6 @@ nav_pipeline_server <- function(
       rv$steps.enabled
       rv$current.pos
 
-      #browser()
       # Launch the server timeline for this process/pipeline
       timeline_pipeline_server(
         "timeline_pipeline",
@@ -442,7 +440,7 @@ nav_pipeline_server <- function(
     observeEvent(req(dataIn()), ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
       
-      #browser()
+
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
       rv$dataIn.original <- dataIn()
@@ -482,6 +480,7 @@ nav_pipeline_server <- function(
           rv = rv
         )
 
+        rv$current.pos <- SetCurrentPosition(rv$steps.status)
     })
     
     
@@ -517,7 +516,7 @@ nav_pipeline_server <- function(
       return.trigger.values[sapply(return.trigger.values, is.null)] <- NA
       triggerValues <- unlist(return.trigger.values)
       
-      #browser()
+
       # Get the values returned by each step of the modules
       return.values <- setNames(
         lapply(
@@ -547,6 +546,8 @@ nav_pipeline_server <- function(
       
       if (sum(is.na(triggerValues)) == length(triggerValues) || is.null(return.values)){
         # Initialisation
+        # 
+        rv$current.pos <- SetCurrentPosition(rv$steps.status)
       } else {    
         .cd <- max(triggerValues, na.rm = TRUE) == triggerValues
         processHasChanged <- GetStepsNames()[which(.cd)]
@@ -562,7 +563,6 @@ nav_pipeline_server <- function(
           
         } else if (is.numeric(newValue) && newValue == -10){
           # A process has been reseted
-          browser()
           lastValidated <- GetMaxValidated_BeforePos(pos = ind.processHasChanged, rv = rv)
           
           # If no process has been validated yet
@@ -587,6 +587,7 @@ nav_pipeline_server <- function(
           rv$steps.skipped[(lastValidated + 1):len] <- FALSE
           Update_State_Screens(rv$steps.skipped, rv$steps.enabled, rv)
           
+          rv$current.pos <- SetCurrentPosition(rv$steps.status) + 1
           # Update the datasend Vector
            lapply((lastValidated + 1):len, function(x){
              rv$child.data2send[[x]] <- rv$child.data2send[[lastValidated + 1]]
@@ -595,7 +596,7 @@ nav_pipeline_server <- function(
           
         } else {# A process has been validated
           rv$steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
-          #browser()
+
           if (ind.processHasChanged < len) {
             rv$steps.status[(1 + ind.processHasChanged):len] <- stepStatus$UNDONE
           }
@@ -603,7 +604,7 @@ nav_pipeline_server <- function(
           
           rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
           rv$dataIn <- newValue
-          
+          rv$current.pos <- SetCurrentPosition(rv$steps.status)
           # Update the datasend Vector
            lapply((ind.processHasChanged + 1):len, function(x){
            rv$child.data2send[[x]] <- rv$dataIn
@@ -651,12 +652,7 @@ nav_pipeline_server <- function(
       )
       
       n <- length(rv$config@steps)
-      browser()
-      ind.last.validated <- GetMaxValidated_AllSteps(rv$steps.status)
-      if (ind.last.validated == 0)
-        rv$current.pos <- 1
-      else
-        rv$current.pos <- ind.last.validated
+
       
       ind.undone <- unname(which(rv$steps.status == stepStatus$UNDONE))
       rv$resetChildrenUI[ind.undone] <- rv$resetChildrenUI[ind.undone] + 1
@@ -676,7 +672,7 @@ nav_pipeline_server <- function(
       rv$current.pos
       len <- length(rv$config@ll.UI)
       
-      #browser()
+
       lapply(seq_len(len), function(i) {
         if (i == rv$current.pos) {
           div(
@@ -718,7 +714,6 @@ nav_pipeline_server <- function(
     
     
     observeEvent(rv$current.pos, ignoreInit = TRUE, {
-      #browser()
       ToggleState_NavBtns(
         current.pos = rv$current.pos,
         nSteps = length(rv$config@steps)
