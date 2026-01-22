@@ -21,9 +21,6 @@ A dataframe with two columns:
 ## Examples
 
 ``` r
-# \donttest{
-find_funs("filter")
-#> Error in dplyr::select(dplyr::filter(pckgs, pckgs$Priority %in% c("base",     "recommended")), pckgs$Package): Can't select columns that don't exist.
-#> ✖ Columns `BiocGenerics`, `BiocManager`, `BiocStyle`, `DBI`, `DT`, etc. don't exist.
-# }
+NULL
+#> NULL
 ```
