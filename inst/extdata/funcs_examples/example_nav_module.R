@@ -1,4 +1,4 @@
-\dontrun{
+\donttest{
   library(shiny)
   server_env <- environment() # will see all dtwclust functions
   server_env$dev_mode <- FALSE

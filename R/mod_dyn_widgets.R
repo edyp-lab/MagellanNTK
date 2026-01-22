@@ -89,10 +89,6 @@ dyn_widgets <- function() {
     server <- function(input, output, session) {
         res <- dyn_widgets_server("test")
 
-        observeEvent(res(), {
-            print(res()$steps)
-            print(res()$mandatory)
-        })
     }
 
     app <- shinyApp(ui, server)

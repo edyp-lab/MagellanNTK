@@ -375,11 +375,7 @@ open_dataset <- function(
           infos_dataset_ui(id = "Description_infosdataset")
         })
         
-        observeEvent(rv$obj()$trigger, {
-          print(rv$obj()$trigger)
-          print(rv$obj()$name)
-            print(rv$obj()$dataset)
-        })
+
     }
 
     app <- shinyApp(ui = ui, server = server)

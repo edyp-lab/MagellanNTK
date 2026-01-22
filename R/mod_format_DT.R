@@ -171,7 +171,7 @@ format_DT_server <- function(
 
 
             if (!is.null(hc_style())) {
-                dt <- dt %>%
+                dt <- dt |>
                     DT::formatStyle(
                         columns = hc_style()$cols,
                         valueColumns = hc_style()$vals,

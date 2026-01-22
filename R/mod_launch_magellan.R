@@ -73,7 +73,7 @@ mod_launch_magellan_server <- function(id) {
         })
 
         observeEvent(req(rv$pipeline.name() != "None"), {
-            print("Launch Magellan")
+
             obj <- base::get(rv$pipeline.name())
             rv$pipeline <- do.call(obj$new, list("App"))
             # rv$pipeline <- Protein$new('App')
@@ -83,7 +83,6 @@ mod_launch_magellan_server <- function(id) {
         })
 
         observeEvent(req(input$load_dataset_btn), ignoreNULL = TRUE, {
-            print(names(rv$demoData()))
             rv$dataIn <- rv$demoData()
         })
 

@@ -150,9 +150,6 @@ loadApp <- function() {
     server <- function(input, output, session) {
         done <- loadapp_server("mod_pkg")
 
-        observeEvent(req(done()), {
-            print(done())
-        })
     }
 
     app <- shinyApp(ui, server)

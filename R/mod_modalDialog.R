@@ -267,7 +267,6 @@ mod_modalDialog <- function(
 
         observeEvent(req(res()), {
             rv$dataOut <- res()
-            print(rv$dataOut)
         })
 
         return(reactive({

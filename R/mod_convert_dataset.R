@@ -96,7 +96,6 @@ convert_dataset <- function() {
 
         observeEvent(req(rv$result()$dataOut()$trigger), {
             rv$obj <- rv$result()$dataOut()$trigger
-            print(rv$obj)
         })
     }
 

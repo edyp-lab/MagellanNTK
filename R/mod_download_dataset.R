@@ -78,8 +78,6 @@ download_dataset_server <- function(
                 warning = function(w) w,
                 error = function(e) e
             )
-
-            print(rv$export_file_RData)
         })
 
 

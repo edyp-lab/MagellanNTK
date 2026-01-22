@@ -148,7 +148,6 @@ open_workflow_server <- function(id) {
 
         output$infos_wf_UI <- renderUI({
             req(rv.wf$dataOut$wf_name)
-            print(paste0("Worflow ", rv.wf$dataOut$wf_name, " loaded"))
         })
 
         reactive({
@@ -182,11 +181,6 @@ open_workflow <- function() {
 
         rv$result <- open_workflow_server("wf")
 
-        observeEvent(req(rv$result()), {
-            print(paste("path = ", rv$result()$path))
-            print(paste("wf_name = ", rv$result()$wf_name))
-            print(paste("funcs = ", rv$result()$funcs))
-        })
     }
 
     app <- shiny::shinyApp(ui, server)

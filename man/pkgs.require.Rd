@@ -22,7 +22,7 @@ Checks if a package is available to load it
 \examples{
 NULL
 
-\dontrun{
+\donttest{
 pkgs.require(c("omXplore"))
 }
 }

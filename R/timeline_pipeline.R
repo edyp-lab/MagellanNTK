@@ -54,18 +54,8 @@ timeline_pipeline_server <- function(
                 class = "pipeline-timeline",
                 lapply(seq_along(config@steps), function(i) {
                     step_class <- paste("li", UpdateTags()[i])
+ box_tags <- NULL
 
-                    # step_subclass_list <- UpdateSubTags()[[i]]
-                    box_tags <- NULL
-
-                    # if (length(step_subclass_list) > 0) {
-                    #   box_tags <- lapply(step_subclass_list, function(cls) {
-                    #     tags$span(class = paste("box", cls))
-                    #   })
-                    # }
-
-                    # print(box_tags)
-                    # print(step_class)
                     tags$li(
                         class = step_class,
                         tags$div(

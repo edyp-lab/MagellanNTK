@@ -29,7 +29,8 @@ library(kableExtra)
 df <- params$listFiltering$stringFilter.df
 if (!is.null(df)){
 h3("Parameters used for the filtering step on text-based string")
-  kable(df)%>% row_spec(0,bold=TRUE,background = grey) %>% 
+  kable(df) |>
+    row_spec(0,bold=TRUE,background = grey) |> 
 kable_styling(bootstrap_options = c( "bordered","striped"), full_width = FALSE)
 }
 ```

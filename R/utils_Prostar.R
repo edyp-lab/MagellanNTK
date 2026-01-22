@@ -130,7 +130,7 @@ navbarPageWithInputs <- function(..., inputs) {
 #' NULL
 #' @return NA
 launchGA <- function() {
-    if (system("hostname") == "prabig-prostar") {
+    if (system2("hostname") == "prabig-prostar") {
         tags$head(includeScript("www/google-analytics.js"))
     } else {
         # tags$head(includeScript("www/google-analytics-ProstarZeroInstall.js"))
@@ -180,7 +180,7 @@ GetExtension <- function(name) {
 #' @param ll.deps A `character()` vector which contains packages names
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' pkgs.require(c("omXplore"))
 #' }
 #' @return NA

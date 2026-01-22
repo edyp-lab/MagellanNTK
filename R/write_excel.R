@@ -17,7 +17,7 @@
 #'
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' write.excel(data.frame(), filename = "foo.xlsx")
 #' }
 #'

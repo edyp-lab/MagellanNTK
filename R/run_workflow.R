@@ -166,7 +166,7 @@ pipe_workflowApp <- function(
         )
 
         observeEvent(req(res()$dataOut()$trigger), {
-            print(res()$dataOut()$value)
+
         })
     }
 
@@ -271,7 +271,7 @@ proc_workflowApp <- function(
         )
 
         observeEvent(req(res()$dataOut()$trigger), {
-            print(res()$dataOut()$value)
+
         })
     }
 

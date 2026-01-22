@@ -136,9 +136,7 @@ choose.dir.darwin <- function(default = NA, caption = NA) {
     }
     args <- sub("{{default}}", default, args, fixed = TRUE)
 
-    suppressWarnings({
-        path <- system2(command, args = args, stderr = TRUE)
-    })
+    path <- system2(command, args = args, stderr = TRUE)
     if (!is.null(attr(path, "status")) && attr(path, "status")) {
         # user canceled
         path <- NA
@@ -172,9 +170,8 @@ choose.dir.linux <- function(default = NA, caption = NA) {
         args <- paste(args, sprintf('--title="%s"', caption))
     }
 
-    suppressWarnings({
+
         path <- system2(command, args = args, stderr = TRUE)
-    })
 
     # Return NA if user hits cancel
     if (!is.null(attr(path, "status")) && attr(path, "status")) {
@@ -214,16 +211,14 @@ choose.dir.windows <- function(default = NA, caption = NA, useNew = TRUE) {
             args <- paste(args, sprintf('-caption "%s"', caption))
         }
 
-        suppressWarnings({
+
             path <- system2(command, args = args, stdout = TRUE)
-        })
+
     } else {
         whereisutils <- system.file("utils", "choose_dir.bat", package = "MagellanNTK")
         command <- normalizePath(whereisutils)
         args <- if (is.na(caption)) "" else sprintf('"%s"', caption)
-        suppressWarnings({
             path <- system2(command, args = args, stdout = TRUE)
-        })
     }
     if (path == "NONE") path <- NA
     return(path)

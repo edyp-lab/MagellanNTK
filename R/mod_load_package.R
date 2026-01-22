@@ -177,9 +177,6 @@ load_package <- function(funcs = NULL) {
             })
         )
 
-        observeEvent(done(), {
-            print(done())
-        })
     }
     app <- shinyApp(ui, server)
 }

@@ -53,7 +53,7 @@ is.validated <- function(test) {
 #' @import dplyr
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' find_funs("filter")
 #' }
 #'
@@ -80,10 +80,10 @@ find_funs <- function(f) {
 
     # get list of built-in packages
 
-    pckgs <- installed.packages() %>% dplyr::as_tibble()
-    pckgs %>%
-        dplyr::filter(pckgs$Priority %in% c("base", "recommended")) %>%
-        dplyr::select(pckgs$Package) %>%
+    pckgs <- installed.packages() |> dplyr::as_tibble()
+    pckgs |>
+        dplyr::filter(pckgs$Priority %in% c("base", "recommended")) |>
+        dplyr::select(pckgs$Package) |>
         dplyr::distinct() -> builtin_pckgs_df
 
     # check for each element of 'pckg hit' whether its built-in and loaded (via match). Then print results.
@@ -222,7 +222,7 @@ readConfigFile <- function(
 #' @return NA
 #'
 GetListDatasets <- function(class = NULL, demo_package = NULL) {
-    print(paste0("demo_package: ", demo_package))
+
     if (is.null(demo_package)) {
         ll.datasets <- NULL
 

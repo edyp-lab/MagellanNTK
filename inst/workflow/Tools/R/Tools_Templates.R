@@ -580,8 +580,7 @@ Tools_Templates_server <- function(id,
       for (f in rv.custom$files)
         file.copy(file.path(tempdir(), f), file.path(rv.custom$path(), f))
       
-      print('Done')
-                          
+
       # DO NOT MODIFY THE THREE FOLLOWINF LINES
       dataOut$trigger <- Timestamp()
       dataOut$value <- rv$dataIn

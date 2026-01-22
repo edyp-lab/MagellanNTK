@@ -54,7 +54,7 @@ Debug_Infos_ui <- function(id) {
 #'
 #' @rdname Debug_Infos
 #'
-#' @importFrom DT renderDT DTOutput formatStyle %>% styleEqual
+#' @importFrom DT renderDT DTOutput formatStyle styleEqual
 #' @importFrom S4Vectors DataFrame
 #' @importFrom shiny moduleServer renderUI h3 reactive p req
 #' @importFrom DT renderDT formatStyle styleEqual datatable
@@ -180,7 +180,7 @@ Debug_Infos_server <- function(
                         )
                     )
                 )
-            ) %>%
+            ) |>
                 DT::formatStyle(
                     "currentPos",
                     target = "row",
