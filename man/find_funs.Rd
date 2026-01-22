@@ -16,8 +16,6 @@ A dataframe with two columns:
 This code is extracted from https://sebastiansauer.github.io/finds_funs/
 }
 \examples{
-\donttest{
-find_funs("filter")
-}
+NULL
 
 }

@@ -587,13 +587,13 @@ nav_process_server <- function(
     
     observeEvent(input$DoProceedBtn, ignoreInit = TRUE, {
       # Catch the event to send it to the process server
-      rv$btnEvents <- paste0(names(rv$steps.status)[rv$current.pos], '_', input$DoProceedBtn)
+      rv$btnEvents <- paste0(names(rv$steps.status)[rv$current.pos], '_Do_Proceed_', input$DoProceedBtn)
       rv$doProceedAction <- "Do_Proceed"
     })
     
     observeEvent(input$DoBtn, ignoreInit = TRUE, {
       # Catch the event to send it to the process server
-      rv$btnEvents <- paste0(names(rv$steps.status)[rv$current.pos], '_', input$DoBtn)
+      rv$btnEvents <- paste0(names(rv$steps.status)[rv$current.pos], '_Do_', input$DoBtn)
       rv$doProceedAction <- "Do"
     })
     
@@ -694,14 +694,14 @@ nav_process_server <- function(
     
     observeEvent(remoteResetUI(), ignoreInit = TRUE, ignoreNULL = TRUE, {
       req(rv$config)
-      shiny::withProgress(message = paste0("Reseting UI in process", id), {
-        shiny::incProgress(0.5)
-        if (rv$prev.remoteResetUI < unname(remoteResetUI())){
+      if (rv$prev.remoteResetUI < unname(remoteResetUI())){
+        shiny::withProgress(message = paste0("Reseting UI in process", id), {
+          shiny::incProgress(0.5)
           ResetProcess()
           rv$prev.remoteResetUI <- remoteResetUI()
-        }
-        shiny::incProgress(1)
-      })
+          shiny::incProgress(1)
+        })
+      }  
     })
     
     GetStepsNames <- reactive({

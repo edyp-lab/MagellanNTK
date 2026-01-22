@@ -308,8 +308,10 @@ nav_pipeline_server <- function(
         )
       )
       
-      showModal(
-        shinyjqui::jqui_draggable(
+      
+        showModal(
+        #shinyjqui::jqui_draggable(
+          #shinyjqui::jqui_resizable(
           modalDialog(
             shiny::tabsetPanel(
               id = ns("tabcard"),
@@ -322,6 +324,7 @@ nav_pipeline_server <- function(
                 )
               ),
               shiny::tabPanel(
+                style = "overflow-y: auto; height: 80vh;",
                 title = h3("History", style = "margin-right: 30px;"), 
                 do.call(
                   eval(parse(text = paste0(session$userData$funcs$history_dataset, "_ui"))),
@@ -338,7 +341,8 @@ nav_pipeline_server <- function(
             ),
             #title = "EDA", 
             size = "l"
-          ))
+         # )
+        )
       )
     })
     
@@ -620,7 +624,7 @@ nav_pipeline_server <- function(
         
       }
       
-      print(rv$child.data2send)
+      #print(rv$child.data2send)
       
       # Send result
       dataOut$trigger <- Timestamp()

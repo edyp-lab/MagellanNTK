@@ -53,9 +53,7 @@ is.validated <- function(test) {
 #' @import dplyr
 #'
 #' @examples
-#' \donttest{
-#' find_funs("filter")
-#' }
+#' NULL
 #'
 #' @return
 #' A dataframe with two columns:
