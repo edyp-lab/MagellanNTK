@@ -32,7 +32,8 @@ Samuel Wieczorek
 NULL
 #> NULL
 
-if (FALSE) { # \dontrun{
+# \donttest{
 pkgs.require(c("omXplore"))
-} # }
+#> Error in FUN(X[[i]], ...): Please install omXplore: install.packages('omXplore')
+# }
 ```

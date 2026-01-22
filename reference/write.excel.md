@@ -38,7 +38,8 @@ Samuel Wieczorek
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 write.excel(data.frame(), filename = "foo.xlsx")
-} # }
+#> Warning: Workbook does not contain any worksheets. A worksheet will be added.
+# }
 ```

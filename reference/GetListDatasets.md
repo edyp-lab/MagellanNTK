@@ -26,5 +26,4 @@ NA
 
 ``` r
 foo1 <- GetListDatasets()
-#> [1] "demo_package: "
 ```
