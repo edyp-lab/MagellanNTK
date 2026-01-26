@@ -25,6 +25,9 @@ second is the name of the widget
 This function xxx \# Generate dynamically the observeEvent function for
 each widget
 
+This function xxx \# Generate dynamically the observeEvent function for
+each widget
+
 This function createxxx
 
 Returned value of the process
@@ -59,6 +62,8 @@ Get_Code_Update_Config_Variable()
 Get_Code_Declare_widgets(widgets.names = NULL)
 
 Get_Code_Declare_rv_custom(rv.custom.names = NULL)
+
+Get_Code_for_Initialize_History(widgets.names = NULL)
 
 Get_Code_for_ObserveEvent_widgets(widgets.names = NULL)
 
@@ -142,6 +147,8 @@ Get_AdditionalModule_Core_Code(w.names = NULL, rv.custom.names = NULL)
 ## Value
 
 A \`string\` containing some R code
+
+NA
 
 NA
 

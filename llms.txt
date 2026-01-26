@@ -87,6 +87,8 @@ MagellanNTK can be launched in two different modes: a ‘user’ mode and a
 
 ## All functions
 
+- [`Add2History()`](https://edyp-lab.github.io/MagellanNTK/reference/Add2History.md)
+  : Get the last validated step before current position.
 - [`All_Skipped_tag()`](https://edyp-lab.github.io/MagellanNTK/reference/All_Skipped_tag.md)
   : xxx
 - [`BuildData2Send()`](https://edyp-lab.github.io/MagellanNTK/reference/BuildData2Send.md)
@@ -128,6 +130,8 @@ MagellanNTK can be launched in two different modes: a ‘user’ mode and a
   : Package version \#'description xxx
 - [`GetStringStatus()`](https://edyp-lab.github.io/MagellanNTK/reference/GetStringStatus.md)
   : Status to string
+- [`InitializeHistory()`](https://edyp-lab.github.io/MagellanNTK/reference/InitializeHistory.md)
+  : Get the last validated step before current position.
 - [`Insert_Call_to_Config()`](https://edyp-lab.github.io/MagellanNTK/reference/Insert_Call_to_Config.md)
   : xxx
 - [`LoadCode()`](https://edyp-lab.github.io/MagellanNTK/reference/LoadCode.md)
@@ -234,6 +238,7 @@ MagellanNTK can be launched in two different modes: a ‘user’ mode and a
 - [`Get_Code_Update_Config_Variable()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_Code_Declare_widgets()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_Code_Declare_rv_custom()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
+  [`Get_Code_for_Initialize_History()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_Code_for_ObserveEvent_widgets()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_Code_for_rv_reactiveValues()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_Code_for_dataOut()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
