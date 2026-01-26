@@ -452,7 +452,10 @@ nav_process_server <- function(
       rv$steps.status <- setNames(
         rep(unname(status()), length(rv$steps.status)), 
         nm = names(rv$config@steps))
-      #rv$steps.status <- RefineProcessStatus(dataIn(), rv$steps.status)
+      #browser()
+      proc.id <- unlist(strsplit(id, '_'))[2]
+      if (unname(status()) == stepStatus$VALIDATED)
+        rv$steps.status <- RefineProcessStatus(history(), rv$steps.status)
       
       
       if (is.null(dataIn())) {
@@ -621,8 +624,22 @@ nav_process_server <- function(
     
     
     
-    RefineProcessStatus <- function(steps, history){
+    RefineProcessStatus <- function(history, steps.status){
       
+      steps.status <- setNames(rep(stepStatus$UNDONE, length(steps.status)), 
+        nm = names(steps.status))
+      
+      browser()
+      steps.status[1] <- stepStatus$VALIDATED
+      if (length(steps.status) > 1){
+        # It is not Description nor Save processes
+        .ind <- which(names(steps.status) %in% history[, 'Step'])
+        steps.status[.ind] <- stepStatus$VALIDATED
+        
+      }
+      
+      
+      return(steps.status)
     }
     
     observeEvent(status(), ignoreInit = TRUE, ignoreNULL = TRUE, {
@@ -632,7 +649,8 @@ nav_process_server <- function(
       if (status() == stepStatus$VALIDATED){
        
         req(history())
-        #rv$steps.status <- RefineProcessStatus(rv$steps.status, history())
+        #browser()
+        rv$steps.status <- RefineProcessStatus(history(), rv$steps.status)
         
       } else if (status() == stepStatus$UNDONE){
         
