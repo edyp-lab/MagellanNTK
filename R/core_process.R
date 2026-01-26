@@ -629,13 +629,13 @@ nav_process_server <- function(
       steps.status <- setNames(rep(stepStatus$UNDONE, length(steps.status)), 
         nm = names(steps.status))
       
-      browser()
+      #browser()
       steps.status[1] <- stepStatus$VALIDATED
       if (length(steps.status) > 1){
         # It is not Description nor Save processes
         .ind <- which(names(steps.status) %in% history[, 'Step'])
         steps.status[.ind] <- stepStatus$VALIDATED
-        
+        steps.status['Save'] <- stepStatus$VALIDATED
       }
       
       
