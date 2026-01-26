@@ -16,6 +16,9 @@ nav_process_server(
   status = reactive({
      NULL
  }),
+  history = reactive({
+     NULL
+ }),
   is.enabled = reactive({
      TRUE
  }),

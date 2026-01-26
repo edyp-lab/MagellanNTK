@@ -132,7 +132,26 @@ Get_Code_Declare_rv_custom <- function(rv.custom.names = NULL) {
     declare_rv_custom
 }
 
-
+#' @title Code for initializing the history
+#'
+#' @description This function xxx
+#' # Generate dynamically the observeEvent function for each widget
+#'
+#' @export
+#'
+#' @rdname insertCodeForExternalModules
+#'
+#' @return NA
+#'
+Get_Code_for_Initialize_History <- function(widgets.names = NULL) {
+ 
+  code <- paste0("
+  rv.custom$history <- InitializeHistory(",
+    widgets.names,
+    ")
+  ")
+  code
+}
 
 
 #' @title Code for declaring xxx
@@ -471,6 +490,7 @@ Get_Workflow_Core_Code <- function(
         Get_Code_for_ObserveEvent_widgets(w.names),
         Get_Code_for_rv_reactiveValues(),
         Get_Code_Declare_rv_custom(rv.custom.names),
+      #Get_Code_for_Initialize_History(w.names),
         Get_Code_for_dataOut(),
         Get_Code_for_General_observeEvents(),
         Get_Code_for_remoteReset(),
@@ -542,6 +562,7 @@ Get_AdditionalModule_Core_Code <- function(
         Get_Code_for_ObserveEvent_widgets(w.names),
         Get_Code_for_rv_reactiveValues(),
         Get_Code_Declare_rv_custom(rv.custom.names),
+        #Get_Code_for_Initialize_History(w.names),
         Get_Code_for_dataOut(),
         Get_Code_for_remoteReset(),
       #Get_Code_for_newDataset(),

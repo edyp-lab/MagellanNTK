@@ -361,12 +361,7 @@ nav_pipeline_server <- function(
     # initialization of the server module. This code is generic to both
     # process and pipeline modules
     observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
-      
-      # Get the new dataset in a temporary variable
-      # rv$temp.dataIn <- dataIn()
-      # rv$dataIn.original <- dataIn()
-      # session$userData$dataIn.original <- dataIn()
-      
+
       ### Call the server module of the process/pipeline which name is
       ### the parameter 'id'.
       ### The name of the server function is prefixed by 'mod_' and
@@ -377,7 +372,6 @@ nav_pipeline_server <- function(
           id = id,
           dataIn = reactive({NULL}),
           steps.enabled = reactive({rv$steps.enabled}),
-          #remoteReset = reactive({ rv$rstBtn() + remoteReset()}),
           remoteReset = reactive({remoteReset()}),
           steps.status = reactive({rv$steps.status})
         )
@@ -395,8 +389,6 @@ nav_pipeline_server <- function(
       rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
       rv$steps.skipped <- Discover_Skipped_Steps(rv$steps.status)
-      
-      #rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
       
       rv$currentStepName <- reactive({
         GetStepsNames()[rv$current.pos]
@@ -439,12 +431,12 @@ nav_pipeline_server <- function(
     })
     
     
-    #         # Catch a new value on the parameter 'dataIn()' variable, sent by the
-    #         # caller. This value may be NULL or contain a dataset.
-    #         # The first action is to store the dataset in the temporary variable
-    #         # temp.dataIn. Then, two behaviours:
-    #         # 1 - if the variable is NULL. xxxx
-    #         # 2 - if the variable contains a dataset. xxx
+    # Catch a new value on the parameter 'dataIn()' variable, sent by the
+    # caller. This value may be NULL or contain a dataset.
+    # The first action is to store the dataset in the temporary variable
+    # temp.dataIn. Then, two behaviours:
+    # 1 - if the variable is NULL. xxxx
+    # 2 - if the variable contains a dataset. xxx
     observeEvent(req(dataIn()), ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
       
@@ -456,7 +448,6 @@ nav_pipeline_server <- function(
       
       
       # in case of a new dataset, reset the whole pipeline
-      # ResetPipeline()
       
       n <- length(rv$config@steps)
       
@@ -471,7 +462,7 @@ nav_pipeline_server <- function(
       rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
       
       
-             # A new dataset has been loaded
+        # A new dataset has been loaded
         # # Update the different screens in the process
         rv$steps.enabled <- Update_State_Screens(
           is.skipped = is.skipped(),
@@ -492,6 +483,20 @@ nav_pipeline_server <- function(
     })
     
     
+  GetHistory <- function(dataIn, x){
+   
+    if (x %in% c('Description', 'Save')){
+      return(NULL)
+    } else {
+ 
+      if (x %in% names(dataIn)){
+        history <- DaparToolshed::paramshistory(dataIn[[x]])
+      }
+      
+      
+      return(history)
+    }
+  }
     
     observe({
       ###
@@ -502,6 +507,7 @@ nav_pipeline_server <- function(
           id = paste0(id, "_", x),
           dataIn = reactive({rv$child.data2send[[x]]}),
           status = reactive({rv$steps.status[x]}),
+          history = reactive({GetHistory(rv$child.data2send[[length(rv$child.data2send)]], x)}),
           is.enabled = reactive({isTRUE(rv$steps.enabled[x])}),
           remoteReset = reactive({rv$resetChildren[x]}),
           remoteResetUI = reactive({rv$resetChildrenUI[x]}),
@@ -554,11 +560,10 @@ nav_pipeline_server <- function(
       
       if (sum(is.na(triggerValues)) == length(triggerValues) || is.null(return.values)){
         # Initialisation
-        # 
+         
         rv$current.pos <- SetCurrentPosition(rv$steps.status)
       } else {   
         
-        #browser()
         .cd <- max(triggerValues, na.rm = TRUE) == triggerValues
         processHasChanged <- GetStepsNames()[which(.cd)]
         
@@ -596,7 +601,7 @@ nav_pipeline_server <- function(
           
           rv$steps.skipped[(lastValidated + 1):len] <- FALSE
           Update_State_Screens(rv$steps.skipped, rv$steps.enabled, rv)
-          #browser()
+
           rv$current.pos <- which(.cd)
           # Update the datasend Vector
            lapply((lastValidated + 1):len, function(x){
@@ -623,9 +628,7 @@ nav_pipeline_server <- function(
         }
         
       }
-      
-      #print(rv$child.data2send)
-      
+
       # Send result
       dataOut$trigger <- Timestamp()
       dataOut$value <- rv$child.data2send[[length(rv$child.data2send)]]
@@ -714,12 +717,6 @@ nav_pipeline_server <- function(
         process and all further datasets will be removed"
     
     txt <- span(gsub("mode", "mode_Test", template_reset_modal_txt))
-    
-    # rv$rstBtn <- mod_modalDialog_server(
-    #   id = "rstBtn",
-    #   title = "Reset",
-    #   uiContent = p(txt)
-    # )
     
     observeEvent(input$closeModal, {
       removeModal()

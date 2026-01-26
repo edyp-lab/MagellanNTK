@@ -92,6 +92,7 @@ nav_process_server <- function(
     id = NULL,
   dataIn = reactive({NULL}),
   status = reactive({NULL}),
+  history = reactive({NULL}),
   is.enabled = reactive({TRUE}),
   remoteReset = reactive({0}),
   remoteResetUI = reactive({0}),
@@ -307,7 +308,6 @@ nav_process_server <- function(
       observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
         
       rv$rstBtn()
-      #remoteReset()
       
       rv$prev.remoteReset < remoteReset()
       rv$prev.remoteResetUI < remoteResetUI()
@@ -339,6 +339,7 @@ nav_process_server <- function(
       n <- length(rv$config@steps)
       stepsnames <- names(rv$config@steps)
       rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = stepsnames)
+      
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = stepsnames)
       rv$steps.skipped <- setNames(rep(FALSE, n), nm = stepsnames)
       rv$currentStepName <- reactive({
@@ -347,7 +348,6 @@ nav_process_server <- function(
     },
       priority = 1000
     )
-    
     
     
       
@@ -452,6 +452,7 @@ nav_process_server <- function(
       rv$steps.status <- setNames(
         rep(unname(status()), length(rv$steps.status)), 
         nm = names(rv$config@steps))
+      #rv$steps.status <- RefineProcessStatus(dataIn(), rv$steps.status)
       
       
       if (is.null(dataIn())) {
@@ -618,9 +619,25 @@ nav_process_server <- function(
     })
     
     
-    observeEvent(req(status()), ignoreInit = TRUE, {
+    
+    
+    RefineProcessStatus <- function(steps, history){
+      
+    }
+    
+    observeEvent(status(), ignoreInit = TRUE, ignoreNULL = TRUE, {
       shinyjs::toggleState("DoProceedBtn", condition = unname(status()) == stepStatus$UNDONE)
       shinyjs::toggleState("DoBtn", condition = unname(status()) == stepStatus$UNDONE)
+      
+      if (status() == stepStatus$VALIDATED){
+       
+        req(history())
+        #rv$steps.status <- RefineProcessStatus(rv$steps.status, history())
+        
+      } else if (status() == stepStatus$UNDONE){
+        
+        
+      }
     })
     
     # Catch new status event
@@ -857,18 +874,10 @@ nav_process <- function() {
     observe({
       rv$dataOut <- nav_process_server(
         id = proc.name,
-        dataIn = reactive({
-          rv$dataIn
-        }),
-        remoteReset = reactive({
-          input$simReset
-        }),
-        is.skipped = reactive({
-          input$simSkipped %% 2 != 0
-        }),
-        is.enabled = reactive({
-          input$simEnabled %% 2 == 0
-        })
+        dataIn = reactive({rv$dataIn}),
+        remoteReset = reactive({input$simReset}),
+        is.skipped = reactive({input$simSkipped %% 2 != 0}),
+        is.enabled = reactive({input$simEnabled %% 2 == 0})
       )
     })
   }

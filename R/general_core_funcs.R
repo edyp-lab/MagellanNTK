@@ -1,4 +1,63 @@
 
+#' @title Get the last validated step before current position.
+#'
+#' @description This function returns the indice of the last validated step before
+#' the current step.
+#'
+#' @param widgets.names xxx
+#' @return A `integer(1)`
+#'
+#' @export
+#' @examples
+#' NULL
+Add2History <- function(history, process, step.name, param.name, value){
+  history[nrow(history)+1, ] <- c(process, step.name, param.name, value)
+  
+  return(history)
+}
+
+
+
+
+
+
+#' @title Get the last validated step before current position.
+#'
+#' @description This function returns the indice of the last validated step before
+#' the current step.
+#'
+#' @param widgets.names xxx
+#' @return A `integer(1)`
+#'
+#' @export
+#' @examples
+#' .names <- c('A_A', 'A_Z', 'B_Q', 'B_F')
+#' InitializeHistory(.names)
+#' 
+InitializeHistory <- function(){
+
+  history <- setNames(data.frame(matrix(ncol = 4, nrow = 0)), 
+    c('Process', 'Step', 'Parameter', 'Value'))
+  # if(!is.null(widgets.names)) {
+  # steps <- NULL
+  # ww <- NULL
+  # 
+  # for (x in names(widgets.names)){
+  #  
+  #   basis <- unlist(strsplit(x, '_'))
+  #   steps <- c(steps, basis[1])
+  #   ww <- c(ww, basis[2])
+  # }
+ 
+
+  # for (i in 1:length(steps)){
+  #   history[i,] <- c(steps[i], ww[i], NA)
+  # }
+
+  #}
+      
+  return(history)
+  }
 
 #' @title Get the last validated step before current position.
 #'

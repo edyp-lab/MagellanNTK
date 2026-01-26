@@ -5,6 +5,7 @@
 \alias{Get_Code_Update_Config_Variable}
 \alias{Get_Code_Declare_widgets}
 \alias{Get_Code_Declare_rv_custom}
+\alias{Get_Code_for_Initialize_History}
 \alias{Get_Code_for_ObserveEvent_widgets}
 \alias{Get_Code_for_rv_reactiveValues}
 \alias{Get_Code_for_dataOut}
@@ -24,6 +25,8 @@ Get_Code_Update_Config_Variable()
 Get_Code_Declare_widgets(widgets.names = NULL)
 
 Get_Code_Declare_rv_custom(rv.custom.names = NULL)
+
+Get_Code_for_Initialize_History(widgets.names = NULL)
 
 Get_Code_for_ObserveEvent_widgets(widgets.names = NULL)
 
@@ -93,6 +96,8 @@ NA
 
 NA
 
+NA
+
 A `string` containing some R code
 
 NA
@@ -140,6 +145,9 @@ to declare the reactive variable called 'rv.custom.default.values'.
 variables.
 To avoid confusion, the first string is the name of the step while the
 second is the name of the widget
+
+This function xxx
+# Generate dynamically the observeEvent function for each widget
 
 This function xxx
 # Generate dynamically the observeEvent function for each widget
