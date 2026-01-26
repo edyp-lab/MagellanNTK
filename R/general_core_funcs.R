@@ -11,6 +11,14 @@
 #' @examples
 #' NULL
 Add2History <- function(history, process, step.name, param.name, value){
+  #browser()
+  
+  if (inherits(value, 'list'))
+    value <- unlist(value)
+  
+  if (is.null(value))
+    value <- NA
+  
   history[nrow(history)+1, ] <- c(process, step.name, param.name, value)
   
   return(history)
