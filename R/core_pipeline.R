@@ -171,6 +171,7 @@ nav_pipeline_server <- function(
         top = default.layout$top_pipeline_sidebar,
         height = default.layout$height_pipeline_sidebar,
         width = default.layout$width_pipeline_sidebar,
+        fixed = TRUE,
         # style de la sidebar contenant les infos des process (timeline, boutons et parametres
         style = paste0(
           "position : absolute; ",
