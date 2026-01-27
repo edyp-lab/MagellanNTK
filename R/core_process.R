@@ -262,6 +262,9 @@ nav_process_server <- function(
         unname(rv$steps.status[rv$current.pos]) != stepStatus$SKIPPED &&
         unname(rv$steps.status[len]) != stepStatus$SKIPPED && (!is.null(dataIn()))
       
+      if (unlist(strsplit(id, '_'))[2] == 'Convert')
+        enable.doProceed.Btns <- TRUE
+      
       widget <- actionButton(ns("DoBtn"), "Run", style = btn_css_style)
       MagellanNTK::toggleWidget(widget, enable.do.Btns)
     })
@@ -289,6 +292,9 @@ nav_process_server <- function(
       
       if (len > 1)
         enable.doProceed.Btns <- enable.doProceed.Btns && rv$current.pos != len
+      
+      if (unlist(strsplit(id, '_'))[2] == 'Convert')
+        enable.doProceed.Btns <- TRUE
       
       MagellanNTK::toggleWidget(widget, enable.doProceed.Btns)
     })
@@ -342,7 +348,7 @@ nav_process_server <- function(
       # Update the reactive value config with the config of the
       # pipeline
       rv$config <- rv$proc$config()
-      browser()
+      #browser()
       n <- length(rv$config@steps)
       stepsnames <- names(rv$config@steps)
       rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = stepsnames)
@@ -476,7 +482,7 @@ nav_process_server <- function(
       # rv$steps.status <- RefineProcessStatus(rv$history, rv$steps.status)
       # }
 
-      browser()
+      #browser()
       if (is.null(dataIn())) {
         # The process has been reseted or is not concerned
         # Disable all screens of the process
@@ -705,7 +711,7 @@ nav_process_server <- function(
     # The parameter is.skipped() is set by the caller and tells the process
     # if it is skipped or not (remote action from the caller)
     observeEvent(is.skipped(), ignoreNULL = FALSE, ignoreInit = TRUE, {
-      browser()
+      #browser()
       if (isTRUE(is.skipped())) {
         rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$SKIPPED)
       } else {
@@ -721,7 +727,7 @@ nav_process_server <- function(
     ResetProcess <- function() {
       # The cursor is set to the first step
       rv$current.pos <- 1
-      browser()
+      #browser()
       n <- length(rv$config@steps)
       # The status of the steps are reinitialized to the default
       # configuration of the process

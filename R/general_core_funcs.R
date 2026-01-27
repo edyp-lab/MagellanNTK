@@ -380,17 +380,20 @@ keepAssay <- function (x, range)
 #' @export
 #'
 BuildData2Send <- function(dataIn, stepsNames){
-  child.data2send <- setNames(
-    lapply(as.list(stepsNames), function(x) NULL),
-    nm = names(stepsNames)
-  ) 
+  browser()
   
+  
+  child.data2send <- lapply(as.list(stepsNames), function(x) NULL)
+  names(child.data2send) <- stepsNames 
+  
+  
+ 
   if (!is.null(dataIn)){
     dataInNames <- names(dataIn)
     
-    child.data2send <- setNames(lapply(as.list(stepsNames), 
-      function(x) keepAssay(dataIn, 1:2)), 
-      nm = names(stepsNames))
+    child.data2send <- lapply(as.list(stepsNames), 
+      function(x) keepAssay(dataIn, 1:2))
+    names(child.data2send) <- stepsNames 
     
     if (length(dataInNames) > 2){
       for (i in 3:length(dataInNames)){
