@@ -465,7 +465,7 @@ nav_process_server <- function(
         rep(stepStatus$UNDONE, length(rv$steps.status)), 
         nm = names(rv$config@steps))
       
-      browser()
+      #browser()
       rv$steps.status <- RefineProcessStatus(history(), rv$steps.status)
       
       
