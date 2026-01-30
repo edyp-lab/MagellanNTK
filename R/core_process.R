@@ -70,8 +70,6 @@ nav_process_ui <- function(id) {
   tagList(
     div(
       uiOutput(ns('process_panel_ui_process')),
-      
-      
       uiOutput(ns('process_panel_ui_pipeline')),
       uiOutput(ns("EncapsulateScreens_pipeline_ui"))
       
@@ -122,9 +120,9 @@ nav_process_server <- function(
       # Contains the return value of the process module that has been called
       proc = NULL,
       
-      status = NULL,
+      #status = NULL,
       
-      history = NULL,
+      #history = NULL,
       # steps.status A boolean vector which contains the status
       # (validated, skipped or undone) of the steps
       steps.status = NULL,
@@ -193,7 +191,8 @@ nav_process_server <- function(
       .runmode <- if(!is.null(runmode)) runmode else session$userData$wf_mode
       
       req(.runmode == 'pipeline')
-      tagList(
+      div(
+        #style ="position: fixed;",
           uiOutput(ns('process_btns_ui')),
           uiOutput(ns("testTL"))
         )
@@ -309,7 +308,7 @@ nav_process_server <- function(
     
     
     observeEvent(status(), { rv$status <- status()})
-    observeEvent(history(), { rv$history <- history()})
+    #observeEvent(history(), { rv$history <- history()})
     
     
     
@@ -466,13 +465,8 @@ nav_process_server <- function(
         rep(stepStatus$UNDONE, length(rv$steps.status)), 
         nm = names(rv$config@steps))
       
-      proc.id <- unlist(strsplit(id, '_'))[2]
-      .localStatus <- proc.id %in% names(dataIn())
-      
-      if (isTRUE(proc.id %in% names(dataIn()))){
-        .history <- DaparToolshed::paramshistory(dataIn()[[proc.id]])
-        rv$steps.status <- RefineProcessStatus(.history, rv$steps.status)
-      }
+      browser()
+      rv$steps.status <- RefineProcessStatus(history(), rv$steps.status)
       
       
       # if (!is.null(rv$status) && !is.null(rv$history) && (unname(rv$status) == stepStatus$VALIDATED)){
@@ -653,6 +647,8 @@ nav_process_server <- function(
       steps.status <- setNames(rep(stepStatus$UNDONE, length(steps.status)), 
         nm = names(steps.status))
       
+      req(history)
+      
       #browser()
       steps.status[1] <- stepStatus$VALIDATED
       if (length(steps.status) > 1){
@@ -672,10 +668,8 @@ nav_process_server <- function(
       
       if (rv$status == stepStatus$VALIDATED){
        
-        req(rv$history)
-        #browser()
-        rv$steps.status <- RefineProcessStatus(rv$history, rv$steps.status)
-        
+        req(history())
+        rv$steps.status <- RefineProcessStatus(history(), rv$steps.status)
       } else if (rv$status == stepStatus$UNDONE){
         
         
@@ -711,7 +705,7 @@ nav_process_server <- function(
     # The parameter is.skipped() is set by the caller and tells the process
     # if it is skipped or not (remote action from the caller)
     observeEvent(is.skipped(), ignoreNULL = FALSE, ignoreInit = TRUE, {
-      #browser()
+
       if (isTRUE(is.skipped())) {
         rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$SKIPPED)
       } else {
@@ -727,23 +721,39 @@ nav_process_server <- function(
     ResetProcess <- function() {
       # The cursor is set to the first step
       rv$current.pos <- 1
-      #browser()
+
       n <- length(rv$config@steps)
+      
+      #browser()
+      
+      #rv$steps.status <- RefineProcessStatus(rv$history, rv$steps.status)
+      
       # The status of the steps are reinitialized to the default
       # configuration of the process
       
-      rv$steps.status <- setNames(
-        rep(stepStatus$UNDONE, length(rv$steps.status)), 
-        nm = names(rv$config@steps))
-      if (!is.null(dataIn())){
-      proc.id <- unlist(strsplit(id, '_'))[2]
-      .localStatus <- proc.id %in% names(dataIn())
+      # 
+      # if(runmode() == 'pipeline'){
+      # rv$steps.status <- setNames(
+      #   rep(stepStatus$UNDONE, length(rv$steps.status)), 
+      #   nm = names(rv$config@steps))
+      # if (!is.null(dataIn())){
+      # proc.id <- unlist(strsplit(id, '_'))[2]
+      # .localStatus <- proc.id %in% names(dataIn())
+      # 
+      # if (isTRUE(proc.id %in% names(dataIn()))){
+      #   .history <- DaparToolshed::paramshistory(dataIn()[[proc.id]])
+      #   rv$steps.status <- RefineProcessStatus(.history, rv$steps.status)
+      # }
+      # }
+      # } else if (runmode == 'process'){
+      #   rv$steps.status <- setNames(
+      #     rep(stepStatus$UNDONE, length(rv$steps.status)), 
+      #     nm = names(rv$config@steps))
+      #   
+      # }
       
-      if (isTRUE(proc.id %in% names(dataIn()))){
-        .history <- DaparToolshed::paramshistory(dataIn()[[proc.id]])
-        rv$steps.status <- RefineProcessStatus(.history, rv$steps.status)
-      }
-      }
+      
+      
     }
     
     observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {

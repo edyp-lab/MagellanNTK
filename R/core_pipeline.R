@@ -65,7 +65,7 @@ nav_pipeline_ui <- function(id) {
     style = "width: 100%;",
     uiOutput(ns('pipeline_panel_ui')),
     uiOutput(ns('pipeline_tl_btn_ui'))
-  
+    
   )
 }
 
@@ -171,7 +171,6 @@ nav_pipeline_server <- function(
         top = default.layout$top_pipeline_sidebar,
         height = default.layout$height_pipeline_sidebar,
         width = default.layout$width_pipeline_sidebar,
-        fixed = TRUE,
         # style de la sidebar contenant les infos des process (timeline, boutons et parametres
         style = paste0(
           "position : absolute; ",
@@ -225,15 +224,15 @@ nav_pipeline_server <- function(
           column(width = 9, 
             
             timeline_pipeline_ui(ns("timeline_pipeline"))
-            ),
+          ),
           column(width = 1, 
             
             actionButton(ns("btn_eda"), 
               label = tagList(
                 p("EDA", style = "margin: 0px;"),
                 tags$img(src = "images_Prostar2/logoEDA_50.png", width = '50px')
-                ),
-                style = "padding: 0px; margin: 0px; border: none;
+              ),
+              style = "padding: 0px; margin: 0px; border: none;
           background-size: cover; background-position: center;
           background-color: transparent; font-size: 12px; z-index: 9999999;")
           )
@@ -310,39 +309,39 @@ nav_pipeline_server <- function(
       )
       
       
-        showModal(
+      showModal(
         #shinyjqui::jqui_draggable(
-          #shinyjqui::jqui_resizable(
-          modalDialog(
-            shiny::tabsetPanel(
-              id = ns("tabcard"),
-              
-              shiny::tabPanel(
-                title = h3("Infos", style = "margin-right: 30px;"), 
-                do.call(
-                  eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_ui"))),
-                  list(id = ns("eda1"))
-                )
-              ),
-              shiny::tabPanel(
-                style = "overflow-y: auto; height: 80vh;",
-                title = h3("History", style = "margin-right: 30px;"), 
-                do.call(
-                  eval(parse(text = paste0(session$userData$funcs$history_dataset, "_ui"))),
-                  list(id = ns("eda2"))
-                )
-              ),
-              shiny::tabPanel(
-                title = h3("EDA"),
-                do.call(
-                  eval(parse(text = paste0(session$userData$funcs$view_dataset, "_ui"))),
-                  list(id = ns("eda3"))
-                )
+        #shinyjqui::jqui_resizable(
+        modalDialog(
+          shiny::tabsetPanel(
+            id = ns("tabcard"),
+            
+            shiny::tabPanel(
+              title = h3("Infos", style = "margin-right: 30px;"), 
+              do.call(
+                eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_ui"))),
+                list(id = ns("eda1"))
               )
             ),
-            #title = "EDA", 
-            size = "l"
-         # )
+            shiny::tabPanel(
+              style = "overflow-y: auto; height: 80vh;",
+              title = h3("History", style = "margin-right: 30px;"), 
+              do.call(
+                eval(parse(text = paste0(session$userData$funcs$history_dataset, "_ui"))),
+                list(id = ns("eda2"))
+              )
+            ),
+            shiny::tabPanel(
+              title = h3("EDA"),
+              do.call(
+                eval(parse(text = paste0(session$userData$funcs$view_dataset, "_ui"))),
+                list(id = ns("eda3"))
+              )
+            )
+          ),
+          #title = "EDA", 
+          size = "l"
+          # )
         )
       )
     })
@@ -362,7 +361,7 @@ nav_pipeline_server <- function(
     # initialization of the server module. This code is generic to both
     # process and pipeline modules
     observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
-
+      
       ### Call the server module of the process/pipeline which name is
       ### the parameter 'id'.
       ### The name of the server function is prefixed by 'mod_' and
@@ -394,8 +393,8 @@ nav_pipeline_server <- function(
       rv$currentStepName <- reactive({
         GetStepsNames()[rv$current.pos]
       })
-
-     
+      
+      
       # Launch the ui for each step of the pipeline
       # This function could be stored in the source file of the
       # pipeline but the strategy is to insert minimum extra
@@ -409,7 +408,7 @@ nav_pipeline_server <- function(
           nav_process_ui(ns(paste0(id, "_", x)))
         }
       ), nm = paste0(GetStepsNames()))
-
+      
     }, priority = 1000)
     
     
@@ -420,7 +419,7 @@ nav_pipeline_server <- function(
       rv$steps.status
       rv$steps.enabled
       rv$current.pos
-
+      
       # Launch the server timeline for this process/pipeline
       timeline_pipeline_server(
         "timeline_pipeline",
@@ -441,7 +440,7 @@ nav_pipeline_server <- function(
     observeEvent(req(dataIn()), ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
       
-
+      
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
       rv$dataIn.original <- dataIn()
@@ -459,48 +458,43 @@ nav_pipeline_server <- function(
       rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
       rv$steps.skipped <- Discover_Skipped_Steps(rv$steps.status)
-      browser()
       
-      if (is.numeric(dataIn()) && dataIn() == -10)
-        rv$child.data2send <- BuildData2Send(NULL, GetStepsNames())
-      else
-        rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
+      rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
       
-        # A new dataset has been loaded
-        # # Update the different screens in the process
-        rv$steps.enabled <- Update_State_Screens(
-          is.skipped = is.skipped(),
-          is.enabled = is.enabled(),
-          rv = rv
-        )
-        
-        
-        # Enable the first screen
-        rv$steps.enabled <- ToggleState_Screens(
-          cond = TRUE,
-          range = 1,
-          is.enabled = is.enabled(),
-          rv = rv
-        )
-
-        rv$current.pos <- SetCurrentPosition(rv$steps.status)
+      
+      # A new dataset has been loaded
+      # # Update the different screens in the process
+      rv$steps.enabled <- Update_State_Screens(
+        is.skipped = is.skipped(),
+        is.enabled = is.enabled(),
+        rv = rv
+      )
+      
+      
+      # Enable the first screen
+      rv$steps.enabled <- ToggleState_Screens(
+        cond = TRUE,
+        range = 1,
+        is.enabled = is.enabled(),
+        rv = rv
+      )
+      
+      rv$current.pos <- SetCurrentPosition(rv$steps.status)
     })
     
     
-  GetHistory <- function(dataIn, x){
-   
-    if (x %in% c('Description', 'Save')){
-      return(NULL)
-    } else {
- 
-      if (x %in% names(dataIn)){
-        history <- DaparToolshed::paramshistory(dataIn[[x]])
+    GetHistory <- function(dataIn, x){
+      
+      history <- NULL
+      
+      if (x %in% c('Description', 'Save')){
+        history <- NULL
+      } else if (x %in% names(dataIn)){
+          history <- DaparToolshed::paramshistory(dataIn[[x]])
       }
       
-      
-      return(history)
+        return(history)
     }
-  }
     
     observe({
       ###
@@ -521,7 +515,7 @@ nav_pipeline_server <- function(
       })
     })
     
-
+    
     
     GetValuesFromChildren <- reactive({
       
@@ -534,7 +528,7 @@ nav_pipeline_server <- function(
       return.trigger.values[sapply(return.trigger.values, is.null)] <- NA
       triggerValues <- unlist(return.trigger.values)
       
-
+      
       # Get the values returned by each step of the modules
       return.values <- setNames(
         lapply(
@@ -551,7 +545,7 @@ nav_pipeline_server <- function(
       )
     })
     
-
+    
     # Catch the returned values of the processes attached to pipeline
     observeEvent(GetValuesFromChildren()$triggers, ignoreInit = TRUE, {
       
@@ -564,7 +558,7 @@ nav_pipeline_server <- function(
       
       if (sum(is.na(triggerValues)) == length(triggerValues) || is.null(return.values)){
         # Initialisation
-         
+        
         rv$current.pos <- SetCurrentPosition(rv$steps.status)
       } else {   
         
@@ -605,17 +599,17 @@ nav_pipeline_server <- function(
           
           rv$steps.skipped[(lastValidated + 1):len] <- FALSE
           Update_State_Screens(rv$steps.skipped, rv$steps.enabled, rv)
-
+          
           rv$current.pos <- which(.cd)
           # Update the datasend Vector
-           lapply((lastValidated + 1):len, function(x){
-             rv$child.data2send[[x]] <- rv$child.data2send[[lastValidated + 1]]
-           })
+          lapply((lastValidated + 1):len, function(x){
+            rv$child.data2send[[x]] <- rv$child.data2send[[lastValidated + 1]]
+          })
           
           
         } else {# A process has been validated
           rv$steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
-
+          
           if (ind.processHasChanged < len) {
             rv$steps.status[(1 + ind.processHasChanged):len] <- stepStatus$UNDONE
           }
@@ -625,14 +619,14 @@ nav_pipeline_server <- function(
           rv$dataIn <- newValue
           rv$current.pos <- SetCurrentPosition(rv$steps.status)
           # Update the datasend Vector
-           lapply((ind.processHasChanged + 1):len, function(x){
-           rv$child.data2send[[x]] <- rv$dataIn
-           })
-
+          lapply((ind.processHasChanged + 1):len, function(x){
+            rv$child.data2send[[x]] <- rv$dataIn
+          })
+          
         }
         
       }
-
+      
       # Send result
       dataOut$trigger <- Timestamp()
       dataOut$value <- rv$child.data2send[[length(rv$child.data2send)]]
@@ -674,13 +668,13 @@ nav_pipeline_server <- function(
       )
       
       n <- length(rv$config@steps)
-
+      
       
       ind.undone <- unname(which(rv$steps.status == stepStatus$UNDONE))
       rv$resetChildrenUI[ind.undone] <- rv$resetChildrenUI[ind.undone] + 1
     })
     
-
+    
     GetStepsNames <- reactive({
       req(rv$config@steps)
       names(rv$config@steps) 
@@ -694,7 +688,7 @@ nav_pipeline_server <- function(
       rv$current.pos
       len <- length(rv$config@ll.UI)
       
-
+      
       lapply(seq_len(len), function(i) {
         if (i == rv$current.pos) {
           div(
@@ -725,8 +719,8 @@ nav_pipeline_server <- function(
     observeEvent(input$closeModal, {
       removeModal()
     })
-
-   
+    
+    
     
     
     observeEvent(rv$current.pos, ignoreInit = TRUE, {

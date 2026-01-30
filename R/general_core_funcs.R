@@ -380,7 +380,7 @@ keepAssay <- function (x, range)
 #' @export
 #'
 BuildData2Send <- function(dataIn, stepsNames){
-  browser()
+  #browser()
   
   
   child.data2send <- lapply(as.list(stepsNames), function(x) NULL)
