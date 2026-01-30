@@ -259,7 +259,8 @@ nav_process_server <- function(
       enable.do.Btns <-  unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
         unname(rv$steps.status[len]) != stepStatus$VALIDATED && (!is.null(dataIn())) &&
         unname(rv$steps.status[rv$current.pos]) != stepStatus$SKIPPED &&
-        unname(rv$steps.status[len]) != stepStatus$SKIPPED && (!is.null(dataIn()))
+        unname(rv$steps.status[len]) != stepStatus$SKIPPED && (!is.null(dataIn())) &&
+        status() != stepStatus$SKIPPED
       
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.doProceed.Btns <- TRUE
@@ -287,13 +288,16 @@ nav_process_server <- function(
       enable.doProceed.Btns <- unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
         unname(rv$steps.status[len]) != stepStatus$VALIDATED && (!is.null(dataIn())) &&
         unname(rv$steps.status[rv$current.pos]) != stepStatus$SKIPPED &&
-        unname(rv$steps.status[len]) != stepStatus$SKIPPED && (!is.null(dataIn()))
+        unname(rv$steps.status[len]) != stepStatus$SKIPPED && (!is.null(dataIn())) &&
+        status() != stepStatus$SKIPPED
       
       if (len > 1)
         enable.doProceed.Btns <- enable.doProceed.Btns && rv$current.pos != len
       
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.doProceed.Btns <- TRUE
+      
+    
       
       MagellanNTK::toggleWidget(widget, enable.doProceed.Btns)
     })
