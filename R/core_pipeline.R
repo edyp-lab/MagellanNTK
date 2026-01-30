@@ -282,13 +282,13 @@ nav_pipeline_server <- function(
     observeEvent(input$btn_eda, {
       
       req(session$userData$funcs)
-      req(dataOut$value)
+      req(rv$dataset2EDA)
       
       do.call(
         eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_server"))),
         list(
           id = "eda1",
-          dataIn = reactive({dataOut$value})
+          dataIn = reactive({rv$dataset2EDA})
         )
       )
       
@@ -296,7 +296,7 @@ nav_pipeline_server <- function(
         eval(parse(text = paste0(session$userData$funcs$history_dataset, "_server"))),
         list(
           id = "eda2",
-          dataIn = reactive({dataOut$value})
+          dataIn = reactive({rv$dataset2EDA})
         )
       )
       
@@ -304,7 +304,7 @@ nav_pipeline_server <- function(
         eval(parse(text = paste0(session$userData$funcs$view_dataset, "_server"))),
         list(
           id = "eda3",
-          dataIn = reactive({dataOut$value})
+          dataIn = reactive({rv$dataset2EDA})
         )
       )
       
@@ -441,6 +441,8 @@ nav_pipeline_server <- function(
       req(rv$config)
       
       
+      #browser()
+      rv$dataset2EDA <- dataIn()
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
       rv$dataIn.original <- dataIn()
@@ -582,7 +584,7 @@ nav_pipeline_server <- function(
           if (is.null(lastValidated))
             lastValidated <- 0
           
-          # # A process has been reseted (it has returned a NULL value)
+          # # A process has been reseted (it has returned a -10 value)
           # One take the last validated step (before the one
           # corresponding to processHasChanges
           # but it is straightforward because we just updates rv$status
@@ -630,6 +632,7 @@ nav_pipeline_server <- function(
       # Send result
       dataOut$trigger <- Timestamp()
       dataOut$value <- rv$child.data2send[[length(rv$child.data2send)]]
+      rv$dataset2EDA <- dataOut$value
     })
     
     # Update the current position after a click  on the 'Previous' button
