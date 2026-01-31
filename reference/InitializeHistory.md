@@ -6,7 +6,7 @@ current step.
 ## Usage
 
 ``` r
-InitializeHistory(widgets.names = NULL)
+InitializeHistory()
 ```
 
 ## Arguments
@@ -22,6 +22,7 @@ A \`integer(1)\`
 ## Examples
 
 ``` r
-NULL
-#> NULL
+.names <- c('A_A', 'A_Z', 'B_Q', 'B_F')
+InitializeHistory(.names)
+#> Error in InitializeHistory(.names): unused argument (.names)
 ```

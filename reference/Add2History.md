@@ -6,7 +6,7 @@ current step.
 ## Usage
 
 ``` r
-Add2History(history, name, value)
+Add2History(history, process, step.name, param.name, value)
 ```
 
 ## Arguments
