@@ -4,7 +4,7 @@
 \alias{Add2History}
 \title{Get the last validated step before current position.}
 \usage{
-Add2History(history, name, value)
+Add2History(history, process, step.name, param.name, value)
 }
 \arguments{
 \item{widgets.names}{xxx}

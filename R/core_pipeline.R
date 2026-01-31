@@ -485,18 +485,6 @@ nav_pipeline_server <- function(
     })
     
     
-    GetHistory <- function(dataIn, x){
-      
-      history <- NULL
-      
-      if (x %in% c('Description', 'Save')){
-        history <- NULL
-      } else if (x %in% names(dataIn)){
-          history <- DaparToolshed::paramshistory(dataIn[[x]])
-      }
-      
-        return(history)
-    }
     
     observe({
       ###

@@ -1,4 +1,32 @@
 
+
+#' @title Get the last validated step before current position.
+#'
+#' @description This function returns the indice of the last validated step before
+#' the current step.
+#'
+#' @param dataIn xxx
+#' @param x xxxx
+#' @return A `integer(1)`
+#'
+#' @export
+#' @examples
+#' NULL
+GetHistory <- function(dataIn, x){
+  
+  history <- NULL
+  
+  if (x %in% c('Description', 'Save')){
+    history <- NULL
+  } else if (x %in% names(dataIn)){
+    history <- DaparToolshed::paramshistory(dataIn[[x]])
+  }
+  
+  return(history)
+}
+
+
+
 #' @title Get the last validated step before current position.
 #'
 #' @description This function returns the indice of the last validated step before
