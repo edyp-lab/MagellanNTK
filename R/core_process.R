@@ -263,7 +263,15 @@ nav_process_server <- function(
         status() != stepStatus$SKIPPED
       
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
-        enable.doProceed.Btns <- TRUE
+        enable.do.Btns <- TRUE
+      
+      if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
+        if (rv$current.pos > 1)
+          enable.do.Btns <- FALSE
+        else if (rv$current.pos == 1)
+          enable.do.Btns <- TRUE
+      }
+        
       
       widget <- actionButton(ns("DoBtn"), "Run", style = btn_css_style)
       MagellanNTK::toggleWidget(widget, enable.do.Btns)
@@ -297,7 +305,13 @@ nav_process_server <- function(
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.doProceed.Btns <- TRUE
       
-    
+      
+      if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
+        if (rv$current.pos > 1)
+          enable.doProceed.Btns <- FALSE
+        else if (rv$current.pos == 1)
+          enable.doProceed.Btns <- TRUE
+      }
       
       MagellanNTK::toggleWidget(widget, enable.doProceed.Btns)
     })
@@ -651,7 +665,7 @@ nav_process_server <- function(
       steps.status <- setNames(rep(stepStatus$UNDONE, length(steps.status)), 
         nm = names(steps.status))
       
-      req(history)
+      if(!is.null(history)){
       
       #browser()
       steps.status[1] <- stepStatus$VALIDATED
@@ -660,6 +674,7 @@ nav_process_server <- function(
         .ind <- which(names(steps.status) %in% history[, 'Step'])
         steps.status[.ind] <- stepStatus$VALIDATED
         steps.status['Save'] <- stepStatus$VALIDATED
+      }
       }
       
       
