@@ -252,9 +252,9 @@ nav_process_server <- function(
       rv$current.pos
       rv$steps.status
       
-      
       enable.do.Btns <- FALSE
       len <- length(rv$config@steps)
+      
       
       enable.do.Btns <-  unname(rv$steps.status[rv$current.pos]) != stepStatus$VALIDATED &&
         unname(rv$steps.status[len]) != stepStatus$VALIDATED && (!is.null(dataIn())) &&
@@ -270,6 +270,11 @@ nav_process_server <- function(
           enable.do.Btns <- FALSE
         else if (rv$current.pos == 1)
           enable.do.Btns <- TRUE
+      } else {
+        if (rv$current.pos > 1)
+          enable.do.Btns <- TRUE
+        else if (rv$current.pos == 1)
+          enable.do.Btns <- FALSE
       }
         
       
@@ -311,6 +316,11 @@ nav_process_server <- function(
           enable.doProceed.Btns <- FALSE
         else if (rv$current.pos == 1)
           enable.doProceed.Btns <- TRUE
+      }else {
+        if (rv$current.pos > 1)
+          enable.doProceed.Btns <- TRUE
+        else if (rv$current.pos == 1)
+          enable.doProceed.Btns <- FALSE
       }
       
       MagellanNTK::toggleWidget(widget, enable.doProceed.Btns)
