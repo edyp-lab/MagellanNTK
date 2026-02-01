@@ -199,8 +199,6 @@ mainapp_server <- function(id,
         
         rv.core$workflow.path <- workflow.path()
         rv.core$workflow.name <- workflow.name()
-        rv.core$process.name <- unlist(strsplit(rv.core$workflow.name, '_'))[2]
-        rv.core$pipeline.name <- unlist(strsplit(rv.core$workflow.name, '_'))[1]
         
         session$userData$workflow.path <- workflow.path()
         session$userData$workflow.name <- workflow.name()
@@ -212,6 +210,18 @@ mainapp_server <- function(id,
           session$userData$runmode <- 'pipeline'
         else
           session$userData$runmode <- 'process'
+        
+        if (session$userData$runmode == 'process'){
+          rv.core$process.name <- unlist(strsplit(rv.core$workflow.name, '_'))[2]
+          rv.core$pipeline.name <- unlist(strsplit(rv.core$workflow.name, '_'))[1]
+        }
+        
+        if (session$userData$runmode == 'pipeline'){
+          rv.core$process.name <- NULL
+          rv.core$pipeline.name <- rv.core$workflow.name
+        }
+
+        
         
         req(session$userData$workflow.path)
         req(session$userData$workflow.name)
@@ -473,7 +483,7 @@ mainapp_server <- function(id,
     
     observe({
       req(session$userData$wf_mode)
-    req(rv.core$process.name)
+    
     
     
       switch(session$userData$wf_mode, 
@@ -487,13 +497,10 @@ mainapp_server <- function(id,
           )
         },
         process = {
-          
-          
+          req(rv.core$process.name)
           .history <- NULL
           if (!is.null(rv.core$current.obj))
             .history <- GetHistory(rv.core$current.obj, rv.core$process.name)
-          
-          
       
           rv.core$result_run_workflow <- nav_process_server(
             id = rv.core$workflow.name,
@@ -526,19 +533,9 @@ mainapp_server <- function(id,
     })
     
     
-    # observeEvent(req(input$resetWF), {
-    #     rv.core$resetWF <- MagellanNTK::Timestamp()
-    # })
-    
     output$tools_UI <- renderUI({
       h3("tools")
     })
-    
-    
-    
-    
-    
-    
     
     
     observe({
