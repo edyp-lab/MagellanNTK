@@ -87,7 +87,8 @@ nav_pipeline_server <- function(
   remoteReset = reactive({0}),
   is.skipped = reactive({FALSE}),
   verbose = FALSE,
-  usermod = "user") {
+  usermod = "user",
+  processes = 'all') {
   ### -------------------------------------------------------------###
   ###                                                             ###
   ### ------------------- MODULE SERVER --------------------------###
@@ -380,6 +381,22 @@ nav_pipeline_server <- function(
       # Update the reactive value config with the config of the pipeline
       rv$config <- rv$proc$config()
       
+      # Store the original values
+      rv$config.original <- rv$proc$config()
+      
+    
+#browser()
+      if ((length(processes) == 1 && processes != 'all') || length(processes) > 1){
+        
+      # Update config wrt xxx
+      ind <- match(processes, rv$config@steps)
+      ind <- c(1, ind[order(ind)], length(rv$config@steps))
+      rv$config@steps <- rv$config@steps[ind]
+      rv$config@mandatory <- rv$config@mandatory[ind]
+      rv$config@ll.UI <- rv$config@ll.UI[ind]
+      
+      }
+      
       n <- length(rv$config@steps)
       
       rv$resetChildren <- setNames(rep(0, n), nm = GetStepsNames())
@@ -439,7 +456,7 @@ nav_pipeline_server <- function(
     # 2 - if the variable contains a dataset. xxx
     observeEvent(req(dataIn()), ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
-      
+      req(GetStepsNames())
       
       #browser()
       rv$dataset2EDA <- dataIn()
@@ -448,7 +465,7 @@ nav_pipeline_server <- function(
       rv$dataIn.original <- dataIn()
       session$userData$dataIn.original <- dataIn()
       
-      
+      #browser()
       # in case of a new dataset, reset the whole pipeline
       
       n <- length(rv$config@steps)
@@ -462,6 +479,7 @@ nav_pipeline_server <- function(
       rv$steps.skipped <- Discover_Skipped_Steps(rv$steps.status)
       
       rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
+      #rv$child.data2send <- BuildData2Send(dataIn(), names(rv$config.original@steps))
       
       
       # A new dataset has been loaded
@@ -487,6 +505,8 @@ nav_pipeline_server <- function(
     
     
     observe({
+      #req(rv$steps.enabled)
+      #req(rv$steps.status)
       ###
       ### Launch the server for each step of the pipeline
       ###
@@ -508,7 +528,9 @@ nav_pipeline_server <- function(
     
     
     GetValuesFromChildren <- reactive({
-      
+  
+      req(GetStepsNames())
+      req(tmp.return)
       # Get the trigger values for each steps of the module
       return.trigger.values <- setNames(lapply(GetStepsNames(), function(x) {
         tmp.return[[x]]$dataOut()$trigger

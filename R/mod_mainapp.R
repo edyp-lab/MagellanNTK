@@ -148,6 +148,7 @@ mainapp_server <- function(id,
   data.name = reactive({"myDataset"}),
   workflow.name = reactive({NULL}),
   workflow.path = reactive({NULL}),
+  processes = 'all',
   verbose = FALSE,
   usermod = "user") {
   moduleServer(id, function(input, output, session) {
@@ -493,7 +494,8 @@ mainapp_server <- function(id,
             dataIn = reactive({rv.core$current.obj}),
             verbose = verbose,
             usermod = usermod,
-            remoteReset = reactive({rv.core$resetWF})
+            remoteReset = reactive({rv.core$resetWF}),
+            processes = processes
           )
         },
         process = {

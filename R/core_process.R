@@ -265,16 +265,22 @@ nav_process_server <- function(
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.do.Btns <- TRUE
       
-      if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
-        if (rv$current.pos > 1)
-          enable.do.Btns <- FALSE
-        else if (rv$current.pos == 1)
-          enable.do.Btns <- TRUE
-      } else {
-        if (rv$current.pos > 1)
-          enable.do.Btns <- TRUE
-        else if (rv$current.pos == 1)
-          enable.do.Btns <- FALSE
+      if ('Description' %in% names(rv$steps.status)){
+        if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
+          if (rv$current.pos > 1)
+            enable.do.Btns <- FALSE
+          else if (rv$current.pos == 1)
+            enable.do.Btns <- TRUE
+        } else {
+          if (rv$current.pos > 1)
+            enable.do.Btns <- TRUE
+          else if (rv$current.pos == 1)
+            enable.do.Btns <- FALSE
+        }
+      }
+      
+      if (length(names(rv$steps.status)) == 1 && 'Save' == names(rv$steps.status)){
+        enable.do.Btns <- TRUE
       }
         
       
@@ -310,7 +316,7 @@ nav_process_server <- function(
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.doProceed.Btns <- TRUE
       
-      
+      if ('Description' %in% names(rv$steps.status)){
       if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
         if (rv$current.pos > 1)
           enable.doProceed.Btns <- FALSE
@@ -322,6 +328,13 @@ nav_process_server <- function(
         else if (rv$current.pos == 1)
           enable.doProceed.Btns <- FALSE
       }
+      }
+      
+      
+      if (length(names(rv$steps.status)) == 1 && 'Save' == names(rv$steps.status)){
+        enable.doProceed.Btns <- FALSE
+      }
+      
       
       MagellanNTK::toggleWidget(widget, enable.doProceed.Btns)
     })
