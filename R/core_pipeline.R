@@ -389,7 +389,7 @@ nav_pipeline_server <- function(
       rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
       rv$steps.skipped <- Discover_Skipped_Steps(rv$steps.status)
-      
+    
       rv$currentStepName <- reactive({
         GetStepsNames()[rv$current.pos]
       })

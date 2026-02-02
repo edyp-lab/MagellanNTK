@@ -774,12 +774,15 @@ nav_process_server <- function(
       #   rv$steps.status <- RefineProcessStatus(.history, rv$steps.status)
       # }
       # }
-      # } else if (runmode == 'process'){
-      #   rv$steps.status <- setNames(
-      #     rep(stepStatus$UNDONE, length(rv$steps.status)), 
-      #     nm = names(rv$config@steps))
-      #   
-      # }
+      #} else 
+      .runmode <- if(!is.null(runmode)) runmode else session$userData$wf_mode
+      if (.runmode == 'process'){
+        rv$steps.status <- setNames(
+          rep(stepStatus$UNDONE, length(rv$steps.status)),
+          nm = names(rv$config@steps))
+
+        #browser()
+      }
       
       
       
