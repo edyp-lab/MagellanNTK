@@ -476,10 +476,11 @@ SetCurrentPosition <- function(stepsstatus){
 #' NULL
 #' @export
 #'
-Update_State_Screens <- function(is.skipped,
-  is.enabled,
-  rv) {
-  
+Update_State_Screens <- function(
+    is.skipped,
+    is.enabled,
+    rv) {
+
   len <- length(rv$steps.status)
 
   if (isTRUE(is.skipped)) {

@@ -124,6 +124,8 @@ nav_pipeline_server <- function(
       # 'is.enabled'
       steps.enabled = NULL,
       
+      steps.show = NULL,
+      
       # A vector of boolean where each element indicates whether
       # the corresponding process is skipped or not
       # ONLY USED WITH PIPELINE
@@ -388,11 +390,13 @@ nav_pipeline_server <- function(
       
       rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
+      rv$steps.show <- setNames(rep(TRUE, n), nm = GetStepsNames())
+      rv$steps.show['Normalization'] <- FALSE
+      
+      
       rv$steps.skipped <- Discover_Skipped_Steps(rv$steps.status)
     
-      rv$currentStepName <- reactive({
-        GetStepsNames()[rv$current.pos]
-      })
+      rv$currentStepName <- reactive({GetStepsNames()[rv$current.pos]})
       
       
       # Launch the ui for each step of the pipeline
@@ -481,6 +485,8 @@ nav_pipeline_server <- function(
         rv = rv
       )
       
+      
+     # browser()
       rv$current.pos <- SetCurrentPosition(rv$steps.status)
     })
     
