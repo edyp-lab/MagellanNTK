@@ -452,25 +452,22 @@ mainapp_server <- function(id,
     observe({
      # browser()
       
-      rv.core$result_convert <- nav_process_server(
+      rv.core$result_convert <- nav_single_process_server(
         id = paste0(unlist(strsplit(rv.core$workflow.name, '_'))[1], '_Convert'),
         dataIn = reactive({NULL}),
         verbose = verbose,
-        usermod = usermod,
-        #remoteReset = reactive({rv.core$resetWF}),
-        runmode = 'process'
+        usermod = usermod
       )
     })
 
 
     ###### Code for the convert dataset module ######
     output$open_convert_dataset_UI <- renderUI({
-      nav_process_ui(ns(paste0(unlist(strsplit(rv.core$workflow.name, '_'))[1], '_Convert')))
+      nav_single_process_ui(ns(paste0(unlist(strsplit(rv.core$workflow.name, '_'))[1], '_Convert')))
     })
 
 
     observe_result_convert <- observeEvent(req(rv.core$result_convert$dataOut()$trigger), {
-      #browser()
       req(rv.core$result_convert$dataOut()$value)
 
       rv.core$current.obj <- rv.core$result_convert$dataOut()$value
@@ -478,14 +475,9 @@ mainapp_server <- function(id,
       rv.core$processed.obj <- rv.core$current.obj
       rv.core$resetWF <- MagellanNTK::Timestamp()
     })
-    # 
-    
-    #-------------------------------------------------------------------
-    
+
     observe({
       req(session$userData$wf_mode)
-    
-    
     
       switch(session$userData$wf_mode, 
         pipeline = {
@@ -504,14 +496,12 @@ mainapp_server <- function(id,
           if (!is.null(rv.core$current.obj))
             .history <- GetHistory(rv.core$current.obj, rv.core$process.name)
       
-          rv.core$result_run_workflow <- nav_process_server(
+          rv.core$result_run_workflow <- nav_single_process_server(
             id = rv.core$workflow.name,
             dataIn = reactive({rv.core$current.obj}),
             history = reactive({.history}),
-            
             verbose = verbose,
-            usermod = usermod,
-            remoteReset = reactive({rv.core$resetWF}))
+            usermod = usermod)
         }
       )
     }
@@ -525,7 +515,7 @@ mainapp_server <- function(id,
       tagList(
         switch(session$userData$wf_mode, 
           pipeline = nav_pipeline_ui(ns(basename(rv.core$workflow.name))),
-          process = nav_process_ui(ns(basename(rv.core$workflow.name)))
+          process = nav_single_process_ui(ns(basename(rv.core$workflow.name)))
         )
       )
     })

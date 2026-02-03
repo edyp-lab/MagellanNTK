@@ -15,10 +15,6 @@
 #' that it is disabled (i.e. skipped), then this variable is set to TRUE. Then,
 #' all the widgets will be disabled. If not, the enabling/disabling of widgets
 #' is deciding by this module.
-#'
-#' @param remoteReset It is a remote command to reset the module. A boolen that
-#' indicates is the pipeline has been reseted by a program of higher level
-#' Basically, it is the program which has called this module
 #' 
 #' @param remoteResetUI xxx
 #' @param status xxx
@@ -47,7 +43,7 @@
 #'     nav_process()
 #' }
 #'
-#' @name nav_process
+#' @name nav_single_process
 #'
 #' @author Samuel Wieczorek
 #' 
@@ -60,20 +56,41 @@ NULL
 #' @param id A `character(1)` which defines the id of the module.
 #' It is the same as for the server() function.
 #'
-#' @rdname nav_process
+#' @rdname nav_single_process
 #'
 #' @export
 #'
-nav_process_ui <- function(id) {
+nav_single_process_ui <- function(id) {
   ns <- NS(id)
+  
+  addResourcePath(
+    prefix = "images_Prostar2",
+    directoryPath = system.file("images", package = "Prostar2")
+  )
+  
   
   tagList(
     div(
-      uiOutput(ns('process_panel_ui_process')),
-      uiOutput(ns('process_panel_ui_pipeline')),
-      uiOutput(ns("EncapsulateScreens_pipeline_ui"))
+     
+      uiOutput(ns('process_panel_ui_process'))
+      #uiOutput(ns('process_panel_ui_pipeline')),
+      #uiOutput(ns("EncapsulateScreens_pipeline_ui")),
       
-  ))
+      
+    ),
+    shiny::absolutePanel(
+      left = '100',
+      top = 10,
+      
+      actionButton(ns("btn_eda_singleProcess"), 
+        label = tagList(
+          p("EDA", style = "margin: 0px;"),
+          tags$img(src = "images_Prostar2/logoEDA_50.png", width = '50px')
+        ),
+        style = "padding: 0px; margin: 0px; border: none;
+          background-size: cover; background-position: center;
+          background-color: transparent; font-size: 12px; z-index: 999999999999;")
+    ))
 }
 
 
@@ -81,20 +98,19 @@ nav_process_ui <- function(id) {
 #'
 #' @export
 #'
-#' @rdname nav_process
+#' @rdname nav_single_process
 #' @importFrom stats setNames
 #' @importFrom crayon blue yellow
 #' @import shiny
 #'
-nav_process_server <- function(
+nav_single_process_server <- function(
     id = NULL,
   dataIn = reactive({NULL}),
   status = reactive({NULL}),
   history = reactive({NULL}),
-  is.enabled = reactive({TRUE}),
-  remoteReset = reactive({0}),
   remoteResetUI = reactive({0}),
-  is.skipped = reactive({FALSE}),
+  is.enabled = TRUE,
+  is.skipped = FALSE,
   verbose = FALSE,
   usermod = "user",
   btnEvents = reactive({NULL})
@@ -134,16 +150,13 @@ nav_process_server <- function(
       # temp.dataIn This variable is used to serves as a tampon
       # between the input of the module and the functions.
       temp.dataIn = NULL,
-      
-      # steps.enabled Contains the value of the parameter
-      # 'is.enabled'
-      steps.enabled = NULL,
-      
+
+      is.enabled = NULL,
+      is.skipped = NULL,
       # A vector of boolean where each element indicates whether
       # the corresponding process is skipped or not
       # ONLY USED WITH PIPELINE
       steps.skipped = NULL,
-      prev.remoteReset = 1,
       prev.remoteResetUI = 1,
       # current.pos Stores the current cursor position in the
       # timeline and indicates which of the process' steps is active
@@ -156,47 +169,108 @@ nav_process_server <- function(
     )
     
     
-    # 
-    # output$process_panel_ui_process <- renderUI({
-    # 
-    #   .runmode <- if(!is.null(runmode)) runmode else session$userData$wf_mode
-    #     
-    #   req(.runmode == 'process')
-    #   shiny::absolutePanel(
-    #     left = default.layout$left_pipeline_sidebar,
-    #     top = 0,
-    #     height = default.layout$height_pipeline_sidebar,
-    #     width = '350px',
-    #     # style de la sidebar contenant les infos des process (timeline, boutons et parametres
-    #     style = paste0(
-    #       "position : absolute; ",
-    #       "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_pipeline_sidebar, "; ",
-    #       "border-right: ", default.layout$line_width, "px solid ", default.layout$line_color, ";",
-    #       "height: 100vh;"
-    #     ),
-    #     div(
-    #       style = " align-items: center; justify-content: center; margin-bottom: 20px;",
-    #       uiOutput(ns("proc_datasetNameUI"))
-    #     ),
-    #     div(id = ns('div_process_panel_ui_process_ui'),
-    #       uiOutput(ns('process_btns_ui')),
-    #     uiOutput(ns("testTL")),
-    #       uiOutput(ns("EncapsulateScreens_process_ui"))
-    #     )
-    #   )
-    # })
     
     
-    output$process_panel_ui_pipeline <- renderUI({
-      # .runmode <- if(!is.null(runmode)) runmode else session$userData$wf_mode
-      # 
-      # req(.runmode == 'pipeline')
-      div(
-        #style ="position: fixed;",
-          uiOutput(ns('process_btns_ui')),
-          uiOutput(ns("testTL"))
+    
+    observeEvent(input$btn_eda_singleProcess, ignoreInit = FALSE, {
+    
+      req(session$userData$funcs)
+      req(rv$dataset2EDA)
+      
+      do.call(
+        eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_server"))),
+        list(
+          id = "eda1",
+          dataIn = reactive({rv$dataset2EDA})
         )
+      )
+      
+      do.call(
+        eval(parse(text = paste0(session$userData$funcs$history_dataset, "_server"))),
+        list(
+          id = "eda2",
+          dataIn = reactive({rv$dataset2EDA})
+        )
+      )
+      
+      do.call(
+        eval(parse(text = paste0(session$userData$funcs$view_dataset, "_server"))),
+        list(
+          id = "eda3",
+          dataIn = reactive({rv$dataset2EDA})
+        )
+      )
+      
+      
+      shiny::showModal(
+        #shinyjqui::jqui_draggable(
+        #shinyjqui::jqui_resizable(
+        shiny::modalDialog(
+          shiny::tabsetPanel(
+            id = ns("tabcard"),
+            
+            shiny::tabPanel(
+              title = h3("Infos", style = "margin-right: 30px;"), 
+              do.call(
+                eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_ui"))),
+                list(id = ns("eda1"))
+              )
+            ),
+            shiny::tabPanel(
+              style = "overflow-y: auto; height: 80vh;",
+              title = h3("History", style = "margin-right: 30px;"), 
+              do.call(
+                eval(parse(text = paste0(session$userData$funcs$history_dataset, "_ui"))),
+                list(id = ns("eda2"))
+              )
+            ),
+            shiny::tabPanel(
+              title = h3("EDA"),
+              do.call(
+                eval(parse(text = paste0(session$userData$funcs$view_dataset, "_ui"))),
+                list(id = ns("eda3"))
+              )
+            )
+          ),
+          #title = "EDA", 
+          size = "l"
+          # )
+        )
+      )
     })
+    
+    
+
+    
+    output$process_panel_ui_process <- renderUI({
+      
+      shiny::absolutePanel(
+        left = default.layout$left_pipeline_sidebar,
+        top = 0,
+        height = default.layout$height_pipeline_sidebar,
+        width = '350px',
+        # style de la sidebar contenant les infos des process (timeline, boutons et parametres
+        style = paste0(
+          "position : absolute; ",
+          "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_pipeline_sidebar, "; ",
+          "border-right: ", default.layout$line_width, "px solid ", default.layout$line_color, ";",
+          "height: 100vh;"
+        ),
+        div(
+          style = " align-items: center; justify-content: center; margin-bottom: 20px;",
+          uiOutput(ns("proc_datasetNameUI")),
+          
+        ),
+        div(id = ns('div_process_panel_ui_process_ui'),
+          uiOutput(ns('process_btns_ui')),
+          uiOutput(ns("testTL")),
+
+          uiOutput(ns("EncapsulateScreens_process_ui"))
+        )
+      )
+    })
+    
+
     
     output$process_btns_ui <- renderUI({
       div(
@@ -248,7 +322,7 @@ nav_process_server <- function(
     
     
     output$DoBtn <- renderUI({
-
+      
       rv$current.pos
       rv$steps.status
       
@@ -265,30 +339,24 @@ nav_process_server <- function(
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.do.Btns <- TRUE
       
-      if ('Description' %in% names(rv$steps.status)){
-        if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
-          if (rv$current.pos > 1)
-            enable.do.Btns <- FALSE
-          else if (rv$current.pos == 1)
-            enable.do.Btns <- TRUE
-        } else {
-          if (rv$current.pos > 1)
-            enable.do.Btns <- TRUE
-          else if (rv$current.pos == 1)
-            enable.do.Btns <- FALSE
-        }
+      if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
+        if (rv$current.pos > 1)
+          enable.do.Btns <- FALSE
+        else if (rv$current.pos == 1)
+          enable.do.Btns <- TRUE
+      } else {
+        if (rv$current.pos > 1)
+          enable.do.Btns <- TRUE
+        else if (rv$current.pos == 1)
+          enable.do.Btns <- FALSE
       }
       
-      if (length(names(rv$steps.status)) == 1 && 'Save' == names(rv$steps.status)){
-        enable.do.Btns <- TRUE
-      }
-        
       
       widget <- actionButton(ns("DoBtn"), "Run", style = btn_css_style)
       MagellanNTK::toggleWidget(widget, enable.do.Btns)
     })
-
-
+    
+    
     output$DoProceedBtn <- renderUI({
       
       dataIn()
@@ -316,7 +384,7 @@ nav_process_server <- function(
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.doProceed.Btns <- TRUE
       
-      if ('Description' %in% names(rv$steps.status)){
+      
       if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
         if (rv$current.pos > 1)
           enable.doProceed.Btns <- FALSE
@@ -328,13 +396,6 @@ nav_process_server <- function(
         else if (rv$current.pos == 1)
           enable.doProceed.Btns <- FALSE
       }
-      }
-      
-      
-      if (length(names(rv$steps.status)) == 1 && 'Save' == names(rv$steps.status)){
-        enable.doProceed.Btns <- FALSE
-      }
-      
       
       MagellanNTK::toggleWidget(widget, enable.doProceed.Btns)
     })
@@ -349,20 +410,16 @@ nav_process_server <- function(
     
     
     observeEvent(status(), { rv$status <- status()})
-    #observeEvent(history(), { rv$history <- history()})
-    
-    
-    
+
     # Catch any event on the 'id' parameter. As this parameter is static
     # and is attached to the server, this function can be view as the
     # initialization of the server module. This code is generic to both
     # process and pipeline modules
     #observeEvent(c(id, dataIn()), ignoreInit = FALSE, ignoreNULL = TRUE, {
-      observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
-        
+    observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
+      
       rv$rstBtn()
       
-      rv$prev.remoteReset < remoteReset()
       rv$prev.remoteResetUI < remoteResetUI()
       
       ### Call the server module of the process/pipeline which name is
@@ -370,25 +427,22 @@ nav_process_server <- function(
       ### The name of the server function is prefixed by 'mod_' and
       ### suffixed by '_server'. This will give access to its config
       
-
+      
       rv$proc <- do.call(
         paste0(id, "_server"),
         list(
           id = id,
           dataIn = reactive({rv$temp.dataIn}),
-          #status = reactive({status()}),
           steps.enabled = reactive({rv$steps.enabled}),
-          remoteReset = reactive({rv$rstBtn() + remoteReset() + remoteResetUI()}),
+          remoteReset = reactive({rv$rstBtn() + remoteResetUI()}),
           steps.status = reactive({rv$steps.status}),
           current.pos = reactive({rv$current.pos}),
           btnEvents = reactive({rv$btnEvents})
         )
       )
       
-      # Update the reactive value config with the config of the
-      # pipeline
+      # Update the reactive value config with the config of the pipeline
       rv$config <- rv$proc$config()
-      #browser()
       n <- length(rv$config@steps)
       stepsnames <- names(rv$config@steps)
       rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = stepsnames)
@@ -403,91 +457,57 @@ nav_process_server <- function(
     )
     
     
+    
+    
+    output$testTL <- renderUI({
+      timeline_process_server(
+        id = "process_timeline",
+        config = rv$config,
+        status = reactive({rv$steps.status}),
+        position = reactive({rv$current.pos}),
+        enabled = reactive({rv$steps.enabled})
+      )
       
+      div(
+        style = paste0(
+          "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_process_timeline, ";",
+          "padding-top: ", default.layout$padding_top_process_sidebar, "px;",
+          "padding-bottom: ", default.layout$padding_bottom_process_sidebar, "px;",
+          "padding-left: ", default.layout$padding_left_process_sidebar, "px;",
+          "border-bottom: ", default.layout$line_width, "px solid ", default.layout$line_color, ";"),
+        timeline_process_ui(ns("process_timeline"))
+      )
+    })
+    
+  
+    
+    output$EncapsulateScreens_process_ui <- renderUI({
+     
+      len <- length(rv$config@ll.UI)
       
-      output$testTL <- renderUI({
-        timeline_process_server(
-          id = "process_timeline",
-          config = rv$config,
-          status = reactive({rv$steps.status}),
-          position = reactive({rv$current.pos}),
-          enabled = reactive({rv$steps.enabled})
-        )
-        
-        div(
-          style = paste0(
-            "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_process_timeline, ";",
-            "padding-top: ", default.layout$padding_top_process_sidebar, "px;",
-            "padding-bottom: ", default.layout$padding_bottom_process_sidebar, "px;",
-            "padding-left: ", default.layout$padding_left_process_sidebar, "px;",
-            "border-bottom: ", default.layout$line_width, "px solid ", default.layout$line_color, ";"),
-          timeline_process_ui(ns("process_timeline"))
-        )
-      })
-      
-      
-      # This function uses the UI definition to:
-      # 1 - initialize the UI (only the first screen is shown),
-      # 2 - encapsulate the UI in a div (used to hide all screens at a time
-      #     before showing the one corresponding to the current position)
-      output$EncapsulateScreens_pipeline_ui <- renderUI({
-        #.runmode <- if(!is.null(runmode)) runmode else session$userData$wf_mode
-        
-        #req(.runmode == 'pipeline')
-        len <- length(rv$config@ll.UI)
-        
-        tagList(
-          lapply(seq_len(len), function(i) {
-            if (i == rv$current.pos) {
+      tagList(
+        lapply(seq_len(len), function(i) {
+          if (i == rv$current.pos) {
+            div(
+              id = ns(GetStepsNames()[i]),
+              class = paste0("page_", id),
+              rv$config@ll.UI[[i]]
+            )
+          } else {
+            shinyjs::hidden(
               div(
                 id = ns(GetStepsNames()[i]),
                 class = paste0("page_", id),
                 rv$config@ll.UI[[i]]
               )
-            } else {
-              shinyjs::hidden(
-                div(
-                  id = ns(GetStepsNames()[i]),
-                  class = paste0("page_", id),
-                  rv$config@ll.UI[[i]]
-                )
-              )
-            }
-          })
-        )
-      })
-      
-      # 
-      # output$EncapsulateScreens_process_ui <- renderUI({
-      #   .runmode <- if(!is.null(runmode)) runmode else session$userData$wf_mode
-      #   
-      #   req(.runmode == 'process')
-      #   
-      #   len <- length(rv$config@ll.UI)
-      #   
-      #   tagList(
-      #     lapply(seq_len(len), function(i) {
-      #       if (i == rv$current.pos) {
-      #         div(
-      #           id = ns(GetStepsNames()[i]),
-      #           class = paste0("page_", id),
-      #           rv$config@ll.UI[[i]]
-      #         )
-      #       } else {
-      #         shinyjs::hidden(
-      #           div(
-      #             id = ns(GetStepsNames()[i]),
-      #             class = paste0("page_", id),
-      #             rv$config@ll.UI[[i]]
-      #           )
-      #         )
-      #       }
-      #     })
-      #   )
-      # })
-      # 
-      # 
-      #---------------------------------------------------------------------
+            )
+          }
+        })
+      )
+    })
+    
+    
+    #---------------------------------------------------------------------
     
     
     # Catch a new value on the parameter 'dataIn()' variable, sent by the
@@ -498,26 +518,7 @@ nav_process_server <- function(
     # 2 - if the variable contains a dataset. xxx
     observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
-      #req(status())
-      # Get the new dataset in a temporary variable
-      rv$temp.dataIn <- dataIn()
       
-      rv$steps.status <- setNames(
-        rep(stepStatus$UNDONE, length(rv$steps.status)), 
-        nm = names(rv$config@steps))
-      
-      #browser()
-      rv$steps.status <- RefineProcessStatus(history(), rv$steps.status)
-      
-      
-      # if (!is.null(rv$status) && !is.null(rv$history) && (unname(rv$status) == stepStatus$VALIDATED)){
-      # rv$steps.status <- setNames(
-      #   rep(unname(rv$status), length(rv$steps.status)), 
-      #   nm = names(rv$config@steps))
-      # rv$steps.status <- RefineProcessStatus(rv$history, rv$steps.status)
-      # }
-
-      #browser()
       if (is.null(dataIn())) {
         # The process has been reseted or is not concerned
         # Disable all screens of the process
@@ -528,11 +529,22 @@ nav_process_server <- function(
           rv = rv
         )
       } else {
+        # Get the new dataset in a temporary variable
+        rv$temp.dataIn <- keepAssay(dataIn(), length(dataIn()))
+        
+        names(rv$temp.dataIn)[1] <- 'original'
+        
+        rv$dataset2EDA <- rv$temp.dataIn
+        
+        rv$steps.status <- setNames(
+          rep(stepStatus$UNDONE, length(rv$steps.status)), 
+          nm = names(rv$config@steps))
+        
         # A new dataset has been loaded
         # # Update the different screens in the process
         rv$steps.enabled <- Update_State_Screens(
-          is.skipped = is.skipped(),
-          is.enabled = is.enabled(),
+          is.skipped = is.skipped,
+          is.enabled = is.enabled,
           rv = rv
         )
         
@@ -540,11 +552,11 @@ nav_process_server <- function(
         rv$steps.enabled <- ToggleState_Screens(
           cond = TRUE,
           range = 1,
-          is.enabled = is.enabled(),
+          is.enabled = is.enabled,
           rv = rv
         )
       }
-
+      
     })
     
     
@@ -594,6 +606,7 @@ nav_process_server <- function(
           # reset
           rv$dataIn <- rv$proc$dataOut()$value
           
+          rv$dataset2EDA <- rv$dataIn
           # Update the 'dataOut' reactive value to return
           #  this dataset to the caller. this `nav_process`
           #  is only a bridge between the process and the  caller
@@ -616,12 +629,6 @@ nav_process_server <- function(
         rv$current.pos <- rv$position
       }
     })
-    
-    
-    
-    # Specific to pipeline module
-    # Used to store the return values (lists) of child processes
-    tmp.return <- reactiveValues()
     
     
     observeEvent(input$closeModal, {
@@ -660,26 +667,26 @@ nav_process_server <- function(
       rv$doProceedAction <- "Do"
     })
     
-    
-    # The parameter 'is.enabled()' is updated by the caller and tells the
-    # process if it is enabled or disabled (remote action from the caller)
-    # This enables/disables an entire process/pipeline
-    observeEvent(is.enabled(), ignoreNULL = TRUE, ignoreInit = TRUE, {
-      if (isTRUE(is.enabled())) {
-        rv$steps.enabled <- Update_State_Screens(
-          is.skipped = is.skipped(),
-          is.enabled = is.enabled(),
-          rv = rv
-        )
-        
-      } else {
-        rv$steps.enabled <- setNames(rep(is.enabled(), length(rv$config@steps)),
-          nm = names(rv$config@steps)
-        )
-      }
-      
-    })
-    
+    # 
+    # # The parameter 'is.enabled()' is updated by the caller and tells the
+    # # process if it is enabled or disabled (remote action from the caller)
+    # # This enables/disables an entire process/pipeline
+    # observeEvent(is.enabled(), ignoreNULL = TRUE, ignoreInit = TRUE, {
+    #   if (isTRUE(is.enabled())) {
+    #     rv$steps.enabled <- Update_State_Screens(
+    #       is.skipped = is.skipped(),
+    #       is.enabled = is.enabled(),
+    #       rv = rv
+    #     )
+    #     
+    #   } else {
+    #     rv$steps.enabled <- setNames(rep(is.enabled(), length(rv$config@steps)),
+    #       nm = names(rv$config@steps)
+    #     )
+    #   }
+    #   
+    # })
+    # 
     
     
     
@@ -689,15 +696,15 @@ nav_process_server <- function(
         nm = names(steps.status))
       
       if(!is.null(history)){
-      
-      #browser()
-      steps.status[1] <- stepStatus$VALIDATED
-      if (length(steps.status) > 1){
-        # It is not Description nor Save processes
-        .ind <- which(names(steps.status) %in% history[, 'Step'])
-        steps.status[.ind] <- stepStatus$VALIDATED
-        steps.status['Save'] <- stepStatus$VALIDATED
-      }
+        
+        #browser()
+        steps.status[1] <- stepStatus$VALIDATED
+        if (length(steps.status) > 1){
+          # It is not Description nor Save processes
+          .ind <- which(names(steps.status) %in% history[, 'Step'])
+          steps.status[.ind] <- stepStatus$VALIDATED
+          steps.status['Save'] <- stepStatus$VALIDATED
+        }
       }
       
       
@@ -709,7 +716,7 @@ nav_process_server <- function(
       shinyjs::toggleState("DoBtn", condition = unname(rv$status) == stepStatus$UNDONE)
       
       if (rv$status == stepStatus$VALIDATED){
-       
+        
         req(history())
         rv$steps.status <- RefineProcessStatus(history(), rv$steps.status)
       } else if (rv$status == stepStatus$UNDONE){
@@ -725,8 +732,8 @@ nav_process_server <- function(
       rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
       
       rv$steps.enabled <- Update_State_Screens(
-        is.skipped = is.skipped(),
-        is.enabled = is.enabled(),
+        is.skipped = is.skipped,
+        is.enabled = is.enabled,
         rv = rv
       )
       
@@ -743,28 +750,31 @@ nav_process_server <- function(
     })
     
     
-    # @description
-    # The parameter is.skipped() is set by the caller and tells the process
-    # if it is skipped or not (remote action from the caller)
-    observeEvent(is.skipped(), ignoreNULL = FALSE, ignoreInit = TRUE, {
-
-      if (isTRUE(is.skipped())) {
-        rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$SKIPPED)
-      } else {
-        rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$UNDONE)
-        rv$steps.enabled <- Update_State_Screens(
-          is.skipped = is.skipped(),
-          is.enabled = is.enabled(),
-          rv = rv
-        )
-      }
-    })
+    # # @description
+    # # The parameter is.skipped() is set by the caller and tells the process
+    # # if it is skipped or not (remote action from the caller)
+    # observeEvent(is.skipped(), ignoreNULL = FALSE, ignoreInit = TRUE, {
+    #   
+    #   if (isTRUE(is.skipped())) {
+    #     rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$SKIPPED)
+    #   } else {
+    #     rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$UNDONE)
+    #     rv$steps.enabled <- Update_State_Screens(
+    #       is.skipped = is.skipped(),
+    #       is.enabled = is.enabled(),
+    #       rv = rv
+    #     )
+    #   }
+    # })
     
     ResetProcess <- function() {
       # The cursor is set to the first step
       rv$current.pos <- 1
-
+      
       n <- length(rv$config@steps)
+        rv$steps.status <- setNames(
+          rep(stepStatus$UNDONE, length(rv$steps.status)),
+          nm = names(rv$config@steps))
       
     }
     
@@ -775,15 +785,6 @@ nav_process_server <- function(
       # Return the NULL value as dataset
       dataOut$trigger <- Timestamp()
       dataOut$value <- -10
-    })
-    
-    observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
-      req(rv$config)
-      if (rv$prev.remoteReset < unname(remoteReset())){
-        rv$dataIn <- rv$temp.dataIn <- dataIn()
-        ResetProcess()
-        rv$prev.remoteReset <- remoteReset()
-      }
     })
     
     observeEvent(remoteResetUI(), ignoreInit = TRUE, ignoreNULL = TRUE, {
@@ -804,7 +805,7 @@ nav_process_server <- function(
     
     
     
-
+    
     
     # Define message when the Reset button is clicked
     template_reset_modal_txt <- "This action will reset the current process.
@@ -820,7 +821,7 @@ nav_process_server <- function(
     )
     
     
- 
+    
     
     
     observeEvent(rv$current.pos, ignoreInit = FALSE, {
@@ -884,7 +885,7 @@ nav_process_server <- function(
 
 
 #' @export
-#' @rdname nav_process
+#' @rdname nav_single_process
 #' @importFrom shiny fluidPage shinyApp
 #'
 nav_process <- function() {
@@ -908,12 +909,6 @@ nav_process <- function() {
   
   ui <- fluidPage(
     tagList(
-      fluidRow(
-        column(width = 2, actionButton("simReset", "Remote reset", class = "info")),
-        column(width = 2, actionButton("simEnabled", "Remote enable/disable", class = "info")),
-        column(width = 2, actionButton("simSkipped", "Remote is.skipped", class = "info"))
-      ),
-      hr(),
       uiOutput("UI"),
       uiOutput("debugInfos_ui")
     )
@@ -928,7 +923,7 @@ nav_process <- function() {
     )
     
     output$UI <- renderUI({
-      nav_process_ui(proc.name)
+      nav_single_process_ui(proc.name)
     })
     
     output$debugInfos_ui <- renderUI({
@@ -949,12 +944,9 @@ nav_process <- function() {
     
     
     observe({
-      rv$dataOut <- nav_process_server(
+      rv$dataOut <- nav_single_process_server(
         id = proc.name,
-        dataIn = reactive({rv$dataIn}),
-        remoteReset = reactive({input$simReset}),
-        is.skipped = reactive({input$simSkipped %% 2 != 0}),
-        is.enabled = reactive({input$simEnabled %% 2 == 0})
+        dataIn = reactive({rv$dataIn})
       )
     })
   }

@@ -85,6 +85,7 @@ Collate:
     timeline_process.R
     timeline_pipeline.R
     core_process.R
+    core_singleProcess.R
     core_pipeline.R
     launch_app.R
     Save_dataset.R
