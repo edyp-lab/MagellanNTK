@@ -263,6 +263,10 @@
   [`nav_process_server()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_process.md)
   [`nav_process()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_process.md)
   : The server() function of the module \`nav_process\`
+- [`nav_single_process_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.md)
+  [`nav_single_process_server()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.md)
+  [`nav_process()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.md)
+  : The server() function of the module \`nav_process\`
 - [`navbarPageWithInputs()`](https://edyp-lab.github.io/MagellanNTK/reference/navbarPageWithInputs.md)
   : xxx
 - [`navbarPageWithText()`](https://edyp-lab.github.io/MagellanNTK/reference/navbarPageWithText.md)
