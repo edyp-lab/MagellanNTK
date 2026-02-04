@@ -23,7 +23,7 @@ Checks if a package is available to load it
 NULL
 
 \donttest{
-pkgs.require(c("omXplore"))
+pkgs.require(c("stats"))
 }
 }
 \author{

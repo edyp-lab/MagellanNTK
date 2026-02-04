@@ -19,6 +19,7 @@
 #' @examples
 #' \donttest{
 #' write.excel(data.frame(), filename = "foo.xlsx")
+#' unlink('foo.xlsx')
 #' }
 #'
 write.excel <- function(

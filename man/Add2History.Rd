@@ -7,7 +7,15 @@
 Add2History(history, process, step.name, param.name, value)
 }
 \arguments{
-\item{widgets.names}{xxx}
+\item{history}{xxx}
+
+\item{process}{xxx}
+
+\item{step.name}{xxx}
+
+\item{param.name}{xxx}
+
+\item{value}{xxx}
 }
 \value{
 A `integer(1)`

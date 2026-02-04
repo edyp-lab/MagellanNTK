@@ -35,8 +35,7 @@ nav_process_server(
   usermod = "user",
   btnEvents = reactive({
      NULL
- }),
-  runmode = NULL
+ })
 )
 
 nav_process()
@@ -48,6 +47,8 @@ It is the same as for the server() function.}
 \item{dataIn}{The dataset}
 
 \item{status}{xxx}
+
+\item{history}{xxx}
 
 \item{is.enabled}{A `boolean`. This variable is a remote command to specify
 if the corresponding module is enabled/disabled in the calling module of
@@ -70,8 +71,6 @@ Basically, it is the program which has called this module}
 \item{usermod}{= 'user'}
 
 \item{btnEvents}{xxxx}
-
-\item{runmode}{xxx}
 }
 \value{
 A list of four items:

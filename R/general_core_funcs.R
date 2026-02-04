@@ -15,13 +15,13 @@
 GetHistory <- function(dataIn, x){
   
   history <- NULL
-  
-  if (x %in% c('Description', 'Save')){
-    history <- NULL
-  } else if (x %in% names(dataIn)){
-    history <- DaparToolshed::paramshistory(dataIn[[x]])
-  }
-  
+  # 
+  # if (x %in% c('Description', 'Save')){
+  #   history <- NULL
+  # } else if (x %in% names(dataIn)){
+  #   history <- DaparToolshed::paramshistory(dataIn[[x]])
+  # }
+  # 
   return(history)
 }
 
@@ -32,23 +32,25 @@ GetHistory <- function(dataIn, x){
 #' @description This function returns the indice of the last validated step before
 #' the current step.
 #'
-#' @param widgets.names xxx
+#' @param history xxx
+#' @param process xxx
+#' @param step.name xxx
+#' @param param.name xxx
+#' @param value xxx
 #' @return A `integer(1)`
 #'
 #' @export
 #' @examples
 #' NULL
 Add2History <- function(history, process, step.name, param.name, value){
-  #browser()
-  
-  if (inherits(value, 'list'))
-    value <- unlist(value)
-  
-  if (is.null(value))
-    value <- NA
-  
-  history[nrow(history)+1, ] <- c(process, step.name, param.name, value)
-  
+  # if (inherits(value, 'list'))
+  #   value <- unlist(value)
+  # 
+  # if (is.null(value))
+  #   value <- NA
+  # 
+  # history[nrow(history)+1, ] <- c(process, step.name, param.name, value)
+  # 
   return(history)
 }
 
@@ -62,36 +64,17 @@ Add2History <- function(history, process, step.name, param.name, value){
 #' @description This function returns the indice of the last validated step before
 #' the current step.
 #'
-#' @param widgets.names xxx
 #' @return A `integer(1)`
 #'
 #' @export
 #' @examples
-#' .names <- c('A_A', 'A_Z', 'B_Q', 'B_F')
-#' InitializeHistory(.names)
+#' InitializeHistory()
 #' 
 InitializeHistory <- function(){
-
-  history <- setNames(data.frame(matrix(ncol = 4, nrow = 0)), 
-    c('Process', 'Step', 'Parameter', 'Value'))
-  # if(!is.null(widgets.names)) {
-  # steps <- NULL
-  # ww <- NULL
+history <- NULL
+  # history <- setNames(data.frame(matrix(ncol = 4, nrow = 0)), 
+  #   c('Process', 'Step', 'Parameter', 'Value'))
   # 
-  # for (x in names(widgets.names)){
-  #  
-  #   basis <- unlist(strsplit(x, '_'))
-  #   steps <- c(steps, basis[1])
-  #   ww <- c(ww, basis[2])
-  # }
- 
-
-  # for (i in 1:length(steps)){
-  #   history[i,] <- c(steps[i], ww[i], NA)
-  # }
-
-  #}
-      
   return(history)
   }
 

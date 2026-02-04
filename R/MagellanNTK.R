@@ -80,7 +80,6 @@ MagellanNTK_server <- function(
         dataIn = reactive({ NULL}),
         workflow.path = reactive({NULL}),
         workflow.name = reactive({NULL}),
-        processes = 'all',
         verbose = FALSE,
         usermod = "user") {
     moduleServer(id, function(input, output, session) {
@@ -93,7 +92,6 @@ MagellanNTK_server <- function(
             dataIn = reactive({dataIn()}),
             workflow.path = reactive({workflow.path()}),
             workflow.name = reactive({workflow.name()}),
-            processes = processes,
             verbose = verbose,
             usermod = usermod
         )
@@ -122,7 +120,6 @@ MagellanNTK <- function(
         dataIn = NULL,
         workflow.path = NULL,
         workflow.name = NULL,
-        processes = 'all',
         convert.path = NULL,
         verbose = FALSE,
         usermod = "user",
@@ -179,7 +176,6 @@ MagellanNTK <- function(
             dataIn = reactive({dataIn}),
             workflow.path = reactive({workflow.path}),
             workflow.name = reactive({workflow.name}),
-            processes = processes,
             verbose = verbose,
             usermod = usermod
         )

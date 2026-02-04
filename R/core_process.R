@@ -22,8 +22,7 @@
 #' 
 #' @param remoteResetUI xxx
 #' @param status xxx
-#' @param runmode xxx
-#'
+#' @param history xxx
 #' @param is.skipped xxx
 #'
 #' @param btnEvents xxxx

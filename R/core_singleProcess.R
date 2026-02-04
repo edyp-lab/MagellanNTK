@@ -1,4 +1,4 @@
-#' @title The server() function of the module `nav_process`
+#' @title The server() function of the module `nav_single_process`
 #'
 #' @description The module navigation can be launched via a Shiny app.
 #' This is the core module of MagellanNTK
@@ -7,20 +7,13 @@
 #' as for the ui() function.
 #'
 #' @param dataIn The dataset
+#' @param is.skipped is.skipped xxx
+#' @param is.enabled xxxx
 #'
-#' @param is.enabled A `boolean`. This variable is a remote command to specify
-#' if the corresponding module is enabled/disabled in the calling module of
-#' upper level.
-#' For example, if this module is part of a pipeline and the pipeline calculates
-#' that it is disabled (i.e. skipped), then this variable is set to TRUE. Then,
-#' all the widgets will be disabled. If not, the enabling/disabling of widgets
-#' is deciding by this module.
 #' 
 #' @param remoteResetUI xxx
 #' @param status xxx
-#' @param runmode xxx
-#'
-#' @param is.skipped xxx
+#' @param history xxx
 #'
 #' @param btnEvents xxxx
 #'
@@ -40,7 +33,7 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'     nav_process()
+#'     nav_single_process()
 #' }
 #'
 #' @name nav_single_process
@@ -172,7 +165,7 @@ nav_single_process_server <- function(
     
     
     
-    observeEvent(input$btn_eda_singleProcess, ignoreInit = FALSE, {
+    observeEvent(input$btn_eda_singleProcess,{
     
       req(session$userData$funcs)
       req(rv$dataset2EDA)
@@ -888,7 +881,7 @@ nav_single_process_server <- function(
 #' @rdname nav_single_process
 #' @importFrom shiny fluidPage shinyApp
 #'
-nav_process <- function() {
+nav_single_process <- function() {
   server_env <- environment() # will see all dtwclust functions
   server_env$dev_mode <- FALSE
   

@@ -4,8 +4,7 @@
 \alias{nav_single_process}
 \alias{nav_single_process_ui}
 \alias{nav_single_process_server}
-\alias{nav_process}
-\title{The server() function of the module `nav_process`}
+\title{The server() function of the module `nav_single_process`}
 \usage{
 nav_single_process_ui(id)
 
@@ -20,24 +19,19 @@ nav_single_process_server(
   history = reactive({
      NULL
  }),
-  is.enabled = reactive({
-     TRUE
- }),
   remoteResetUI = reactive({
      0
  }),
-  is.skipped = reactive({
-     FALSE
- }),
+  is.enabled = TRUE,
+  is.skipped = FALSE,
   verbose = FALSE,
   usermod = "user",
   btnEvents = reactive({
      NULL
- }),
-  runmode = "process"
+ })
 )
 
-nav_process()
+nav_single_process()
 }
 \arguments{
 \item{id}{A `character(1)` which defines the id of the module.
@@ -47,25 +41,19 @@ It is the same as for the server() function.}
 
 \item{status}{xxx}
 
-\item{is.enabled}{A `boolean`. This variable is a remote command to specify
-if the corresponding module is enabled/disabled in the calling module of
-upper level.
-For example, if this module is part of a pipeline and the pipeline calculates
-that it is disabled (i.e. skipped), then this variable is set to TRUE. Then,
-all the widgets will be disabled. If not, the enabling/disabling of widgets
-is deciding by this module.}
+\item{history}{xxx}
 
 \item{remoteResetUI}{xxx}
 
-\item{is.skipped}{xxx}
+\item{is.enabled}{xxxx}
+
+\item{is.skipped}{is.skipped xxx}
 
 \item{verbose}{= FALSE,}
 
 \item{usermod}{= 'user'}
 
 \item{btnEvents}{xxxx}
-
-\item{runmode}{xxx}
 }
 \value{
 A list of four items:
@@ -81,7 +69,7 @@ This is the core module of MagellanNTK
 }
 \examples{
 if (interactive()) {
-    nav_process()
+    nav_single_process()
 }
 
 }

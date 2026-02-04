@@ -145,11 +145,11 @@ Get_Code_Declare_rv_custom <- function(rv.custom.names = NULL) {
 #'
 Get_Code_for_Initialize_History <- function(widgets.names = NULL) {
  
-  code <- paste0("
-  rv.custom$history <- InitializeHistory(",
-    widgets.names,
-    ")
-  ")
+  code <- "
+  rv.custom$history <- 
+    do.call(
+    eval(parse(text = session$userData$funcs$InitializeHistory), list()))
+  "
   code
 }
 

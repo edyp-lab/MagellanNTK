@@ -24,6 +24,7 @@ This is the default function fo export the current dataset as an Excel file.
 \examples{
 \donttest{
 write.excel(data.frame(), filename = "foo.xlsx")
+unlink('foo.xlsx')
 }
 
 }

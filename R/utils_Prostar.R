@@ -181,7 +181,7 @@ GetExtension <- function(name) {
 #'
 #' @examples
 #' \donttest{
-#' pkgs.require(c("omXplore"))
+#' pkgs.require(c("stats"))
 #' }
 #' @return NA
 #' @export

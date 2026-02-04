@@ -3,23 +3,13 @@
 \docType{data}
 \name{globalvariables}
 \alias{globalvariables}
-\alias{stepStatus}
-\alias{default_pos}
-\alias{listBrewerPalettes}
+\alias{port}
 \title{Global variables}
 \format{
-An object of class \code{list} of length 3.
-
-An object of class \code{list} of length 3.
-
-An object of class \code{character} of length 17.
+An object of class \code{numeric} of length 1.
 }
 \usage{
-stepStatus
-
-default_pos
-
-listBrewerPalettes
+port
 }
 \description{
 Global variables

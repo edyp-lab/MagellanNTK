@@ -20,7 +20,6 @@
 #' indicates is the pipeline has been reseted by a program of higher level
 #' Basically, it is the program which has called this module
 #'
-#' @param is.skipped xxx
 #' @param verbose = FALSE,
 #' @param usermod = 'user'
 #'
@@ -85,10 +84,8 @@ nav_pipeline_server <- function(
   dataIn = reactive({NULL}),
   is.enabled = reactive({TRUE}),
   remoteReset = reactive({0}),
-  is.skipped = reactive({FALSE}),
   verbose = FALSE,
-  usermod = "user",
-  processes = 'all') {
+  usermod = "user") {
   ### -------------------------------------------------------------###
   ###                                                             ###
   ### ------------------- MODULE SERVER --------------------------###
@@ -385,20 +382,7 @@ nav_pipeline_server <- function(
       
       # Store the original values
       rv$config.original <- rv$proc$config()
-      
-    
-#browser()
-      if ((length(processes) == 1 && processes != 'all') || length(processes) > 1){
-        
-      # Update config wrt xxx
-      ind <- match(processes, rv$config@steps)
-      ind <- c(1, ind[order(ind)], length(rv$config@steps))
-      rv$config@steps <- rv$config@steps[ind]
-      rv$config@mandatory <- rv$config@mandatory[ind]
-      rv$config@ll.UI <- rv$config@ll.UI[ind]
-      
-      }
-      
+
       n <- length(rv$config@steps)
       
       rv$resetChildren <- setNames(rep(0, n), nm = GetStepsNames())
@@ -489,7 +473,7 @@ nav_pipeline_server <- function(
       # A new dataset has been loaded
       # # Update the different screens in the process
       rv$steps.enabled <- Update_State_Screens(
-        is.skipped = is.skipped(),
+        is.skipped = FALSE,
         is.enabled = is.enabled(),
         rv = rv
       )
@@ -516,12 +500,17 @@ nav_pipeline_server <- function(
       ###
       ### Launch the server for each step of the pipeline
       ###
+      
+      
       lapply(GetStepsNames(), function(x) {
         tmp.return[[x]] <- nav_process_server(
           id = paste0(id, "_", x),
           dataIn = reactive({rv$child.data2send[[x]]}),
           status = reactive({rv$steps.status[x]}),
-          history = reactive({GetHistory(rv$child.data2send[[length(rv$child.data2send)]], x)}),
+          history = reactive({do.call(
+            eval(parse(text = session$userData$funcs$GetHistory), 
+              list(rv$child.data2send[[length(rv$child.data2send)]], x)))
+            }),
           is.enabled = reactive({isTRUE(rv$steps.enabled[x])}),
           remoteReset = reactive({rv$resetChildren[x]}),
           remoteResetUI = reactive({rv$resetChildrenUI[x]}),
@@ -681,7 +670,7 @@ nav_pipeline_server <- function(
     observeEvent(rv$steps.status, ignoreInit = TRUE, {
       rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
       rv$steps.enabled <- Update_State_Screens(
-        is.skipped = is.skipped(),
+        is.skipped = FALSE,
         is.enabled = is.enabled(),
         rv = rv
       )
@@ -793,8 +782,7 @@ nav_pipeline <- function() {
     tagList(
       fluidRow(
         column(width = 2, actionButton("simReset", "Remote reset", class = "info")),
-        column(width = 2, actionButton("simEnabled", "Remote enable/disable", class = "info")),
-        column(width = 2, actionButton("simSkipped", "Remote is.skipped", class = "info"))
+        column(width = 2, actionButton("simEnabled", "Remote enable/disable", class = "info"))
       ),
       hr(),
       nav_pipeline_ui(pipe.name),
@@ -829,7 +817,6 @@ nav_pipeline <- function() {
         id = pipe.name,
         dataIn = reactive({rv$dataIn}),
         remoteReset = reactive({input$simReset}),
-        is.skipped = reactive({input$simSkipped %% 2 != 0}),
         is.enabled = reactive({input$simEnabled %% 2 == 0})
       )
     })

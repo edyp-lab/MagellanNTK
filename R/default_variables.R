@@ -19,7 +19,10 @@ default.funcs <- function() {
         infos_dataset = "MagellanNTK::infos_dataset",
         history_dataset = "MagellanNTK::history_dataset",
         addDatasets = "MagellanNTK::addDatasets",
-        keepDatasets = "MagellanNTK::keepDatasets"
+        keepDatasets = "MagellanNTK::keepDatasets",
+        InitializeHistory = "MagellanNTK::InitializeHistory",
+        Add2History = "MagellanNTK::InitializeHistory",
+        GetHistory = "MagellanNTK::GetHistory"
     )
 }
 
