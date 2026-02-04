@@ -11,7 +11,23 @@ Add2History(history, process, step.name, param.name, value)
 
 ## Arguments
 
-- widgets.names:
+- history:
+
+  xxx
+
+- process:
+
+  xxx
+
+- step.name:
+
+  xxx
+
+- param.name:
+
+  xxx
+
+- value:
 
   xxx
 

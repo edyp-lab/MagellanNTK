@@ -138,9 +138,7 @@
   [`open_dataset_server()`](https://edyp-lab.github.io/MagellanNTK/reference/generic_mod_open_dataset.md)
   [`open_dataset()`](https://edyp-lab.github.io/MagellanNTK/reference/generic_mod_open_dataset.md)
   : Change the default functions in \`MagellanNTK\`
-- [`stepStatus`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
-  [`default_pos`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
-  [`listBrewerPalettes`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
+- [`port`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
   : Global variables
 - [`history_dataset_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/history_dataset.md)
   [`history_dataset_server()`](https://edyp-lab.github.io/MagellanNTK/reference/history_dataset.md)
@@ -265,8 +263,8 @@
   : The server() function of the module \`nav_process\`
 - [`nav_single_process_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.md)
   [`nav_single_process_server()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.md)
-  [`nav_process()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.md)
-  : The server() function of the module \`nav_process\`
+  [`nav_single_process()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.md)
+  : The server() function of the module \`nav_single_process\`
 - [`navbarPageWithInputs()`](https://edyp-lab.github.io/MagellanNTK/reference/navbarPageWithInputs.md)
   : xxx
 - [`navbarPageWithText()`](https://edyp-lab.github.io/MagellanNTK/reference/navbarPageWithText.md)

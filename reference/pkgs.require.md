@@ -33,7 +33,9 @@ NULL
 #> NULL
 
 # \donttest{
-pkgs.require(c("omXplore"))
-#> Error in FUN(X[[i]], ...): Please install omXplore: install.packages('omXplore')
+pkgs.require(c("stats"))
+#> [[1]]
+#> NULL
+#> 
 # }
 ```

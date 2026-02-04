@@ -5,17 +5,9 @@ Global variables
 ## Usage
 
 ``` r
-stepStatus
-
-default_pos
-
-listBrewerPalettes
+port
 ```
 
 ## Format
 
-An object of class `list` of length 3.
-
-An object of class `list` of length 3.
-
-An object of class `character` of length 17.
+An object of class `numeric` of length 1.

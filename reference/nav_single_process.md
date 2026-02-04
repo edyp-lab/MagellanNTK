@@ -1,4 +1,4 @@
-# The server() function of the module \`nav_process\`
+# The server() function of the module \`nav_single_process\`
 
 The module navigation can be launched via a Shiny app. This is the core
 module of MagellanNTK
@@ -19,24 +19,19 @@ nav_single_process_server(
   history = reactive({
      NULL
  }),
-  is.enabled = reactive({
-     TRUE
- }),
   remoteResetUI = reactive({
      0
  }),
-  is.skipped = reactive({
-     FALSE
- }),
+  is.enabled = TRUE,
+  is.skipped = FALSE,
   verbose = FALSE,
   usermod = "user",
   btnEvents = reactive({
      NULL
- }),
-  runmode = "process"
+ })
 )
 
-nav_process()
+nav_single_process()
 ```
 
 ## Arguments
@@ -54,22 +49,21 @@ nav_process()
 
   xxx
 
-- is.enabled:
+- history:
 
-  A \`boolean\`. This variable is a remote command to specify if the
-  corresponding module is enabled/disabled in the calling module of
-  upper level. For example, if this module is part of a pipeline and the
-  pipeline calculates that it is disabled (i.e. skipped), then this
-  variable is set to TRUE. Then, all the widgets will be disabled. If
-  not, the enabling/disabling of widgets is deciding by this module.
+  xxx
 
 - remoteResetUI:
 
   xxx
 
+- is.enabled:
+
+  xxxx
+
 - is.skipped:
 
-  xxx
+  is.skipped xxx
 
 - verbose:
 
@@ -82,10 +76,6 @@ nav_process()
 - btnEvents:
 
   xxxx
-
-- runmode:
-
-  xxx
 
 ## Value
 
@@ -102,6 +92,6 @@ Samuel Wieczorek
 
 ``` r
 if (interactive()) {
-    nav_process()
+    nav_single_process()
 }
 ```

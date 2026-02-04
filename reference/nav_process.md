@@ -35,8 +35,7 @@ nav_process_server(
   usermod = "user",
   btnEvents = reactive({
      NULL
- }),
-  runmode = NULL
+ })
 )
 
 nav_process()
@@ -54,6 +53,10 @@ nav_process()
   The dataset
 
 - status:
+
+  xxx
+
+- history:
 
   xxx
 
@@ -91,10 +94,6 @@ nav_process()
 - btnEvents:
 
   xxxx
-
-- runmode:
-
-  xxx
 
 ## Value
 

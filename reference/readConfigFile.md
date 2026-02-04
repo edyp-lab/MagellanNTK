@@ -61,6 +61,15 @@ readConfigFile(path)
 #> $funcs$keepDatasets
 #> [1] "MagellanNTK::keepDatasets"
 #> 
+#> $funcs$InitializeHistory
+#> NULL
+#> 
+#> $funcs$Add2History
+#> NULL
+#> 
+#> $funcs$GetHistory
+#> NULL
+#> 
 #> 
 #> $verbose
 #> [1] TRUE

@@ -19,9 +19,6 @@ nav_pipeline_server(
   remoteReset = reactive({
      0
  }),
-  is.skipped = reactive({
-     FALSE
- }),
   verbose = FALSE,
   usermod = "user"
 )
@@ -54,10 +51,6 @@ nav_pipeline()
   It is a remote command to reset the module. A boolen that indicates is
   the pipeline has been reseted by a program of higher level Basically,
   it is the program which has called this module
-
-- is.skipped:
-
-  xxx
 
 - verbose:
 
