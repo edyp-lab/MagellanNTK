@@ -391,51 +391,73 @@ keepAssay <- function (x, range)
 #' @export
 #'
 BuildData2Send <- function(dataIn, stepsNames){
-  
-  
   child.data2send <- lapply(as.list(stepsNames), function(x) NULL)
-  names(child.data2send) <- stepsNames 
-  
-  
- 
-  
-  if (!is.null(dataIn)){
-    dataInNames <- names(dataIn)
-    
-    child.data2send <- lapply(as.list(stepsNames), 
-      function(x) keepAssay(dataIn, 1:2))
     names(child.data2send) <- stepsNames 
-    #browser()
     
-    # if (length(dataInNames) > 2){
-    #   for (i in 3:length(dataInNames)){
-    #     #browser()
-    #     #offset <- 1
-    #     ind.names <- names(dataIn)[i]
-    #     indInstepsNames <- which(ind.names == stepsNames)
-    # 
-    #     for (j in (indInstepsNames + 1):length(stepsNames))
-    #       child.data2send[j] <- keepAssay(dataIn, 1:i)
-    #   }
-    # }
     
-    if (length(dataInNames) > 2){
-      #browser()
-      for (i in 2:length(stepsNames)){
-        #browser()
-        #offset <- 1
-        names <- stepsNames[i]
-        indInstepsNames <- which(stepsNames[i] == names(dataIn))
-        if (length(indInstepsNames) == 1){
-        for (j in (indInstepsNames + 1):length(stepsNames))
-          child.data2send[j] <- keepAssay(dataIn, 1:i)
+    
+    if (!is.null(dataIn)){
+      dataInNames <- names(dataIn)
+      
+      child.data2send <- lapply(as.list(stepsNames), 
+        function(x) keepAssay(dataIn, 1:2))
+      names(child.data2send) <- stepsNames 
+      
+      if (length(dataInNames) > 2){
+        for (i in 3:length(dataInNames)){
+          offset <- 1
+          ind.names <- names(dataIn)[i]
+          indInstepsNames <- which(ind.names == stepsNames)
+          
+          for (j in (indInstepsNames + 1):length(stepsNames))
+            child.data2send[j] <- keepAssay(dataIn, 1:i)
         }
       }
+      
+      
     }
-  }
+    
+    names(child.data2send) <- stepsNames
+    return (child.data2send)
+
   
-  names(child.data2send) <- stepsNames
-  return (child.data2send)
+  # child.data2send <- lapply(as.list(stepsNames), function(x) NULL)
+  # names(child.data2send) <- stepsNames 
+  # 
+  # if (!is.null(dataIn)){
+  #   dataInNames <- names(dataIn)
+  #   
+  #   child.data2send <- lapply(as.list(stepsNames), 
+  #     function(x) keepAssay(dataIn, 1:2))
+  #   names(child.data2send) <- stepsNames 
+  #   #browser()
+  #   
+  #   # if (length(dataInNames) > 2){
+  #   #   for (i in 3:length(dataInNames)){
+  #   #     #browser()
+  #   #     #offset <- 1
+  #   #     ind.names <- names(dataIn)[i]
+  #   #     indInstepsNames <- which(ind.names == stepsNames)
+  #   # 
+  #   #     for (j in (indInstepsNames + 1):length(stepsNames))
+  #   #       child.data2send[j] <- keepAssay(dataIn, 1:i)
+  #   #   }
+  #   # }
+  #   
+  #   if (length(dataInNames) > 2){
+  #     for (i in 2:length(stepsNames)){
+  #       names <- stepsNames[i]
+  #       indInstepsNames <- which(stepsNames[i] == names(dataIn))
+  #       if (length(indInstepsNames) == 1){
+  #       for (j in (indInstepsNames + 1):length(stepsNames))
+  #         child.data2send[j] <- keepAssay(dataIn, 1:i)
+  #       }
+  #     }
+  #   }
+  # }
+  # 
+  # names(child.data2send) <- stepsNames
+  # return (child.data2send)
 }
 
 
