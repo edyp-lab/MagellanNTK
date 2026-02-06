@@ -508,11 +508,9 @@ nav_pipeline_server <- function(
           dataIn = reactive({rv$child.data2send[[x]]}),
           status = reactive({rv$steps.status[x]}),
           history = reactive({
-            req(session$userData$funcs$GetHistory)
             do.call(
             eval(parse(text = session$userData$funcs$GetHistory)), 
-              list(dataIn = rv$child.data2send[[length(rv$child.data2send)]], 
-                x = x))
+              list(rv$child.data2send[[length(rv$child.data2send)]], x))
             }),
           is.enabled = reactive({isTRUE(rv$steps.enabled[x])}),
           remoteReset = reactive({rv$resetChildren[x]}),

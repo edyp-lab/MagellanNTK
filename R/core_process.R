@@ -689,7 +689,7 @@ nav_process_server <- function(
       
       if(!is.null(history)){
       
-      #browser()
+      browser()
       steps.status[1] <- stepStatus$VALIDATED
       if (length(steps.status) > 1){
         # It is not Description nor Save processes
