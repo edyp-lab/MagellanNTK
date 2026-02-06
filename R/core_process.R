@@ -264,18 +264,11 @@ nav_process_server <- function(
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.do.Btns <- TRUE
       
-      if ('Description' %in% names(rv$steps.status)){
-        if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
-          if (rv$current.pos > 1)
-            enable.do.Btns <- FALSE
-          else if (rv$current.pos == 1)
-            enable.do.Btns <- TRUE
-        } else {
-          if (rv$current.pos > 1)
-            enable.do.Btns <- TRUE
-          else if (rv$current.pos == 1)
-            enable.do.Btns <- FALSE
-        }
+      if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
+        if (rv$current.pos > 1)
+          enable.do.Btns <- FALSE
+        else if (rv$current.pos == 1)
+          enable.do.Btns <- TRUE
       }
       
       if (length(names(rv$steps.status)) == 1 && 'Save' == names(rv$steps.status)){
@@ -315,18 +308,11 @@ nav_process_server <- function(
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.doProceed.Btns <- TRUE
       
-      if ('Description' %in% names(rv$steps.status)){
       if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
         if (rv$current.pos > 1)
           enable.doProceed.Btns <- FALSE
         else if (rv$current.pos == 1)
           enable.doProceed.Btns <- TRUE
-      }else {
-        if (rv$current.pos > 1)
-          enable.doProceed.Btns <- TRUE
-        else if (rv$current.pos == 1)
-          enable.doProceed.Btns <- FALSE
-      }
       }
       
       
@@ -455,39 +441,7 @@ nav_process_server <- function(
           })
         )
       })
-      
-      # 
-      # output$EncapsulateScreens_process_ui <- renderUI({
-      #   .runmode <- if(!is.null(runmode)) runmode else session$userData$wf_mode
-      #   
-      #   req(.runmode == 'process')
-      #   
-      #   len <- length(rv$config@ll.UI)
-      #   
-      #   tagList(
-      #     lapply(seq_len(len), function(i) {
-      #       if (i == rv$current.pos) {
-      #         div(
-      #           id = ns(GetStepsNames()[i]),
-      #           class = paste0("page_", id),
-      #           rv$config@ll.UI[[i]]
-      #         )
-      #       } else {
-      #         shinyjs::hidden(
-      #           div(
-      #             id = ns(GetStepsNames()[i]),
-      #             class = paste0("page_", id),
-      #             rv$config@ll.UI[[i]]
-      #           )
-      #         )
-      #       }
-      #     })
-      #   )
-      # })
-      # 
-      # 
-      #---------------------------------------------------------------------
-    
+
     
     # Catch a new value on the parameter 'dataIn()' variable, sent by the
     # caller. This value may be NULL or contain a dataset.
@@ -689,7 +643,7 @@ nav_process_server <- function(
       
       if(!is.null(history)){
       
-      browser()
+      #browser()
       steps.status[1] <- stepStatus$VALIDATED
       if (length(steps.status) > 1){
         # It is not Description nor Save processes

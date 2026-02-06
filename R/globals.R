@@ -17,16 +17,26 @@ redBtnClass <- "btn btn-danger"
 PrevNextBtnClass <- "btn btn-info"
 btn_success_color <- "btn btn-success"
 btn_css_style <- "font-size:60%; display:inline-block; vertical-align: middle; padding: 7px; margin: 4px;"
+
+
+#' @export
+#' @rdname globalvariables
 stepStatus <- list(
   VALIDATED = 1,
   SKIPPED = -1,
   UNDONE = 0
 )
+
+#' @rdname globalvariables
+#' @export
 default_pos <- list(
   VALIDATED = 1,
   SKIPPED = 1,
   UNDONE = 1
 )
+
+#' @export
+#' @rdname globalvariables
 listBrewerPalettes <- c("Dark2 (qualit.)" = "Dark2",
   "Accent (qualit.)"="Accent",
   "Paired (qualit.)" = "Paired",
@@ -44,6 +54,9 @@ listBrewerPalettes <- c("Dark2 (qualit.)" = "Dark2",
   "RdYlBu (diverging)" ="RdYlBu",
   "RdYlGn (diverging)" ="RdYlGn",
   "Spectral (diverging)"="Spectral")
+
+#' @export
+#' @rdname globalvariables
 utils::globalVariables(c("listBrewerPalettes", "default_pos", "stepStatus",
   "tl_v_next_icon", "tl_v_prev_icon", "tl_h_next_icon", "tl_h_prev_icon",
   "actionBtnClass", "optionsBtnClass", "redBtnClass", "PrevNextBtnClass",
