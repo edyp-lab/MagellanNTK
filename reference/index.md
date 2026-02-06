@@ -138,7 +138,7 @@
   [`open_dataset_server()`](https://edyp-lab.github.io/MagellanNTK/reference/generic_mod_open_dataset.md)
   [`open_dataset()`](https://edyp-lab.github.io/MagellanNTK/reference/generic_mod_open_dataset.md)
   : Change the default functions in \`MagellanNTK\`
-- [`port`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
+- [`.port`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
   [`stepStatus`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
   [`default_pos`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
   [`listBrewerPalettes`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)

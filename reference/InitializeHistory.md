@@ -17,5 +17,6 @@ A \`integer(1)\`
 
 ``` r
 InitializeHistory()
-#> NULL
+#> [1] Process   Step      Parameter Value    
+#> <0 rows> (or 0-length row.names)
 ```

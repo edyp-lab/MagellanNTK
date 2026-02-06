@@ -5,7 +5,7 @@ Global variables
 ## Usage
 
 ``` r
-port
+.port
 
 stepStatus
 
