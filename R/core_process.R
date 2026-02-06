@@ -716,8 +716,9 @@ nav_process_server <- function(
     ResetProcess <- function() {
       # The cursor is set to the first step
       rv$current.pos <- 1
-
+      rv$history <- MagellanNTK::InitializeHistory()
       n <- length(rv$config@steps)
+      
       
     }
     

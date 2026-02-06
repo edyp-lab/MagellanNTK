@@ -2,13 +2,12 @@
 #' 
 #' @name globalvariables
 #' 
-#' @export
-#' 
 NULL
 
 
-
-port <- 3838
+#' @rdname globalvariables
+#' @export
+.port <- 3838
 .host <- "127.0.0.1"
 .browser <- NULL
 tl_v_next_icon <- shiny::icon('arrow-down')
@@ -23,13 +22,15 @@ btn_success_color <- "btn btn-success"
 btn_css_style <- "font-size:60%; display:inline-block; vertical-align: middle; padding: 7px; margin: 4px;"
 
 
-#' @export
 #' @rdname globalvariables
+#' @export
 stepStatus <- list(
   VALIDATED = 1,
   SKIPPED = -1,
   UNDONE = 0
 )
+
+
 
 #' @rdname globalvariables
 #' @export
@@ -39,8 +40,9 @@ default_pos <- list(
   UNDONE = 1
 )
 
-#' @export
+
 #' @rdname globalvariables
+#' @export
 listBrewerPalettes <- c("Dark2 (qualit.)" = "Dark2",
   "Accent (qualit.)"="Accent",
   "Paired (qualit.)" = "Paired",
@@ -59,10 +61,10 @@ listBrewerPalettes <- c("Dark2 (qualit.)" = "Dark2",
   "RdYlGn (diverging)" ="RdYlGn",
   "Spectral (diverging)"="Spectral")
 
-#' @export
+
 #' @rdname globalvariables
+#' @export
 utils::globalVariables(c("listBrewerPalettes", "default_pos", "stepStatus",
   "tl_v_next_icon", "tl_v_prev_icon", "tl_h_next_icon", "tl_h_prev_icon",
   "actionBtnClass", "optionsBtnClass", "redBtnClass", "PrevNextBtnClass",
   "btn_success_color", "btn_css_style"))
-

@@ -72,9 +72,9 @@ Add2History <- function(history, process, step.name, param.name, value){
 #' 
 InitializeHistory <- function(){
 history <- NULL
-  # history <- setNames(data.frame(matrix(ncol = 4, nrow = 0)), 
-  #   c('Process', 'Step', 'Parameter', 'Value'))
-  # 
+  history <- setNames(data.frame(matrix(ncol = 4, nrow = 0)),
+    c('Process', 'Step', 'Parameter', 'Value'))
+
   return(history)
   }
 

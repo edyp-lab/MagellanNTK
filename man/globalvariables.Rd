@@ -3,11 +3,14 @@
 \docType{data}
 \name{globalvariables}
 \alias{globalvariables}
+\alias{.port}
 \alias{stepStatus}
 \alias{default_pos}
 \alias{listBrewerPalettes}
 \title{Global variables}
 \format{
+An object of class \code{numeric} of length 1.
+
 An object of class \code{list} of length 3.
 
 An object of class \code{list} of length 3.
@@ -15,6 +18,8 @@ An object of class \code{list} of length 3.
 An object of class \code{character} of length 17.
 }
 \usage{
+.port
+
 stepStatus
 
 default_pos
