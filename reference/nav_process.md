@@ -58,7 +58,11 @@ nav_process()
 
 - history:
 
-  xxx
+  A \`data.frame\` which contains the history of the dataset for the
+  process of id \`id\`. If the value is NULL, that means the current
+  process has not been executed on the dataset, otherwise that means
+  that the process has already be run on the dataset. This parameter
+  allows to update the timeline of the process
 
 - is.enabled:
 
@@ -71,9 +75,9 @@ nav_process()
 
 - remoteReset:
 
-  It is a remote command to reset the module. A boolen that indicates is
-  the pipeline has been reseted by a program of higher level Basically,
-  it is the program which has called this module
+  It is a remote command to reset the module. A boolean that indicates
+  is the pipeline has been reseted by a program of higher level
+  Basically, it is the program which has called this module
 
 - remoteResetUI:
 
@@ -85,11 +89,13 @@ nav_process()
 
 - verbose:
 
-  = FALSE,
+  A boolean to indicate whether to turn off (FALSE) or ON (TRUE) the
+  verbose mode for logs.
 
 - usermod:
 
-  = 'user'
+  A character to specifies the running mode of Magellan. \* user
+  (default) : xxx \* 'dev: xxx
 
 - btnEvents:
 

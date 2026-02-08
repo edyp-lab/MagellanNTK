@@ -102,7 +102,11 @@ It is the same as for the server() function.</p></dd>
 
 
 <dt id="arg-history">history<a class="anchor" aria-label="anchor" href="#arg-history"></a></dt>
-<dd><p>xxx</p></dd>
+<dd><p>A `data.frame` which contains the history of the dataset for
+the process of id `id`. If the value is NULL, that means the current process
+has not been executed on the dataset, otherwise that means that the process
+has already be run on the dataset. This parameter allows to update the
+timeline of the process</p></dd>
 
 
 <dt id="arg-is-enabled">is.enabled<a class="anchor" aria-label="anchor" href="#arg-is-enabled"></a></dt>
@@ -116,7 +120,7 @@ is deciding by this module.</p></dd>
 
 
 <dt id="arg-remotereset">remoteReset<a class="anchor" aria-label="anchor" href="#arg-remotereset"></a></dt>
-<dd><p>It is a remote command to reset the module. A boolen that
+<dd><p>It is a remote command to reset the module. A boolean that
 indicates is the pipeline has been reseted by a program of higher level
 Basically, it is the program which has called this module</p></dd>
 
@@ -130,11 +134,14 @@ Basically, it is the program which has called this module</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p>= FALSE,</p></dd>
+<dd><p>A boolean to indicate whether to turn off (FALSE) or ON (TRUE)
+the verbose mode for logs.</p></dd>
 
 
 <dt id="arg-usermod">usermod<a class="anchor" aria-label="anchor" href="#arg-usermod"></a></dt>
-<dd><p>= 'user'</p></dd>
+<dd><p>A character to specifies the running mode of Magellan.
+* user (default) : xxx
+* 'dev: xxx</p></dd>
 
 
 <dt id="arg-btnevents">btnEvents<a class="anchor" aria-label="anchor" href="#arg-btnevents"></a></dt>

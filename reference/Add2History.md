@@ -35,8 +35,6 @@ Add2History(history, process, step.name, param.name, value)
 
 A \`integer(1)\`
 
-## Details
-
 ## Examples
 
 ``` r
