@@ -17,7 +17,7 @@ NULL
 
 
 
-build_toy_example <- function(name = 'original'){
+build_toy_example <- function(name = 'Convert'){
   
   data <- data.frame(
     matrix(sample.int(30, 30), ncol = 6, 

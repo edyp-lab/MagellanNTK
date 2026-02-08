@@ -525,7 +525,7 @@ nav_single_process_server <- function(
         # Get the new dataset in a temporary variable
         rv$temp.dataIn <- keepAssay(dataIn(), length(dataIn()))
         
-        names(rv$temp.dataIn)[1] <- 'original'
+        names(rv$temp.dataIn)[1] <- 'Convert'
         
         rv$dataset2EDA <- rv$temp.dataIn
         

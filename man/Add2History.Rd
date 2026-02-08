@@ -24,6 +24,9 @@ A `integer(1)`
 This function returns the indice of the last validated step before
 the current step.
 }
+\details{
+
+}
 \examples{
 NULL
 }

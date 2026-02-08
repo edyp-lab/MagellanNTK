@@ -1,29 +1,29 @@
 
-
-#' @title Get the last validated step before current position.
-#'
-#' @description This function returns the indice of the last validated step before
-#' the current step.
-#'
-#' @param dataIn xxx
-#' @param x xxxx
-#' @return A `integer(1)`
-#'
-#' @export
-#' @examples
-#' NULL
-GetHistory <- function(dataIn, x){
-  
-  history <- NULL
-  # 
-  # if (x %in% c('Description', 'Save')){
-  #   history <- NULL
-  # } else if (x %in% names(dataIn)){
-  #   history <- DaparToolshed::paramshistory(dataIn[[x]])
-  # }
-  # 
-  return(history)
-}
+#' 
+#' #' @title Get the last validated step before current position.
+#' #'
+#' #' @description This function returns the indice of the last validated step before
+#' #' the current step.
+#' #'
+#' #' @param dataIn xxx
+#' #' @param x xxxx
+#' #' @return A `integer(1)`
+#' #'
+#' #' @export
+#' #' @examples
+#' #' NULL
+#' GetHistory <- function(dataIn, x){
+#'   
+#'   history <- NULL
+#' 
+#'   if (x %in% c('Description', 'Save')){
+#'     history <- NULL
+#'   } else if (x %in% names(dataIn)){
+#'     history <- DaparToolshed::paramshistory(dataIn[[x]])
+#'   }
+#' 
+#'   return(history)
+#' }
 
 
 
@@ -391,21 +391,23 @@ keepAssay <- function (x, range)
 #' @export
 #'
 BuildData2Send <- function(dataIn, stepsNames){
+  
+  
   child.data2send <- lapply(as.list(stepsNames), function(x) NULL)
     names(child.data2send) <- stepsNames 
     
-    
+    #browser()
     
     if (!is.null(dataIn)){
       dataInNames <- names(dataIn)
       
       child.data2send <- lapply(as.list(stepsNames), 
-        function(x) keepAssay(dataIn, 1:2))
+        function(x) keepAssay(dataIn, 1))
       names(child.data2send) <- stepsNames 
       
-      if (length(dataInNames) > 2){
-        for (i in 3:length(dataInNames)){
-          offset <- 1
+      if (length(dataInNames) > 1){
+        # There are additional assays, not only the 'Convert' one
+        for (i in 2:length(dataInNames)){
           ind.names <- names(dataIn)[i]
           indInstepsNames <- which(ind.names == stepsNames)
           
@@ -419,45 +421,6 @@ BuildData2Send <- function(dataIn, stepsNames){
     
     names(child.data2send) <- stepsNames
     return (child.data2send)
-
-  
-  # child.data2send <- lapply(as.list(stepsNames), function(x) NULL)
-  # names(child.data2send) <- stepsNames 
-  # 
-  # if (!is.null(dataIn)){
-  #   dataInNames <- names(dataIn)
-  #   
-  #   child.data2send <- lapply(as.list(stepsNames), 
-  #     function(x) keepAssay(dataIn, 1:2))
-  #   names(child.data2send) <- stepsNames 
-  #   #browser()
-  #   
-  #   # if (length(dataInNames) > 2){
-  #   #   for (i in 3:length(dataInNames)){
-  #   #     #browser()
-  #   #     #offset <- 1
-  #   #     ind.names <- names(dataIn)[i]
-  #   #     indInstepsNames <- which(ind.names == stepsNames)
-  #   # 
-  #   #     for (j in (indInstepsNames + 1):length(stepsNames))
-  #   #       child.data2send[j] <- keepAssay(dataIn, 1:i)
-  #   #   }
-  #   # }
-  #   
-  #   if (length(dataInNames) > 2){
-  #     for (i in 2:length(stepsNames)){
-  #       names <- stepsNames[i]
-  #       indInstepsNames <- which(stepsNames[i] == names(dataIn))
-  #       if (length(indInstepsNames) == 1){
-  #       for (j in (indInstepsNames + 1):length(stepsNames))
-  #         child.data2send[j] <- keepAssay(dataIn, 1:i)
-  #       }
-  #     }
-  #   }
-  # }
-  # 
-  # names(child.data2send) <- stepsNames
-  # return (child.data2send)
 }
 
 

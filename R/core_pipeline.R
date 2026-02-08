@@ -339,9 +339,7 @@ nav_pipeline_server <- function(
               )
             )
           ),
-          #title = "EDA", 
           size = "l"
-          # )
         )
       )
     })
@@ -379,9 +377,6 @@ nav_pipeline_server <- function(
       
       # Update the reactive value config with the config of the pipeline
       rv$config <- rv$proc$config()
-      
-      # Store the original values
-      rv$config.original <- rv$proc$config()
 
       n <- length(rv$config@steps)
       
@@ -391,10 +386,6 @@ nav_pipeline_server <- function(
       
       rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
-      rv$steps.show <- setNames(rep(TRUE, n), nm = GetStepsNames())
-      rv$steps.show['Normalization'] <- FALSE
-      
-      
       rv$steps.skipped <- Discover_Skipped_Steps(rv$steps.status)
     
       rv$currentStepName <- reactive({GetStepsNames()[rv$current.pos]})
@@ -444,16 +435,16 @@ nav_pipeline_server <- function(
     # 2 - if the variable contains a dataset. xxx
     observeEvent(req(dataIn()), ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
-      req(GetStepsNames())
+      #req(GetStepsNames())
       
-      #browser()
+
       rv$dataset2EDA <- dataIn()
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
       rv$dataIn.original <- dataIn()
       session$userData$dataIn.original <- dataIn()
       
-      #browser()
+
       # in case of a new dataset, reset the whole pipeline
       
       n <- length(rv$config@steps)
@@ -466,10 +457,8 @@ nav_pipeline_server <- function(
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
       rv$steps.skipped <- Discover_Skipped_Steps(rv$steps.status)
       
-     
-      rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
-      #rv$child.data2send <- BuildData2Send(dataIn(), names(rv$config.original@steps))
       
+      rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
       
       # A new dataset has been loaded
       # # Update the different screens in the process
@@ -488,30 +477,47 @@ nav_pipeline_server <- function(
         rv = rv
       )
       
-      
-     # browser()
+
       rv$current.pos <- SetCurrentPosition(rv$steps.status)
     })
     
     
+    GetHistory <- function(dataIn, x){
+      browser()
+      history <- NULL
+      
+      if (x == 'Description'){
+        if ('Convert' %in% names(dataIn))
+          history <- DaparToolshed::paramshistory(dataIn[['Convert']])
+       # else if ('original' %in% names(dataIn))
+       #  history <- DaparToolshed::paramshistory(dataIn[['original']])
+    } else if (x == 'Save'){
+        history <- NULL
+      } else if (x %in% names(dataIn)){
+        history <- DaparToolshed::paramshistory(dataIn[[x]])
+      }
+      
+      
+      # do.call(
+      # eval(parse(text = session$userData$funcs$GetHistory)), 
+      #   list(rv$child.data2send[[length(rv$child.data2send)]], x))
+      #   
+      return(history)
+    }
+    
+    
     
     observe({
-      #req(rv$steps.enabled)
-      #req(rv$steps.status)
-      ###
-      ### Launch the server for each step of the pipeline
-      ###
-     # req(rv$child.data2send)
-
       lapply(GetStepsNames(), function(x) {
         tmp.return[[x]] <- nav_process_server(
           id = paste0(id, "_", x),
           dataIn = reactive({rv$child.data2send[[x]]}),
           status = reactive({rv$steps.status[x]}),
           history = reactive({
-            do.call(
-            eval(parse(text = session$userData$funcs$GetHistory)), 
-              list(rv$child.data2send[[length(rv$child.data2send)]], x))
+            GetHistory(rv$child.data2send[[length(rv$child.data2send)]], x)
+            # do.call(
+            # eval(parse(text = session$userData$funcs$GetHistory)), 
+            #   list(rv$child.data2send[[length(rv$child.data2send)]], x))
             }),
           is.enabled = reactive({isTRUE(rv$steps.enabled[x])}),
           remoteReset = reactive({rv$resetChildren[x]}),
@@ -525,9 +531,6 @@ nav_pipeline_server <- function(
     
     
     GetValuesFromChildren <- reactive({
-  
-      req(GetStepsNames())
-      req(tmp.return)
       # Get the trigger values for each steps of the module
       return.trigger.values <- setNames(lapply(GetStepsNames(), function(x) {
         tmp.return[[x]]$dataOut()$trigger
@@ -564,7 +567,8 @@ nav_pipeline_server <- function(
       
       triggerValues <- GetValuesFromChildren()$triggers
       return.values <- GetValuesFromChildren()$values
-      
+      #browser()
+ 
       if (sum(is.na(triggerValues)) == length(triggerValues) || is.null(return.values)){
         # Initialisation
         
@@ -616,7 +620,10 @@ nav_pipeline_server <- function(
           })
           
           
-        } else {# A process has been validated
+        } else {
+          
+         
+          # A process has been validated
           rv$steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
           
           if (ind.processHasChanged < len) {
@@ -636,6 +643,16 @@ nav_pipeline_server <- function(
         
       }
       
+      
+      
+      # Update the history metadata for the whole QF
+      # metadata(rv$child.data2send)[['history']]
+      # [[length(rv$child.data2send)]]
+      # DaparToolshed::paramshistory(rv$dataIn[[i]]) <- rbind(DaparToolshed::paramshistory(rv$dataIn[[i]]),
+      #   rv.custom$history)
+      # 
+      
+      #browser()
       # Send result
       dataOut$trigger <- Timestamp()
       dataOut$value <- rv$child.data2send[[length(rv$child.data2send)]]

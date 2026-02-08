@@ -489,6 +489,7 @@ mainapp_server <- function(id,
           )
         },
         process = {
+         
           req(rv.core$process.name)
           .history <- NULL
           if (!is.null(rv.core$current.obj))

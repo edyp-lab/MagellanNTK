@@ -16,19 +16,26 @@
 #' all the widgets will be disabled. If not, the enabling/disabling of widgets
 #' is deciding by this module.
 #'
-#' @param remoteReset It is a remote command to reset the module. A boolen that
+#' @param remoteReset It is a remote command to reset the module. A boolean that
 #' indicates is the pipeline has been reseted by a program of higher level
 #' Basically, it is the program which has called this module
 #' 
 #' @param remoteResetUI xxx
 #' @param status xxx
-#' @param history xxx
+#' @param history A `data.frame` which contains the history of the dataset for
+#' the process of id `id`. If the value is NULL, that means the current process
+#' has not been executed on the dataset, otherwise that means that the process
+#' has already be run on the dataset. This parameter allows to update the
+#' timeline of the process
 #' @param is.skipped xxx
 #'
 #' @param btnEvents xxxx
 #'
-#' @param verbose = FALSE,
-#' @param usermod = 'user'
+#' @param verbose A boolean to indicate whether to turn off (FALSE) or ON (TRUE)
+#' the verbose mode for logs.
+#' @param usermod A character to specifies the running mode of Magellan. 
+#' * user (default) : xxx
+#' * 'dev: xxx
 #'
 #'
 #'
@@ -264,12 +271,17 @@ nav_process_server <- function(
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.do.Btns <- TRUE
       
-      if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
-        if (rv$current.pos > 1)
-          enable.do.Btns <- FALSE
-        else if (rv$current.pos == 1)
-          enable.do.Btns <- TRUE
+      if (len > 1){
+   
+      } else if (len == 1){
+        
+        if (('Description' == names(rv$steps.status)) ||
+            ('Save' == names(rv$steps.status))
+        ){
+          enable.do.Btns <- unname(rv$steps.status) != stepStatus$VALIDATED
+        }
       }
+      
       
       if (length(names(rv$steps.status)) == 1 && 'Save' == names(rv$steps.status)){
         enable.do.Btns <- TRUE
@@ -282,7 +294,8 @@ nav_process_server <- function(
 
 
     output$DoProceedBtn <- renderUI({
-      
+      # Display the "do and proceed button"
+      # 
       dataIn()
       rv$current.pos
       rv$steps.status
@@ -302,21 +315,25 @@ nav_process_server <- function(
         unname(rv$steps.status[len]) != stepStatus$SKIPPED && (!is.null(dataIn())) &&
         status() != stepStatus$SKIPPED
       
-      if (len > 1)
+      if (len > 1){
         enable.doProceed.Btns <- enable.doProceed.Btns && rv$current.pos != len
+      } else if (len == 1){
+        
+        if (('Description' == names(rv$steps.status)) ||
+            ('Save' == names(rv$steps.status))
+        ){
+          enable.doProceed.Btns <- unname(rv$steps.status) != stepStatus$VALIDATED
+        }
+      }
       
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.doProceed.Btns <- TRUE
       
-      if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
-        if (rv$current.pos > 1)
-          enable.doProceed.Btns <- FALSE
-        else if (rv$current.pos == 1)
-          enable.doProceed.Btns <- TRUE
-      }
       
       
-      if (length(names(rv$steps.status)) == 1 && 'Save' == names(rv$steps.status)){
+      if (length(names(rv$steps.status)) == 1 && 
+          ('Save' == names(rv$steps.status) || 'Description' == names(rv$steps.status))
+        ){
         enable.doProceed.Btns <- FALSE
       }
       
@@ -334,21 +351,17 @@ nav_process_server <- function(
     
     
     observeEvent(status(), { rv$status <- status()})
-    #observeEvent(history(), { rv$history <- history()})
-    
-    
     
     # Catch any event on the 'id' parameter. As this parameter is static
     # and is attached to the server, this function can be view as the
     # initialization of the server module. This code is generic to both
     # process and pipeline modules
-    #observeEvent(c(id, dataIn()), ignoreInit = FALSE, ignoreNULL = TRUE, {
       observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
         
       rv$rstBtn()
       
-      rv$prev.remoteReset < remoteReset()
-      rv$prev.remoteResetUI < remoteResetUI()
+      rv$prev.remoteReset <- remoteReset()
+      rv$prev.remoteResetUI <- remoteResetUI()
       
       ### Call the server module of the process/pipeline which name is
       ### the parameter 'id'.
@@ -361,7 +374,6 @@ nav_process_server <- function(
         list(
           id = id,
           dataIn = reactive({rv$temp.dataIn}),
-          #status = reactive({status()}),
           steps.enabled = reactive({rv$steps.enabled}),
           remoteReset = reactive({rv$rstBtn() + remoteReset() + remoteResetUI()}),
           steps.status = reactive({rv$steps.status}),
@@ -380,9 +392,7 @@ nav_process_server <- function(
       
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = stepsnames)
       rv$steps.skipped <- setNames(rep(FALSE, n), nm = stepsnames)
-      rv$currentStepName <- reactive({
-        stepsnames[rv$current.pos]
-      })
+      rv$currentStepName <- reactive({stepsnames[rv$current.pos]})
     },
       priority = 1000
     )
@@ -416,9 +426,6 @@ nav_process_server <- function(
       # 2 - encapsulate the UI in a div (used to hide all screens at a time
       #     before showing the one corresponding to the current position)
       output$EncapsulateScreens_pipeline_ui <- renderUI({
-        #.runmode <- if(!is.null(runmode)) runmode else session$userData$wf_mode
-        
-        #req(.runmode == 'pipeline')
         len <- length(rv$config@ll.UI)
         
         tagList(
@@ -455,20 +462,12 @@ nav_process_server <- function(
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
       
+      #browser()
       rv$steps.status <- setNames(
         rep(stepStatus$UNDONE, length(rv$steps.status)), 
         nm = names(rv$config@steps))
-      
-      #browser()
-      rv$steps.status <- RefineProcessStatus(history(), rv$steps.status)
-      
-      
-      # if (!is.null(rv$status) && !is.null(rv$history) && (unname(rv$status) == stepStatus$VALIDATED)){
-      # rv$steps.status <- setNames(
-      #   rep(unname(rv$status), length(rv$steps.status)), 
-      #   nm = names(rv$config@steps))
-      # rv$steps.status <- RefineProcessStatus(rv$history, rv$steps.status)
-      # }
+
+       rv$steps.status <- RefineProcessStatus(history(), rv$steps.status)
 
       #browser()
       if (is.null(dataIn())) {
@@ -577,9 +576,7 @@ nav_process_server <- function(
     tmp.return <- reactiveValues()
     
     
-    observeEvent(input$closeModal, {
-      removeModal()
-    })
+    observeEvent(input$closeModal, {removeModal()})
     
     # Update the current position after a click  on the 'Previous' button
     observeEvent(input$prevBtn, ignoreInit = TRUE, {
@@ -634,16 +631,20 @@ nav_process_server <- function(
     })
     
     
-    
+    # Function to update the status of the current process wrt the history
+    # that has been sent by the pipeline server 
     
     RefineProcessStatus <- function(history, steps.status){
+      req(length(steps.status) > 1)
+      
       
       steps.status <- setNames(rep(stepStatus$UNDONE, length(steps.status)), 
         nm = names(steps.status))
       
       if(!is.null(history)){
-      
-      #browser()
+        # We do not want to update the description step of a pipeline
+        # if it is the only step in history
+       
       steps.status[1] <- stepStatus$VALIDATED
       if (length(steps.status) > 1){
         # It is not Description nor Save processes
@@ -651,6 +652,8 @@ nav_process_server <- function(
         steps.status[.ind] <- stepStatus$VALIDATED
         steps.status['Save'] <- stepStatus$VALIDATED
       }
+      } else {
+        
       }
       
       
@@ -658,13 +661,18 @@ nav_process_server <- function(
     }
     
     observeEvent(rv$status, ignoreInit = TRUE, ignoreNULL = TRUE, {
+      
       shinyjs::toggleState("DoProceedBtn", condition = unname(rv$status) == stepStatus$UNDONE)
       shinyjs::toggleState("DoBtn", condition = unname(rv$status) == stepStatus$UNDONE)
       
       if (rv$status == stepStatus$VALIDATED){
-       
-        req(history())
-        rv$steps.status <- RefineProcessStatus(history(), rv$steps.status)
+       req(history())
+        #browser()
+        if (unlist(strsplit(id, '_'))[2] == 'Description' ||
+            unlist(strsplit(id, '_'))[2] == 'Save'){
+          rv$steps.status['Description'] <- stepStatus$VALIDATED
+        } else
+            rv$steps.status <- RefineProcessStatus(history(), rv$steps.status)
       } else if (rv$status == stepStatus$UNDONE){
         
         
@@ -717,9 +725,6 @@ nav_process_server <- function(
       # The cursor is set to the first step
       rv$current.pos <- 1
       rv$history <- MagellanNTK::InitializeHistory()
-      n <- length(rv$config@steps)
-      
-      
     }
     
     observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
