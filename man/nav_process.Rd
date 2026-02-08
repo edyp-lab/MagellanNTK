@@ -48,7 +48,11 @@ It is the same as for the server() function.}
 
 \item{status}{xxx}
 
-\item{history}{xxx}
+\item{history}{A `data.frame` which contains the history of the dataset for
+the process of id `id`. If the value is NULL, that means the current process
+has not been executed on the dataset, otherwise that means that the process
+has already be run on the dataset. This parameter allows to update the
+timeline of the process}
 
 \item{is.enabled}{A `boolean`. This variable is a remote command to specify
 if the corresponding module is enabled/disabled in the calling module of
@@ -58,7 +62,7 @@ that it is disabled (i.e. skipped), then this variable is set to TRUE. Then,
 all the widgets will be disabled. If not, the enabling/disabling of widgets
 is deciding by this module.}
 
-\item{remoteReset}{It is a remote command to reset the module. A boolen that
+\item{remoteReset}{It is a remote command to reset the module. A boolean that
 indicates is the pipeline has been reseted by a program of higher level
 Basically, it is the program which has called this module}
 
@@ -66,9 +70,12 @@ Basically, it is the program which has called this module}
 
 \item{is.skipped}{xxx}
 
-\item{verbose}{= FALSE,}
+\item{verbose}{A boolean to indicate whether to turn off (FALSE) or ON (TRUE)
+the verbose mode for logs.}
 
-\item{usermod}{= 'user'}
+\item{usermod}{A character to specifies the running mode of Magellan. 
+* user (default) : xxx
+* 'dev: xxx}
 
 \item{btnEvents}{xxxx}
 }

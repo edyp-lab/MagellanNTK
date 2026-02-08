@@ -1,29 +1,39 @@
 
+
+#' @title Get the last validated step before current position.
+#'
+#' @description This function returns the indice of the last validated step before
+#' the current step.
+#'
+#' @param dataIn xxx
+#' @param x xxxx
+#' @return A `integer(1)`
+#'
+#' @export
+#' @examples
+#' NULL
 #' 
-#' #' @title Get the last validated step before current position.
-#' #'
-#' #' @description This function returns the indice of the last validated step before
-#' #' the current step.
-#' #'
-#' #' @param dataIn xxx
-#' #' @param x xxxx
-#' #' @return A `integer(1)`
-#' #'
-#' #' @export
-#' #' @examples
-#' #' NULL
-#' GetHistory <- function(dataIn, x){
-#'   
-#'   history <- NULL
-#' 
-#'   if (x %in% c('Description', 'Save')){
-#'     history <- NULL
-#'   } else if (x %in% names(dataIn)){
-#'     history <- DaparToolshed::paramshistory(dataIn[[x]])
-#'   }
-#' 
-#'   return(history)
-#' }
+GetHistory <- function(dataIn, x){
+  history <- NULL
+  
+  if (x == 'Description'){
+    if ('Convert' %in% names(dataIn))
+      history <- DaparToolshed::paramshistory(dataIn[['Convert']])
+    # else if ('original' %in% names(dataIn))
+    #  history <- DaparToolshed::paramshistory(dataIn[['original']])
+  } else if (x == 'Save'){
+    history <- NULL
+  } else if (x %in% names(dataIn)){
+    history <- DaparToolshed::paramshistory(dataIn[[x]])
+  }
+  
+  
+  # do.call(
+  # eval(parse(text = session$userData$funcs$GetHistory)), 
+  #   list(rv$child.data2send[[length(rv$child.data2send)]], x))
+  #   
+  return(history)
+}
 
 
 
@@ -351,7 +361,7 @@ UpdateStepsStatus <- function(dataIn, config){
   }
   
   if ('Description' %in% names(steps.status))
-    steps.status['Description'] <- sum(steps.status) > 0
+    steps.status['Description'] <- TRUE
   
   return(steps.status)
 }
@@ -391,35 +401,24 @@ keepAssay <- function (x, range)
 #' @export
 #'
 BuildData2Send <- function(dataIn, stepsNames){
-  
-  
-  child.data2send <- lapply(as.list(stepsNames), function(x) NULL)
+  req(dataIn)
+ 
+  child.data2send <- lapply(as.list(stepsNames), 
+    function(x) keepAssay(dataIn, 1))
     names(child.data2send) <- stepsNames 
     
-    #browser()
-    
-    if (!is.null(dataIn)){
-      dataInNames <- names(dataIn)
-      
-      child.data2send <- lapply(as.list(stepsNames), 
-        function(x) keepAssay(dataIn, 1))
-      names(child.data2send) <- stepsNames 
-      
-      if (length(dataInNames) > 1){
-        # There are additional assays, not only the 'Convert' one
-        for (i in 2:length(dataInNames)){
-          ind.names <- names(dataIn)[i]
-          indInstepsNames <- which(ind.names == stepsNames)
-          
-          for (j in (indInstepsNames + 1):length(stepsNames))
-            child.data2send[j] <- keepAssay(dataIn, 1:i)
+    if (length(names(dataIn)) > 1){
+    for (i in 2:length(names(dataIn))){
+      proc.name <- names(dataIn)[i]
+      indInstepsNames <- which(proc.name == stepsNames)
+      dataset <- keepAssay(dataIn, 1:i)
+      for (j in (indInstepsNames):length(child.data2send))
+            child.data2send[j] <- dataset
         }
-      }
-      
-      
-    }
-    
+}
     names(child.data2send) <- stepsNames
+    
+    
     return (child.data2send)
 }
 

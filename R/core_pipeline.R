@@ -292,6 +292,7 @@ nav_pipeline_server <- function(
         )
       )
       
+    
       do.call(
         eval(parse(text = paste0(session$userData$funcs$history_dataset, "_server"))),
         list(
@@ -482,28 +483,7 @@ nav_pipeline_server <- function(
     })
     
     
-    GetHistory <- function(dataIn, x){
-      browser()
-      history <- NULL
-      
-      if (x == 'Description'){
-        if ('Convert' %in% names(dataIn))
-          history <- DaparToolshed::paramshistory(dataIn[['Convert']])
-       # else if ('original' %in% names(dataIn))
-       #  history <- DaparToolshed::paramshistory(dataIn[['original']])
-    } else if (x == 'Save'){
-        history <- NULL
-      } else if (x %in% names(dataIn)){
-        history <- DaparToolshed::paramshistory(dataIn[[x]])
-      }
-      
-      
-      # do.call(
-      # eval(parse(text = session$userData$funcs$GetHistory)), 
-      #   list(rv$child.data2send[[length(rv$child.data2send)]], x))
-      #   
-      return(history)
-    }
+    
     
     
     
@@ -513,12 +493,6 @@ nav_pipeline_server <- function(
           id = paste0(id, "_", x),
           dataIn = reactive({rv$child.data2send[[x]]}),
           status = reactive({rv$steps.status[x]}),
-          history = reactive({
-            GetHistory(rv$child.data2send[[length(rv$child.data2send)]], x)
-            # do.call(
-            # eval(parse(text = session$userData$funcs$GetHistory)), 
-            #   list(rv$child.data2send[[length(rv$child.data2send)]], x))
-            }),
           is.enabled = reactive({isTRUE(rv$steps.enabled[x])}),
           remoteReset = reactive({rv$resetChildren[x]}),
           remoteResetUI = reactive({rv$resetChildrenUI[x]}),
@@ -564,10 +538,9 @@ nav_pipeline_server <- function(
       processHasChanged <- newValue <- NULL
       len <- length(rv$steps.status)
       
-      
+    
       triggerValues <- GetValuesFromChildren()$triggers
       return.values <- GetValuesFromChildren()$values
-      #browser()
  
       if (sum(is.na(triggerValues)) == length(triggerValues) || is.null(return.values)){
         # Initialisation
@@ -607,23 +580,24 @@ nav_pipeline_server <- function(
           #rv$steps.status <- UpdateStepsStatus(dataIn(), rv$config)
           
           
-          # The process that has been rested is enabled so as to rerun it
+          # The process that has been rested is enabled again
           rv$steps.enabled[ind.processHasChanged] <- TRUE
           
           rv$steps.skipped[(lastValidated + 1):len] <- FALSE
           Update_State_Screens(rv$steps.skipped, rv$steps.enabled, rv)
           
           rv$current.pos <- which(.cd)
+          
           # Update the datasend Vector
           lapply((lastValidated + 1):len, function(x){
             rv$child.data2send[[x]] <- rv$child.data2send[[lastValidated + 1]]
           })
+
           
-          
-        } else {
+        } else {# A process has been validated
           
          
-          # A process has been validated
+          
           rv$steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
           
           if (ind.processHasChanged < len) {
@@ -634,8 +608,10 @@ nav_pipeline_server <- function(
           rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
           rv$dataIn <- newValue
           rv$current.pos <- SetCurrentPosition(rv$steps.status)
+          
+          
           # Update the datasend Vector
-          lapply((ind.processHasChanged + 1):len, function(x){
+          lapply((ind.processHasChanged):len, function(x){
             rv$child.data2send[[x]] <- rv$dataIn
           })
           
@@ -643,20 +619,14 @@ nav_pipeline_server <- function(
         
       }
       
-      
-      
-      # Update the history metadata for the whole QF
-      # metadata(rv$child.data2send)[['history']]
-      # [[length(rv$child.data2send)]]
-      # DaparToolshed::paramshistory(rv$dataIn[[i]]) <- rbind(DaparToolshed::paramshistory(rv$dataIn[[i]]),
-      #   rv.custom$history)
-      # 
-      
       #browser()
+
+      final.obj <- rv$child.data2send[[length(rv$child.data2send)]]
+
       # Send result
       dataOut$trigger <- Timestamp()
-      dataOut$value <- rv$child.data2send[[length(rv$child.data2send)]]
-      rv$dataset2EDA <- dataOut$value
+      dataOut$value <- final.obj
+      rv$dataset2EDA <- final.obj
     })
     
     # Update the current position after a click  on the 'Previous' button

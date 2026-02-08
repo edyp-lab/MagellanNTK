@@ -95,7 +95,6 @@ open_dataset_server <- function(
         
         
         observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
-          #browser()
           
         lapply(names(rv.widgets), function(x){
           rv.widgets[[x]] <- widgets.default.values[[x]]
@@ -231,8 +230,7 @@ open_dataset_server <- function(
 
         
         observeEvent( input$file, {
-          
-          #browser()
+
           rv.widgets$file <- input$file
           rv.custom$dataRead <- NULL
           tryCatch({

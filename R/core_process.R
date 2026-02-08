@@ -357,7 +357,7 @@ nav_process_server <- function(
     # initialization of the server module. This code is generic to both
     # process and pipeline modules
       observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
-        
+        #browser()
       rv$rstBtn()
       
       rv$prev.remoteReset <- remoteReset()
@@ -368,7 +368,7 @@ nav_process_server <- function(
       ### The name of the server function is prefixed by 'mod_' and
       ### suffixed by '_server'. This will give access to its config
       
-
+      rv$proc.id <- unlist(strsplit(id, '_'))[2]
       rv$proc <- do.call(
         paste0(id, "_server"),
         list(
@@ -385,7 +385,7 @@ nav_process_server <- function(
       # Update the reactive value config with the config of the
       # pipeline
       rv$config <- rv$proc$config()
-      #browser()
+
       n <- length(rv$config@steps)
       stepsnames <- names(rv$config@steps)
       rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = stepsnames)
@@ -458,18 +458,18 @@ nav_process_server <- function(
     # 2 - if the variable contains a dataset. xxx
     observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
-      #req(status())
+      #browser()
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
-      
-      #browser()
+     
+      rv$history <- GetHistory(dataIn(), rv$proc.id)
       rv$steps.status <- setNames(
         rep(stepStatus$UNDONE, length(rv$steps.status)), 
         nm = names(rv$config@steps))
 
-       rv$steps.status <- RefineProcessStatus(history(), rv$steps.status)
 
-      #browser()
+       rv$steps.status <- RefineProcessStatus(rv$history, rv$steps.status)
+
       if (is.null(dataIn())) {
         # The process has been reseted or is not concerned
         # Disable all screens of the process
@@ -545,12 +545,13 @@ nav_process_server <- function(
           # this  workflow and will be used in case of
           # reset
           rv$dataIn <- rv$proc$dataOut()$value
-          
+          #browser()
           # Update the 'dataOut' reactive value to return
           #  this dataset to the caller. this `nav_process`
           #  is only a bridge between the process and the  caller
           # For a pipeline, the output is updated each
           # time a process has been validated
+          #browser()
           dataOut$trigger <- Timestamp()
           dataOut$value <- rv$dataIn
         }
@@ -635,25 +636,22 @@ nav_process_server <- function(
     # that has been sent by the pipeline server 
     
     RefineProcessStatus <- function(history, steps.status){
-      req(length(steps.status) > 1)
-      
-      
+      req(history)
+      req(steps.status)
       steps.status <- setNames(rep(stepStatus$UNDONE, length(steps.status)), 
         nm = names(steps.status))
-      
-      if(!is.null(history)){
-        # We do not want to update the description step of a pipeline
-        # if it is the only step in history
-       
-      steps.status[1] <- stepStatus$VALIDATED
+     
+
       if (length(steps.status) > 1){
+        steps.status[1] <- stepStatus$VALIDATED
         # It is not Description nor Save processes
         .ind <- which(names(steps.status) %in% history[, 'Step'])
         steps.status[.ind] <- stepStatus$VALIDATED
         steps.status['Save'] <- stepStatus$VALIDATED
-      }
-      } else {
-        
+      } else if (length(steps.status) == 1 && names(steps.status) == 'Description'){
+        steps.status[1] <- stepStatus$VALIDATED
+      } else if (length(steps.status) == 1 && names(steps.status) == 'Save'){
+        steps.status[1] <- stepStatus$VALIDATED
       }
       
       
@@ -661,28 +659,30 @@ nav_process_server <- function(
     }
     
     observeEvent(rv$status, ignoreInit = TRUE, ignoreNULL = TRUE, {
-      
+     
       shinyjs::toggleState("DoProceedBtn", condition = unname(rv$status) == stepStatus$UNDONE)
       shinyjs::toggleState("DoBtn", condition = unname(rv$status) == stepStatus$UNDONE)
       
       if (rv$status == stepStatus$VALIDATED){
-       req(history())
-        #browser()
+       req(rv$history)
         if (unlist(strsplit(id, '_'))[2] == 'Description' ||
             unlist(strsplit(id, '_'))[2] == 'Save'){
           rv$steps.status['Description'] <- stepStatus$VALIDATED
-        } else
-            rv$steps.status <- RefineProcessStatus(history(), rv$steps.status)
+        } else{
+          
+          rv$steps.status <- RefineProcessStatus(rv$history, rv$steps.status)
+        }
       } else if (rv$status == stepStatus$UNDONE){
-        
-        
+
+
       }
     })
     
-    # Catch new status event
+    # Catch new status event from the module of the process
     # See https://github.com/daattali/shinyjs/issues/166
     # https://github.com/daattali/shinyjs/issues/25
-    observeEvent(rv$steps.status, ignoreInit = TRUE, {
+    observeEvent(rv$steps.status, ignoreInit = FALSE, {
+    
       rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
       
       rv$steps.enabled <- Update_State_Screens(
@@ -691,16 +691,16 @@ nav_process_server <- function(
         rv = rv
       )
       
-      .size <- length(rv$steps.status)
-      if (rv$steps.status[.size] == stepStatus$VALIDATED) {
-        # Set current position to the last one
-        rv$current.pos <- .size
-        
-        # If the last step is validated, it is time to send result by
-        # updating the 'dataOut' reactiveValue.
-        dataOut$trigger <- Timestamp()
-        dataOut$value <- rv$dataIn
-      }
+      # .size <- length(rv$steps.status)
+      # if (rv$steps.status[.size] == stepStatus$VALIDATED) {
+      #   # Set current position to the last one
+      #   rv$current.pos <- .size
+      #   browser()
+      #   # If the last step is validated, it is time to send result by
+      #   # updating the 'dataOut' reactiveValue.
+      #   dataOut$trigger <- Timestamp()
+      #   dataOut$value <- rv$dataIn
+      # }
     })
     
     
@@ -725,6 +725,15 @@ nav_process_server <- function(
       # The cursor is set to the first step
       rv$current.pos <- 1
       rv$history <- MagellanNTK::InitializeHistory()
+      
+      browser()
+      if (proc.name == names(rv$dataIn)[length(rv$dataIn)]){
+        #That means that the process has already been executed and
+        #one miuste delete the last assay
+        rv$dataIn <- QFeatures::removeAssay(rv$dataIn, length(rv$dataIn))
+        rv$temp.dataIn <- rv$dataIn
+      }
+        
     }
     
     observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
@@ -732,7 +741,8 @@ nav_process_server <- function(
       rv$dataIn <- rv$temp.dataIn <- dataIn()
       ResetProcess()
       # Return the NULL value as dataset
-      dataOut$trigger <- Timestamp()
+      #browser()
+        dataOut$trigger <- Timestamp()
       dataOut$value <- -10
     })
     

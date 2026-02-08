@@ -409,7 +409,6 @@ mainapp_server <- function(id,
       ignoreInit = TRUE,
       ignoreNULL = TRUE,
       {
-        #browser()
         req(rv.core$result_open_dataset()$dataset)
         
         rv.core$current.obj <- rv.core$result_open_dataset()$dataset
@@ -449,7 +448,6 @@ mainapp_server <- function(id,
     
     # 
     observe({
-     # browser()
       
       rv.core$result_convert <- nav_single_process_server(
         id = paste0(unlist(strsplit(rv.core$workflow.name, '_'))[1], '_Convert'),

@@ -293,7 +293,6 @@ Get_Code_for_remoteReset <- function(
     code <- "
 
 observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
-#browser()
   "
 
     if (widgets) {
@@ -374,7 +373,6 @@ Get_Code_for_newDataset <- function(
   code <- "
 
 observeEvent(req(dataIn()), ignoreInit = TRUE, ignoreNULL = TRUE, {
-#browser()
   "
   
   if (widgets) {

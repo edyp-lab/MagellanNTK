@@ -689,8 +689,7 @@ nav_single_process_server <- function(
         nm = names(steps.status))
       
       if(!is.null(history)){
-        
-        #browser()
+
         steps.status[1] <- stepStatus$VALIDATED
         if (length(steps.status) > 1){
           # It is not Description nor Save processes
