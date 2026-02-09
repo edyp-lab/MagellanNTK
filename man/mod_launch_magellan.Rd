@@ -13,7 +13,7 @@ mod_launch_magellan_server(id)
 mod_launch_magellan()
 }
 \arguments{
-\item{id}{xxx}
+\item{id}{A `character()` as the id of the Shiny module}
 }
 \value{
 NA

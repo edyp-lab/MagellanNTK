@@ -43,7 +43,7 @@ Debug_Infos_server(
 Debug_Infos(obj)
 }
 \arguments{
-\item{id}{xxx}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{title}{The title of the Panel which contains the debugging tables}
 

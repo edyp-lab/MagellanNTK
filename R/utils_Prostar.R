@@ -40,9 +40,9 @@ call.func <- function(fname, args) {
 #' @title Package version
 #' #'description xxx
 #' @param FUN xxx
-#' @param id xxx
-#' @param num xxx
-#' @param ... xxx
+#' @param id A `character()` as the id of the Shiny module
+#' @param num The number of widgets
+#' @param ... Additional parameters
 #' @export
 #'
 #' @examples
@@ -60,9 +60,9 @@ shinyOutput <- function(FUN, id, num, ...) {
 #' @title function for dynamic inputs in DT
 #' #'description xxx
 #' @param FUN xxx
-#' @param id xxx
-#' @param num xxx
-#' @param ... xxx
+#' @param id A `character()` as the id of the Shiny module
+#' @param num The number of widgets
+#' @param ... Additional parameters
 #' @export
 #' @examples
 #' NULL
@@ -81,7 +81,7 @@ shinyInput <- function(FUN, id, num, ...) {
 #' @title function for dynamic inputs in DT
 #' @description Call this function with all the regular navbarPage() parameters,
 #'  plus a text parameter, if you want to add text to the navbar
-#' @param ... xxx
+#' @param ... Additional parameters
 #' @param text xxx
 #' @export
 #' @examples
@@ -100,7 +100,7 @@ navbarPageWithText <- function(..., text) {
 #' @title xxx
 #' @description Call this function with all the regular navbarPage() parameters,
 #'  plus a text parameter, if you want to add text to the navbar
-#' @param ... xxx
+#' @param ... Additional parameters
 #' @param inputs xxx
 #' @export
 #' @examples
@@ -130,7 +130,7 @@ navbarPageWithInputs <- function(..., inputs) {
 #' NULL
 #' @return NA
 launchGA <- function() {
-    if (system2("hostname") == "prabig-prostar") {
+    if (system2("hostname") == "prabig-prostar2") {
         tags$head(includeScript("www/google-analytics.js"))
     } else {
         # tags$head(includeScript("www/google-analytics-ProstarZeroInstall.js"))
@@ -177,7 +177,7 @@ GetExtension <- function(name) {
 #'
 #' @description Checks if a package is available to load it
 #'
-#' @param ll.deps A `character()` vector which contains packages names
+#' @param ll.deps A vector of `character()` which contains packages names
 #'
 #' @examples
 #' \donttest{

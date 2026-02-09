@@ -19,7 +19,7 @@ mod_load_package_server(
 load_package(funcs = NULL)
 }
 \arguments{
-\item{id}{shiny id}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{funcs}{A list}
 }

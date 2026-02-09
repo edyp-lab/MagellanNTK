@@ -43,7 +43,7 @@ format_DT(
 )
 }
 \arguments{
-\item{id}{shiny id}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{dataIn}{xxx}
 

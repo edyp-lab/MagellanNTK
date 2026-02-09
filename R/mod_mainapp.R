@@ -5,7 +5,7 @@
 #' @name mod_main_page
 #'
 #'
-#' @param id shiny id
+#' @param id A `character()` as the id of the Shiny module
 #' @param dataIn xxx
 #' @param data.name The name of the dataset. Default is 'myDataset'
 #' @param session xxx

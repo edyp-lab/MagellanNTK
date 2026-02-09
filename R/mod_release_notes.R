@@ -1,7 +1,7 @@
 #' @title   mod_release_notes_ui and mod_release_notes_server
 #' @description  A shiny Module.
 #'
-#' @param id shiny id
+#' @param id A `character()` as the id of the Shiny module
 #' @param URL_releaseNotes xxx
 #'
 #' @name mod_release_notes

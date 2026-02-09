@@ -1,7 +1,7 @@
 #' @title mod_popover_for_help_ui and mod_popover_for_help_server
 #' @description  A shiny Module.
 #'
-#' @param id shiny id
+#' @param id A `character()` as the id of the Shiny module
 #' @param title xxxx
 #' @param content xxx
 #'

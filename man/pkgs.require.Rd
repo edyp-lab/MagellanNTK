@@ -9,7 +9,7 @@ pkgs.require(ll.deps)
 pkgs.require(ll.deps)
 }
 \arguments{
-\item{ll.deps}{A `character()` vector which contains packages names}
+\item{ll.deps}{A vector of `character()` which contains packages names}
 }
 \value{
 NA

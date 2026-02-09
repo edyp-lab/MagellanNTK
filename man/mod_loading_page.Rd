@@ -14,7 +14,7 @@ loadapp_server(id)
 loadApp()
 }
 \arguments{
-\item{id}{shiny id}
+\item{id}{A `character()` as the id of the Shiny module}
 }
 \value{
 A list where each slot is named with the customizable functions. Each slot

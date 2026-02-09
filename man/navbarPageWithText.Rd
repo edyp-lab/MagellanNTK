@@ -7,7 +7,7 @@
 navbarPageWithText(..., text)
 }
 \arguments{
-\item{...}{xxx}
+\item{...}{Additional parameters}
 
 \item{text}{xxx}
 }

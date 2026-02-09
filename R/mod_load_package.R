@@ -6,7 +6,7 @@
 #' * infos_dataset: xxx
 #'
 #'
-#' @param id shiny id
+#' @param id A `character()` as the id of the Shiny module
 #' @param funcs A list
 #'
 #' @examples

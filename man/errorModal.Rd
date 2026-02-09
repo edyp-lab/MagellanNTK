@@ -13,7 +13,7 @@ errorModal_server(id, msg)
 errorModal(msg)
 }
 \arguments{
-\item{id}{internal}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{msg}{xxxx}
 }

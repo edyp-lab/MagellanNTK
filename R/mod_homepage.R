@@ -1,7 +1,7 @@
 #' @title   mod_homepage_ui and mod_homepage_server
 #' @description  A shiny Module.
 #'
-#' @param id shiny id
+#' @param id A `character()` as the id of the Shiny module
 #' @param mdfile xxx
 #' @param dataset xxx
 #'

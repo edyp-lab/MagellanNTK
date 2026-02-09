@@ -14,7 +14,7 @@ export_dataset_server(id, dataIn)
 export_dataset(data)
 }
 \arguments{
-\item{id}{xxx}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{dataIn}{xxx}
 

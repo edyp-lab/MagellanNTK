@@ -36,7 +36,7 @@ MagellanNTK(
 )
 }
 \arguments{
-\item{id}{xxx}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{sidebarSize}{The width of the sidebar. Available values are 'small', 'medium', 'large'}
 
@@ -53,7 +53,7 @@ used with '[[]]' to access items}
 
 \item{convert.path}{xxx}
 
-\item{...}{xxx}
+\item{...}{Additional parameters}
 }
 \value{
 NA

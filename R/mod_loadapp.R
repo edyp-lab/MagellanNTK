@@ -17,7 +17,7 @@
 #'
 #' @name mod_loading_page
 #'
-#' @param id shiny id
+#' @param id A `character()` as the id of the Shiny module
 #'
 #'
 #' @return

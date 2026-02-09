@@ -2,7 +2,7 @@
 #'
 #' @description xxx
 #'
-#' @param id xxx
+#' @param id A `character()` as the id of the Shiny module
 #'
 #' @return NA
 #'

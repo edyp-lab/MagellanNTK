@@ -14,7 +14,7 @@ convert_dataset_server(id)
 convert_dataset()
 }
 \arguments{
-\item{id}{xxx}
+\item{id}{A `character()` as the id of the Shiny module}
 }
 \value{
 A list

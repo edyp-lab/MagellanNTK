@@ -14,7 +14,7 @@ mod_release_notes_server(id, URL_releaseNotes)
 release_notes(URL_releaseNotes)
 }
 \arguments{
-\item{id}{shiny id}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{URL_releaseNotes}{xxx}
 }

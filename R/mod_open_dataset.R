@@ -2,7 +2,7 @@
 #'
 #' @description This module allows to change
 #'
-#' @param id xxx
+#' @param id A `character()` as the id of the Shiny module
 #' @param class xxx
 #' @param extension xxx
 #' @param demo_package xxx

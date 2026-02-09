@@ -13,7 +13,7 @@ Save_Dataset_server(id, data)
 Save_Dataset(data)
 }
 \arguments{
-\item{id}{xxx}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{data}{xxx}
 }

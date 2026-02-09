@@ -1,7 +1,7 @@
 #' @title xxx
 #' @name mod_err_modal
 #'
-#' @param id xxx
+#' @param id A `character()` as the id of the Shiny module
 #' @param title xxxx
 #' @param text xxx
 #' @param footer xxx

@@ -25,7 +25,7 @@ download_btns_server(
 download_btns(dataIn)
 }
 \arguments{
-\item{id}{internal}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{settings}{xxx}
 

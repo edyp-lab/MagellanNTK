@@ -3,7 +3,7 @@
 #' #' @title   mod_navbar_menu_ui and mod_navbar_menu_server
 #' #' @description  A shiny Module.
 #' #'
-#' #' @param id shiny id
+#' #' @param id A `character()` as the id of the Shiny module
 #' #'
 #' #' @name mod_navbar_menu
 #' #'

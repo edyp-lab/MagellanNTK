@@ -3,7 +3,7 @@
 #' @description  A shiny Module.
 #'
 #'
-#' @param id internal
+#' @param id A `character()` as the id of the Shiny module
 #' @param dataIn internal
 #' @param widget.type Available values are `Button` and `Link` (default).
 #' @param filename xxx

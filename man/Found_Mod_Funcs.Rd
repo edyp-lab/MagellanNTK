@@ -7,7 +7,7 @@
 Found_Mod_Funcs(id)
 }
 \arguments{
-\item{id}{xxx}
+\item{id}{A `character()` as the id of the Shiny module}
 }
 \value{
 NA

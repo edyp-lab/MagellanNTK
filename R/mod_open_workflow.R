@@ -2,7 +2,7 @@
 #'
 #' @description  A shiny Module.
 #'
-#' @param id xxx
+#' @param id A `character()` as the id of the Shiny module
 #'
 #' @name mod_open_workflow
 #'

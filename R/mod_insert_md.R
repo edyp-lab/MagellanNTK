@@ -3,7 +3,7 @@
 #' @title   insert_md_ui and insert_md_server
 #' @description  A shiny Module.
 #'
-#' @param id shiny id
+#' @param id A `character()` as the id of the Shiny module
 #' @param url internal
 #' @param link_URL xxx
 #'

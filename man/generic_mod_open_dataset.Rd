@@ -25,7 +25,7 @@ open_dataset_server(
 open_dataset(class = NULL, extension = NULL, demo_package = NULL)
 }
 \arguments{
-\item{id}{xxx}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{class}{xxx}
 

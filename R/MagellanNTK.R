@@ -1,14 +1,14 @@
 #' @title Main Shiny application
 #' @description xxx
 #'
-#' @param id xxx
+#' @param id A `character()` as the id of the Shiny module
 #' @param dataIn A `list()` of data.frame like items. This parameter must be
 #' used with '[[]]' to access items
 #' @param workflow.path xxx
 #' @param workflow.name xxxx
 #' @param verbose A `boolean(1)`
 #' @param usermod xxx
-#' @param ... xxx
+#' @param ... Additional parameters
 #' @param sidebarSize The width of the sidebar. Available values are 'small', 'medium', 'large'
 #' @param convert.path xxx
 #'

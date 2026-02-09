@@ -20,7 +20,7 @@ download_dataset_server(
 download_dataset(data, filename = "myDataset")
 }
 \arguments{
-\item{id}{internal}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{dataIn}{internal}
 

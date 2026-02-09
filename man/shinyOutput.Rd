@@ -10,11 +10,11 @@ shinyOutput(FUN, id, num, ...)
 \arguments{
 \item{FUN}{xxx}
 
-\item{id}{xxx}
+\item{id}{A `character()` as the id of the Shiny module}
 
-\item{num}{xxx}
+\item{num}{The number of widgets}
 
-\item{...}{xxx}
+\item{...}{Additional parameters}
 }
 \value{
 NA

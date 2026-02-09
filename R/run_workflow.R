@@ -6,7 +6,7 @@
 #' This documentation is for developers who want to create their own
 #' pipelines nor processes to be managed with `MagellanNTK`.
 #'
-#' @param id xxx
+#' @param id A `character()` as the id of the Shiny module
 #' @param path xxx
 #' @param dataIn xxx
 #' @param usermod Available values are 'superdev', 'dev', 'superuser', 'user'

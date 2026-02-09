@@ -2,7 +2,7 @@
 #'
 #' @description A shiny module that shows download buttons in different formats.
 #'
-#' @param id internal
+#' @param id A `character()` as the id of the Shiny module
 #' @param settings xxx
 #' @param dataIn A data.frame
 #' @param name xxxx.

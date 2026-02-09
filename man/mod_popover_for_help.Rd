@@ -14,7 +14,7 @@ mod_popover_for_help_server(id, title, content)
 popover_for_help(title, content)
 }
 \arguments{
-\item{id}{shiny id}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{title}{xxxx}
 

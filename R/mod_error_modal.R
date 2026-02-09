@@ -2,7 +2,7 @@
 #'
 #' @description A shiny module that shows messages in modal.
 #'
-#' @param id internal
+#' @param id A `character()` as the id of the Shiny module
 #' @param msg xxxx
 #'
 #' @name errorModal

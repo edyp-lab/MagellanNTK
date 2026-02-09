@@ -17,7 +17,7 @@ timeline_pipeline_ui(id)
 timeline_pipeline_server(id, config, status, position, enabled)
 }
 \arguments{
-\item{id}{xxx}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{config}{xxx}
 

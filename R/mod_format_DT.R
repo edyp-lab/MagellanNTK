@@ -5,7 +5,7 @@
 #' A shiny Module.
 #'
 #'
-#' @param id shiny id
+#' @param id A `character()` as the id of the Shiny module
 #' @param dataIn xxx
 #' @param hidden Default is NULL,
 #' @param withDLBtns Default is FALSE,

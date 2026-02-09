@@ -14,7 +14,7 @@ insert_md_server(id, url, link_URL = NULL)
 insert_md(url)
 }
 \arguments{
-\item{id}{shiny id}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{url}{internal}
 

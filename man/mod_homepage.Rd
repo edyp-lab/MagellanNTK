@@ -19,7 +19,7 @@ mod_homepage_server(
 mod_homepage()
 }
 \arguments{
-\item{id}{shiny id}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{mdfile}{xxx}
 

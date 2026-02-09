@@ -7,7 +7,7 @@
 navbarPageWithInputs(..., inputs)
 }
 \arguments{
-\item{...}{xxx}
+\item{...}{Additional parameters}
 
 \item{inputs}{xxx}
 }

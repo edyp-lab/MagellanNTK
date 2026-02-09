@@ -2,7 +2,7 @@
 #'
 #' @description  A shiny Module to load a dataset.
 #'
-#' @param id xxx
+#' @param id A `character()` as the id of the Shiny module
 #' @param path xxx
 #' @param usermod xxx
 #'
