@@ -490,10 +490,8 @@ mainapp_server <- function(id,
         process = {
          
           req(rv.core$process.name)
-          .history <- NULL
           if (!is.null(rv.core$current.obj))
-            .history <- GetHistory(rv.core$current.obj, rv.core$process.name)
-      
+            
           rv.core$result_run_workflow <- nav_single_process_server(
             id = rv.core$workflow.name,
             dataIn = reactive({rv.core$current.obj}),
