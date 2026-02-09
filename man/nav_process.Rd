@@ -16,9 +16,6 @@ nav_process_server(
   status = reactive({
      NULL
  }),
-  history = reactive({
-     NULL
- }),
   is.enabled = reactive({
      TRUE
  }),
@@ -48,12 +45,6 @@ It is the same as for the server() function.}
 
 \item{status}{xxx}
 
-\item{history}{A `data.frame` which contains the history of the dataset for
-the process of id `id`. If the value is NULL, that means the current process
-has not been executed on the dataset, otherwise that means that the process
-has already be run on the dataset. This parameter allows to update the
-timeline of the process}
-
 \item{is.enabled}{A `boolean`. This variable is a remote command to specify
 if the corresponding module is enabled/disabled in the calling module of
 upper level.
@@ -70,7 +61,7 @@ Basically, it is the program which has called this module}
 
 \item{is.skipped}{xxx}
 
-\item{verbose}{A boolean to indicate whether to turn off (FALSE) or ON (TRUE)
+\item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 the verbose mode for logs.}
 
 \item{usermod}{A character to specifies the running mode of Magellan. 
@@ -78,6 +69,12 @@ the verbose mode for logs.}
 * 'dev: xxx}
 
 \item{btnEvents}{xxxx}
+
+\item{history}{A `data.frame` which contains the history of the dataset for
+the process of id `id`. If the value is NULL, that means the current process
+has not been executed on the dataset, otherwise that means that the process
+has already be run on the dataset. This parameter allows to update the
+timeline of the process}
 }
 \value{
 A list of four items:

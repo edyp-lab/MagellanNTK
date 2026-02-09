@@ -4,7 +4,7 @@
 \alias{nav_single_process}
 \alias{nav_single_process_ui}
 \alias{nav_single_process_server}
-\title{The server() function of the module `nav_single_process`}
+\title{Shiny module `nav_single_process()`}
 \usage{
 nav_single_process_ui(id)
 
@@ -14,9 +14,6 @@ nav_single_process_server(
      NULL
  }),
   status = reactive({
-     NULL
- }),
-  history = reactive({
      NULL
  }),
   remoteResetUI = reactive({
@@ -41,19 +38,20 @@ It is the same as for the server() function.}
 
 \item{status}{xxx}
 
-\item{history}{xxx}
-
 \item{remoteResetUI}{xxx}
 
 \item{is.enabled}{xxxx}
 
 \item{is.skipped}{is.skipped xxx}
 
-\item{verbose}{= FALSE,}
+\item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
+the verbose mode for logs.}
 
 \item{usermod}{= 'user'}
 
 \item{btnEvents}{xxxx}
+
+\item{history}{xxx}
 }
 \value{
 A list of four items:

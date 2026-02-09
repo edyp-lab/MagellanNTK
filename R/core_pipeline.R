@@ -20,7 +20,8 @@
 #' indicates is the pipeline has been reseted by a program of higher level
 #' Basically, it is the program which has called this module
 #'
-#' @param verbose = FALSE,
+#' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
+#' the verbose mode for logs.
 #' @param usermod = 'user'
 #'
 #'

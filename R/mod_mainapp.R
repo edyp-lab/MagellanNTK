@@ -11,7 +11,8 @@
 #' @param session xxx
 #' @param workflow.name Default is NULL,
 #' @param workflow.path Default is NULL,
-#' @param verbose = FALSE,
+#' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
+#' the verbose mode for logs.
 #' @param usermod = 'dev'
 #' @param size The width of the sidebar.in pixels
 #'
@@ -496,7 +497,6 @@ mainapp_server <- function(id,
           rv.core$result_run_workflow <- nav_single_process_server(
             id = rv.core$workflow.name,
             dataIn = reactive({rv.core$current.obj}),
-            history = reactive({.history}),
             verbose = verbose,
             usermod = usermod)
         }

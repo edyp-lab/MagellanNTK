@@ -9,7 +9,8 @@ source_wf_files(dirpath, verbose = FALSE)
 \arguments{
 \item{dirpath}{xxx}
 
-\item{verbose}{A boolean}
+\item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
+the verbose mode for logs.}
 }
 \value{
 NA

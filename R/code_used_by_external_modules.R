@@ -354,13 +354,10 @@ dataOut = reactive({dataOut})
     code
 }
 
-#' @title Code for declaring xxx
-#'
+#' @title Code for declaring xxx.
 #'
 #' @export
-#'
 #' @rdname insertCodeForExternalModules
-#'
 #' @return NA
 #'
 AdditionnalCodeForExternalModules <- function(

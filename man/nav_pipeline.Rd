@@ -43,7 +43,8 @@ is deciding by this module.}
 indicates is the pipeline has been reseted by a program of higher level
 Basically, it is the program which has called this module}
 
-\item{verbose}{= FALSE,}
+\item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
+the verbose mode for logs.}
 
 \item{usermod}{= 'user'}
 }

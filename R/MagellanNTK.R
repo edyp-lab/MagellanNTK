@@ -6,7 +6,8 @@
 #' used with '[[]]' to access items
 #' @param workflow.path xxx
 #' @param workflow.name xxxx
-#' @param verbose A `boolean(1)`
+#' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
+#' the verbose mode for logs.
 #' @param usermod xxx
 #' @param ... Additional parameters
 #' @param sidebarSize The width of the sidebar. Available values are 'small', 'medium', 'large'

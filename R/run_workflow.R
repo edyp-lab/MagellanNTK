@@ -10,7 +10,8 @@
 #' @param path xxx
 #' @param dataIn xxx
 #' @param usermod Available values are 'superdev', 'dev', 'superuser', 'user'
-#' @param verbose xxx
+#' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
+#' the verbose mode for logs.
 #'
 #' @name workflow
 #'

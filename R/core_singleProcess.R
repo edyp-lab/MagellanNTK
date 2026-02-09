@@ -1,4 +1,4 @@
-#' @title The server() function of the module `nav_single_process`
+#' @title Shiny module `nav_single_process()`
 #'
 #' @description The module navigation can be launched via a Shiny app.
 #' This is the core module of MagellanNTK
@@ -13,17 +13,11 @@
 #' 
 #' @param remoteResetUI xxx
 #' @param status xxx
-#' @param history xxx
-#'
 #' @param btnEvents xxxx
-#'
-#' @param verbose = FALSE,
+#' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
+#' the verbose mode for logs.
 #' @param usermod = 'user'
-#'
-#'
-#'
-#'
-#'
+#' 
 #' @return A list of four items:
 #' * dataOut A dataset of the same class of the parameter dataIn
 #' * steps.enabled A vector of `boolean` of the same length than config@steps
@@ -64,13 +58,8 @@ nav_single_process_ui <- function(id) {
   
   tagList(
     div(
-     
       uiOutput(ns('process_panel_ui_process'))
-      #uiOutput(ns('process_panel_ui_pipeline')),
-      #uiOutput(ns("EncapsulateScreens_pipeline_ui")),
-      
-      
-    ),
+      ),
     shiny::absolutePanel(
       left = '100',
       top = 10,
@@ -93,14 +82,12 @@ nav_single_process_ui <- function(id) {
 #'
 #' @rdname nav_single_process
 #' @importFrom stats setNames
-#' @importFrom crayon blue yellow
 #' @import shiny
 #'
 nav_single_process_server <- function(
     id = NULL,
   dataIn = reactive({NULL}),
   status = reactive({NULL}),
-  history = reactive({NULL}),
   remoteResetUI = reactive({0}),
   is.enabled = TRUE,
   is.skipped = FALSE,
@@ -332,18 +319,21 @@ nav_single_process_server <- function(
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.do.Btns <- TRUE
       
-      if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
-        if (rv$current.pos > 1)
-          enable.do.Btns <- FALSE
-        else if (rv$current.pos == 1)
-          enable.do.Btns <- TRUE
-      } else {
-        if (rv$current.pos > 1)
-          enable.do.Btns <- TRUE
-        else if (rv$current.pos == 1)
-          enable.do.Btns <- FALSE
+      if (len > 1){
+        
+      } else if (len == 1){
+        
+        if (('Description' == names(rv$steps.status)) ||
+            ('Save' == names(rv$steps.status))
+        ){
+          enable.do.Btns <- unname(rv$steps.status) != stepStatus$VALIDATED
+        }
       }
       
+      
+      if (length(names(rv$steps.status)) == 1 && 'Save' == names(rv$steps.status)){
+        enable.do.Btns <- TRUE
+      }
       
       widget <- actionButton(ns("DoBtn"), "Run", style = btn_css_style)
       MagellanNTK::toggleWidget(widget, enable.do.Btns)
@@ -371,24 +361,29 @@ nav_single_process_server <- function(
         unname(rv$steps.status[len]) != stepStatus$SKIPPED && (!is.null(dataIn())) &&
         status() != stepStatus$SKIPPED
       
-      if (len > 1)
+      if (len > 1){
         enable.doProceed.Btns <- enable.doProceed.Btns && rv$current.pos != len
+      } else if (len == 1){
+        
+        if (('Description' == names(rv$steps.status)) ||
+            ('Save' == names(rv$steps.status))
+        ){
+          enable.doProceed.Btns <- unname(rv$steps.status) != stepStatus$VALIDATED
+        }
+      }
       
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.doProceed.Btns <- TRUE
       
       
-      if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
-        if (rv$current.pos > 1)
-          enable.doProceed.Btns <- FALSE
-        else if (rv$current.pos == 1)
-          enable.doProceed.Btns <- TRUE
-      }else {
-        if (rv$current.pos > 1)
-          enable.doProceed.Btns <- TRUE
-        else if (rv$current.pos == 1)
-          enable.doProceed.Btns <- FALSE
+      
+      if (length(names(rv$steps.status)) == 1 && 
+          ('Save' == names(rv$steps.status) || 'Description' == names(rv$steps.status))
+      ){
+        enable.doProceed.Btns <- FALSE
       }
+      
+      
       
       MagellanNTK::toggleWidget(widget, enable.doProceed.Btns)
     })
@@ -420,7 +415,7 @@ nav_single_process_server <- function(
       ### The name of the server function is prefixed by 'mod_' and
       ### suffixed by '_server'. This will give access to its config
       
-      
+      rv$proc.id <- unlist(strsplit(id, '_'))[2]
       rv$proc <- do.call(
         paste0(id, "_server"),
         list(
@@ -442,9 +437,7 @@ nav_single_process_server <- function(
       
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = stepsnames)
       rv$steps.skipped <- setNames(rep(FALSE, n), nm = stepsnames)
-      rv$currentStepName <- reactive({
-        stepsnames[rv$current.pos]
-      })
+      rv$currentStepName <- reactive({stepsnames[rv$current.pos]})
     },
       priority = 1000
     )
@@ -511,6 +504,17 @@ nav_single_process_server <- function(
     # 2 - if the variable contains a dataset. xxx
     observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
+      # Get the new dataset in a temporary variable
+      rv$temp.dataIn <- dataIn()
+      
+      rv$history <- GetHistory(dataIn(), rv$proc.id)
+      rv$steps.status <- setNames(
+        rep(stepStatus$UNDONE, length(rv$steps.status)), 
+        nm = names(rv$config@steps))
+      
+      
+      rv$steps.status <- RefineProcessStatus(rv$history, rv$steps.status)
+      
       
       if (is.null(dataIn())) {
         # The process has been reseted or is not concerned
@@ -524,7 +528,6 @@ nav_single_process_server <- function(
       } else {
         # Get the new dataset in a temporary variable
         rv$temp.dataIn <- keepAssay(dataIn(), length(dataIn()))
-        
         names(rv$temp.dataIn)[1] <- 'Convert'
         
         rv$dataset2EDA <- rv$temp.dataIn
@@ -562,7 +565,6 @@ nav_single_process_server <- function(
         req(rv$doProceedAction)
         # If a value is returned, this is because the
         # # current step has been validated
-        
         rv$steps.status[rv$current.pos] <- stepStatus$VALIDATED
         
         # Look for new skipped steps
@@ -660,45 +662,25 @@ nav_single_process_server <- function(
       rv$doProceedAction <- "Do"
     })
     
-    # 
-    # # The parameter 'is.enabled()' is updated by the caller and tells the
-    # # process if it is enabled or disabled (remote action from the caller)
-    # # This enables/disables an entire process/pipeline
-    # observeEvent(is.enabled(), ignoreNULL = TRUE, ignoreInit = TRUE, {
-    #   if (isTRUE(is.enabled())) {
-    #     rv$steps.enabled <- Update_State_Screens(
-    #       is.skipped = is.skipped(),
-    #       is.enabled = is.enabled(),
-    #       rv = rv
-    #     )
-    #     
-    #   } else {
-    #     rv$steps.enabled <- setNames(rep(is.enabled(), length(rv$config@steps)),
-    #       nm = names(rv$config@steps)
-    #     )
-    #   }
-    #   
-    # })
-    # 
-    
-    
     
     RefineProcessStatus <- function(history, steps.status){
-      
+      req(history)
+      req(steps.status)
       steps.status <- setNames(rep(stepStatus$UNDONE, length(steps.status)), 
         nm = names(steps.status))
       
-      if(!is.null(history)){
-
-        steps.status[1] <- stepStatus$VALIDATED
-        if (length(steps.status) > 1){
-          # It is not Description nor Save processes
-          .ind <- which(names(steps.status) %in% history[, 'Step'])
-          steps.status[.ind] <- stepStatus$VALIDATED
-          steps.status['Save'] <- stepStatus$VALIDATED
-        }
-      }
       
+      if (length(steps.status) > 1){
+        steps.status[1] <- stepStatus$VALIDATED
+        # It is not Description nor Save processes
+        .ind <- which(names(steps.status) %in% history[, 'Step'])
+        steps.status[.ind] <- stepStatus$VALIDATED
+        steps.status['Save'] <- stepStatus$VALIDATED
+      } else if (length(steps.status) == 1 && names(steps.status) == 'Description'){
+        steps.status[1] <- stepStatus$VALIDATED
+      } else if (length(steps.status) == 1 && names(steps.status) == 'Save'){
+        steps.status[1] <- stepStatus$VALIDATED
+      }
       
       return(steps.status)
     }
@@ -708,9 +690,8 @@ nav_single_process_server <- function(
       shinyjs::toggleState("DoBtn", condition = unname(rv$status) == stepStatus$UNDONE)
       
       if (rv$status == stepStatus$VALIDATED){
-        
-        req(history())
-        rv$steps.status <- RefineProcessStatus(history(), rv$steps.status)
+        req(rv$history)
+        rv$steps.status <- RefineProcessStatus(rv$history, rv$steps.status)
       } else if (rv$status == stepStatus$UNDONE){
         
         
@@ -728,46 +709,17 @@ nav_single_process_server <- function(
         is.enabled = is.enabled,
         rv = rv
       )
-      
-      .size <- length(rv$steps.status)
-      if (rv$steps.status[.size] == stepStatus$VALIDATED) {
-        # Set current position to the last one
-        rv$current.pos <- .size
-        
-        # If the last step is validated, it is time to send result by
-        # updating the 'dataOut' reactiveValue.
-        dataOut$trigger <- Timestamp()
-        dataOut$value <- rv$dataIn
-      }
     })
     
-    
-    # # @description
-    # # The parameter is.skipped() is set by the caller and tells the process
-    # # if it is skipped or not (remote action from the caller)
-    # observeEvent(is.skipped(), ignoreNULL = FALSE, ignoreInit = TRUE, {
-    #   
-    #   if (isTRUE(is.skipped())) {
-    #     rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$SKIPPED)
-    #   } else {
-    #     rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$UNDONE)
-    #     rv$steps.enabled <- Update_State_Screens(
-    #       is.skipped = is.skipped(),
-    #       is.enabled = is.enabled(),
-    #       rv = rv
-    #     )
-    #   }
-    # })
-    
+
     ResetProcess <- function() {
       # The cursor is set to the first step
       rv$current.pos <- 1
-      
+      rv$history <- MagellanNTK::InitializeHistory()
       n <- length(rv$config@steps)
         rv$steps.status <- setNames(
           rep(stepStatus$UNDONE, length(rv$steps.status)),
           nm = names(rv$config@steps))
-      
     }
     
     observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
@@ -791,9 +743,7 @@ nav_single_process_server <- function(
       }  
     })
     
-    GetStepsNames <- reactive({
-      names(rv$config@steps)
-    })
+    GetStepsNames <- reactive({ names(rv$config@steps)})
     
     
     
@@ -858,20 +808,10 @@ nav_single_process_server <- function(
     # nav_process_pipeline)
     list(
       dataOut = reactive({dataOut}),
-      steps.enabled = reactive({rv$steps.enabled}),
-      status = reactive({rv$steps.status})
-    )
+      steps.enabled = reactive({rv$steps.enabled})
+      )
   })
 }
-
-
-
-
-
-
-
-
-
 
 
 

@@ -44,7 +44,8 @@ mainapp(usermod = "user")
 
 \item{workflow.path}{Default is NULL,}
 
-\item{verbose}{= FALSE,}
+\item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
+the verbose mode for logs.}
 
 \item{usermod}{= 'dev'}
 }

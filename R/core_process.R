@@ -31,7 +31,7 @@
 #'
 #' @param btnEvents xxxx
 #'
-#' @param verbose A boolean to indicate whether to turn off (FALSE) or ON (TRUE)
+#' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
 #' @param usermod A character to specifies the running mode of Magellan. 
 #' * user (default) : xxx
@@ -89,14 +89,12 @@ nav_process_ui <- function(id) {
 #'
 #' @rdname nav_process
 #' @importFrom stats setNames
-#' @importFrom crayon blue yellow
 #' @import shiny
 #'
 nav_process_server <- function(
     id = NULL,
   dataIn = reactive({NULL}),
   status = reactive({NULL}),
-  history = reactive({NULL}),
   is.enabled = reactive({TRUE}),
   remoteReset = reactive({0}),
   remoteResetUI = reactive({0}),
@@ -162,41 +160,7 @@ nav_process_server <- function(
     )
     
     
-    # 
-    # output$process_panel_ui_process <- renderUI({
-    # 
-    #   .runmode <- if(!is.null(runmode)) runmode else session$userData$wf_mode
-    #     
-    #   req(.runmode == 'process')
-    #   shiny::absolutePanel(
-    #     left = default.layout$left_pipeline_sidebar,
-    #     top = 0,
-    #     height = default.layout$height_pipeline_sidebar,
-    #     width = '350px',
-    #     # style de la sidebar contenant les infos des process (timeline, boutons et parametres
-    #     style = paste0(
-    #       "position : absolute; ",
-    #       "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_pipeline_sidebar, "; ",
-    #       "border-right: ", default.layout$line_width, "px solid ", default.layout$line_color, ";",
-    #       "height: 100vh;"
-    #     ),
-    #     div(
-    #       style = " align-items: center; justify-content: center; margin-bottom: 20px;",
-    #       uiOutput(ns("proc_datasetNameUI"))
-    #     ),
-    #     div(id = ns('div_process_panel_ui_process_ui'),
-    #       uiOutput(ns('process_btns_ui')),
-    #     uiOutput(ns("testTL")),
-    #       uiOutput(ns("EncapsulateScreens_process_ui"))
-    #     )
-    #   )
-    # })
-    
-    
     output$process_panel_ui_pipeline <- renderUI({
-      # .runmode <- if(!is.null(runmode)) runmode else session$userData$wf_mode
-      # 
-      # req(.runmode == 'pipeline')
       div(
         #style ="position: fixed;",
           uiOutput(ns('process_btns_ui')),
@@ -357,7 +321,6 @@ nav_process_server <- function(
     # initialization of the server module. This code is generic to both
     # process and pipeline modules
       observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
-        #browser()
       rv$rstBtn()
       
       rv$prev.remoteReset <- remoteReset()
@@ -509,7 +472,6 @@ nav_process_server <- function(
         req(rv$doProceedAction)
         # If a value is returned, this is because the
         # # current step has been validated
-        
         rv$steps.status[rv$current.pos] <- stepStatus$VALIDATED
         
         # Look for new skipped steps
@@ -733,19 +695,7 @@ nav_process_server <- function(
       req(rv$config)
       rv$dataIn <- rv$temp.dataIn <- dataIn()
       ResetProcess()
-      
-      
-      # browser()
-      # proc.name <- unlist(strsplit(id, '_'))[2]
-      # if (proc.name == names(rv$dataIn)[length(rv$dataIn)]){
-      #   #That means that the process has already been executed and
-      #   #one miuste delete the last assay
-      #   rv$dataIn <- QFeatures::removeAssay(rv$dataIn, length(rv$dataIn))
-      #   rv$temp.dataIn <- rv$dataIn
-      # }
-      
-      # Return the NULL value as dataset
-      #browser()
+
         dataOut$trigger <- Timestamp()
       dataOut$value <- -10
     })

@@ -59,7 +59,8 @@ proc_workflowApp(
 
 \item{usermod}{Available values are 'superdev', 'dev', 'superuser', 'user'}
 
-\item{verbose}{xxx}
+\item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
+the verbose mode for logs.}
 }
 \value{
 NA

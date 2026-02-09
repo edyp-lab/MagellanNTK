@@ -265,7 +265,8 @@ GetListDatasets <- function(class = NULL, demo_package = NULL) {
 #' @description xxx
 #'
 #' @param dirpath xxx
-#' @param verbose A boolean
+#' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
+#' the verbose mode for logs.
 #'
 #' @examples
 #' path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")

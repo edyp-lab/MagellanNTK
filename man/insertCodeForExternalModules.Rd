@@ -5,7 +5,6 @@
 \alias{Get_Code_Update_Config_Variable}
 \alias{Get_Code_Declare_widgets}
 \alias{Get_Code_Declare_rv_custom}
-\alias{Get_Code_for_Initialize_History}
 \alias{Get_Code_for_ObserveEvent_widgets}
 \alias{Get_Code_for_rv_reactiveValues}
 \alias{Get_Code_for_dataOut}
@@ -13,7 +12,6 @@
 \alias{Get_Code_for_remoteReset}
 \alias{Get_Code_for_resetting_widgets}
 \alias{Get_Code_for_resetting_custom}
-\alias{Get_Code_for_newDataset}
 \alias{Module_Return_Func}
 \alias{AdditionnalCodeForExternalModules}
 \alias{Get_Workflow_Core_Code}
@@ -25,8 +23,6 @@ Get_Code_Update_Config_Variable()
 Get_Code_Declare_widgets(widgets.names = NULL)
 
 Get_Code_Declare_rv_custom(rv.custom.names = NULL)
-
-Get_Code_for_Initialize_History(widgets.names = NULL)
 
 Get_Code_for_ObserveEvent_widgets(widgets.names = NULL)
 
@@ -46,13 +42,6 @@ Get_Code_for_remoteReset(
 Get_Code_for_resetting_widgets()
 
 Get_Code_for_resetting_custom()
-
-Get_Code_for_newDataset(
-  widgets = TRUE,
-  custom = TRUE,
-  dataIn = "dataIn()",
-  addon = ""
-)
 
 Module_Return_Func()
 
@@ -96,11 +85,7 @@ NA
 
 NA
 
-NA
-
 A `string` containing some R code
-
-NA
 
 NA
 
@@ -149,9 +134,6 @@ second is the name of the widget
 This function xxx
 # Generate dynamically the observeEvent function for each widget
 
-This function xxx
-# Generate dynamically the observeEvent function for each widget
-
 This function createxxx
 
 Returned value of the process
@@ -163,14 +145,6 @@ xxx
 xxx
 
 xxx
-
-xxx
-
-This function xxx
-# Generate dynamically the observeEvent function for each widget
-
-This function xxx
-# Generate dynamically the observeEvent function for each widget
 
 This function xxx
 # Generate dynamically the observeEvent function for each widget

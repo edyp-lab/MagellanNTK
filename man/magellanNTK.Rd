@@ -47,7 +47,8 @@ used with '[[]]' to access items}
 
 \item{workflow.name}{xxxx}
 
-\item{verbose}{A `boolean(1)`}
+\item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
+the verbose mode for logs.}
 
 \item{usermod}{xxx}
 
