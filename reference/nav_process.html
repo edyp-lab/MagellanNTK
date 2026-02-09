@@ -59,9 +59,6 @@ This is the core module of MagellanNTK</p>
 <span>  status <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>     <span class="cn">NULL</span></span>
 <span> <span class="op">}</span><span class="op">)</span>,</span>
-<span>  history <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>     <span class="cn">NULL</span></span>
-<span> <span class="op">}</span><span class="op">)</span>,</span>
 <span>  is.enabled <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>     <span class="cn">TRUE</span></span>
 <span> <span class="op">}</span><span class="op">)</span>,</span>
@@ -101,14 +98,6 @@ It is the same as for the server() function.</p></dd>
 <dd><p>xxx</p></dd>
 
 
-<dt id="arg-history">history<a class="anchor" aria-label="anchor" href="#arg-history"></a></dt>
-<dd><p>A `data.frame` which contains the history of the dataset for
-the process of id `id`. If the value is NULL, that means the current process
-has not been executed on the dataset, otherwise that means that the process
-has already be run on the dataset. This parameter allows to update the
-timeline of the process</p></dd>
-
-
 <dt id="arg-is-enabled">is.enabled<a class="anchor" aria-label="anchor" href="#arg-is-enabled"></a></dt>
 <dd><p>A `boolean`. This variable is a remote command to specify
 if the corresponding module is enabled/disabled in the calling module of
@@ -134,7 +123,7 @@ Basically, it is the program which has called this module</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
-<dd><p>A boolean to indicate whether to turn off (FALSE) or ON (TRUE)
+<dd><p>A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 the verbose mode for logs.</p></dd>
 
 
@@ -146,6 +135,14 @@ the verbose mode for logs.</p></dd>
 
 <dt id="arg-btnevents">btnEvents<a class="anchor" aria-label="anchor" href="#arg-btnevents"></a></dt>
 <dd><p>xxxx</p></dd>
+
+
+<dt id="arg-history">history<a class="anchor" aria-label="anchor" href="#arg-history"></a></dt>
+<dd><p>A `data.frame` which contains the history of the dataset for
+the process of id `id`. If the value is NULL, that means the current process
+has not been executed on the dataset, otherwise that means that the process
+has already be run on the dataset. This parameter allows to update the
+timeline of the process</p></dd>
 
 </dl></div>
     <div class="section level2">

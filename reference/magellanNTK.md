@@ -62,7 +62,8 @@ MagellanNTK(
 
 - verbose:
 
-  A \`boolean(1)\`
+  A \`boolean\` to indicate whether to turn off (FALSE) or ON (TRUE) the
+  verbose mode for logs.
 
 - usermod:
 

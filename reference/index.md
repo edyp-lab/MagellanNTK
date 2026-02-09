@@ -134,7 +134,6 @@
 - [`Get_Code_Update_Config_Variable()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_Code_Declare_widgets()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_Code_Declare_rv_custom()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
-  [`Get_Code_for_Initialize_History()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_Code_for_ObserveEvent_widgets()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_Code_for_rv_reactiveValues()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_Code_for_dataOut()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
@@ -142,7 +141,6 @@
   [`Get_Code_for_remoteReset()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_Code_for_resetting_widgets()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_Code_for_resetting_custom()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
-  [`Get_Code_for_newDataset()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Module_Return_Func()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`AdditionnalCodeForExternalModules()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_Workflow_Core_Code()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
@@ -235,7 +233,7 @@
 - [`nav_single_process_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.md)
   [`nav_single_process_server()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.md)
   [`nav_single_process()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.md)
-  : The server() function of the module \`nav_single_process\`
+  : Shiny module \`nav_single_process()\`
 - [`navbarPageWithInputs()`](https://edyp-lab.github.io/MagellanNTK/reference/navbarPageWithInputs.md)
   : xxx
 - [`navbarPageWithText()`](https://edyp-lab.github.io/MagellanNTK/reference/navbarPageWithText.md)

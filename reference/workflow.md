@@ -69,7 +69,8 @@ proc_workflowApp(
 
 - verbose:
 
-  xxx
+  A \`boolean\` to indicate whether to turn off (FALSE) or ON (TRUE) the
+  verbose mode for logs.
 
 ## Value
 

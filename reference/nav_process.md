@@ -16,9 +16,6 @@ nav_process_server(
   status = reactive({
      NULL
  }),
-  history = reactive({
-     NULL
- }),
   is.enabled = reactive({
      TRUE
  }),
@@ -56,14 +53,6 @@ nav_process()
 
   xxx
 
-- history:
-
-  A \`data.frame\` which contains the history of the dataset for the
-  process of id \`id\`. If the value is NULL, that means the current
-  process has not been executed on the dataset, otherwise that means
-  that the process has already be run on the dataset. This parameter
-  allows to update the timeline of the process
-
 - is.enabled:
 
   A \`boolean\`. This variable is a remote command to specify if the
@@ -89,7 +78,7 @@ nav_process()
 
 - verbose:
 
-  A boolean to indicate whether to turn off (FALSE) or ON (TRUE) the
+  A \`boolean\` to indicate whether to turn off (FALSE) or ON (TRUE) the
   verbose mode for logs.
 
 - usermod:
@@ -100,6 +89,14 @@ nav_process()
 - btnEvents:
 
   xxxx
+
+- history:
+
+  A \`data.frame\` which contains the history of the dataset for the
+  process of id \`id\`. If the value is NULL, that means the current
+  process has not been executed on the dataset, otherwise that means
+  that the process has already be run on the dataset. This parameter
+  allows to update the timeline of the process
 
 ## Value
 

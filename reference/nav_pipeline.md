@@ -54,7 +54,8 @@ nav_pipeline()
 
 - verbose:
 
-  = FALSE,
+  A \`boolean\` to indicate whether to turn off (FALSE) or ON (TRUE) the
+  verbose mode for logs.
 
 - usermod:
 

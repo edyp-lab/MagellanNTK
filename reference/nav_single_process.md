@@ -1,4 +1,4 @@
-# The server() function of the module \`nav_single_process\`
+# Shiny module \`nav_single_process()\`
 
 The module navigation can be launched via a Shiny app. This is the core
 module of MagellanNTK
@@ -14,9 +14,6 @@ nav_single_process_server(
      NULL
  }),
   status = reactive({
-     NULL
- }),
-  history = reactive({
      NULL
  }),
   remoteResetUI = reactive({
@@ -49,10 +46,6 @@ nav_single_process()
 
   xxx
 
-- history:
-
-  xxx
-
 - remoteResetUI:
 
   xxx
@@ -67,7 +60,8 @@ nav_single_process()
 
 - verbose:
 
-  = FALSE,
+  A \`boolean\` to indicate whether to turn off (FALSE) or ON (TRUE) the
+  verbose mode for logs.
 
 - usermod:
 
@@ -76,6 +70,10 @@ nav_single_process()
 - btnEvents:
 
   xxxx
+
+- history:
+
+  xxx
 
 ## Value
 

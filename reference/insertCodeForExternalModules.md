@@ -25,9 +25,6 @@ second is the name of the widget
 This function xxx \# Generate dynamically the observeEvent function for
 each widget
 
-This function xxx \# Generate dynamically the observeEvent function for
-each widget
-
 This function createxxx
 
 Returned value of the process
@@ -39,14 +36,6 @@ xxx
 xxx
 
 xxx
-
-xxx
-
-This function xxx \# Generate dynamically the observeEvent function for
-each widget
-
-This function xxx \# Generate dynamically the observeEvent function for
-each widget
 
 This function xxx \# Generate dynamically the observeEvent function for
 each widget
@@ -62,8 +51,6 @@ Get_Code_Update_Config_Variable()
 Get_Code_Declare_widgets(widgets.names = NULL)
 
 Get_Code_Declare_rv_custom(rv.custom.names = NULL)
-
-Get_Code_for_Initialize_History(widgets.names = NULL)
 
 Get_Code_for_ObserveEvent_widgets(widgets.names = NULL)
 
@@ -83,13 +70,6 @@ Get_Code_for_remoteReset(
 Get_Code_for_resetting_widgets()
 
 Get_Code_for_resetting_custom()
-
-Get_Code_for_newDataset(
-  widgets = TRUE,
-  custom = TRUE,
-  dataIn = "dataIn()",
-  addon = ""
-)
 
 Module_Return_Func()
 
@@ -154,11 +134,7 @@ NA
 
 NA
 
-NA
-
 A \`string\` containing some R code
-
-NA
 
 NA
 

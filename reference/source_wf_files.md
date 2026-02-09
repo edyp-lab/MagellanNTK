@@ -16,7 +16,8 @@ source_wf_files(dirpath, verbose = FALSE)
 
 - verbose:
 
-  A boolean
+  A \`boolean\` to indicate whether to turn off (FALSE) or ON (TRUE) the
+  verbose mode for logs.
 
 ## Value
 
