@@ -50,8 +50,6 @@ the verbose mode for logs.}
 \item{usermod}{= 'user'}
 
 \item{btnEvents}{xxxx}
-
-\item{history}{xxx}
 }
 \value{
 A list of four items:

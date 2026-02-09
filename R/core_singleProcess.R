@@ -145,7 +145,8 @@ nav_single_process_server <- function(
       config = NULL,
       rstBtn = reactive({0}),
       btnEvents = reactive({NULL}),
-      doProceedAction = NULL
+      doProceedAction = NULL,
+      history = InitializeHistory()
     )
     
     
@@ -319,21 +320,18 @@ nav_single_process_server <- function(
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.do.Btns <- TRUE
       
-      if (len > 1){
-        
-      } else if (len == 1){
-        
-        if (('Description' == names(rv$steps.status)) ||
-            ('Save' == names(rv$steps.status))
-        ){
-          enable.do.Btns <- unname(rv$steps.status) != stepStatus$VALIDATED
-        }
+      if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
+        if (rv$current.pos > 1)
+          enable.do.Btns <- FALSE
+        else if (rv$current.pos == 1)
+          enable.do.Btns <- TRUE
+      } else {
+        if (rv$current.pos > 1)
+          enable.do.Btns <- TRUE
+        else if (rv$current.pos == 1)
+          enable.do.Btns <- FALSE
       }
       
-      
-      if (length(names(rv$steps.status)) == 1 && 'Save' == names(rv$steps.status)){
-        enable.do.Btns <- TRUE
-      }
       
       widget <- actionButton(ns("DoBtn"), "Run", style = btn_css_style)
       MagellanNTK::toggleWidget(widget, enable.do.Btns)
@@ -361,29 +359,24 @@ nav_single_process_server <- function(
         unname(rv$steps.status[len]) != stepStatus$SKIPPED && (!is.null(dataIn())) &&
         status() != stepStatus$SKIPPED
       
-      if (len > 1){
+      if (len > 1)
         enable.doProceed.Btns <- enable.doProceed.Btns && rv$current.pos != len
-      } else if (len == 1){
-        
-        if (('Description' == names(rv$steps.status)) ||
-            ('Save' == names(rv$steps.status))
-        ){
-          enable.doProceed.Btns <- unname(rv$steps.status) != stepStatus$VALIDATED
-        }
-      }
       
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.doProceed.Btns <- TRUE
       
       
-      
-      if (length(names(rv$steps.status)) == 1 && 
-          ('Save' == names(rv$steps.status) || 'Description' == names(rv$steps.status))
-      ){
-        enable.doProceed.Btns <- FALSE
+      if (unname(rv$steps.status['Description']) != stepStatus$VALIDATED){
+        if (rv$current.pos > 1)
+          enable.doProceed.Btns <- FALSE
+        else if (rv$current.pos == 1)
+          enable.doProceed.Btns <- TRUE
+      }else {
+        if (rv$current.pos > 1)
+          enable.doProceed.Btns <- TRUE
+        else if (rv$current.pos == 1)
+          enable.doProceed.Btns <- FALSE
       }
-      
-      
       
       MagellanNTK::toggleWidget(widget, enable.doProceed.Btns)
     })
@@ -507,7 +500,6 @@ nav_single_process_server <- function(
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
       
-      rv$history <- GetHistory(dataIn(), rv$proc.id)
       rv$steps.status <- setNames(
         rep(stepStatus$UNDONE, length(rv$steps.status)), 
         nm = names(rv$config@steps))
@@ -529,7 +521,7 @@ nav_single_process_server <- function(
         # Get the new dataset in a temporary variable
         rv$temp.dataIn <- keepAssay(dataIn(), length(dataIn()))
         names(rv$temp.dataIn)[1] <- 'Convert'
-        
+        DaparToolshed::paramshistory(rv$temp.dataIn[[1]]) <- MagellanNTK::InitializeHistory()
         rv$dataset2EDA <- rv$temp.dataIn
         
         rv$steps.status <- setNames(
@@ -841,8 +833,8 @@ nav_single_process <- function() {
   
   ui <- fluidPage(
     tagList(
-      uiOutput("UI"),
-      uiOutput("debugInfos_ui")
+      uiOutput("UI")
+      #,uiOutput("debugInfos_ui")
     )
   )
   
@@ -858,20 +850,20 @@ nav_single_process <- function() {
       nav_single_process_ui(proc.name)
     })
     
-    output$debugInfos_ui <- renderUI({
-      req(server_env$dev_mode)
-      Debug_Infos_server(
-        id = "debug_infos",
-        title = "Infos from shiny app",
-        rv.dataIn = reactive({
-          rv$dataIn
-        }),
-        dataOut = reactive({
-          rv$dataOut$dataOut()
-        })
-      )
-      Debug_Infos_ui("debug_infos")
-    })
+    # output$debugInfos_ui <- renderUI({
+    #   req(server_env$dev_mode)
+    #   Debug_Infos_server(
+    #     id = "debug_infos",
+    #     title = "Infos from shiny app",
+    #     rv.dataIn = reactive({
+    #       rv$dataIn
+    #     }),
+    #     dataOut = reactive({
+    #       rv$dataOut$dataOut()
+    #     })
+    #   )
+    #   Debug_Infos_ui("debug_infos")
+    # })
     
     
     

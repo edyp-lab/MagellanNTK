@@ -7,13 +7,13 @@
 ToggleState_ResetBtn(cond)
 }
 \arguments{
-\item{cond}{xxx}
+\item{cond}{A boolean: TRUE (enabled), FALSE (disabled)}
 }
 \value{
 NA
 }
 \description{
-xxx
+See `shinyjs::toggleState()`
 }
 \examples{
 NULL

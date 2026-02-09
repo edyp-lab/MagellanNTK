@@ -2,21 +2,32 @@
 % Please edit documentation in R/general_core_funcs.R
 \name{BuildData2Send}
 \alias{BuildData2Send}
-\title{xxx}
+\title{Builds a vector of data}
 \usage{
 BuildData2Send(dataIn, stepsNames)
 }
 \arguments{
-\item{dataIn}{An instance of the `QFeatures` class}
+\item{dataIn}{An instance of an object of type `list()`.}
 
-\item{stepsNames}{xxx}
+\item{stepsNames}{A vector in which items is the name of a step in the pipeline.}
 }
 \value{
-A vector of QF datasets
+A vector of the same length of the vector `stepsNames` in which each item
+is an object (the type of object used by the pipeline). This object must have the same
+behavior of a `list()`.
 }
 \description{
-xxx
+The names of the slots in dataIn are a subset of the names of the steps
+(names(stepsNames)). Each item is the result of a process and whe,n a process
+has been validated, it creates a new slot with its own name
 }
 \examples{
-NULL
+data(lldata)
+stepsNames <- c('data1', 'data2', 'data3')
+#BuildData2Send(lldata, stepsNames)
+
+
+stepsNames <- c('data1', 'data2', 'data3', 'data4', 'data5')
+#BuildData2Send(lldata, stepsNames)
+
 }

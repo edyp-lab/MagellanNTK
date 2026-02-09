@@ -489,8 +489,8 @@ mainapp_server <- function(id,
         },
         process = {
          
-          req(rv.core$process.name)
-          if (!is.null(rv.core$current.obj))
+          #req(rv.core$process.name)
+          #if (!is.null(rv.core$current.obj))
             
           rv.core$result_run_workflow <- nav_single_process_server(
             id = rv.core$workflow.name,

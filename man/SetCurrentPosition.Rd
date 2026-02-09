@@ -2,19 +2,27 @@
 % Please edit documentation in R/general_core_funcs.R
 \name{SetCurrentPosition}
 \alias{SetCurrentPosition}
-\title{xxx}
+\title{Get the position of the last validated item}
 \usage{
 SetCurrentPosition(stepsstatus)
 }
 \arguments{
-\item{stepsstatus}{xxx}
+\item{stepsstatus}{A vector of integers which reflects the status of the steps 
+in the pipeline. Thus, the length of this vector is euqal to the number of 
+steps}
 }
 \value{
-NA
+An integer
 }
 \description{
-xxx
+Get the position of the last validated item
 }
 \examples{
-NULL
+status <- c(1,1,1,0,0)
+SetCurrentPosition(status)
+
+
+status <- c(1,1,0,1, 0)
+SetCurrentPosition(status)
+
 }

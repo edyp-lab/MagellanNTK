@@ -421,7 +421,6 @@ nav_process_server <- function(
     # 2 - if the variable contains a dataset. xxx
     observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
-      #browser()
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
      
@@ -429,7 +428,6 @@ nav_process_server <- function(
       rv$steps.status <- setNames(
         rep(stepStatus$UNDONE, length(rv$steps.status)), 
         nm = names(rv$config@steps))
-
 
        rv$steps.status <- RefineProcessStatus(rv$history, rv$steps.status)
 
@@ -507,13 +505,11 @@ nav_process_server <- function(
           # this  workflow and will be used in case of
           # reset
           rv$dataIn <- rv$proc$dataOut()$value
-          #browser()
           # Update the 'dataOut' reactive value to return
           #  this dataset to the caller. this `nav_process`
           #  is only a bridge between the process and the  caller
           # For a pipeline, the output is updated each
           # time a process has been validated
-          #browser()
           dataOut$trigger <- Timestamp()
           dataOut$value <- rv$dataIn
         }
@@ -687,8 +683,6 @@ nav_process_server <- function(
       # The cursor is set to the first step
       rv$current.pos <- 1
       rv$history <- MagellanNTK::InitializeHistory()
-      
-        
     }
     
     observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {

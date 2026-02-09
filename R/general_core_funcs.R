@@ -387,17 +387,28 @@ keepAssay <- function (x, range)
 
 
 
-#' @title xxx
+#' @title Builds a vector of data
 #'
-#' @description xxx
+#' @description The names of the slots in dataIn are a subset of the names of the steps
+#' (names(stepsNames)). Each item is the result of a process and whe,n a process
+#' has been validated, it creates a new slot with its own name
 #'
-#' @param dataIn An instance of the `QFeatures` class
-#' @param stepsNames xxx
+#' @param dataIn An instance of an object of type `list()`.
+#' @param stepsNames A vector in which items is the name of a step in the pipeline.
 
-#' @return A vector of QF datasets
+#' @return A vector of the same length of the vector `stepsNames` in which each item
+#' is an object (the type of object used by the pipeline). This object must have the same
+#' behavior of a `list()`.
 #'
 #' @examples
-#' NULL
+#' data(lldata)
+#' stepsNames <- c('data1', 'data2', 'data3')
+#' #BuildData2Send(lldata, stepsNames)
+#' 
+#' 
+#' stepsNames <- c('data1', 'data2', 'data3', 'data4', 'data5')
+#' #BuildData2Send(lldata, stepsNames)
+#' 
 #' @export
 #'
 BuildData2Send <- function(dataIn, stepsNames){
@@ -423,15 +434,21 @@ BuildData2Send <- function(dataIn, stepsNames){
 }
 
 
-#' @title xxx
+#' @title Get the position of the last validated item
 #'
-#' @description xxx
-#'
-#' @param stepsstatus xxx
-#' @return NA
+#' @param stepsstatus A vector of integers which reflects the status of the steps 
+#' in the pipeline. Thus, the length of this vector is euqal to the number of 
+#' steps
+#' @return An integer
 #'
 #' @examples
-#' NULL
+#' status <- c(1,1,1,0,0)
+#' SetCurrentPosition(status)
+#' 
+#' 
+#' status <- c(1,1,0,1, 0)
+#' SetCurrentPosition(status)
+#' 
 #' @export
 #'
 SetCurrentPosition <- function(stepsstatus){
@@ -443,6 +460,8 @@ SetCurrentPosition <- function(stepsstatus){
     position <- ind.last.validated
   return(position)
 }
+
+
 
 #' @title xxx
 #'
@@ -553,9 +572,9 @@ ToggleState_NavBtns <- function(current.pos, nSteps) {
 
 #' @title xxx
 #'
-#' @description xxx
+#' @description See `shinyjs::toggleState()`
 #'
-#' @param cond xxx
+#' @param cond A boolean: TRUE (enabled), FALSE (disabled)
 #'
 #' @return NA
 #'
