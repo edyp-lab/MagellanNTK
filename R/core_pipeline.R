@@ -293,7 +293,7 @@ nav_pipeline_server <- function(
         )
       )
       
-    
+
       do.call(
         eval(parse(text = paste0(session$userData$funcs$history_dataset, "_server"))),
         list(
@@ -326,7 +326,7 @@ nav_pipeline_server <- function(
               )
             ),
             shiny::tabPanel(
-              style = "overflow-y: auto; height: 80vh;",
+              style = "overflow-y: auto; ",
               title = h3("History", style = "margin-right: 30px;"), 
               do.call(
                 eval(parse(text = paste0(session$userData$funcs$history_dataset, "_ui"))),

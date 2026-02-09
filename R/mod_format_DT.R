@@ -72,25 +72,15 @@ format_DT_ui <- function(id) {
 #' @rdname format_DT
 format_DT_server <- function(
         id,
-        dataIn = reactive({
-            NULL
-        }),
-        hidden = reactive({
-            NULL
-        }),
+        dataIn = reactive({NULL}),
+        hidden = reactive({NULL}),
         withDLBtns = FALSE,
         showRownames = FALSE,
         dom = "Bt",
         max.rows = 20,
-        hc_style = reactive({
-            NULL
-        }),
-        remoteReset = reactive({
-            0
-        }),
-        is.enabled = reactive({
-            TRUE
-        })) {
+        hc_style = reactive({NULL}),
+        remoteReset = reactive({0}),
+        is.enabled = reactive({TRUE})) {
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
@@ -123,17 +113,6 @@ format_DT_server <- function(
 
 
         GetColumnDefs <- reactive({
-            # .jscode <- DT::JS("$.fn.dataTable.render.ellipsis( 60 )")
-
-            # if (!is.null(hidden())) {
-            #    tgt.seq <- seq.int(from = ncol(obj()), to = ncol(obj()) + ncol(hidden()) -1)
-            #   list(
-            #     list(targets = '_all', className = "dt-center", render = .jscode)
-            #     ,list(targets = tgt.seq, visible = FALSE)
-            #   )
-            # } else {
-            #   list(list(targets = '_all', className = "dt-center", render = .jscode))
-            # }
 
             if (!is.null(hidden())) {
                 tgt.seq <- seq.int(from = ncol(dataIn()), to = ncol(dataIn()) + ncol(hidden()) - 1)
@@ -153,20 +132,17 @@ format_DT_server <- function(
             dt <- DT::datatable(
                 rv.infos$obj,
                 escape = FALSE,
-                extensions = c("Scroller"),
-                rownames = showRownames,
-                plugins = "ellipsis",
-                options = list(
-                    initComplete = initComplete(),
-                    dom = dom,
-                    autoWidth = TRUE,
-                    columnDefs = GetColumnDefs(),
-                    deferRender = TRUE,
-                    bLengthChange = TRUE,
-                    lengthChange = TRUE,
-                    paging = TRUE,
-                    pageLength = max.rows
-                )
+                #extensions = c("Scroller"),
+                 rownames = showRownames,
+                 plugins = "ellipsis",
+                 options = list(
+                     initComplete = initComplete(),
+                     dom = dom,
+                     columnDefs = GetColumnDefs(),
+                   scrollY = TRUE, 
+                   height = '100%',
+                   paging = FALSE
+                 )
             )
 
 
