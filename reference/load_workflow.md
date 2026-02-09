@@ -20,7 +20,7 @@ mod_load_workflow_server(
 
 - id:
 
-  xxx
+  A \`character()\` as the id of the Shiny module
 
 - path:
 

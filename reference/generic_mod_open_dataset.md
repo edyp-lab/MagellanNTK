@@ -27,7 +27,7 @@ open_dataset(class = NULL, extension = NULL, demo_package = NULL)
 
 - id:
 
-  xxx
+  A \`character()\` as the id of the Shiny module
 
 - class:
 

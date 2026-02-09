@@ -16,7 +16,7 @@ pkgs.require(ll.deps)
 
 - ll.deps:
 
-  A \`character()\` vector which contains packages names
+  A vector of \`character()\` which contains packages names
 
 ## Value
 

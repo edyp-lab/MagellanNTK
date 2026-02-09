@@ -13,7 +13,7 @@ navbarPageWithInputs(..., inputs)
 
 - ...:
 
-  xxx
+  Additional parameters
 
 - inputs:
 

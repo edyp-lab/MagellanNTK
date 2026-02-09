@@ -16,7 +16,7 @@ errorModal(msg)
 
 - id:
 
-  internal
+  A \`character()\` as the id of the Shiny module
 
 - msg:
 

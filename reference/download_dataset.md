@@ -23,7 +23,7 @@ download_dataset(data, filename = "myDataset")
 
 - id:
 
-  internal
+  A \`character()\` as the id of the Shiny module
 
 - dataIn:
 

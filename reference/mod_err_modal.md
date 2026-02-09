@@ -21,7 +21,7 @@ mod_errorModal(title = NULL, text = NULL)
 
 - id:
 
-  xxx
+  A \`character()\` as the id of the Shiny module
 
 - title:
 

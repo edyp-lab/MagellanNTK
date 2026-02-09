@@ -32,7 +32,7 @@ mainapp(usermod = "user")
 
 - id:
 
-  shiny id
+  A \`character()\` as the id of the Shiny module
 
 - session:
 

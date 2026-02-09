@@ -16,15 +16,15 @@ shinyInput(FUN, id, num, ...)
 
 - id:
 
-  xxx
+  A \`character()\` as the id of the Shiny module
 
 - num:
 
-  xxx
+  The number of widgets
 
 - ...:
 
-  xxx
+  Additional parameters
 
 ## Value
 

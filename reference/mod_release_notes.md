@@ -16,7 +16,7 @@ release_notes(URL_releaseNotes)
 
 - id:
 
-  shiny id
+  A \`character()\` as the id of the Shiny module
 
 - URL_releaseNotes:
 

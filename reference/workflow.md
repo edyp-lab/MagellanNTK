@@ -53,7 +53,7 @@ proc_workflowApp(
 
 - id:
 
-  xxx
+  A \`character()\` as the id of the Shiny module
 
 - path:
 

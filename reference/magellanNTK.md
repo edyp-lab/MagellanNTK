@@ -40,7 +40,7 @@ MagellanNTK(
 
 - id:
 
-  xxx
+  A \`character()\` as the id of the Shiny module
 
 - sidebarSize:
 
@@ -74,7 +74,7 @@ MagellanNTK(
 
 - ...:
 
-  xxx
+  Additional parameters
 
 ## Value
 

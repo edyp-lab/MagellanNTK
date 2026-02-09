@@ -16,7 +16,7 @@ mod_launch_magellan()
 
 - id:
 
-  xxx
+  A \`character()\` as the id of the Shiny module
 
 ## Value
 

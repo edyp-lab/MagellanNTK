@@ -16,7 +16,7 @@ popover_for_help(title, content)
 
 - id:
 
-  shiny id
+  A \`character()\` as the id of the Shiny module
 
 - title:
 

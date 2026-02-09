@@ -18,7 +18,7 @@ timeline_pipeline_server(id, config, status, position, enabled)
 
 - id:
 
-  xxx
+  A \`character()\` as the id of the Shiny module
 
 - config:
 

@@ -13,7 +13,7 @@ navbarPageWithText(..., text)
 
 - ...:
 
-  xxx
+  Additional parameters
 
 - text:
 

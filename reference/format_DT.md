@@ -46,7 +46,7 @@ format_DT(
 
 - id:
 
-  shiny id
+  A \`character()\` as the id of the Shiny module
 
 - dataIn:
 

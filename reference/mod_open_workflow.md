@@ -16,7 +16,7 @@ open_workflow()
 
 - id:
 
-  xxx
+  A \`character()\` as the id of the Shiny module
 
 ## Value
 

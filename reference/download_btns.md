@@ -28,7 +28,7 @@ download_btns(dataIn)
 
 - id:
 
-  internal
+  A \`character()\` as the id of the Shiny module
 
 - settings:
 

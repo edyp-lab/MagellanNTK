@@ -47,7 +47,7 @@ Debug_Infos(obj)
 
 - id:
 
-  xxx
+  A \`character()\` as the id of the Shiny module
 
 - title:
 

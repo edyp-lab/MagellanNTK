@@ -12,7 +12,7 @@ Found_Mod_Funcs(id)
 
 - id:
 
-  xxx
+  A \`character()\` as the id of the Shiny module
 
 ## Value
 
