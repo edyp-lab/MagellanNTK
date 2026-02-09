@@ -7,7 +7,7 @@
 - [`All_Skipped_tag()`](https://edyp-lab.github.io/MagellanNTK/reference/All_Skipped_tag.md)
   : xxx
 - [`BuildData2Send()`](https://edyp-lab.github.io/MagellanNTK/reference/BuildData2Send.md)
-  : xxx
+  : Builds a vector of data
 - [`CheckProcessCode()`](https://edyp-lab.github.io/MagellanNTK/reference/CheckProcessCode.md)
   : Check source code of a module process
 - [`CheckWorkflowDir()`](https://edyp-lab.github.io/MagellanNTK/reference/CheckWorkflowDir.md)
@@ -54,7 +54,7 @@
   [`Save_Dataset()`](https://edyp-lab.github.io/MagellanNTK/reference/Save_Dataset.md)
   : Load dataset shiny module
 - [`SetCurrentPosition()`](https://edyp-lab.github.io/MagellanNTK/reference/SetCurrentPosition.md)
-  : xxx
+  : Get the position of the last validated item
 - [`Timestamp()`](https://edyp-lab.github.io/MagellanNTK/reference/Timestamp.md)
   : Timestamp in UNIX format.
 - [`ToggleState_NavBtns()`](https://edyp-lab.github.io/MagellanNTK/reference/ToggleState_NavBtns.md)

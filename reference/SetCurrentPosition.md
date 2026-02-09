@@ -1,6 +1,6 @@
-# xxx
+# Get the position of the last validated item
 
-xxx
+Get the position of the last validated item
 
 ## Usage
 
@@ -12,15 +12,23 @@ SetCurrentPosition(stepsstatus)
 
 - stepsstatus:
 
-  xxx
+  A vector of integers which reflects the status of the steps in the
+  pipeline. Thus, the length of this vector is euqal to the number of
+  steps
 
 ## Value
 
-NA
+An integer
 
 ## Examples
 
 ``` r
-NULL
-#> NULL
+status <- c(1,1,1,0,0)
+SetCurrentPosition(status)
+#> [1] 3
+
+
+status <- c(1,1,0,1, 0)
+SetCurrentPosition(status)
+#> [1] 4
 ```

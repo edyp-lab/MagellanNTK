@@ -71,10 +71,6 @@ nav_single_process()
 
   xxxx
 
-- history:
-
-  xxx
-
 ## Value
 
 A list of four items: \* dataOut A dataset of the same class of the

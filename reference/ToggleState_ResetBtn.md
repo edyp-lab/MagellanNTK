@@ -1,6 +1,6 @@
 # xxx
 
-xxx
+See \`shinyjs::toggleState()\`
 
 ## Usage
 
@@ -12,7 +12,7 @@ ToggleState_ResetBtn(cond)
 
 - cond:
 
-  xxx
+  A boolean: TRUE (enabled), FALSE (disabled)
 
 ## Value
 
