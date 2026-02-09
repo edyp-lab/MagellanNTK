@@ -726,13 +726,6 @@ nav_process_server <- function(
       rv$current.pos <- 1
       rv$history <- MagellanNTK::InitializeHistory()
       
-      browser()
-      if (proc.name == names(rv$dataIn)[length(rv$dataIn)]){
-        #That means that the process has already been executed and
-        #one miuste delete the last assay
-        rv$dataIn <- QFeatures::removeAssay(rv$dataIn, length(rv$dataIn))
-        rv$temp.dataIn <- rv$dataIn
-      }
         
     }
     
@@ -740,6 +733,17 @@ nav_process_server <- function(
       req(rv$config)
       rv$dataIn <- rv$temp.dataIn <- dataIn()
       ResetProcess()
+      
+      
+      # browser()
+      # proc.name <- unlist(strsplit(id, '_'))[2]
+      # if (proc.name == names(rv$dataIn)[length(rv$dataIn)]){
+      #   #That means that the process has already been executed and
+      #   #one miuste delete the last assay
+      #   rv$dataIn <- QFeatures::removeAssay(rv$dataIn, length(rv$dataIn))
+      #   rv$temp.dataIn <- rv$dataIn
+      # }
+      
       # Return the NULL value as dataset
       #browser()
         dataOut$trigger <- Timestamp()

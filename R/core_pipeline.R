@@ -535,50 +535,45 @@ nav_pipeline_server <- function(
     # Catch the returned values of the processes attached to pipeline
     observeEvent(GetValuesFromChildren()$triggers, ignoreInit = TRUE, {
       
-      processHasChanged <- newValue <- NULL
-      len <- length(rv$steps.status)
-      
-    
       triggerValues <- GetValuesFromChildren()$triggers
       return.values <- GetValuesFromChildren()$values
- 
+      
+      processHasChanged <- newValue <- NULL
+      len <- length(rv$steps.status)
+
       if (sum(is.na(triggerValues)) == length(triggerValues) || is.null(return.values)){
         # Initialisation
-        
         rv$current.pos <- SetCurrentPosition(rv$steps.status)
       } else {   
-        
+        # Computes the Indice of the dataset in the object
+        # If the original length is not 1, then this indice is different
+        # than the above one
         .cd <- max(triggerValues, na.rm = TRUE) == triggerValues
         processHasChanged <- GetStepsNames()[which(.cd)]
+        ind.processHasChanged <- which(names(rv$config@steps) == processHasChanged)
         
         # Get the new value
         newValue <- tmp.return[[processHasChanged]]$dataOut()$value
         
-        # Indice of the dataset in the object
-        # If the original length is not 1, then this indice is different
-        # than the above one
-        ind.processHasChanged <- which(names(rv$config@steps) == processHasChanged)
         if (is.null(newValue)){
           
         } else if (is.numeric(newValue) && newValue == -10){
           # A process has been reseted
+          # if (ind.processHasChanged == 1) {
+          #   # The first process ('Description') has been reseted
+          #   
+          #   } else {
+
           lastValidated <- GetMaxValidated_BeforePos(pos = ind.processHasChanged, rv = rv)
+          #browser()
           
-          # If no process has been validated yet
-          if (is.null(lastValidated))
-            lastValidated <- 0
+          if (is.null(lastValidated)) # The first process has been reseted
+            lastValidated <- 1
           
-          # # A process has been reseted (it has returned a -10 value)
           # One take the last validated step (before the one
           # corresponding to processHasChanges
           # but it is straightforward because we just updates rv$status
-          
           rv$steps.status[(lastValidated + 1):len] <- stepStatus$UNDONE
-          
-          # All the following processes (after the one which has changed) are disabled
-          #rv$steps.enabled[(lastValidated + 1):len] <- FALSE
-          #rv$steps.status <- UpdateStepsStatus(dataIn(), rv$config)
-          
           
           # The process that has been rested is enabled again
           rv$steps.enabled[ind.processHasChanged] <- TRUE
@@ -589,16 +584,14 @@ nav_pipeline_server <- function(
           rv$current.pos <- which(.cd)
           
           # Update the datasend Vector
-          lapply((lastValidated + 1):len, function(x){
-            rv$child.data2send[[x]] <- rv$child.data2send[[lastValidated + 1]]
+          lapply((lastValidated):len, function(x){
+            rv$child.data2send[[x]] <- rv$child.data2send[[lastValidated]]
           })
 
           
         } else {# A process has been validated
           
-         
-          
-          rv$steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
+         rv$steps.status[ind.processHasChanged] <- stepStatus$VALIDATED
           
           if (ind.processHasChanged < len) {
             rv$steps.status[(1 + ind.processHasChanged):len] <- stepStatus$UNDONE
