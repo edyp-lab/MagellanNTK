@@ -69,6 +69,8 @@
   : xxx
 - [`call.func()`](https://edyp-lab.github.io/MagellanNTK/reference/call.func.md)
   : Call function
+- [`catchToList()`](https://edyp-lab.github.io/MagellanNTK/reference/catchToList.md)
+  : xxx
 - [`` `%AND%` ``](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
   [`is.Windows()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
   [`is.Linux()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
