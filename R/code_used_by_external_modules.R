@@ -17,7 +17,7 @@
 #' @param rv.custom.names xxx
 #' @param widgets xxx
 #' @param custom xxx
-#' @param dataIn xxx
+#' @param dataIn An instance of the `QFeatures` or `SummarizedExperiment` classes
 #' @param addon xxx
 #'
 #' @author Samuel Wieczorek

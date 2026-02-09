@@ -77,7 +77,7 @@ steps of the module.}
 
 \item{custom}{xxx}
 
-\item{dataIn}{xxx}
+\item{dataIn}{An instance of the `QFeatures` or `SummarizedExperiment` classes}
 
 \item{addon}{xxx}
 

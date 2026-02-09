@@ -10,7 +10,7 @@
 #' @param title The title of the Panel which contains the debugging tables
 #' @param config An instance of the class `Config`
 #' @param rv.dataIn xxx
-#' @param dataIn A `list()` of data.frames
+#' @param dataIn A `list()` of data.frame like items
 #' @param dataOut A `list()` of data.frames
 #' @param steps.enabled A `logical()` xxxx
 #' @param steps.status A `logical()` xxxx

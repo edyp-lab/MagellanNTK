@@ -7,9 +7,9 @@
 UpdateStepsStatus(dataIn, config)
 }
 \arguments{
-\item{dataIn}{xxx}
+\item{dataIn}{An instance of the `SummarizedExperiment` class}
 
-\item{config}{xxx}
+\item{config}{An instance of the `Config` class}
 }
 \value{
 A vector of boolean

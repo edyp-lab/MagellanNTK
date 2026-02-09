@@ -5,9 +5,9 @@
 #' @description This function returns the indice of the last validated step before
 #' the current step.
 #'
-#' @param dataIn xxx
-#' @param x xxxx
-#' @return A `integer(1)`
+#' @param dataIn An instance of the `SummarizedExperiment` class
+#' @param x A `character` which is the name of an assay in the dataIn
+#' @return A `data.frame()`
 #'
 #' @export
 #' @examples
@@ -342,8 +342,8 @@ GetFirstMandatoryNotValidated <- function(range, rv) {
 #'
 #' @description xxx
 #'
-#' @param dataIn xxx
-#' @param config xxx
+#' @param dataIn An instance of the `SummarizedExperiment` class
+#' @param config An instance of the `Config` class
 #' @return A vector of boolean
 #'
 #' @examples
@@ -391,7 +391,7 @@ keepAssay <- function (x, range)
 #'
 #' @description xxx
 #'
-#' @param dataIn xxx
+#' @param dataIn An instance of the `QFeatures` class
 #' @param stepsNames xxx
 
 #' @return A vector of QF datasets

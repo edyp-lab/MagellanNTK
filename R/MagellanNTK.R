@@ -2,7 +2,8 @@
 #' @description xxx
 #'
 #' @param id xxx
-#' @param dataIn xxx
+#' @param dataIn A `list()` of data.frame like items. This parameter must be
+#' used with '[[]]' to access items
 #' @param workflow.path xxx
 #' @param workflow.name xxxx
 #' @param verbose A `boolean(1)`

@@ -37,7 +37,7 @@ nav_single_process()
 \item{id}{A `character(1)` which defines the id of the module.
 It is the same as for the server() function.}
 
-\item{dataIn}{The dataset}
+\item{dataIn}{An instance of the `SummarizedExperiment` class}
 
 \item{status}{xxx}
 

@@ -7,7 +7,7 @@
 BuildData2Send(dataIn, stepsNames)
 }
 \arguments{
-\item{dataIn}{xxx}
+\item{dataIn}{An instance of the `QFeatures` class}
 
 \item{stepsNames}{xxx}
 }

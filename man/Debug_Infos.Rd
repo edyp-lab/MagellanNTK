@@ -51,7 +51,7 @@ Debug_Infos(obj)
 
 \item{rv.dataIn}{xxx}
 
-\item{dataIn}{A `list()` of data.frames}
+\item{dataIn}{A `list()` of data.frame like items}
 
 \item{dataOut}{A `list()` of data.frames}
 

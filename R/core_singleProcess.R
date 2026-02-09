@@ -6,7 +6,7 @@
 #' @param id A `character(1)` which defines the id of the module. It is the same
 #' as for the ui() function.
 #'
-#' @param dataIn The dataset
+#' @param dataIn An instance of the `SummarizedExperiment` class
 #' @param is.skipped is.skipped xxx
 #' @param is.enabled xxxx
 #'

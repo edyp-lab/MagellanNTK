@@ -7,12 +7,12 @@
 GetHistory(dataIn, x)
 }
 \arguments{
-\item{dataIn}{xxx}
+\item{dataIn}{An instance of the `SummarizedExperiment` class}
 
-\item{x}{xxxx}
+\item{x}{A `character` which is the name of an assay in the dataIn}
 }
 \value{
-A `integer(1)`
+A `data.frame()`
 }
 \description{
 This function returns the indice of the last validated step before

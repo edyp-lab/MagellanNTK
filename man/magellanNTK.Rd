@@ -40,7 +40,8 @@ MagellanNTK(
 
 \item{sidebarSize}{The width of the sidebar. Available values are 'small', 'medium', 'large'}
 
-\item{dataIn}{xxx}
+\item{dataIn}{A `list()` of data.frame like items. This parameter must be
+used with '[[]]' to access items}
 
 \item{workflow.path}{xxx}
 

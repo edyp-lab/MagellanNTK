@@ -61,23 +61,16 @@ Collate:
     mod_sweetAlert.R
     mod_open_workflow.R
     directoryInput.R
-    mod_build_report.R
-    mod_chooseDir.R
     mod_launch_magellan.R
     mod_observe_dynamic_colourPicker_input.R
-    catch2List.R
     mod_errorModal.R
-    rclip.R
     default_variables.R
     write_excel.R
     mod_download_dataset.R
-    mod_mdEditor.R
-    mod_dyn_widgets.R
     config_class.R
     doc-data.R
     sidebar.R
     mod_load_workflow.R
-    load_code.R
     utils.R
     check_funcs.R
     code_used_by_external_modules.R
@@ -87,10 +80,8 @@ Collate:
     core_process.R
     core_singleProcess.R
     core_pipeline.R
-    launch_app.R
     Save_dataset.R
     general_core_funcs.R
-    load_save.R
     run_workflow.R
     mod_modalDialog.R
     mod_format_DT.R
@@ -103,7 +94,6 @@ Collate:
     mod_export_dataset.R
     globals.R
     mod_error_modal.R
-    mod_bug_report.R
     mod_load_package.R
     mod_download_btns.R
     mod_navbar_menu.R
