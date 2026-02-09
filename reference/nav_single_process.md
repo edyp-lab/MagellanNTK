@@ -43,7 +43,7 @@ nav_single_process()
 
 - dataIn:
 
-  The dataset
+  An instance of the \`SummarizedExperiment\` class
 
 - status:
 

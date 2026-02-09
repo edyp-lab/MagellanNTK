@@ -23,10 +23,6 @@
   : Module debugging
 - [`Discover_Skipped_Steps()`](https://edyp-lab.github.io/MagellanNTK/reference/Discover_Skipped_Steps.md)
   : xxx
-- [`dyn_widgets_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/DynamicWidgets.md)
-  [`dyn_widgets_server()`](https://edyp-lab.github.io/MagellanNTK/reference/DynamicWidgets.md)
-  [`dyn_widgets()`](https://edyp-lab.github.io/MagellanNTK/reference/DynamicWidgets.md)
-  : Create dynamic widgets
 - [`FindClosingParenthesis()`](https://edyp-lab.github.io/MagellanNTK/reference/FindClosingParenthesis.md)
   : xxx
 - [`Found_Mod_Funcs()`](https://edyp-lab.github.io/MagellanNTK/reference/Found_Mod_Funcs.md)
@@ -51,16 +47,12 @@
   : Get the last validated step before current position.
 - [`Insert_Call_to_Config()`](https://edyp-lab.github.io/MagellanNTK/reference/Insert_Call_to_Config.md)
   : xxx
-- [`LoadCode()`](https://edyp-lab.github.io/MagellanNTK/reference/LoadCode.md)
-  : Load workflows functions
 - [`NavPage()`](https://edyp-lab.github.io/MagellanNTK/reference/NavPage.md)
   : xxx
 - [`Save_Dataset_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/Save_Dataset.md)
   [`Save_Dataset_server()`](https://edyp-lab.github.io/MagellanNTK/reference/Save_Dataset.md)
   [`Save_Dataset()`](https://edyp-lab.github.io/MagellanNTK/reference/Save_Dataset.md)
   : Load dataset shiny module
-- [`Save_Object()`](https://edyp-lab.github.io/MagellanNTK/reference/Save_Object.md)
-  : Save an R object.
 - [`SetCurrentPosition()`](https://edyp-lab.github.io/MagellanNTK/reference/SetCurrentPosition.md)
   : xxx
 - [`Timestamp()`](https://edyp-lab.github.io/MagellanNTK/reference/Timestamp.md)
@@ -75,16 +67,8 @@
   : xxx
 - [`Update_State_Screens()`](https://edyp-lab.github.io/MagellanNTK/reference/Update_State_Screens.md)
   : xxx
-- [`Upload_Object()`](https://edyp-lab.github.io/MagellanNTK/reference/Upload_Object.md)
-  : xxx
-- [`build_report_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/build_report.md)
-  [`build_report_server()`](https://edyp-lab.github.io/MagellanNTK/reference/build_report.md)
-  [`build_report()`](https://edyp-lab.github.io/MagellanNTK/reference/build_report.md)
-  : dl
 - [`call.func()`](https://edyp-lab.github.io/MagellanNTK/reference/call.func.md)
   : Call function
-- [`catchToList()`](https://edyp-lab.github.io/MagellanNTK/reference/catchToList.md)
-  : xxx
 - [`` `%AND%` ``](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
   [`is.Windows()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
   [`is.Linux()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
@@ -95,12 +79,6 @@
   [`choose.dir.linux()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
   [`choose.dir.windows()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
   : Choose a Folder Interactively
-- [`chooseDir_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.md)
-  [`chooseDir_server()`](https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.md)
-  [`chooseDir()`](https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.md)
-  : Module choose directory
-- [`clipboard()`](https://edyp-lab.github.io/MagellanNTK/reference/clipboard.md)
-  : xxx
 - [`dataModal()`](https://edyp-lab.github.io/MagellanNTK/reference/dataModal.md)
   : xxx
 - [`addDatasets()`](https://edyp-lab.github.io/MagellanNTK/reference/dataset-processing.md)
@@ -181,8 +159,6 @@
   : xxx
 - [`launchGA()`](https://edyp-lab.github.io/MagellanNTK/reference/launchGA.md)
   : xxx
-- [`launch_app()`](https://edyp-lab.github.io/MagellanNTK/reference/launch_app.md)
-  : xxxx
 - [`mod_load_workflow_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/load_workflow.md)
   [`mod_load_workflow_server()`](https://edyp-lab.github.io/MagellanNTK/reference/load_workflow.md)
   : Load dataset shiny module
@@ -190,14 +166,6 @@
   [`MagellanNTK_server()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)
   [`MagellanNTK()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)
   : Main Shiny application
-- [`mdEditor_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mdEditor.md)
-  [`mdEditor_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mdEditor.md)
-  [`mdEditor()`](https://edyp-lab.github.io/MagellanNTK/reference/mdEditor.md)
-  : Markdown editor module
-- [`mod_bug_report_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_bug_report.md)
-  [`mod_bug_report_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_bug_report.md)
-  [`bug_report()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_bug_report.md)
-  : mod_bug_report_ui and mod_bug_report_server
 - [`convert_dataset_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_convert_dataset.md)
   [`convert_dataset_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_convert_dataset.md)
   [`convert_dataset()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_convert_dataset.md)
@@ -278,10 +246,6 @@
   [`process_layout_process()`](https://edyp-lab.github.io/MagellanNTK/reference/process_layout.md)
   [`process_layout_pipeline()`](https://edyp-lab.github.io/MagellanNTK/reference/process_layout.md)
   : Timelines
-- [`pull_fifo()`](https://edyp-lab.github.io/MagellanNTK/reference/pull_fifo.md)
-  : Get item in a FIFO
-- [`push_fifo()`](https://edyp-lab.github.io/MagellanNTK/reference/push_fifo.md)
-  : Push item in a FIFO
 - [`readConfigFile()`](https://edyp-lab.github.io/MagellanNTK/reference/readConfigFile.md)
   : Read pipelines configuration files
 - [`readDirectoryInput()`](https://edyp-lab.github.io/MagellanNTK/reference/readDirectoryInput.md)

@@ -13,15 +13,15 @@ GetHistory(dataIn, x)
 
 - dataIn:
 
-  xxx
+  An instance of the \`SummarizedExperiment\` class
 
 - x:
 
-  xxxx
+  A \`character\` which is the name of an assay in the dataIn
 
 ## Value
 
-A \`integer(1)\`
+A \`data.frame()\`
 
 ## Examples
 

@@ -63,7 +63,7 @@ Debug_Infos(obj)
 
 - dataIn:
 
-  A \`list()\` of data.frames
+  A \`list()\` of data.frame like items
 
 - dataOut:
 

@@ -126,7 +126,7 @@ Get_AdditionalModule_Core_Code(w.names = NULL, rv.custom.names = NULL)
 
 - dataIn:
 
-  xxx
+  An instance of the \`QFeatures\` or \`SummarizedExperiment\` classes
 
 - addon:
 

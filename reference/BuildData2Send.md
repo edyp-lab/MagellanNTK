@@ -12,7 +12,7 @@ BuildData2Send(dataIn, stepsNames)
 
 - dataIn:
 
-  xxx
+  An instance of the \`QFeatures\` class
 
 - stepsNames:
 

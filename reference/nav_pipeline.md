@@ -35,7 +35,7 @@ nav_pipeline()
 
 - dataIn:
 
-  The dataset
+  An instance of the \`QFeatures\` class
 
 - is.enabled:
 

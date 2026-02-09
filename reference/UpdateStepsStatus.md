@@ -12,11 +12,11 @@ UpdateStepsStatus(dataIn, config)
 
 - dataIn:
 
-  xxx
+  An instance of the \`SummarizedExperiment\` class
 
 - config:
 
-  xxx
+  An instance of the \`Config\` class
 
 ## Value
 

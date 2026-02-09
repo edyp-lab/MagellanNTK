@@ -49,7 +49,8 @@ MagellanNTK(
 
 - dataIn:
 
-  xxx
+  A \`list()\` of data.frame like items. This parameter must be used
+  with '\[\[\]\]' to access items
 
 - workflow.path:
 
