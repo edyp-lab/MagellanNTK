@@ -477,7 +477,7 @@ mainapp_server <- function(id,
 
     observe({
       req(session$userData$wf_mode)
-      browser()
+
       # This if-loop prevents to catch the returned value of the Convert process
       # because is ti managed as a single_process and its value is directly
       # connected to the input of the whole pipeline server
