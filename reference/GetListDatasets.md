@@ -1,6 +1,6 @@
-# Get filtered datasets
+# Get datasets from packages which owns datasets of a given class
 
-Get filtered datasets
+Get datasets from packages which owns datasets of a given class
 
 ## Usage
 
@@ -12,15 +12,16 @@ GetListDatasets(class = NULL, demo_package = NULL)
 
 - class:
 
-  xxx
+  A \`character()\` which is the class of the datasets one looking for
 
 - demo_package:
 
-  xxx
+  A \`character()\` which specifies a particular package to search
 
 ## Value
 
-NA
+A \`vector\` in which items are the name of datasets which inherits the
+class given in parameter
 
 ## Examples
 

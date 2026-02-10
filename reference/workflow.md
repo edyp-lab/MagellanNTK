@@ -57,7 +57,8 @@ proc_workflowApp(
 
 - path:
 
-  xxx
+  A \`character()\` which is the path to the directory which contains
+  the files and directories of the pipeline.
 
 - dataIn:
 
@@ -65,7 +66,8 @@ proc_workflowApp(
 
 - usermod:
 
-  Available values are 'superdev', 'dev', 'superuser', 'user'
+  A character to specifies the running mode of MagellanNTK. \* user
+  (default) : xxx \* dev: xxx
 
 - verbose:
 

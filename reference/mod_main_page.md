@@ -36,7 +36,7 @@ mainapp(usermod = "user")
 
 - session:
 
-  xxx
+  shiny internal
 
 - size:
 
@@ -44,7 +44,7 @@ mainapp(usermod = "user")
 
 - dataIn:
 
-  xxx
+  An instance of a type \`list\`
 
 - data.name:
 
@@ -52,11 +52,14 @@ mainapp(usermod = "user")
 
 - workflow.name:
 
-  Default is NULL,
+  A \`character()\` which is the name of the pipeline to launch and run
+  whithin the framework of MagellanNTK. It designs the name of a
+  directory which contains the files and directories of the pipeline.
 
 - workflow.path:
 
-  Default is NULL,
+  A \`character()\` which is the path to the directory which contains
+  the files and directories of the pipeline.
 
 - verbose:
 
@@ -65,7 +68,8 @@ mainapp(usermod = "user")
 
 - usermod:
 
-  = 'dev'
+  A character to specifies the running mode of MagellanNTK. \* user
+  (default) : xxx \* dev: xxx
 
 ## Value
 

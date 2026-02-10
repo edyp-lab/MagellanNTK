@@ -66,7 +66,8 @@ nav_single_process()
 
 - usermod:
 
-  = 'user'
+  A character to specifies the running mode of MagellanNTK. \* user
+  (default) : xxx \* dev: xxx
 
 - btnEvents:
 

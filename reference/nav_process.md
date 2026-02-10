@@ -83,8 +83,8 @@ nav_process()
 
 - usermod:
 
-  A character to specifies the running mode of Magellan. \* user
-  (default) : xxx \* 'dev: xxx
+  A character to specifies the running mode of MagellanNTK. \* user
+  (default) : xxx \* dev: xxx
 
 - btnEvents:
 

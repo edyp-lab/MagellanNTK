@@ -54,11 +54,14 @@ MagellanNTK(
 
 - workflow.path:
 
-  xxx
+  A \`character()\` which is the path to the directory which contains
+  the files and directories of the pipeline.
 
 - workflow.name:
 
-  xxxx
+  A \`character()\` which is the name of the pipeline to launch and run
+  whithin the framework of MagellanNTK. It designs the name of a
+  directory which contains the files and directories of the pipeline.
 
 - verbose:
 
@@ -67,7 +70,8 @@ MagellanNTK(
 
 - usermod:
 
-  xxx
+  A character to specifies the running mode of MagellanNTK. \* user
+  (default) : xxx \* dev: xxx
 
 - convert.path:
 

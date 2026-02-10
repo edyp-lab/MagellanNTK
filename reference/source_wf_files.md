@@ -1,6 +1,8 @@
 # Source workflow files
 
-xxx
+This function goes into the 'R' directory of the file structure of a
+pipeline and load into memory the source code of the R scripts (which
+contains the interfaces of the process)
 
 ## Usage
 
@@ -12,7 +14,8 @@ source_wf_files(dirpath, verbose = FALSE)
 
 - dirpath:
 
-  xxx
+  A \`character()\` which is the path to the directory which contains
+  the files and directories of the pipeline.
 
 - verbose:
 

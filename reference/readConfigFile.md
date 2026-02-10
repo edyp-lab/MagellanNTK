@@ -1,6 +1,7 @@
 # Read pipelines configuration files
 
-xxx
+Read the configuration file of a pipeline and extract formatted (as a
+list) information
 
 ## Usage
 
@@ -12,15 +13,31 @@ readConfigFile(path, usermod = "user")
 
 - path:
 
-  xxx
+  A \`character()\` which is the path to the directory which contains
+  the files and directories of the pipeline.
 
 - usermod:
 
-  xxxxx
+  A character to specifies the running mode of MagellanNTK. \* user
+  (default) : xxx \* dev: xxx
 
 ## Value
 
-NA
+A list containing the following items: value \<- list( \* funcs = tmp,
+\* verbose = get_data(lines, "verbose") == "enabled", \*
+UI_view_debugger: a \`boolean\` to show (TRUE) of hide (FALSE) the
+debugger interface \* UI_view_open_pipeline: a \`boolean\` to show
+(TRUE) of hide (FALSE) the UI to open a pipeline \*
+UI_view_convert_dataset a \`boolean\` to show (TRUE) of hide (FALSE) the
+UI for convert/import a dataset \* UI_view_change_Look_Feel a
+\`boolean\` to show (TRUE) of hide (FALSE) the UI to change the L&F \*
+UI_view_change_core_funcs a \`boolean\` to show (TRUE) of hide (FALSE)
+the UI to change the generic functions \* extension A \`character()\`
+which specifies the extension file allowed to be processed in the
+pipeline, \* class A \`character()\` which specifies the class of the
+dataset to be processed in the pipeline, \* package A \`character()\`
+which specifies the package which owns the pipeline \* demo_package xxx
+\* URL_manual xxx \* URL_ReleaseNotes xxx
 
 ## Examples
 

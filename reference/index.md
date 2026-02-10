@@ -32,7 +32,7 @@
 - [`GetFirstMandatoryNotValidated()`](https://edyp-lab.github.io/MagellanNTK/reference/GetFirstMandatoryNotValidated.md)
   : xxx
 - [`GetListDatasets()`](https://edyp-lab.github.io/MagellanNTK/reference/GetListDatasets.md)
-  : Get filtered datasets
+  : Get datasets from packages which owns datasets of a given class
 - [`GetMaxValidated_AllSteps()`](https://edyp-lab.github.io/MagellanNTK/reference/GetMaxValidated_AllSteps.md)
   : xxx
 - [`GetMaxValidated_BeforePos()`](https://edyp-lab.github.io/MagellanNTK/reference/GetMaxValidated_BeforePos.md)
@@ -150,16 +150,13 @@
   : \# example code \#' @title Checks if the object is compliant with
   MagellanNTK
 - [`is.substr()`](https://edyp-lab.github.io/MagellanNTK/reference/is.substr.md)
-  : xxx
+  : Substring
 - [`is.validated()`](https://edyp-lab.github.io/MagellanNTK/reference/is.validated.md)
   : xxx
 - [`keepAssay()`](https://edyp-lab.github.io/MagellanNTK/reference/keepAssay.md)
   : xxx
 - [`launchGA()`](https://edyp-lab.github.io/MagellanNTK/reference/launchGA.md)
   : xxx
-- [`mod_load_workflow_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/load_workflow.md)
-  [`mod_load_workflow_server()`](https://edyp-lab.github.io/MagellanNTK/reference/load_workflow.md)
-  : Load dataset shiny module
 - [`MagellanNTK_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)
   [`MagellanNTK_server()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)
   [`MagellanNTK()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)
@@ -188,10 +185,6 @@
   [`mod_launch_magellan_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_launch_magellan.md)
   [`mod_launch_magellan()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_launch_magellan.md)
   : launch_magellan UI Function
-- [`mod_load_package_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_load_package.md)
-  [`mod_load_package_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_load_package.md)
-  [`load_package()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_load_package.md)
-  : Change the default functions in \`MagellanNTK\`
 - [`loadapp_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_loading_page.md)
   [`loadapp_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_loading_page.md)
   [`loadApp()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_loading_page.md)

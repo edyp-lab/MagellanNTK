@@ -1,6 +1,6 @@
-# xxx
+# Substring
 
-xxx
+Substring
 
 ## Usage
 
@@ -12,11 +12,11 @@ is.substr(pattern, target)
 
 - pattern:
 
-  xxx
+  A \`character()\`
 
 - target:
 
-  xxx
+  The \`character()\` to look for into the pattern
 
 ## Value
 
@@ -25,6 +25,6 @@ A boolean
 ## Examples
 
 ``` r
-NULL
-#> NULL
+is.substr('cde', 'abcdefghi')
+#> [1] TRUE
 ```

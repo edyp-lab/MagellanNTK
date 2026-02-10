@@ -1,6 +1,6 @@
 # Source ui.R, server.R ang global.R files
 
-xxx
+Loads the source code of basic Shiny app files
 
 ## Usage
 
