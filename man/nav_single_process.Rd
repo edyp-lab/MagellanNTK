@@ -25,7 +25,8 @@ nav_single_process_server(
   usermod = "user",
   btnEvents = reactive({
      NULL
- })
+ }),
+  sendDataIfReset = TRUE
 )
 
 nav_single_process()
@@ -50,6 +51,10 @@ the verbose mode for logs.}
 \item{usermod}{= 'user'}
 
 \item{btnEvents}{xxxx}
+
+\item{sendDataIfReset}{A `boolean` to indicate if the reseted value must
+be send to the caller in case of reseting the process. This is usefule for example
+for the Convert process}
 }
 \value{
 A list of four items:

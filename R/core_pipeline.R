@@ -16,9 +16,10 @@
 #' all the widgets will be disabled. If not, the enabling/disabling of widgets
 #' is deciding by this module.
 #'
-#' @param remoteReset It is a remote command to reset the module. A boolen that
-#' indicates is the pipeline has been reseted by a program of higher level
-#' Basically, it is the program which has called this module
+#' @param remoteReset An `integer` which acts as a remote command to reset the 
+#' module. Its value is incremented on a external event and it is used to 
+#' trigger an event 
+#' in this module
 #'
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
@@ -437,8 +438,6 @@ nav_pipeline_server <- function(
     # 2 - if the variable contains a dataset. xxx
     observeEvent(req(dataIn()), ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
-      #req(GetStepsNames())
-      
 
       rv$dataset2EDA <- dataIn()
       # Get the new dataset in a temporary variable
@@ -458,7 +457,6 @@ nav_pipeline_server <- function(
       rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
       rv$steps.skipped <- Discover_Skipped_Steps(rv$steps.status)
-      
       
       rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
       
@@ -558,7 +556,7 @@ nav_pipeline_server <- function(
         
         if (is.null(newValue)){
           
-        } else if (is.numeric(newValue) && newValue == -10){
+        } else if (is.numeric(newValue) && newValue == stepStatus$RESETED){
           # A process has been reseted
           # if (ind.processHasChanged == 1) {
           #   # The first process ('Description') has been reseted

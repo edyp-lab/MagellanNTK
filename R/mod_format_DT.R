@@ -6,14 +6,16 @@
 #'
 #'
 #' @param id A `character()` as the id of the Shiny module
-#' @param dataIn xxx
+#' @param dataIn A `data.frame()`
 #' @param hidden Default is NULL,
 #' @param withDLBtns Default is FALSE,
 #' @param showRownames Default is FALSE,
 #' @param dom Default is 'Bt',
 #' @param max.rows Default is 20,
 #' @param hc_style Default is NULL,
-#' @param remoteReset Default is 0,
+#' @param remoteReset An `integer` which acts as a remote command to reset the 
+#' module. Its value is incremented on a external event and it is used to 
+#' trigger an event in this module
 #' @param is.enabled Default is TRUE
 #'
 #' @name format_DT
@@ -132,7 +134,7 @@ format_DT_server <- function(
             dt <- DT::datatable(
                 rv.infos$obj,
                 escape = FALSE,
-                #extensions = c("Scroller"),
+                extensions = c("Scroller"),
                  rownames = showRownames,
                  plugins = "ellipsis",
                  options = list(

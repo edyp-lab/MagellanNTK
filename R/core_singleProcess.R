@@ -17,6 +17,9 @@
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
 #' @param usermod = 'user'
+#' @param sendDataIfReset A `boolean` to indicate if the reseted value must
+#' be send to the caller in case of reseting the process. This is usefule for example
+#' for the Convert process
 #' 
 #' @return A list of four items:
 #' * dataOut A dataset of the same class of the parameter dataIn
@@ -93,7 +96,8 @@ nav_single_process_server <- function(
   is.skipped = FALSE,
   verbose = FALSE,
   usermod = "user",
-  btnEvents = reactive({NULL})
+  btnEvents = reactive({NULL}),
+  sendDataIfReset = TRUE
   ) {
   ### -------------------------------------------------------------###
   ###                                                             ###
@@ -431,6 +435,16 @@ nav_single_process_server <- function(
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = stepsnames)
       rv$steps.skipped <- setNames(rep(FALSE, n), nm = stepsnames)
       rv$currentStepName <- reactive({stepsnames[rv$current.pos]})
+      
+      # The process has been reseted or is not concerned
+      # Disable all screens of the process
+      rv$steps.enabled <- ToggleState_Screens(
+        cond = FALSE,
+        range = seq_len(length(rv$config@steps)),
+        is.enabled = is.enabled,
+        rv = rv
+      )
+      
     },
       priority = 1000
     )
@@ -495,8 +509,9 @@ nav_single_process_server <- function(
     # temp.dataIn. Then, two behaviours:
     # 1 - if the variable is NULL. xxxx
     # 2 - if the variable contains a dataset. xxx
-    observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
+    observeEvent(req(dataIn()), ignoreNULL = FALSE, ignoreInit = TRUE, {
       req(rv$config)
+      browser()
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
       
@@ -508,16 +523,16 @@ nav_single_process_server <- function(
       rv$steps.status <- RefineProcessStatus(rv$history, rv$steps.status)
       
       
-      if (is.null(dataIn())) {
-        # The process has been reseted or is not concerned
-        # Disable all screens of the process
-        rv$steps.enabled <- ToggleState_Screens(
-          cond = FALSE,
-          range = seq_len(length(rv$config@steps)),
-          is.enabled = is.enabled,
-          rv = rv
-        )
-      } else {
+      # if (is.null(dataIn())) {
+      #   # The process has been reseted or is not concerned
+      #   # Disable all screens of the process
+      #   rv$steps.enabled <- ToggleState_Screens(
+      #     cond = FALSE,
+      #     range = seq_len(length(rv$config@steps)),
+      #     is.enabled = is.enabled,
+      #     rv = rv
+      #   )
+      # } else {
         # Get the new dataset in a temporary variable
         rv$temp.dataIn <- keepAssay(dataIn(), length(dataIn()))
         names(rv$temp.dataIn)[1] <- 'Convert'
@@ -543,7 +558,7 @@ nav_single_process_server <- function(
           is.enabled = is.enabled,
           rv = rv
         )
-      }
+      #}
       
     })
     
@@ -718,9 +733,10 @@ nav_single_process_server <- function(
       req(rv$config)
       rv$dataIn <- rv$temp.dataIn <- dataIn()
       ResetProcess()
-      # Return the NULL value as dataset
+      
+      req(sendDataIfReset)# Return the NULL value as dataset
       dataOut$trigger <- Timestamp()
-      dataOut$value <- -10
+      dataOut$value <- stepStatus$RESETED
     })
     
     observeEvent(remoteResetUI(), ignoreInit = TRUE, ignoreNULL = TRUE, {

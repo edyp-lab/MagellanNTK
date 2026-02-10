@@ -33,7 +33,9 @@ open_dataset(class = NULL, extension = NULL, demo_package = NULL)
 
 \item{demo_package}{xxx}
 
-\item{remoteReset}{xxx}
+\item{remoteReset}{An `integer` which acts as a remote command to reset the 
+module. Its value is incremented on a external event and it is used to 
+trigger an event in this module}
 
 \item{is.enabled}{xxx}
 }

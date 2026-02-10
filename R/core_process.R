@@ -16,9 +16,9 @@
 #' all the widgets will be disabled. If not, the enabling/disabling of widgets
 #' is deciding by this module.
 #'
-#' @param remoteReset It is a remote command to reset the module. A boolean that
-#' indicates is the pipeline has been reseted by a program of higher level
-#' Basically, it is the program which has called this module
+#' @param remoteReset An `integer` which acts as a remote command to reset the 
+#' module. Its value is incremented on a external event and it is used to 
+#' trigger an event in this module
 #' 
 #' @param remoteResetUI xxx
 #' @param status xxx
@@ -424,7 +424,12 @@ nav_process_server <- function(
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
      
-      rv$history <- GetHistory(dataIn(), rv$proc.id)
+      #rv$history <- GetHistory(dataIn(), rv$proc.id)
+      rv$history <- do.call(
+      eval(parse(text = session$userData$funcs$GetHistory)),
+        list(dataIn(), rv$proc.id))
+
+
       rv$steps.status <- setNames(
         rep(stepStatus$UNDONE, length(rv$steps.status)), 
         nm = names(rv$config@steps))
@@ -691,7 +696,7 @@ nav_process_server <- function(
       ResetProcess()
 
         dataOut$trigger <- Timestamp()
-      dataOut$value <- -10
+      dataOut$value <- stepStatus$RESETED
     })
     
     observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {

@@ -45,7 +45,7 @@ format_DT(
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
 
-\item{dataIn}{xxx}
+\item{dataIn}{A `data.frame()`}
 
 \item{hidden}{Default is NULL,}
 
@@ -59,7 +59,9 @@ format_DT(
 
 \item{hc_style}{Default is NULL,}
 
-\item{remoteReset}{Default is 0,}
+\item{remoteReset}{An `integer` which acts as a remote command to reset the 
+module. Its value is incremented on a external event and it is used to 
+trigger an event in this module}
 
 \item{is.enabled}{Default is TRUE}
 }

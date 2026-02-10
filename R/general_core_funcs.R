@@ -5,43 +5,6 @@
 #' @description This function returns the indice of the last validated step before
 #' the current step.
 #'
-#' @param dataIn An instance of the `SummarizedExperiment` class
-#' @param x A `character` which is the name of an assay in the dataIn
-#' @return A `data.frame()`
-#'
-#' @export
-#' @examples
-#' NULL
-#' 
-GetHistory <- function(dataIn, x){
-  history <- NULL
-  
-  if (x == 'Description'){
-    if ('Convert' %in% names(dataIn))
-      history <- DaparToolshed::paramshistory(dataIn[['Convert']])
-    # else if ('original' %in% names(dataIn))
-    #  history <- DaparToolshed::paramshistory(dataIn[['original']])
-  } else if (x == 'Save'){
-    history <- NULL
-  } else if (x %in% names(dataIn)){
-    history <- DaparToolshed::paramshistory(dataIn[[x]])
-  }
-  
-  
-  # do.call(
-  # eval(parse(text = session$userData$funcs$GetHistory)), 
-  #   list(rv$child.data2send[[length(rv$child.data2send)]], x))
-  #   
-  return(history)
-}
-
-
-
-#' @title Get the last validated step before current position.
-#'
-#' @description This function returns the indice of the last validated step before
-#' the current step.
-#'
 #' @param history xxx
 #' @param process xxx
 #' @param step.name xxx

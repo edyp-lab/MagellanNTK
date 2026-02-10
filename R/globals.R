@@ -27,7 +27,8 @@ btn_css_style <- "font-size:60%; display:inline-block; vertical-align: middle; p
 stepStatus <- list(
   VALIDATED = 1,
   SKIPPED = -1,
-  UNDONE = 0
+  UNDONE = 0,
+  RESETED = -10
 )
 
 

@@ -454,7 +454,8 @@ mainapp_server <- function(id,
         id = paste0(unlist(strsplit(rv.core$workflow.name, '_'))[1], '_Convert'),
         dataIn = reactive({NULL}),
         verbose = verbose,
-        usermod = usermod
+        usermod = usermod,
+        sendDataIfReset = FALSE
       )
     })
 
@@ -476,7 +477,13 @@ mainapp_server <- function(id,
 
     observe({
       req(session$userData$wf_mode)
-    
+      browser()
+      # This if-loop prevents to catch the returned value of the Convert process
+      # because is ti managed as a single_process and its value is directly
+      # connected to the input of the whole pipeline server
+    #if(is.null(rv.core$current.obj) ||
+     #   (!is.numeric(rv.core$current.obj) && rv.core$current.obj != stepStatus$RESETED)){
+      
       switch(session$userData$wf_mode, 
         pipeline = {
           rv.core$result_run_workflow <- nav_pipeline_server(
@@ -500,6 +507,7 @@ mainapp_server <- function(id,
         }
       )
     }
+    #}
     )
     
     

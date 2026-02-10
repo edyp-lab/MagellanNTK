@@ -6,7 +6,9 @@
 #' @param class xxx
 #' @param extension xxx
 #' @param demo_package xxx
-#' @param remoteReset xxx
+#' @param remoteReset An `integer` which acts as a remote command to reset the 
+#' module. Its value is incremented on a external event and it is used to 
+#' trigger an event in this module
 #' @param is.enabled xxx
 #'
 #' @name generic_mod_open_dataset
