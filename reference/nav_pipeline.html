@@ -93,9 +93,10 @@ is deciding by this module.</p></dd>
 
 
 <dt id="arg-remotereset">remoteReset<a class="anchor" aria-label="anchor" href="#arg-remotereset"></a></dt>
-<dd><p>It is a remote command to reset the module. A boolen that
-indicates is the pipeline has been reseted by a program of higher level
-Basically, it is the program which has called this module</p></dd>
+<dd><p>An `integer` which acts as a remote command to reset the
+module. Its value is incremented on a external event and it is used to
+trigger an event
+in this module</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>

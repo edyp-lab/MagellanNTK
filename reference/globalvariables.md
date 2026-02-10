@@ -18,7 +18,7 @@ listBrewerPalettes
 
 An object of class `numeric` of length 1.
 
-An object of class `list` of length 3.
+An object of class `list` of length 4.
 
 An object of class `list` of length 3.
 

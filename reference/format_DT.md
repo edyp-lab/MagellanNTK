@@ -50,7 +50,7 @@ format_DT(
 
 - dataIn:
 
-  xxx
+  A \`data.frame()\`
 
 - hidden:
 
@@ -78,7 +78,9 @@ format_DT(
 
 - remoteReset:
 
-  Default is 0,
+  An \`integer\` which acts as a remote command to reset the module. Its
+  value is incremented on a external event and it is used to trigger an
+  event in this module
 
 - is.enabled:
 

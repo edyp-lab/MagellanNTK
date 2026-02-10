@@ -31,8 +31,6 @@
   : Get file extension
 - [`GetFirstMandatoryNotValidated()`](https://edyp-lab.github.io/MagellanNTK/reference/GetFirstMandatoryNotValidated.md)
   : xxx
-- [`GetHistory()`](https://edyp-lab.github.io/MagellanNTK/reference/GetHistory.md)
-  : Get the last validated step before current position.
 - [`GetListDatasets()`](https://edyp-lab.github.io/MagellanNTK/reference/GetListDatasets.md)
   : Get filtered datasets
 - [`GetMaxValidated_AllSteps()`](https://edyp-lab.github.io/MagellanNTK/reference/GetMaxValidated_AllSteps.md)

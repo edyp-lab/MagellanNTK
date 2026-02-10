@@ -64,9 +64,9 @@ nav_process()
 
 - remoteReset:
 
-  It is a remote command to reset the module. A boolean that indicates
-  is the pipeline has been reseted by a program of higher level
-  Basically, it is the program which has called this module
+  An \`integer\` which acts as a remote command to reset the module. Its
+  value is incremented on a external event and it is used to trigger an
+  event in this module
 
 - remoteResetUI:
 
