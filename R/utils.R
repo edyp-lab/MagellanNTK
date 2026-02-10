@@ -100,17 +100,37 @@ find_funs <- function(f) {
 
 #' @title Read pipelines configuration files
 #'
-#' @description xxx
+#' @description Read the configuration file of a pipeline and extract formatted 
+#' (as a list) information
 #'
-#' @param path xxx
-#' @param usermod xxxxx
+#' @param path A `character()` which is the path to the directory which 
+#' contains the files and directories of the pipeline.
+#' @param usermod A character to specifies the running mode of MagellanNTK. 
+#' * user (default) : xxx
+#' * dev: xxx
 #'
 #' @examples
 #' path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
 #' readConfigFile(path)
 #'
 #' @export
-#' @return NA
+#' @return A list containing the following items:
+#' value <- list(
+#' * funcs = tmp,
+#' * verbose = get_data(lines, "verbose") == "enabled",
+#' * UI_view_debugger: a `boolean` to show (TRUE) of hide (FALSE) the debugger interface
+#' * UI_view_open_pipeline: a `boolean` to show (TRUE) of hide (FALSE) the UI to open a pipeline
+#' * UI_view_convert_dataset a `boolean` to show (TRUE) of hide (FALSE) the UI for convert/import a dataset
+#' * UI_view_change_Look_Feel a `boolean` to show (TRUE) of hide (FALSE) the UI to change the L&F
+#' * UI_view_change_core_funcs a `boolean` to show (TRUE) of hide (FALSE) the UI to change the generic functions
+#' * extension A `character()` which specifies the extension file allowed to be processed
+#' in the pipeline,
+#' * class A `character()` which specifies the class of the dataset to be processed
+#' in the pipeline,
+#' * package  A `character()` which specifies the package which owns the pipeline
+#' * demo_package xxx
+#' * URL_manual xxx
+#' * URL_ReleaseNotes xxx
 #'
 #' @importFrom stringr str_locate_all
 #'
@@ -208,16 +228,17 @@ readConfigFile <- function(
 
 
 
-#' @title Get filtered datasets
+#' @title Get datasets from packages which owns datasets of a given class
 #'
-#' @param class xxx
-#' @param demo_package xxx
+#' @param class A `character()` which is the class of the datasets one looking for
+#' @param demo_package A `character()` which specifies a particular package to search
 #'
 #' @export
 #' @examples
 #' foo1 <- GetListDatasets()
 #'
-#' @return NA
+#' @return A `vector` in which items are the name of datasets which inherits
+#' the class given in parameter
 #'
 GetListDatasets <- function(class = NULL, demo_package = NULL) {
 
@@ -262,9 +283,12 @@ GetListDatasets <- function(class = NULL, demo_package = NULL) {
 
 #' @title Source workflow files
 #'
-#' @description xxx
+#' @description This function goes into the 'R' directory of the file structure
+#' of a pipeline and load into memory the source code of the R scripts (which contains 
+#' the interfaces of the process)
 #'
-#' @param dirpath xxx
+#' @param dirpath A `character()` which is the path to the directory which 
+#' contains the files and directories of the pipeline.
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
 #'
@@ -297,7 +321,7 @@ source_wf_files <- function(
 
 #' @title Source ui.R, server.R ang global.R files
 #'
-#' @description xxx
+#' @description Loads the source code of basic Shiny app files
 #'
 #' @examples
 #' if (interactive()) {
@@ -323,14 +347,15 @@ source_shinyApp_files <- function() {
 }
 
 
-#' @title xxx
-#' @param pattern xxx
-#' @param target xxx
+#' @title Substring
+#' @param pattern A `character()`
+#' @param target The `character()` to look for into the pattern
 #'
 #' @return A boolean
 #' @export
 #' @examples
-#' NULL
+#' is.substr('cde', 'abcdefghi')
+#' 
 is.substr <- function(pattern, target) {
     length(grep(pattern, target, fixed = TRUE)) > 0
 }
@@ -341,18 +366,18 @@ is.substr <- function(pattern, target) {
 #' #' @title Checks if the object is compliant with MagellanNTK
 #' @description
 #' Checks and accept the following data formats:
-#' * An instance of class `MSnSet`
-#' * An instance of class `MultiAssayExperiment`
+#' * An instance of class `MSnSet` (which is a list of `data.frame()`)
+#' * An instance of class `MultiAssayExperiment` (which is a list of `SummarizedExperiment()`)
 #' * An instance of class `SummarizedExperiment`
 #' * An instance of class `data.frame`
 #' * An instance of class `matrix`
-#' * A list of instances of class `MSnSet`
-#' * A list of instances of class `SummarizedExperiment`
-#' * A list of instances of class `data.frame`
-#' * A list of instances of class `matrix`
+#' * A `list` of instances of class `MSnSet`
+#' * A `list` of instances of class `SummarizedExperiment`
+#' * A `list` of instances of class `data.frame`
+#' * A `list` of instances of class `matrix`
 #'
 #'
-#' @param obj xxx
+#' @param obj The R object to be tested
 #'
 #' @export
 #'
@@ -362,7 +387,9 @@ is.substr <- function(pattern, target) {
 #'
 #' ll <- list(data.frame(), data.frame())
 #' is.Magellan.compliant(ll)
-#' @return NA
+#' 
+#' 
+#' @return A `boolean`
 #' 
 is.Magellan.compliant <- function(obj) {
     passed <- FALSE

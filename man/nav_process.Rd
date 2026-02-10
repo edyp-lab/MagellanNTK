@@ -64,9 +64,9 @@ trigger an event in this module}
 \item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 the verbose mode for logs.}
 
-\item{usermod}{A character to specifies the running mode of Magellan. 
+\item{usermod}{A character to specifies the running mode of MagellanNTK. 
 * user (default) : xxx
-* 'dev: xxx}
+* dev: xxx}
 
 \item{btnEvents}{xxxx}
 }

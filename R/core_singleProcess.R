@@ -16,7 +16,9 @@
 #' @param btnEvents xxxx
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
-#' @param usermod = 'user'
+#' @param usermod A character to specifies the running mode of MagellanNTK. 
+#' * user (default) : xxx
+#' * dev: xxx
 #' @param sendDataIfReset A `boolean` to indicate if the reseted value must
 #' be send to the caller in case of reseting the process. This is usefule for example
 #' for the Convert process
@@ -511,16 +513,19 @@ nav_single_process_server <- function(
     # 2 - if the variable contains a dataset. xxx
     observeEvent(req(dataIn()), ignoreNULL = FALSE, ignoreInit = TRUE, {
       req(rv$config)
-      browser()
+
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
       
-      rv$steps.status <- setNames(
-        rep(stepStatus$UNDONE, length(rv$steps.status)), 
-        nm = names(rv$config@steps))
+      # rv$steps.status <- setNames(
+      #   rep(stepStatus$UNDONE, length(rv$steps.status)), 
+      #   nm = names(rv$config@steps))
+      # 
       
-      
-      rv$steps.status <- RefineProcessStatus(rv$history, rv$steps.status)
+      #Once a new dataste has been loaded,, on met a jour le vector
+      #rv$steps.status  dont se sert la timeline pour choisir les modalites d'affichage
+      #sur l'interface graphique
+      #rv$steps.status <- RefineProcessStatus(rv$history, rv$steps.status)
       
       
       # if (is.null(dataIn())) {
@@ -534,9 +539,18 @@ nav_single_process_server <- function(
       #   )
       # } else {
         # Get the new dataset in a temporary variable
-        rv$temp.dataIn <- keepAssay(dataIn(), length(dataIn()))
+        
+      # Dans le cas de l'execution dd'un process unique, la stratégie pour le dataset
+      # estla suivante :
+      # On ne prend pas en compte les resultats des processus intermediaires mais
+      # on ne tient compte que du resultat final.
+      # Pour cela, on supprime tous les datasets intermediaires et on ne garde 
+      # que le dernier
+      rv$temp.dataIn <- keepAssay(dataIn(), length(dataIn()))
         names(rv$temp.dataIn)[1] <- 'Convert'
         DaparToolshed::paramshistory(rv$temp.dataIn[[1]]) <- MagellanNTK::InitializeHistory()
+        
+        
         rv$dataset2EDA <- rv$temp.dataIn
         
         rv$steps.status <- setNames(

@@ -13,8 +13,7 @@
 #' @param external_mod xxx
 #' @param external_mod_args xxx
 #' @param typeWidget = 'button',
-#' @param styleWidget = NULL,
-#' @param classWidget = NULL
+
 #'
 #'
 #' @name mod_modalDialog
@@ -77,7 +76,6 @@
 #' ########################################################
 #'
 #' funcs <- list(
-#'     convert_dataset = "DaparToolshed::convert_dataset",
 #'     open_dataset = "MagellanNTK::open_dataset",
 #'     open_demoDataset = "MagellanNTK::open_demoDataset",
 #'     infos_dataset = "MagellanNTK::infos_dataset",
@@ -250,9 +248,7 @@ mod_modalDialog <- function(
     )
 
     server <- function(input, output) {
-        rv <- reactiveValues(
-            dataOut = NULL
-        )
+        rv <- reactiveValues(dataOut = NULL)
 
         res <- mod_modalDialog_server(
             id = "tbl",
@@ -265,13 +261,9 @@ mod_modalDialog <- function(
 
 
 
-        observeEvent(req(res()), {
-            rv$dataOut <- res()
-        })
+        observeEvent(req(res()), {rv$dataOut <- res()})
 
-        return(reactive({
-            rv$dataOut
-        }))
+        return(reactive({rv$dataOut}))
     }
 
     app <- shinyApp(ui = ui, server = server)

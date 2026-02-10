@@ -2,20 +2,21 @@
 % Please edit documentation in R/utils.R
 \name{GetListDatasets}
 \alias{GetListDatasets}
-\title{Get filtered datasets}
+\title{Get datasets from packages which owns datasets of a given class}
 \usage{
 GetListDatasets(class = NULL, demo_package = NULL)
 }
 \arguments{
-\item{class}{xxx}
+\item{class}{A `character()` which is the class of the datasets one looking for}
 
-\item{demo_package}{xxx}
+\item{demo_package}{A `character()` which specifies a particular package to search}
 }
 \value{
-NA
+A `vector` in which items are the name of datasets which inherits
+the class given in parameter
 }
 \description{
-Get filtered datasets
+Get datasets from packages which owns datasets of a given class
 }
 \examples{
 foo1 <- GetListDatasets()

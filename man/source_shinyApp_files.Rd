@@ -10,7 +10,7 @@ source_shinyApp_files()
 NA
 }
 \description{
-xxx
+Loads the source code of basic Shiny app files
 }
 \examples{
 if (interactive()) {

@@ -2,21 +2,22 @@
 % Please edit documentation in R/utils.R
 \name{is.substr}
 \alias{is.substr}
-\title{xxx}
+\title{Substring}
 \usage{
 is.substr(pattern, target)
 }
 \arguments{
-\item{pattern}{xxx}
+\item{pattern}{A `character()`}
 
-\item{target}{xxx}
+\item{target}{The `character()` to look for into the pattern}
 }
 \value{
 A boolean
 }
 \description{
-xxx
+Substring
 }
 \examples{
-NULL
+is.substr('cde', 'abcdefghi')
+
 }

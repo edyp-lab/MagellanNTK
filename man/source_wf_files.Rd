@@ -7,7 +7,8 @@
 source_wf_files(dirpath, verbose = FALSE)
 }
 \arguments{
-\item{dirpath}{xxx}
+\item{dirpath}{A `character()` which is the path to the directory which 
+contains the files and directories of the pipeline.}
 
 \item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 the verbose mode for logs.}
@@ -16,7 +17,9 @@ the verbose mode for logs.}
 NA
 }
 \description{
-xxx
+This function goes into the 'R' directory of the file structure
+of a pipeline and load into memory the source code of the R scripts (which contains 
+the interfaces of the process)
 }
 \examples{
 path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")

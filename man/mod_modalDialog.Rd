@@ -35,10 +35,6 @@ mod_modalDialog(
 
 \item{typeWidget}{= 'button',}
 
-\item{styleWidget}{= NULL,}
-
-\item{classWidget}{= NULL}
-
 \item{width}{A `character(1)` indicating the size of the modal window. Can
 be "s" for small (the default), "m" for medium, or "l" for large.}
 
@@ -111,7 +107,6 @@ shiny::runApp(mod_modalDialog(title = "test modalDialog", uiContent = p("test"))
 ########################################################
 
 funcs <- list(
-    convert_dataset = "DaparToolshed::convert_dataset",
     open_dataset = "MagellanNTK::open_dataset",
     open_demoDataset = "MagellanNTK::open_demoDataset",
     infos_dataset = "MagellanNTK::infos_dataset",

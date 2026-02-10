@@ -37,7 +37,6 @@ Imports:
     shinyEffects,
     htmlwidgets,
     shinyjs,
-    shinyFiles,
     sass,
     stats,
     utils,
@@ -69,7 +68,6 @@ Collate:
     config_class.R
     doc-data.R
     sidebar.R
-    mod_load_workflow.R
     utils.R
     check_funcs.R
     code_used_by_external_modules.R
@@ -94,7 +92,6 @@ Collate:
     mod_export_dataset.R
     globals.R
     mod_error_modal.R
-    mod_load_package.R
     mod_download_btns.R
     mod_navbar_menu.R
     mod_open_dataset.R

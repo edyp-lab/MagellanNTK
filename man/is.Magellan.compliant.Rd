@@ -8,22 +8,22 @@
 is.Magellan.compliant(obj)
 }
 \arguments{
-\item{obj}{xxx}
+\item{obj}{The R object to be tested}
 }
 \value{
-NA
+A `boolean`
 }
 \description{
 Checks and accept the following data formats:
-* An instance of class `MSnSet`
-* An instance of class `MultiAssayExperiment`
+* An instance of class `MSnSet` (which is a list of `data.frame()`)
+* An instance of class `MultiAssayExperiment` (which is a list of `SummarizedExperiment()`)
 * An instance of class `SummarizedExperiment`
 * An instance of class `data.frame`
 * An instance of class `matrix`
-* A list of instances of class `MSnSet`
-* A list of instances of class `SummarizedExperiment`
-* A list of instances of class `data.frame`
-* A list of instances of class `matrix`
+* A `list` of instances of class `MSnSet`
+* A `list` of instances of class `SummarizedExperiment`
+* A `list` of instances of class `data.frame`
+* A `list` of instances of class `matrix`
 }
 \examples{
 is.Magellan.compliant(data.frame())
@@ -31,4 +31,6 @@ is.Magellan.compliant(data.frame())
 
 ll <- list(data.frame(), data.frame())
 is.Magellan.compliant(ll)
+
+
 }

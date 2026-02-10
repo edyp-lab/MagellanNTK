@@ -7,9 +7,12 @@
 #' pipelines nor processes to be managed with `MagellanNTK`.
 #'
 #' @param id A `character()` as the id of the Shiny module
-#' @param path xxx
+#' @param path A `character()` which is the path to the directory which 
+#' contains the files and directories of the pipeline.
 #' @param dataIn xxx
-#' @param usermod Available values are 'superdev', 'dev', 'superuser', 'user'
+#' @param usermod A character to specifies the running mode of MagellanNTK. 
+#' * user (default) : xxx
+#' * dev: xxx
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
 #'

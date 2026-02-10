@@ -48,7 +48,9 @@ It is the same as for the server() function.}
 \item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 the verbose mode for logs.}
 
-\item{usermod}{= 'user'}
+\item{usermod}{A character to specifies the running mode of MagellanNTK. 
+* user (default) : xxx
+* dev: xxx}
 
 \item{btnEvents}{xxxx}
 

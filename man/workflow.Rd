@@ -53,11 +53,14 @@ proc_workflowApp(
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
 
-\item{path}{xxx}
+\item{path}{A `character()` which is the path to the directory which 
+contains the files and directories of the pipeline.}
 
 \item{dataIn}{xxx}
 
-\item{usermod}{Available values are 'superdev', 'dev', 'superuser', 'user'}
+\item{usermod}{A character to specifies the running mode of MagellanNTK. 
+* user (default) : xxx
+* dev: xxx}
 
 \item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 the verbose mode for logs.}

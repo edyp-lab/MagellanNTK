@@ -6,14 +6,19 @@
 #'
 #'
 #' @param id A `character()` as the id of the Shiny module
-#' @param dataIn xxx
+#' @param dataIn An instance of a type `list`
 #' @param data.name The name of the dataset. Default is 'myDataset'
-#' @param session xxx
-#' @param workflow.name Default is NULL,
-#' @param workflow.path Default is NULL,
+#' @param session shiny internal
+#' @param workflow.path A `character()` which is the path to the directory which 
+#' contains the files and directories of the pipeline.
+#' @param workflow.name A `character()` which is the name of the pipeline to
+#' launch and run whithin the framework of MagellanNTK. It designs the name of 
+#' a directory which contains the files and directories of the pipeline.
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
-#' @param usermod = 'dev'
+#' @param usermod A character to specifies the running mode of MagellanNTK. 
+#' * user (default) : xxx
+#' * dev: xxx
 #' @param size The width of the sidebar.in pixels
 #'
 #'
@@ -312,34 +317,34 @@ mainapp_server <- function(id,
       shinyjs::js$reset()
     })
     
-    rv.core$tmp.funcs <- mod_modalDialog_server("loadPkg_modal",
-      title = "Default core functions",
-      external_mod = "mod_load_package",
-      external_mod_args = list(funcs = reactive({
-        rv.core$funcs
-      }))
-    )
-    
-    
-    observeEvent(req(rv.core$tmp.funcs()), {
-      lapply(
-        names(rv.core$tmp.funcs()),
-        function(x) {
-          pkg.name <- gsub(paste0("::", x), "", rv.core$tmp.funcs()[[x]])
-          call.func(
-            "require",
-            list(
-              package = pkg.name,
-              character.only = TRUE
-            )
-          )
-          # require(pkg.name, character.only = TRUE)
-        }
-      )
-      rv.core$funcs$funcs <- rv.core$tmp.funcs()
-      session$userData$funcs <- rv.core$tmp.funcs()
-    })
-    
+    # rv.core$tmp.funcs <- mod_modalDialog_server("loadPkg_modal",
+    #   title = "Default core functions",
+    #   external_mod = "mod_load_package",
+    #   external_mod_args = list(funcs = reactive({
+    #     rv.core$funcs
+    #   }))
+    # )
+    # 
+    # 
+    # observeEvent(req(rv.core$tmp.funcs()), {
+    #   lapply(
+    #     names(rv.core$tmp.funcs()),
+    #     function(x) {
+    #       pkg.name <- gsub(paste0("::", x), "", rv.core$tmp.funcs()[[x]])
+    #       call.func(
+    #         "require",
+    #         list(
+    #           package = pkg.name,
+    #           character.only = TRUE
+    #         )
+    #       )
+    #       # require(pkg.name, character.only = TRUE)
+    #     }
+    #   )
+    #   rv.core$funcs$funcs <- rv.core$tmp.funcs()
+    #   session$userData$funcs <- rv.core$tmp.funcs()
+    # })
+    # 
     
     
     

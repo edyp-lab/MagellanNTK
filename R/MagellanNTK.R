@@ -4,11 +4,16 @@
 #' @param id A `character()` as the id of the Shiny module
 #' @param dataIn A `list()` of data.frame like items. This parameter must be
 #' used with '[[]]' to access items
-#' @param workflow.path xxx
-#' @param workflow.name xxxx
+#' @param workflow.path A `character()` which is the path to the directory which 
+#' contains the files and directories of the pipeline.
+#' @param workflow.name A `character()` which is the name of the pipeline to
+#' launch and run whithin the framework of MagellanNTK. It designs the name of 
+#' a directory which contains the files and directories of the pipeline.
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
-#' @param usermod xxx
+#' @param usermod A character to specifies the running mode of MagellanNTK. 
+#' * user (default) : xxx
+#' * dev: xxx
 #' @param ... Additional parameters
 #' @param sidebarSize The width of the sidebar. Available values are 'small', 'medium', 'large'
 #' @param convert.path xxx
