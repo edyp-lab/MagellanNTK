@@ -42,7 +42,6 @@ Imports:
     stats,
     utils,
     dplyr,
-    markdown,
     BiocGenerics, 
     htmltools,
     crayon,

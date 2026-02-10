@@ -69,12 +69,6 @@ the verbose mode for logs.}
 * 'dev: xxx}
 
 \item{btnEvents}{xxxx}
-
-\item{history}{A `data.frame` which contains the history of the dataset for
-the process of id `id`. If the value is NULL, that means the current process
-has not been executed on the dataset, otherwise that means that the process
-has already be run on the dataset. This parameter allows to update the
-timeline of the process}
 }
 \value{
 A list of four items:
