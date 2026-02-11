@@ -7,19 +7,22 @@
 ToggleState_Screens(cond, range, is.enabled, rv)
 }
 \arguments{
-\item{cond}{xxx}
+\item{cond}{A `boolean`}
 
-\item{range}{xxx}
+\item{range}{A `vector` of integers. The min of this vector muste be gerater
+of equal to 0 and the max must be less or equal to the size of the vector
+rv$steps.enabled}
 
-\item{is.enabled}{xxx}
+\item{is.enabled}{A `boolean`}
 
-\item{rv}{xxx}
+\item{rv}{A `list` containing at least a slot named 'steps.enabled' which is
+a vector of integers}
 }
 \value{
-NA
+An updated version of the vector rv$steps.enabled
 }
 \description{
-Updates the status of steps in range
+Updates the status of steps in a given range
 }
 \examples{
 NULL

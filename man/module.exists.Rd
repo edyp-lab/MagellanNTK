@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{module.exists}
 \alias{module.exists}
-\title{Checks if a Shiny module exists}
+\title{Checks if a Shiny module is loaded}
 \usage{
 module.exists(base_name)
 }
@@ -17,5 +17,8 @@ This function checks if the ui() and server() parts of a
 Shiny module are available in the global environment.
 }
 \examples{
-NULL
+path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
+source_wf_files(path) 
+module.exists('PipelineDemo_Process2')
+
 }

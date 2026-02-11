@@ -28,7 +28,6 @@ MagellanNTK(
   dataIn = NULL,
   workflow.path = NULL,
   workflow.name = NULL,
-  convert.path = NULL,
   verbose = FALSE,
   usermod = "user",
   sidebarSize = "medium",
@@ -57,12 +56,10 @@ the verbose mode for logs.}
 * user (default) : xxx
 * dev: xxx}
 
-\item{convert.path}{xxx}
-
 \item{...}{Additional parameters}
 }
 \value{
-NA
+A shiny app
 }
 \description{
 xxx

@@ -1,8 +1,8 @@
-#' @title xxx
+#' @title Catch to a list
 #'
 #' @param expr xxx
 #'
-#' @return NA
+#' @return A `list` of three items: 'value', 'warnings' and 'error'
 #'
 #' @export
 #' @examples

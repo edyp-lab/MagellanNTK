@@ -65,7 +65,7 @@ Get_Code_Update_Config_Variable <- function() {
 #' To avoid confusion, the first string is the name of the step while the
 #' second is the name of the widget
 #'
-#' @return NA
+#' @return A `character()` containing R source code
 #'
 #' @export
 #'
@@ -104,7 +104,7 @@ Get_Code_Declare_widgets <- function(widgets.names = NULL) {
 #'
 #' @author Samuel Wieczorek
 #'
-#' @return NA
+#' @return A `character()` containing R source code
 #'
 #' @export
 #'
@@ -134,15 +134,11 @@ Get_Code_Declare_rv_custom <- function(rv.custom.names = NULL) {
 
 
 #' @title Code for declaring xxx
-#'
-#' @description This function xxx
-#' # Generate dynamically the observeEvent function for each widget
-#'
 #' @export
 #'
 #' @rdname insertCodeForExternalModules
 #'
-#' @return NA
+#' @return A `character()` containing R source code
 #'
 Get_Code_for_ObserveEvent_widgets <- function(widgets.names = NULL) {
     declare_rv_widgets <- NULL
@@ -164,8 +160,6 @@ Get_Code_for_ObserveEvent_widgets <- function(widgets.names = NULL) {
 
 
 #' @title Code for declaring widgets.default.values reactive variable
-#'
-#' @description This function createxxx
 #'
 #' @return A `string` containing some R code
 #'
@@ -206,7 +200,7 @@ Get_Code_for_rv_reactiveValues <- function() {
 #' @rdname insertCodeForExternalModules
 #'
 #'
-#' @return NA
+#' @return A `character()` containing R source code
 #'
 Get_Code_for_dataOut <- function() {
     code <- "dataOut <- reactiveValues(
@@ -221,14 +215,11 @@ Get_Code_for_dataOut <- function() {
 }
 
 #' @title Code for declaring xxx
-#'
-#' @description xxx
-#'
 #' @export
 #'
 #' @rdname insertCodeForExternalModules
 #'
-#' @return NA
+#' @return A `character()` containing R source code
 #'
 Get_Code_for_General_observeEvents <- function() {
     code <- "observeEvent(steps.enabled(), ignoreNULL = TRUE, {
@@ -254,15 +245,12 @@ observeEvent(steps.status(), ignoreNULL = TRUE, {
 
 
 
-#' @title Code for declaring xxx
-#'
-#' @description xxx
-#'
+#' @title Declaring remote reset code
 #' @export
 #'
 #' @rdname insertCodeForExternalModules
 #'
-#' @return NA
+#' @return A `character()` containing R source code
 #'
 Get_Code_for_remoteReset <- function(
         widgets = TRUE,
@@ -294,15 +282,12 @@ observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
 
 
 
-#' @title Code for declaring xxx
-#'
-#' @description xxx
-#'
+#' @title Code for declaring reseting widgets
 #' @export
 #'
 #' @rdname insertCodeForExternalModules
 #'
-#' @return NA
+#' @return A `character()` containing R source code
 #'
 Get_Code_for_resetting_widgets <- function() {
     "
@@ -314,15 +299,12 @@ lapply(names(rv.widgets), function(x){
 }
 
 
-#' @title Code for declaring xxx
-#'
-#' @description xxx
-#'
+#' @title Code for declaring custom resetting
 #' @export
 #'
 #' @rdname insertCodeForExternalModules
 #'
-#' @return NA
+#' @return A `character()` containing R source code
 #'
 Get_Code_for_resetting_custom <- function() {
     "
@@ -339,7 +321,7 @@ Get_Code_for_resetting_custom <- function() {
 #'
 #' @rdname insertCodeForExternalModules
 #'
-#' @return NA
+#' @return A `character()` containing R source code
 #'
 Module_Return_Func <- function() {
     code <- "# Return value of module
@@ -347,18 +329,16 @@ Module_Return_Func <- function() {
 list(config = reactive({config}),
 dataOut = reactive({dataOut})
 )
-
-
 "
 
     code
 }
 
-#' @title Code for declaring xxx.
+#' @title Declaring additional Code For External Modules
 #'
 #' @export
 #' @rdname insertCodeForExternalModules
-#' @return NA
+#' @return A `character()` containing R source code
 #'
 AdditionnalCodeForExternalModules <- function(
         w.names = NULL,
@@ -371,40 +351,16 @@ AdditionnalCodeForExternalModules <- function(
         Get_Code_for_dataOut(),
         sep = "\n"
     )
-
-    #
-    # core <- Insert_Call_to_Config(name)
-    # core <- paste0(core, Get_Code_Declare_widgets(w.names))
-    #
-    # if (mode == 'process'){
-    #     core <- paste0(core,
-    #       Get_Code_for_ObserveEvent_widgets(w.names),
-    #       sep = '\n')
-    # }
-    #
-    # core <- paste0(core,
-    #                Get_Code_Declare_rv_custom(rv.custom.names),
-    #                Get_Code_for_rv_reactiveValues(),
-    #                Get_Code_for_dataOut(),
-    #                Get_Code_for_General_observeEvents(),
-    #                sep = "\n"
-    #                )
-
     core
 }
 
 
-#' @title Code for declaring xxx
-#'
-#' @description This function xxx
-#' # Generate dynamically the observeEvent function for each widget
-#'
-#'
+#' @title Declaring workflow core code
 #' @export
 #'
 #' @rdname insertCodeForExternalModules
 #'
-#' @return NA
+#' @return A `character()` containing R source code
 #'
 Get_Workflow_Core_Code <- function(
         mode = NULL,
@@ -427,11 +383,11 @@ Get_Workflow_Core_Code <- function(
 }
 
 
-#' @title xxx
-#' @description xxx
+#' @title Insert source code for config() 
 #' @param name xxx
 #' @export
-#' @return NA
+#' @return A `character()` containing R source code
+#' 
 Insert_Call_to_Config <- function(name) {
     code <- "
 
@@ -451,7 +407,7 @@ config@ll.UI <- setNames(
     code
 }
 
-#' @title Code for declaring xxx
+#' @title Code for declaring addtional modules
 #'
 #' @description This function generates dynamically the observeEvent function for each widget
 #'
@@ -459,7 +415,7 @@ config@ll.UI <- setNames(
 #'
 #' @rdname insertCodeForExternalModules
 #'
-#' @return NA
+#' @return A `character()` containing R source code
 #'
 Get_AdditionalModule_Core_Code <- function(
         w.names = NULL,

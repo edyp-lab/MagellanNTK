@@ -2,7 +2,7 @@
 % Please edit documentation in R/code_used_by_external_modules.R
 \name{Insert_Call_to_Config}
 \alias{Insert_Call_to_Config}
-\title{xxx}
+\title{Insert source code for config()}
 \usage{
 Insert_Call_to_Config(name)
 }
@@ -10,8 +10,8 @@ Insert_Call_to_Config(name)
 \item{name}{xxx}
 }
 \value{
-NA
+A `character()` containing R source code
 }
 \description{
-xxx
+Insert source code for config()
 }

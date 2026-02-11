@@ -112,14 +112,17 @@ GetMaxValidated_AllSteps <- function(steps.status) {
 
 #' @title xxx
 #'
-#' @description Updates the status of steps in range
+#' @description Updates the status of steps in a given range
 #'
-#' @param cond xxx
-#' @param range xxx
-#' @param is.enabled xxx
-#' @param rv xxx
+#' @param cond A `boolean`
+#' @param range A `vector` of integers. The min of this vector muste be gerater
+#' of equal to 0 and the max must be less or equal to the size of the vector
+#' rv$steps.enabled
+#' @param is.enabled A `boolean`
+#' @param rv A `list` containing at least a slot named 'steps.enabled' which is
+#' a vector of integers
 #'
-#' @return NA
+#' @return An updated version of the vector rv$steps.enabled
 #'
 #' @export
 #' @examples
@@ -138,30 +141,30 @@ ToggleState_Screens <- function(cond,
   return(rv$steps.enabled)
 }
 
-
-#' @title Status to string
-#'
-#' @description Converts status code (intefer) into a readable string.
-#'
-#' @param i xxx
-#'
-#' @param title.style xxx
-#'
-#' @return NA
-#' @export
-#' @examples
-#' NULL
-GetStringStatus <- function(i, title.style = FALSE) {
-  txt <- names(which(stepStatus == i))
-  
-  if (title.style) {
-    txt <- paste(substr(txt, 1, 1),
-      tolower(substr(txt, 2, nchar(txt))),
-      sep = ""
-    )
-  }
-  txt
-}
+#' 
+#' #' @title Status to string
+#' #'
+#' #' @description Converts status code (intefer) into a readable string.
+#' #'
+#' #' @param i xxx
+#' #'
+#' #' @param title.style A `boolean` to indicate if 
+#' #'
+#' #' @return NA
+#' #' @export
+#' #' @examples
+#' #' NULL
+#' GetStringStatus <- function(i, title.style = FALSE) {
+#'   txt <- names(which(stepStatus == i))
+#'   
+#'   if (title.style) {
+#'     txt <- paste(substr(txt, 1, 1),
+#'       tolower(substr(txt, 2, nchar(txt))),
+#'       sep = ""
+#'     )
+#'   }
+#'   txt
+#' }
 
 
 

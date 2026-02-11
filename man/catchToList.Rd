@@ -2,7 +2,7 @@
 % Please edit documentation in R/catchToList.R
 \name{catchToList}
 \alias{catchToList}
-\title{xxx}
+\title{Catch to a list}
 \usage{
 catchToList(expr)
 }
@@ -10,10 +10,10 @@ catchToList(expr)
 \item{expr}{xxx}
 }
 \value{
-NA
+A `list` of three items: 'value', 'warnings' and 'error'
 }
 \description{
-xxx
+Catch to a list
 }
 \examples{
 NULL

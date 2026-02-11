@@ -69,9 +69,7 @@ Collate:
     doc-data.R
     sidebar.R
     utils.R
-    check_funcs.R
     code_used_by_external_modules.R
-    mod_debug_infos.R
     timeline_process.R
     timeline_pipeline.R
     core_process.R

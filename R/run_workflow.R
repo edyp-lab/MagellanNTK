@@ -104,17 +104,6 @@ pipe_workflow_server <- function(
 
         dataOut <- reactiveVal()
 
-        # output$debugInfos_ui <- renderUI({
-        #     req(usermod == "dev")
-        #     Debug_Infos_server(
-        #         id = "debug_infos",
-        #         title = "Infos from shiny app",
-        #         rv.dataIn = reactive({dataIn}),
-        #         dataOut = reactive({dataOut$dataOut()})
-        #     )
-        #     Debug_Infos_ui("debug_infos")
-        # })
-
         output$save_dataset_ui <- renderUI({
             req(c(dataOut(), dataOut()$dataOut()$value))
 
@@ -189,8 +178,7 @@ pipe_workflowApp <- function(
 proc_workflow_ui <- function(id) {
     ns <- NS(id)
     tagList(
-        nav_process_ui(ns(id)),
-        uiOutput(ns("debugInfos_ui"))
+        nav_process_ui(ns(id))
     )
 }
 

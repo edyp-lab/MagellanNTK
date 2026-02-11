@@ -15,12 +15,12 @@ keepDatasets(object, range = seq(length(object)))
 \arguments{
 \item{object}{An object of class `list`.}
 
-\item{dataset}{`character(1)` providing the base with respect to which
+\item{dataset}{`character()` providing the base with respect to which
 logarithms are computed. Default is log2.}
 
-\item{name}{A `character(1)` naming the new array name.}
+\item{name}{A `character()` naming the new array name.}
 
-\item{range}{A xxxx}
+\item{range}{A interval of integers}
 }
 \value{
 An processed object of the same class as `object`.

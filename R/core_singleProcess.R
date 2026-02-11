@@ -66,8 +66,8 @@ nav_single_process_ui <- function(id) {
       uiOutput(ns('process_panel_ui_process'))
       ),
     shiny::absolutePanel(
-      left = '100',
-      top = 10,
+      left = 50,
+      top = 20,
       
       actionButton(ns("btn_eda_singleProcess"), 
         label = tagList(
@@ -864,7 +864,6 @@ nav_single_process <- function() {
   ui <- fluidPage(
     tagList(
       uiOutput("UI")
-      #,uiOutput("debugInfos_ui")
     )
   )
   
@@ -880,23 +879,7 @@ nav_single_process <- function() {
       nav_single_process_ui(proc.name)
     })
     
-    # output$debugInfos_ui <- renderUI({
-    #   req(server_env$dev_mode)
-    #   Debug_Infos_server(
-    #     id = "debug_infos",
-    #     title = "Infos from shiny app",
-    #     rv.dataIn = reactive({
-    #       rv$dataIn
-    #     }),
-    #     dataOut = reactive({
-    #       rv$dataOut$dataOut()
-    #     })
-    #   )
-    #   Debug_Infos_ui("debug_infos")
-    # })
-    
-    
-    
+
     observe({
       rv$dataOut <- nav_single_process_server(
         id = proc.name,

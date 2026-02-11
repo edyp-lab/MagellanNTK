@@ -29,8 +29,7 @@
       column(width=2, actionButton('simSkipped', 'Remote is.skipped', class='info'))
     ),
     hr(),
-    uiOutput('UI'),
-    uiOutput('debugInfos_ui')
+    uiOutput('UI')
   )
 )
 
@@ -46,19 +45,7 @@ server <- function(input, output){
   
   
   output$UI <- renderUI({nav_ui(name)})
-  
-  output$debugInfos_ui <- renderUI({
-    req(server_env$dev_mode)
-    Debug_Infos_server(id = 'debug_infos',
-                       title = 'Infos from shiny app',
-                       rv.dataIn = reactive({rv$dataIn}),
-                       dataOut = reactive({rv$dataOut$dataOut()})
-                       )
-    Debug_Infos_ui('debug_infos')
-  })
-  
-  
-  
+
   observe({
     rv$dataOut <- nav_server(id = name,
                              dataIn = reactive({rv$dataIn}),

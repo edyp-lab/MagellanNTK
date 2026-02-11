@@ -4,14 +4,14 @@
 #' @name Save_Dataset
 #'
 #' @param id A `character()` as the id of the Shiny module
-#' @param data xxx
+#' @param data The object to be saved
 #'
 #' @examples
 #' if (interactive()) {
 #'     shiny::runApp(Save_Dataset(lldata))
 #' }
 #'
-#' @return NA
+#' @return A shiny app
 #'
 NULL
 
@@ -29,7 +29,6 @@ Save_Dataset_ui <- function(id) {
 
 
 #' @importFrom shiny downloadHandler moduleServer
-#' @return NA
 #'
 #' @rdname Save_Dataset
 #'
@@ -39,11 +38,7 @@ Save_Dataset_server <- function(id, data) {
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
-        # rv <- reactiveValues(
-        #   dataIn = NULL,
-        #   dataOut = NULL)
-        #
-        output$downloadData <- downloadHandler(
+         output$downloadData <- downloadHandler(
             filename = function() {
                 # paste('data-', input$files, "-", Sys.Date(), '.pdf', sep='')
                 "temp.RData"
@@ -60,8 +55,6 @@ Save_Dataset_server <- function(id, data) {
 
 
 #' @importFrom shiny fluidPage shinyApp
-#'
-#' @return NA
 #'
 #' @rdname Save_Dataset
 #'

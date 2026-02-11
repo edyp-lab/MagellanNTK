@@ -15,14 +15,10 @@ Save_Dataset(data)
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
 
-\item{data}{xxx}
+\item{data}{The object to be saved}
 }
 \value{
-NA
-
-NA
-
-NA
+A shiny app
 }
 \description{
 A shiny Module to load a dataset.

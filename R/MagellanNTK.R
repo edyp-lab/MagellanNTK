@@ -16,7 +16,6 @@
 #' * dev: xxx
 #' @param ... Additional parameters
 #' @param sidebarSize The width of the sidebar. Available values are 'small', 'medium', 'large'
-#' @param convert.path xxx
 #'
 #'
 #' @details
@@ -37,7 +36,7 @@
 #'     MagellanNTK()
 #' }
 #'
-#' @return NA
+#' @return A shiny app
 #'
 NULL
 
@@ -68,9 +67,6 @@ options(
     encoding = "UTF-8",
     shiny.fullstacktrace = TRUE
 )
-# require(compiler)
-# enableJIT(3)
-
 
 #' The application server-side
 #'
@@ -91,7 +87,6 @@ MagellanNTK_server <- function(
         usermod = "user") {
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
-        # addResourcePath(prefix = "www", directoryPath = "./www")
         addResourcePath("www", system.file("app/www", package = "MagellanNTK"))
         
         
@@ -127,7 +122,6 @@ MagellanNTK <- function(
         dataIn = NULL,
         workflow.path = NULL,
         workflow.name = NULL,
-        convert.path = NULL,
         verbose = FALSE,
         usermod = "user",
         sidebarSize = 'medium',
@@ -155,26 +149,17 @@ MagellanNTK <- function(
         source(f, local = FALSE, chdir = TRUE)
     }
 
-    
-    if(!is.null(convert.path)){
-      files <- list.files(file.path(convert.path, "R"), full.names = TRUE)
-      for (f in files) {
-        source(f, local = FALSE, chdir = TRUE)
-      }
-      }
+    # 
+    # if(!is.null(convert.path)){
+    #   files <- list.files(file.path(convert.path, "R"), full.names = TRUE)
+    #   for (f in files) {
+    #     source(f, local = FALSE, chdir = TRUE)
+    #   }
+    #   }
 
 
     source_shinyApp_files()
 
-    # Set global variables to global environment
-    # .GlobalEnv$funcs <- funcs
-    # .GlobalEnv$workflow <- workflow
-
-    # on.exit(rm(funcs, envir = .GlobalEnv))
-    # on.exit(rm(workflow, envir=.GlobalEnv))
-
-    # source_wf_files(workflow$path)
-    #
     ui <- MagellanNTK_ui("infos", sidebarSize = sidebarSize)
 
 

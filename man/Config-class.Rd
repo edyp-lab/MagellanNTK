@@ -33,7 +33,8 @@ Config(
 
 \item{mandatory}{xxx}
 
-\item{steps.source.file}{xxx}
+\item{steps.source.file}{A `vector` of which each item is the source code
+of the corresponding step.}
 
 \item{.Object}{xxx}
 }
@@ -63,21 +64,37 @@ Wrapper function to the constructor of the class
 \section{Slots}{
 
 \describe{
-\item{\code{fullname}}{xxxx}
+\item{\code{fullname}}{The name of the process which is the concatenation of the
+name of the pipeline and the name of the process itself, separated by '_'.}
 
-\item{\code{name}}{xxx}
+\item{\code{name}}{The name of the process nor pipeline.}
 
-\item{\code{parent}}{xxx}
+\item{\code{parent}}{The name of the pipeline/process which owns this instance}
 
-\item{\code{mode}}{xxx}
+\item{\code{mode}}{A `character()` which indicates if the configuration is about
+a whole process nor a process of a pipeline.}
 
-\item{\code{steps}}{xxx}
+\item{\code{steps}}{A `vector` of `character()` which contains the primary steps
+of the pipeline. Two steps will be automatically inserted in this vector:
+'Description 'in the first position and 'Save' at the end.}
 
-\item{\code{mandatory}}{xxx}
+\item{\code{mandatory}}{A `vector` of `boolean()` in which each item is the 
+necessary code for the GUI of a step. The size of this vector is the number
+ of steps}
 
-\item{\code{ll.UI}}{xxx}
+\item{\code{ll.UI}}{A `vector` of Shiny source code. Each item is the necessary code 
+for the GUI of a step. The size of this vector is the number of steps}
 
-\item{\code{steps.source.file}}{xxx}
+\item{\code{steps.source.file}}{A `vector` of which each item is the source code
+of the corresponding step.}
+
+\item{\code{steps}}{A `vector` of `character()` which contains the primary steps
+of the pipeline. Two steps will be automatically inserted in this vector:
+'Description 'in the first position and 'Save' at the end.}
+
+\item{\code{mandatory}}{A `vector` of `boolean()` in which each item is the 
+necessary code for the GUI of a step. The size of this vector is the number
+ of steps}
 }}
 
 \examples{
@@ -103,7 +120,7 @@ generic.pipe <- Config(
 root.pipe <- Config(
     mode = "pipeline",
     fullname = "PipelineDemo",
-    steps = c("Process1", "P-rocess2 bis", "Process3"),
+    steps = c("Process1", "Process2 bis", "Process3"),
     mandatory = c(FALSE, FALSE, TRUE)
 )
 

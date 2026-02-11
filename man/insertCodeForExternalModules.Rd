@@ -79,31 +79,31 @@ steps of the module.}
 \value{
 A `string` containing some R code
 
-NA
+A `character()` containing R source code
 
-NA
+A `character()` containing R source code
 
-NA
+A `character()` containing R source code
 
 A `string` containing some R code
 
-NA
+A `character()` containing R source code
 
-NA
+A `character()` containing R source code
 
-NA
+A `character()` containing R source code
 
-NA
+A `character()` containing R source code
 
-NA
+A `character()` containing R source code
 
-NA
+A `character()` containing R source code
 
-NA
+A `character()` containing R source code
 
-NA
+A `character()` containing R source code
 
-NA
+A `character()` containing R source code
 }
 \description{
 This function generates the necessary code to
@@ -131,23 +131,7 @@ variables.
 To avoid confusion, the first string is the name of the step while the
 second is the name of the widget
 
-This function xxx
-# Generate dynamically the observeEvent function for each widget
-
-This function createxxx
-
 Returned value of the process
-
-xxx
-
-xxx
-
-xxx
-
-xxx
-
-This function xxx
-# Generate dynamically the observeEvent function for each widget
 
 This function generates dynamically the observeEvent function for each widget
 }

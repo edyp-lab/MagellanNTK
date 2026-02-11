@@ -20,14 +20,22 @@
 #'  the first process module of a pipeline
 #'
 #'
-#' @slot fullname xxxx
-#' @slot name xxx
-#' @slot parent xxx
-#' @slot mode xxx
-#' @slot steps xxx
-#' @slot mandatory xxx
-#' @slot ll.UI xxx
-#' @slot steps.source.file xxx
+#' @slot fullname The name of the process which is the concatenation of the
+#' name of the pipeline and the name of the process itself, separated by '_'.
+#' @slot name The name of the process nor pipeline.
+#' @slot parent The name of the pipeline/process which owns this instance
+#' @slot mode A `character()` which indicates if the configuration is about
+#' a whole process nor a process of a pipeline.
+#' @slot steps A `vector` of `character()` which contains the primary steps
+#' of the pipeline. Two steps will be automatically inserted in this vector:
+#' 'Description 'in the first position and 'Save' at the end.
+#' @slot mandatory A `vector` of `boolean()` in which each item is the 
+#' necessary code for the GUI of a step. The size of this vector is the number
+#'  of steps
+#' @slot ll.UI A `vector` of Shiny source code. Each item is the necessary code 
+#' for the GUI of a step. The size of this vector is the number of steps
+#' @slot steps.source.file A `vector` of which each item is the source code
+#' of the corresponding step.
 #'
 #' @name Config-class
 #'
@@ -54,7 +62,7 @@
 #' root.pipe <- Config(
 #'     mode = "pipeline",
 #'     fullname = "PipelineDemo",
-#'     steps = c("Process1", "P-rocess2 bis", "Process3"),
+#'     steps = c("Process1", "Process2 bis", "Process3"),
 #'     mandatory = c(FALSE, FALSE, TRUE)
 #' )
 #'
@@ -540,9 +548,14 @@ setMethod("initialize", "Config", function(
 #'
 #' @param fullname xxx
 #' @param mode xxx
-#' @param steps xxx
-#' @param mandatory xxx
-#' @param steps.source.file xxx
+#' @slot steps A `vector` of `character()` which contains the primary steps
+#' of the pipeline. Two steps will be automatically inserted in this vector:
+#' 'Description 'in the first position and 'Save' at the end.
+#' @slot mandatory A `vector` of `boolean()` in which each item is the 
+#' necessary code for the GUI of a step. The size of this vector is the number
+#'  of steps
+#' @param steps.source.file A `vector` of which each item is the source code
+#' of the corresponding step.
 #'
 #' @export
 #'

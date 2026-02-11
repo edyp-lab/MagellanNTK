@@ -20,6 +20,31 @@ A `integer(1)` which is the new current position.
 \description{
 xxx
 }
+\details{
+#' @title Status to string
+#'
+#' @description Converts status code (intefer) into a readable string.
+#'
+#' @param i xxx
+#'
+#' @param title.style A `boolean` to indicate if 
+#'
+#' @return NA
+#' @export
+#' @examples
+#' NULL
+GetStringStatus <- function(i, title.style = FALSE) {
+  txt <- names(which(stepStatus == i))
+  
+  if (title.style) {
+    txt <- paste(substr(txt, 1, 1),
+      tolower(substr(txt, 2, nchar(txt))),
+      sep = ""
+    )
+  }
+  txt
+}
+}
 \examples{
 NULL
 }
