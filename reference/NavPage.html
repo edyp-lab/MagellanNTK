@@ -70,6 +70,27 @@ forward ('1'), backwards ('-1').</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A `integer(1)` which is the new current position.</p>
     </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>#' @title Status to string
+#'
+#' @description Converts status code (intefer) into a readable string.
+#'
+#' @param i xxx
+#'
+#' @param title.style A `boolean` to indicate if
+#'
+#' @return NA
+#' @export
+#' @examples
+#' NULL
+GetStringStatus &lt;- function(i, title.style = FALSE)
+  txt &lt;- names(which(stepStatus == i))  if (title.style)
+    txt &lt;- paste(substr(txt, 1, 1),
+      tolower(substr(txt, 2, nchar(txt))),
+      sep = ""
+    )  txt</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

@@ -93,24 +93,10 @@ MagellanNTK can be launched in two different modes: a ‘user’ mode and a
   : xxx
 - [`BuildData2Send()`](https://edyp-lab.github.io/MagellanNTK/reference/BuildData2Send.md)
   : Builds a vector of data
-- [`CheckProcessCode()`](https://edyp-lab.github.io/MagellanNTK/reference/CheckProcessCode.md)
-  : Check source code of a module process
-- [`CheckWorkflowDir()`](https://edyp-lab.github.io/MagellanNTK/reference/CheckWorkflowDir.md)
-  : Basic check workflow directory
-- [`CleanSourceCode()`](https://edyp-lab.github.io/MagellanNTK/reference/CleanSourceCode.md)
-  : Clean source code before syntax analysis
 - [`Config()`](https://edyp-lab.github.io/MagellanNTK/reference/Config-class.md)
   [`initialize(`*`<Config>`*`)`](https://edyp-lab.github.io/MagellanNTK/reference/Config-class.md)
   : Config class definition
-- [`Debug_Infos_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/Debug_Infos.md)
-  [`Debug_Infos_server()`](https://edyp-lab.github.io/MagellanNTK/reference/Debug_Infos.md)
-  [`Debug_Infos()`](https://edyp-lab.github.io/MagellanNTK/reference/Debug_Infos.md)
-  : Module debugging
 - [`Discover_Skipped_Steps()`](https://edyp-lab.github.io/MagellanNTK/reference/Discover_Skipped_Steps.md)
-  : xxx
-- [`FindClosingParenthesis()`](https://edyp-lab.github.io/MagellanNTK/reference/FindClosingParenthesis.md)
-  : xxx
-- [`Found_Mod_Funcs()`](https://edyp-lab.github.io/MagellanNTK/reference/Found_Mod_Funcs.md)
   : xxx
 - [`GetExtension()`](https://edyp-lab.github.io/MagellanNTK/reference/GetExtension.md)
   : Get file extension
@@ -124,12 +110,10 @@ MagellanNTK can be launched in two different modes: a ‘user’ mode and a
   : Get the last validated step before current position.
 - [`GetPackageVersion()`](https://edyp-lab.github.io/MagellanNTK/reference/GetPackageVersion.md)
   : Package version \#'description xxx
-- [`GetStringStatus()`](https://edyp-lab.github.io/MagellanNTK/reference/GetStringStatus.md)
-  : Status to string
 - [`InitializeHistory()`](https://edyp-lab.github.io/MagellanNTK/reference/InitializeHistory.md)
   : Get the last validated step before current position.
 - [`Insert_Call_to_Config()`](https://edyp-lab.github.io/MagellanNTK/reference/Insert_Call_to_Config.md)
-  : xxx
+  : Insert source code for config()
 - [`NavPage()`](https://edyp-lab.github.io/MagellanNTK/reference/NavPage.md)
   : xxx
 - [`Save_Dataset_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/Save_Dataset.md)
@@ -153,7 +137,7 @@ MagellanNTK can be launched in two different modes: a ‘user’ mode and a
 - [`call.func()`](https://edyp-lab.github.io/MagellanNTK/reference/call.func.md)
   : Call function
 - [`catchToList()`](https://edyp-lab.github.io/MagellanNTK/reference/catchToList.md)
-  : xxx
+  : Catch to a list
 - [`` `%AND%` ``](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
   [`is.Windows()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
   [`is.Linux()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
@@ -299,7 +283,7 @@ MagellanNTK can be launched in two different modes: a ‘user’ mode and a
   [`mod_SweetAlert()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_sweetAlert.md)
   : xxx
 - [`module.exists()`](https://edyp-lab.github.io/MagellanNTK/reference/module.exists.md)
-  : Checks if a Shiny module exists
+  : Checks if a Shiny module is loaded
 - [`nav_pipeline_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_pipeline.md)
   [`nav_pipeline_server()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_pipeline.md)
   [`nav_pipeline()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_pipeline.md)

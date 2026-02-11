@@ -1,6 +1,6 @@
-# xxx
+# Catch to a list
 
-xxx
+Catch to a list
 
 ## Usage
 
@@ -16,7 +16,7 @@ catchToList(expr)
 
 ## Value
 
-NA
+A \`list\` of three items: 'value', 'warnings' and 'error'
 
 ## Examples
 

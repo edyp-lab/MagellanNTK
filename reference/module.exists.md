@@ -1,4 +1,4 @@
-# Checks if a Shiny module exists
+# Checks if a Shiny module is loaded
 
 This function checks if the ui() and server() parts of a Shiny module
 are available in the global environment.
@@ -22,6 +22,9 @@ A boolean
 ## Examples
 
 ``` r
-NULL
-#> NULL
+path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
+source_wf_files(path) 
+#> [1] TRUE
+module.exists('PipelineDemo_Process2')
+#> [1] TRUE
 ```

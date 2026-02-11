@@ -28,7 +28,6 @@ MagellanNTK(
   dataIn = NULL,
   workflow.path = NULL,
   workflow.name = NULL,
-  convert.path = NULL,
   verbose = FALSE,
   usermod = "user",
   sidebarSize = "medium",
@@ -73,17 +72,13 @@ MagellanNTK(
   A character to specifies the running mode of MagellanNTK. \* user
   (default) : xxx \* dev: xxx
 
-- convert.path:
-
-  xxx
-
 - ...:
 
   Additional parameters
 
 ## Value
 
-NA
+A shiny app
 
 ## Details
 

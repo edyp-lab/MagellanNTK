@@ -20,15 +20,11 @@ Save_Dataset(data)
 
 - data:
 
-  xxx
+  The object to be saved
 
 ## Value
 
-NA
-
-NA
-
-NA
+A shiny app
 
 ## Examples
 

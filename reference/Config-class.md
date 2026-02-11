@@ -59,7 +59,8 @@ Config(
 
 - steps.source.file:
 
-  xxx
+  A \`vector\` of which each item is the source code of the
+  corresponding step.
 
 - .Object:
 
@@ -73,35 +74,53 @@ NA
 
 - `fullname`:
 
-  xxxx
+  The name of the process which is the concatenation of the name of the
+  pipeline and the name of the process itself, separated by '\_'.
 
 - `name`:
 
-  xxx
+  The name of the process nor pipeline.
 
 - `parent`:
 
-  xxx
+  The name of the pipeline/process which owns this instance
 
 - `mode`:
 
-  xxx
+  A \`character()\` which indicates if the configuration is about a
+  whole process nor a process of a pipeline.
 
 - `steps`:
 
-  xxx
+  A \`vector\` of \`character()\` which contains the primary steps of
+  the pipeline. Two steps will be automatically inserted in this vector:
+  'Description 'in the first position and 'Save' at the end.
 
 - `mandatory`:
 
-  xxx
+  A \`vector\` of \`boolean()\` in which each item is the necessary code
+  for the GUI of a step. The size of this vector is the number of steps
 
 - `ll.UI`:
 
-  xxx
+  A \`vector\` of Shiny source code. Each item is the necessary code for
+  the GUI of a step. The size of this vector is the number of steps
 
 - `steps.source.file`:
 
-  xxx
+  A \`vector\` of which each item is the source code of the
+  corresponding step.
+
+- `steps`:
+
+  A \`vector\` of \`character()\` which contains the primary steps of
+  the pipeline. Two steps will be automatically inserted in this vector:
+  'Description 'in the first position and 'Save' at the end.
+
+- `mandatory`:
+
+  A \`vector\` of \`boolean()\` in which each item is the necessary code
+  for the GUI of a step. The size of this vector is the number of steps
 
 ## Examples
 
@@ -127,7 +146,7 @@ generic.pipe <- Config(
 root.pipe <- Config(
     mode = "pipeline",
     fullname = "PipelineDemo",
-    steps = c("Process1", "P-rocess2 bis", "Process3"),
+    steps = c("Process1", "Process2 bis", "Process3"),
     mandatory = c(FALSE, FALSE, TRUE)
 )
 
@@ -172,7 +191,7 @@ root.pipe
 #>    parent: 
 #>    mode: pipeline
 #>    names(steps): Description Process1 Process2bis Process3 Save
-#>    steps: Description Process1 P-rocess2 bis Process3 Save
+#>    steps: Description Process1 Process2 bis Process3 Save
 #>    mandatory: TRUE FALSE FALSE TRUE TRUE
 #>    names(ll.UI): 
 #>    ll.UI: 

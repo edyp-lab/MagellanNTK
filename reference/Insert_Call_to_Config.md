@@ -1,6 +1,6 @@
-# xxx
+# Insert source code for config()
 
-xxx
+Insert source code for config()
 
 ## Usage
 
@@ -16,4 +16,4 @@ Insert_Call_to_Config(name)
 
 ## Value
 
-NA
+A \`character()\` containing R source code

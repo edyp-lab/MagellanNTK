@@ -49,16 +49,16 @@ keepDatasets(object, range = seq(length(object)))
 
 - dataset:
 
-  \`character(1)\` providing the base with respect to which logarithms
+  \`character()\` providing the base with respect to which logarithms
   are computed. Default is log2.
 
 - name:
 
-  A \`character(1)\` naming the new array name.
+  A \`character()\` naming the new array name.
 
 - range:
 
-  A xxxx
+  A interval of integers
 
 ## Value
 

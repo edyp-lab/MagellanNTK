@@ -1,6 +1,6 @@
 # xxx
 
-Updates the status of steps in range
+Updates the status of steps in a given range
 
 ## Usage
 
@@ -12,23 +12,26 @@ ToggleState_Screens(cond, range, is.enabled, rv)
 
 - cond:
 
-  xxx
+  A \`boolean\`
 
 - range:
 
-  xxx
+  A \`vector\` of integers. The min of this vector muste be gerater of
+  equal to 0 and the max must be less or equal to the size of the vector
+  rv\$steps.enabled
 
 - is.enabled:
 
-  xxx
+  A \`boolean\`
 
 - rv:
 
-  xxx
+  A \`list\` containing at least a slot named 'steps.enabled' which is a
+  vector of integers
 
 ## Value
 
-NA
+An updated version of the vector rv\$steps.enabled
 
 ## Examples
 
