@@ -2,22 +2,26 @@
 % Please edit documentation in R/general_core_funcs.R
 \name{Update_State_Screens}
 \alias{Update_State_Screens}
-\title{xxx}
+\title{Update the status enabled/disabled of the steps of a pipeline/process}
 \usage{
 Update_State_Screens(is.skipped, is.enabled, rv)
 }
 \arguments{
-\item{is.skipped}{xxx}
+\item{is.skipped}{A `boolean` indicating whether the current step of a process
+or process of a pipeline has the status SKIPPED}
 
-\item{is.enabled}{xxx}
+\item{is.enabled}{A `boolean` indicating whether the current step of a process
+or process of a pipeline is enabled (TRUE) or not (FALSE)}
 
-\item{rv}{xxx}
+\item{rv}{A `list` containing at least an item named 'steps.status' which is 
+a vector of of names for the steps of a pipeline nor a process.}
 }
 \value{
-NA
+A `vector` of boolean which gives the status enabled (TRUE) or 
+disabled (FALSER) of the steps from a pipeline nor a process.
 }
 \description{
-xxx
+Update the status enabled/disabled of the steps of a pipeline/process
 }
 \examples{
 NULL

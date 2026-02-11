@@ -2,21 +2,24 @@
 % Please edit documentation in R/general_core_funcs.R
 \name{ToggleState_NavBtns}
 \alias{ToggleState_NavBtns}
-\title{xxx}
+\title{Updates the state of navigation buttons}
 \usage{
 ToggleState_NavBtns(current.pos, nSteps)
 }
 \arguments{
-\item{current.pos}{xxx}
+\item{current.pos}{An `integer` which gives the current position of the cursor
+in the corresponding timeline}
 
-\item{nSteps}{xxx}
+\item{nSteps}{The number of steps in the timeline}
 }
 \value{
 NA
 }
 \description{
-xxx
+Enables/disables the buttons 'Next step' and 'Previous step'
+wrt the current position of the cursor in the timeline.
 }
 \examples{
 NULL
+
 }

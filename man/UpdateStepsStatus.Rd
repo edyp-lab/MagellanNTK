@@ -2,7 +2,7 @@
 % Please edit documentation in R/general_core_funcs.R
 \name{UpdateStepsStatus}
 \alias{UpdateStepsStatus}
-\title{xxx}
+\title{Update the status of steps in a pipeline nor process.}
 \usage{
 UpdateStepsStatus(dataIn, config)
 }
@@ -12,10 +12,11 @@ UpdateStepsStatus(dataIn, config)
 \item{config}{An instance of the `Config` class}
 }
 \value{
-A vector of boolean
+A vector of boolean in which each item indicates the status 
+(VALIDATED, UNDONE, SKIPPED) of the corresponding step.
 }
 \description{
-xxx
+Update the status of steps in a pipeline nor process.
 }
 \examples{
 NULL

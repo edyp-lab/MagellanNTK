@@ -84,7 +84,6 @@ Collate:
     mod_history_dataset.R
     mod_insert_md.R
     mod_homepage.R
-    catchToList.R
     mod_view_dataset.R
     mod_convert_dataset.R
     mod_export_dataset.R

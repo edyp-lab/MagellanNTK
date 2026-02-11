@@ -431,14 +431,16 @@ SetCurrentPosition <- function(stepsstatus){
 
 
 
-#' @title xxx
+#' @title Update the status enabled/disabled of the steps of a pipeline/process
 #'
-#' @description xxx
-#'
-#' @param is.skipped xxx
-#' @param is.enabled xxx
-#' @param rv xxx
-#' @return NA
+#' @param is.skipped A `boolean` indicating whether the current step of a process
+#' or process of a pipeline has the status SKIPPED
+#' @param is.enabled A `boolean` indicating whether the current step of a process
+#' or process of a pipeline is enabled (TRUE) or not (FALSE)
+#' @param rv A `list` containing at least an item named 'steps.status' which is 
+#' a vector of of names for the steps of a pipeline nor a process.
+#' @return A `vector` of boolean which gives the status enabled (TRUE) or 
+#' disabled (FALSER) of the steps from a pipeline nor a process. 
 #'
 #' @examples
 #' NULL
@@ -507,17 +509,20 @@ Update_State_Screens <- function(
 }
 
 
-#' @title xxx
+#' @title Updates the state of navigation buttons
 #'
-#' @description xxx
+#' @description Enables/disables the buttons 'Next step' and 'Previous step'
+#' wrt the current position of the cursor in the timeline.
 #'
-#' @param current.pos xxx
-#' @param nSteps xxx
+#' @param current.pos An `integer` which gives the current position of the cursor
+#' in the corresponding timeline
+#' @param nSteps The number of steps in the timeline
 #'
 #' @return NA
 #'
 #' @examples
 #' NULL
+#' 
 #' @export
 #'
 #' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show
@@ -525,6 +530,7 @@ Update_State_Screens <- function(
 #'
 ToggleState_NavBtns <- function(current.pos, nSteps) {
   if (nSteps == 1){
+    # on est soit sur l'etape de 'Description' soit sur l'etape de 'Save'
     shinyjs::toggleState(id = "prevBtn", condition = FALSE)
     shinyjs::toggleState(id = "nextBtn", condition = FALSE)
   } else {
@@ -535,21 +541,4 @@ ToggleState_NavBtns <- function(current.pos, nSteps) {
     shinyjs::toggleState(id = "nextBtn", condition = current.pos < nSteps)
   }
   
-}
-
-
-#' @title xxx
-#'
-#' @description See `shinyjs::toggleState()`
-#'
-#' @param cond A boolean: TRUE (enabled), FALSE (disabled)
-#'
-#' @return NA
-#'
-#' @export
-#' @examples
-#' NULL
-#'
-ToggleState_ResetBtn <- function(cond) {
-  shinyjs::toggleState("rstBtn", condition = cond)
 }

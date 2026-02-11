@@ -7,7 +7,7 @@
 Insert_Call_to_Config(name)
 }
 \arguments{
-\item{name}{xxx}
+\item{name}{The name of a pipeline nor a process}
 }
 \value{
 A `character()` containing R source code
