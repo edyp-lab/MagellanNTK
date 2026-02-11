@@ -19,7 +19,6 @@
 #' @param remoteResetUI xxx
 #' @param status A boolean which indicates whether the current status of the 
 #' process 
-#' @param btnEvents xxxx
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
 #' @param usermod A character to specifies the running mode of MagellanNTK. 
@@ -99,7 +98,6 @@ nav_single_process_server <- function(
   is.skipped = FALSE,
   verbose = FALSE,
   usermod = "user",
-  btnEvents = reactive({NULL}),
   sendDataIfReset = TRUE
   ) {
   ### -------------------------------------------------------------###
@@ -151,7 +149,6 @@ nav_single_process_server <- function(
       length = NULL,
       config = NULL,
       rstBtn = reactive({0}),
-      btnEvents = reactive({NULL}),
       doProceedAction = NULL,
       history = InitializeHistory()
     )

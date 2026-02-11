@@ -29,10 +29,7 @@ nav_process_server(
      FALSE
  }),
   verbose = FALSE,
-  usermod = "user",
-  btnEvents = reactive({
-     NULL
- })
+  usermod = "user"
 )
 
 nav_process()
@@ -69,8 +66,6 @@ the verbose mode for logs.}
 \item{usermod}{A character to specifies the running mode of MagellanNTK. 
 * user (default) : xxx
 * dev: xxx}
-
-\item{btnEvents}{xxxx}
 }
 \value{
 A shiny App

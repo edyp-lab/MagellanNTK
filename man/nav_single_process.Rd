@@ -23,9 +23,6 @@ nav_single_process_server(
   is.skipped = FALSE,
   verbose = FALSE,
   usermod = "user",
-  btnEvents = reactive({
-     NULL
- }),
   sendDataIfReset = TRUE
 )
 
@@ -57,8 +54,6 @@ the verbose mode for logs.}
 \item{usermod}{A character to specifies the running mode of MagellanNTK. 
 * user (default) : xxx
 * dev: xxx}
-
-\item{btnEvents}{xxxx}
 
 \item{sendDataIfReset}{A `boolean` to indicate if the reseted value must
 be send to the caller in case of reseting the process. This is usefule for example

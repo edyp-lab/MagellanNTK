@@ -25,9 +25,6 @@
 #' process 
 #' @param is.skipped A booelan which indicates whether the pipeline or process
 #' is skipped (TRUE) or not (FALSE)
-#'
-#' @param btnEvents xxxx
-#'
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
 #' @param usermod A character to specifies the running mode of MagellanNTK. 
@@ -92,8 +89,7 @@ nav_process_server <- function(
   remoteResetUI = reactive({0}),
   is.skipped = reactive({FALSE}),
   verbose = FALSE,
-  usermod = "user",
-  btnEvents = reactive({NULL})
+  usermod = "user"
   ) {
   ### -------------------------------------------------------------###
   ###                                                             ###
@@ -147,7 +143,6 @@ nav_process_server <- function(
       length = NULL,
       config = NULL,
       rstBtn = reactive({0}),
-      btnEvents = reactive({NULL}),
       doProceedAction = NULL
     )
     
