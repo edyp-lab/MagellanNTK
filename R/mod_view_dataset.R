@@ -8,8 +8,7 @@
 #'
 #' @name view_dataset
 #'
-#' @return
-#' NA
+#' @return A shiny App
 #'
 #' @examples
 #' if (interactive()) {

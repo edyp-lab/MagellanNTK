@@ -19,21 +19,26 @@ timeline_pipeline_server(id, config, status, position, enabled)
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
 
-\item{config}{xxx}
+\item{config}{An instance of the class `Config`}
 
-\item{status}{xxx,}
+\item{status}{A boolean which indicates whether the current status of the 
+process ,}
 
-\item{position}{xxx}
+\item{position}{An integer which reflects the current position of the cursor
+within the steps.}
 
-\item{enabled}{xxx}
+\item{enabled}{A vector of booleans with the same length as the number of steps (
+See the slot steps in the config object). Each element indicates if the
+corresponding step is enabled (TRUE) or (DISABLED)}
 }
 \value{
 NA
+
+A Shiny app
 }
 \description{
 xxx
 }
 \examples{
 NULL
-
 }

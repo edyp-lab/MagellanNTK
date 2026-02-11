@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{is.substr}
 \alias{is.substr}
-\title{Substring}
+\title{Substring test}
 \usage{
 is.substr(pattern, target)
 }
@@ -15,7 +15,7 @@ is.substr(pattern, target)
 A boolean
 }
 \description{
-Substring
+Substring test
 }
 \examples{
 is.substr('cde', 'abcdefghi')

@@ -37,11 +37,17 @@ It is the same as for the server() function.}
 
 \item{dataIn}{An instance of the `SummarizedExperiment` class}
 
-\item{status}{xxx}
+\item{status}{A boolean which indicates whether the current status of the 
+process}
 
 \item{remoteResetUI}{xxx}
 
-\item{is.enabled}{xxxx}
+\item{is.enabled}{A `boolean`. This variable is used as a remote command to specify
+if the corresponding module is enabled/disabled in the calling module of
+upper level.
+For example, if this module is disabled, then this variable is set to TRUE. Then,
+all the widgets will be disabled. If not, the enabling/disabling of widgets
+is deciding by this module.}
 
 \item{is.skipped}{is.skipped xxx}
 
@@ -59,12 +65,7 @@ be send to the caller in case of reseting the process. This is usefule for examp
 for the Convert process}
 }
 \value{
-A list of four items:
-* dataOut A dataset of the same class of the parameter dataIn
-* steps.enabled A vector of `boolean` of the same length than config@steps
-* status A vector of `integer(1)` of the same length than the config@steps
-  vector
-* reset xxxx
+A shiny App
 }
 \description{
 The module navigation can be launched via a Shiny app.

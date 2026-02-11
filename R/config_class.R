@@ -101,7 +101,6 @@ Config <- setClass(
         mandatory = "ANY",
         ll.UI = "list",
         steps.source.file = "vector"
-        # ,dirpath_to_md_file = 'vector'
     ),
     validity <- function(.Object) {
         passed <- TRUE
@@ -120,32 +119,6 @@ Config <- setClass(
             warning("The 'mode' must be one of the following: 'process', 'pipeline'")
             passed <- FALSE
         }
-
-
-        # Check if process has a parent
-        # if (object@mode == 'process' && object@parent == ''){
-        #     warning("A process workflow must have a parent process.")
-        #     passed <- FALSE
-        # }
-
-        # Check validity for Description module
-        # if (object@name == 'Description'){
-        #   if (object@steps != '' || object@mandatory != ''){
-        #     warning("A 'Description' module does not have no steps nor mandatory info.")
-        #     passed <- FALSE
-        #   }
-        #   if (object@mode != 'process'){
-        #     warning("A 'Description' module is a process and has a 'pipeline' module as parent.")
-        #     passed <- FALSE
-        #   }
-        #   if (object@parent == ''){
-        #     warning("A 'Description' module is a process and thus has a 'pipeline' module as parent. 'Parent' cannot be empty.")
-        #     passed <- FALSE
-        #   }
-        #   }
-
-
-
         return(passed)
     }
 )
@@ -194,15 +167,6 @@ is.GenericProcess <- function(.Object) {
 }
 
 
-
-# A rootProcess has no parent
-# is.RootProcess <- function(.Object){
-#   passed <- validity(.Object)
-#   passed <- passed && is.GenericProcess(.Object)
-#   passed <- passed && .Object@parent == ''
-#   return(passed)
-# }
-
 #' @noRd
 is.GenericPipeline <- function(.Object) {
     passed <- validity(.Object)
@@ -225,39 +189,6 @@ is.GenericNode <- function(obj) {
     return(passed)
 }
 
-
-# is.RootPipeline <- function(.Object){
-#   passed <- validity(.Object)
-#   passed <- passed && is.GenericPipeline(.Object)
-#   passed <- passed && .Object@parent == ''
-#
-#   return(passed)
-# }
-
-# is.SaveProcess <- function(.Object){
-#   passed <- validity(.Object)
-#   passed <- passed && (.Object@mode == 'process')
-#   #passed <- passed && (length(.Object@parent) >= 1 && .Object@parent != '')
-#   passed <- passed && is.null(.Object@steps)
-#   passed <- passed && is.null(.Object@mandatory)
-#   passed <- passed && grepl('Save', .Object@name)
-#
-#   return(passed)
-# }
-
-
-# A `DescriptionProcess` is a process and it is the first step of a pipeline
-# It has only one step called 'Description'
-# is.DescriptionProcess <- function(obj){
-#   passed <- validity(obj)
-#   passed <- passed && is.process(obj)
-#   passed <- passed && has.parent(obj)
-#   passed <- passed && is.null(obj@steps)
-#   passed <- passed && is.null(obj@mandatory)
-#   passed <- passed && grepl('Description', obj@name)
-#
-#   return(passed)
-# }
 
 
 #' @noRd
@@ -312,40 +243,6 @@ init.GenericNode <- function(.Object) {
 
     return(.Object)
 }
-
-
-# init.RootProcess <- function(.Object){
-#   .Object@steps <- c('Description', .Object@steps, 'Save')
-#   .Object@mandatory <- c(TRUE, .Object@mandatory, TRUE)
-#   .Object@steps <- setNames(.Object@steps, nm = gsub(' ', '',.Object@steps, fixed=TRUE))
-#   .Object@mandatory <- setNames(.Object@mandatory, nm = names(.Object@steps))
-#   return(.Object)
-# }
-
-
-# init.RootPipeline <- function(.Object){
-#
-#   # A pipeline may have a parent or not (in this case, it is the first node
-#   # level of the whole workflow
-#
-#   #.Object@steps <- c('Description', .Object@steps)
-#   #.Object@mandatory <- c(TRUE, .Object@mandatory)
-#
-#   .Object@steps <- c('Description', .Object@steps, 'Save')
-#   .Object@mandatory <- c(TRUE, .Object@mandatory, TRUE)
-#    .Object@steps <- setNames(.Object@steps, nm = gsub(' ', '',.Object@steps, fixed=TRUE))
-#
-#
-#   .Object@mandatory <- setNames(.Object@mandatory, nm = names(.Object@steps))
-#
-#
-#   # This line comes after the other ones because in the case of a pipeline,
-#   # the description step is a module itself and must be loaded in memory
-#   # as well as the other steps
-#   .Object@steps.source.file <- paste0(names(.Object@steps), '.R')
-#
-#   return(.Object)
-# }
 
 
 
@@ -414,9 +311,8 @@ init.SaveProcess <- function(.Object) {
 }
 
 
-#' @title xxx
-#' @description xxx
-#' @param object xxx
+#' @title Prints the content of a `Config` class
+#' @param object An instance of the class `Config`
 #' @importFrom crayon green
 #' @export
 #' @return NA
@@ -454,11 +350,17 @@ setMethod(
 #' @title Initialization method for the class `Config`
 #'
 #' @param .Object xxx
-#' @param fullname xxx
-#' @param mode xxx
-#' @param steps xxx
-#' @param mandatory xxx
-#' @param steps.source.file xxx
+#' @param fullname The complete name of the pipeline or the process (in this case,
+#' it is the concatenation of the name of the pipeline and the name of the process 
+#' itself, separated by '_')
+#' @param mode A `character()` which indicates whether the current module is used
+#' as a 'process' nor a 'pipeline.' Default value is NULL
+#' @param steps A vector containing the names of steps in a process or a pipeline.
+#' @param mandatory A vector of boolean where each element indicates whether the
+#' corresponding steps is mandatory or not. It has the same length of the vector
+#' steps.
+#' @param steps.source.file A vector in which each element contains the
+#' source code of a step.  It has the same length of the vector steps.
 #'
 #' @rdname Config-class
 #'
@@ -489,15 +391,6 @@ setMethod("initialize", "Config", function(
     .Object@steps <- if (length(steps) == 0) NULL else steps
     .Object@mandatory <- if (length(mandatory) == 0) NULL else mandatory
 
-    # if (is.GenericProcess(.Object) || is.GenericPipeline(.Object))
-    #   .Object <- init.GenericNode(.Object)
-    # else if (is.SpecialProcess(.Object, 'Description'))
-    #   .Object <- init.DescriptionProcess(.Object)
-    # else if (is.SpecialProcess(.Object, 'Save'))
-    #   .Object <- init.SaveProcess(.Object)
-    # else
-    #   .Object <- NULL
-
     if (is.SpecialProcess(.Object, "Description")) {
         .Object <- init.DescriptionProcess(.Object)
     } else if (is.SpecialProcess(.Object, "Save")) {
@@ -505,35 +398,6 @@ setMethod("initialize", "Config", function(
     } else if (is.GenericNode(.Object)) {
         .Object <- init.GenericNode(.Object)
     }
-
-    # if (is.process(.Object)){
-    #   if (is.SpecialProcess(.Object, 'Description'))
-    #     .Object <- init.DescriptionProcess(.Object)
-    #   else if (is.SpecialProcess(.Object, 'Save'))
-    #     .Object <- init.SaveProcess(.Object)
-    #   else if (is.GenericNode(.Object))
-    #     .Object <- init.GenericNode(.Object)
-    #   } else if (is.pipeline(.Object)){
-    #     .Object <- init.GenericNode(.Object)
-    #     }
-    #
-    # is.GenericProcess(.Object) || is.GenericPipeline(.Object))
-    #   .Object <- init.GenericNode(.Object)
-    # else if (is.SpecialProcess(.Object, 'Description'))
-    #   .Object <- init.DescriptionProcess(.Object)
-    # else if (is.SpecialProcess(.Object, 'Save'))
-    #   .Object <- init.SaveProcess(.Object)
-    # else
-    #   .Object <- NULL
-
-
-    # else if (is.RootProcess(.Object))
-    #  .Object <- init.RootProcess(.Object)
-    # else if (is.GenericPipeline(.Object))
-    #  .Object <- init.GenericNode(.Object)
-    # else if (is.RootPipeline(.Object))
-    #  .Object <- init.RootPipeline(.Object)
-    # .Object@dirpath_to_md_file <- dirpath_to_md_file
 
     # If the config represents a pipeline, builds the expected names of
     # the source files of its steps
@@ -546,8 +410,11 @@ setMethod("initialize", "Config", function(
 #'
 #' @rdname Config-class
 #'
-#' @param fullname xxx
-#' @param mode xxx
+#' @param fullname The complete name of the pipeline or the process (in this case,
+#' it is the concatenation of the name of the pipeline and the name of the process 
+#' itself, separated by '_')
+#' @param mode A `character()` which indicates whether the current module is used
+#' as a 'process' nor a 'pipeline.' Default value is NULL
 #' @slot steps A `vector` of `character()` which contains the primary steps
 #' of the pipeline. Two steps will be automatically inserted in this vector:
 #' 'Description 'in the first position and 'Save' at the end.
@@ -574,6 +441,5 @@ Config <- function(
         steps = steps,
         mandatory = mandatory,
         steps.source.file = steps.source.file
-        # ,dirpath_to_md_file = dirpath_to_md_file
     )
 }

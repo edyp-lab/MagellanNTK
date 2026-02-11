@@ -15,7 +15,7 @@
 #'     url <- file.path(base, "presentation.Rmd")
 #'     shiny::runApp(insert_md(url))
 #' }
-#' @return NA
+#' @return A shiny App
 
 #' @rdname mod_insert_md
 #' @export

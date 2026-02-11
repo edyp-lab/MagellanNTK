@@ -20,7 +20,7 @@ view_dataset(dataIn, ...)
 \item{...}{Additional parameters}
 }
 \value{
-NA
+A shiny App
 
 NA
 }

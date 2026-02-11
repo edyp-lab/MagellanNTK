@@ -12,7 +12,7 @@
 #'     shiny::runApp(mod_homepage())
 #' }
 #'
-#' @return NA
+#' @return A shiny App
 #'
 NULL
 

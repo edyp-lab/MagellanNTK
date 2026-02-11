@@ -21,7 +21,7 @@ insert_md(url)
 \item{link_URL}{xxx}
 }
 \value{
-NA
+A shiny App
 }
 \description{
 A shiny Module.

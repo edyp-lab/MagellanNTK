@@ -25,13 +25,18 @@ Config(
 )
 }
 \arguments{
-\item{fullname}{xxx}
+\item{fullname}{The complete name of the pipeline or the process (in this case,
+it is the concatenation of the name of the pipeline and the name of the process 
+itself, separated by '_')}
 
-\item{mode}{xxx}
+\item{mode}{A `character()` which indicates whether the current module is used
+as a 'process' nor a 'pipeline.' Default value is NULL}
 
-\item{steps}{xxx}
+\item{steps}{A vector containing the names of steps in a process or a pipeline.}
 
-\item{mandatory}{xxx}
+\item{mandatory}{A vector of boolean where each element indicates whether the
+corresponding steps is mandatory or not. It has the same length of the vector
+steps.}
 
 \item{steps.source.file}{A `vector` of which each item is the source code
 of the corresponding step.}

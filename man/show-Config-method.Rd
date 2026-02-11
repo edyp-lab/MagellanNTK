@@ -2,16 +2,16 @@
 % Please edit documentation in R/config_class.R
 \name{show,Config-method}
 \alias{show,Config-method}
-\title{xxx}
+\title{Prints the content of a `Config` class}
 \usage{
 \S4method{show}{Config}(object)
 }
 \arguments{
-\item{object}{xxx}
+\item{object}{An instance of the class `Config`}
 }
 \value{
 NA
 }
 \description{
-xxx
+Prints the content of a `Config` class
 }

@@ -63,11 +63,9 @@ A shiny app
 }
 \description{
 xxx
-
-DO NOT REMOVE.
 }
 \details{
-The list of customizable funcs (param `funcs`) contains the following items:
+The list of customizable functions (param `funcs`) contains the following items:
 
  These are the default values where each item points to a default fucntion
  implemented into MagellanNTK.
@@ -76,15 +74,4 @@ The list of customizable funcs (param `funcs`) contains the following items:
  * setting the values in the parameter to pass to the function
  `MagellanNTK()`,
  * inside the UI of MagellanNTK, in the settings panels
-}
-\examples{
-if (interactive()) {
-    MagellanNTK()
-}
-
-if (interactive()) {
-    # launch without initial config
-    shiny::runApp(MagellanNTK())
-}
-
 }

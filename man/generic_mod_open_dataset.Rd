@@ -27,9 +27,9 @@ open_dataset(class = NULL, extension = NULL, demo_package = NULL)
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
 
-\item{class}{xxx}
+\item{class}{The class allowed to open objects}
 
-\item{extension}{xxx}
+\item{extension}{The extension file allowed}
 
 \item{demo_package}{xxx}
 
@@ -37,10 +37,15 @@ open_dataset(class = NULL, extension = NULL, demo_package = NULL)
 module. Its value is incremented on a external event and it is used to 
 trigger an event in this module}
 
-\item{is.enabled}{xxx}
+\item{is.enabled}{A `boolean`. This variable is used as a remote command to specify
+if the corresponding module is enabled/disabled in the calling module of
+upper level.
+For example, if this module is disabled, then this variable is set to TRUE. Then,
+all the widgets will be disabled. If not, the enabling/disabling of widgets
+is deciding by this module.}
 }
 \value{
-NA
+A Shiny app
 }
 \description{
 This module allows to change

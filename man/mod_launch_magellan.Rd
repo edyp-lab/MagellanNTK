@@ -16,7 +16,7 @@ mod_launch_magellan()
 \item{id}{A `character()` as the id of the Shiny module}
 }
 \value{
-NA
+A shiny App
 }
 \description{
 A shiny Module.

@@ -38,6 +38,8 @@ download_btns(dataIn)
 \item{tags}{xxx}
 }
 \value{
+A shiny App
+
 NA
 }
 \description{

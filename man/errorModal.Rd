@@ -18,6 +18,8 @@ errorModal(msg)
 \item{msg}{xxxx}
 }
 \value{
+A shiny App
+
 NA
 }
 \description{

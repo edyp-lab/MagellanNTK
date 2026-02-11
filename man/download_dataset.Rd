@@ -31,7 +31,7 @@ download_dataset(data, filename = "myDataset")
 \item{data}{xxx}
 }
 \value{
-NA
+A shiny App
 }
 \description{
 A shiny Module.

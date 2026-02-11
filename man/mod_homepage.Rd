@@ -26,7 +26,7 @@ mod_homepage()
 \item{dataset}{xxx}
 }
 \value{
-NA
+A shiny App
 }
 \description{
 A shiny Module.

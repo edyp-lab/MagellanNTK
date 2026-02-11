@@ -12,87 +12,98 @@
 #' This convention is important because MagellanNTK call the different
 #' server and ui functions by building dynamically their name.
 #' 
-#' In this example, `PipelineDemo_Process1_ui()` and `PipelineDemo_Process1_server()` define
-#' the code for the process `ProcessDemo` which is part of the pipeline called `PipelineDemo`.
-#'
-#' @name example_module_process1
+#' In this example, `PipelineProtein_Normalization_ui()` and `PipelineProtein_Normalization_server()` define
+#' the code for the process `ProcessProtein` which is part of the pipeline called `PipelineProtein`.
 #' 
-#' @param id xxx
-#' @param dataIn The dataset
-#' @param steps.enabled A vector of boolean which has the same length of the steps
-#' of the pipeline. This information is used to enable/disable the widgets. It is not
-#' a communication variable between the caller and this module, thus there is no
-#' corresponding output variable
-#' @param remoteReset It is a remote command to reset the module. A boolean that
-#' indicates is the pipeline has been reseted by a program of higher level
-#' Basically, it is the program which has called this module
-#' @param steps.status xxx
-#' @param current.pos xxx
-#' @param path xxx
+#' @example inst/workflow/PipelineProtein/examples/example_PipelineProtein_Normalization.R
 #' 
-#' 
-#' 
-#' 
-#' 
-#' @author Samuel Wieczorek
-#' 
+#' @importFrom QFeatures addAssay removeAssay
+#' @import DaparToolshed
 #' 
 NULL
 
-#' @rdname example_module_process1
+#' @rdname PipelineProtein
 #' @export
 #' 
-PipelineDemo_Process1_conf <- function(){
-  Config(
-    fullname = 'PipelineDemo_Process1',
+PipelineProtein_Normalization_conf <- function(){
+  MagellanNTK::Config(
+    fullname = 'PipelineProtein_Normalization',
     mode = 'process',
-    steps = c('Step 1'),
+    steps = c('Normalization'),
     mandatory = c(FALSE)
   )
 }
 
 
-#' @rdname example_module_process1
+#' @param id xxx
+#' 
+#' @rdname PipelineProtein
+#' 
+#' @author Samuel Wieczorek
 #' 
 #' @export
 #'
-PipelineDemo_Process1_ui <- function(id){
+PipelineProtein_Normalization_ui <- function(id){
   ns <- NS(id)
+  shinyjs::useShinyjs()
 }
 
 
-
-#' @rdname example_module_process1
+#' @param id xxx
+#'
+#' @param dataIn An instance of the class 
+#'
+#' @param steps.enabled A vector of boolean which has the same length of the steps
+#' of the pipeline. This information is used to enable/disable the widgets. It is not
+#' a communication variable between the caller and this module, thus there is no
+#' corresponding output variable
+#'
+#' @param remoteReset It is a remote command to reset the module. A boolean that
+#' indicates if the pipeline has been reset by a program of higher level
+#' Basically, it is the program which has called this module
+#' 
+#' @param steps.status xxx
+#' 
+#' @param current.pos xxx
+#' 
+#'
+#' @rdname PipelineProtein
 #' 
 #' @importFrom stats setNames rnorm
+#' @import omXplore
+#' @importFrom shinyjs hidden useShinyjs toggle
+#' @importFrom QFeatures addAssay
 #' 
 #' @export
 #' 
-PipelineDemo_Process1_server <- function(id,
+PipelineProtein_Normalization_server <- function(id,
   dataIn = reactive({NULL}),
   steps.enabled = reactive({NULL}),
-  remoteReset = reactive({NULL}),
+  remoteReset = reactive({0}),
   steps.status = reactive({NULL}),
   current.pos = reactive({1}),
-  path = NULL,
   btnEvents = reactive({NULL})
 ){
   
-  #source(paste0(path, '/foo.R'), local=TRUE)$value
+  
+  pkgs.require(c('QFeatures', 'SummarizedExperiment', 'S4Vectors'))
   
   # Define default selected values for widgets
   # This is only for simple workflows
   widgets.default.values <- list(
-    Step1_select1 = 1,
-    Step1_select2 = NULL,
-    Step1_btn1 = NULL,
-    Step2_select1 = 1,
-    Step2_select2 = 1
+    Normalization_method = "None",
+    Normalization_type = "overall",
+    Normalization_spanLOESS = 0.7,
+    Normalization_quantile = 0.15,
+    Normalization_varReduction = FALSE,
+    Normalization_sync = FALSE
   )
   
-  
   rv.custom.default.values <- list(
-    foo = NULL
+    tmp.dataset = NULL,
+    history = MagellanNTK::InitializeHistory(),
+    selectProt = reactive({NULL}),
+    result_open_dataset = reactive({NULL})
   )
   
   ###-------------------------------------------------------------###
@@ -103,9 +114,8 @@ PipelineDemo_Process1_server <- function(id,
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
-    # Insert necessary code which is hosted by MagellanNTK
-    # DO NOT MODIFY THIS LINE
-    core.code <- Get_Workflow_Core_Code(
+    
+    core.code <- MagellanNTK::Get_Workflow_Core_Code(
       mode = 'process',
       name = id,
       w.names = names(widgets.default.values),
@@ -113,237 +123,472 @@ PipelineDemo_Process1_server <- function(id,
     )
     
     eval(str2expression(core.code))
+    add.resourcePath()
     
     
-    # >>>
-    # >>> START ------------- Code for Description UI---------------
-    # >>> 
-
-
     output$Description <- renderUI({
-      file <- normalizePath(file.path(session$userData$workflow.path, 
-        'md', paste0(id, '.Rmd')))
+      file <- normalizePath(file.path(
+        system.file('workflow', package = 'Prostar2'),
+        unlist(strsplit(id, '_'))[1], 
+        'md', 
+        paste0(id, '.Rmd')))
       
-      req(file)
-      MagellanNTK::process_layout(
+      
+      MagellanNTK::process_layout(session,
         ns = NS(id),
-        sidebar = tagList(),
-        #timeline_process_ui(ns('Description_timeline')),
-        content = tagList(
+        sidebar = tagList(
+          uiOutput(ns('open_dataset_UI'))
+        ),
+        content = div(id = ns('div_content'),
+          #div(id = ns("chunk"), style = "width: 100px; height: 100px;" ),
           if (file.exists(file))
             includeMarkdown(file)
           else
             p('No Description available')
+          #uiOutput(ns('Description_infos_dataset_UI'))
         )
       )
-
+      
     })
     
-    observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
-      req(btnEvents()=='Description')
+    
+    
+    # output$open_dataset_UI <- renderUI({
+    #   req(session$userData$runmode == 'process')
+    #   req(is.null(dataIn()))
+    #   req(NULL)
+    #  
+    #   rv.custom$result_open_dataset <- MagellanNTK::open_dataset_server(
+    #     id = "open_dataset",
+    #     class = 'QFeatures',
+    #     extension = "qf",
+    #     remoteReset = reactive({remoteReset()})
+    #   )
+    #   
+    # MagellanNTK::open_dataset_ui(id = ns("open_dataset"))
+    # })
+    
+    
+    # output$Description_infos_dataset_UI <- renderUI({
+    #   req(rv$dataIn)
+    #   
+    #   infos_dataset_server(
+    #     id = "Description_infosdataset",
+    #     dataIn = reactive({rv$dataIn})
+    #   )
+    # 
+    #   infos_dataset_ui(id = ns("Description_infosdataset"))
+    # })
+    
+    
+    
+    observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE, {
+      req(grepl('Description', btnEvents()))
+      #rv.custom$result_open_dataset()$dataset
       req(dataIn())
       rv$dataIn <- dataIn()
       
-      dataOut$trigger <- MagellanNTK::Timestamp()
-      dataOut$value <- rv$dataIn
-      rv$steps.status['Description'] <- stepStatus$VALIDATED
+      if(!is.null(rv.custom$result_open_dataset()$dataset))
+        rv$dataIn <- rv.custom$result_open_dataset()$dataset
+      
+      shiny::withProgress(message = paste0("xxx process", id), {
+        shiny::incProgress(0.5)
+        
+        rv.custom$dataIn <- rv$dataIn
+        
+        dataOut$trigger <- MagellanNTK::Timestamp()
+        dataOut$value <- NULL
+        rv$steps.status['Description'] <- MagellanNTK::stepStatus$VALIDATED
+      })
+      
     })
     
-    
     # >>>
-    # >>> START ------------- Code for step 1 UI---------------
+    # >>> START ------------- Code for Normalization UI---------------
     # >>> 
     
     # >>>> -------------------- STEP 1 : Global UI ------------------------------------
-    output$Step1 <- renderUI({
+    output$Normalization <- renderUI({
       shinyjs::useShinyjs()
-      path <- file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')
-      includeCSS(path)
+      #path <- file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')
+      #includeCSS(path)
       
-      MagellanNTK::process_layout(
+      .style <- "display:inline-block; vertical-align: middle; 
+      padding-right: 20px;"
+      
+      MagellanNTK::process_layout(session,
         ns = NS(id),
         sidebar = tagList(
-          # timeline_process_ui(ns('POVImputation_timeline')),
-          uiOutput(ns("Step1_btn1_ui")),
-          uiOutput(ns("Step1_select1_ui")),
-          uiOutput(ns("Step1_select2_ui"))
+          #timeline_process_ui(ns('Normalization_timeline')),
+          uiOutput(ns("Normalization_method_ui")),
+          shinyjs::hidden(uiOutput(ns('Normalization_type_ui'))),
+          shinyjs::hidden(uiOutput(ns('Normalization_spanLOESS_ui'))),
+          uiOutput(ns("Normalization_quantile_ui")),
+          uiOutput(ns("Normalization_varReduction_ui")),
+          uiOutput(ns('tracking')),
+          shinyjs::hidden(uiOutput(ns("Normalization_sync_ui")))
         ),
         content = tagList(
-          plotOutput(ns("Step1_showPlot"))
-        )
+          fluidRow(
+            column(width = 6,
+              omXplore::omXplore_density_ui(ns("densityPlot_Norm")),
+              omXplore::omXplore_intensity_ui(ns("boxPlot_Norm"))
+            ),
+            column(width = 6,
+              highcharter::highchartOutput(ns("viewComparisonNorm_hc"))
+            )
+          ))
       )
     })
     
+    ###############################################################
     
-    # >>> START: Definition of the widgets
+    selectProt <- omXplore::plots_tracking_server(
+      id = "tracker",
+      dataIn = reactive({rv.custom$dataIn[[length(rv.custom$dataIn)]]}),
+      remoteReset = reactive({remoteReset()})
+    )
+    
+    omXplore::omXplore_intensity_server("boxPlot_Norm",
+      dataIn = reactive({rv.custom$dataIn}),
+      i = reactive({length(rv.custom$dataIn)}),
+      track.indices = reactive({selectProt()$indices}),
+      remoteReset = reactive({remoteReset()}),
+      is.enabled = reactive({rv$steps.enabled["Normalization"]})
+    )
+    
+    omXplore::omXplore_density_server("densityPlot_Norm", 
+      dataIn = reactive({rv.custom$dataIn}),
+      i = reactive({length(rv.custom$dataIn)})
+    )
     
     
-    
-    
-    # rv.custom$foo <- foo_server('foo',
-    #   dataIn = reactive({rv$dataIn}),
-    #   reset = reactive({NULL}),
-    #   is.enabled = reactive({rv$steps.enabled['Step1']})
-    # )
-    
-    
-    
-    output$Step1_btn1_ui <- renderUI({
-      widget <- actionButton(ns('Step1_btn1'), 'Button',
-        class = btn_success_color)
-      toggleWidget(widget, rv$steps.enabled['Step1'] )
-      #toggleWidget(widget, TRUE )
+    output$Normalization_method_ui <- renderUI({
+      widget <- selectInput(
+        ns('Normalization_method'),
+        "Method",
+        choices = setNames(nm = c("None", DaparToolshed::normalizeMethods())),
+        selected = rv.widgets$Normalization_method,
+        width = '180px'
+      )
+      MagellanNTK::toggleWidget(widget, rv$steps.enabled["Normalization"])
     })
     
-    # This part must be customized by the developer of a new module
-    output$Step1_select1_ui <- renderUI({
-      widget <- selectInput(ns('Step1_select1'), 'Select',
-        choices = 1:20,
-        selected = rv.widgets$Step1_select1,
+    
+    output$Normalization_type_ui <- renderUI({
+      widget <- selectInput(ns('Normalization_type'),
+        "Type",
+        choices = stats::setNames(
+          nm = c("overall", "within conditions")),
+        selected = rv.widgets$Normalization_type,
         width = '150px')
-      toggleWidget(widget, rv$steps.enabled['Step1'] )
+      MagellanNTK::toggleWidget(widget, rv$steps.enabled["Normalization"])
     })
     
     
-    output$Step1_select2_ui <- renderUI({
-      widget <- selectInput(ns('Step1_select2'), 'Select',
-        choices = 1:20,
-        selected = rv.widgets$Step1_select2,
-        width = '150px')
-      toggleWidget(widget, rv$steps.enabled['Step1'])
-    })
-    
-
-    
-    output$Step1_showPlot <- renderPlot({
-      plot(1:rv.widgets$Step1_select1)
+    output$Normalization_spanLOESS_ui <- renderUI({
+      widget <- textInput(
+        ns('Normalization_spanLOESS'),
+        'Span',
+        value = rv.widgets$Normalization_spanLOESS,
+        width = '100px')
+      MagellanNTK::toggleWidget(widget, rv$steps.enabled["Normalization"])
     })
     
     
-    observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
-      req(btnEvents()=='Step1')
-      req(rv$dataIn)
-      
-      
-      # Do some stuff
-      
-      # DO NOT MODIFY THE THREE FOLLOWINF LINES
-      dataOut$trigger <- Timestamp()
-      dataOut$value <- NULL
-      rv$steps.status['Step1'] <- stepStatus$VALIDATED
-      
+    output$Normalization_quantile_ui <- renderUI({
+      req(rv.widgets$Normalization_method == "QuantileCentering")
+      widget <- textInput(
+        ns('Normalization_quantile'),
+        MagellanNTK::mod_popover_for_help_ui(ns('quantile_help')),
+        value = rv.widgets$Normalization_quantile,
+        width = '100px')
+      MagellanNTK::toggleWidget(widget, rv$steps.enabled["Normalization"])
+    })
+    
+    
+    output$Normalization_varReduction_ui <- renderUI({
+      req(rv.widgets$Normalization_method == "MeanCentering")
+      widget <- checkboxInput(
+        ns('Normalization_varReduction'),
+        "Include variance reduction",
+        value = rv.widgets$Normalization_varReduction
+      )
+      MagellanNTK::toggleWidget(widget, rv$steps.enabled["Normalization"])
+    })
+    
+    
+    output$Normalization_sync_ui <- renderUI({
+      widget <- checkboxInput(
+        ns('Normalization_sync'),
+        "Synchronise with selection above",
+        value = rv.widgets$Normalization_sync
+      )
+      MagellanNTK::toggleWidget(widget, rv$steps.enabled["Normalization"])
+    })
+    
+    
+    output$tracking <- renderUI({
+      req(rv.widgets$Normalization_method %in% c('QuantileCentering', 'MeanCentering', 'SumByColumns'))
+      widget <-  omXplore::plots_tracking_ui(ns("tracker"))
+      MagellanNTK::toggleWidget(widget, rv$steps.enabled["Normalization"])
     })
     
     
     
-    # <<< END ------------- Code for step 1 UI---------------
-    
-    
-    # >>> START ------------- Code for step 2 UI---------------
-    
-    output$Step2 <- renderUI({
-      shinyjs::useShinyjs()
-      path <- file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')
-      includeCSS(path)
+    output$viewComparisonNorm_hc <- highcharter::renderHighchart({
+      req(rv.custom$dataIn)
+      req(length(rv.custom$dataIn) > 1)
       
-      MagellanNTK::process_layout(
-        ns = NS(id),
-        sidebar = tagList(
-          uiOutput(ns("Step2_select1_ui")),
-          uiOutput(ns("Step2_select2_ui"))
-        ),
-        content = tagList(
-          uiOutput(ns("POVImputation_showDetQuantValues")),
-          htmlOutput("helpForImputation"),
-          tags$hr(),
-          uiOutput(ns('mvplots_ui'))
-        )
+      obj1 <- rv.custom$dataIn[[length(rv.custom$dataIn)]]
+      obj2 <- rv.custom$dataIn[[length(rv.custom$dataIn)-1]]
+      
+      req(obj1)
+      req(obj2)
+      protId <- DaparToolshed::idcol(rv.custom$dataIn[[length(rv.custom$dataIn)]])
+      
+      if (!is.null(selectProt()$indices)) {
+        .n <- length(selectProt()$indices)
+        .subset <- selectProt()$indices
+      } else {
+        .n <- floor(0.02 * nrow(obj1))
+        .subset <- seq(nrow(obj1))
+      }
+      
+      
+      
+      DaparToolshed::compareNormalizationD_HC(
+        qDataBefore = SummarizedExperiment::assay(rv.custom$dataIn, length(rv.custom$dataIn)),
+        qDataAfter = SummarizedExperiment::assay(rv.custom$dataIn, length(rv.custom$dataIn)-1),
+        keyId = SummarizedExperiment::rowData(rv.custom$dataIn[[length(rv.custom$dataIn)]])[, protId],
+        conds = DaparToolshed::design.qf(rv.custom$dataIn)$Condition,
+        pal = NULL,
+        # Consider only 2% of the entire dataset
+        n = .n,
+        subset.view = .subset
       )
     })
     
-    
-    output$Step2_select1_ui <- renderUI({
-      widget <- selectInput(ns('Step2_select1'), 'Select',
-        choices = 1:4,
-        selected = rv.widgets$Step2_select1,
-        width = '150px')
-      toggleWidget(widget, rv$steps.enabled['Step2'] )
-    })
-    
-    output$Step2_select2_ui <- renderUI({
-      widget <- selectInput(ns('Step2_select2'), 'Select',
-        choices = 1:4,
-        selected = rv.widgets$Step2_select2,
-        width = '150px')
-      toggleWidget(widget, rv$steps.enabled['Step2'] )
-    })
-    
-    observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
-      req(btnEvents()=='Step2')
-      req(rv$dataIn)
+    observeEvent(rv.widgets$Normalization_method, {
+      req(rv.widgets$Normalization_method)
+      req(rv.custom$dataIn)
+      shinyjs::toggle("Normalization_btn_validate",
+        condition = rv.widgets$Normalization_method != "None")
+      
+      shinyjs::toggle("Normalization_spanLOESS_ui",
+        condition = rv.widgets$Normalization_method == "LOESS")
       
       
-      # Do some stuff
       
-      # DO NOT MODIFY THE THREE FOLLOWINF LINES
-      dataOut$trigger <- Timestamp()
-      dataOut$value <- NULL
-      rv$steps.status['Step2'] <- stepStatus$VALIDATED
+      .choice <- c("QuantileCentering", "MeanCentering", "SumByColumns", 
+        "LOESS", "vsn")
+      
+      shinyjs::toggle("Normalization_type_ui",
+        condition = (rv.widgets$Normalization_method %in% .choice)
+      )
+      
+      cond <- S4Vectors::metadata(rv.custom$dataIn[[length(rv.custom$dataIn)]])[['typeDataset']] == "protein"
+      
+      .meths <- DaparToolshed::normalizeMethods('withTracking')
+      trackAvailable <- rv.widgets$Normalization_method %in% .meths
+      shinyjs::toggle("Normalization_sync_ui",
+        condition = cond && trackAvailable)
+      
     })
     
-    # <<< END ------------- Code for step 2 UI---------------
+    
+    MagellanNTK::mod_popover_for_help_server(
+      id = 'quantile_help',
+      title = "Normalization quantile",
+      content = "lower limit/noise (quantile = 0.15),
+            median (quantile = 0.5). Min value=0, max value=1"
+    )
     
     
-    # >>> START ------------- Code for step 'Save' UI---------------
+    observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE, {
+      req(grepl('Normalization', btnEvents()))
+      
+      shiny::withProgress(message = paste0("Normalization process", id), {
+        shiny::incProgress(0.5)
+        
+        if ( is.null(rv.custom$dataIn) ||
+            rv.widgets$Normalization_method == widgets.default.values$Normalization_method)
+          shinyjs::info(btnVentsMasg)
+        else {
+          
+          
+          # Do some stuff 
+          req(rv.widgets$Normalization_method)
+          req(rv.custom$dataIn)
+          
+          
+          rv.custom$tmpAssay <- NULL
+          .tmp <- NULL
+          try({
+            .conds <- SummarizedExperiment::colData(rv.custom$dataIn)[, "Condition"]
+            qdata <- SummarizedExperiment::assay(rv.custom$dataIn, length(rv.custom$dataIn))
+            
+            
+            switch(rv.widgets$Normalization_method,
+              
+              G_noneStr = {
+                .tmp <- rv.custom$dataIn[[length(rv.custom$dataIn)]]
+              },
+              
+              GlobalQuantileAlignment = {
+                .tmp <- DaparToolshed::GlobalQuantileAlignment(qdata)
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'method', rv.widgets$Normalization_method)
+                
+              },
+              
+              QuantileCentering = {
+                quant <- NA
+                if (!is.null(rv.widgets$Normalization_quantile)) {
+                  quant <- as.numeric(rv.widgets$Normalization_quantile)
+                }
+                
+                .tmp <- DaparToolshed::QuantileCentering(
+                  qData = qdata, 
+                  conds = .conds, 
+                  type = rv.widgets$Normalization_type, 
+                  subset.norm = selectProt()$indices, 
+                  quantile = quant)
+                
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'method', rv.widgets$Normalization_method)
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'quantile', quant)
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'type', rv.widgets$Normalization_type)
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'subset.norm', selectProt()$indices)
+              },
+              
+              MeanCentering = {
+                .tmp<- DaparToolshed::MeanCentering(
+                  qData = qdata, 
+                  conds = .conds,
+                  type = rv.widgets$Normalization_type,
+                  scaling = rv.widgets$Normalization_varReduction,
+                  subset.norm = selectProt()$indices
+                )
+                
+                
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'method', rv.widgets$Normalization_method)
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'varReduction', rv.widgets$Normalization_varReduction)
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'type', rv.widgets$Normalization_type)
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'subset.norm', selectProt()$indices)
+                
+              },
+              SumByColumns = {
+                .tmp <- DaparToolshed::SumByColumns(
+                  qData = qdata,
+                  conds = .conds,
+                  type = rv.widgets$Normalization_type,
+                  subset.norm = selectProt()$indices
+                )
+                
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'method', rv.widgets$Normalization_method)
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'type', rv.widgets$Normalization_type)
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'subset.norm', selectProt()$indices)
+                
+              },
+              LOESS = {
+                .tmp <- DaparToolshed::LOESS(
+                  qData = qdata,
+                  conds = .conds,
+                  type = rv.widgets$Normalization_type,
+                  span = as.numeric(rv.widgets$Normalization_spanLOESS)
+                )
+                
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'method', rv.widgets$Normalization_method)
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'type', rv.widgets$Normalization_type)
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'spanLOESS', as.numeric(rv.widgets$Normalization_spanLOESS))
+                
+              },
+              vsn = {
+                .tmp <- DaparToolshed::vsn(
+                  qData = qdata,
+                  conds = .conds,
+                  type = rv.widgets$Normalization_type
+                )
+                
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'method', rv.widgets$Normalization_method)
+                rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Normalization', 'Normalization', 'type', rv.widgets$Normalization_type)
+              }
+            )
+          })
+          
+          
+          if(inherits(.tmp, "try-error") || inherits(.tmp, "try-warning")) {
+            
+            MagellanNTK::mod_SweetAlert_server(id = 'sweetalert_perform_normalization',
+              text = .tmp[[1]],
+              type = 'error' )
+          } else {
+            new.dataset <- rv.custom$dataIn[[length(rv.custom$dataIn)]]
+            SummarizedExperiment::assay(new.dataset) <- .tmp
+            
+            
+            rv.custom$dataIn <- QFeatures::addAssay(rv.custom$dataIn, new.dataset, 'Normalization')
+          }
+          
+          
+          # DO NOT MODIFY THE THREE FOLLOWING LINES
+          dataOut$trigger <- MagellanNTK::Timestamp()
+          dataOut$value <- NULL
+          rv$steps.status['Normalization'] <- MagellanNTK::stepStatus$VALIDATED
+        }
+      })
+    })
+    
+    
+    # >>> START ------------- Code for step 3 UI---------------
     output$Save <- renderUI({
-      MagellanNTK::process_layout(
+      MagellanNTK::process_layout(session,
         ns = NS(id),
-        sidebar = tagList(
-          #timeline_process_ui(ns('Save_timeline'))
-        ),
-        content = uiOutput(ns('dl_ui'))
+        sidebar = tagList(),
+        content = tagList(
+          uiOutput(ns('dl_ui'))
+        )
       )
     })
     
     output$dl_ui <- renderUI({
-      req(rv$steps.status['Save'] == stepStatus$VALIDATED)
+      req(rv$steps.status['Save'] == MagellanNTK::stepStatus$VALIDATED)
       req(config@mode == 'process')
       
-      MagellanNTK::download_dataset_ui(ns('createQuickLink'))
+      Prostar2::download_dataset_ui(ns(paste0(id, '_createQuickLink')))
     })
     
-    output$Save_btn_validate_ui <- renderUI({
-      tagList(
-        if (config@mode == 'process' && 
-            rv$steps.status['Save'] == stepStatus$VALIDATED) {
-          download_dataset_ui(ns('createQuickLink'))
+    
+    observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE, {
+      req(grepl('Save', btnEvents()))
+      
+      shiny::withProgress(message = paste0("Saving process", id), {
+        shiny::incProgress(0.5)
+        if (isTRUE(all.equal(SummarizedExperiment::assays(dataIn()),
+          SummarizedExperiment::assays(rv.custom$dataIn))))
+          shinyjs::info(btnVentsMasg)
+        else {
+          S4Vectors::metadata(rv.custom$dataIn)$name.pipeline <- 'PipelineProtein'
+          
+          
+          DaparToolshed::paramshistory(rv.custom$dataIn[[length(rv.custom$dataIn)]]) <- rbind(DaparToolshed::paramshistory(rv.custom$dataIn[[length(rv.custom$dataIn)]]),
+            rv.custom$history)
+          
+          
+          dataOut$trigger <- MagellanNTK::Timestamp()
+          dataOut$value <- rv.custom$dataIn
+          rv$steps.status['Save'] <- MagellanNTK::stepStatus$VALIDATED
+          
+          Prostar2::download_dataset_server(paste0(id, '_createQuickLink'), dataIn = reactive({dataOut$value}))
         }
-      )
-    })
-    
-    observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
-      req(btnEvents()=='Save')
-      # Do some stuff
-      assay(rv$dataIn[[length(rv$dataIn)]]) <- 10 * assay(rv$dataIn[[length(rv$dataIn)]])
-      rv$dataIn <- MagellanNTK::addDatasets(
-        object = rv$dataIn,
-        dataset = rv$dataIn[[length(rv$dataIn)]],
-        name = 'Process1')
-      
-      # DO NOT MODIFY THE THREE FOLLOWINF LINES
-      dataOut$trigger <- MagellanNTK::Timestamp()
-      dataOut$value <- rv$dataIn
-      rv$steps.status['Save'] <- stepStatus$VALIDATED
-      download_dataset_server('createQuickLink', dataIn = reactive({rv$dataIn}))
-      
+      })
     })
     # <<< END ------------- Code for step 3 UI---------------
     
     
-    #dataOu$widgets <- 
+    
     # Insert necessary code which is hosted by MagellanNTK
     # DO NOT MODIFY THIS LINE
-    eval(parse(text = Module_Return_Func()))
+    eval(parse(text = MagellanNTK::Module_Return_Func()))
   }
   )
 }

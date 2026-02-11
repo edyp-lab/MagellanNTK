@@ -21,8 +21,10 @@
 #' trigger an event in this module
 #' 
 #' @param remoteResetUI xxx
-#' @param status xxx
-#' @param is.skipped xxx
+#' @param status A boolean which indicates whether the current status of the 
+#' process 
+#' @param is.skipped A booelan which indicates whether the pipeline or process
+#' is skipped (TRUE) or not (FALSE)
 #'
 #' @param btnEvents xxxx
 #'
@@ -36,12 +38,7 @@
 #'
 #'
 #'
-#' @return A list of four items:
-#' * dataOut A dataset of the same class of the parameter dataIn
-#' * steps.enabled A vector of `boolean` of the same length than config@steps
-#' * status A vector of `integer(1)` of the same length than the config@steps
-#'   vector
-#' * reset xxxx
+#' @return A shiny App
 #'
 #' @examples
 #' if (interactive()) {
@@ -668,9 +665,10 @@ nav_process_server <- function(
     observeEvent(is.skipped(), ignoreNULL = FALSE, ignoreInit = TRUE, {
 
       if (isTRUE(is.skipped())) {
-        rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$SKIPPED)
+        setNames(rep(stepStatus$SKIPPED, length(rv$steps.status)), rv$steps.status)
+        
       } else {
-        rv$steps.status <- All_Skipped_tag(rv$steps.status, stepStatus$UNDONE)
+        setNames(rep(stepStatus$UNDONE, length(rv$steps.status)), rv$steps.status)
         rv$steps.enabled <- Update_State_Screens(
           is.skipped = is.skipped(),
           is.enabled = is.enabled(),

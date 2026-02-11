@@ -12,7 +12,7 @@
 #'     shiny::runApp(release_notes(url))
 #' }
 #'
-#' @return NA
+#' @return A shiny App
 #'
 NULL
 

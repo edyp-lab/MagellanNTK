@@ -12,7 +12,7 @@
 #'     shiny::runApp(history_dataset(lldata))
 #' }
 #'
-#' @return NA
+#' @return A shiny App
 #'
 NULL
 

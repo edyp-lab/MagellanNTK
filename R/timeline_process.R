@@ -3,10 +3,14 @@
 #' @description xxx
 #'
 #' @param id A `character()` as the id of the Shiny module
-#' @param config xxx
-#' @param status xxx,
-#' @param position xxx
-#' @param enabled xxx
+#' @param config An instance of the class `Config`
+#' @param status A boolean which indicates whether the current status of the 
+#' process ,
+#' @param position An integer which reflects the current position of the cursor
+#' within the steps.
+#' @param enabled A vector of booleans with the same length as the number of steps (
+#' See the slot steps in the config object). Each element indicates if the
+#' corresponding step is enabled (TRUE) or (DISABLED)
 #'
 #' @name timelines
 #'
@@ -14,9 +18,10 @@
 #' @importFrom sass sass sass_file
 #' @return NA
 #'
-#' @examples
+#' @examples 
 #' NULL
-#'
+#' @return A Shiny app
+#' 
 NULL
 
 
@@ -32,9 +37,6 @@ NULL
 timeline_process_ui <- function(id) {
     ns <- NS(id)
     fpath <- system.file("www/sass", "process_timeline.sass", package = "MagellanNTK")
-
-    # inlineCSS(sass(sass_file("www/sass/process_timeline.sass"))),
-
 
     tagList(
         shinyjs::useShinyjs(),
@@ -77,7 +79,6 @@ timeline_process_server <- function(
 
         UpdateTags <- reactive({
             tl_status <- rep("undone", length(config@steps))
-            # tl_status[which(config@mandatory)] <- "mandatory"
             tl_status[which(status() == stepStatus$VALIDATED)] <- "completed"
             tl_status[which(status() == stepStatus$SKIPPED)] <- "skipped"
 
@@ -98,9 +99,7 @@ timeline_process_server <- function(
 
 
         output$show_process_TL <- renderUI({
-            # .size <-"25px"
-            # .iconsize <- "25px"
-
+            
             tags$div(
                 class = "process-timeline",
                 lapply(seq_len(length(config@steps)), function(i) {
@@ -111,7 +110,6 @@ timeline_process_server <- function(
                         tags$div(
                             class = "icon",
                             tags$img(src = icons[i], height = "25px"),
-                            # style = paste0("height: ", .size, "; width: ", .size, ";")
                             style = paste0("height: 30px; width: 30px;")
                         ),
                         tags$div(class = "label texteSurUneLigne", config@steps[i])

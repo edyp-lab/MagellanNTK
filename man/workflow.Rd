@@ -67,6 +67,8 @@ the verbose mode for logs.}
 }
 \value{
 NA
+
+A shiny App
 }
 \description{
 This module contains the configuration information for the corresponding

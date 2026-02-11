@@ -5,7 +5,7 @@
 \alias{mod_SweetAlert_ui}
 \alias{mod_SweetAlert_server}
 \alias{mod_SweetAlert}
-\title{xxx}
+\title{A shiny app to display a modal}
 \usage{
 mod_SweetAlert_ui(id)
 
@@ -31,10 +31,10 @@ mod_SweetAlert(title, text, type = "warning")
 \item{type}{xxx}
 }
 \value{
-NA
+A shiny App
 }
 \description{
-xxxxx
+A shiny app to display a modal
 }
 \examples{
 if (interactive()) {

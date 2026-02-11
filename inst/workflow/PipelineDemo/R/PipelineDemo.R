@@ -1,36 +1,52 @@
-#' @title Shiny example module `Pipeline Demo`
+#' @title Shiny example module `Pipeline A`
 #'
 #' @description
 #' This module contains the configuration information for the corresponding pipeline.
 #' It is called by the nav_pipeline module of the package MagellanNTK
-#' This documentation is for developpers who want to create their own pipelines nor processes
+#' This documentation is for developers who want to create their own pipelines nor processes
 #' to be managed with `MagellanNTK`.
+#' 
+#' @name module_PiplelineProtein
+#' @examples
+#' if (interactive()){
+#' source("~/GitHub/Prostar2/inst/extdata/workflow/PipelineProtein/R/PipelineProtein.R")
+#' path <- system.file('extdata/workflow/PipelineProtein', package = 'Prostar2')
+#' shiny::runApp(MagellanNTK::workflowApp("PipelineProtein"))
+#' }
+#' 
+#' @name PipelineProtein
+#' 
+#' @example inst/workflow/PipelineProtein/examples/example_pipelineProtein.R
+#' 
+#' @importFrom QFeatures addAssay removeAssay
+#' @import DaparToolshed
+#' 
+NULL
 
 
-
-#' @rdname example_pipelineDemo
+#' @rdname PipelineProtein
 #' @export
 #' 
-PipelineDemo_conf <- function(){
-Config(
-  mode = 'pipeline',
-  fullname = 'PipelineDemo',
-  steps = c('Process 1', 'Process 2'),
-  mandatory = c(FALSE, TRUE)
-)
+PipelineProtein_conf <- function(){
+  MagellanNTK::Config(
+    mode = 'pipeline',
+    fullname = 'PipelineProtein',
+    steps = c('Filtering', 'Normalization', 'Imputation', 'HypothesisTest', 'DA'),
+    mandatory = c(FALSE, FALSE, FALSE, FALSE, FALSE)
+  )
 }
 
 
 
 #' @param id xxx
 #'
-#' @rdname example_pipelineDemo
+#' @rdname PipelineProtein
 #'
 #' @author Samuel Wieczorek
 #' 
 #' @export
 #' 
-PipelineDemo_ui <- function(id){
+PipelineProtein_ui <- function(id){
   ns <- NS(id)
 }
 
@@ -54,23 +70,24 @@ PipelineDemo_ui <- function(id){
 #' 
 #' @param current.pos xxx
 #' 
-#' @rdname example_pipelineDemo
+#' @rdname PipelineProtein
 #'
-#' @import shiny
+#' @importFrom shiny moduleServer reactiveValues observeEvent NS tagList actionLink fluidRow column uiOutput hr reactive fluidPage
 #' @importFrom stats setNames
 #' 
 #' @export
 #'
-PipelineDemo_server <- function(id,
+PipelineProtein_server <- function(id,
   dataIn = reactive({NULL}),
   steps.enabled = reactive({NULL}),
-  remoteReset = reactive({FALSE}),
+  remoteReset = reactive({0}),
   steps.status = reactive({NULL}),
   current.pos = reactive({1}),
   path = NULL
-  ){
-
-
+){
+  
+  
+  pkgs.require(c('QFeatures', 'SummarizedExperiment', 'S4Vectors'))
   
   
   # Contrary to the simple workflow, there is no widget in this module
@@ -86,18 +103,20 @@ PipelineDemo_server <- function(id,
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
-    core.code <- Get_Workflow_Core_Code(
+    core.code <- MagellanNTK::Get_Workflow_Core_Code(
       name = id,
       w.names = names(widgets.default.values),
       rv.custom.names = names(rv.custom.default.values)
     )
     
     eval(str2expression(core.code))
+    add.resourcePath()
+    
     
     # Insert necessary code which is hosted by MagellanNTK
     # DO NOT MODIFY THIS LINE
-    eval(parse(text = Module_Return_Func()))
-    }
+    eval(parse(text = MagellanNTK::Module_Return_Func()))
+  }
   )
 }
 

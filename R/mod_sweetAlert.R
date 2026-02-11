@@ -1,5 +1,4 @@
-#' @title xxx
-#' @description xxxxx
+#' @title A shiny app to display a modal
 #'
 #' @param id xxx
 #' @param title xxx
@@ -14,7 +13,7 @@
 #'
 #' @name mod_sweetAlert
 #'
-#' @return NA
+#' @return A shiny App
 #'
 NULL
 

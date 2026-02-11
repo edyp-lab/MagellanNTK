@@ -28,7 +28,7 @@
 #'     shiny::runApp(mainapp())
 #' }
 #'
-#' @return NA
+#' @return A shiny App
 #'
 NULL
 

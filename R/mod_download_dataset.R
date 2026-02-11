@@ -9,7 +9,7 @@
 #' @param filename xxx
 #' @param data xxx
 #'
-#' @return NA
+#' @return A shiny App
 #'
 #' @name download_dataset
 #' @examples

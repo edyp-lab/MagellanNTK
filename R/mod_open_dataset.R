@@ -3,13 +3,18 @@
 #' @description This module allows to change
 #'
 #' @param id A `character()` as the id of the Shiny module
-#' @param class xxx
-#' @param extension xxx
+#' @param class The class allowed to open objects
+#' @param extension The extension file allowed
 #' @param demo_package xxx
 #' @param remoteReset An `integer` which acts as a remote command to reset the 
 #' module. Its value is incremented on a external event and it is used to 
 #' trigger an event in this module
-#' @param is.enabled xxx
+#' @param is.enabled A `boolean`. This variable is used as a remote command to specify
+#' if the corresponding module is enabled/disabled in the calling module of
+#' upper level.
+#' For example, if this module is disabled, then this variable is set to TRUE. Then,
+#' all the widgets will be disabled. If not, the enabling/disabling of widgets
+#' is deciding by this module.
 #'
 #' @name generic_mod_open_dataset
 #'
@@ -18,7 +23,7 @@
 #' shiny::runApp(open_dataset(extension = "df"))
 #' }
 #'
-#' @return NA
+#' @return A Shiny app
 #'
 NULL
 
@@ -38,7 +43,6 @@ open_dataset_ui <- function(id) {
             uiOutput(ns('chooseSource_UI')),
             uiOutput(ns("customDataset_UI")),
             uiOutput(ns("packageDataset_UI"))
-             # column(width = 2,uiOutput(ns("load_btn_UI")))
         )
 }
 

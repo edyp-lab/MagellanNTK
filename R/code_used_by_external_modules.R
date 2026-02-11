@@ -8,15 +8,19 @@
 #'
 #' @name insertCodeForExternalModules
 #'
-#' @param widgets.names A `list` containing the names of the widgets in all
+#' @param widgets.names A `vector` containing the names of the widgets in all
 #' steps of the module.
 #' @param rv.custom.names A `list` containing the names of the custom values.
-#' @param mode xxx
-#' @param name xxx
-#' @param w.names xxx
-#' @param rv.custom.names xxx
-#' @param widgets xxx
-#' @param custom xxx
+#' @param mode A `character()` which indicates whether the current module is used
+#' as a 'process' nor a 'pipeline.' Default value is NULL
+#' @param name The Shiny id of the process or pipeline
+#' @param w.names Same as widgets.names
+#' @param rv.custom.names A `vector` containing the names of the custom variables
+#'in all steps of the module.
+#' @param widgets A `list` containing the names of the widgets in all
+#' steps of the module with their default values
+#' @param custom A `list` of the custom variables used in the process. Each custom
+#' variable is accompanied with its default value
 #' @param dataIn An instance of the `QFeatures` or `SummarizedExperiment` classes
 #' @param addon xxx
 #'

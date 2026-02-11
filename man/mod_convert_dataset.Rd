@@ -17,7 +17,7 @@ convert_dataset()
 \item{id}{A `character()` as the id of the Shiny module}
 }
 \value{
-A list
+A shiny App
 }
 \description{
 A shiny Module.

@@ -11,7 +11,7 @@
 #'     shiny::runApp(mod_errorModal("myTitle", "myContent"))
 #' }
 #'
-#' @return NA
+#' @return A shiny App
 #'
 NULL
 

@@ -43,7 +43,8 @@ It is the same as for the server() function.}
 
 \item{dataIn}{An instance of the `SummarizedExperiment` class}
 
-\item{status}{xxx}
+\item{status}{A boolean which indicates whether the current status of the 
+process}
 
 \item{is.enabled}{A `boolean`. This variable is a remote command to specify
 if the corresponding module is enabled/disabled in the calling module of
@@ -59,7 +60,8 @@ trigger an event in this module}
 
 \item{remoteResetUI}{xxx}
 
-\item{is.skipped}{xxx}
+\item{is.skipped}{A booelan which indicates whether the pipeline or process
+is skipped (TRUE) or not (FALSE)}
 
 \item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 the verbose mode for logs.}
@@ -71,12 +73,7 @@ the verbose mode for logs.}
 \item{btnEvents}{xxxx}
 }
 \value{
-A list of four items:
-* dataOut A dataset of the same class of the parameter dataIn
-* steps.enabled A vector of `boolean` of the same length than config@steps
-* status A vector of `integer(1)` of the same length than the config@steps
-  vector
-* reset xxxx
+A shiny App
 }
 \description{
 The module navigation can be launched via a Shiny app.

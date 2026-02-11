@@ -66,7 +66,7 @@ trigger an event in this module}
 \item{is.enabled}{Default is TRUE}
 }
 \value{
-NA
+A shiny App
 }
 \description{
 A shiny Module.

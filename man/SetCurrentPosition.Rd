@@ -8,7 +8,7 @@ SetCurrentPosition(stepsstatus)
 }
 \arguments{
 \item{stepsstatus}{A vector of integers which reflects the status of the steps 
-in the pipeline. Thus, the length of this vector is euqal to the number of 
+in the pipeline. Thus, the length of this vector is equal to the number of 
 steps}
 }
 \value{

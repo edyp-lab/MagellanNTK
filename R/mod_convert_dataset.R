@@ -12,7 +12,7 @@
 #'     shiny::runApp(convert_dataset())
 #' }
 #'
-#' @return A list
+#' @return A shiny App
 #'
 NULL
 

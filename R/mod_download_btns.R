@@ -15,6 +15,8 @@
 #' if (interactive()) {
 #'     shiny::runApp(download_btns(lldata))
 #' }
+#' 
+#' @return A shiny App
 #'
 NULL
 

@@ -46,7 +46,7 @@
 #'     ))
 #' }
 #'
-#' @return NA
+#' @return A shiny App
 #'
 NULL
 

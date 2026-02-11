@@ -8,7 +8,7 @@
 \alias{default.workflow}
 \alias{default.layout}
 \alias{default.theme}
-\title{Default vars}
+\title{Default variables used in MagellanNTK}
 \format{
 An object of class \code{list} of length 37.
 }

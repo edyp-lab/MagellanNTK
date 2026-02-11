@@ -57,24 +57,28 @@ Get_Workflow_Core_Code(
 Get_AdditionalModule_Core_Code(w.names = NULL, rv.custom.names = NULL)
 }
 \arguments{
-\item{widgets.names}{A `list` containing the names of the widgets in all
+\item{widgets.names}{A `vector` containing the names of the widgets in all
 steps of the module.}
 
-\item{rv.custom.names}{xxx}
+\item{rv.custom.names}{A `vector` containing the names of the custom variables
+in all steps of the module.}
 
-\item{widgets}{xxx}
+\item{widgets}{A `list` containing the names of the widgets in all
+steps of the module with their default values}
 
-\item{custom}{xxx}
+\item{custom}{A `list` of the custom variables used in the process. Each custom
+variable is accompanied with its default value}
 
 \item{dataIn}{An instance of the `QFeatures` or `SummarizedExperiment` classes}
 
 \item{addon}{xxx}
 
-\item{w.names}{xxx}
+\item{w.names}{Same as widgets.names}
 
-\item{mode}{xxx}
+\item{mode}{A `character()` which indicates whether the current module is used
+as a 'process' nor a 'pipeline.' Default value is NULL}
 
-\item{name}{xxx}
+\item{name}{The Shiny id of the process or pipeline}
 }
 \value{
 A `string` containing some R code

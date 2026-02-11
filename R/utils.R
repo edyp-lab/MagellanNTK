@@ -330,6 +330,8 @@ source_wf_files <- function(
 #'
 #' @export
 #' @return NA
+#' 
+#' 
 source_shinyApp_files <- function() {
     # Checks if app can be found
     # file_path_ui <- system.file("app/ui.R", package = "MagellanNTK")
@@ -347,7 +349,7 @@ source_shinyApp_files <- function() {
 }
 
 
-#' @title Substring
+#' @title Substring test
 #' @param pattern A `character()`
 #' @param target The `character()` to look for into the pattern
 #'

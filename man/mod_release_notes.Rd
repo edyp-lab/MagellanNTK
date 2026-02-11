@@ -19,7 +19,7 @@ release_notes(URL_releaseNotes)
 \item{URL_releaseNotes}{xxx}
 }
 \value{
-NA
+A shiny App
 }
 \description{
 A shiny Module.

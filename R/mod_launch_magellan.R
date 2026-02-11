@@ -13,7 +13,7 @@
 #'
 #' @importFrom shiny NS tagList
 #'
-#' @return NA
+#' @return A shiny App
 NULL
 
 

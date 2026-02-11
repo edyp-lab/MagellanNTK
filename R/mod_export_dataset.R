@@ -13,7 +13,7 @@
 #'     shiny::runApp(export_dataset(lldata))
 #' }
 #'
-#' @return A list
+#' @return A shiny App
 #'
 NULL
 

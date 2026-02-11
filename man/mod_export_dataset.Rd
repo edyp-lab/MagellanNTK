@@ -21,7 +21,7 @@ export_dataset(data)
 \item{data}{xxx}
 }
 \value{
-A list
+A shiny App
 }
 \description{
 A shiny Module.

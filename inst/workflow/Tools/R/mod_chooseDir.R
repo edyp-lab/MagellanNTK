@@ -1,21 +1,26 @@
-#' @title Module choose directory
-#'
-#' @description  A shiny Module which xxx
+#' @title Shiny module to choose directory
 #'
 #' @name choose_dir
 #'
-#' @param id xxx
-#' @param path xxx
-#' @param is.enabled xxx
+#' @param id The 'id' of the Shiny module
+#' @param path The initial path to be opened for choosing a directory
+#' @param is.enabled A `boolean`. This variable is used as a remote command to specify
+#' if the corresponding module is enabled/disabled in the calling module of
+#' upper level.
+#' For example, if this module is disabled, then this variable is set to TRUE. Then,
+#' all the widgets will be disabled. If not, the enabling/disabling of widgets
+#' is deciding by this module.
 #' @param show.details xxx
 #'
 #' @examples
-#' NULL
+#' if(interactive()){
+#' shiny::runApp(chooseDir())
+#' }
 #' 
 #' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
 #' disabled inlineCSS extendShinyjs
 #'
-#' @return NA
+#' @return A Shiny app
 #' @author Samuel Wieczorek
 NULL
 
@@ -45,12 +50,8 @@ chooseDir_ui <- function(id) {
 #' @export
 #' @rdname choose_dir
 chooseDir_server <- function(id,
-    path = reactive({
-        "~"
-    }),
-    is.enabled = reactive({
-        TRUE
-    }),
+    path = reactive({"~"}),
+    is.enabled = reactive({TRUE}),
     show.details = FALSE) {
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
@@ -122,8 +123,7 @@ chooseDir_server <- function(id,
 #' @rdname choose_dir
 chooseDir <- function(show.details = FALSE) {
     ui <- fluidPage(
-        div(
-            id = "div_test",
+        div(id = "div_test",
             chooseDir_ui("test")
         ),
         uiOutput("info")
@@ -134,17 +134,11 @@ chooseDir <- function(show.details = FALSE) {
             shinyjs::toggleState("div_test", condition = FALSE)
         })
 
-        rv <- reactiveValues(
-            path = "~"
-        )
+        rv <- reactiveValues(path = "~")
 
         rv$path <- chooseDir_server("test",
-            path = reactive({
-                "~"
-            }),
-            is.enabled = reactive({
-                TRUE
-            }),
+            path = reactive({"~"}),
+            is.enabled = reactive({TRUE}),
             show.details = show.details
         )
 

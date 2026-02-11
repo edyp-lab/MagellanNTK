@@ -21,7 +21,7 @@ popover_for_help(title, content)
 \item{content}{xxx}
 }
 \value{
-NA
+A shiny App
 }
 \description{
 A shiny Module.

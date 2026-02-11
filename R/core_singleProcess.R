@@ -8,11 +8,17 @@
 #'
 #' @param dataIn An instance of the `SummarizedExperiment` class
 #' @param is.skipped is.skipped xxx
-#' @param is.enabled xxxx
+#' @param is.enabled A `boolean`. This variable is used as a remote command to specify
+#' if the corresponding module is enabled/disabled in the calling module of
+#' upper level.
+#' For example, if this module is disabled, then this variable is set to TRUE. Then,
+#' all the widgets will be disabled. If not, the enabling/disabling of widgets
+#' is deciding by this module.
 #'
 #' 
 #' @param remoteResetUI xxx
-#' @param status xxx
+#' @param status A boolean which indicates whether the current status of the 
+#' process 
 #' @param btnEvents xxxx
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
@@ -23,12 +29,7 @@
 #' be send to the caller in case of reseting the process. This is usefule for example
 #' for the Convert process
 #' 
-#' @return A list of four items:
-#' * dataOut A dataset of the same class of the parameter dataIn
-#' * steps.enabled A vector of `boolean` of the same length than config@steps
-#' * status A vector of `integer(1)` of the same length than the config@steps
-#'   vector
-#' * reset xxxx
+#' @return A shiny App
 #'
 #' @examples
 #' if (interactive()) {
@@ -137,8 +138,8 @@ nav_single_process_server <- function(
       # between the input of the module and the functions.
       temp.dataIn = NULL,
 
-      is.enabled = NULL,
-      is.skipped = NULL,
+      #is.enabled = NULL,
+      #is.skipped = NULL,
       # A vector of boolean where each element indicates whether
       # the corresponding process is skipped or not
       # ONLY USED WITH PIPELINE
@@ -443,7 +444,7 @@ nav_single_process_server <- function(
       rv$steps.enabled <- ToggleState_Screens(
         cond = FALSE,
         range = seq_len(length(rv$config@steps)),
-        is.enabled = is.enabled,
+        is.enabled = TRUE,
         rv = rv
       )
       
@@ -561,7 +562,7 @@ nav_single_process_server <- function(
         # # Update the different screens in the process
         rv$steps.enabled <- Update_State_Screens(
           is.skipped = is.skipped,
-          is.enabled = is.enabled,
+          is.enabled = TRUE,
           rv = rv
         )
         
@@ -569,7 +570,7 @@ nav_single_process_server <- function(
         rv$steps.enabled <- ToggleState_Screens(
           cond = TRUE,
           range = 1,
-          is.enabled = is.enabled,
+          is.enabled = TRUE,
           rv = rv
         )
       #}
@@ -727,7 +728,7 @@ nav_single_process_server <- function(
       
       rv$steps.enabled <- Update_State_Screens(
         is.skipped = is.skipped,
-        is.enabled = is.enabled,
+        is.enabled = TRUE,
         rv = rv
       )
     })

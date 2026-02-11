@@ -1,8 +1,11 @@
 #' @title xxx
 #' @description xxx
 #' 
-#' @param mode xxx
-#' @param fullname xxx
+#' @param mode A `character()` which indicates whether the current module is used
+#' as a 'process' nor a 'pipeline.' Default value is NULL
+#' @param fullname The complete name of the pipeline or the process (in this case,
+#' it is the concatenation of the name of the pipeline and the name of the process 
+#' itself, separated by '_')
 #' @param path xxx
 #' @param rawText xxx
 #' 

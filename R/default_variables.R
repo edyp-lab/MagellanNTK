@@ -1,4 +1,4 @@
-#' @title Default vars
+#' @title Default variables used in MagellanNTK
 #' @name default_vars
 #' @examples NULL
 #' @return NA

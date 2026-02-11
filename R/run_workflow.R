@@ -66,6 +66,9 @@
 #'     proc_workflowApp("PipelineDemo", path, dataIn = lldata, tl.layout = c("v", "h"))
 #' }
 #'
+#' @return A shiny App
+#' 
+#' 
 NULL
 
 

@@ -11,7 +11,7 @@
 #' shiny::runApp(open_workflow())
 #' }
 #'
-#' @return A list
+#' @return A shiny App
 #'
 NULL
 

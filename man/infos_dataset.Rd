@@ -23,7 +23,7 @@ infos_dataset(dataIn)
 \item{dataIn}{xxx}
 }
 \value{
-NA
+A shiny App
 }
 \description{
 A shiny Module.

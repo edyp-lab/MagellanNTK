@@ -28,7 +28,7 @@ mod_errorModal(title = NULL, text = NULL)
 \item{footer}{xxx}
 }
 \value{
-NA
+A shiny App
 }
 \description{
 xxx

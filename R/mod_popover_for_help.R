@@ -12,7 +12,7 @@
 #'     shiny::runApp(popover_for_help("myTitle", "myContent"))
 #' }
 #'
-#' @return NA
+#' @return A shiny App
 #'
 NULL
 

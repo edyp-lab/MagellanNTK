@@ -227,18 +227,21 @@ dataModal <- function(ns, mode) {
 
 
 
-#' @title xxx
+#' @title Discover Skipped Steps
+#' 
+#' @param steps.status A vector of integers which reflects the status of the steps 
+#' in the pipeline. Thus, the length of this vector is equal to the number of 
+#' steps
 #'
-#' @description xxx
-#'
-#' @param steps.status xxx
-#'
-#' @return NA
+#' @return A vector of integers of the same length as steps.status and where skipped 
+#' steps are identified with '-1'
 #'
 #'
 #' @export
 #' @examples
-#' NULL
+#' steps <- c(1, 1, 0, 1)
+#' Discover_Skipped_Steps(steps)
+#' 
 Discover_Skipped_Steps <- function(steps.status) {
   for (i in seq_len(length(steps.status))) {
     max.val <- GetMaxValidated_AllSteps(steps.status)
@@ -253,34 +256,16 @@ Discover_Skipped_Steps <- function(steps.status) {
 
 
 
-#' @title xxx
-#'
-#' @description xxx
-#'
-#' @param steps.status xxx
-#' @param tag xxx
-#'
-#' @return NA
-#'
-#' @examples
-#' NULL
-#'
-#' @export
-#'
-All_Skipped_tag <- function(steps.status, tag) {
-  steps.status <- setNames(rep(tag, length(steps.status)), steps.status)
-  
-  return(steps.status)
-}
-
-#' @title xxx
-#'
-#' @description xxx
+#' @title Get the first mandatory step not validated
 #'
 #' @param range xxx
-#' @param rv xxx
+#' @param rv A `list` with at least two slots :
+#' * mandatory: xxx
+#' * steps.status: xxx
 #'
-#' @return NA
+#' @return An integer which is the indice of the identified step in the vector
+#' rv$steps.status
+#' 
 #' @examples
 #' NULL
 #'
@@ -405,7 +390,7 @@ BuildData2Send <- function(dataIn, stepsNames){
 #' @title Get the position of the last validated item
 #'
 #' @param stepsstatus A vector of integers which reflects the status of the steps 
-#' in the pipeline. Thus, the length of this vector is euqal to the number of 
+#' in the pipeline. Thus, the length of this vector is equal to the number of 
 #' steps
 #' @return An integer
 #'

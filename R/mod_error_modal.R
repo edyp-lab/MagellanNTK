@@ -11,6 +11,8 @@
 #' if (interactive()) {
 #'     shiny::runApp(errorModal("my error text"))
 #' }
+#' 
+#' @return A shiny App
 #'
 NULL
 

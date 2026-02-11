@@ -2,19 +2,24 @@
 % Please edit documentation in R/general_core_funcs.R
 \name{Discover_Skipped_Steps}
 \alias{Discover_Skipped_Steps}
-\title{xxx}
+\title{Discover Skipped Steps}
 \usage{
 Discover_Skipped_Steps(steps.status)
 }
 \arguments{
-\item{steps.status}{xxx}
+\item{steps.status}{A vector of integers which reflects the status of the steps 
+in the pipeline. Thus, the length of this vector is equal to the number of 
+steps}
 }
 \value{
-NA
+A vector of integers of the same length as steps.status and where skipped 
+steps are identified with '-1'
 }
 \description{
-xxx
+Discover Skipped Steps
 }
 \examples{
-NULL
+steps <- c(1, 1, 0, 1)
+Discover_Skipped_Steps(steps)
+
 }

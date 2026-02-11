@@ -2,20 +2,23 @@
 % Please edit documentation in R/general_core_funcs.R
 \name{GetFirstMandatoryNotValidated}
 \alias{GetFirstMandatoryNotValidated}
-\title{xxx}
+\title{Get the first mandatory step not validated}
 \usage{
 GetFirstMandatoryNotValidated(range, rv)
 }
 \arguments{
 \item{range}{xxx}
 
-\item{rv}{xxx}
+\item{rv}{A `list` with at least two slots :
+* mandatory: xxx
+* steps.status: xxx}
 }
 \value{
-NA
+An integer which is the indice of the identified step in the vector
+rv$steps.status
 }
 \description{
-xxx
+Get the first mandatory step not validated
 }
 \examples{
 NULL

@@ -55,7 +55,7 @@ the verbose mode for logs.}
 * dev: xxx}
 }
 \value{
-NA
+A shiny App
 }
 \description{
 A shiny Module.

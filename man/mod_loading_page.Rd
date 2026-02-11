@@ -17,9 +17,7 @@ loadApp()
 \item{id}{A `character()` as the id of the Shiny module}
 }
 \value{
-A list where each slot is named with the customizable functions. Each slot
-contains the code to call this function from the package the user have
-chosen.
+A shiny App
 }
 \description{
 A shiny Module.which allow to choose whether to use the default

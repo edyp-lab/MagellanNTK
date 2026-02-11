@@ -20,10 +20,7 @@
 #' @param id A `character()` as the id of the Shiny module
 #'
 #'
-#' @return
-#' A list where each slot is named with the customizable functions. Each slot
-#' contains the code to call this function from the package the user have
-#' chosen.
+#' @return A shiny App 
 #'
 #' @examples
 #' if (interactive()) {

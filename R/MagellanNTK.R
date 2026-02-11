@@ -19,7 +19,7 @@
 #'
 #'
 #' @details
-#' The list of customizable funcs (param `funcs`) contains the following items:
+#' The list of customizable functions (param `funcs`) contains the following items:
 #'
 #'  These are the default values where each item points to a default fucntion
 #'  implemented into MagellanNTK.
@@ -34,7 +34,6 @@
 #' @examples
 #' if (interactive()) {
 #'     MagellanNTK()
-#' }
 #'
 #' @return A shiny app
 #'
@@ -68,13 +67,10 @@ options(
     shiny.fullstacktrace = TRUE
 )
 
-#' The application server-side
-#'
-#'     DO NOT REMOVE.
+
 #' @importFrom shiny moduleServer addResourcePath reactive
 #'
 #' @export
-#'
 #'
 #' @rdname magellanNTK
 #'
@@ -104,16 +100,8 @@ MagellanNTK_server <- function(
 
 
 
-#'
+
 #' @importFrom shiny shinyApp runApp
-#'
-#'
-#' @examples
-#' if (interactive()) {
-#'     # launch without initial config
-#'     shiny::runApp(MagellanNTK())
-#' }
-#'
 #' @export
 #'
 #' @rdname magellanNTK
