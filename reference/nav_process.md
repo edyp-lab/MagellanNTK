@@ -29,10 +29,7 @@ nav_process_server(
      FALSE
  }),
   verbose = FALSE,
-  usermod = "user",
-  btnEvents = reactive({
-     NULL
- })
+  usermod = "user"
 )
 
 nav_process()
@@ -86,10 +83,6 @@ nav_process()
 
   A character to specifies the running mode of MagellanNTK. \* user
   (default) : xxx \* dev: xxx
-
-- btnEvents:
-
-  xxxx
 
 ## Value
 

@@ -23,9 +23,6 @@ nav_single_process_server(
   is.skipped = FALSE,
   verbose = FALSE,
   usermod = "user",
-  btnEvents = reactive({
-     NULL
- }),
   sendDataIfReset = TRUE
 )
 
@@ -72,10 +69,6 @@ nav_single_process()
 
   A character to specifies the running mode of MagellanNTK. \* user
   (default) : xxx \* dev: xxx
-
-- btnEvents:
-
-  xxxx
 
 - sendDataIfReset:
 
