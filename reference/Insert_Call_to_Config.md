@@ -12,7 +12,7 @@ Insert_Call_to_Config(name)
 
 - name:
 
-  xxx
+  The name of a pipeline nor a process
 
 ## Value
 

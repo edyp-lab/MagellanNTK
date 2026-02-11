@@ -1,6 +1,6 @@
-# xxx
+# Update the status of steps in a pipeline nor process.
 
-xxx
+Update the status of steps in a pipeline nor process.
 
 ## Usage
 
@@ -20,7 +20,8 @@ UpdateStepsStatus(dataIn, config)
 
 ## Value
 
-A vector of boolean
+A vector of boolean in which each item indicates the status (VALIDATED,
+UNDONE, SKIPPED) of the corresponding step.
 
 ## Examples
 

@@ -1,6 +1,7 @@
-# xxx
+# Updates the state of navigation buttons
 
-xxx
+Enables/disables the buttons 'Next step' and 'Previous step' wrt the
+current position of the cursor in the timeline.
 
 ## Usage
 
@@ -12,11 +13,12 @@ ToggleState_NavBtns(current.pos, nSteps)
 
 - current.pos:
 
-  xxx
+  An \`integer\` which gives the current position of the cursor in the
+  corresponding timeline
 
 - nSteps:
 
-  xxx
+  The number of steps in the timeline
 
 ## Value
 

@@ -125,19 +125,16 @@ MagellanNTK can be launched in two different modes: a ‘user’ mode and a
 - [`Timestamp()`](https://edyp-lab.github.io/MagellanNTK/reference/Timestamp.md)
   : Timestamp in UNIX format.
 - [`ToggleState_NavBtns()`](https://edyp-lab.github.io/MagellanNTK/reference/ToggleState_NavBtns.md)
-  : xxx
-- [`ToggleState_ResetBtn()`](https://edyp-lab.github.io/MagellanNTK/reference/ToggleState_ResetBtn.md)
-  : xxx
+  : Updates the state of navigation buttons
 - [`ToggleState_Screens()`](https://edyp-lab.github.io/MagellanNTK/reference/ToggleState_Screens.md)
   : xxx
 - [`UpdateStepsStatus()`](https://edyp-lab.github.io/MagellanNTK/reference/UpdateStepsStatus.md)
-  : xxx
+  : Update the status of steps in a pipeline nor process.
 - [`Update_State_Screens()`](https://edyp-lab.github.io/MagellanNTK/reference/Update_State_Screens.md)
-  : xxx
+  : Update the status enabled/disabled of the steps of a
+  pipeline/process
 - [`call.func()`](https://edyp-lab.github.io/MagellanNTK/reference/call.func.md)
   : Call function
-- [`catchToList()`](https://edyp-lab.github.io/MagellanNTK/reference/catchToList.md)
-  : Catch to a list
 - [`` `%AND%` ``](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
   [`is.Windows()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
   [`is.Linux()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
