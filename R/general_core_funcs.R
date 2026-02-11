@@ -304,13 +304,13 @@ GetFirstMandatoryNotValidated <- function(range, rv) {
 }
 
 
-#' @title xxx
-#'
-#' @description xxx
+#' @title Update the status of steps in a pipeline nor process.
 #'
 #' @param dataIn An instance of the `SummarizedExperiment` class
 #' @param config An instance of the `Config` class
-#' @return A vector of boolean
+#' @return A vector of boolean in which each item indicates the status 
+#' (VALIDATED, UNDONE, SKIPPED) of the corresponding step.
+#' 
 #'
 #' @examples
 #' NULL
@@ -322,12 +322,14 @@ UpdateStepsStatus <- function(dataIn, config){
   steps.names <- names(config@steps)
   steps.status <- setNames(rep(stepStatus$UNDONE, nSteps), nm = steps.names)
   
+  if(!is.null(dataIn)){
   for (i in steps.names){
     steps.status[i] <- as.numeric(i %in% names(dataIn))
   }
   
   if ('Description' %in% names(steps.status))
     steps.status['Description'] <- TRUE
+  }
   
   return(steps.status)
 }

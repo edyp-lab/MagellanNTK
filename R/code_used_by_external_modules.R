@@ -133,7 +133,7 @@ Get_Code_Declare_rv_custom <- function(rv.custom.names = NULL) {
 }
 
 
-#' @title Code for declaring xxx
+#' @title Code for declaring observeEvents() for the widgets in a process
 #' @export
 #'
 #' @rdname insertCodeForExternalModules
@@ -186,7 +186,7 @@ Get_Code_for_rv_reactiveValues <- function() {
 }
 
 
-#' @title Code for xxx
+#' @title Inerting code for external modules
 #'
 #' @description Returned value of the process
 # * The trigger variable is used to trigger an event that can be catched by
@@ -214,7 +214,7 @@ Get_Code_for_dataOut <- function() {
     code
 }
 
-#' @title Code for declaring xxx
+#' @title Code for declaring observeEvents() for steps in the pipeline
 #' @export
 #'
 #' @rdname insertCodeForExternalModules
@@ -384,7 +384,7 @@ Get_Workflow_Core_Code <- function(
 
 
 #' @title Insert source code for config() 
-#' @param name xxx
+#' @param name The name of a pipeline nor a process
 #' @export
 #' @return A `character()` containing R source code
 #' 

@@ -192,6 +192,8 @@ nav_pipeline_server <- function(
       )
     })
     
+    # Part of the UI which is placed at the top of the window and contains
+    # the navigation buttons, the timeline and the EDA button for a pipeline
     output$pipeline_tl_btn_ui <- renderUI({
       addResourcePath(
         prefix = "images_Prostar2",
@@ -219,9 +221,6 @@ nav_pipeline_server <- function(
               ),
               div(id = ns('div_btns_start_ui'), style="display: inline-block;", uiOutput(ns('startBtnUI'))),
               div(id = ns('div_btns_prev_ui'), style="display: inline-block;", uiOutput(ns('prevBtnUI'))),
-              # div(style="display: inline-block;",
-              #   mod_modalDialog_ui(id = ns("rstBtn"))
-              # ),
               div(id = ns('div_btns_next_ui'), style="display: inline-block;", uiOutput(ns('nextBtnUI')))
             )
           ),
@@ -389,7 +388,7 @@ nav_pipeline_server <- function(
       rv$resetChildrenUI <- setNames(rep(0, n), nm = GetStepsNames())
       
       
-      rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
+      rv$steps.status <- UpdateStepsStatus(NULL, rv$config)
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
       rv$steps.skipped <- Discover_Skipped_Steps(rv$steps.status)
     
