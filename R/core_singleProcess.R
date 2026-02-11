@@ -121,9 +121,6 @@ nav_single_process_server <- function(
       # Contains the return value of the process module that has been called
       proc = NULL,
       
-      #status = NULL,
-      
-      #history = NULL,
       # steps.status A boolean vector which contains the status
       # (validated, skipped or undone) of the steps
       steps.status = NULL,
@@ -136,20 +133,26 @@ nav_single_process_server <- function(
       # between the input of the module and the functions.
       temp.dataIn = NULL,
 
-      #is.enabled = NULL,
-      #is.skipped = NULL,
+
       # A vector of boolean where each element indicates whether
       # the corresponding process is skipped or not
       # ONLY USED WITH PIPELINE
       steps.skipped = NULL,
+      
       prev.remoteResetUI = 1,
+      
       # current.pos Stores the current cursor position in the
       # timeline and indicates which of the process' steps is active
       current.pos = 1,
+      
       length = NULL,
+      
       config = NULL,
+      
       rstBtn = reactive({0}),
+      
       doProceedAction = NULL,
+      
       history = InitializeHistory()
     )
     
@@ -164,24 +167,21 @@ nav_single_process_server <- function(
       
       do.call(
         eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_server"))),
-        list(
-          id = "eda1",
+        list(id = "eda1",
           dataIn = reactive({rv$dataset2EDA})
         )
       )
       
       do.call(
         eval(parse(text = paste0(session$userData$funcs$history_dataset, "_server"))),
-        list(
-          id = "eda2",
+        list(id = "eda2",
           dataIn = reactive({rv$dataset2EDA})
         )
       )
       
       do.call(
         eval(parse(text = paste0(session$userData$funcs$view_dataset, "_server"))),
-        list(
-          id = "eda3",
+        list(id = "eda3",
           dataIn = reactive({rv$dataset2EDA})
         )
       )
@@ -217,9 +217,7 @@ nav_single_process_server <- function(
               )
             )
           ),
-          #title = "EDA", 
           size = "l"
-          # )
         )
       )
     })
@@ -445,9 +443,7 @@ nav_single_process_server <- function(
         rv = rv
       )
       
-    },
-      priority = 1000
-    )
+    }, priority = 1000)
     
     
     
@@ -500,8 +496,7 @@ nav_single_process_server <- function(
     })
     
     
-    #---------------------------------------------------------------------
-    
+
     
     # Catch a new value on the parameter 'dataIn()' variable, sent by the
     # caller. This value may be NULL or contain a dataset.
@@ -515,28 +510,6 @@ nav_single_process_server <- function(
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
       
-      # rv$steps.status <- setNames(
-      #   rep(stepStatus$UNDONE, length(rv$steps.status)), 
-      #   nm = names(rv$config@steps))
-      # 
-      
-      #Once a new dataste has been loaded,, on met a jour le vector
-      #rv$steps.status  dont se sert la timeline pour choisir les modalites d'affichage
-      #sur l'interface graphique
-      #rv$steps.status <- RefineProcessStatus(rv$history, rv$steps.status)
-      
-      
-      # if (is.null(dataIn())) {
-      #   # The process has been reseted or is not concerned
-      #   # Disable all screens of the process
-      #   rv$steps.enabled <- ToggleState_Screens(
-      #     cond = FALSE,
-      #     range = seq_len(length(rv$config@steps)),
-      #     is.enabled = is.enabled,
-      #     rv = rv
-      #   )
-      # } else {
-        # Get the new dataset in a temporary variable
         
       # Dans le cas de l'execution dd'un process unique, la stratégie pour le dataset
       # estla suivante :
@@ -570,8 +543,6 @@ nav_single_process_server <- function(
           is.enabled = TRUE,
           rv = rv
         )
-      #}
-      
     })
     
     
@@ -645,9 +616,7 @@ nav_single_process_server <- function(
     })
     
     
-    observeEvent(input$closeModal, {
-      removeModal()
-    })
+    observeEvent(input$closeModal, { removeModal()})
     
     # Update the current position after a click  on the 'Previous' button
     observeEvent(input$prevBtn, ignoreInit = TRUE, {
@@ -809,9 +778,7 @@ nav_single_process_server <- function(
       if (len > 1)
         enable.doProceed.Btns <- enable.doProceed.Btns && 
         rv$current.pos != len
-      
-      #shinyjs::toggleState("DoProceedBtn", condition = enable.doProceed.Btns)
-      #shinyjs::toggleState("DoBtn", condition = enable.do.Btns)
+
       shinyjs::toggleState("DoProceedBtn", condition = TRUE)
       shinyjs::toggleState("DoBtn", condition = TRUE)
       
@@ -847,7 +814,6 @@ nav_single_process <- function() {
   # Uncomment and Change this for a process workflow
   proc.name <- "PipelineDemo_Process1"
   pipe.name <- "PipelineDemo"
-  # name <- 'PipelineDemo_Description'
   layout <- c("h")
   
   path <- system.file(file.path("workflow", pipe.name), package = "MagellanNTK")
