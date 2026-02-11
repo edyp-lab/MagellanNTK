@@ -28,7 +28,7 @@ insert_md(url)
 
 ## Value
 
-NA
+A shiny App
 
 ## Examples
 

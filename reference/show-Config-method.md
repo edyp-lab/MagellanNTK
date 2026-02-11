@@ -1,6 +1,6 @@
-# xxx
+# Prints the content of a \`Config\` class
 
-xxx
+Prints the content of a \`Config\` class
 
 ## Usage
 
@@ -13,7 +13,7 @@ show(object)
 
 - object:
 
-  xxx
+  An instance of the class \`Config\`
 
 ## Value
 

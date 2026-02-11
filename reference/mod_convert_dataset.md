@@ -20,7 +20,7 @@ convert_dataset()
 
 ## Value
 
-A list
+A shiny App
 
 ## Examples
 

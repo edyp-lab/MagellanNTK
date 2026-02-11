@@ -20,7 +20,7 @@ open_workflow()
 
 ## Value
 
-A list
+A shiny App
 
 ## Examples
 

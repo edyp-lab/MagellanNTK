@@ -22,23 +22,28 @@ timeline_pipeline_server(id, config, status, position, enabled)
 
 - config:
 
-  xxx
+  An instance of the class \`Config\`
 
 - status:
 
-  xxx,
+  A boolean which indicates whether the current status of the process ,
 
 - position:
 
-  xxx
+  An integer which reflects the current position of the cursor within
+  the steps.
 
 - enabled:
 
-  xxx
+  A vector of booleans with the same length as the number of steps ( See
+  the slot steps in the config object). Each element indicates if the
+  corresponding step is enabled (TRUE) or (DISABLED)
 
 ## Value
 
 NA
+
+A Shiny app
 
 ## Examples
 

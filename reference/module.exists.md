@@ -26,5 +26,5 @@ path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
 source_wf_files(path) 
 #> [1] TRUE
 module.exists('PipelineDemo_Process2')
-#> [1] TRUE
+#> [1] FALSE
 ```

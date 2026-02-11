@@ -43,7 +43,7 @@ download_dataset(data, filename = "myDataset")
 
 ## Value
 
-NA
+A shiny App
 
 ## Examples
 

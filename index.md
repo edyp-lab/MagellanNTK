@@ -56,13 +56,12 @@ MagellanNTK can be launched in two different modes: a ‘user’ mode and a
 ‘dev’ mode. The ‘user’ mode is the default mode.
 
     library(MagellanNTK)
-    MagellanNTK()
 
-    data(Exp1_R25_prot, package = 'DaparToolshedData')
-    wf.name <- 'PipelineProtein_Normalization'
-    wf.path <- system.file('workflow/PipelineProtein', package = 'Prostar2')
+    data(lldata.rda, package = 'MagellanNTK')
+    wf.name <- 'PipelineDemo'
+    wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
 
-    MagellanNTK(Exp1_R25_prot, wf.path, wf.name)
+    MagellanNTK(lldata, wf.path, wf.name)
 
 # Launching one workflow
 

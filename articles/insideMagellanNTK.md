@@ -566,6 +566,12 @@ tags inserted in the css-style.
 A shiny module called Debug_Infos is available to follow the execution
 of a workflow and more precisely, the content of datasets.
 
+## Generic functions
+
+MagellanNTK est un data manager conçu pour être le plus générique
+possible et ainsi être capable de traiter des jeux de données de formats
+différents, sur des domaine sd’application différents
+
 ``` r
 sessionInfo()
 ```

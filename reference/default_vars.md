@@ -1,4 +1,4 @@
-# Default vars
+# Default variables used in MagellanNTK
 
 left_panel = left_sidebar + width_sidebar top_sidebar = top_panel
 width_sidebar = width_process_btns

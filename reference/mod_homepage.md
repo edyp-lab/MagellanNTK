@@ -34,7 +34,7 @@ mod_homepage()
 
 ## Value
 
-NA
+A shiny App
 
 ## Examples
 

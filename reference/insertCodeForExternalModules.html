@@ -51,7 +51,7 @@ This function generates dynamically the observeEvent function for each widget"><
 
     <a class="navbar-brand me-2" href="../index.html">MagellanNTK</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.23</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.25</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -156,20 +156,23 @@ second is the name of the widget</p>
 
 
 <dl><dt id="arg-widgets-names">widgets.names<a class="anchor" aria-label="anchor" href="#arg-widgets-names"></a></dt>
-<dd><p>A `list` containing the names of the widgets in all
+<dd><p>A `vector` containing the names of the widgets in all
 steps of the module.</p></dd>
 
 
 <dt id="arg-rv-custom-names">rv.custom.names<a class="anchor" aria-label="anchor" href="#arg-rv-custom-names"></a></dt>
-<dd><p>xxx</p></dd>
+<dd><p>A `vector` containing the names of the custom variables
+in all steps of the module.</p></dd>
 
 
 <dt id="arg-widgets">widgets<a class="anchor" aria-label="anchor" href="#arg-widgets"></a></dt>
-<dd><p>xxx</p></dd>
+<dd><p>A `list` containing the names of the widgets in all
+steps of the module with their default values</p></dd>
 
 
 <dt id="arg-custom">custom<a class="anchor" aria-label="anchor" href="#arg-custom"></a></dt>
-<dd><p>xxx</p></dd>
+<dd><p>A `list` of the custom variables used in the process. Each custom
+variable is accompanied with its default value</p></dd>
 
 
 <dt id="arg-datain">dataIn<a class="anchor" aria-label="anchor" href="#arg-datain"></a></dt>
@@ -181,15 +184,16 @@ steps of the module.</p></dd>
 
 
 <dt id="arg-w-names">w.names<a class="anchor" aria-label="anchor" href="#arg-w-names"></a></dt>
-<dd><p>xxx</p></dd>
+<dd><p>Same as widgets.names</p></dd>
 
 
 <dt id="arg-mode">mode<a class="anchor" aria-label="anchor" href="#arg-mode"></a></dt>
-<dd><p>xxx</p></dd>
+<dd><p>A `character()` which indicates whether the current module is used
+as a 'process' nor a 'pipeline.' Default value is NULL</p></dd>
 
 
 <dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
-<dd><p>xxx</p></dd>
+<dd><p>The Shiny id of the process or pipeline</p></dd>
 
 </dl></div>
     <div class="section level2">

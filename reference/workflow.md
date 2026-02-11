@@ -78,6 +78,8 @@ proc_workflowApp(
 
 NA
 
+A shiny App
+
 ## Author
 
 Samuel Wieczorek

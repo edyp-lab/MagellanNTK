@@ -45,7 +45,7 @@ nav_single_process()
 
 - status:
 
-  xxx
+  A boolean which indicates whether the current status of the process
 
 - remoteResetUI:
 
@@ -53,7 +53,11 @@ nav_single_process()
 
 - is.enabled:
 
-  xxxx
+  A \`boolean\`. This variable is used as a remote command to specify if
+  the corresponding module is enabled/disabled in the calling module of
+  upper level. For example, if this module is disabled, then this
+  variable is set to TRUE. Then, all the widgets will be disabled. If
+  not, the enabling/disabling of widgets is deciding by this module.
 
 - is.skipped:
 
@@ -81,10 +85,7 @@ nav_single_process()
 
 ## Value
 
-A list of four items: \* dataOut A dataset of the same class of the
-parameter dataIn \* steps.enabled A vector of \`boolean\` of the same
-length than config@steps \* status A vector of \`integer(1)\` of the
-same length than the config@steps vector \* reset xxxx
+A shiny App
 
 ## Author
 

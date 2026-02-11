@@ -28,7 +28,7 @@ popover_for_help(title, content)
 
 ## Value
 
-NA
+A shiny App
 
 ## Examples
 

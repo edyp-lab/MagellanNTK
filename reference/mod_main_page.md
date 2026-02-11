@@ -73,7 +73,7 @@ mainapp(usermod = "user")
 
 ## Value
 
-NA
+A shiny App
 
 ## Examples
 

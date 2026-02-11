@@ -88,7 +88,7 @@ format_DT(
 
 ## Value
 
-NA
+A shiny App
 
 ## Examples
 

@@ -1,6 +1,6 @@
-# xxx
+# A shiny app to display a modal
 
-xxxxx
+A shiny app to display a modal
 
 ## Usage
 
@@ -42,7 +42,7 @@ mod_SweetAlert(title, text, type = "warning")
 
 ## Value
 
-NA
+A shiny App
 
 ## Examples
 

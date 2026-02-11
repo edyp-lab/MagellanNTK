@@ -9,7 +9,7 @@ This is the core module of MagellanNTK"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">MagellanNTK</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.23</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.25</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,7 +89,8 @@ It is the same as for the server() function.</p></dd>
 
 
 <dt id="arg-status">status<a class="anchor" aria-label="anchor" href="#arg-status"></a></dt>
-<dd><p>xxx</p></dd>
+<dd><p>A boolean which indicates whether the current status of the
+process</p></dd>
 
 
 <dt id="arg-remoteresetui">remoteResetUI<a class="anchor" aria-label="anchor" href="#arg-remoteresetui"></a></dt>
@@ -97,7 +98,12 @@ It is the same as for the server() function.</p></dd>
 
 
 <dt id="arg-is-enabled">is.enabled<a class="anchor" aria-label="anchor" href="#arg-is-enabled"></a></dt>
-<dd><p>xxxx</p></dd>
+<dd><p>A `boolean`. This variable is used as a remote command to specify
+if the corresponding module is enabled/disabled in the calling module of
+upper level.
+For example, if this module is disabled, then this variable is set to TRUE. Then,
+all the widgets will be disabled. If not, the enabling/disabling of widgets
+is deciding by this module.</p></dd>
 
 
 <dt id="arg-is-skipped">is.skipped<a class="anchor" aria-label="anchor" href="#arg-is-skipped"></a></dt>
@@ -127,12 +133,7 @@ for the Convert process</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list of four items:
-* dataOut A dataset of the same class of the parameter dataIn
-* steps.enabled A vector of `boolean` of the same length than config@steps
-* status A vector of `integer(1)` of the same length than the config@steps
-  vector
-* reset xxxx</p>
+    <p>A shiny App</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>

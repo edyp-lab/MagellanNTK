@@ -24,7 +24,7 @@ release_notes(URL_releaseNotes)
 
 ## Value
 
-NA
+A shiny App
 
 ## Examples
 

@@ -20,7 +20,7 @@ mod_launch_magellan()
 
 ## Value
 
-NA
+A shiny App
 
 ## Examples
 

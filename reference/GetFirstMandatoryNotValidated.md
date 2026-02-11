@@ -1,6 +1,6 @@
-# xxx
+# Get the first mandatory step not validated
 
-xxx
+Get the first mandatory step not validated
 
 ## Usage
 
@@ -16,11 +16,13 @@ GetFirstMandatoryNotValidated(range, rv)
 
 - rv:
 
-  xxx
+  A \`list\` with at least two slots : \* mandatory: xxx \*
+  steps.status: xxx
 
 ## Value
 
-NA
+An integer which is the indice of the identified step in the vector
+rv\$steps.status
 
 ## Examples
 

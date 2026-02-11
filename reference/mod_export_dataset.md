@@ -28,7 +28,7 @@ export_dataset(data)
 
 ## Value
 
-A list
+A shiny App
 
 ## Examples
 

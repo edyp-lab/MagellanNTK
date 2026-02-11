@@ -37,7 +37,7 @@ mod_errorModal(title = NULL, text = NULL)
 
 ## Value
 
-NA
+A shiny App
 
 ## Examples
 

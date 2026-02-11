@@ -24,6 +24,8 @@ errorModal(msg)
 
 ## Value
 
+A shiny App
+
 NA
 
 ## Examples

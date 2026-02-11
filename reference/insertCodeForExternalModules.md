@@ -73,20 +73,23 @@ Get_AdditionalModule_Core_Code(w.names = NULL, rv.custom.names = NULL)
 
 - widgets.names:
 
-  A \`list\` containing the names of the widgets in all steps of the
+  A \`vector\` containing the names of the widgets in all steps of the
   module.
 
 - rv.custom.names:
 
-  xxx
+  A \`vector\` containing the names of the custom variables in all steps
+  of the module.
 
 - widgets:
 
-  xxx
+  A \`list\` containing the names of the widgets in all steps of the
+  module with their default values
 
 - custom:
 
-  xxx
+  A \`list\` of the custom variables used in the process. Each custom
+  variable is accompanied with its default value
 
 - dataIn:
 
@@ -98,15 +101,16 @@ Get_AdditionalModule_Core_Code(w.names = NULL, rv.custom.names = NULL)
 
 - w.names:
 
-  xxx
+  Same as widgets.names
 
 - mode:
 
-  xxx
+  A \`character()\` which indicates whether the current module is used
+  as a 'process' nor a 'pipeline.' Default value is NULL
 
 - name:
 
-  xxx
+  The Shiny id of the process or pipeline
 
 ## Value
 

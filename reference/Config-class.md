@@ -43,19 +43,24 @@ Config(
 
 - fullname:
 
-  xxx
+  The complete name of the pipeline or the process (in this case, it is
+  the concatenation of the name of the pipeline and the name of the
+  process itself, separated by '\_')
 
 - mode:
 
-  xxx
+  A \`character()\` which indicates whether the current module is used
+  as a 'process' nor a 'pipeline.' Default value is NULL
 
 - steps:
 
-  xxx
+  A vector containing the names of steps in a process or a pipeline.
 
 - mandatory:
 
-  xxx
+  A vector of boolean where each element indicates whether the
+  corresponding steps is mandatory or not. It has the same length of the
+  vector steps.
 
 - steps.source.file:
 

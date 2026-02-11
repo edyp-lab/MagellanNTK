@@ -51,7 +51,7 @@ nav_process()
 
 - status:
 
-  xxx
+  A boolean which indicates whether the current status of the process
 
 - is.enabled:
 
@@ -74,7 +74,8 @@ nav_process()
 
 - is.skipped:
 
-  xxx
+  A booelan which indicates whether the pipeline or process is skipped
+  (TRUE) or not (FALSE)
 
 - verbose:
 
@@ -92,10 +93,7 @@ nav_process()
 
 ## Value
 
-A list of four items: \* dataOut A dataset of the same class of the
-parameter dataIn \* steps.enabled A vector of \`boolean\` of the same
-length than config@steps \* status A vector of \`integer(1)\` of the
-same length than the config@steps vector \* reset xxxx
+A shiny App
 
 ## Author
 

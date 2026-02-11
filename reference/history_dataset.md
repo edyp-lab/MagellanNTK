@@ -29,7 +29,7 @@ history_dataset(dataIn)
 
 ## Value
 
-NA
+A shiny App
 
 ## Examples
 

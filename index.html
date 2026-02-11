@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">MagellanNTK</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.23</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.25</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,13 +96,12 @@
 </h2>
 <p>MagellanNTK can be launched in two different modes: a ‘user’ mode and a ‘dev’ mode. The ‘user’ mode is the default mode.</p>
 <pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Exp1_R25_prot</span>, package <span class="op">=</span> <span class="st">'DaparToolshedData'</span><span class="op">)</span></span>
-<span><span class="va">wf.name</span> <span class="op">&lt;-</span> <span class="st">'PipelineProtein_Normalization'</span></span>
-<span><span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineProtein'</span>, package <span class="op">=</span> <span class="st">'Prostar2'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">lldata.rda</span>, package <span class="op">=</span> <span class="st">'MagellanNTK'</span><span class="op">)</span></span>
+<span><span class="va">wf.name</span> <span class="op">&lt;-</span> <span class="st">'PipelineDemo'</span></span>
+<span><span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineDemo'</span>, package <span class="op">=</span> <span class="st">'MagellanNTK'</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">Exp1_R25_prot</span>, <span class="va">wf.path</span>, <span class="va">wf.name</span><span class="op">)</span></span></code></pre>
+<span><span class="fu"><a href="reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">lldata</span>, <span class="va">wf.path</span>, <span class="va">wf.name</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
 <div class="section level1">

@@ -31,11 +31,11 @@ open_dataset(class = NULL, extension = NULL, demo_package = NULL)
 
 - class:
 
-  xxx
+  The class allowed to open objects
 
 - extension:
 
-  xxx
+  The extension file allowed
 
 - demo_package:
 
@@ -49,11 +49,15 @@ open_dataset(class = NULL, extension = NULL, demo_package = NULL)
 
 - is.enabled:
 
-  xxx
+  A \`boolean\`. This variable is used as a remote command to specify if
+  the corresponding module is enabled/disabled in the calling module of
+  upper level. For example, if this module is disabled, then this
+  variable is set to TRUE. Then, all the widgets will be disabled. If
+  not, the enabling/disabling of widgets is deciding by this module.
 
 ## Value
 
-NA
+A Shiny app
 
 ## Examples
 

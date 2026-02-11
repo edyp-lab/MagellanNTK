@@ -4,19 +4,17 @@
 
 - [`Add2History()`](https://edyp-lab.github.io/MagellanNTK/reference/Add2History.md)
   : Get the last validated step before current position.
-- [`All_Skipped_tag()`](https://edyp-lab.github.io/MagellanNTK/reference/All_Skipped_tag.md)
-  : xxx
 - [`BuildData2Send()`](https://edyp-lab.github.io/MagellanNTK/reference/BuildData2Send.md)
   : Builds a vector of data
 - [`Config()`](https://edyp-lab.github.io/MagellanNTK/reference/Config-class.md)
   [`initialize(`*`<Config>`*`)`](https://edyp-lab.github.io/MagellanNTK/reference/Config-class.md)
   : Config class definition
 - [`Discover_Skipped_Steps()`](https://edyp-lab.github.io/MagellanNTK/reference/Discover_Skipped_Steps.md)
-  : xxx
+  : Discover Skipped Steps
 - [`GetExtension()`](https://edyp-lab.github.io/MagellanNTK/reference/GetExtension.md)
   : Get file extension
 - [`GetFirstMandatoryNotValidated()`](https://edyp-lab.github.io/MagellanNTK/reference/GetFirstMandatoryNotValidated.md)
-  : xxx
+  : Get the first mandatory step not validated
 - [`GetListDatasets()`](https://edyp-lab.github.io/MagellanNTK/reference/GetListDatasets.md)
   : Get datasets from packages which owns datasets of a given class
 - [`GetMaxValidated_AllSteps()`](https://edyp-lab.github.io/MagellanNTK/reference/GetMaxValidated_AllSteps.md)
@@ -72,7 +70,7 @@
   [`default.workflow()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
   [`default.layout`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
   [`default.theme()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
-  : Default vars
+  : Default variables used in MagellanNTK
 - [`directoryInput()`](https://edyp-lab.github.io/MagellanNTK/reference/directoryInput.md)
   : Directory Selection Control
 - [`download_btns_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/download_btns.md)
@@ -131,7 +129,7 @@
   : \# example code \#' @title Checks if the object is compliant with
   MagellanNTK
 - [`is.substr()`](https://edyp-lab.github.io/MagellanNTK/reference/is.substr.md)
-  : Substring
+  : Substring test
 - [`is.validated()`](https://edyp-lab.github.io/MagellanNTK/reference/is.validated.md)
   : xxx
 - [`keepAssay()`](https://edyp-lab.github.io/MagellanNTK/reference/keepAssay.md)
@@ -193,7 +191,7 @@
 - [`mod_SweetAlert_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_sweetAlert.md)
   [`mod_SweetAlert_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_sweetAlert.md)
   [`mod_SweetAlert()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_sweetAlert.md)
-  : xxx
+  : A shiny app to display a modal
 - [`module.exists()`](https://edyp-lab.github.io/MagellanNTK/reference/module.exists.md)
   : Checks if a Shiny module is loaded
 - [`nav_pipeline_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_pipeline.md)
@@ -229,7 +227,7 @@
 - [`shinyOutput()`](https://edyp-lab.github.io/MagellanNTK/reference/shinyOutput.md)
   : Package version \#'description xxx
 - [`show(`*`<Config>`*`)`](https://edyp-lab.github.io/MagellanNTK/reference/show-Config-method.md)
-  : xxx
+  : Prints the content of a \`Config\` class
 - [`Insert_User_Sidebar()`](https://edyp-lab.github.io/MagellanNTK/reference/sidebars.md)
   : Sidebar functions
 - [`source_shinyApp_files()`](https://edyp-lab.github.io/MagellanNTK/reference/source_shinyApp_files.md)

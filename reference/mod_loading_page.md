@@ -31,9 +31,7 @@ loadApp()
 
 ## Value
 
-A list where each slot is named with the customizable functions. Each
-slot contains the code to call this function from the package the user
-have chosen.
+A shiny App
 
 ## Examples
 
