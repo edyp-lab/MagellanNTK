@@ -132,8 +132,6 @@
   : Substring test
 - [`is.validated()`](https://edyp-lab.github.io/MagellanNTK/reference/is.validated.md)
   : xxx
-- [`keepAssay()`](https://edyp-lab.github.io/MagellanNTK/reference/keepAssay.md)
-  : xxx
 - [`launchGA()`](https://edyp-lab.github.io/MagellanNTK/reference/launchGA.md)
   : xxx
 - [`MagellanNTK_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)

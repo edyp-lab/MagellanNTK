@@ -67,7 +67,7 @@ nav_pipeline()
 A list of four items: \* dataOut A dataset of the same class of the
 parameter dataIn \* steps.enabled A vector of \`boolean\` of the same
 length than config@steps \* status A vector of \`integer(1)\` of the
-same length than the config@steps vector \* reset xxxx
+same length than the config@steps vector
 
 ## Author
 

@@ -7,7 +7,7 @@ process has been validated, it creates a new slot with its own name
 ## Usage
 
 ``` r
-BuildData2Send(dataIn, stepsNames)
+BuildData2Send(session, dataIn, stepsNames)
 ```
 
 ## Arguments
