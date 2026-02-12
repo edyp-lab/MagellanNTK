@@ -12,6 +12,10 @@ BuildData2Send(session, dataIn, stepsNames)
 
 ## Arguments
 
+- session:
+
+  internal parameter
+
 - dataIn:
 
   An instance of an object of type \`list()\`.
