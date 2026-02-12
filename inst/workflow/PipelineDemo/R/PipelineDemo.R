@@ -1,4 +1,4 @@
-#' @title Shiny example module `Pipeline A`
+#' @title Shiny example module `Pipeline Demo`
 #'
 #' @description
 #' This module contains the configuration information for the corresponding pipeline.
@@ -6,33 +6,30 @@
 #' This documentation is for developers who want to create their own pipelines nor processes
 #' to be managed with `MagellanNTK`.
 #' 
-#' @name module_PiplelineProtein
+#' @name module_PipelineDemo
 #' @examples
 #' if (interactive()){
-#' source("~/GitHub/Prostar2/inst/extdata/workflow/PipelineProtein/R/PipelineProtein.R")
-#' path <- system.file('extdata/workflow/PipelineProtein', package = 'Prostar2')
-#' shiny::runApp(MagellanNTK::workflowApp("PipelineProtein"))
+#' source("~/GitHub/MagellanNTK/inst/extdata/workflow/PipelineDemo/R/PipelineDemo.R")
+#' path <- system.file('extdata/workflow/PipelineDemo', package = 'MagellanNTK')
+#' shiny::runApp(MagellanNTK::workflowApp("PipelineDemo"))
 #' }
 #' 
-#' @name PipelineProtein
+#' @name PipelineDemo
 #' 
-#' @example inst/workflow/PipelineProtein/examples/example_pipelineProtein.R
-#' 
-#' @importFrom QFeatures addAssay removeAssay
-#' @import DaparToolshed
+#' @example inst/workflow/PipelineDemo/examples/example_PipelineDemo.R
 #' 
 NULL
 
 
-#' @rdname PipelineProtein
+#' @rdname PipelineDemo
 #' @export
 #' 
-PipelineProtein_conf <- function(){
+PipelineDemo_conf <- function(){
   MagellanNTK::Config(
     mode = 'pipeline',
-    fullname = 'PipelineProtein',
-    steps = c('Filtering', 'Normalization', 'Imputation', 'HypothesisTest', 'DA'),
-    mandatory = c(FALSE, FALSE, FALSE, FALSE, FALSE)
+    fullname = 'PipelineDemo',
+    steps = c('Process 1', 'Process 2', 'Process 3'),
+    mandatory = c(FALSE, TRUE, FALSE)
   )
 }
 
@@ -40,13 +37,13 @@ PipelineProtein_conf <- function(){
 
 #' @param id xxx
 #'
-#' @rdname PipelineProtein
+#' @rdname PipelineDemo
 #'
 #' @author Samuel Wieczorek
 #' 
 #' @export
 #' 
-PipelineProtein_ui <- function(id){
+PipelineDemo_ui <- function(id){
   ns <- NS(id)
 }
 
@@ -70,14 +67,14 @@ PipelineProtein_ui <- function(id){
 #' 
 #' @param current.pos xxx
 #' 
-#' @rdname PipelineProtein
+#' @rdname PipelineDemo
 #'
 #' @importFrom shiny moduleServer reactiveValues observeEvent NS tagList actionLink fluidRow column uiOutput hr reactive fluidPage
 #' @importFrom stats setNames
 #' 
 #' @export
 #'
-PipelineProtein_server <- function(id,
+PipelineDemo_server <- function(id,
   dataIn = reactive({NULL}),
   steps.enabled = reactive({NULL}),
   remoteReset = reactive({0}),

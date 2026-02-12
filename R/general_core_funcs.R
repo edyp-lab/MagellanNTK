@@ -327,6 +327,7 @@ UpdateStepsStatus <- function(dataIn, config){
 #' (names(stepsNames)). Each item is the result of a process and whe,n a process
 #' has been validated, it creates a new slot with its own name
 #'
+#' @param session internal parameter
 #' @param dataIn An instance of an object of type `list()`.
 #' @param stepsNames A vector in which items is the name of a step in the pipeline.
 

@@ -530,7 +530,7 @@ nav_single_process_server <- function(
       
         names(rv$temp.dataIn)[1] <- 'Convert'
         DaparToolshed::paramshistory(rv$temp.dataIn[[1]]) <- MagellanNTK::InitializeHistory()
-        
+
         
         rv$dataset2EDA <- rv$temp.dataIn
         

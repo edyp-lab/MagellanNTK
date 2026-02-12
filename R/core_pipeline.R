@@ -508,6 +508,8 @@ nav_pipeline_server <- function(
     
     
     GetValuesFromChildren <- reactive({
+      
+  
       # Get the trigger values for each steps of the module
       return.trigger.values <- setNames(lapply(GetStepsNames(), function(x) {
         tmp.return[[x]]$dataOut()$trigger
@@ -516,8 +518,7 @@ nav_pipeline_server <- function(
       # Replace NULL values by NA
       return.trigger.values[sapply(return.trigger.values, is.null)] <- NA
       triggerValues <- unlist(return.trigger.values)
-      
-      
+
       # Get the values returned by each step of the modules
       return.values <- setNames(
         lapply(
@@ -537,7 +538,7 @@ nav_pipeline_server <- function(
     
     # Catch the returned values of the processes attached to pipeline
     observeEvent(GetValuesFromChildren()$triggers, ignoreInit = TRUE, {
-      
+ 
       triggerValues <- GetValuesFromChildren()$triggers
       return.values <- GetValuesFromChildren()$values
       
@@ -587,7 +588,7 @@ nav_pipeline_server <- function(
           rv$current.pos <- which(.cd)
           
           # Update the datasend Vector
-          lapply((lastValidated):len, function(x){
+          lapply((lastValidated + 1):len, function(x){
             rv$child.data2send[[x]] <- rv$child.data2send[[lastValidated]]
           })
 

@@ -26,10 +26,7 @@ NULL
 history_dataset_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    h3(style = "color: blue;", "Info dataset"),
-    uiOutput(ns("title")),
-    uiOutput(ns("choose_SE_ui")),
-    uiOutput(ns("show_SE_ui"))
+    h3(style = "color: blue;", "Generic history module")
   )
 }
 
@@ -46,26 +43,11 @@ history_dataset_ui <- function(id) {
 #'
 history_dataset_server <- function(
     id,
-  dataIn = reactive({
-    NULL
-  })) {
+  dataIn = reactive({NULL})) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
-    output$choose_SE_ui <- renderUI({
-      req(dataIn())
-      selectInput(ns("selectInputSE"),
-        "Select a dataset for further information",
-        choices = c("None", names(dataIn()))
-      )
-    })
     
-    
-    output$show_SE_ui <- renderUI({
-      req(input$selectInputSE != "None")
-      req(dataIn())
-      p(input$selectInputSE)
-    })
   })
 }
 
@@ -87,9 +69,8 @@ history_dataset <- function(dataIn) {
   
   
   server <- function(input, output, session) {
-    history_dataset_server("infos", dataIn = reactive({
-      dataIn
-    }))
+    history_dataset_server("infos", 
+      dataIn = reactive({dataIn}))
   }
   
   app <- shinyApp(ui = ui, server = server)

@@ -7,6 +7,8 @@
 BuildData2Send(session, dataIn, stepsNames)
 }
 \arguments{
+\item{session}{internal parameter}
+
 \item{dataIn}{An instance of an object of type `list()`.}
 
 \item{stepsNames}{A vector in which items is the name of a step in the pipeline.}

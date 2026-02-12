@@ -222,10 +222,9 @@ nav_process_server <- function(
       if (len > 1){
    
       } else if (len == 1){
-        
-        if (('Description' == names(rv$steps.status)) ||
-            ('Save' == names(rv$steps.status))
-        ){
+        if ('Description' == names(rv$steps.status)){
+          enable.do.Btns <- unname(rv$steps.status) != stepStatus$VALIDATED
+        } else if ('Save' == names(rv$steps.status)){
           enable.do.Btns <- unname(rv$steps.status) != stepStatus$VALIDATED
         }
       }
@@ -266,12 +265,11 @@ nav_process_server <- function(
       if (len > 1){
         enable.doProceed.Btns <- enable.doProceed.Btns && rv$current.pos != len
       } else if (len == 1){
-        
-        if (('Description' == names(rv$steps.status)) ||
-            ('Save' == names(rv$steps.status))
-        ){
+
+        if ('Description' == names(rv$steps.status)){
           enable.doProceed.Btns <- unname(rv$steps.status) != stepStatus$VALIDATED
-        }
+        } else if ('Save' == names(rv$steps.status))
+          enable.doProceed.Btns <- FALSE
       }
       
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
@@ -331,12 +329,12 @@ nav_process_server <- function(
         )
       )
       
-      # Update the reactive value config with the config of the
-      # pipeline
+      # Update the reactive value config with the config of the pipeline
       rv$config <- rv$proc$config()
 
       n <- length(rv$config@steps)
       stepsnames <- names(rv$config@steps)
+
       rv$steps.status <- setNames(rep(stepStatus$UNDONE, n), nm = stepsnames)
       
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = stepsnames)
@@ -458,6 +456,7 @@ nav_process_server <- function(
       ignoreNULL = TRUE,
       ignoreInit = TRUE,
       {
+      
         req(rv$doProceedAction)
         # If a value is returned, this is because the
         # # current step has been validated
@@ -465,10 +464,11 @@ nav_process_server <- function(
         
         # Look for new skipped steps
         rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
-        
+        rv$proc.id <- unlist(strsplit(id, '_'))[2]
         # If it is the first step (description step), then
         # load the dataset in work variable 'dataIn'
-        if (rv$current.pos == 1) {
+        #if (rv$current.pos == 1) {
+          if (rv$proc.id  =='Description'){
           rv$dataIn <- rv$temp.dataIn
           
           # Add this for the loading of a dataset in the description step
@@ -487,7 +487,9 @@ nav_process_server <- function(
           }
         }
         # Manage the last dataset which is the real one returned by the process
-        else if (rv$current.pos == length(rv$config@steps)) {
+        else if (rv$proc.id == 'Save') {
+          
+          
           # Update the work variable of the nav_process
           # with the dataset returned by the process
           # Thus, the variable rv$temp.dataIn keeps
@@ -554,6 +556,7 @@ nav_process_server <- function(
     
     observeEvent(input$DoBtn, ignoreInit = TRUE, {
       # Catch the event to send it to the process server
+      
       rv$btnEvents <- paste0(names(rv$steps.status)[rv$current.pos], '_Do_', input$DoBtn)
       rv$doProceedAction <- "Do"
     })
@@ -612,9 +615,11 @@ nav_process_server <- function(
       
       if (rv$status == stepStatus$VALIDATED){
        req(rv$history)
-        if (unlist(strsplit(id, '_'))[2] == 'Description' ||
-            unlist(strsplit(id, '_'))[2] == 'Save'){
+
+        if (unlist(strsplit(id, '_'))[2] == 'Description')
           rv$steps.status['Description'] <- stepStatus$VALIDATED
+        else if(unlist(strsplit(id, '_'))[2] == 'Save'){
+          rv$steps.status['Save'] <- stepStatus$VALIDATED
         } else{
           
           rv$steps.status <- RefineProcessStatus(rv$history, rv$steps.status)
@@ -629,7 +634,7 @@ nav_process_server <- function(
     # See https://github.com/daattali/shinyjs/issues/166
     # https://github.com/daattali/shinyjs/issues/25
     observeEvent(rv$steps.status, ignoreInit = FALSE, {
-    
+
       rv$steps.status <- Discover_Skipped_Steps(rv$steps.status)
       
       rv$steps.enabled <- Update_State_Screens(
@@ -637,17 +642,7 @@ nav_process_server <- function(
         is.enabled = is.enabled(),
         rv = rv
       )
-      
-      # .size <- length(rv$steps.status)
-      # if (rv$steps.status[.size] == stepStatus$VALIDATED) {
-      #   # Set current position to the last one
-      #   rv$current.pos <- .size
-      #   browser()
-      #   # If the last step is validated, it is time to send result by
-      #   # updating the 'dataOut' reactiveValue.
-      #   dataOut$trigger <- Timestamp()
-      #   dataOut$value <- rv$dataIn
-      # }
+
     })
     
     
@@ -673,6 +668,10 @@ nav_process_server <- function(
       # The cursor is set to the first step
       rv$current.pos <- 1
       rv$history <- MagellanNTK::InitializeHistory()
+      n <- length(rv$config@steps)
+      rv$steps.status <- setNames(
+        rep(stepStatus$UNDONE, length(rv$steps.status)),
+        nm = names(rv$config@steps))
     }
     
     observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
