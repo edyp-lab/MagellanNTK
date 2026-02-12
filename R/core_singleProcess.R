@@ -14,7 +14,6 @@
 #' For example, if this module is disabled, then this variable is set to TRUE. Then,
 #' all the widgets will be disabled. If not, the enabling/disabling of widgets
 #' is deciding by this module.
-#'
 #' 
 #' @param remoteResetUI xxx
 #' @param status A boolean which indicates whether the current status of the 
@@ -153,7 +152,10 @@ nav_single_process_server <- function(
       
       doProceedAction = NULL,
       
-      history = InitializeHistory()
+      history = InitializeHistory(),
+      
+      
+      btnEvents = 0
     )
     
     
@@ -400,9 +402,9 @@ nav_single_process_server <- function(
     # process and pipeline modules
     #observeEvent(c(id, dataIn()), ignoreInit = FALSE, ignoreNULL = TRUE, {
     observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
-      
+   
       rv$rstBtn()
-      
+      rv$btnEvents
       rv$prev.remoteResetUI < remoteResetUI()
       
       ### Call the server module of the process/pipeline which name is
@@ -411,8 +413,7 @@ nav_single_process_server <- function(
       ### suffixed by '_server'. This will give access to its config
       
       rv$proc.id <- unlist(strsplit(id, '_'))[2]
-      rv$proc <- do.call(
-        paste0(id, "_server"),
+      rv$proc <- do.call(paste0(id, "_server"),
         list(
           id = id,
           dataIn = reactive({rv$temp.dataIn}),
@@ -504,7 +505,7 @@ nav_single_process_server <- function(
     # temp.dataIn. Then, two behaviours:
     # 1 - if the variable is NULL. xxxx
     # 2 - if the variable contains a dataset. xxx
-    observeEvent(req(dataIn()), ignoreNULL = FALSE, ignoreInit = TRUE, {
+    observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = TRUE, {
       req(rv$config)
 
       # Get the new dataset in a temporary variable
@@ -512,12 +513,21 @@ nav_single_process_server <- function(
       
         
       # Dans le cas de l'execution dd'un process unique, la stratégie pour le dataset
-      # estla suivante :
+      # est la suivante :
       # On ne prend pas en compte les resultats des processus intermediaires mais
       # on ne tient compte que du resultat final.
       # Pour cela, on supprime tous les datasets intermediaires et on ne garde 
       # que le dernier
-      rv$temp.dataIn <- keepAssay(dataIn(), length(dataIn()))
+      
+      rv$temp.dataIn <- do.call(
+        eval(parse(text = session$userData$funcs$keepDatasets)),
+        list(
+          object = dataIn(),
+          range = length(dataIn())
+        )
+      )
+      
+      
         names(rv$temp.dataIn)[1] <- 'Convert'
         DaparToolshed::paramshistory(rv$temp.dataIn[[1]]) <- MagellanNTK::InitializeHistory()
         
@@ -552,7 +562,8 @@ nav_single_process_server <- function(
       ignoreNULL = TRUE,
       ignoreInit = TRUE,
       {
-        req(rv$doProceedAction)
+
+        rv$doProceedAction
         # If a value is returned, this is because the
         # # current step has been validated
         rv$steps.status[rv$current.pos] <- stepStatus$VALIDATED
@@ -638,13 +649,15 @@ nav_single_process_server <- function(
     
     
     
-    observeEvent(input$DoProceedBtn, ignoreInit = TRUE, {
+    observeEvent(input$DoProceedBtn, ignoreInit = FALSE, ignoreNULL = TRUE,{
+
       # Catch the event to send it to the process server
       rv$btnEvents <- paste0(names(rv$steps.status)[rv$current.pos], '_Do_Proceed_', input$DoProceedBtn)
       rv$doProceedAction <- "Do_Proceed"
     })
     
-    observeEvent(input$DoBtn, ignoreInit = TRUE, {
+    observeEvent(input$DoBtn, ignoreInit = FALSE, ignoreNULL = TRUE,{
+
       # Catch the event to send it to the process server
       rv$btnEvents <- paste0(names(rv$steps.status)[rv$current.pos], '_Do_', input$DoBtn)
       rv$doProceedAction <- "Do"
@@ -656,7 +669,7 @@ nav_single_process_server <- function(
       req(steps.status)
       steps.status <- setNames(rep(stepStatus$UNDONE, length(steps.status)), 
         nm = names(steps.status))
-      
+
       
       if (length(steps.status) > 1){
         steps.status[1] <- stepStatus$VALIDATED

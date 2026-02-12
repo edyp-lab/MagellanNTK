@@ -320,25 +320,6 @@ UpdateStepsStatus <- function(dataIn, config){
 }
 
 
-#' @title xxx
-#'
-#' @description xxx
-#'
-#' @param x xxx
-#' @param range xxx
-
-#' @return A QF dataset
-#'
-#' @examples
-#' NULL
-#' @export
-#'
-keepAssay <- function (x, range) 
-{
-  x[, , range]
-}
-
-
 
 #' @title Builds a vector of data
 #'
@@ -364,18 +345,26 @@ keepAssay <- function (x, range)
 #' 
 #' @export
 #'
-BuildData2Send <- function(dataIn, stepsNames){
+BuildData2Send <- function(session, dataIn, stepsNames){
   req(dataIn)
- 
+
   child.data2send <- lapply(as.list(stepsNames), 
-    function(x) keepAssay(dataIn, 1))
+    function(x) {
+      dataIn <- do.call(
+        eval(parse(text = session$userData$funcs$keepDatasets)),
+        list(object = dataIn, range = 1)
+      )
+    })
     names(child.data2send) <- stepsNames 
     
     if (length(names(dataIn)) > 1){
     for (i in 2:length(names(dataIn))){
       proc.name <- names(dataIn)[i]
       indInstepsNames <- which(proc.name == stepsNames)
-      dataset <- keepAssay(dataIn, 1:i)
+      dataset <- do.call(
+        eval(parse(text = session$userData$funcs$keepDatasets)),
+        list(object = dataIn, range = 1:i)
+      )
       for (j in (indInstepsNames):length(child.data2send))
             child.data2send[j] <- dataset
         }

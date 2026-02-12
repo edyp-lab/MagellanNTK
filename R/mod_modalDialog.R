@@ -119,8 +119,6 @@ mod_modalDialog_server <- function(
         id,
         title = NULL,
         typeWidget = "button",
-        styleWidget = NULL,
-        classWidget = NULL,
         width = NULL,
         uiContent = NULL,
         external_mod = NULL,

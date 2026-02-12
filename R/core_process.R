@@ -32,9 +32,6 @@
 #' * dev: xxx
 #'
 #'
-#'
-#'
-#'
 #' @return A shiny App
 #'
 #' @examples
@@ -143,14 +140,14 @@ nav_process_server <- function(
       length = NULL,
       config = NULL,
       rstBtn = reactive({0}),
-      doProceedAction = NULL
+      doProceedAction = NULL,
+      btnEvents = 0
     )
     
     
     output$process_panel_ui_pipeline <- renderUI({
       div(
-        #style ="position: fixed;",
-          uiOutput(ns('process_btns_ui')),
+        uiOutput(ns('process_btns_ui')),
           uiOutput(ns("testTL"))
         )
     })
@@ -303,13 +300,15 @@ nav_process_server <- function(
     
     observeEvent(status(), { rv$status <- status()})
     
+    
+    
     # Catch any event on the 'id' parameter. As this parameter is static
     # and is attached to the server, this function can be view as the
     # initialization of the server module. This code is generic to both
     # process and pipeline modules
       observeEvent(id, ignoreInit = FALSE, ignoreNULL = TRUE, {
       rv$rstBtn()
-      
+        rv$btnEvents
       rv$prev.remoteReset <- remoteReset()
       rv$prev.remoteResetUI <- remoteResetUI()
       
@@ -472,7 +471,7 @@ nav_process_server <- function(
         if (rv$current.pos == 1) {
           rv$dataIn <- rv$temp.dataIn
           
-          # Add this for the loading of a dataset in the descciption step
+          # Add this for the loading of a dataset in the description step
           if (!is.null(rv$proc$dataOut()$value))
             rv$dataIn <- rv$proc$dataOut()$value
           
@@ -487,15 +486,13 @@ nav_process_server <- function(
             rv$current.pos <- rv$current.pos + 1
           }
         }
-        # Manage the last dataset which is the real one
-        # returned by the process
+        # Manage the last dataset which is the real one returned by the process
         else if (rv$current.pos == length(rv$config@steps)) {
           # Update the work variable of the nav_process
           # with the dataset returned by the process
           # Thus, the variable rv$temp.dataIn keeps
           # trace of the original dataset sent to
-          # this  workflow and will be used in case of
-          # reset
+          # this  workflow and will be used in case of reset
           rv$dataIn <- rv$proc$dataOut()$value
           # Update the 'dataOut' reactive value to return
           #  this dataset to the caller. this `nav_process`

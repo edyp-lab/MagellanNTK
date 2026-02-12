@@ -28,15 +28,11 @@
 #' * dev: xxx
 #'
 #'
-#'
-#'
-#'
 #' @return A list of four items:
 #' * dataOut A dataset of the same class of the parameter dataIn
 #' * steps.enabled A vector of `boolean` of the same length than config@steps
 #' * status A vector of `integer(1)` of the same length than the config@steps
 #'   vector
-#' * reset xxxx
 #'
 #' @examples
 #' if (interactive()) {
@@ -90,11 +86,7 @@ nav_pipeline_server <- function(
   remoteReset = reactive({0}),
   verbose = FALSE,
   usermod = "user") {
-  ### -------------------------------------------------------------###
-  ###                                                             ###
-  ### ------------------- MODULE SERVER --------------------------###
-  ###                                                             ###
-  ### -------------------------------------------------------------###
+  
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
@@ -140,17 +132,23 @@ nav_pipeline_server <- function(
       # catched by Shiny observers
       # ---ONLY USED WITH PIPELINE---
       resetChildren = NULL,
+      
       resetChildrenUI = NULL,
-      # current.pos Stores the current cursor position in the
+      
+      # stores the current cursor position in the
       # timeline and indicates which of the process' steps is active
       current.pos = 1,
+      
       length = NULL,
+      
       config = NULL,
       
       # A vector of boolean where each element indicates if the
       # corresponding child if enable or disable
       child.enabled = NULL,
+      
       prev.children.trigger = NULL,
+      
       # xxxx
       child.reset = NULL,
       
@@ -175,8 +173,8 @@ nav_pipeline_server <- function(
         top = default.layout$top_pipeline_sidebar,
         height = default.layout$height_pipeline_sidebar,
         width = default.layout$width_pipeline_sidebar,
-        # style de la sidebar contenant les infos des process (timeline, boutons et parametres
-        style = paste0(
+        
+         style = paste0(
           "position : absolute; ",
           "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_pipeline_sidebar, "; ",
           "border-right: ", default.layout$line_width, "px solid ", default.layout$line_color, ";",
@@ -246,7 +244,7 @@ nav_pipeline_server <- function(
     
     
     
-    
+    # Display the 'previous' button for the pipeline
     output$prevBtnUI <- renderUI({
       req(rv$config)
       rv$current.pos
@@ -261,6 +259,8 @@ nav_pipeline_server <- function(
       MagellanNTK::toggleWidget(widget, .cond)
     })
     
+    
+    # Display the 'Next' button for the pipeline
     output$nextBtnUI <- renderUI({
       req(rv$config)
       rv$current.pos
@@ -275,13 +275,15 @@ nav_pipeline_server <- function(
       MagellanNTK::toggleWidget(widget, .cond)
     })
     
+    
+    # Display the 'Return to start' button for the pipeline
     output$startBtnUI <- renderUI({
       widget <-actionButton(ns("startBtn"), '|<<',  style = btn_css_style)
       MagellanNTK::toggleWidget(widget, TRUE)
     })
     
     
-    
+    # Catch the event of clicking on the EDA button
     observeEvent(input$btn_eda, {
       
       req(session$userData$funcs)
@@ -351,9 +353,8 @@ nav_pipeline_server <- function(
     
     
     output$datasetNameUI <- renderUI({
-      div(
-        style = paste0("padding-left: ", 100, "px;"),
-        h3(id)
+      div(style = paste0("padding-left: ", 100, "px;"),
+        h4(id)
       )
     })
     
@@ -414,7 +415,7 @@ nav_pipeline_server <- function(
     
     
     
-    # 
+    # General observe for the timeline of the pipeline
     observe({
       rv$steps.status
       rv$steps.enabled
@@ -440,7 +441,9 @@ nav_pipeline_server <- function(
     observeEvent(req(dataIn()), ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
 
+      #Updates the EDA with the new dataset
       rv$dataset2EDA <- dataIn()
+      
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
       rv$dataIn.original <- dataIn()
@@ -459,7 +462,7 @@ nav_pipeline_server <- function(
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
       rv$steps.skipped <- Discover_Skipped_Steps(rv$steps.status)
       
-      rv$child.data2send <- BuildData2Send(dataIn(), GetStepsNames())
+      rv$child.data2send <- BuildData2Send(session, dataIn(), GetStepsNames())
       
       # A new dataset has been loaded
       # # Update the different screens in the process

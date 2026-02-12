@@ -57,7 +57,6 @@ A list of four items:
 * steps.enabled A vector of `boolean` of the same length than config@steps
 * status A vector of `integer(1)` of the same length than the config@steps
   vector
-* reset xxxx
 }
 \description{
 The module navigation can be launched via a Shiny app.

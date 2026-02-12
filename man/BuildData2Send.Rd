@@ -4,7 +4,7 @@
 \alias{BuildData2Send}
 \title{Builds a vector of data}
 \usage{
-BuildData2Send(dataIn, stepsNames)
+BuildData2Send(session, dataIn, stepsNames)
 }
 \arguments{
 \item{dataIn}{An instance of an object of type `list()`.}
