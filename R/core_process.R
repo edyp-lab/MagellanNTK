@@ -456,7 +456,6 @@ nav_process_server <- function(
       ignoreNULL = TRUE,
       ignoreInit = TRUE,
       {
-      
         req(rv$doProceedAction)
         # If a value is returned, this is because the
         # # current step has been validated
@@ -468,7 +467,7 @@ nav_process_server <- function(
         # If it is the first step (description step), then
         # load the dataset in work variable 'dataIn'
         #if (rv$current.pos == 1) {
-          if (rv$proc.id  =='Description'){
+          if ((rv$proc.id  == 'Description' || rv$current.pos == 1) && (rv$proc.id  != 'Save')){
           rv$dataIn <- rv$temp.dataIn
           
           # Add this for the loading of a dataset in the description step
@@ -487,7 +486,7 @@ nav_process_server <- function(
           }
         }
         # Manage the last dataset which is the real one returned by the process
-        else if (rv$proc.id == 'Save') {
+        else if (rv$proc.id == 'Save' || rv$current.pos == length(rv$config@steps)) {
           
           
           # Update the work variable of the nav_process

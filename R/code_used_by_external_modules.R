@@ -261,8 +261,8 @@ Get_Code_for_remoteReset <- function(
         custom = TRUE,
         dataIn = "dataIn()",
         addon = "") {
+  
     code <- "
-
 observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
   "
 
