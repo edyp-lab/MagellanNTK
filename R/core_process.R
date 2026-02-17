@@ -407,7 +407,7 @@ nav_process_server <- function(
       req(rv$config)
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
-     
+   
       #rv$history <- GetHistory(dataIn(), rv$proc.id)
       rv$history <- do.call(
       eval(parse(text = session$userData$funcs$GetHistory)),

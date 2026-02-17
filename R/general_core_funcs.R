@@ -40,30 +40,34 @@ Add2History <- function(history, process, step.name, param.name, value){
 #' @examples
 #' NULL
 GetHistory <- function(obj, name){
-  return(obj[[name]]$metadata$history)
+  history <- NULL
+  if (!is.null(obj) && name %in% names(obj))
+    history <- S4Vectors::metadata(obj[[name]])[['history']]
+  
+  return(history)
 }
 
 
 
-
-#' @title Get the last validated step before current position.
+#' @title Standardize names
 #'
-#' @description This function returns the indice of the last validated step before
-#' the current step.
+#' @param obj.se An instance of the class `SummarizedExperiment`
+#' @param history A `data.frame()`
 #'
-#' @param obj The dataset managed by MagellanNTK
-#' @param history A `data.frame()` 
-#' @return A The dataset managed by MagellanNTK
+#' @author Samuel Wieczorek
 #'
 #' @export
+#'
 #' @examples
-#' NULL
-SetHistory <- function(obj, history){
-  obj[['metadata']]$history <- history
-  
-  return(obj)
+#' data(lldata)
+#' history <- GetHistory(lldata[[1]])
+#' history <- rbind(history, c('Example', 'Step Ex', 'ex_param', 'Ex'))
+#' lldata[[1]] <- SetHistory(lldata[[1]], history)
+#'
+SetHistory <- function(obj.se, history){
+  S4Vectors::metadata(obj.se)[['history']] <- history
+  return(obj.se)
 }
-
 
 
 #' @title Get the last validated step before current position.

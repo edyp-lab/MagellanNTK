@@ -179,7 +179,8 @@ PipelineDemo_ProcessA_server <- function(id,
           name = 'ProcessA'
         )
       )
-  
+      rv.custom$history <- Add2History(rv.custom$history, 'ProcessA', 'Duplicatedata', 'Duplicate', rv.widgets$Duplicatedata_duplicate)
+      
 
           # DO NOT MODIFY THE THREE FOLLOWING LINES
           dataOut$trigger <- MagellanNTK::Timestamp()
@@ -200,9 +201,12 @@ PipelineDemo_ProcessA_server <- function(id,
     observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE, {
       req(grepl('Save', btnEvents()))
         
-          dataOut$trigger <- MagellanNTK::Timestamp()
-          dataOut$value <- rv$dataIn
-          rv$steps.status['Save'] <- MagellanNTK::stepStatus$VALIDATED
+      len <- length(rv$dataIn)
+      rv$dataIn[[len]] <- SetHistory(rv$dataIn[[len]], rv.custom$history)
+      
+      dataOut$trigger <- MagellanNTK::Timestamp()
+      dataOut$value <- rv$dataIn
+      rv$steps.status['Save'] <- MagellanNTK::stepStatus$VALIDATED
 
       })
 

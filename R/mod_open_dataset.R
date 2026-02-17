@@ -93,8 +93,6 @@ open_dataset_server <- function(
           MagellanNTK::Get_Code_for_ObserveEvent_widgets(names(widgets.default.values)),
           MagellanNTK::Get_Code_for_rv_reactiveValues(),
           MagellanNTK::Get_Code_Declare_rv_custom(names(rv.custom.default.values)),
-          #MagellanNTK::Get_Code_for_dataOut(),
-          #MagellanNTK::Get_Code_for_remoteReset(widgets = TRUE, custom = TRUE, dataIn = 'NULL'),
           sep = "\n"
         )
         eval(str2expression(core))
@@ -105,18 +103,13 @@ open_dataset_server <- function(
         lapply(names(rv.widgets), function(x){
           rv.widgets[[x]] <- widgets.default.values[[x]]
         })
-          
-          # lapply(names(rv.custom), function(x){
-          #   rv.custom[[x]] <- rv.custom.default.values[[x]]
-          # })
-          
+
            rv.custom$dataRead <- NULL
            rv.custom$remoteReset <- remoteReset()
-          # rv.widgets$file <- NULL
+
            dataOut$trigger <- MagellanNTK::Timestamp()
            dataOut$name <- NULL
            dataOut$dataset <- NULL
-          
 })
 
         
