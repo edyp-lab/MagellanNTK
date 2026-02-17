@@ -236,7 +236,7 @@ PipelineDemo_ProcessB_server <- function(id,
           uiOutput(ns("Step2_widgets_UI"))
         ),
         content = tagList(
-          DT::DTOutput(ns("Step2_tabs_UI")),
+          DT::DTOutput(ns("Step2_tabs_UI"))
         )
       )
     })

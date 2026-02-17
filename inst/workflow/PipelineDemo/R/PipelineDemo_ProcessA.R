@@ -117,7 +117,7 @@ PipelineDemo_ProcessA_server <- function(id,
         ns = NS(id),
         sidebar = tagList(),
         content = tagList(
-          DTOutput(ns('Duplicatedata_tabs_UI'))
+          DT::DTOutput(ns('Duplicatedata_tabs_UI'))
         )
       )
       

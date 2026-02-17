@@ -375,7 +375,7 @@ BuildData2Send <- function(session, dataIn, stepsNames){
         list(object = dataIn, range = 1:i)
       )
       for (j in (indInstepsNames):length(child.data2send))
-            child.data2send[j] <- dataset
+            child.data2send[[j]] <- dataset
         }
 }
     names(child.data2send) <- stepsNames
