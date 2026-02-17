@@ -10,8 +10,8 @@ open_dataset_ui(id)
 open_dataset_server(
   id,
   class = NULL,
-  extension = NULL,
   demo_package = NULL,
+  extension = NULL,
   remoteReset = reactive({
      NULL
  }),
@@ -20,7 +20,7 @@ open_dataset_server(
  })
 )
 
-open_dataset(class = NULL, extension = NULL, demo_package = NULL)
+open_dataset(extension = NULL)
 ```
 
 ## Arguments
@@ -31,15 +31,15 @@ open_dataset(class = NULL, extension = NULL, demo_package = NULL)
 
 - class:
 
-  The class allowed to open objects
-
-- extension:
-
-  The extension file allowed
+  xxx
 
 - demo_package:
 
   xxx
+
+- extension:
+
+  The extension file allowed
 
 - remoteReset:
 
@@ -63,6 +63,6 @@ A Shiny app
 
 ``` r
 if (interactive()) {
-shiny::runApp(open_dataset(extension = "df"))
+shiny::runApp(open_dataset(extension = "rdata"))
 }
 ```

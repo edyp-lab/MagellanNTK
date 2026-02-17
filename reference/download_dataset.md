@@ -13,7 +13,6 @@ download_dataset_server(
      NULL
  }),
   filename = "myDataset",
-  excel.style = NULL,
   remoteReset = reactive({
      0
  }),
@@ -38,10 +37,6 @@ download_dataset(dataIn = NULL, filename = "myDataset")
 - filename:
 
   internal
-
-- excel.style:
-
-  xxx
 
 - remoteReset:
 
