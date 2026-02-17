@@ -1,16 +1,14 @@
 #' @title xxx
-#' @name PipelineProtein_Description
-#' @importFrom QFeatures addAssay removeAssay
-#' @import DaparToolshed
+#' @name PipelineDemo_Description
 #' 
 NULL
 
-#' @rdname PipelineProtein_Description
+#' @rdname PipelineDemo_Description
 #' @export
 #' 
-PipelineProtein_Description_conf <- function(){
+PipelineDemo_Description_conf <- function(){
   MagellanNTK::Config(
-    fullname = 'PipelineProtein_Description',
+    fullname = 'PipelineDemo_Description',
     mode = 'process'
   )
 }
@@ -18,17 +16,15 @@ PipelineProtein_Description_conf <- function(){
 
 
 #' @export
-#' @rdname PipelineProtein_Description
-PipelineProtein_Description_ui <- function(id){
+#' @rdname PipelineDemo_Description
+PipelineDemo_Description_ui <- function(id){
   ns <- NS(id)
-  
-  
 }
 
 
 #' @export
-#' @rdname PipelineProtein_Description
-PipelineProtein_Description_server <- function(id,
+#' @rdname PipelineDemo_Description
+PipelineDemo_Description_server <- function(id,
   dataIn = reactive({NULL}),
   steps.enabled = reactive({NULL}),
   remoteReset = reactive({0}),
@@ -38,19 +34,12 @@ PipelineProtein_Description_server <- function(id,
   btnEvents = reactive({NULL})
 ){
   
-  
-  pkgs.require(c('QFeatures', 'SummarizedExperiment', 'S4Vectors'))
-  
-  
-  
+
   # Define default selected values for widgets
   # By default, this list is empty for the Description module
   # but it can be customized
-  widgets.default.values <- NULL
-  rv.custom.default.values <- list(
-    result_open_dataset = reactive({NULL}),
-    history = MagellanNTK::InitializeHistory()
-  )
+  widgets.default.values <- list()
+  rv.custom.default.values <- list()
   
   ###-------------------------------------------------------------###
   ###                                                             ###
@@ -70,83 +59,22 @@ PipelineProtein_Description_server <- function(id,
     )
     
     eval(str2expression(core.code))
-    add.resourcePath()
-    
-    
-    
+
     ###### ------------------- Code for Description (step 0) -------------------------    #####
     output$Description <- renderUI({
-      
-      file <- normalizePath(file.path(
-        system.file('workflow', package = 'Prostar2'),
-        unlist(strsplit(id, '_'))[1], 
-        'md', 
-        paste0(id, '.Rmd')))
-      
+
       MagellanNTK::process_layout(session,
         ns = NS(id),
-        sidebar = tagList(
-          uiOutput(ns('open_dataset_UI'))
-        ),
-        content = tagList(
-          
-          if (file.exists(file))
-            includeMarkdown(file)
-          else
-            p('No Description available')
-          #uiOutput(ns('Description_infos_dataset_UI'))
-        )
+        sidebar = tagList(),
+        content = tagList()
       )
     })
     
-    
-    
-    
-    output$open_dataset_UI <- renderUI({
-      req(session$userData$runmode == 'process')
-      req(is.null(dataIn()))
-      req(NULL)
-      rv.custom$result_open_dataset <- MagellanNTK::open_dataset_server(
-        id = "open_dataset",
-        class = 'QFeatures',
-        extension = "qf",
-        remoteReset = reactive({remoteReset()})
-      )
-      
-      MagellanNTK::open_dataset_ui(id = ns("open_dataset"))
-    })
-    
-    
-    # output$Description_infos_dataset_UI <- renderUI({
-    #   req(rv$dataIn)
-    #   
-    #   infos_dataset_server(
-    #     id = "Description_infosdataset",
-    #     dataIn = reactive({rv$dataIn})
-    #   )
-    #   
-    #   infos_dataset_ui(id = ns("Description_infosdataset"))
-    # })
-    
-    
-    
+
     observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
       req(grepl('Description', btnEvents()))
-      #rv.custom$result_open_dataset()$dataset
       req(dataIn())
       rv$dataIn <- dataIn()
-      
-      
-      if(!is.null(rv.custom$result_open_dataset()$dataset))
-        rv$dataIn <- rv.custom$result_open_dataset()$dataset
-      
-      
-      rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Description', 'Description', 'Initialization', '-')
-      
-      for (i in names(rv$dataIn))
-        DaparToolshed::paramshistory(rv$dataIn[[i]]) <- rbind(DaparToolshed::paramshistory(rv$dataIn[[i]]),
-          rv.custom$history)
-      
       
       dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$value <- rv$dataIn

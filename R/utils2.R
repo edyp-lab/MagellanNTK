@@ -129,22 +129,6 @@ navbarPageWithInputs <- function(..., inputs) {
 #' @examples
 #' NULL
 #' @return NA
-launchGA <- function() {
-    if (system2("hostname") == "prabig-prostar2") {
-        tags$head(includeScript("www/google-analytics.js"))
-    } else {
-        # tags$head(includeScript("www/google-analytics-ProstarZeroInstall.js"))
-    }
-}
-
-
-#' @title xxx
-#' @description
-#' A short description...
-#' @export
-#' @examples
-#' NULL
-#' @return NA
 initComplete <- function() {
     return(JS(
         "function(settings, json) {",

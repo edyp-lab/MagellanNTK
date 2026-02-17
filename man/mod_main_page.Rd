@@ -11,12 +11,6 @@ mainapp_ui(id, session, size = "300px")
 
 mainapp_server(
   id,
-  dataIn = reactive({
-     NULL
- }),
-  data.name = reactive({
-     "myDataset"
- }),
   workflow.name = reactive({
      NULL
  }),
@@ -35,10 +29,6 @@ mainapp(usermod = "user")
 \item{session}{shiny internal}
 
 \item{size}{The width of the sidebar.in pixels}
-
-\item{dataIn}{An instance of a type `list`}
-
-\item{data.name}{The name of the dataset. Default is 'myDataset'}
 
 \item{workflow.name}{A `character()` which is the name of the pipeline to
 launch and run whithin the framework of MagellanNTK. It designs the name of 

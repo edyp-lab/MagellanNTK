@@ -511,14 +511,14 @@ nav_single_process_server <- function(
       # Get the new dataset in a temporary variable
       rv$temp.dataIn <- dataIn()
       
-        
+
       # Dans le cas de l'execution dd'un process unique, la stratégie pour le dataset
       # est la suivante :
       # On ne prend pas en compte les resultats des processus intermediaires mais
       # on ne tient compte que du resultat final.
       # Pour cela, on supprime tous les datasets intermediaires et on ne garde 
       # que le dernier
-      
+     
       rv$temp.dataIn <- do.call(
         eval(parse(text = session$userData$funcs$keepDatasets)),
         list(
@@ -526,11 +526,18 @@ nav_single_process_server <- function(
           range = length(dataIn())
         )
       )
-      
+    
       
         names(rv$temp.dataIn)[1] <- 'Convert'
-        DaparToolshed::paramshistory(rv$temp.dataIn[[1]]) <- MagellanNTK::InitializeHistory()
 
+       
+        rv$temp.dataIn[[1]] <- do.call(
+          eval(parse(text = session$userData$funcs$SetHistory)), 
+          list(obj = rv$temp.dataIn[[1]], 
+            history = MagellanNTK::InitializeHistory()
+          )
+        )
+        
         
         rv$dataset2EDA <- rv$temp.dataIn
         

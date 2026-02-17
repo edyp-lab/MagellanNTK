@@ -10,7 +10,7 @@
 \usage{
 addDatasets(object, dataset, name)
 
-keepDatasets(object, range = seq(length(object)))
+keepDatasets(object = NULL, range = seq(length(object)))
 }
 \arguments{
 \item{object}{An object of class `list`.}
@@ -70,5 +70,9 @@ The object must be of type list. Thetwo functions are implemented here for
 of the package which uses MagellanNTK
 }
 \examples{
+data(lldata)
+keepDatasets(lldata, 2:3)
+
+
 NULL
 }

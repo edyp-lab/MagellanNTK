@@ -364,78 +364,6 @@ is.substr <- function(pattern, target) {
 
 
 
-#' # example code
-#' #' @title Checks if the object is compliant with MagellanNTK
-#' @description
-#' Checks and accept the following data formats:
-#' * An instance of class `MSnSet` (which is a list of `data.frame()`)
-#' * An instance of class `MultiAssayExperiment` (which is a list of `SummarizedExperiment()`)
-#' * An instance of class `SummarizedExperiment`
-#' * An instance of class `data.frame`
-#' * An instance of class `matrix`
-#' * A `list` of instances of class `MSnSet`
-#' * A `list` of instances of class `SummarizedExperiment`
-#' * A `list` of instances of class `data.frame`
-#' * A `list` of instances of class `matrix`
-#'
-#'
-#' @param obj The R object to be tested
-#'
-#' @export
-#'
-#' @examples
-#' is.Magellan.compliant(data.frame())
-#'
-#'
-#' ll <- list(data.frame(), data.frame())
-#' is.Magellan.compliant(ll)
-#' 
-#' 
-#' @return A `boolean`
-#' 
-is.Magellan.compliant <- function(obj) {
-    passed <- FALSE
-
-
-    is.listOf <- function(object, obj.class = NULL) {
-        res <- NULL
-        if (is.null(obj.class)) {
-            ll <- unlist(lapply(object, function(x) class(x)[[1]]))
-            if (length(unique(ll)) == 1) {
-                res <- unique(ll)
-            }
-        } else {
-            res <- TRUE
-            res <- res && inherits(object, "list")
-            res <- res && all(unlist(lapply(
-                object,
-                function(x) class(x)[[1]] == obj.class
-            )))
-        }
-        return(res)
-    }
-
-
-
-    # passed <- passed || inherits(obj, "MSnset")
-    # passed <- passed || inherits(obj, "QFeatures")
-    # passed <- passed || inherits(obj, "SummarizedExperiment")
-    # passed <- passed || inherits(obj, "MultiAssayExperiment")
-    passed <- passed || inherits(obj, "data.frame")
-    passed <- passed || inherits(obj, "matrix")
-
-
-    if (inherits(obj, "list")) {
-        passed <- passed || is.listOf(obj, "matrix")
-        passed <- passed || is.listOf(obj, "data.frame")
-        passed <- passed || is.listOf(obj, "SummarizedExperiment")
-        passed <- passed || is.listOf(obj, "MSnset")
-    }
-
-    return(passed)
-}
-
-
 #' @title Checks if a Shiny module is loaded
 #' @description This function checks if the ui() and server() parts of a
 #' Shiny module are available in the global environment.
@@ -462,77 +390,10 @@ module.exists <- function(base_name) {
 
 
 
-#' 
-#' 
-#' #' @title
-#' #' Basic check workflow directory
-#' #'
-#' #' @description
-#' #' This function checks if the directory contains well-formed directories and files
-#' #' It must contains 3 directories: 'md', 'R' and 'data'.
-#' #' The 'R' directory must contains two directories:
-#' #' * 'workflows' that contains the source files for workflows,
-#' #' * 'other' that contains additional source files used by workflows. This directory
-#' #' can be empty. For each
-#' #' file in the 'R/workflows' directory, there must exists a *.md file with the same filename
-#' #' in the 'md' directory.
-#' #' The 'data' directory can be empty.
-#' 
-#' #'
-#' #' @param path A `character()`
-#' #'
-#' #' @return A `boolean(S)`
-#' #'
-#' #' @export
-#' #' @examples
-#' #' NULL
-#' CheckWorkflowDir <- function(path) {
-#'     is.valid <- TRUE
-#' 
-#'     # Checks if 'path' contains the 3 directories
-#'     dirs <- list.files(path)
-#'     cond <- all.equal(rep(TRUE, 3), c("R", "md", "data") %in% dirs)
-#'     is.valid <- is.valid && cond
-#'     if (!cond) message("atat")
-#' 
-#'     dirs <- list.files(file.path(path, "R"))
-#'     cond <- all.equal(rep(TRUE, 2), c("workflows", "other") %in% dirs)
-#'     is.valid <- is.valid && cond
-#'     if (!cond) message("atat")
-#' 
-#'     # Checks the correspondance between files in 'R' and 'md' directories
-#'     files.R <- list.files(file.path(path, "R/workflows"))
-#'     files.md <- list.files(file.path(path, "md"))
-#' 
-#'     # Remove the definition of root pipelines which does not have a
-#'     # corresponding md file (their description is contained in a separate file)
-#'     files.R <- files.R[grepl("_", files.R)]
-#' 
-#' 
-#'     files.R <- gsub(".R", "", files.R)
-#'     files.md <- gsub(".Rmd", "", files.md)
-#'     n.R <- length(files.R)
-#'     n.md <- length(files.md)
-#' 
-#'     cond <- n.R == n.md
-#'     is.valid <- is.valid && cond
-#'     if (!cond) {
-#'         message("Lengths differ between xxx")
-#'     } else {
-#'         cond <- all.equal(rep(TRUE, n.R), c("R", "md", "data") %in% dirs)
-#'         if (!cond) message("titi")
-#'         is.valid <- is.valid && cond
-#'     }
-#' 
-#'     return(is.valid)
-#' }
-
-
-
 #' @title Hide/show a widget w.r.t a condition.
 #'
 #' @description
-#' Wrapper for the `toggleWidget')` function of the package `shinyjs`
+#' Wrapper for the `toggleWidget()` function of the package `shinyjs`
 #'
 #' @param widget The id of a `Shiny` widget
 #' @param condition A `logical()` to hide/show the widget.

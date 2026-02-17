@@ -11,9 +11,6 @@ MagellanNTK_ui(id, sidebarSize = "medium")
 
 MagellanNTK_server(
   id,
-  dataIn = reactive({
-     NULL
- }),
   workflow.path = reactive({
      NULL
  }),
@@ -25,7 +22,6 @@ MagellanNTK_server(
 )
 
 MagellanNTK(
-  dataIn = NULL,
   workflow.path = NULL,
   workflow.name = NULL,
   verbose = FALSE,
@@ -38,9 +34,6 @@ MagellanNTK(
 \item{id}{A `character()` as the id of the Shiny module}
 
 \item{sidebarSize}{The width of the sidebar. Available values are 'small', 'medium', 'large'}
-
-\item{dataIn}{A `list()` of data.frame like items. This parameter must be
-used with '[[]]' to access items}
 
 \item{workflow.path}{A `character()` which is the path to the directory which 
 contains the files and directories of the pipeline.}
@@ -74,4 +67,10 @@ The list of customizable functions (param `funcs`) contains the following items:
  * setting the values in the parameter to pass to the function
  `MagellanNTK()`,
  * inside the UI of MagellanNTK, in the settings panels
+}
+\examples{
+if (interactive()) {
+    MagellanNTK()
+    }
+
 }

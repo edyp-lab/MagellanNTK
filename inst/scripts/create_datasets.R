@@ -17,29 +17,35 @@ NULL
 
 
 
-build_toy_example <- function(name = 'Convert'){
-  
+create_assay_example <- function(name = 'Convert'){
   data <- data.frame(
     matrix(sample.int(30, 30), ncol = 6, 
       dimnames = list(1:5, LETTERS[1:6]))
     )
-
-  # save(data, file = 'data/data.rda')
-  # return(data)
 }
 
 
 ## ---------------------------------------------------------
 ## Create the vdata dataset
 ## ---------------------------------------------------------
-create_list_data <- function(){
+create_example_data <- function(){
 
   lldata <- list(
-    data1 = build_toy_example(), 
-    data2 = build_toy_example(), 
-    data3 = build_toy_example())
+    Convert = list(
+      assay = create_assay_example(),
+      metadata = list()
+    ),
+    ProcessA = list(
+      assay = create_assay_example(),
+      metadata = list()
+    ),
+    ProcessB = list(
+      assay = create_assay_example(),
+      metadata = list()
+    )
+  )
 
-  save(lldata, file = 'data/lldata.rda')
+  save(lldata, file = 'data/lldata.rdata')
   lldata
 }
 

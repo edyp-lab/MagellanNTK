@@ -28,8 +28,8 @@ PipelineDemo_conf <- function(){
   MagellanNTK::Config(
     mode = 'pipeline',
     fullname = 'PipelineDemo',
-    steps = c('Process 1', 'Process 2', 'Process 3'),
-    mandatory = c(FALSE, TRUE, FALSE)
+    steps = c('Process A', 'Process B'),
+    mandatory = c(FALSE, TRUE)
   )
 }
 
@@ -82,21 +82,12 @@ PipelineDemo_server <- function(id,
   current.pos = reactive({1}),
   path = NULL
 ){
-  
-  
-  pkgs.require(c('QFeatures', 'SummarizedExperiment', 'S4Vectors'))
-  
-  
-  # Contrary to the simple workflow, there is no widget in this module
+
+    # Contrary to the simple workflow, there is no widget in this module
   # because all the widgets are provided by the simple workflows.
   widgets.default.values <- NULL
   rv.custom.default.values <- NULL
   
-  ###-------------------------------------------------------------###
-  ###                                                             ###
-  ### ------------------- MODULE SERVER --------------------------###
-  ###                                                             ###
-  ###-------------------------------------------------------------###
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
@@ -107,9 +98,7 @@ PipelineDemo_server <- function(id,
     )
     
     eval(str2expression(core.code))
-    add.resourcePath()
-    
-    
+
     # Insert necessary code which is hosted by MagellanNTK
     # DO NOT MODIFY THIS LINE
     eval(parse(text = MagellanNTK::Module_Return_Func()))

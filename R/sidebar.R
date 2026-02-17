@@ -25,7 +25,7 @@ Insert_User_Sidebar <- function() {
         p("Dataset", class = "sidebarMenuItem"),
         icon = icon("home"),
         bs4SidebarMenuSubItem(
-          p("Open (qf)", class = "sidebarMenuSubItem"),
+          p("Open file", class = "sidebarMenuSubItem"),
           tabName = "openDataset",
           icon = icon("gear")
         ),

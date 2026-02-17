@@ -55,7 +55,7 @@ NULL
 #'
 #' @export
 addDatasets <- function(object, dataset, name) {
-    stopifnot(is.Magellan.compliant(object))
+    #stopifnot(is.Magellan.compliant(object))
     if (is.null(object)) {
         setNames(list(dataset), nm = name)
     } else {
@@ -73,18 +73,20 @@ addDatasets <- function(object, dataset, name) {
 #' @param range xxx
 #'
 #' @rdname dataset-processing
+#' 
+#' @examples
+#' data(lldata)
+#' keepDatasets(lldata, 2:3)
+#' 
 #'
 #' @export
 #'
-keepDatasets <- function(object, range = seq(length(object))) {
-  
-  stopifnot(is.Magellan.compliant(object))
+keepDatasets <- function(object = NULL, range = seq(length(object))) {
     if (missing(range)) {
         stop("Provide range of array to be processed")
     }
 
-    if (is.null(object)) {
-        return()
-    }
-    object[range]
+  stopifnot(!is.null(object))
+
+    return(object[range])
 }

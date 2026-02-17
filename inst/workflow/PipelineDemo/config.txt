@@ -1,4 +1,8 @@
 # Configuration file to be used with MagellanNTK
+class: RData
+extension: .RData
+package: MagellanNTK
+demo_package: MagellanNTK
 
 
 # Customizable core functions
@@ -10,6 +14,11 @@ view_dataset: MagellanNTK
 infos_dataset: MagellanNTK
 addDatasets: MagellanNTK
 keepDatasets: MagellanNTK
+InitializeHistory: MagellanNTK
+Add2History: MagellanNTK
+GetHistory: MagellanNTK
+SetHistory: MagellanNTK
+
 
 # Other
 

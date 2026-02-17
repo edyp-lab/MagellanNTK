@@ -6,8 +6,6 @@
 #'
 #'
 #' @param id A `character()` as the id of the Shiny module
-#' @param dataIn An instance of a type `list`
-#' @param data.name The name of the dataset. Default is 'myDataset'
 #' @param session shiny internal
 #' @param workflow.path A `character()` which is the path to the directory which 
 #' contains the files and directories of the pipeline.
@@ -150,8 +148,6 @@ mainapp_ui <- function(id, session, size = '300px') {
 #' @export
 #'
 mainapp_server <- function(id,
-  dataIn = reactive({NULL}),
-  data.name = reactive({"myDataset"}),
   workflow.name = reactive({NULL}),
   workflow.path = reactive({NULL}),
   verbose = FALSE,
@@ -165,12 +161,12 @@ mainapp_server <- function(id,
     })
     
     rv.core <- reactiveValues(
-      dataIn = NULL,
       result_convert = reactive({NULL}),
       result_open_dataset = reactive({NULL}),
       result_open_workflow = reactive({NULL}),
       result_run_workflow = reactive({NULL}),
       current.obj = NULL,
+      processed.obj = NULL,
       current.obj.name = NULL,
       resetWF = 0,
       workflow.name = NULL,
@@ -195,14 +191,7 @@ mainapp_server <- function(id,
         }
         
         options(shiny.maxRequestSize = 1024^3)
-        
-        
-        rv.core$current.obj <- dataIn()
-        rv.core$processed.obj <- dataIn()
-        if (!is.null(rv.core$current.obj)) {
-          rv.core$current.obj.name <- data.name()
-        }
-        
+
         rv.core$workflow.path <- workflow.path()
         rv.core$workflow.name <- workflow.name()
         
@@ -317,53 +306,23 @@ mainapp_server <- function(id,
       shinyjs::js$reset()
     })
     
-    # rv.core$tmp.funcs <- mod_modalDialog_server("loadPkg_modal",
-    #   title = "Default core functions",
-    #   external_mod = "mod_load_package",
-    #   external_mod_args = list(funcs = reactive({
-    #     rv.core$funcs
-    #   }))
-    # )
-    # 
-    # 
-    # observeEvent(req(rv.core$tmp.funcs()), {
-    #   lapply(
-    #     names(rv.core$tmp.funcs()),
-    #     function(x) {
-    #       pkg.name <- gsub(paste0("::", x), "", rv.core$tmp.funcs()[[x]])
-    #       call.func(
-    #         "require",
-    #         list(
-    #           package = pkg.name,
-    #           character.only = TRUE
-    #         )
-    #       )
-    #       # require(pkg.name, character.only = TRUE)
-    #     }
+    
+    # output$BuildReport_UI <- renderUI({
+    #   req(rv.core$funcs$funcs$build_report)
+    #   
+    #   call.func(
+    #     fname = paste0(rv.core$funcs$funcs$build_report, "_server"),
+    #     args = list(
+    #       id = "build_report",
+    #       dataIn = reactive({rv.core$processed.obj})
+    #     )
     #   )
-    #   rv.core$funcs$funcs <- rv.core$tmp.funcs()
-    #   session$userData$funcs <- rv.core$tmp.funcs()
+    #   
+    #   call.func(
+    #     fname = paste0(rv.core$funcs$funcs$build_report, "_ui"),
+    #     args = list(id = ns("build_report"))
+    #   )
     # })
-    # 
-    
-    
-    
-    output$BuildReport_UI <- renderUI({
-      req(rv.core$funcs$funcs$build_report)
-      
-      call.func(
-        fname = paste0(rv.core$funcs$funcs$build_report, "_server"),
-        args = list(
-          id = "build_report",
-          dataIn = reactive({rv.core$processed.obj})
-        )
-      )
-      
-      call.func(
-        fname = paste0(rv.core$funcs$funcs$build_report, "_ui"),
-        args = list(id = ns("build_report"))
-      )
-    })
     
     output$SaveAs_UI <- renderUI({
       req(rv.core$funcs$funcs$download_dataset)
@@ -416,7 +375,7 @@ mainapp_server <- function(id,
       ignoreNULL = TRUE,
       {
         req(rv.core$result_open_dataset()$dataset)
-        
+  
         rv.core$current.obj <- rv.core$result_open_dataset()$dataset
         rv.core$current.obj.name <- rv.core$result_open_dataset()$name
         rv.core$processed.obj <- rv.core$current.obj
@@ -425,34 +384,7 @@ mainapp_server <- function(id,
       }
     )
     
-    
-  
-    # 
-    # 
-    # observe_result_open_workflow <- observeEvent(req(rv.core$result_open_workflow()), {
-    #   
-    #   rv.core$workflow.name <- rv.core$result_open_workflow()$wf_name
-    #   session$userData$workflow.name <- rv.core$result_open_workflow()$wf_name
-    #   
-    #   rv.core$workflow.path <- rv.core$result_open_workflow()$path
-    #   session$userData$workflow.path <- rv.core$result_open_workflow()$path
-    #   
-    #   # Load the package which contains the workflow
-    #   call.func("library", list(rv.core$result_open_workflow()$pkg))
-    #   source_wf_files(session$userData$workflow.path)
-    # })
-    # 
-    # output$open_workflow_UI <- renderUI({
-    #   # Get workflow directory
-    #   rv.core$result_open_workflow <- open_workflow_server("wf")
-    #   tagList(
-    #     div(id = ns("chunk"), style = "width: 100px; height: 100px;" ),
-    #     open_workflow_ui(ns("wf"))
-    #   )
-    # })
-    
-    
-    # 
+     
     observe({
       
       rv.core$result_convert <- nav_single_process_server(
@@ -494,10 +426,7 @@ mainapp_server <- function(id,
           )
         },
         process = {
-         
-          #req(rv.core$process.name)
-          #if (!is.null(rv.core$current.obj))
-            
+  
           rv.core$result_run_workflow <- nav_single_process_server(
             id = rv.core$workflow.name,
             dataIn = reactive({rv.core$current.obj}),

@@ -2,8 +2,6 @@
 #' @description xxx
 #'
 #' @param id A `character()` as the id of the Shiny module
-#' @param dataIn A `list()` of data.frame like items. This parameter must be
-#' used with '[[]]' to access items
 #' @param workflow.path A `character()` which is the path to the directory which 
 #' contains the files and directories of the pipeline.
 #' @param workflow.name A `character()` which is the name of the pipeline to
@@ -34,6 +32,7 @@
 #' @examples
 #' if (interactive()) {
 #'     MagellanNTK()
+#'     }
 #'
 #' @return A shiny app
 #'
@@ -76,7 +75,6 @@ options(
 #'
 MagellanNTK_server <- function(
         id,
-        dataIn = reactive({ NULL}),
         workflow.path = reactive({NULL}),
         workflow.name = reactive({NULL}),
         verbose = FALSE,
@@ -87,7 +85,6 @@ MagellanNTK_server <- function(
         
         
         mainapp_server("mainapp_module",
-            dataIn = reactive({dataIn()}),
             workflow.path = reactive({workflow.path()}),
             workflow.name = reactive({workflow.name()}),
             verbose = verbose,
@@ -107,8 +104,7 @@ MagellanNTK_server <- function(
 #' @rdname magellanNTK
 #'
 MagellanNTK <- function(
-        dataIn = NULL,
-        workflow.path = NULL,
+         workflow.path = NULL,
         workflow.name = NULL,
         verbose = FALSE,
         usermod = "user",
@@ -137,15 +133,6 @@ MagellanNTK <- function(
         source(f, local = FALSE, chdir = TRUE)
     }
 
-    # 
-    # if(!is.null(convert.path)){
-    #   files <- list.files(file.path(convert.path, "R"), full.names = TRUE)
-    #   for (f in files) {
-    #     source(f, local = FALSE, chdir = TRUE)
-    #   }
-    #   }
-
-
     source_shinyApp_files()
 
     ui <- MagellanNTK_ui("infos", sidebarSize = sidebarSize)
@@ -153,7 +140,6 @@ MagellanNTK <- function(
 
     server <- function(input, output, session) {
         MagellanNTK_server("infos",
-            dataIn = reactive({dataIn}),
             workflow.path = reactive({workflow.path}),
             workflow.name = reactive({workflow.name}),
             verbose = verbose,

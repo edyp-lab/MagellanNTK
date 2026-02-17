@@ -5,30 +5,63 @@
 #' @description This function returns the indice of the last validated step before
 #' the current step.
 #'
-#' @param history xxx
-#' @param process xxx
-#' @param step.name xxx
-#' @param param.name xxx
+#' @param history A `data.frame()`
+#' @param process A `character()` 
+#' @param step.name A `character()` 
+#' @param param.name A `character()` 
 #' @param value xxx
-#' @return A `integer(1)`
+#' @return A `data.frame()`
 #'
 #' @export
 #' @examples
 #' NULL
 Add2History <- function(history, process, step.name, param.name, value){
-  # if (inherits(value, 'list'))
-  #   value <- unlist(value)
-  # 
-  # if (is.null(value))
-  #   value <- NA
-  # 
-  # history[nrow(history)+1, ] <- c(process, step.name, param.name, value)
-  # 
+  if (inherits(value, 'list'))
+    value <- unlist(value)
+  
+  if (is.null(value))
+    value <- NA
+  
+  history[nrow(history)+1, ] <- c(process, step.name, param.name, value)
+  
   return(history)
 }
 
 
 
+
+#' @title Get the history of an assay
+
+#' @param obj The dataset managed by MagellanNTK
+#' @return A `data.frame()`
+#'
+#' @export
+#' @examples
+#' NULL
+GetHistory <- function(obj, name){
+  return(obj[[name]]$metadata$history)
+}
+
+
+
+
+#' @title Get the last validated step before current position.
+#'
+#' @description This function returns the indice of the last validated step before
+#' the current step.
+#'
+#' @param obj The dataset managed by MagellanNTK
+#' @param history A `data.frame()` 
+#' @return A The dataset managed by MagellanNTK
+#'
+#' @export
+#' @examples
+#' NULL
+SetHistory <- function(obj, history){
+  obj[['metadata']]$history <- history
+  
+  return(obj)
+}
 
 
 
@@ -140,32 +173,6 @@ ToggleState_Screens <- function(cond,
   }
   return(rv$steps.enabled)
 }
-
-#' 
-#' #' @title Status to string
-#' #'
-#' #' @description Converts status code (intefer) into a readable string.
-#' #'
-#' #' @param i xxx
-#' #'
-#' #' @param title.style A `boolean` to indicate if 
-#' #'
-#' #' @return NA
-#' #' @export
-#' #' @examples
-#' #' NULL
-#' GetStringStatus <- function(i, title.style = FALSE) {
-#'   txt <- names(which(stepStatus == i))
-#'   
-#'   if (title.style) {
-#'     txt <- paste(substr(txt, 1, 1),
-#'       tolower(substr(txt, 2, nchar(txt))),
-#'       sep = ""
-#'     )
-#'   }
-#'   txt
-#' }
-
 
 
 #' @title xxx

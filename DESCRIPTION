@@ -1,6 +1,6 @@
 Package: MagellanNTK
 Title: A Pipeline Manager
-Version: 0.99.26
+Version: 0.99.28
 Authors@R: 
   c(person(given = "Samuel", 
       family = "Wieczorek",
@@ -96,7 +96,7 @@ Collate:
     mod_release_notes.R
     mod_loadapp.R
     mod_mainapp.R
-    utils_Prostar.R
+    utils2.R
 Encoding: UTF-8
 RoxygenNote: 7.3.3
 URL: https://github.com/edyp-lab/MagellanNTK, https://edyp-lab.github.io/MagellanNTK/
