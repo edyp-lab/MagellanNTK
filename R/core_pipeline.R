@@ -463,7 +463,7 @@ nav_pipeline_server <- function(
       rv$steps.skipped <- Discover_Skipped_Steps(rv$steps.status)
       
       rv$child.data2send <- BuildData2Send(session, dataIn(), GetStepsNames())
-      browser()
+     
       # A new dataset has been loaded
       # # Update the different screens in the process
       rv$steps.enabled <- Update_State_Screens(
