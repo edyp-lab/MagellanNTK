@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">MagellanNTK</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.26</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.28</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,9 +50,6 @@
 <span></span>
 <span><span class="fu">MagellanNTK_server</span><span class="op">(</span></span>
 <span>  <span class="va">id</span>,</span>
-<span>  dataIn <span class="op">=</span> <span class="fu">reactive</span><span class="op">(</span><span class="op">{</span></span>
-<span>     <span class="cn">NULL</span></span>
-<span> <span class="op">}</span><span class="op">)</span>,</span>
 <span>  workflow.path <span class="op">=</span> <span class="fu">reactive</span><span class="op">(</span><span class="op">{</span></span>
 <span>     <span class="cn">NULL</span></span>
 <span> <span class="op">}</span><span class="op">)</span>,</span>
@@ -64,7 +61,6 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">MagellanNTK</span><span class="op">(</span></span>
-<span>  dataIn <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  workflow.path <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  workflow.name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -84,11 +80,6 @@
 
 <dt id="arg-sidebarsize">sidebarSize<a class="anchor" aria-label="anchor" href="#arg-sidebarsize"></a></dt>
 <dd><p>The width of the sidebar. Available values are 'small', 'medium', 'large'</p></dd>
-
-
-<dt id="arg-datain">dataIn<a class="anchor" aria-label="anchor" href="#arg-datain"></a></dt>
-<dd><p>A `list()` of data.frame like items. This parameter must be
-used with '[[]]' to access items</p></dd>
 
 
 <dt id="arg-workflow-path">workflow.path<a class="anchor" aria-label="anchor" href="#arg-workflow-path"></a></dt>
@@ -132,6 +123,14 @@ the verbose mode for logs.</p></dd>
  * inside the UI of MagellanNTK, in the settings panels</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="fu">MagellanNTK</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

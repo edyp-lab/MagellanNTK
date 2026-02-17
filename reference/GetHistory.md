@@ -1,23 +1,18 @@
-# Get the last validated step before current position.
+# Get the history of an assay
 
-This function returns the indice of the last validated step before the
-current step.
+Get the history of an assay
 
 ## Usage
 
 ``` r
-GetHistory(dataIn, x)
+GetHistory(obj, name)
 ```
 
 ## Arguments
 
-- dataIn:
+- obj:
 
-  An instance of the \`SummarizedExperiment\` class
-
-- x:
-
-  A \`character\` which is the name of an assay in the dataIn
+  The dataset managed by MagellanNTK
 
 ## Value
 

@@ -15,6 +15,8 @@
   : Get file extension
 - [`GetFirstMandatoryNotValidated()`](https://edyp-lab.github.io/MagellanNTK/reference/GetFirstMandatoryNotValidated.md)
   : Get the first mandatory step not validated
+- [`GetHistory()`](https://edyp-lab.github.io/MagellanNTK/reference/GetHistory.md)
+  : Get the history of an assay
 - [`GetListDatasets()`](https://edyp-lab.github.io/MagellanNTK/reference/GetListDatasets.md)
   : Get datasets from packages which owns datasets of a given class
 - [`GetMaxValidated_AllSteps()`](https://edyp-lab.github.io/MagellanNTK/reference/GetMaxValidated_AllSteps.md)
@@ -35,6 +37,8 @@
   : Load dataset shiny module
 - [`SetCurrentPosition()`](https://edyp-lab.github.io/MagellanNTK/reference/SetCurrentPosition.md)
   : Get the position of the last validated item
+- [`SetHistory()`](https://edyp-lab.github.io/MagellanNTK/reference/SetHistory.md)
+  : Get the last validated step before current position.
 - [`Timestamp()`](https://edyp-lab.github.io/MagellanNTK/reference/Timestamp.md)
   : Timestamp in UNIX format.
 - [`ToggleState_NavBtns()`](https://edyp-lab.github.io/MagellanNTK/reference/ToggleState_NavBtns.md)
@@ -125,14 +129,9 @@
   [`Get_Workflow_Core_Code()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_AdditionalModule_Core_Code()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   : R code to update the 'config' variable of a process module
-- [`is.Magellan.compliant()`](https://edyp-lab.github.io/MagellanNTK/reference/is.Magellan.compliant.md)
-  : \# example code \#' @title Checks if the object is compliant with
-  MagellanNTK
 - [`is.substr()`](https://edyp-lab.github.io/MagellanNTK/reference/is.substr.md)
   : Substring test
 - [`is.validated()`](https://edyp-lab.github.io/MagellanNTK/reference/is.validated.md)
-  : xxx
-- [`launchGA()`](https://edyp-lab.github.io/MagellanNTK/reference/launchGA.md)
   : xxx
 - [`MagellanNTK_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)
   [`MagellanNTK_server()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)

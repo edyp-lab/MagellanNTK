@@ -9,9 +9,6 @@ MagellanNTK_ui(id, sidebarSize = "medium")
 
 MagellanNTK_server(
   id,
-  dataIn = reactive({
-     NULL
- }),
   workflow.path = reactive({
      NULL
  }),
@@ -23,7 +20,6 @@ MagellanNTK_server(
 )
 
 MagellanNTK(
-  dataIn = NULL,
   workflow.path = NULL,
   workflow.name = NULL,
   verbose = FALSE,
@@ -43,11 +39,6 @@ MagellanNTK(
 
   The width of the sidebar. Available values are 'small', 'medium',
   'large'
-
-- dataIn:
-
-  A \`list()\` of data.frame like items. This parameter must be used
-  with '\[\[\]\]' to access items
 
 - workflow.path:
 
@@ -89,3 +80,11 @@ fucntion implemented into MagellanNTK.
 The user can modify these values by two means: \* setting the values in
 the parameter to pass to the function \`MagellanNTK()\`, \* inside the
 UI of MagellanNTK, in the settings panels
+
+## Examples
+
+``` r
+if (interactive()) {
+    MagellanNTK()
+    }
+```

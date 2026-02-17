@@ -79,13 +79,16 @@ readConfigFile(path)
 #> [1] "MagellanNTK::keepDatasets"
 #> 
 #> $funcs$InitializeHistory
-#> NULL
+#> [1] "MagellanNTK::InitializeHistory"
 #> 
 #> $funcs$Add2History
-#> NULL
+#> [1] "MagellanNTK::Add2History"
 #> 
 #> $funcs$GetHistory
-#> NULL
+#> [1] "MagellanNTK::GetHistory"
+#> 
+#> $funcs$SetHistory
+#> [1] "MagellanNTK::SetHistory"
 #> 
 #> 
 #> $verbose
@@ -107,16 +110,16 @@ readConfigFile(path)
 #> [1] TRUE
 #> 
 #> $extension
-#> NULL
+#> [1] ".RData"
 #> 
 #> $class
-#> NULL
+#> [1] "RData"
 #> 
 #> $package
-#> NULL
+#> [1] "MagellanNTK"
 #> 
 #> $demo_package
-#> NULL
+#> [1] "MagellanNTK"
 #> 
 #> $URL_manual
 #> NULL

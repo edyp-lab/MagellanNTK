@@ -13,19 +13,19 @@ Add2History(history, process, step.name, param.name, value)
 
 - history:
 
-  xxx
+  A \`data.frame()\`
 
 - process:
 
-  xxx
+  A \`character()\`
 
 - step.name:
 
-  xxx
+  A \`character()\`
 
 - param.name:
 
-  xxx
+  A \`character()\`
 
 - value:
 
@@ -33,7 +33,7 @@ Add2History(history, process, step.name, param.name, value)
 
 ## Value
 
-A \`integer(1)\`
+A \`data.frame()\`
 
 ## Examples
 

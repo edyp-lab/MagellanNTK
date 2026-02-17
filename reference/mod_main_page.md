@@ -9,12 +9,6 @@ mainapp_ui(id, session, size = "300px")
 
 mainapp_server(
   id,
-  dataIn = reactive({
-     NULL
- }),
-  data.name = reactive({
-     "myDataset"
- }),
   workflow.name = reactive({
      NULL
  }),
@@ -41,14 +35,6 @@ mainapp(usermod = "user")
 - size:
 
   The width of the sidebar.in pixels
-
-- dataIn:
-
-  An instance of a type \`list\`
-
-- data.name:
-
-  The name of the dataset. Default is 'myDataset'
 
 - workflow.name:
 

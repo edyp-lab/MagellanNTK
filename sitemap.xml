@@ -14,6 +14,7 @@
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/Discover_Skipped_Steps.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/GetExtension.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/GetFirstMandatoryNotValidated.html</loc></url>
+<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/GetHistory.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/GetListDatasets.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/GetMaxValidated_AllSteps.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/GetMaxValidated_BeforePos.html</loc></url>
@@ -23,6 +24,7 @@
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/NavPage.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/Save_Dataset.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/SetCurrentPosition.html</loc></url>
+<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/SetHistory.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/Timestamp.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/ToggleState_NavBtns.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/ToggleState_Screens.html</loc></url>
@@ -47,10 +49,8 @@
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/infos_dataset.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/initComplete.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/is.Magellan.compliant.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/is.substr.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/is.validated.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/launchGA.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/mod_convert_dataset.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/mod_err_modal.html</loc></url>
