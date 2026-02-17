@@ -55,12 +55,9 @@ NULL
 #'
 #' @export
 addDatasets <- function(object, dataset, name) {
-    #stopifnot(is.Magellan.compliant(object))
-    if (is.null(object)) {
-        setNames(list(dataset), nm = name)
-    } else {
-        append(object, setNames(list(dataset), nm = name))
-    }
+  object <- c(object, newEL = dataset)
+  names(object)[length(object)] <- name
+  return(object)
 }
 
 
@@ -88,5 +85,5 @@ keepDatasets <- function(object = NULL, range = seq(length(object))) {
 
   stopifnot(!is.null(object))
 
-    return(object[range])
+    return(object[,,range])
 }

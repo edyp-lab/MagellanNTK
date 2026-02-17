@@ -116,7 +116,9 @@ PipelineDemo_ProcessA_server <- function(id,
       MagellanNTK::process_layout(session,
         ns = NS(id),
         sidebar = tagList(),
-        content = tagList()
+        content = tagList(
+          DTOutput(ns('Duplicatedata_tabs_UI'))
+        )
       )
       
     })
@@ -144,7 +146,14 @@ PipelineDemo_ProcessA_server <- function(id,
       )
     })
     
-   
+    output$Duplicatedata_tabs_UI <- DT::renderDT({
+      req(rv.widgets$Step1_Id)
+      
+      .ind <- as.numeric(rv.widgets$Duplicatedata_duplicate)
+      DT::datatable(
+        SummarizedExperiment::assay(rv$dataIn,.ind)
+      )
+    })
     
     output$Duplicatedata_duplicate_ui <- renderUI({
       widget <- selectInput(
@@ -161,9 +170,16 @@ PipelineDemo_ProcessA_server <- function(id,
 
       .ind <- as.numeric(rv.widgets$Duplicatedata_duplicate)
       .tmp <- rv$dataIn[.ind]
-      .name <- paste0(names(rv$dataIn)[.ind], '_duplicated')
-      rv$dataIn[.name] <- .tmp
- 
+      
+      rv$dataIn <- do.call(
+        eval(parse(text = session$userData$funcs$addDatasets)), 
+        list(object = rv$dataIn, 
+          dataset = .tmp,
+          name = paste0(names(rv$dataIn)[.ind], '_duplicated')
+        )
+      )
+  
+
           # DO NOT MODIFY THE THREE FOLLOWING LINES
           dataOut$trigger <- MagellanNTK::Timestamp()
           dataOut$value <- NULL

@@ -1,16 +1,13 @@
 
 
 #' @title Build an example list
-#' @description Creates a list which contains example info to be
-#' used to create instances of `MultiAssayExperiment` 
 #' @export
 #' @name build_example_datasets
 #' @return A list
 #' 
 #' @examples
-#' build_toy_example()
+#' create_example_data()
 #' 
-#' create_list_data()
 #' 
 #' 
 NULL
@@ -34,6 +31,40 @@ create_example_data <- function(){
     Convert = list(
       assay = create_assay_example(),
       metadata = list()
+    )
+  )
+  save(lldata, file = 'data/lldata.rdata')
+  
+  
+  lldata_A <- list(
+    Convert = list(
+      assay = create_assay_example(),
+      metadata = list()
+    ),
+    ProcessA = list(
+      assay = create_assay_example(),
+      metadata = list()
+    )
+  )
+  save(lldata_A, file = 'data/lldata_A.rdata')
+  
+  
+  lldata_B <- list(
+    Convert = list(
+      assay = create_assay_example(),
+      metadata = list()
+    ),
+    ProcessB = list(
+      assay = create_assay_example(),
+      metadata = list()
+    )
+  )
+  save(lldata_B, file = 'data/lldata_B.rdata')
+  
+  lldata_AB <- list(
+    Convert = list(
+      assay = create_assay_example(),
+      metadata = list()
     ),
     ProcessA = list(
       assay = create_assay_example(),
@@ -44,9 +75,8 @@ create_example_data <- function(){
       metadata = list()
     )
   )
-
-  save(lldata, file = 'data/lldata.rdata')
-  lldata
+  save(lldata_AB, file = 'data/lldata_AB.rdata')
+  
 }
 
 

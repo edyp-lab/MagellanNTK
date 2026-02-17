@@ -186,10 +186,9 @@ PipelineDemo_ProcessB_server <- function(id,
     
     output$Step1_tabs_UI <- DT::renderDT({
       req(rv.widgets$Step1_Id)
-      
       .ind <- as.numeric(rv.widgets$Step1_Id)
       DT::datatable(
-        as.data.frame(rv.custom$dataIn1[[.ind]]$assay)
+        SummarizedExperiment::assay(rv.custom$dataIn1,.ind)
       )
     })
     
@@ -197,18 +196,25 @@ PipelineDemo_ProcessB_server <- function(id,
     observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
       req(grepl('Step1', btnEvents()))
       req(rv.custom$dataIn1)
+
       
-      
+
       .ind <- as.numeric(rv.widgets$Step1_Id)
-      .tmp <- rv.custom$dataIn1[.ind]
-      .tmp[[.ind]]$assay <- .tmp[[.ind]]$assay * as.numeric(rv.widgets$Step1_ProductFactor)
+      .tmp <- rv.custom$dataIn1[[.ind]]
+      .assay <- SummarizedExperiment::assay(.tmp)
+      .product <- .assay * as.numeric(rv.widgets$Step1_ProductFactor)
+      SummarizedExperiment::assay(.tmp) <- .product
       rv.custom$history <- Add2History(rv.custom$history, 'ProcessB', 'Step1', 'Product', rv.widgets$Step1_ProductFactor)
-      .tmp[[.ind]]$metadata$history <- rv.custom$history
-      .name <- paste0(names(rv.custom$dataIn1)[.ind], '_multiplicated')
-      
-      # Do.call addDatasets
-      rv.custom$dataIn1[.name] <- .tmp
+
+      rv.custom$dataIn1 <- do.call(
+        eval(parse(text = session$userData$funcs$addDatasets)), 
+        list(object = rv.custom$dataIn1, 
+          dataset = .tmp,
+          name = paste0(names(rv.custom$dataIn1)[.ind], '_multiplicated')
+        )
+      )
       rv.custom$dataIn2 <- rv.custom$dataIn1
+     
       
       # DO NOT MODIFY THE THREE FOLLOWING LINES
       dataOut$trigger <- MagellanNTK::Timestamp()
@@ -258,7 +264,7 @@ PipelineDemo_ProcessB_server <- function(id,
       
       .ind <- as.numeric(rv.widgets$Step2_Id)
       DT::datatable(
-        as.data.frame(rv.custom$dataIn2[[.ind]]$assay)
+        SummarizedExperiment::assay(rv.custom$dataIn2, .ind)
       )
     })
     
@@ -266,16 +272,22 @@ PipelineDemo_ProcessB_server <- function(id,
       req(grepl('Step2', btnEvents()))
   
       .ind <- as.numeric(rv.widgets$Step2_Id)
+      .tmp <- rv.custom$dataIn2[.ind]
+      .assay <- SummarizedExperiment::assay(.tmp)
+      .product <- .assay * as.numeric(rv.widgets$Step2_MinusFactor)
+      SummarizedExperiment::assay(.tmp) <- .product
+      rv.custom$history <- Add2History(rv.custom$history, 'ProcessB', 'Step2', 'Minus', rv.widgets$Step2_MinusFactor)
       
-      .name <- paste0(names(rv.custom$dataIn2)[.ind], '_minus')
       
-      # Do.call addDatasets
-      rv.custom$dataIn2[.name] <- rv.custom$dataIn2[.ind]
+      rv.custom$dataIn2 <- do.call(
+        eval(parse(text = session$userData$funcs$addDatasets)), 
+        list(object = rv.custom$dataIn2, 
+          dataset = .tmp,
+          name = paste0(names(rv.custom$dataIn2)[.ind], '_multiplicated')
+        )
+      )
+
       
-      
-      rv.custom$dataIn2[[.name]]$assay <- rv.custom$dataIn2[[.name]]$assay - as.numeric(rv.widgets$Step2_MinusFactor)
-      rv.custom$history <- Add2History(rv.custom$history, 'ProcessB', 'Step1', 'Minus', rv.widgets$Step2_MinusFactor)
-      rv.custom$dataIn2[[.name]]$metadata$history <- rv.custom$dataIn2[[.name]]$history
       
       # DO NOT MODIFY THE THREE FOLLOWINF LINES
       dataOut$trigger <- MagellanNTK::Timestamp()
@@ -296,6 +308,8 @@ PipelineDemo_ProcessB_server <- function(id,
     observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
       req(grepl('Save', btnEvents()))
       
+      
+      browser()
       # DO NOT MODIFY THE THREE FOLLOWING LINES
       dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$value <- rv.custom$dataIn2
