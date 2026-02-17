@@ -6,7 +6,6 @@
 #' @param id internal
 #' @param dataIn internal
 #' @param filename internal
-#' @param excel.style xxx
 #' @param remoteReset A `logical(1)` which acts as a remote command to reset
 #' the module to its default values. Default is FALSE.
 #' @param is.enabled xxx
@@ -48,7 +47,6 @@ download_dataset_server <- function(
     id,
   dataIn = reactive({NULL}),
   filename = "myDataset",
-  excel.style = NULL,
   remoteReset = reactive({0}),
   is.enabled = reactive({TRUE})) {
   moduleServer(id, function(input, output, session) {

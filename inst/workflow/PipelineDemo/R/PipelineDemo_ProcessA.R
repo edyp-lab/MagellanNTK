@@ -176,7 +176,7 @@ PipelineDemo_ProcessA_server <- function(id,
         eval(parse(text = session$userData$funcs$addDatasets)), 
         list(object = rv$dataIn, 
           dataset = .tmp,
-          name = paste0(names(rv$dataIn)[.ind], '_duplicated')
+          name = 'ProcessA'
         )
       )
   

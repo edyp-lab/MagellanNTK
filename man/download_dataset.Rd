@@ -14,7 +14,6 @@ download_dataset_server(
      NULL
  }),
   filename = "myDataset",
-  excel.style = NULL,
   remoteReset = reactive({
      0
  }),
@@ -31,8 +30,6 @@ download_dataset(dataIn = NULL, filename = "myDataset")
 \item{dataIn}{internal}
 
 \item{filename}{internal}
-
-\item{excel.style}{xxx}
 
 \item{remoteReset}{A `logical(1)` which acts as a remote command to reset
 the module to its default values. Default is FALSE.}

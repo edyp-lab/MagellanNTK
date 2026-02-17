@@ -3,9 +3,9 @@
 #' @description This module allows to change
 #'
 #' @param id A `character()` as the id of the Shiny module
-#' @param class The class allowed to open objects
-#' @param extension The extension file allowed
+#' @param class xxx
 #' @param demo_package xxx
+#' @param extension The extension file allowed
 #' @param remoteReset An `integer` which acts as a remote command to reset the 
 #' module. Its value is incremented on a external event and it is used to 
 #' trigger an event in this module
@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' if (interactive()) {
-#' shiny::runApp(open_dataset(extension = "df"))
+#' shiny::runApp(open_dataset(extension = "rdata"))
 #' }
 #'
 #' @return A Shiny app
@@ -58,9 +58,9 @@ open_dataset_ui <- function(id) {
 #'
 open_dataset_server <- function(
         id,
-        class = NULL,
+  class = NULL,
+  demo_package = NULL,
         extension = NULL,
-        demo_package = NULL,
   remoteReset = reactive({NULL}),
   is.enabled = reactive({TRUE})) {
   
@@ -76,7 +76,7 @@ open_dataset_server <- function(
     remoteReset = NULL,
     dataRead = NULL,
     name = "default.name",
-    packages = NULL
+    packages = "MagellanNTK"
   )
   
   dataOut <- reactiveValues(
@@ -159,55 +159,18 @@ open_dataset_server <- function(
             req(rv.widgets$chooseSource == "packageDataset")
             tagList(
                 uiOutput(ns("choosePkg")),
-                uiOutput(ns("chooseDemoDataset")),
-                uiOutput(ns("linktoDemoPdf"))
+                uiOutput(ns("chooseDemoDataset"))
             )
-        })
-
-
-
-
-        # output$load_btn_UI <- renderUI({
-        #   req(rv.widgets$file)
-        #     widget <- actionButton(ns("load_dataset_btn"), "Load file")
-        #     MagellanNTK::toggleWidget(widget, is.enabled())
-        # })
-
-        
-        
-        output$choosePkg <- renderUI({
-            req(rv.widgets$chooseSource == "packageDataset")
-
-          shiny::withProgress(message = "", detail = "", value = 0.5, {
-                shiny::incProgress(0.5, detail = paste0("Searching for ", class, " datasets"))
-                rv.custom$packages <- GetListDatasets(class, demo_package)
-            })
-
-
-            req(rv.custom$packages)
-
-            widget <- shiny::selectizeInput(ns("pkg"), "Choose package",
-                choices = rv.custom$packages[, "Package"],
-                width = "200px"
-            )
-            
-            MagellanNTK::toggleWidget(widget, is.enabled())
         })
 
 
         ## function for demo mode
         output$chooseDemoDataset <- renderUI({
             req(rv.widgets$chooseSource == "packageDataset")
-            req(rv.widgets$pkg)
-            pkgs.require(rv.widgets$pkg)
-
-            req(rv.custom$packages)
-
-            ind <- which(rv.custom$packages[, "Package"] == rv.widgets$pkg)
-
+          d <- data(package='MagellanNTK')
             widget <- selectInput(ns("demoDataset"),
                 "Demo dataset",
-                choices = rv.custom$packages[ind, "Item"],
+                choices = c('None', unname(d$results[,'Item'])),
                 selected = character(0),
                 width = "200px"
             )
@@ -228,13 +191,6 @@ open_dataset_server <- function(
         })
 
 
-        output$linktoDemoPdf <- renderUI({
-            req(rv.widgets$demoDataset)
-            req(rv.widgets$chooseSource == "packageDataset")
-        })
-
-
-        
         observeEvent( input$file, {
 
           rv.widgets$file <- input$file
@@ -271,7 +227,7 @@ open_dataset_server <- function(
         ## -- Open a  File --------------------------------------------
         observeEvent(req(rv.widgets$demoDataset != "None"), ignoreInit = FALSE, {
 
-          utils::data(list = rv.widgets$demoDataset, package = rv.widgets$pkg)
+          utils::data(list = rv.widgets$demoDataset, package = "MagellanNTK")
                 rv.custom$name <- rv.widgets$demoDataset
                 rv.custom$dataRead <- BiocGenerics::get(rv.widgets$demoDataset)
           #rv.custom$remoteReset <- rv.custom$remoteReset + 1
@@ -343,9 +299,7 @@ open_dataset_server <- function(
 #'
 #'
 open_dataset <- function(
-        class = NULL,
-        extension = NULL,
-        demo_package = NULL) {
+        extension = NULL) {
     ui <- fluidPage(
         tagList(
           open_dataset_ui("demo"),
@@ -361,9 +315,7 @@ open_dataset <- function(
         )
 
         rv$obj <- open_dataset_server("demo",
-            class = class,
             extension = extension,
-            demo_package = demo_package,
           remoteReset = reactive({input$reset})
         )
 

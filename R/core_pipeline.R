@@ -461,7 +461,7 @@ nav_pipeline_server <- function(
       rv$steps.status <- UpdateStepsStatus(rv$temp.dataIn, rv$config)
       rv$steps.enabled <- setNames(rep(FALSE, n), nm = GetStepsNames())
       rv$steps.skipped <- Discover_Skipped_Steps(rv$steps.status)
-      browser()
+   
       rv$child.data2send <- BuildData2Send(session, dataIn(), GetStepsNames())
      
       # A new dataset has been loaded
