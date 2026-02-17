@@ -78,6 +78,12 @@ for of the package which uses MagellanNTK
 
 ``` r
 data(lldata)
+for (i in 1:5){
+lldata <- c(lldata, newEL = lldata[[i]])
+names(lldata)[i+1] <- paste0('Copy_', i)
+}
+#> Loading required namespace: MultiAssayExperiment
+#> Error in .requirePackage(package): unable to load required package ‘MultiAssayExperiment’
 keepDatasets(lldata, 2:3)
 #> Loading required namespace: MultiAssayExperiment
 #> Error in .requirePackage(package): unable to load required package ‘MultiAssayExperiment’
