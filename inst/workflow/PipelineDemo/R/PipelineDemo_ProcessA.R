@@ -171,6 +171,7 @@ PipelineDemo_ProcessA_server <- function(id,
       .ind <- as.numeric(rv.widgets$Duplicatedata_duplicate)
       .tmp <- rv$dataIn[.ind]
       
+      browser()
       rv$dataIn <- do.call(
         eval(parse(text = session$userData$funcs$addDatasets)), 
         list(object = rv$dataIn, 

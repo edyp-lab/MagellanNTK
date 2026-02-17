@@ -57,7 +57,7 @@ NULL
 addDatasets <- function(object, dataset, name) {
   
 
-  object <- c(object, newEL=dataset)
+  object <- c(object, newEL = dataset)
   names(object)[length(object)] <- name
   return(object)
 }
