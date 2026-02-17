@@ -271,22 +271,24 @@ PipelineDemo_ProcessB_server <- function(id,
     observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
       req(grepl('Step2', btnEvents()))
   
+      
+      
       .ind <- as.numeric(rv.widgets$Step2_Id)
-      .tmp <- rv.custom$dataIn2[.ind]
+      .tmp <- rv.custom$dataIn2[[.ind]]
       .assay <- SummarizedExperiment::assay(.tmp)
-      .product <- .assay * as.numeric(rv.widgets$Step2_MinusFactor)
-      SummarizedExperiment::assay(.tmp) <- .product
+      .result <- .assay - as.numeric(rv.widgets$Step2_MinusFactor)
+      SummarizedExperiment::assay(.tmp) <- .result
       rv.custom$history <- Add2History(rv.custom$history, 'ProcessB', 'Step2', 'Minus', rv.widgets$Step2_MinusFactor)
       
-      
-      rv.custom$dataIn2 <- do.call(
-        eval(parse(text = session$userData$funcs$addDatasets)), 
-        list(object = rv.custom$dataIn2, 
-          dataset = .tmp,
-          name = paste0(names(rv.custom$dataIn2)[.ind], '_multiplicated')
-        )
-      )
-
+      # rv.custom$dataIn2 <- do.call(
+      #   eval(parse(text = session$userData$funcs$addDatasets)), 
+      #   list(object = rv.custom$dataIn2, 
+      #     dataset = .tmp,
+      #     name = paste0(names(rv.custom$dataIn2)[.ind], '_multiplicated')
+      #   )
+      # )
+      rv.custom$dataIn2 <- c(rv.custom$dataIn2, newEL = .tmp)
+      names(rv.custom$dataIn2)[length(rv.custom$dataIn2)] <- paste0(names(rv.custom$dataIn2)[.ind], '_minus')
       
       
       # DO NOT MODIFY THE THREE FOLLOWINF LINES
@@ -309,7 +311,26 @@ PipelineDemo_ProcessB_server <- function(id,
       req(grepl('Save', btnEvents()))
       
       
-      browser()
+    
+      len_start <- length(rv$dataIn)
+      len_end <- length(rv.custom$dataIn2)
+      len_diff <- len_end - len_start
+      
+      req(len_diff > 0)
+      
+      if (len_diff == 2)
+        rv.custom$dataIn2 <- keepDatasets(rv.custom$dataIn2, -(len_end - 1))
+      
+      # Rename the new dataset with the name of the process
+      names(rv.custom$dataIn2)[length(rv.custom$dataIn2)] <- 'ProcessB'
+
+      len <- length(rv.custom$dataIn2)
+      rv.custom$dataIn2[[len]]@metadata$history <- rbind(rv.custom$dataIn2[[len]]@metadata$history,
+        rv.custom$history)
+      
+      
+      
+      
       # DO NOT MODIFY THE THREE FOLLOWING LINES
       dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$value <- rv.custom$dataIn2

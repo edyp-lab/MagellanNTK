@@ -55,7 +55,9 @@ NULL
 #'
 #' @export
 addDatasets <- function(object, dataset, name) {
-  object <- c(object, newEL = dataset)
+  
+
+  object <- c(object, newEL=dataset)
   names(object)[length(object)] <- name
   return(object)
 }
@@ -84,6 +86,7 @@ keepDatasets <- function(object = NULL, range = seq(length(object))) {
     }
 
   stopifnot(!is.null(object))
+  stopifnot(max(range) <= length(object))
 
     return(object[,,range])
 }
