@@ -2,10 +2,13 @@ Package: MagellanNTK
 Title: A Pipeline Manager
 Version: 0.99.28
 Authors@R: 
-  c(person(given = "Samuel", 
+  c(person("MagellanNTK Package Maintainer",
+      email = "prostar-proteomics@cea.fr",
+      role = c("cre")),
+      person(given = "Samuel", 
       family = "Wieczorek",
       email = "samuel.wieczorek@cea.fr", 
-      role = c("aut","cre"),
+      role = c("aut"),
       comment = c(ORCID="0000-0002-5016-1203")),
   person(given = "Thomas", 
       family ="Burger",

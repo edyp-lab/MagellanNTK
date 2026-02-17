@@ -33,6 +33,7 @@ Add2History <- function(history, process, step.name, param.name, value){
 #' @title Get the history of an assay
 
 #' @param obj The dataset managed by MagellanNTK
+#' @param name The name of a slot in the object
 #' @return A `data.frame()`
 #'
 #' @export

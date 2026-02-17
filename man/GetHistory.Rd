@@ -8,6 +8,8 @@ GetHistory(obj, name)
 }
 \arguments{
 \item{obj}{The dataset managed by MagellanNTK}
+
+\item{name}{The name of a slot in the object}
 }
 \value{
 A `data.frame()`
