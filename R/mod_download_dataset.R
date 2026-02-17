@@ -119,7 +119,6 @@ download_dataset <- function(
   server <- function(input, output, session) {
     download_dataset_server("dl",
       dataIn = reactive({dataIn}),
-      extension = c("rdata"),
       filename = filename
     )
   }
