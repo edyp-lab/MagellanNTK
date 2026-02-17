@@ -13,34 +13,43 @@ download_dataset_server(
   dataIn = reactive({
      NULL
  }),
-  widget.type = "Link",
-  filename = "myDataset"
+  filename = "myDataset",
+  excel.style = NULL,
+  remoteReset = reactive({
+     0
+ }),
+  is.enabled = reactive({
+     TRUE
+ })
 )
 
-download_dataset(data, filename = "myDataset")
+download_dataset(dataIn = NULL, filename = "myDataset")
 }
 \arguments{
-\item{id}{A `character()` as the id of the Shiny module}
+\item{id}{internal}
 
 \item{dataIn}{internal}
 
-\item{widget.type}{Available values are `Button` and `Link` (default).}
+\item{filename}{internal}
 
-\item{filename}{xxx}
+\item{excel.style}{xxx}
 
-\item{data}{xxx}
+\item{remoteReset}{A `logical(1)` which acts as a remote command to reset
+the module to its default values. Default is FALSE.}
+
+\item{is.enabled}{xxx}
 }
 \value{
-A shiny App
+NA
 }
 \description{
 A shiny Module.
 }
 \examples{
-if (interactive()) {
-    shiny::runApp(download_dataset(lldata))
-
-    shiny::runApp(download_dataset(lldata, filename = "myDataset"))
+if (interactive()){
+data(lldata, package = "MagellanNTK")
+shiny::runApp(download_dataset(lldata))
 }
+
 
 }

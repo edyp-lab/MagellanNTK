@@ -6,7 +6,8 @@ author:
 package: MagellanNTK
 abstract: >
     The R package MagellanNTK (Magellan Navigation ToolKit) is a workflow
-    manager using Shiny modules. It is the perfect companion package to build workflows and integrate them in your UI or run it standalone.
+    manager using Shiny modules. It is the perfect companion package to build 
+    workflows and integrate them in your UI or run it standalone.
 date: "`r Sys.Date()`"
 output:
     BiocStyle::html_document:
