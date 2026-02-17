@@ -2,7 +2,9 @@
 
 ## Authors
 
-- **Samuel Wieczorek**. Author, maintainer.
+- **MagellanNTK Package Maintainer**. Maintainer.
+
+- **Samuel Wieczorek**. Author.
   [](https://orcid.org/0000-0002-5016-1203)
 
 - **Thomas Burger**. Author.
