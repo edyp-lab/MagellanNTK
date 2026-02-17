@@ -74,12 +74,7 @@ addDatasets <- function(object, dataset, name) {
 #' @rdname dataset-processing
 #' 
 #' @examples
-#' data(lldata)
-#' for (i in 1:5){
-#' lldata <- c(lldata, newEL = lldata[[i]])
-#' names(lldata)[i+1] <- paste0('Copy_', i)
-#' }
-#' keepDatasets(lldata, 2:3)
+#' NULL
 #' 
 #'
 #' @export

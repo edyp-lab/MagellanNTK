@@ -70,12 +70,7 @@ The object must be of type list. Thetwo functions are implemented here for
 of the package which uses MagellanNTK
 }
 \examples{
-data(lldata)
-for (i in 1:5){
-lldata <- c(lldata, newEL = lldata[[i]])
-names(lldata)[i+1] <- paste0('Copy_', i)
-}
-keepDatasets(lldata, 2:3)
+NULL
 
 
 NULL

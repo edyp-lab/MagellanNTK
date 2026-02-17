@@ -45,7 +45,6 @@ Imports:
     utils,
     dplyr,
     BiocGenerics, 
-    Matrix,
     htmltools,
     crayon,
     tidyverse,
