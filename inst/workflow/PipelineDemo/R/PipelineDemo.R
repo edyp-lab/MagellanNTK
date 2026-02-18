@@ -36,7 +36,7 @@ PipelineDemo_conf <- function(){
     mode = 'pipeline',
     fullname = 'PipelineDemo',
     steps = c('DataGeneration', 'Preprocessing', 'Clustering'),
-    mandatory = c(FALSE, TRUE, FALSE)
+    mandatory = c(TRUE, TRUE, FALSE)
   )
 }
 

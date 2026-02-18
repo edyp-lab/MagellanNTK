@@ -22,6 +22,8 @@ create_example_data <- function(){
   
   assayList <- list(Convert = exprdat)
   lldata <- MultiAssayExperiment(experiments = ExperimentList(assayList))
+  
+  SetHistory(lldata[[1]], InitializeHistory())
   save(lldata, file = 'data/lldata.rdata')
   
 }

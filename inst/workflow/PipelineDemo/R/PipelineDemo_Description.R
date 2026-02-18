@@ -142,8 +142,6 @@ PipelineDemo_Description_server <- function(id,
       req(dataIn())
       rv$dataIn <- dataIn()
       
-      # Adding to history
-      rv.custom$history <- Add2History(rv.custom$history, 'Description', 'Description', 'Initialization', '-')
       
       # DO NOT MODIFY THE THREE FOLLOWING LINES
       dataOut$trigger <- MagellanNTK::Timestamp()
