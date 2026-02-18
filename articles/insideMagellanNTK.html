@@ -451,8 +451,18 @@ la configuration des process et pipelines</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="type-of-objects">Type of objects<a class="anchor" aria-label="anchor" href="#type-of-objects"></a>
+<h2 id="data-structure">Data structure<a class="anchor" aria-label="anchor" href="#data-structure"></a>
 </h2>
+<p>Le dataset lldata fourni dans MagellanNTK ne contient qu’un SE nommé
+Convert qui correspond aux données initiales. C’est le dataset renvoyé
+par le module d’importation de données dans MagellanNTK. Si l’on va au
+bout du pipeline d’exemple PipelineDemo, le dataset final aura 5 slots
+<code>SummarizedExperiment</code>, chacun d’eux étant le résultat obtenu
+par un process d’analyse.</p>
+<p>La fonction générique <code><a href="../reference/mod_convert_dataset.html">convert_dataset()</a></code> est prévue pour
+être personnalisée et permettre d’importer des données dans le format
+<code>MultiAssayExperiment</code>. A noter que la fonction par défaut
+n’effectue aucun traitement et n’est pas fonctionnelle.</p>
 <p>it is suitable for objects of type list for which the fundamental
 requirments are:</p>
 <ul>
@@ -741,7 +751,7 @@ différents, sur des domaine sd’application différents</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by MagellanNTK Package Maintainer, Samuel Wieczorek, Thomas Burger.</p>
+  <p>Developed by MagellanNTK Package Maintainer, Samuel Wieczorek, Thomas Burger, Manon Gaudin.</p>
 </div>
 
 <div class="pkgdown-footer-right">

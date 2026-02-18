@@ -9,6 +9,8 @@
 
 - **Thomas Burger**. Author.
 
+- **Manon Gaudin**. Author.
+
 ## Citation
 
 Source:
