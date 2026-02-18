@@ -205,15 +205,26 @@ steps) to its initial state. Several actions follow:
 - The dataset which has been loaded in th process is deleted.
 - All the analysis that may have been done are deleted. Thus, the
   bullets in the timeline go to the ‘UNDONE’ state whatever their state
-  at the moment of ckicking on the Reset button
+  at the moment of clicking on the Reset button
 - The current step becomes the first one (the cursor in the timeline
   goes under the first step).
 - All the widgets in each step are set to their initial values and
   become disabled (until a dataset is launched in the process).
 
-**Run**.
+**Run**. This action perform the analysis with the selected parameters
+(setion below). If there are no sufficient parameters to perform the
+analysis, no analysis is done and a modal info is displayed and invite
+the user to adjust the parameters. Once the action has been done, the
+bullet in the timeline changes its state and pass to ‘DONE’. After this
+calculation, the current step stay unchanged so as to allow the user to
+view the result of its action on the dataset. This button is disabled if
+the current step is disabled (DONE or SKIPPED)
 
-**Run and Proceed**.
+**Run and Proceed**. This is the same as the “Run” button but if the
+calculation succeeded, the current step automatically go to the next
+step. This method is quicker than the previsou one but has the
+disadvantage that the sure coul not view the results. By the way, at
+this moment, it is possible by clicking on the ‘Prev’ button.
 
 **Next**. A click on the ‘Next’ button moves the cursor in the timeline
 forward to select the next step. If the current step is the last one,
@@ -221,19 +232,11 @@ then the next button is disabled
 
 #### Timeline
 
-At the beginning of a process (launch), In the timeline, steps are
-represented by bullets linked by lines. The style of both bullets and
-line depends on the state of the corresponding step. If the bullet of a
-step is enabled then all the widgets of this step are enabled (as well
-as the Perform button). In the contrary, a bullet that is disabled means
-that all the widgets and the ‘Perform’ button in the UI are disabled.
+The timeline represents the set of steps which compose the process. Each
+step is represented by a bullet with its name. The style of bullets (the
+fill color and the line) depends on the state of the corresponding step.
 
-![Timeline example.](./figs/timeline.png)
-
-Timeline example.
-
-At any time, the current step is marked with an underline below the name
-of the step.
+The available states are the following:
 
 |                  Bullet                  |   Property    |  State   | Done/Undone |
 |:----------------------------------------:|:-------------:|:--------:|:-----------:|
@@ -243,18 +246,30 @@ of the step.
 | ![](figs/bullet_full_green_disabled.png) |      \-       | Disabled |    Done     |
 | ![](figs/bullet_empty_red_disabled.png)  | Not mandatory |          |   Undone    |
 
+At any time, the current step is identified by an underline below the
+name of the step. The first step is always the current step at the
+beginning of a process (launch) and after the ‘Reset’ action.
+
 #### Parameters
+
+In this part of the sidebar are displayed the parameters corresponding
+to the current step. They are enabled or disabled whether the sate of
+their step: if the step is disabled (resp. enabled), the widgets are
+disabled (resp. enabled).
+
+If the bullet of a step is enabled then all the widgets of this step are
+enabled (as well as the Perform button). In the contrary, a bullet that
+is disabled means that all the widgets and the ‘Perform’ button in the
+UI are disabled.
 
 ### Rules of navigation
 
-A more complex workflow consists in a sequence of several tasks, what
-defines here a *process*. Processes are implemented as Shiny
-applications and embed the functions and UI of each of their single
-tasks.
+The input of a process is an instance of `MultiAssayExperiment` which
+contains one or several `Summarizedexperiment`.
 
-As for single tasks, a process take a list of datasets as input, execute
-a series of tasks on the last dataset of the list (the more recent),
-then returns a list of datasets. The output list may be:
+A process take a list of datasets as input, execute a series of tasks on
+the last dataset of the list (the more recent), then returns a list of
+datasets. The output list may be:
 
 - identical to the input list (same datasets) if the process did not
   modify it (vizualization functions for example),
@@ -317,6 +332,11 @@ dataset. Ce nouveau dataset set ensuite d’entrée pour les étapes
 suivantes
 
 ### Example (PipelineDemo xxx)
+
+### Already-processed datasets
+
+These are datasets that have already been processed by MagellanNTK and
+may contain more than only one `SummarizedExperiment`.
 
 ## Running a pipeline workflow
 
@@ -471,7 +491,7 @@ Commands (Previous step, Reset workflow, Next step.
 
 ### Rules
 
-### Example
+### Example (PipelineDemo)
 
 ``` r
 library(MagellanNTK)
@@ -479,6 +499,10 @@ wf.name <- 'PipelineDemo'
 wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
 MagellanNTK(wf.path, wf.name)
 ```
+
+### Already-processed datasets
+
+------------------------------------------------------------------------
 
 As a workflow manager, the aim of `MagellanNTK` is to execute a series
 of ordered tasks over a dataset.

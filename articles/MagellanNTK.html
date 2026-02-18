@@ -290,14 +290,27 @@ follow:</p>
 <li>The dataset which has been loaded in th process is deleted.</li>
 <li>All the analysis that may have been done are deleted. Thus, the
 bullets in the timeline go to the ‘UNDONE’ state whatever their state at
-the moment of ckicking on the Reset button</li>
+the moment of clicking on the Reset button</li>
 <li>The current step becomes the first one (the cursor in the timeline
 goes under the first step).</li>
 <li>All the widgets in each step are set to their initial values and
 become disabled (until a dataset is launched in the process).</li>
 </ul>
-<p><strong>Run</strong>.</p>
-<p><strong>Run and Proceed</strong>.</p>
+<p><strong>Run</strong>. This action perform the analysis with the
+selected parameters (setion below). If there are no sufficient
+parameters to perform the analysis, no analysis is done and a modal info
+is displayed and invite the user to adjust the parameters. Once the
+action has been done, the bullet in the timeline changes its state and
+pass to ‘DONE’. After this calculation, the current step stay unchanged
+so as to allow the user to view the result of its action on the dataset.
+This button is disabled if the current step is disabled (DONE or
+SKIPPED)</p>
+<p><strong>Run and Proceed</strong>. This is the same as the “Run”
+button but if the calculation succeeded, the current step automatically
+go to the next step. This method is quicker than the previsou one but
+has the disadvantage that the sure coul not view the results. By the
+way, at this moment, it is possible by clicking on the ‘Prev’
+button.</p>
 <p><strong>Next</strong>. A click on the ‘Next’ button moves the cursor
 in the timeline forward to select the next step. If the current step is
 the last one, then the next button is disabled</p>
@@ -305,20 +318,11 @@ the last one, then the next button is disabled</p>
 <div class="section level4">
 <h4 id="timeline">Timeline<a class="anchor" aria-label="anchor" href="#timeline"></a>
 </h4>
-<p>At the beginning of a process (launch), In the timeline, steps are
-represented by bullets linked by lines. The style of both bullets and
-line depends on the state of the corresponding step. If the bullet of a
-step is enabled then all the widgets of this step are enabled (as well
-as the Perform button). In the contrary, a bullet that is disabled means
-that all the widgets and the ‘Perform’ button in the UI are
-disabled.</p>
-<div class="figure" style="text-align: center">
-<img src="./figs/timeline.png" class="r-plt" alt="Timeline example." width="100%"><p class="caption">
-Timeline example.
-</p>
-</div>
-<p>At any time, the current step is marked with an underline below the
-name of the step.</p>
+<p>The timeline represents the set of steps which compose the process.
+Each step is represented by a bullet with its name. The style of bullets
+(the fill color and the line) depends on the state of the corresponding
+step.</p>
+<p>The available states are the following:</p>
 <table class="table">
 <colgroup>
 <col width="29%">
@@ -365,22 +369,32 @@ name of the step.</p>
 </tr>
 </tbody>
 </table>
+<p>At any time, the current step is identified by an underline below the
+name of the step. The first step is always the current step at the
+beginning of a process (launch) and after the ‘Reset’ action.</p>
 </div>
 <div class="section level4">
 <h4 id="parameters">Parameters<a class="anchor" aria-label="anchor" href="#parameters"></a>
 </h4>
+<p>In this part of the sidebar are displayed the parameters
+corresponding to the current step. They are enabled or disabled whether
+the sate of their step: if the step is disabled (resp. enabled), the
+widgets are disabled (resp. enabled).</p>
+<p>If the bullet of a step is enabled then all the widgets of this step
+are enabled (as well as the Perform button). In the contrary, a bullet
+that is disabled means that all the widgets and the ‘Perform’ button in
+the UI are disabled.</p>
 </div>
 </div>
 <div class="section level3">
 <h3 id="rules-of-navigation">Rules of navigation<a class="anchor" aria-label="anchor" href="#rules-of-navigation"></a>
 </h3>
-<p>A more complex workflow consists in a sequence of several tasks, what
-defines here a <em>process</em>. Processes are implemented as Shiny
-applications and embed the functions and UI of each of their single
-tasks.</p>
-<p>As for single tasks, a process take a list of datasets as input,
-execute a series of tasks on the last dataset of the list (the more
-recent), then returns a list of datasets. The output list may be:</p>
+<p>The input of a process is an instance of
+<code>MultiAssayExperiment</code> which contains one or several
+<code>Summarizedexperiment</code>.</p>
+<p>A process take a list of datasets as input, execute a series of tasks
+on the last dataset of the list (the more recent), then returns a list
+of datasets. The output list may be:</p>
 <ul>
 <li><p>identical to the input list (same datasets) if the process did
 not modify it (vizualization functions for example),</p></li>
@@ -436,6 +450,13 @@ suivantes</p>
 <div class="section level3">
 <h3 id="example-pipelinedemo-xxx">Example (PipelineDemo xxx)<a class="anchor" aria-label="anchor" href="#example-pipelinedemo-xxx"></a>
 </h3>
+</div>
+<div class="section level3">
+<h3 id="already-processed-datasets">Already-processed datasets<a class="anchor" aria-label="anchor" href="#already-processed-datasets"></a>
+</h3>
+<p>These are datasets that have already been processed by MagellanNTK
+and may contain more than only one
+<code>SummarizedExperiment</code>.</p>
 </div>
 </div>
 <div class="section level2">
@@ -590,13 +611,18 @@ disabled).</p></li>
 </h3>
 </div>
 <div class="section level3">
-<h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h3 id="example-pipelinedemo">Example (PipelineDemo)<a class="anchor" aria-label="anchor" href="#example-pipelinedemo"></a>
 </h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK</a></span><span class="op">)</span></span>
 <span><span class="va">wf.name</span> <span class="op">&lt;-</span> <span class="st">'PipelineDemo'</span></span>
 <span><span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineDemo'</span>, package <span class="op">=</span> <span class="st">'MagellanNTK'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">wf.path</span>, <span class="va">wf.name</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="already-processed-datasets-1">Already-processed datasets<a class="anchor" aria-label="anchor" href="#already-processed-datasets-1"></a>
+</h3>
+<hr>
 <p>As a workflow manager, the aim of <code>MagellanNTK</code> is to
 execute a series of ordered tasks over a dataset.</p>
 <p>Dans le lexique de MagellanNTK, un workflow (ou pipeline) est un
