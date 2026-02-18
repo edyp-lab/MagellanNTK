@@ -12,15 +12,15 @@
 #' This convention is important because MagellanNTK call the different
 #' server and ui functions by building dynamically their name.
 #' 
-#' In this example, `PipelineDemo_ProcessB_ui()` and `PipelineDemo_ProcessB_server()` define
-#' the code for the process `PipelineDemo_ProcessB` which is part of the pipeline called `PipelineDemo`.
+#' In this example, `PipelineDemo_ProcessC_ui()` and `PipelineDemo_ProcessC_server()` define
+#' the code for the process `PipelineDemo_ProcessC` which is part of the pipeline called `PipelineDemo`.
 #' 
 #' @examples
 #' if (interactive()){
 #' library(MagellanNTK)
 #' data(Exp1_R25_prot, package = 'DaparToolshedData')
 #' path <- system.file('workflow/PipelineDemo', package = 'Prostar2')
-#' shiny::runApp(proc_workflowApp("PipelineDemo_ProcessB", path, dataIn = Exp1_R25_prot))
+#' shiny::runApp(proc_workflowApp("PipelineDemo_ProcessC", path, dataIn = Exp1_R25_prot))
 #' }
 #' 
 #' @importFrom QFeatures addAssay removeAssay
@@ -31,11 +31,11 @@ NULL
 #' @rdname PipelineDemo
 #' @export
 #' 
-PipelineDemo_ProcessB_conf <- function(){
+PipelineDemo_ProcessC_conf <- function(){
   MagellanNTK::Config(
-    fullname = 'PipelineDemo_ProcessB',
+    fullname = 'PipelineDemo_ProcessC',
     mode = 'process',
-    steps = c('Step 1', 'Step 2'),
+    steps = c('Divide', 'Addition'),
     mandatory = c(TRUE, FALSE)
   )
 }
@@ -48,7 +48,7 @@ PipelineDemo_ProcessB_conf <- function(){
 #' 
 #' @export
 #'
-PipelineDemo_ProcessB_ui <- function(id){
+PipelineDemo_ProcessC_ui <- function(id){
   ns <- NS(id)
 }
 
@@ -77,7 +77,7 @@ PipelineDemo_ProcessB_ui <- function(id){
 #'
 #' @export
 #' 
-PipelineDemo_ProcessB_server <- function(id,
+PipelineDemo_ProcessC_server <- function(id,
   dataIn = reactive({NULL}),
   steps.enabled = reactive({NULL}),
   remoteReset = reactive({0}),
@@ -88,10 +88,10 @@ PipelineDemo_ProcessB_server <- function(id,
   # Define default selected values for widgets
   # This is only for simple workflows
   widgets.default.values <- list(
-    Step1_ProductFactor = 1,
-    Step1_Id = 1,
-    Step2_Id = 1,
-    Step2_MinusFactor = 0
+    Divide_Factor = 1,
+    Divide_Id = 1,
+    Addition_Id = 1,
+    Addition_Factor = 0
   )
   
   rv.custom.default.values <- list(
@@ -114,13 +114,11 @@ PipelineDemo_ProcessB_server <- function(id,
     
     
     output$Description <- renderUI({
-      
       MagellanNTK::process_layout(session,
         ns = NS(id),
         sidebar = tagList(),
         content = tagList()
       )
-      
     })
     
     
@@ -132,8 +130,7 @@ PipelineDemo_ProcessB_server <- function(id,
       req(dataIn())
       rv$dataIn <- dataIn()
       
-      rv.custom$dataIn1 <- rv$dataIn
-      rv.custom$dataIn2 <- rv$dataIn
+      rv.custom$dataIn1 <- rv.custom$dataIn2 <- rv$dataIn
       
       dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$value <- NULL
@@ -147,7 +144,7 @@ PipelineDemo_ProcessB_server <- function(id,
     # >>> 
     
     # >>>> -------------------- STEP 1 : Global UI ------------------------------------
-    output$Step1 <- renderUI({
+    output$Divide <- renderUI({
       shinyjs::useShinyjs()
       path <- file.path(system.file('www/css', package = 'MagellanNTK'),'MagellanNTK.css')
       includeCSS(path)
@@ -155,62 +152,62 @@ PipelineDemo_ProcessB_server <- function(id,
       MagellanNTK::process_layout(session,
         ns = NS(id),
         sidebar = tagList(
-          uiOutput(ns("Step1_widgets_UI"))
+          uiOutput(ns("Divide_widgets_UI"))
         ),
         content = tagList(
-          DT::DTOutput(ns("Step1_tabs_UI")),
+          DT::DTOutput(ns("Divide_tabs_UI")),
         )
       )
     })
     
     
     
-    output$Step1_widgets_UI <- renderUI({
+    output$Divide_widgets_UI <- renderUI({
       widget <- tagList(
         selectInput(
-          ns('Step1_Id'),
+          ns('Divide_Id'),
           "Choose assay",
           choices = 1:length(rv.custom$dataIn1),
-          selected = rv.widgets$Step1_Id),
+          selected = rv.widgets$Divide_Id),
         selectInput(
-          ns('Step1_ProductFactor'),
-          "Multiplicative factor",
+          ns('Divide_Factor'),
+          "Division factor",
           choices = 1:10,
-          selected = rv.widgets$Step1_ProductFactor)
+          selected = rv.widgets$Divide_Factor)
       )
       
-      MagellanNTK::toggleWidget(widget, rv$steps.enabled["Step1"])
+      MagellanNTK::toggleWidget(widget, rv$steps.enabled["Divide"])
     })
     
     
     
-    output$Step1_tabs_UI <- DT::renderDT({
-      req(rv.widgets$Step1_Id)
-      .ind <- as.numeric(rv.widgets$Step1_Id)
+    output$Divide_tabs_UI <- DT::renderDT({
+      req(rv.widgets$Divide_Id)
+      .ind <- as.numeric(rv.widgets$Divide_Id)
       DT::datatable(
-        SummarizedExperiment::assay(rv.custom$dataIn1,.ind)
+        SummarizedExperiment::assay(rv.custom$dataIn1, .ind)
       )
     })
     
     
     observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
-      req(grepl('Step1', btnEvents()))
+      req(grepl('Divide', btnEvents()))
       req(rv.custom$dataIn1)
 
       
 
-      .ind <- as.numeric(rv.widgets$Step1_Id)
+      .ind <- as.numeric(rv.widgets$Divide_Id)
       .tmp <- rv.custom$dataIn1[[.ind]]
       .assay <- SummarizedExperiment::assay(.tmp)
-      .product <- .assay * as.numeric(rv.widgets$Step1_ProductFactor)
+      .product <- .assay / as.numeric(rv.widgets$Divide_Factor)
       SummarizedExperiment::assay(.tmp) <- .product
-      rv.custom$history <- Add2History(rv.custom$history, 'ProcessB', 'Step1', 'Product', rv.widgets$Step1_ProductFactor)
+      rv.custom$history <- Add2History(rv.custom$history, 'ProcessC', 'Divide', 'Product', rv.widgets$Divide_Factor)
 
       rv.custom$dataIn1 <- do.call(
         eval(parse(text = session$userData$funcs$addDatasets)), 
         list(object = rv.custom$dataIn1, 
           dataset = .tmp,
-          name = paste0(names(rv.custom$dataIn1)[.ind], '_multiplicated')
+          name = paste0(names(rv.custom$dataIn1)[.ind], '_divided')
         )
       )
       rv.custom$dataIn2 <- rv.custom$dataIn1
@@ -219,7 +216,7 @@ PipelineDemo_ProcessB_server <- function(id,
       # DO NOT MODIFY THE THREE FOLLOWING LINES
       dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$value <- NULL
-      rv$steps.status['Step1'] <- MagellanNTK::stepStatus$VALIDATED
+      rv$steps.status['Divide'] <- MagellanNTK::stepStatus$VALIDATED
     })
     
     # <<< END ----------------------- Code for step 1 UI--------------------------
@@ -227,74 +224,67 @@ PipelineDemo_ProcessB_server <- function(id,
     
     # >>> START ----------------------- Code for step 2 UI-------------------------
     
-    output$Step2 <- renderUI({
+    output$Addition <- renderUI({
       shinyjs::useShinyjs()
       
       MagellanNTK::process_layout(session,
         ns = NS(id),
         sidebar = tagList(
-          uiOutput(ns("Step2_widgets_UI"))
+          uiOutput(ns("Addition_widgets_UI"))
         ),
         content = tagList(
-          DT::DTOutput(ns("Step2_tabs_UI"))
+          DT::DTOutput(ns("Addition_tabs_UI"))
         )
       )
     })
     
-    output$Step2_widgets_UI <- renderUI({
+    output$Addition_widgets_UI <- renderUI({
       widget <- tagList(
         selectInput(
-          ns('Step2_Id'),
+          ns('Addition_Id'),
           "Choose assay",
           choices = 1:length(rv.custom$dataIn2),
-          selected = rv.widgets$Step2_Id),
+          selected = rv.widgets$Addition_Id),
         selectInput(
-          ns('Step2_MinusFactor'),
+          ns('Addition_Factor'),
           "Minus factor",
           choices = 1:10,
-          selected = rv.widgets$Step2_MinusFactor)
+          selected = rv.widgets$Addition_Factor)
       )
       
-      MagellanNTK::toggleWidget(widget, rv$steps.enabled["Step2"])
+      MagellanNTK::toggleWidget(widget, rv$steps.enabled["Addition"])
       
     })
     
-    output$Step2_tabs_UI <- DT::renderDT({
-      req(rv.widgets$Step2_Id)
+    output$Addition_tabs_UI <- DT::renderDT({
+      req(rv.widgets$Addition_Id)
       
-      .ind <- as.numeric(rv.widgets$Step2_Id)
+      .ind <- as.numeric(rv.widgets$Addition_Id)
       DT::datatable(
         SummarizedExperiment::assay(rv.custom$dataIn2, .ind)
       )
     })
     
     observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
-      req(grepl('Step2', btnEvents()))
+      req(grepl('Addition', btnEvents()))
   
       
       
-      .ind <- as.numeric(rv.widgets$Step2_Id)
+      .ind <- as.numeric(rv.widgets$Addition_Id)
       .tmp <- rv.custom$dataIn2[[.ind]]
       .assay <- SummarizedExperiment::assay(.tmp)
-      .result <- .assay - as.numeric(rv.widgets$Step2_MinusFactor)
+      .result <- .assay - as.numeric(rv.widgets$Addition_Factor)
       SummarizedExperiment::assay(.tmp) <- .result
-      rv.custom$history <- Add2History(rv.custom$history, 'ProcessB', 'Step2', 'Minus', rv.widgets$Step2_MinusFactor)
+      rv.custom$history <- Add2History(rv.custom$history, 'ProcessC', 'Addition', 'Addition', rv.widgets$Addition_Factor)
       
-      # rv.custom$dataIn2 <- do.call(
-      #   eval(parse(text = session$userData$funcs$addDatasets)), 
-      #   list(object = rv.custom$dataIn2, 
-      #     dataset = .tmp,
-      #     name = paste0(names(rv.custom$dataIn2)[.ind], '_multiplicated')
-      #   )
-      # )
       rv.custom$dataIn2 <- c(rv.custom$dataIn2, newEL = .tmp)
-      names(rv.custom$dataIn2)[length(rv.custom$dataIn2)] <- paste0(names(rv.custom$dataIn2)[.ind], '_minus')
+      names(rv.custom$dataIn2)[length(rv.custom$dataIn2)] <- paste0(names(rv.custom$dataIn2)[.ind], '_addition')
       
       
       # DO NOT MODIFY THE THREE FOLLOWINF LINES
       dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$value <- NULL
-      rv$steps.status['Step2'] <- MagellanNTK::stepStatus$VALIDATED
+      rv$steps.status['Addition'] <- MagellanNTK::stepStatus$VALIDATED
     })
     
     
@@ -322,12 +312,12 @@ PipelineDemo_ProcessB_server <- function(id,
         rv.custom$dataIn2 <- keepDatasets(rv.custom$dataIn2, -(len_end - 1))
       
       # Rename the new dataset with the name of the process
-      names(rv.custom$dataIn2)[length(rv.custom$dataIn2)] <- 'ProcessB'
+      names(rv.custom$dataIn2)[length(rv.custom$dataIn2)] <- 'ProcessC'
 
-      len <- length(rv.custom$dataIn2)
       len <- length(rv.custom$dataIn2)
       rv.custom$dataIn2[[len]] <- SetHistory(rv.custom$dataIn2[[len]], rv.custom$history)
-
+      
+      
       
       # DO NOT MODIFY THE THREE FOLLOWING LINES
       dataOut$trigger <- MagellanNTK::Timestamp()

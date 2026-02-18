@@ -2,22 +2,25 @@
 % Please edit documentation in R/general_core_funcs.R
 \name{SetHistory}
 \alias{SetHistory}
-\title{Get the last validated step before current position.}
+\title{Standardize names}
 \usage{
-SetHistory(obj, history)
+SetHistory(obj.se, history)
 }
 \arguments{
-\item{obj}{The dataset managed by MagellanNTK}
+\item{obj.se}{An instance of the class `SummarizedExperiment`}
 
 \item{history}{A `data.frame()`}
 }
-\value{
-A The dataset managed by MagellanNTK
-}
 \description{
-This function returns the indice of the last validated step before
-the current step.
+Standardize names
 }
 \examples{
-NULL
+data(lldata)
+history <- GetHistory(lldata, 1)
+history <- rbind(history, c('Example', 'Step Ex', 'ex_param', 'Ex'))
+lldata[[1]] <- SetHistory(lldata[[1]], history)
+
+}
+\author{
+Samuel Wieczorek
 }

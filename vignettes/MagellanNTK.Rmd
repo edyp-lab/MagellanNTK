@@ -8,7 +8,7 @@ abstract: >
     The R package MagellanNTK (Magellan Navigation ToolKit) is a workflow
     manager using Shiny modules. It is the perfect companion package to build 
     workflows and integrate them in your UI or run it standalone.
-date: "`r Sys.Date()`"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
     BiocStyle::html_document:
       toc: true
@@ -67,25 +67,36 @@ To go further in technical details, please refer to:
 -   Inside MagellanNTK
 
 
+# Fonctionnalites principales
+
+MagellanNTK est un workflow manager hautement configurable qui propose un gestionnaire
+de workflow qualitatif et qui suit une stratégie simple mais robuste. Il permet
+de travailler avec des données au format `MultiAssayExperiment` ainsi que celles
+qui en sont dérivées (Ex : `QFeatures`). De ce fait, il peut traiter et analyser
+bon nombre de données expérimentales
+
+Les workflows utilisés avec MagellanNTK sont des scripts R sous forme de modules Shiny qui
+viennent alimenter le datamanager. La structure de ces workflows est décrite dans
+le document nxxx
+
+Par ailleurs, MagellanNTK permet de personnaliser un ensemble de fonctions 
+natives dans ce framework (voir le document Inside MagellanNTK)
 
 # Installing and launching MagellanNTK
 
-This is described in the README.
+This is described in the README file.
 
 
 # Discovering MagellanNTK
 
-The package MagellanNTK is based on the `shinydashboard` package. In that sense, 
-the user interface is composed of four parts:
+The package MagellanNTK is essentiellement based on the `shinydashboard` package. 
+et a été adapté pour le simplifier. The user interface is composed of two parts:
 
-* Sidebar
-* Control bar
-* Header panel
-* Main part
+* Sidebar on the left qui contient les menus généraux
+* Main part qui permet d'afficher le workflow manager 
 
-
-
-## User interface
+Par rapport au dashboard proposé par le package `shinydashboard`, le header et la 
+barre de contrôle sur la droite ont été supprimés.
 
 
 ::: bordered
@@ -96,16 +107,42 @@ knitr::include_graphics("./figs/MagellanNTK_annote.png", error = FALSE)
 
 ## Sidebar
 
-## Control bar
+La barré latérale à gauche contient les menus principaux. Elle se développe au passage du pointeur
+de la souris dessus et se retracte sinon.
+Les différents menus sont le ssuivants:
 
-The control bar contains features to control the global behaviour of the interface.
-
-Console: A clikc on that link open the browser() in the R console which
+  * Dataset:
+    * Open file: 
+    * import: 
+    * Save as: Affiche le module appelé `download_dataset` qui permet d'exporter
+  le dataset courant. Le module natif de MagellanNTK permet l'exportation
+  au format .rdata. Ce module fait partie des modules configurables
+  
+  * Workflow:
+    * Run: permet d'accéder à l'interface du datamanager. Cette interface est 
+    affichée même s'il n'y a pas de dataset mais à ce moment la, tous les 
+    widgets sont désactivés. Ils sont activés suivant la logique implémentée dans ce gestionnaire
+    * FAQ: Opens a Rmd file for FAQ. This file must be stored in the `md`
+  directory whithin the folder a the workflow
+    * x: xxx
 
 ## Header panel
 
 ## Main part
 
+La partie centrale comprend trois espaces dédiés:
+
+  * La partie en haut qui comprend trois boutons de navigation ('Backto start', 'Previous step' and
+  'Next Step') et une timeline qui correspond à la succesion des étapes d'un 
+  pipeline.
+  * En dessous, se trouve la partie réservée aux processes et elle est également
+  divisée en deux. Sur la gauche, une "sidebar" affiche
+    * les boutons de navigatino ainsi qu'un bouton Reset
+    * la timeline (verticale) propre aux process
+    * l'ensemble des paramètres à ajuster dans le process
+  Sur le reste de l'écran s'affichent les données relatives au process courant.
+  
+  
 
 ## Builtin functions
 
@@ -227,12 +264,18 @@ knitr::include_graphics("./figs/pipeline.png", error = FALSE)
 ## Rules of navigation
 
 Some rules are applied to a workflow to guarantee the global strategy of
-the workflow. This point is important to understand the possibilities of
+the workflow and the quality of the analysis process.
+This point is important to understand the possibilities of
 navigation with MagellanNTK.
 
+### Load of a new dataset
 **Start workflow at the beginning**. When launching a workflow, the
 first task is the only enabled task. This guarantees to always start
-from the first one.
+from the first one. A workflow démarre toujours sur l'étape de Description qui permet 
+de donner des onformations sur la suite grâce à un fichier Rmd.
+Dans la timeline du pipeline, l'icone de cette étape est affichée en vert
+car on a un historique (celui de la conversion des données originales en
+dataset compatible avec MagellanNTK). L'utilisateur 
 
 **One way direction**. The order in which tasks are executed is in one
 direction: tasks are executed from the first one towards the last one.

@@ -50,8 +50,7 @@
 #'   default.funcs<- list(
 #'     convert_dataset = "MagellanNTK::convert_dataset",
 #'     open_dataset = "MagellanNTK::open_dataset",
-#'     export_dataset = "MagellanNTK::export_dataset",
-#'     open_demoDataset = "MagellanNTK::open_demoDataset",
+#'     donwload_dataset = "MagellanNTK::donwload_dataset",
 #'     view_dataset = "MagellanNTK::view_dataset",
 #'     infos_dataset = "MagellanNTK::infos_dataset")
 #'

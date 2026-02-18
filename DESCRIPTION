@@ -49,12 +49,11 @@ Imports:
     crayon,
     tidyverse,
     stringr,
-    waiter,
-    MultiAssayExperiment
+    waiter
 Suggests: 
     rmarkdown, shinyjqui, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
     gtools, XML, R.utils, RColorBrewer,  openxlsx,
-    shinyAce, rclipboard, shinyWidgets
+    shinyAce, rclipboard, shinyWidgets, MultiAssayExperiment
 Collate: 
     MagellanNTK.R
     settings.R
@@ -90,7 +89,6 @@ Collate:
     mod_homepage.R
     mod_view_dataset.R
     mod_convert_dataset.R
-    mod_export_dataset.R
     globals.R
     mod_error_modal.R
     mod_download_btns.R

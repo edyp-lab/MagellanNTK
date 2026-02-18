@@ -9,7 +9,6 @@ demo_package: MagellanNTK
 
 convert_dataset: MagellanNTK
 open_dataset: MagellanNTK
-open_demoDataset: MagellanNTK
 view_dataset: MagellanNTK
 infos_dataset: MagellanNTK
 addDatasets: MagellanNTK

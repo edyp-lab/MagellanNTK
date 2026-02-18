@@ -7,15 +7,19 @@
 [![R-CMD-check](https://github.com/edyp-lab/MagellanNTK/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-Le package MagellanNTK est un moteur de gestion de workflows qui permet d'exécuter une série de process d'analyses sur des jeux de données.
-Il contient des fonctions génériques d'entrée/sortie de dataset qui sont adaptées à des formats de données de type list.
+Le package MagellanNTK est un moteur de gestion de workflows qui permet 
+d'exécuter une série de process d'analyses sur des jeux de données.
+Il contient des fonctions génériques d'entrée/sortie de dataset qui sont 
+adaptées à des formats de données de type list.
 
-Pour utiliser les fonctionnalités de MagellanNTK, il est nécessaire d'utiliser des workflows soit enregistrés sur l'ordinateur, soit disponibles
+Pour utiliser les fonctionnalités de MagellanNTK, il est nécessaire d'utiliser 
+des workflows soit enregistrés sur l'ordinateur, soit disponibles
 dans un package
 
 
 
-La principale puissance de ce package est que ces fonctions sont entièrement configurableI
+La principale puissance de ce package est que ces fonctions natives 
+sont entièrement configurableS. MagellanNTK offre une gestion de workflow
 
 ## Installation
 
@@ -26,23 +30,21 @@ You can install the development version of MagellanNTK from [GitHub](https://git
 pak::pak("edyp-lab/MagellanNTK")
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-``` r
-library(MagellanNTK)
-## basic example code
-```
-
   
 # MagellanNTK
 
-MagellanNTK is a R package which proposes a framework to navigate between steps of a complex data processing tool when the succession of processes is mostly chronological.
+MagellanNTK is a R package which proposes a framework to navigate between steps 
+of a complex data processing tool when the succession of processes is mostly 
+chronological.
 
-For example, if a process is composed of three steps, then it is very easy to run the first steps, then the second and finally the last one. It is like a dataflow manager.
+For example, if a process is composed of three steps, then it is very easy to 
+run the first steps, then the second and finally the last one. It is like a 
+dataflow manager.
 
-Moreover, this navigation system, which is at the core of MagellanNTK, can by used at several levels. It can then be possible to define, for example, a super-process (i.e. a pipeline) in which each step is a whole process containing itself several steps.
+Moreover, this navigation system, which is at the core of MagellanNTK, can by 
+used at several levels. It can then be possible to define, for example, a 
+super-process (i.e. a pipeline) in which each step is a whole process 
+containing itself several steps.
 
 
 ## Install
@@ -59,16 +61,13 @@ The 'user' mode is the default mode.
 
 ```
 library(MagellanNTK)
-
-data(lldata.rda, package = 'MagellanNTK')
 wf.name <- 'PipelineDemo'
 wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
-
-MagellanNTK(lldata, wf.path, wf.name)
+MagellanNTK(wf.path, wf.name)
 ```
 
 
-# Launching one workflow
+# Launching a workflow
 
 ```
 library(MagellanNTK)
@@ -77,18 +76,16 @@ shiny::runApp(workflowApp("PipelineDemo_Process1", path, dataIn = lldata))
 
 ```
 
+# Launching a single process
 
-# List of articles
+In the following example, on lance MAgellan avec seulement le process 
+'ProcessA'.
 
-* In the menu 'Get started', xxxx
-* 'Articles > Create a pipeline': for developers
-* 'Articles > Create a process': for developers
-* 
+```
+library(MagellanNTK)
+wf.name <- 'PipelineDemo_ProcessA'
+wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
+MagellanNTK(wf.path, wf.name)
 
+```
 
-
-# Future developments
-
-* Generalize Magellan for more than two levels,
-* implements a shiny app to help users to develop a module process
-* Integrate synctatic analyzers for modules

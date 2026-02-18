@@ -11,7 +11,8 @@
 #' 
 create_example_data <- function(){
 
-  library(MultiAssayExperiment)
+  requireNamespace('MultiAssayExperiment')
+
   ## Create array matrix and AnnotatedDataFrame to create an ExpressionSet class
   arraydat <- matrix(data = seq(1, length.out = 20), ncol = 4,
     dimnames = list(
