@@ -9,9 +9,16 @@
 #' @name module_PipelineDemo
 #' @examples
 #' if (interactive()){
-#' source("~/GitHub/MagellanNTK/inst/extdata/workflow/PipelineDemo/R/PipelineDemo.R")
-#' path <- system.file('extdata/workflow/PipelineDemo', package = 'MagellanNTK')
-#' shiny::runApp(MagellanNTK::workflowApp("PipelineDemo"))
+#' library(MagellanNTK)
+#' 
+#' options(shiny.fullstacktrace = TRUE)
+#' 
+#' wf.name <- 'PipelineDemo'
+#' wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
+#' 
+#' MagellanNTK(wf.path, wf.name)
+#' 
+#' 
 #' }
 #' 
 #' @name PipelineDemo
@@ -29,7 +36,7 @@ PipelineDemo_conf <- function(){
     mode = 'pipeline',
     fullname = 'PipelineDemo',
     steps = c('Process A', 'Process B', 'Process C'),
-    mandatory = c(FALSE, TRUE)
+    mandatory = c(FALSE, TRUE, FALSE)
   )
 }
 

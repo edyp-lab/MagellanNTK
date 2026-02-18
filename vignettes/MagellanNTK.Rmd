@@ -105,15 +105,13 @@ knitr::include_graphics("./figs/MagellanNTK_annote.png", error = FALSE)
 ```
 :::
 
-## Sidebar
-
-La barré latérale à gauche contient les menus principaux. Elle se développe au passage du pointeur
+La barre latérale à gauche contient les menus principaux. Elle se développe au passage du pointeur
 de la souris dessus et se retracte sinon.
-Les différents menus sont le ssuivants:
-
+Les différents menus sont les suivants:
+  * Home: donne des informations générales sur MagellanNTK. Pra défaut, il n'y a pas grand chose.
   * Dataset:
-    * Open file: 
-    * import: 
+    * Open file: permet de sélectionner un dataset sur lequel travailler
+    * import: permet de convertir un fichier de résultats en un format compatible avec MagellanNTK.
     * Save as: Affiche le module appelé `download_dataset` qui permet d'exporter
   le dataset courant. Le module natif de MagellanNTK permet l'exportation
   au format .rdata. Ce module fait partie des modules configurables
@@ -124,51 +122,40 @@ Les différents menus sont le ssuivants:
     widgets sont désactivés. Ils sont activés suivant la logique implémentée dans ce gestionnaire
     * FAQ: Opens a Rmd file for FAQ. This file must be stored in the `md`
   directory whithin the folder a the workflow
-    * x: xxx
+    * Manual: Affiche le manual utilisateur du pipeline courant
+    * FAQ: Affiche le fichier de la FAQ du pipeline courant
+    * Release notes: Affiche le fichier des releases notes du pipeline courant
 
-## Header panel
 
-## Main part
+Tous les contenus de ces différents menus sont affichés dans la partie principale.
 
-La partie centrale comprend trois espaces dédiés:
 
-  * La partie en haut qui comprend trois boutons de navigation ('Backto start', 'Previous step' and
-  'Next Step') et une timeline qui correspond à la succesion des étapes d'un 
-  pipeline.
-  * En dessous, se trouve la partie réservée aux processes et elle est également
-  divisée en deux. Sur la gauche, une "sidebar" affiche
+
+
+comprend trois espaces dédiés:
+
+  * La partie en haut qui comprend trois boutons de navigation ('Backto start', 
+  'Previous step' and 'Next Step') et une timeline qui correspond à la succession 
+  des étapes d'un pipeline.
+  * En dessous, se trouve la partie réservée aux processes, elle-même 
+  divisée en deux parties. Sur la gauche, une "sidebar" affiche
     * les boutons de navigatino ainsi qu'un bouton Reset
     * la timeline (verticale) propre aux process
     * l'ensemble des paramètres à ajuster dans le process
   Sur le reste de l'écran s'affichent les données relatives au process courant.
   
-  
-
-## Builtin functions
-
-The package `MagellanNTK` comes with a series of generic functions, used to do some
-basic tasks. These functions are the following:
-
-* convert_dataset(): A Shiny module to convert any dataset to a format suitable for the pipeline used.
-* open_dataset(): xxx
-* open_demoDataset(): xxx
-* view_dataset(): xxx
-* infos_dataset(): xxx
-* download_dataset(): xxx
-* addDatasets(): xxx
-* keepDatasets():
-
-Each of these functions are Shiny modules and are loaded by default when MagellanNTK
-is run.
-
-These functions can be overridden by similar functions int third party packages which contains workflows
-to be run with MagellanNTK.Learn more on customizing these functions in xxx
-
 
 # Workflow overview
 
 As a workflow manager, the aim of `MagellanNTK` is to execute a series
 of ordered tasks over a dataset.
+
+Dans le lexique de MagellanNTK, un workflow (ou pipeline) est un ensemble d'étapes
+de traitement et d'analyse d'un dataset. Chacune de ces étapes (ou process) peut
+également être composée de une ou plusieurs sous-étapes. Dans l'exemple de 
+workflow fourni avec le package `MagellanNTK`, le pipeline/workflow est appelé 
+"PipelineDemo". Il contient 3 étapes de traitement de données : "Process A", 
+"Process B" et "Process C"
 
 ## Single task
 

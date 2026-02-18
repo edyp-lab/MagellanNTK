@@ -179,6 +179,35 @@ GetHistory
 
 SetHistory = "MagellanNTK::SetHistory"
 
+
+
+  
+
+## Builtin functions
+
+The package `MagellanNTK` comes with a series of generic functions, used to do some
+basic tasks. These functions are the following:
+
+* convert_dataset(): A Shiny module to convert any dataset to a format suitable for the pipeline used.
+* open_dataset(): xxx
+* open_demoDataset(): xxx
+* view_dataset(): xxx
+* infos_dataset(): xxx
+* download_dataset(): xxx
+* addDatasets(): xxx
+* keepDatasets():
+
+Each of these functions are Shiny modules and are loaded by default when MagellanNTK
+is run.
+
+These functions can be overridden by similar functions int third party packages which contains workflows
+to be run with MagellanNTK.Learn more on customizing these functions in xxx
+
+
+
+
+
+
 # Workflows hierarchy
 
 For a more details on our definitions of workflows, processes,

@@ -1,19 +1,14 @@
 Package: MagellanNTK
-Title: A Pipeline Manager
+Title: A customizable Workflow Manager
 Version: 0.99.28
 Authors@R: 
   c(person("MagellanNTK Package Maintainer",
-      email = "prostar-proteomics@cea.fr",
-      role = c("cre")),
-      person(given = "Samuel", 
-      family = "Wieczorek",
-      email = "samuel.wieczorek@cea.fr", 
-      role = c("aut"),
+      email = "prostar-proteomics@cea.fr", role = c("cre")),
+      person(given = "Samuel", family = "Wieczorek",
+      email = "samuel.wieczorek@cea.fr", role = c("aut"),
       comment = c(ORCID="0000-0002-5016-1203")),
-  person(given = "Thomas", 
-      family ="Burger",
-      email = "thomas.burger@cea.fr",
-      role = c("aut"))
+      person(given = "Thomas", family ="Burger",
+      email = "thomas.burger@cea.fr", role = c("aut"))
       )
 Description: Proteomics data often needs a series of statistical processes to 
     be analyzed. MagellanNTK (Magellan Navigation ToolKit) is a collection of Shiny 

@@ -271,7 +271,7 @@ PipelineDemo_ProcessB_server <- function(id,
     observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
       req(grepl('Step2', btnEvents()))
   
-      
+
       
       .ind <- as.numeric(rv.widgets$Step2_Id)
       .tmp <- rv.custom$dataIn2[[.ind]]
