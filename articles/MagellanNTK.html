@@ -151,23 +151,17 @@ A single task composed of data analysis functions and user interface.
 </p>
 </div>
 </div>
-<div class="section level3">
-<h3 id="sidebar">Sidebar<a class="anchor" aria-label="anchor" href="#sidebar"></a>
-</h3>
-<p>La barré latérale à gauche contient les menus principaux. Elle se
+<p>La barre latérale à gauche contient les menus principaux. Elle se
 développe au passage du pointeur de la souris dessus et se retracte
-sinon. Les différents menus sont le ssuivants:</p>
+sinon. Les différents menus sont les suivants: * Home: donne des
+informations générales sur MagellanNTK. Pra défaut, il n’y a pas grand
+chose. * Dataset: * Open file: permet de sélectionner un dataset sur
+lequel travailler * import: permet de convertir un fichier de résultats
+en un format compatible avec MagellanNTK. * Save as: Affiche le module
+appelé <code>download_dataset</code> qui permet d’exporter le dataset
+courant. Le module natif de MagellanNTK permet l’exportation au format
+.rdata. Ce module fait partie des modules configurables</p>
 <ul>
-<li>Dataset:
-<ul>
-<li>Open file:</li>
-<li>import:</li>
-<li>Save as: Affiche le module appelé <code>download_dataset</code> qui
-permet d’exporter le dataset courant. Le module natif de MagellanNTK
-permet l’exportation au format .rdata. Ce module fait partie des modules
-configurables</li>
-</ul>
-</li>
 <li>Workflow:
 <ul>
 <li>Run: permet d’accéder à l’interface du datamanager. Cette interface
@@ -176,25 +170,22 @@ les widgets sont désactivés. Ils sont activés suivant la logique
 implémentée dans ce gestionnaire</li>
 <li>FAQ: Opens a Rmd file for FAQ. This file must be stored in the
 <code>md</code> directory whithin the folder a the workflow</li>
-<li>x: xxx</li>
+<li>Manual: Affiche le manual utilisateur du pipeline courant</li>
+<li>FAQ: Affiche le fichier de la FAQ du pipeline courant</li>
+<li>Release notes: Affiche le fichier des releases notes du pipeline
+courant</li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section level3">
-<h3 id="header-panel">Header panel<a class="anchor" aria-label="anchor" href="#header-panel"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="main-part">Main part<a class="anchor" aria-label="anchor" href="#main-part"></a>
-</h3>
-<p>La partie centrale comprend trois espaces dédiés:</p>
+<p>Tous les contenus de ces différents menus sont affichés dans la
+partie principale.</p>
+<p>comprend trois espaces dédiés:</p>
 <ul>
 <li>La partie en haut qui comprend trois boutons de navigation (‘Backto
 start’, ‘Previous step’ and ‘Next Step’) et une timeline qui correspond
-à la succesion des étapes d’un pipeline.</li>
-<li>En dessous, se trouve la partie réservée aux processes et elle est
-également divisée en deux. Sur la gauche, une “sidebar” affiche
+à la succession des étapes d’un pipeline.</li>
+<li>En dessous, se trouve la partie réservée aux processes, elle-même
+divisée en deux parties. Sur la gauche, une “sidebar” affiche
 <ul>
 <li>les boutons de navigatino ainsi qu’un bouton Reset</li>
 <li>la timeline (verticale) propre aux process</li>
@@ -204,35 +195,18 @@ l’écran s’affichent les données relatives au process courant.</li>
 </li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="builtin-functions">Builtin functions<a class="anchor" aria-label="anchor" href="#builtin-functions"></a>
-</h3>
-<p>The package <code>MagellanNTK</code> comes with a series of generic
-functions, used to do some basic tasks. These functions are the
-following:</p>
-<ul>
-<li>convert_dataset(): A Shiny module to convert any dataset to a format
-suitable for the pipeline used.</li>
-<li>open_dataset(): xxx</li>
-<li>open_demoDataset(): xxx</li>
-<li>view_dataset(): xxx</li>
-<li>infos_dataset(): xxx</li>
-<li>download_dataset(): xxx</li>
-<li>addDatasets(): xxx</li>
-<li>keepDatasets():</li>
-</ul>
-<p>Each of these functions are Shiny modules and are loaded by default
-when MagellanNTK is run.</p>
-<p>These functions can be overridden by similar functions int third
-party packages which contains workflows to be run with MagellanNTK.Learn
-more on customizing these functions in xxx</p>
-</div>
-</div>
 <div class="section level2">
 <h2 id="workflow-overview">Workflow overview<a class="anchor" aria-label="anchor" href="#workflow-overview"></a>
 </h2>
 <p>As a workflow manager, the aim of <code>MagellanNTK</code> is to
 execute a series of ordered tasks over a dataset.</p>
+<p>Dans le lexique de MagellanNTK, un workflow (ou pipeline) est un
+ensemble d’étapes de traitement et d’analyse d’un dataset. Chacune de
+ces étapes (ou process) peut également être composée de une ou plusieurs
+sous-étapes. Dans l’exemple de workflow fourni avec le package
+<code>MagellanNTK</code>, le pipeline/workflow est appelé
+“PipelineDemo”. Il contient 3 étapes de traitement de données : “Process
+A”, “Process B” et “Process C”</p>
 <div class="section level3">
 <h3 id="single-task">Single task<a class="anchor" aria-label="anchor" href="#single-task"></a>
 </h3>
