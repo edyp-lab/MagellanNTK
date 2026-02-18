@@ -1,15 +1,36 @@
-#' @title xxx
-#' @name PipelineDemo_Save
+#' @title Shiny example process module.
+#' 
+#' @description
+#' This module contains the configuration informations for the corresponding pipeline.
+#' It is called by the `nav_pipeline` module of the package `MagellanNTK`.
+#' 
+#' The name of the server and ui functions are formatted with keywords separated by '_', as follows:
+#' * first string `mod`: indicates that it is a Shiny module
+#' * `pipeline name` is the name of the pipeline to which the process belongs
+#' * `process name` is the name of the process itself
+#' 
+#' This convention is important because MagellanNTK dynamically constructs 
+#' the names of the different server and UI functions when calling them.
+#' 
+#' In this example, `PipelineDemo_Save_ui()` and `PipelineDemo_Save_server()` define
+#' the code for the process `PipelineDemo_Save` which is part of the pipeline called `PipelineDemo`.
 #' 
 #' @examples
-#' NULL
+#' if (interactive()){
+#' library(MagellanNTK)
+#' data(lldata, package = 'MagellanNTK')
+#' path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
+#' shiny::runApp(proc_workflowApp("PipelineDemo_Save", path, dataIn = lldata))
+#' }
 #' 
 #' @importFrom QFeatures addAssay removeAssay
 #' @import DaparToolshed
 #' 
+NULL
 
+#' @rdname PipelineDemo
 #' @export
-#' @rdname PipelineDemo_Save
+#' 
 PipelineDemo_Save_conf <- function(){
   MagellanNTK::Config(
     fullname = 'PipelineDemo_Save',
@@ -17,17 +38,39 @@ PipelineDemo_Save_conf <- function(){
   )
 }
 
-
-
+#' @param id A `character(1)` which is the 'id' of the module.
+#' 
+#' @rdname PipelineDemo
+#' 
+#' @author Samuel Wieczorek, Manon Gaudin
+#' 
 #' @export
-#' @rdname PipelineDemo_Save
+#'
 PipelineDemo_Save_ui <- function(id){
   ns <- NS(id)
 }
 
-
+#' @param id A `character(1)` which is the 'id' of the module.
+#' @param dataIn An instance of the class `MultiAssayExperiment`.
+#' @param steps.enabled A vector of boolean which has the same length of the steps
+#' of the pipeline. This information is used to enable/disable the widgets. It is not
+#' a communication variable between the caller and this module, thus there is no
+#' corresponding output variable
+#' @param remoteReset It is a remote command to reset the module. A boolean that
+#' indicates if the pipeline has been reset by a program of higher level
+#' Basically, it is the program which has called this module
+#' @param steps.status A `logical()` which indicates the status of each step
+#' which can be either 'validated', 'undone' or 'skipped'. Enabled or disabled in the UI.
+#' @param current.pos A `integer(1)` which acts as a remote command to make
+#'  a step active in the timeline. Default is 1.
+#'
+#' @rdname PipelineDemo
+#' 
+#' @importFrom stats setNames rnorm
+#' @importFrom shinyjs useShinyjs
+#' 
 #' @export
-#' @rdname PipelineDemo_Save
+#' 
 PipelineDemo_Save_server <- function(id,
   dataIn = reactive({NULL}),
   steps.enabled = reactive({NULL}),
@@ -36,19 +79,26 @@ PipelineDemo_Save_server <- function(id,
   current.pos = reactive({1}),
   btnEvents = reactive({NULL})
 ){
- 
   # Define default selected values for widgets
   # By default, this list is empty for the Save module
   # but it can be customized
   widgets.default.values <- list()
+  
+  # Define default values for reactive values
+  # By default, this list is empty for the Save module
+  # but it can be customized
   rv.custom.default.values <- list()
   
-   moduleServer(id, function(input, output, session) {
+  ###########################################################################-
+  #
+  #----------------------------MODULE SERVER----------------------------------
+  #
+  ###########################################################################-
+  moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
-    # Insert necessary code which is hosted by MagellanNTK
-    # DO NOT MODIFY THIS LINE
-    
+    # Necessary code hosted by MagellanNTK
+    # DO NOT MODIFY THESE LINE
     core.code <- MagellanNTK::Get_Workflow_Core_Code(
       mode = 'process',
       name = id,
@@ -57,37 +107,51 @@ PipelineDemo_Save_server <- function(id,
     )
     
     eval(str2expression(core.code))
-
     
+    ###########################################################################-
+    #
+    #---------------------------------SAVE--------------------------------------
+    #
+    ###########################################################################-
+    output$Save <- renderUI({
+      # Find .Rmd file used to describe the step
+      file <- normalizePath(file.path(
+        system.file('workflow', package = 'MagellanNTK'),
+        unlist(strsplit(id, '_'))[1], 
+        'md', 
+        paste0(id, '.Rmd')))
+      
+      # Function for layout and display of widgets and plots for the step
+      MagellanNTK::process_layout(session,
+        ns = NS(id),
+        sidebar = tagList(),
+        content = tagList(
+          if (file.exists(file))
+            includeMarkdown(file)
+          else
+            p('No Description available')
+        )
+      )
+    })
+    
+    # To access data in the Save step without a Description step
     observeEvent(req(dataIn()), {
       rv$dataIn <- dataIn()
     })
     
-    
-    ###### ------------------- Code for Save (step 0) -------------------------    #####
-    output$Save <- renderUI({
-
-      MagellanNTK::process_layout(session,
-        ns = NS(id),
-        sidebar = tagList(),
-        content = tagList()
-      )
-    })
-
+    # oberveEvent runs when one of the "Run" buttons is clicked
     observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE, {
       req(grepl('Save', btnEvents()))
 
-        # DO NOT MODIFY THE THREE FOLLOWINF LINES
-        dataOut$trigger <- MagellanNTK::Timestamp()
-        dataOut$value <- rv$dataIn
-        rv$steps.status['Save'] <- MagellanNTK::stepStatus$VALIDATED
-      })
+      # DO NOT MODIFY THE THREE FOLLOWING LINES
+      dataOut$trigger <- MagellanNTK::Timestamp()
+      dataOut$value <- rv$dataIn
+      rv$steps.status['Save'] <- MagellanNTK::stepStatus$VALIDATED
+    })
 
-    
     # Insert necessary code which is hosted by MagellanNTK
     # DO NOT MODIFY THIS LINE
     eval(parse(text = MagellanNTK::Module_Return_Func()))
-    
   }
   )
 }

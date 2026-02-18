@@ -35,7 +35,7 @@ PipelineDemo_conf <- function(){
   MagellanNTK::Config(
     mode = 'pipeline',
     fullname = 'PipelineDemo',
-    steps = c('Process A', 'Process B', 'Process C'),
+    steps = c('DataGeneration', 'Preprocessing', 'Clustering'),
     mandatory = c(FALSE, TRUE, FALSE)
   )
 }

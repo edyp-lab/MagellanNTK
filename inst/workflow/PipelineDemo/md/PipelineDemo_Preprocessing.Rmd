@@ -1,0 +1,11 @@
+## Overview of `Preprocessing` from `PipelineDemo`
+
+The `Preprocessing` process consists of two steps : `Filtering` and `Normalization`.
+
+The `Filtering` step allows rows to be filtered based on the average or sum of their values.
+The user can specify the method (`Sum` or `Mean`), the operator and the value to use for the filtering
+and a plot displays the distribution of sum/mean row values in the dataset.
+
+
+The `Normalization` step allows columns to be normalized using the sum or average of the values in the column.
+The user can specify the method (`Sum` or `Mean`) and a plot displays a boxplot of the column values.

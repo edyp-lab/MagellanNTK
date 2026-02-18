@@ -1,15 +1,10 @@
-## Overview of 'PipelineDemo'
+## Overview of `PipelineDemo`
 
-This pipeline is a tpy example to demonstrate the behaviour and features of
-MagellanNTK.
+This pipeline is an example pipeline used to demonstrate the behavior and features of Magellan NTK.
 
-for more details, please view edyp-lab.github.io/MagellanNTK
+For more information, please visit [edyp-lab.github.io/MagellanNTK](https://edyp-lab.github.io/MagellanNTK/){target="_blank"}.
 
 
 In this example, all basic functions are set to their default values:
 `convert_dataset`, `open_dataset`, `open_demoDataset`, `view_dataset`, 
-`infos_dataset`
-
-
-`addDatasets`, `keepDatasets`
-
+`infos_dataset`, `addDatasets`, `keepDatasets`
