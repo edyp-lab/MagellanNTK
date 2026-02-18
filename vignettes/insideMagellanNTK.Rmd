@@ -422,7 +422,25 @@ configuration. Afin de respecter cette généricité, Magellan construit
 dynamiquement un certain nombre de fonctions et de variables à partir de
 la configuration des process et pipelines
 
-# Type of objects
+
+
+# Data structure
+
+
+
+Le dataset lldata fourni dans MagellanNTK ne contient qu'un SE nommé Convert
+qui correspond aux données initiales. C'est le dataset renvoyé par le module
+d'importation de données dans MagellanNTK.
+Si l'on va au bout du pipeline d'exemple PipelineDemo, le dataset final aura
+5 slots `SummarizedExperiment`, chacun d'eux étant le résultat obtenu par un
+process d'analyse.
+
+
+La fonction générique `convert_dataset()` est prévue pour être personnalisée et permettre
+d'importer des données dans le format `MultiAssayExperiment`. A noter que la 
+fonction par défaut n'effectue aucun traitement et n'est pas fonctionnelle.
+
+
 
 it is suitable for objects of type list for which the fundamental
 requirments are:

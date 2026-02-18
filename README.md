@@ -26,8 +26,8 @@ sont entièrement configurableS. MagellanNTK offre une gestion de workflow
 You can install the development version of MagellanNTK from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("pak")
-pak::pak("edyp-lab/MagellanNTK")
+# install.packages("devtools")
+devtools::install_github("edyp-lab/MagellanNTK")
 ```
 
   
@@ -56,18 +56,8 @@ devtools::install_github('edyp-lab/MagellanNTK')
 ## Using MagellanNTK
 
 
-MagellanNTK can be launched in two different modes: a 'user' mode and a 'dev' mode. 
-The 'user' mode is the default mode.
 
-```
-library(MagellanNTK)
-wf.name <- 'PipelineDemo'
-wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
-MagellanNTK(wf.path, wf.name)
-```
-
-
-# Launching a workflow
+**Launching a pipeline**
 
 ```
 library(MagellanNTK)
@@ -76,7 +66,7 @@ shiny::runApp(workflowApp("PipelineDemo_Process1", path, dataIn = lldata))
 
 ```
 
-# Launching a single process
+**Launching a single process**
 
 In the following example, on lance MAgellan avec seulement le process 
 'ProcessA'.

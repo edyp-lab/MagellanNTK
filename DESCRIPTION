@@ -8,7 +8,9 @@ Authors@R:
       email = "samuel.wieczorek@cea.fr", role = c("aut"),
       comment = c(ORCID="0000-0002-5016-1203")),
       person(given = "Thomas", family ="Burger",
-      email = "thomas.burger@cea.fr", role = c("aut"))
+      email = "thomas.burger@cea.fr", role = c("aut")),
+      person(given = "Manon", family ="Gaudin",
+      email = "manon.gaudin@cea.fr", role = c("aut"))
       )
 Description: Proteomics data often needs a series of statistical processes to 
     be analyzed. MagellanNTK (Magellan Navigation ToolKit) is a collection of Shiny 
