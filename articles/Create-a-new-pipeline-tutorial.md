@@ -48,31 +48,36 @@ please refer to xxx.
 
 ### Step ‘Description’
 
-![A process is a sequence of single tasks.](figs/Tools_Templates_1.png)
+![A process is a sequence of single
+tasks.](./figs/Tools_Templates_1.png)
 
 A process is a sequence of single tasks.
 
 ### Step ‘Create template’
 
-![A process is a sequence of single tasks.](figs/Tools_Templates_2.png)
+![A process is a sequence of single
+tasks.](./figs/Tools_Templates_2.png)
 
 A process is a sequence of single tasks.
 
 ### Step ‘Custom dataset functions’
 
-![A process is a sequence of single tasks.](figs/Tools_Templates_3.png)
+![A process is a sequence of single
+tasks.](./figs/Tools_Templates_3.png)
 
 A process is a sequence of single tasks.
 
 ### Step ‘Configure steps’
 
-![A process is a sequence of single tasks.](figs/Tools_Templates_4.png)
+![A process is a sequence of single
+tasks.](./figs/Tools_Templates_4.png)
 
 A process is a sequence of single tasks.
 
 ### Step ‘Save’
 
-![A process is a sequence of single tasks.](figs/Tools_Templates_5.png)
+![A process is a sequence of single
+tasks.](./figs/Tools_Templates_5.png)
 
 A process is a sequence of single tasks.
 

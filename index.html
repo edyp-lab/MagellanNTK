@@ -62,7 +62,7 @@
 
 <p>Le package MagellanNTK est un moteur de gestion de workflows qui permet d’exécuter une série de process d’analyses sur des jeux de données. Il contient des fonctions génériques d’entrée/sortie de dataset qui sont adaptées à des formats de données de type list.</p>
 <p>Pour utiliser les fonctionnalités de MagellanNTK, il est nécessaire d’utiliser des workflows soit enregistrés sur l’ordinateur, soit disponibles dans un package</p>
-<p>La principale puissance de ce package est que ces fonctions sont entièrement configurableI</p>
+<p>La principale puissance de ce package est que ces fonctions natives sont entièrement configurableS. MagellanNTK offre une gestion de workflow</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -70,14 +70,6 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"edyp-lab/MagellanNTK"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
-</h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK</a></span><span class="op">)</span></span>
-<span><span class="co">## basic example code</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level1">
@@ -96,40 +88,26 @@
 </h2>
 <p>MagellanNTK can be launched in two different modes: a ‘user’ mode and a ‘dev’ mode. The ‘user’ mode is the default mode.</p>
 <pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">lldata.rda</span>, package <span class="op">=</span> <span class="st">'MagellanNTK'</span><span class="op">)</span></span>
 <span><span class="va">wf.name</span> <span class="op">&lt;-</span> <span class="st">'PipelineDemo'</span></span>
 <span><span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineDemo'</span>, package <span class="op">=</span> <span class="st">'MagellanNTK'</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">lldata</span>, <span class="va">wf.path</span>, <span class="va">wf.name</span><span class="op">)</span></span></code></pre>
+<span><span class="fu"><a href="reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">wf.path</span>, <span class="va">wf.name</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
 <div class="section level1">
-<h1 id="launching-one-workflow">Launching one workflow<a class="anchor" aria-label="anchor" href="#launching-one-workflow"></a>
+<h1 id="launching-a-workflow">Launching a workflow<a class="anchor" aria-label="anchor" href="#launching-a-workflow"></a>
 </h1>
 <pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK</a></span><span class="op">)</span></span>
 <span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineDemo'</span>, package <span class="op">=</span> <span class="st">'MagellanNTK'</span><span class="op">)</span></span>
 <span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="fu">workflowApp</span><span class="op">(</span><span class="st">"PipelineDemo_Process1"</span>, <span class="va">path</span>, dataIn <span class="op">=</span> <span class="va">lldata</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level1">
-<h1 id="list-of-articles">List of articles<a class="anchor" aria-label="anchor" href="#list-of-articles"></a>
+<h1 id="launching-a-single-process">Launching a single process<a class="anchor" aria-label="anchor" href="#launching-a-single-process"></a>
 </h1>
-<ul>
-<li>In the menu ‘Get started’, xxxx</li>
-<li>‘Articles &gt; Create a pipeline’: for developers</li>
-<li>‘Articles &gt; Create a process’: for developers</li>
-<li>
-</li>
-</ul>
-</div>
-<div class="section level1">
-<h1 id="future-developments">Future developments<a class="anchor" aria-label="anchor" href="#future-developments"></a>
-</h1>
-<ul>
-<li>Generalize Magellan for more than two levels,</li>
-<li>implements a shiny app to help users to develop a module process</li>
-<li>Integrate synctatic analyzers for modules</li>
-</ul>
+<p>In the following example, on lance MAgellan avec seulement le process ‘ProcessA’.</p>
+<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK</a></span><span class="op">)</span></span>
+<span><span class="va">wf.name</span> <span class="op">&lt;-</span> <span class="st">'PipelineDemo_ProcessA'</span></span>
+<span><span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineDemo'</span>, package <span class="op">=</span> <span class="st">'MagellanNTK'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">wf.path</span>, <span class="va">wf.name</span><span class="op">)</span></span></code></pre>
 </div>
 
   </main><aside class="col-md-3"><div class="links">

@@ -68,7 +68,7 @@ nomenclature.
 MagellanNTK cannot be run alone, it is always run with a package which
 contains the information about the steps to manage.
 
-![UI process](figs/globalArch.png)
+![UI process](./figs/globalArch.png)
 
 UI process
 
@@ -108,9 +108,51 @@ will occur. When a module is integrated, its specialized functions are
 launched and the replace the generic functions in MagellanNTK. This
 continues the spirit of dynamic workflow building.
 
+convert_dataset. Ceci est un module Shiny qui est affiché dans la barre
+latérale de Prostar (Sous Dataset) et qui permet la conversion de
+données d’un format vers un format compatible avec Prostar. Par défaut,
+ce module est vide.
+
+open_dataset. Propose une interface pour choisir et ouvrir un dataset
+enregistrée dans un format compatible avec MagelllanNTK. Le module par
+défaut propose deux possibilités: \* Example dataset: ouvre les jeux de
+données d’exemple de MagellanNTK \* Custom dataset: permet de
+sélectioner et d’ouvrir un fichier stocké ailleurs
+
+download_dataset: Intefrace pour exporter le dataset courant. Par
+défaut, le format proposé est le `.rdata`.
+
+Il existe une fonctionnalité qui permet d’affiche une fenêtre modale
+contenant 3 onglets appelés respe tivement infos_dataset,
+history_dataset et view_dataset. Le contenu de ces onglets est un module
+Shiny personnalisable. Par défaut:
+
+- infos_dataset. affiche des informations basiques
+
+- history_dataset. affiche l’historique enregistré dans le dernier assay
+  du jeu de données
+
+- view_dataset: NA
+
+export_dataset
+
+build_report
+
+addDatasets
+
+keepDatasets
+
+InitializeHistory
+
+Add2History
+
+GetHistory
+
+SetHistory = “MagellanNTK::SetHistory”
+
 ## Workflows hierarchy
 
-For e more details on our definitions of workflows, processes,
+For a more details on our definitions of workflows, processes,
 pipelines, please refer to the User manual of MagellanNTK.
 
 One will consider here process and pipelines levels. One consider the
@@ -122,7 +164,7 @@ name composed of the name of the pipeline it belongs to and its own
 name. For example, ‘Pipeline A’ will be identified by ‘PipelineA’, and
 the process 2 of this pipeline is identified by ‘PipelineA_Process2’.
 
-![UI process](figs/hierarchy_funcs.png)
+![UI process](./figs/hierarchy_funcs.png)
 
 UI process
 

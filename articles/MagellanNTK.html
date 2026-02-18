@@ -65,7 +65,7 @@ Wieczorek</h4>
                                     <h4 data-toc-skip class="author">Thomas
 Burger</h4>
                         
-            <h4 data-toc-skip class="date">2026-02-17</h4>
+            <h4 data-toc-skip class="date">February 18, 2026</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/edyp-lab/MagellanNTK/blob/main/vignettes/MagellanNTK.Rmd" class="external-link"><code>vignettes/MagellanNTK.Rmd</code></a></small>
       <div class="d-none name"><code>MagellanNTK.Rmd</code></div>
@@ -111,44 +111,75 @@ MagellanNTK, it is advised to see the xxx.</p>
 </ul>
 </div>
 <div class="section level2">
+<h2 id="fonctionnalites-principales">Fonctionnalites principales<a class="anchor" aria-label="anchor" href="#fonctionnalites-principales"></a>
+</h2>
+<p>MagellanNTK est un workflow manager hautement configurable qui
+propose un gestionnaire de workflow qualitatif et qui suit une stratégie
+simple mais robuste. Il permet de travailler avec des données au format
+<code>MultiAssayExperiment</code> ainsi que celles qui en sont dérivées
+(Ex : <code>QFeatures</code>). De ce fait, il peut traiter et analyser
+bon nombre de données expérimentales</p>
+<p>Les workflows utilisés avec MagellanNTK sont des scripts R sous forme
+de modules Shiny qui viennent alimenter le datamanager. La structure de
+ces workflows est décrite dans le document nxxx</p>
+<p>Par ailleurs, MagellanNTK permet de personnaliser un ensemble de
+fonctions natives dans ce framework (voir le document Inside
+MagellanNTK)</p>
+</div>
+<div class="section level2">
 <h2 id="installing-and-launching-magellanntk">Installing and launching MagellanNTK<a class="anchor" aria-label="anchor" href="#installing-and-launching-magellanntk"></a>
 </h2>
-<p>This is described in the README.</p>
+<p>This is described in the README file.</p>
 </div>
 <div class="section level2">
 <h2 id="discovering-magellanntk">Discovering MagellanNTK<a class="anchor" aria-label="anchor" href="#discovering-magellanntk"></a>
 </h2>
-<p>The package MagellanNTK is based on the <code>shinydashboard</code>
-package. In that sense, the user interface is composed of four
-parts:</p>
+<p>The package MagellanNTK is essentiellement based on the
+<code>shinydashboard</code> package. et a été adapté pour le simplifier.
+The user interface is composed of two parts:</p>
 <ul>
-<li>Sidebar</li>
-<li>Control bar</li>
-<li>Header panel</li>
-<li>Main part</li>
+<li>Sidebar on the left qui contient les menus généraux</li>
+<li>Main part qui permet d’afficher le workflow manager</li>
 </ul>
-<div class="section level3">
-<h3 id="user-interface">User interface<a class="anchor" aria-label="anchor" href="#user-interface"></a>
-</h3>
+<p>Par rapport au dashboard proposé par le package
+<code>shinydashboard</code>, le header et la barre de contrôle sur la
+droite ont été supprimés.</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/MagellanNTK_annote.png" class="r-plt" alt="A single task composed of data analysis functions and user interface." width="50%" style="border-style: solid;"><p class="caption">
+<img src="./figs/MagellanNTK_annote.png" class="r-plt" alt="A single task composed of data analysis functions and user interface." width="50%" style="border-style: solid;"><p class="caption">
 A single task composed of data analysis functions and user interface.
 </p>
-</div>
 </div>
 </div>
 <div class="section level3">
 <h3 id="sidebar">Sidebar<a class="anchor" aria-label="anchor" href="#sidebar"></a>
 </h3>
-</div>
-<div class="section level3">
-<h3 id="control-bar">Control bar<a class="anchor" aria-label="anchor" href="#control-bar"></a>
-</h3>
-<p>The control bar contains features to control the global behaviour of
-the interface.</p>
-<p>Console: A clikc on that link open the browser() in the R console
-which</p>
+<p>La barré latérale à gauche contient les menus principaux. Elle se
+développe au passage du pointeur de la souris dessus et se retracte
+sinon. Les différents menus sont le ssuivants:</p>
+<ul>
+<li>Dataset:
+<ul>
+<li>Open file:</li>
+<li>import:</li>
+<li>Save as: Affiche le module appelé <code>download_dataset</code> qui
+permet d’exporter le dataset courant. Le module natif de MagellanNTK
+permet l’exportation au format .rdata. Ce module fait partie des modules
+configurables</li>
+</ul>
+</li>
+<li>Workflow:
+<ul>
+<li>Run: permet d’accéder à l’interface du datamanager. Cette interface
+est affichée même s’il n’y a pas de dataset mais à ce moment la, tous
+les widgets sont désactivés. Ils sont activés suivant la logique
+implémentée dans ce gestionnaire</li>
+<li>FAQ: Opens a Rmd file for FAQ. This file must be stored in the
+<code>md</code> directory whithin the folder a the workflow</li>
+<li>x: xxx</li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="section level3">
 <h3 id="header-panel">Header panel<a class="anchor" aria-label="anchor" href="#header-panel"></a>
@@ -157,6 +188,21 @@ which</p>
 <div class="section level3">
 <h3 id="main-part">Main part<a class="anchor" aria-label="anchor" href="#main-part"></a>
 </h3>
+<p>La partie centrale comprend trois espaces dédiés:</p>
+<ul>
+<li>La partie en haut qui comprend trois boutons de navigation (‘Backto
+start’, ‘Previous step’ and ‘Next Step’) et une timeline qui correspond
+à la succesion des étapes d’un pipeline.</li>
+<li>En dessous, se trouve la partie réservée aux processes et elle est
+également divisée en deux. Sur la gauche, une “sidebar” affiche
+<ul>
+<li>les boutons de navigatino ainsi qu’un bouton Reset</li>
+<li>la timeline (verticale) propre aux process</li>
+<li>l’ensemble des paramètres à ajuster dans le process Sur le reste de
+l’écran s’affichent les données relatives au process courant.</li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="section level3">
 <h3 id="builtin-functions">Builtin functions<a class="anchor" aria-label="anchor" href="#builtin-functions"></a>
@@ -198,7 +244,7 @@ object as output. Within MagellanNTK, those objects are <em>lists</em>
 in which each item is a dataset (several formats are possible).</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/singleTask.png" class="r-plt" alt="A single task composed of data analysis functions and user interface." width="50%" style="border-style: solid;"><p class="caption">
+<img src="./figs/singleTask.png" class="r-plt" alt="A single task composed of data analysis functions and user interface." width="50%" style="border-style: solid;"><p class="caption">
 A single task composed of data analysis functions and user interface.
 </p>
 </div>
@@ -217,7 +263,7 @@ applications and embed the functions and UI of each of their single
 tasks.</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/process.png" class="r-plt" alt="A process is a sequence of single tasks." width="100%"><p class="caption">
+<img src="./figs/process.png" class="r-plt" alt="A process is a sequence of single tasks." width="100%"><p class="caption">
 A process is a sequence of single tasks.
 </p>
 </div>
@@ -272,7 +318,7 @@ at output</p></li>
 <p>As shown in xxx, a pipeline is at third level of such a
 structure.</p>
 <div class="figure" style="text-align: center">
-<img src="figs/pipeline.png" class="r-plt" alt="A pipeline is a sequence of processes (eclated view)." width="100%"><p class="caption">
+<img src="./figs/pipeline.png" class="r-plt" alt="A pipeline is a sequence of processes (eclated view)." width="100%"><p class="caption">
 A pipeline is a sequence of processes (eclated view).
 </p>
 </div>
@@ -281,11 +327,20 @@ A pipeline is a sequence of processes (eclated view).
 <h3 id="rules-of-navigation">Rules of navigation<a class="anchor" aria-label="anchor" href="#rules-of-navigation"></a>
 </h3>
 <p>Some rules are applied to a workflow to guarantee the global strategy
-of the workflow. This point is important to understand the possibilities
-of navigation with MagellanNTK.</p>
+of the workflow and the quality of the analysis process. This point is
+important to understand the possibilities of navigation with
+MagellanNTK.</p>
+<div class="section level4">
+<h4 id="load-of-a-new-dataset">Load of a new dataset<a class="anchor" aria-label="anchor" href="#load-of-a-new-dataset"></a>
+</h4>
 <p><strong>Start workflow at the beginning</strong>. When launching a
 workflow, the first task is the only enabled task. This guarantees to
-always start from the first one.</p>
+always start from the first one. A workflow démarre toujours sur l’étape
+de Description qui permet de donner des onformations sur la suite grâce
+à un fichier Rmd. Dans la timeline du pipeline, l’icone de cette étape
+est affichée en vert car on a un historique (celui de la conversion des
+données originales en dataset compatible avec MagellanNTK).
+L’utilisateur</p>
 <p><strong>One way direction</strong>. The order in which tasks are
 executed is in one direction: tasks are executed from the first one
 towards the last one. Each iteration of time is a xxx. It is not
@@ -318,8 +373,9 @@ is useful if one wants to see/discover the content of next steps or to
 remind the values set in the previous widgets.</p>
 </div>
 </div>
+</div>
 <div class="section level2">
-<h2 id="user-interface-1">User interface<a class="anchor" aria-label="anchor" href="#user-interface-1"></a>
+<h2 id="user-interface">User interface<a class="anchor" aria-label="anchor" href="#user-interface"></a>
 </h2>
 <div class="section level3">
 <h3 id="layout">Layout<a class="anchor" aria-label="anchor" href="#layout"></a>
@@ -347,7 +403,7 @@ Process 1, Process 2 and Process 3). Remark that the content of the UI
 area of the pipeline is exactly the whole UI of its current process
 (e.g. in Fig @ref(fig:layout)).</p>
 <div class="figure" style="text-align: center">
-<img src="figs/layout.png" class="r-plt" alt="(a) Horizontal layout, (b) Vertical layout" width="100%"><p class="caption">
+<img src="./figs/layout.png" class="r-plt" alt="(a) Horizontal layout, (b) Vertical layout" width="100%"><p class="caption">
 </p>
 <ol style="list-style-type: lower-alpha"><li>Horizontal layout, (b) Vertical layout
 
@@ -372,7 +428,7 @@ widgets of this step are enabled (as well as the Perform button). In the
 contrary, a bullet that is disabled means that all the widgets and the
 ‘Perform’ button in the UI are disabled.</p>
 <div class="figure" style="text-align: center">
-<img src="figs/timeline.png" class="r-plt" alt="Timeline example." width="100%"><p class="caption">
+<img src="./figs/timeline.png" class="r-plt" alt="Timeline example." width="100%"><p class="caption">
 Timeline example.
 </p>
 </div>
@@ -431,7 +487,7 @@ name of the step.</p>
 <p>Three buttons are available to interact with the whole current step
 and navigate through the different steps of the process:</p>
 <div class="figure" style="text-align: center">
-<img src="figs/commands.png" class="r-plt" alt="Commands (Previous step, Reset workflow, Next step." width="50%"><p class="caption">
+<img src="./figs/commands.png" class="r-plt" alt="Commands (Previous step, Reset workflow, Next step." width="50%"><p class="caption">
 Commands (Previous step, Reset workflow, Next step.
 </p>
 </div>
@@ -485,7 +541,7 @@ yet disabled (this is because th Description step is mandatory and none
 of the further steps is enabled until this steps is validated).</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/demo_1.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
+<img src="./figs/demo_1.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -494,7 +550,7 @@ UI process
 if they are disabled (Fig @ref(fig:demo12)).</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/demo_1_2.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
+<img src="./figs/demo_1_2.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -513,7 +569,7 @@ a non-validated mandatory step.</p></li>
 </ul>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/demo_1_3.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
+<img src="./figs/demo_1_3.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -523,7 +579,7 @@ UI process
 becomes the new current step (Fig @ref(fig:demo2)).</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/demo_2.png" class="r-plt" alt="New current step" width="100%"><p class="caption">
+<img src="./figs/demo_2.png" class="r-plt" alt="New current step" width="100%"><p class="caption">
 New current step
 </p>
 </div>
@@ -534,7 +590,7 @@ the ‘Next’ button. The user set it own values to the widgets and then
 validate his choices by clicking on the button ‘Perform’.</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/demo_3.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
+<img src="./figs/demo_3.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -563,7 +619,7 @@ processes. We will see that the workflows for pipelines are a bit more
 flexible.</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/demo_3_3.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
+<img src="./figs/demo_3_3.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -576,7 +632,7 @@ appending the new dataset to the list of datasets passed as input to the
 workflow.</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/demo_4.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
+<img src="./figs/demo_4.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -595,7 +651,7 @@ step. A popup warns the user of the effects (Fig
 @ref(fig:demoreset)).</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/demo_reset.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
+<img src="./figs/demo_reset.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -625,14 +681,14 @@ have any steps besides a Description one. This is an exception to the
 rule that any process have at least one real step.</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/demo_pipeline_1.png" class="r-plt" alt="UI process2" width="100%"><p class="caption">
+<img src="./figs/demo_pipeline_1.png" class="r-plt" alt="UI process2" width="100%"><p class="caption">
 UI process2
 </p>
 </div>
 </div>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/demo_pipeline_1_3.png" class="r-plt" alt="UI process3" width="100%"><p class="caption">
+<img src="./figs/demo_pipeline_1_3.png" class="r-plt" alt="UI process3" width="100%"><p class="caption">
 UI process3
 </p>
 </div>
@@ -644,7 +700,7 @@ validate the Process2. Once done, the bullet for Process2 will change to
 the same behaviour as for processes workflows.</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/demo_pipeline_5.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
+<img src="./figs/demo_pipeline_5.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>

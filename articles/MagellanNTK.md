@@ -36,39 +36,81 @@ To go further in technical details, please refer to:
 
 - Inside MagellanNTK
 
+## Fonctionnalites principales
+
+MagellanNTK est un workflow manager hautement configurable qui propose
+un gestionnaire de workflow qualitatif et qui suit une stratégie simple
+mais robuste. Il permet de travailler avec des données au format
+`MultiAssayExperiment` ainsi que celles qui en sont dérivées (Ex :
+`QFeatures`). De ce fait, il peut traiter et analyser bon nombre de
+données expérimentales
+
+Les workflows utilisés avec MagellanNTK sont des scripts R sous forme de
+modules Shiny qui viennent alimenter le datamanager. La structure de ces
+workflows est décrite dans le document nxxx
+
+Par ailleurs, MagellanNTK permet de personnaliser un ensemble de
+fonctions natives dans ce framework (voir le document Inside
+MagellanNTK)
+
 ## Installing and launching MagellanNTK
 
-This is described in the README.
+This is described in the README file.
 
 ## Discovering MagellanNTK
 
-The package MagellanNTK is based on the `shinydashboard` package. In
-that sense, the user interface is composed of four parts:
+The package MagellanNTK is essentiellement based on the `shinydashboard`
+package. et a été adapté pour le simplifier. The user interface is
+composed of two parts:
 
-- Sidebar
-- Control bar
-- Header panel
-- Main part
+- Sidebar on the left qui contient les menus généraux
+- Main part qui permet d’afficher le workflow manager
 
-### User interface
+Par rapport au dashboard proposé par le package `shinydashboard`, le
+header et la barre de contrôle sur la droite ont été supprimés.
 
 ![A single task composed of data analysis functions and user
-interface.](figs/MagellanNTK_annote.png)
+interface.](./figs/MagellanNTK_annote.png)
 
 A single task composed of data analysis functions and user interface.
 
 ### Sidebar
 
-### Control bar
+La barré latérale à gauche contient les menus principaux. Elle se
+développe au passage du pointeur de la souris dessus et se retracte
+sinon. Les différents menus sont le ssuivants:
 
-The control bar contains features to control the global behaviour of the
-interface.
-
-Console: A clikc on that link open the browser() in the R console which
+- Dataset:
+  - Open file:
+  - import:
+  - Save as: Affiche le module appelé `download_dataset` qui permet
+    d’exporter le dataset courant. Le module natif de MagellanNTK permet
+    l’exportation au format .rdata. Ce module fait partie des modules
+    configurables
+- Workflow:
+  - Run: permet d’accéder à l’interface du datamanager. Cette interface
+    est affichée même s’il n’y a pas de dataset mais à ce moment la,
+    tous les widgets sont désactivés. Ils sont activés suivant la
+    logique implémentée dans ce gestionnaire
+  - FAQ: Opens a Rmd file for FAQ. This file must be stored in the `md`
+    directory whithin the folder a the workflow
+  - x: xxx
 
 ### Header panel
 
 ### Main part
+
+La partie centrale comprend trois espaces dédiés:
+
+- La partie en haut qui comprend trois boutons de navigation (‘Backto
+  start’, ‘Previous step’ and ‘Next Step’) et une timeline qui
+  correspond à la succesion des étapes d’un pipeline.
+- En dessous, se trouve la partie réservée aux processes et elle est
+  également divisée en deux. Sur la gauche, une “sidebar” affiche
+  - les boutons de navigatino ainsi qu’un bouton Reset
+  - la timeline (verticale) propre aux process
+  - l’ensemble des paramètres à ajuster dans le process Sur le reste de
+    l’écran s’affichent les données relatives au process courant.
 
 ### Builtin functions
 
@@ -107,7 +149,7 @@ object as output. Within MagellanNTK, those objects are *lists* in which
 each item is a dataset (several formats are possible).
 
 ![A single task composed of data analysis functions and user
-interface.](figs/singleTask.png)
+interface.](./figs/singleTask.png)
 
 A single task composed of data analysis functions and user interface.
 
@@ -124,7 +166,7 @@ defines here a *process*. Processes are implemented as Shiny
 applications and embed the functions and UI of each of their single
 tasks.
 
-![A process is a sequence of single tasks.](figs/process.png)
+![A process is a sequence of single tasks.](./figs/process.png)
 
 A process is a sequence of single tasks.
 
@@ -182,19 +224,27 @@ works will be very similar to a process behaviour:
 As shown in xxx, a pipeline is at third level of such a structure.
 
 ![A pipeline is a sequence of processes (eclated
-view).](figs/pipeline.png)
+view).](./figs/pipeline.png)
 
 A pipeline is a sequence of processes (eclated view).
 
 ### Rules of navigation
 
 Some rules are applied to a workflow to guarantee the global strategy of
-the workflow. This point is important to understand the possibilities of
-navigation with MagellanNTK.
+the workflow and the quality of the analysis process. This point is
+important to understand the possibilities of navigation with
+MagellanNTK.
+
+#### Load of a new dataset
 
 **Start workflow at the beginning**. When launching a workflow, the
 first task is the only enabled task. This guarantees to always start
-from the first one.
+from the first one. A workflow démarre toujours sur l’étape de
+Description qui permet de donner des onformations sur la suite grâce à
+un fichier Rmd. Dans la timeline du pipeline, l’icone de cette étape est
+affichée en vert car on a un historique (celui de la conversion des
+données originales en dataset compatible avec MagellanNTK).
+L’utilisateur
 
 **One way direction**. The order in which tasks are executed is in one
 direction: tasks are executed from the first one towards the last one.
@@ -259,7 +309,7 @@ Process 1, Process 2 and Process 3). Remark that the content of the UI
 area of the pipeline is exactly the whole UI of its current process
 (e.g. in Fig @ref(fig:layout)).
 
-![(a) Horizontal layout, (b) Vertical layout](figs/layout.png)
+![(a) Horizontal layout, (b) Vertical layout](./figs/layout.png)
 
 1.  Horizontal layout, (b) Vertical layout
 
@@ -279,7 +329,7 @@ step are enabled (as well as the Perform button). In the contrary, a
 bullet that is disabled means that all the widgets and the ‘Perform’
 button in the UI are disabled.
 
-![Timeline example.](figs/timeline.png)
+![Timeline example.](./figs/timeline.png)
 
 Timeline example.
 
@@ -300,7 +350,7 @@ Three buttons are available to interact with the whole current step and
 navigate through the different steps of the process:
 
 ![Commands (Previous step, Reset workflow, Next
-step.](figs/commands.png)
+step.](./figs/commands.png)
 
 Commands (Previous step, Reset workflow, Next step.
 
@@ -354,14 +404,14 @@ one (‘Description’) and is enabled. At this time, the other steps are
 yet disabled (this is because th Description step is mandatory and none
 of the further steps is enabled until this steps is validated).
 
-![UI process](figs/demo_1.png)
+![UI process](./figs/demo_1.png)
 
 UI process
 
 However, it is possible to view the content of the other steps even if
 they are disabled (Fig @ref(fig:demo12)).
 
-![UI process](figs/demo_1_2.png)
+![UI process](./figs/demo_1_2.png)
 
 UI process
 
@@ -379,7 +429,7 @@ The validation of the step (See Fig @(ref-fig:demo13) (by a click on the
   ‘Step 2’ are enabled but not the step ‘Save’ because it is placed
   after a non-validated mandatory step.
 
-![UI process](figs/demo_1_3.png)
+![UI process](./figs/demo_1_3.png)
 
 UI process
 
@@ -388,7 +438,7 @@ UI process
 The user switches to ‘Step 1’ by clicking on the ‘Next’ button. It
 becomes the new current step (Fig @ref(fig:demo2)).
 
-![New current step](figs/demo_2.png)
+![New current step](./figs/demo_2.png)
 
 New current step
 
@@ -397,7 +447,7 @@ In this use case, one skip this step. The user do not click on the
 the ‘Next’ button. The user set it own values to the widgets and then
 validate his choices by clicking on the button ‘Perform’.
 
-![UI process](figs/demo_3.png)
+![UI process](./figs/demo_3.png)
 
 UI process
 
@@ -426,7 +476,7 @@ workflow and start it again from scratch. This is only true for
 processes. We will see that the workflows for pipelines are a bit more
 flexible.
 
-![UI process](figs/demo_3_3.png)
+![UI process](./figs/demo_3_3.png)
 
 UI process
 
@@ -437,7 +487,7 @@ step). It is time to save th result of the workflow by clicking on the
 ‘Save’ button (Fig @ref(Fig:demo4)). This will result in appending the
 new dataset to the list of datasets passed as input to the workflow.
 
-![UI process](figs/demo_4.png)
+![UI process](./figs/demo_4.png)
 
 UI process
 
@@ -455,7 +505,7 @@ user launches the workflow). The list of datasets return to the one at
 the beginning of the workflow. The reset can be done on every step. A
 popup warns the user of the effects (Fig @ref(fig:demoreset)).
 
-![UI process](figs/demo_reset.png)
+![UI process](./figs/demo_reset.png)
 
 UI process
 
@@ -487,11 +537,11 @@ Note that the process called ‘Description’ of a pipeline does not have
 any steps besides a Description one. This is an exception to the rule
 that any process have at least one real step.
 
-![UI process2](figs/demo_pipeline_1.png)
+![UI process2](./figs/demo_pipeline_1.png)
 
 UI process2
 
-![UI process3](figs/demo_pipeline_1_3.png)
+![UI process3](./figs/demo_pipeline_1_3.png)
 
 UI process3
 
@@ -501,7 +551,7 @@ validate the Process2. Once done, the bullet for Process2 will change to
 ‘Done’ and the bullet for ‘Process1’ will change to ‘skipped’. One have
 the same behaviour as for processes workflows.
 
-![UI process](figs/demo_pipeline_5.png)
+![UI process](./figs/demo_pipeline_5.png)
 
 UI process
 

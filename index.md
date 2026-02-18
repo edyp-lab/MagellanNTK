@@ -9,8 +9,8 @@ Pour utiliser les fonctionnalités de MagellanNTK, il est nécessaire
 d’utiliser des workflows soit enregistrés sur l’ordinateur, soit
 disponibles dans un package
 
-La principale puissance de ce package est que ces fonctions sont
-entièrement configurableI
+La principale puissance de ce package est que ces fonctions natives sont
+entièrement configurableS. MagellanNTK offre une gestion de workflow
 
 ## Installation
 
@@ -20,15 +20,6 @@ You can install the development version of MagellanNTK from
 ``` r
 # install.packages("pak")
 pak::pak("edyp-lab/MagellanNTK")
-```
-
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-``` r
-library(MagellanNTK)
-## basic example code
 ```
 
 # MagellanNTK
@@ -56,28 +47,22 @@ MagellanNTK can be launched in two different modes: a ‘user’ mode and a
 ‘dev’ mode. The ‘user’ mode is the default mode.
 
     library(MagellanNTK)
-
-    data(lldata.rda, package = 'MagellanNTK')
     wf.name <- 'PipelineDemo'
     wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
+    MagellanNTK(wf.path, wf.name)
 
-    MagellanNTK(lldata, wf.path, wf.name)
-
-# Launching one workflow
+# Launching a workflow
 
     library(MagellanNTK)
     path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
     shiny::runApp(workflowApp("PipelineDemo_Process1", path, dataIn = lldata))
 
-# List of articles
+# Launching a single process
 
-- In the menu ‘Get started’, xxxx
-- ‘Articles \> Create a pipeline’: for developers
-- ‘Articles \> Create a process’: for developers
-- 
+In the following example, on lance MAgellan avec seulement le process
+‘ProcessA’.
 
-# Future developments
-
-- Generalize Magellan for more than two levels,
-- implements a shiny app to help users to develop a module process
-- Integrate synctatic analyzers for modules
+    library(MagellanNTK)
+    wf.name <- 'PipelineDemo_ProcessA'
+    wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
+    MagellanNTK(wf.path, wf.name)

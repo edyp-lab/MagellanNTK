@@ -1,31 +1,35 @@
-# Get the last validated step before current position.
+# Standardize names
 
-This function returns the indice of the last validated step before the
-current step.
+Standardize names
 
 ## Usage
 
 ``` r
-SetHistory(obj, history)
+SetHistory(obj.se, history)
 ```
 
 ## Arguments
 
-- obj:
+- obj.se:
 
-  The dataset managed by MagellanNTK
+  An instance of the class \`SummarizedExperiment\`
 
 - history:
 
   A \`data.frame()\`
 
-## Value
+## Author
 
-A The dataset managed by MagellanNTK
+Samuel Wieczorek
 
 ## Examples
 
 ``` r
-NULL
-#> NULL
+data(lldata)
+history <- GetHistory(lldata, 1)
+#> Loading required namespace: MultiAssayExperiment
+#> Warning: replacing previous import ‘S4Arrays::makeNindexFromArrayViewport’ by ‘DelayedArray::makeNindexFromArrayViewport’ when loading ‘SummarizedExperiment’
+history <- rbind(history, c('Example', 'Step Ex', 'ex_param', 'Ex'))
+lldata[[1]] <- SetHistory(lldata[[1]], history)
+#> Warning: 'experiments' dropped; see 'drops()'
 ```

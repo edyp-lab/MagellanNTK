@@ -52,7 +52,7 @@ readConfigFile(path)
 #> [1] "MagellanNTK::open_dataset"
 #> 
 #> $funcs$open_demoDataset
-#> [1] "MagellanNTK::open_demoDataset"
+#> NULL
 #> 
 #> $funcs$view_dataset
 #> [1] "MagellanNTK::view_dataset"

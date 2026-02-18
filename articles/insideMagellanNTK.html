@@ -60,12 +60,12 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Inside MagellanNTK</h1>
-            <h3 data-toc-skip class="subtitle">A developer’s
-guideline</h3>
+            <h3 data-toc-skip class="subtitle">A guideline for advanced
+users</h3>
                         <h4 data-toc-skip class="author">Samuel
 Wieczorek</h4>
             
-            <h4 data-toc-skip class="date">February 17, 2026</h4>
+            <h4 data-toc-skip class="date">February 18, 2026</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/edyp-lab/MagellanNTK/blob/main/vignettes/insideMagellanNTK.Rmd" class="external-link"><code>vignettes/insideMagellanNTK.Rmd</code></a></small>
       <div class="d-none name"><code>insideMagellanNTK.Rmd</code></div>
@@ -143,7 +143,7 @@ nomenclature.</p>
 which contains the information about the steps to manage.</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/globalArch.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
+<img src="./figs/globalArch.png" class="r-plt" alt="UI process" width="100%"><p class="caption">
 UI process
 </p>
 </div>
@@ -186,12 +186,41 @@ MagellanNTK have to provide such functions. In the contrary, an error
 will occur. When a module is integrated, its specialized functions are
 launched and the replace the generic functions in MagellanNTK. This
 continues the spirit of dynamic workflow building.</p>
+<p>convert_dataset. Ceci est un module Shiny qui est affiché dans la
+barre latérale de Prostar (Sous Dataset) et qui permet la conversion de
+données d’un format vers un format compatible avec Prostar. Par défaut,
+ce module est vide.</p>
+<p>open_dataset. Propose une interface pour choisir et ouvrir un dataset
+enregistrée dans un format compatible avec MagelllanNTK. Le module par
+défaut propose deux possibilités: * Example dataset: ouvre les jeux de
+données d’exemple de MagellanNTK * Custom dataset: permet de sélectioner
+et d’ouvrir un fichier stocké ailleurs</p>
+<p>download_dataset: Intefrace pour exporter le dataset courant. Par
+défaut, le format proposé est le <code>.rdata</code>.</p>
+<p>Il existe une fonctionnalité qui permet d’affiche une fenêtre modale
+contenant 3 onglets appelés respe tivement infos_dataset,
+history_dataset et view_dataset. Le contenu de ces onglets est un module
+Shiny personnalisable. Par défaut:</p>
+<ul>
+<li><p>infos_dataset. affiche des informations basiques</p></li>
+<li><p>history_dataset. affiche l’historique enregistré dans le dernier
+assay du jeu de données</p></li>
+<li><p>view_dataset: NA</p></li>
+</ul>
+<p>export_dataset</p>
+<p>build_report</p>
+<p>addDatasets</p>
+<p>keepDatasets</p>
+<p>InitializeHistory</p>
+<p>Add2History</p>
+<p>GetHistory</p>
+<p>SetHistory = “MagellanNTK::SetHistory”</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="workflows-hierarchy">Workflows hierarchy<a class="anchor" aria-label="anchor" href="#workflows-hierarchy"></a>
 </h2>
-<p>For e more details on our definitions of workflows, processes,
+<p>For a more details on our definitions of workflows, processes,
 pipelines, please refer to the User manual of MagellanNTK.</p>
 <p>One will consider here process and pipelines levels. One consider the
 default level is a pipeline, composed of several processes (as steps).
@@ -203,7 +232,7 @@ the process 2 of this pipeline is identified by
 ‘PipelineA_Process2’.</p>
 <div class="bordered">
 <div class="figure" style="text-align: center">
-<img src="figs/hierarchy_funcs.png" class="r-plt" alt="UI process" width="50%"><p class="caption">
+<img src="./figs/hierarchy_funcs.png" class="r-plt" alt="UI process" width="50%"><p class="caption">
 UI process
 </p>
 </div>

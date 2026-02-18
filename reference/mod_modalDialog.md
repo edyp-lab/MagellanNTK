@@ -122,7 +122,7 @@ funcs <- list(
     open_dataset = "MagellanNTK::open_dataset",
     open_demoDataset = "MagellanNTK::open_demoDataset",
     infos_dataset = "MagellanNTK::infos_dataset",
-    export_dataset = "MagellanNTK::export_dataset",
+    donwload_dataset = "MagellanNTK::download_dataset",
     addDatasets = "MagellanNTK::addDatasets",
     keepDatasets = "MagellanNTK::keepDatasets"
 )

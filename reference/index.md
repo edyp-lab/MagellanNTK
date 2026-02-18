@@ -38,7 +38,7 @@
 - [`SetCurrentPosition()`](https://edyp-lab.github.io/MagellanNTK/reference/SetCurrentPosition.md)
   : Get the position of the last validated item
 - [`SetHistory()`](https://edyp-lab.github.io/MagellanNTK/reference/SetHistory.md)
-  : Get the last validated step before current position.
+  : Standardize names
 - [`Timestamp()`](https://edyp-lab.github.io/MagellanNTK/reference/Timestamp.md)
   : Timestamp in UNIX format.
 - [`ToggleState_NavBtns()`](https://edyp-lab.github.io/MagellanNTK/reference/ToggleState_NavBtns.md)
@@ -145,10 +145,6 @@
   [`mod_errorModal_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_err_modal.md)
   [`mod_errorModal()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_err_modal.md)
   : xxx
-- [`export_dataset_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_export_dataset.md)
-  [`export_dataset_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_export_dataset.md)
-  [`export_dataset()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_export_dataset.md)
-  : Export dataset Shiyny app
 - [`mod_homepage_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_homepage.md)
   [`mod_homepage_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_homepage.md)
   [`mod_homepage()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_homepage.md)
