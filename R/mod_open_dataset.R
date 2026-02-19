@@ -60,7 +60,7 @@ open_dataset_server <- function(
   is.enabled = reactive({TRUE})) {
   
   widgets.default.values <- list(
-    chooseSource = "customDataset",
+    chooseSource = "packageDataset",
     file = character(0),
     load_dataset_btn = 0,
     pkg = "None",
@@ -112,8 +112,8 @@ open_dataset_server <- function(
         output$chooseSource_UI <- renderUI({
           widget <- selectInput(ns("chooseSource"), "Dataset source",
             choices = c(
-              "Custom dataset" = "customDataset",
-              "package dataset" = "packageDataset"
+              "package dataset" = "packageDataset",
+              "Custom dataset" = "customDataset"
             ),
             selected = rv.widgets$chooseSource,
             width = "200px"

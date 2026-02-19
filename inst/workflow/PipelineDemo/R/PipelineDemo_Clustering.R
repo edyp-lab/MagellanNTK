@@ -232,10 +232,7 @@ PipelineDemo_Clustering_server <- function(id,
              name = 'Clustering'
         )
       )
-      
-      len <- length(rv$dataIn)
-      rv$dataIn[[len]] <- SetHistory(rv$dataIn[[len]], rv.custom$history)
-      
+     
       # DO NOT MODIFY THE THREE FOLLOWING LINES
       dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$value <- NULL

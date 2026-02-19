@@ -6,6 +6,7 @@
 #' @return NA
 #' 
 #' @examples
+#' library(MultiAssayExperiment)
 #' create_example_data()
 #' 
 #' 
@@ -23,7 +24,8 @@ create_example_data <- function(){
   assayList <- list(Convert = exprdat)
   lldata <- MultiAssayExperiment(experiments = ExperimentList(assayList))
   
-  SetHistory(lldata[[1]], InitializeHistory())
+  lldata[[1]] <- SetHistory(lldata[[1]], InitializeHistory())
+  lldata[[1]] <- SetHistory(lldata[[1]], c("Convert","Convert", "-", "Init"))
   save(lldata, file = 'data/lldata.rdata')
   
 }

@@ -74,7 +74,13 @@ GetHistory <- function(dataIn, name){
 #' lldata[[1]] <- SetHistory(lldata[[1]], history)
 #'
 SetHistory <- function(obj.se, history){
-  S4Vectors::metadata(obj.se)[['history']] <- rbind(S4Vectors::metadata(obj.se)[['history']], history)
+
+  if(is.null(S4Vectors::metadata(obj.se)[['history']]) && is.data.frame(history))
+    S4Vectors::metadata(obj.se)[['history']] <- history
+   else{
+     S4Vectors::metadata(obj.se)[['history']] <- rbind(
+       S4Vectors::metadata(obj.se)[['history']], history)
+   }
   return(obj.se)
 }
 

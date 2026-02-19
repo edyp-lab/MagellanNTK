@@ -152,7 +152,6 @@ PipelineDemo_Preprocessing_server <- function(id,
       # As there is two sub-step, creates two duplicates
       rv.custom$dataIn1 <- rv$dataIn
       rv.custom$dataIn2 <- rv$dataIn
-      
       dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$value <- NULL
       rv$steps.status['Description'] <- MagellanNTK::stepStatus$VALIDATED
@@ -232,18 +231,24 @@ PipelineDemo_Preprocessing_server <- function(id,
              Mean = rowMeans(SummarizedExperiment::assay(rv.custom$dataIn1[[length(rv.custom$dataIn1)]])),
              Sum = rowSums(SummarizedExperiment::assay(rv.custom$dataIn1[[length(rv.custom$dataIn1)]]))
       )
+      
+
       op <- match.fun(rv.widgets$Filtering_Operator)
       idx_rm <- which(op(rowval, rv.widgets$Filtering_Value))
       if (length(idx_rm) != 0){
+
         assaytmp <- SummarizedExperiment::assay(datatmp)[-idx_rm, ]
-        datatmp <- SummarizedExperiment::SummarizedExperiment(assaytmp)
+        datatmp <- SummarizedExperiment::SummarizedExperiment(
+          assays = assaytmp,
+          metadata = metadata(datatmp))
+
       }
       
       # Add to history
       rv.custom$history <- Add2History(rv.custom$history, 'Preprocessing', 'Filtering', 'Type', rv.widgets$Filtering_Type)
       rv.custom$history <- Add2History(rv.custom$history, 'Preprocessing', 'Filtering', 'Operator', rv.widgets$Filtering_Operator)
       rv.custom$history <- Add2History(rv.custom$history, 'Preprocessing', 'Filtering', 'Value', rv.widgets$Filtering_Value)
-      
+
       # Add filtered dataset
       rv.custom$dataIn1 <- do.call(
         eval(parse(text = session$userData$funcs$addDatasets)), 
@@ -318,7 +323,7 @@ PipelineDemo_Preprocessing_server <- function(id,
       
       # Adding to history
       rv.custom$history <- Add2History(rv.custom$history, 'Preprocessing', 'Normalization', 'Type', rv.widgets$Normalization_Type)
-      
+
       # Add normalized dataset
       rv.custom$dataIn2 <- do.call(
         eval(parse(text = session$userData$funcs$addDatasets)),
@@ -366,6 +371,7 @@ PipelineDemo_Preprocessing_server <- function(id,
       # Rename the new dataset with the name of the process
       names(rv.custom$dataIn2)[length(rv.custom$dataIn2)] <- 'Preprocessing'
       
+
       # Add step history to the dataset history
       len <- length(rv.custom$dataIn2)
       rv.custom$dataIn2[[len]] <- SetHistory(rv.custom$dataIn2[[len]], rv.custom$history)
