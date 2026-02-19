@@ -38,6 +38,7 @@ insert_md_ui <- function(id) {
 #'
 #' @rdname mod_insert_md
 #' @importFrom utils browseURL
+#' @import markdown
 #' @export
 insert_md_server <- function(
         id,

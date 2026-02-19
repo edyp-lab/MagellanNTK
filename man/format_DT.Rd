@@ -73,7 +73,7 @@ A shiny Module.
 }
 \examples{
 if (interactive()) {
-    obj <- assay(lldata[[1]])
+    obj <- SummarizedExperiment::assay(lldata[[1]])
     shiny::runApp(format_DT(obj))
     #
     # Compute style from within third party tab

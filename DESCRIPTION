@@ -40,7 +40,7 @@ Imports:
     waiter,
     MultiAssayExperiment,
     SummarizedExperiment,
-    rmarkdown
+    markdown
 Suggests: 
     shinyjqui, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
     gtools, XML, R.utils, RColorBrewer,  openxlsx,
