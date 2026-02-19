@@ -57,10 +57,11 @@ PipelineDemo_Convert_ui <- function(id) {
 
 #' Convert Server Function
 #'
-#' @param id xxx
-#' @param dataIn xxx
+#' @param id A `character()` as the id of the Shiny module
+#' @param dataIn Must be NULL. This module has the same template as all modules
+#' used in MagellanNTK and thus has the same parameters
 #' @param steps.enabled xxx
-#' @param remoteReset A `logical(1)` which acts as a remote command to reset
+#' @param remoteReset A `boolean` which acts as a remote command to reset
 #' the module to its default values. Default is FALSE.
 #'
 #' @importFrom shinyjs disabled info

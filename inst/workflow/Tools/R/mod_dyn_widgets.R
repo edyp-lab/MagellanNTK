@@ -2,7 +2,7 @@
 #'
 #' @description  A shiny Module to create a dynamic number of widgets.
 #'
-#' @param id xxx
+#' @param id A `character()` as the id of the Shiny module
 #'
 #' @name DynamicWidgets
 #'

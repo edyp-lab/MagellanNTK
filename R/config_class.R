@@ -349,7 +349,7 @@ setMethod(
 
 #' @title Initialization method for the class `Config`
 #'
-#' @param .Object xxx
+#' @param .Object The object
 #' @param fullname The complete name of the pipeline or the process (in this case,
 #' it is the concatenation of the name of the pipeline and the name of the process 
 #' itself, separated by '_')

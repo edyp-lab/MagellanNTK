@@ -15,7 +15,7 @@ view_dataset(dataIn, ...)
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
 
-\item{dataIn}{An instance of class xxx}
+\item{dataIn}{An instance of the class `MultiAssayExperiment`}
 
 \item{...}{Additional parameters}
 }

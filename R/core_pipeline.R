@@ -1,4 +1,4 @@
-#' @title The server() function of the module `nav_pipeline`
+#' @title Shiny module `nav_pipeline()`
 #'
 #' @description The module navigation can be launched via a Shiny app.
 #' This is the core module of MagellanNTK
@@ -6,7 +6,7 @@
 #' @param id A `character(1)` which defines the id of the module. It is the same
 #' as for the ui() function.
 #'
-#' @param dataIn An instance of the `MultiAssayExperiment` class
+#' @param dataIn An instance of the class `MultiAssayExperiment`
 #'
 #' @param is.enabled A `boolean`. This variable is a remote command to specify
 #' if the corresponding module is enabled/disabled in the calling module of
@@ -23,9 +23,9 @@
 #'
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
-#' @param usermod A character to specifies the running mode of MagellanNTK. 
-#' * user (default) : xxx
-#' * dev: xxx
+#' @param usermod A `character()` to specifies the running mode of MagellanNTK: 
+#' 'user' (default) or 'dev'. For more details, please refer to the document 
+#' 'Inside MagellanNTK'
 #'
 #'
 #' @return A list of four items:

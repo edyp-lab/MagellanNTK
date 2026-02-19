@@ -21,9 +21,9 @@ mod_homepage()
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
 
-\item{mdfile}{xxx}
+\item{mdfile}{The path to the Rmd file which describes the pipeline}
 
-\item{dataset}{xxx}
+\item{dataset}{An instance of the class `MultiAssayExperiment`}
 }
 \value{
 A shiny App

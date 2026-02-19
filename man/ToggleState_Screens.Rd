@@ -9,7 +9,7 @@ ToggleState_Screens(cond, range, is.enabled, rv)
 \arguments{
 \item{cond}{A `boolean`}
 
-\item{range}{A `vector` of integers. The min of this vector muste be gerater
+\item{range}{A `vector` of integers. The min of this vector must be greater
 of equal to 0 and the max must be less or equal to the size of the vector
 rv$steps.enabled}
 

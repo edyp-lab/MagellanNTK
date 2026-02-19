@@ -20,7 +20,7 @@ mod_SweetAlert_server(
 mod_SweetAlert(title, text, type = "warning")
 }
 \arguments{
-\item{id}{xxx}
+\item{id}{A `character()` as the id of the Shiny module}
 
 \item{title}{xxx}
 

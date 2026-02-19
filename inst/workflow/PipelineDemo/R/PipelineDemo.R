@@ -6,29 +6,47 @@
 #' This documentation is for developers who want to create their own pipelines nor processes
 #' to be managed with `MagellanNTK`.
 #' 
-#' @name module_PipelineDemo
+#' @param id xxx
+#'
+#' @param dataIn An instance of the class `MultiAssayExperiment`
+#'
+#' @param steps.enabled A vector of boolean which has the same length of the steps
+#' of the pipeline. This information is used to enable/disable the widgets. It is not
+#' a communication variable between the caller and this module, thus there is no
+#' corresponding output variable
+#'
+#' @param remoteReset It is a remote command to reset the module. A boolean that
+#' indicates is the pipeline has been reseted by a program of higher level
+#' Basically, it is the program which has called this module
+#'
+#' @param steps.status A vector of `character()` which indicates the status of each step
+#' which can be either 'validated', 'undone' or 'skipped'. Enabled or disabled in the UI.
+#' 
+#' @param current.pos A `integer(1)` which acts as a remote command to make
+#'  a step active in the timeline. Default is 1.
+#' 
+#' 
 #' @examples
 #' if (interactive()){
 #' library(MagellanNTK)
-#' 
-#' options(shiny.fullstacktrace = TRUE)
-#' 
 #' wf.name <- 'PipelineDemo'
 #' wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
 #' 
 #' MagellanNTK(wf.path, wf.name)
-#' 
-#' 
 #' }
 #' 
-#' @name PipelineDemo
+#' @name modulePipeline
+#' @importFrom shiny moduleServer reactiveValues observeEvent NS tagList actionLink 
+#' fluidRow column uiOutput hr reactive fluidPage
+#' @importFrom stats setNames
 #' 
-#' @example inst/workflow/PipelineDemo/examples/example_PipelineDemo.R
+#' @return An instance of the class `MultiAssayExperiment`
+#' 
 #' 
 NULL
 
 
-#' @rdname PipelineDemo
+#' @rdname modulePipeline
 #' @export
 #' 
 PipelineDemo_conf <- function(){
@@ -42,12 +60,7 @@ PipelineDemo_conf <- function(){
 
 
 
-#' @param id xxx
-#'
-#' @rdname PipelineDemo
-#'
-#' @author Samuel Wieczorek
-#' 
+#' @rdname modulePipeline
 #' @export
 #' 
 PipelineDemo_ui <- function(id){
@@ -56,29 +69,8 @@ PipelineDemo_ui <- function(id){
 
 
 
-#' @param id xxx
-#'
-#' @param dataIn The dataset
-#'
-#' @param steps.enabled A vector of boolean which has the same length of the steps
-#' of the pipeline. This information is used to enable/disable the widgets. It is not
-#' a communication variable between the caller and this module, thus there is no
-#' corresponding output variable
-#'
-#'
-#' @param remoteReset It is a remote command to reset the module. A boolean that
-#' indicates is the pipeline has been reseted by a program of higher level
-#' Basically, it is the program which has called this module
-#'
-#' @param steps.status xxx
-#' 
-#' @param current.pos xxx
-#' 
-#' @rdname PipelineDemo
-#'
-#' @importFrom shiny moduleServer reactiveValues observeEvent NS tagList actionLink fluidRow column uiOutput hr reactive fluidPage
-#' @importFrom stats setNames
-#' 
+
+#' @rdname modulePipeline
 #' @export
 #'
 PipelineDemo_server <- function(id,

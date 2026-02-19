@@ -3,7 +3,7 @@
 #' @description 
 #' ## To be customized ##
 #' 
-#' @param id xxx
+#' @param id A `character()` as the id of the Shiny module
 #' 
 #' @name extra_module
 #'

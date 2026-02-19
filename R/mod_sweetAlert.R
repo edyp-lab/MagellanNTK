@@ -1,6 +1,6 @@
 #' @title A shiny app to display a modal
 #'
-#' @param id xxx
+#' @param id A `character()` as the id of the Shiny module
 #' @param title xxx
 #' @param text xxx
 #' @param showClipBtn xxx

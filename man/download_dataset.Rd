@@ -25,9 +25,9 @@ download_dataset_server(
 download_dataset(dataIn = NULL, filename = "myDataset")
 }
 \arguments{
-\item{id}{internal}
+\item{id}{A `character()` as the id of the Shiny module}
 
-\item{dataIn}{internal}
+\item{dataIn}{An instance of the class `MultiAssayExperiment`}
 
 \item{filename}{internal}
 

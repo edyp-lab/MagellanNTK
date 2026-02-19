@@ -9,7 +9,7 @@
 #' @param id A `character()` as the id of the Shiny module
 #' @param path A `character()` which is the path to the directory which 
 #' contains the files and directories of the pipeline.
-#' @param dataIn xxx
+#' @param dataIn An instance of the class `MultiAssayExperiment`
 #' @param usermod A character to specifies the running mode of MagellanNTK. 
 #' * user (default) : xxx
 #' * dev: xxx

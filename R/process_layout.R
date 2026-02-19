@@ -1,18 +1,30 @@
-#' @title Timelines
+#' @title Layout for workflows
 #'
-#' @description xxx
+#' @description Creates a layout to place the sidebar and the main screen
+#' for pipelines and processes.
 #'
 #' @param session The R session parameter
 #' @param ns xxx
-#' @param sidebar xxx
-#' @param content xxx
+#' @param sidebar Shiny components
+#' @param content Shiny components
 #'
-#' @rdname process_layout
+#' @name process_layout
 #'
 #' @import shiny
 #' @importFrom sass sass sass_file
-#' @return NA
+#' @return A `div()` containing shiny components
+#' 
+#' @examples
+#' NULL
+#' 
+NULL
+
+
+
+
+
 #' @export
+#' @rdname process_layout
 #'
 process_layout <- function(session, ns, sidebar, content) {
   
@@ -23,19 +35,9 @@ process_layout <- function(session, ns, sidebar, content) {
 }
 
 
-#' @title Timelines
-#'
-#' @description xxx
-#'
-#' @param ns xxx
-#' @param sidebar xxx
-#' @param content xxx
-#'
+
+
 #' @rdname process_layout
-#'
-#' @import shiny
-#' @importFrom sass sass sass_file
-#' @return NA
 #' @export
 #'
 process_layout_process <- function(session, ns, sidebar, content) {
@@ -62,20 +64,7 @@ process_layout_process <- function(session, ns, sidebar, content) {
       )
 }
 
-
-#' @title Timelines
-#'
-#' @description xxx
-#'
-#' @param ns xxx
-#' @param sidebar xxx
-#' @param content xxx
-#'
 #' @rdname process_layout
-#'
-#' @import shiny
-#' @importFrom sass sass sass_file
-#' @return NA
 #' @export
 #'
 process_layout_pipeline <- function(session, ns, sidebar, content) {

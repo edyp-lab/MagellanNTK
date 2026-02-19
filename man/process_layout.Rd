@@ -4,7 +4,7 @@
 \alias{process_layout}
 \alias{process_layout_process}
 \alias{process_layout_pipeline}
-\title{Timelines}
+\title{Layout for workflows}
 \usage{
 process_layout(session, ns, sidebar, content)
 
@@ -17,21 +17,18 @@ process_layout_pipeline(session, ns, sidebar, content)
 
 \item{ns}{xxx}
 
-\item{sidebar}{xxx}
+\item{sidebar}{Shiny components}
 
-\item{content}{xxx}
+\item{content}{Shiny components}
 }
 \value{
-NA
-
-NA
-
-NA
+A `div()` containing shiny components
 }
 \description{
-xxx
+Creates a layout to place the sidebar and the main screen
+for pipelines and processes.
+}
+\examples{
+NULL
 
-xxx
-
-xxx
 }

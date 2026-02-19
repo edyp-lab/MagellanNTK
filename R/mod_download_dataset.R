@@ -3,8 +3,8 @@
 #' @description  A shiny Module.
 #'
 #'
-#' @param id internal
-#' @param dataIn internal
+#' @param id A `character()` as the id of the Shiny module
+#' @param dataIn An instance of the class `MultiAssayExperiment`
 #' @param filename internal
 #' @param remoteReset A `logical(1)` which acts as a remote command to reset
 #' the module to its default values. Default is FALSE.

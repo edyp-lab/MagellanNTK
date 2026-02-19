@@ -7,7 +7,8 @@
 GetFirstMandatoryNotValidated(range, rv)
 }
 \arguments{
-\item{range}{xxx}
+\item{range}{A `vector` of integers. The min of this vector must be greater
+of equal to 0 and the max must be less or equal to the size of the object}
 
 \item{rv}{A `list` with at least two slots :
 * mandatory: xxx

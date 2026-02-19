@@ -32,7 +32,7 @@
 NULL
 
 
-#' @param id xxx
+#' @param id A `character()` as the id of the Shiny module
 #' 
 #' @rdname foo
 #' 

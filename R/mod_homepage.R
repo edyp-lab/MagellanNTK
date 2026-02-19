@@ -2,8 +2,8 @@
 #' @description  A shiny Module.
 #'
 #' @param id A `character()` as the id of the Shiny module
-#' @param mdfile xxx
-#' @param dataset xxx
+#' @param mdfile The path to the Rmd file which describes the pipeline
+#' @param dataset An instance of the class `MultiAssayExperiment`
 #'
 #' @name mod_homepage
 #'
@@ -39,10 +39,6 @@ mod_homepage_server <- function(
         ), "Presentation.Rmd"),
   dataset = reactive({NULL})
   ) {
-    # mdfile <- file.path(system.file('app/md',
-    #   package = 'MagellanNTK'),'Presentation.Rmd')
-
-
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
 

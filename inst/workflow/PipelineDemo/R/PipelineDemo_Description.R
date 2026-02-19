@@ -57,7 +57,7 @@ PipelineDemo_Description_ui <- function(id){
 #' @param remoteReset It is a remote command to reset the module. A boolean that
 #' indicates if the pipeline has been reset by a program of higher level
 #' Basically, it is the program which has called this module
-#' @param steps.status A `logical()` which indicates the status of each step
+#' @param steps.status A vector of `character()` which indicates the status of each step
 #' which can be either 'validated', 'undone' or 'skipped'. Enabled or disabled in the UI.
 #' @param current.pos A `integer(1)` which acts as a remote command to make
 #'  a step active in the timeline. Default is 1.

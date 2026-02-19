@@ -29,7 +29,7 @@ nav_pipeline()
 \item{id}{A `character(1)` which defines the id of the module.
 It is the same as for the server() function.}
 
-\item{dataIn}{An instance of the `MultiAssayExperiment` class}
+\item{dataIn}{An instance of the class `MultiAssayExperiment`}
 
 \item{is.enabled}{A `boolean`. This variable is a remote command to specify
 if the corresponding module is enabled/disabled in the calling module of

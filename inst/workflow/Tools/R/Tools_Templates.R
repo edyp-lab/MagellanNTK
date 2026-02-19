@@ -17,7 +17,7 @@
 #'
 #' @name Tools_Templates_conf
 #' 
-#' @param id xxx
+#' @param id A `character()` as the id of the Shiny modulex
 #' @param dataIn The dataset
 #' @param steps.enabled A vector of boolean which has the same length of the steps
 #' of the pipeline. This information is used to enable/disable the widgets. It is not

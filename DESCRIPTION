@@ -47,7 +47,6 @@ Suggests:
     shinyAce, rclipboard, shinyWidgets
 Collate: 
     MagellanNTK.R
-    settings.R
     process_layout.R
     default_funcs.R
     mod_sweetAlert.R
@@ -85,7 +84,6 @@ Collate:
     mod_open_dataset.R
     mod_popover_for_help.R
     mod_release_notes.R
-    mod_loadapp.R
     mod_mainapp.R
     utils2.R
 Encoding: UTF-8

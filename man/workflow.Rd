@@ -56,7 +56,7 @@ proc_workflowApp(
 \item{path}{A `character()` which is the path to the directory which 
 contains the files and directories of the pipeline.}
 
-\item{dataIn}{xxx}
+\item{dataIn}{An instance of the class `MultiAssayExperiment`}
 
 \item{usermod}{A character to specifies the running mode of MagellanNTK. 
 * user (default) : xxx

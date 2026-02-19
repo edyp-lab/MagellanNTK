@@ -170,7 +170,7 @@ GetMaxValidated_AllSteps <- function(steps.status) {
 #' @description Updates the status of steps in a given range
 #'
 #' @param cond A `boolean`
-#' @param range A `vector` of integers. The min of this vector muste be gerater
+#' @param range A `vector` of integers. The min of this vector must be greater
 #' of equal to 0 and the max must be less or equal to the size of the vector
 #' rv$steps.enabled
 #' @param is.enabled A `boolean`
@@ -258,7 +258,7 @@ dataModal <- function(ns, mode) {
 
 #' @title Discover Skipped Steps
 #' 
-#' @param steps.status A vector of integers which reflects the status of the steps 
+#' @param steps.status A vector of `character()` which reflects the status of the steps 
 #' in the pipeline. Thus, the length of this vector is equal to the number of 
 #' steps
 #'
@@ -287,7 +287,8 @@ Discover_Skipped_Steps <- function(steps.status) {
 
 #' @title Get the first mandatory step not validated
 #'
-#' @param range xxx
+#' @param range A `vector` of integers. The min of this vector must be greater
+#' of equal to 0 and the max must be less or equal to the size of the object
 #' @param rv A `list` with at least two slots :
 #' * mandatory: xxx
 #' * steps.status: xxx

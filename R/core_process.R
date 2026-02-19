@@ -20,16 +20,18 @@
 #' module. Its value is incremented on a external event and it is used to 
 #' trigger an event in this module
 #' 
-#' @param remoteResetUI xxx
+#' @param remoteResetUI An `integer` which acts as a remote command to reset the 
+#' UI part of the module Its value is incremented on a external event and it is
+#' used to trigger an event in the module
 #' @param status A boolean which indicates whether the current status of the 
 #' process 
 #' @param is.skipped A booelan which indicates whether the pipeline or process
 #' is skipped (TRUE) or not (FALSE)
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
-#' @param usermod A character to specifies the running mode of MagellanNTK. 
-#' * user (default) : xxx
-#' * dev: xxx
+#' @param usermod A `character()` to specifies the running mode of MagellanNTK: 
+#' 'user' (default) or 'dev'. For more details, please refer to the document 
+#' 'Inside MagellanNTK'
 #'
 #'
 #' @return A shiny App
@@ -45,13 +47,11 @@
 #' 
 #' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
 #' disabled inlineCSS extendShinyjs
+#' @importFrom stats setNames
+#' @import shiny
 #'
 NULL
 
-
-#' @param id A `character(1)` which defines the id of the module.
-#' It is the same as for the server() function.
-#'
 #' @rdname nav_process
 #'
 #' @export
@@ -64,7 +64,6 @@ nav_process_ui <- function(id) {
       uiOutput(ns('process_panel_ui_process')),
       uiOutput(ns('process_panel_ui_pipeline')),
       uiOutput(ns("EncapsulateScreens_pipeline_ui"))
-      
   ))
 }
 
@@ -72,10 +71,7 @@ nav_process_ui <- function(id) {
 
 #'
 #' @export
-#'
 #' @rdname nav_process
-#' @importFrom stats setNames
-#' @import shiny
 #'
 nav_process_server <- function(
     id = NULL,
@@ -108,15 +104,12 @@ nav_process_server <- function(
     rv <- reactiveValues(
       # Contains the return value of the process module that has been called
       proc = NULL,
-      
-      #status = NULL,
-      
-      #history = NULL,
-      # steps.status A boolean vector which contains the status
+
+      # steps.status A boolean vector which will contain the status
       # (validated, skipped or undone) of the steps
       steps.status = NULL,
       
-      # dataIn Contains the dataset passed by argument to the
+      # dataIn contains the dataset passed by argument to the
       # module server
       dataIn = NULL,
       
@@ -132,7 +125,9 @@ nav_process_server <- function(
       # the corresponding process is skipped or not
       # ONLY USED WITH PIPELINE
       steps.skipped = NULL,
+      
       prev.remoteReset = 1,
+      
       prev.remoteResetUI = 1,
       # current.pos Stores the current cursor position in the
       # timeline and indicates which of the process' steps is active
@@ -790,7 +785,6 @@ nav_process_server <- function(
 
 #' @export
 #' @rdname nav_process
-#' @importFrom shiny fluidPage shinyApp
 #'
 nav_process <- function() {
   server_env <- environment() # will see all dtwclust functions
@@ -835,9 +829,6 @@ nav_process <- function() {
       nav_process_ui(proc.name)
     })
 
-    
-    
-    
     observe({
       rv$dataOut <- nav_process_server(
         id = proc.name,

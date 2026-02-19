@@ -3,7 +3,7 @@
 #' @description  A shiny Module.
 #'
 #' @param id A `character()` as the id of the Shiny module
-#' @param dataIn An instance of class xxx
+#' @param dataIn An instance of the class `MultiAssayExperiment`
 #' @param ... Additional parameters
 #'
 #' @name view_dataset
