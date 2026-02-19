@@ -9,9 +9,6 @@ open_dataset_ui(id)
 
 open_dataset_server(
   id,
-  class = NULL,
-  demo_package = NULL,
-  extension = NULL,
   remoteReset = reactive({
      NULL
  }),
@@ -20,7 +17,7 @@ open_dataset_server(
  })
 )
 
-open_dataset(extension = NULL)
+open_dataset()
 ```
 
 ## Arguments
@@ -28,18 +25,6 @@ open_dataset(extension = NULL)
 - id:
 
   A \`character()\` as the id of the Shiny module
-
-- class:
-
-  xxx
-
-- demo_package:
-
-  xxx
-
-- extension:
-
-  The extension file allowed
 
 - remoteReset:
 
@@ -63,6 +48,6 @@ A Shiny app
 
 ``` r
 if (interactive()) {
-shiny::runApp(open_dataset(extension = "rdata"))
+shiny::runApp(open_dataset())
 }
 ```

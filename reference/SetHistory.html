@@ -70,11 +70,19 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">lldata</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">history</span> <span class="op">&lt;-</span> <span class="fu"><a href="GetHistory.html">GetHistory</a></span><span class="op">(</span><span class="va">lldata</span>, <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required namespace: MultiAssayExperiment</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘S4Arrays::makeNindexFromArrayViewport’ by ‘DelayedArray::makeNindexFromArrayViewport’ when loading ‘SummarizedExperiment’</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: GetHistory(lldata, 1)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: if (x == "Description") {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     if ("Convert" %in% names(dataIn)) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         history &lt;- S4Vectors::metadata(dataIn[["Convert"]])[["history"]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> } else if (x == "Save") {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     history &lt;- NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> } else if (x %in% names(dataIn)) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     history &lt;- DaparToolshed::GetHistory(dataIn[[x]])</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in GetHistory(lldata, 1):</span> object 'x' not found</span>
 <span class="r-in"><span><span class="va">history</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">history</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Example'</span>, <span class="st">'Step Ex'</span>, <span class="st">'ex_param'</span>, <span class="st">'Ex'</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in rbind(history, c("Example", "Step Ex", "ex_param", "Ex")):</span> cannot coerce type 'closure' to vector of type 'list'</span>
 <span class="r-in"><span><span class="va">lldata</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">SetHistory</span><span class="op">(</span><span class="va">lldata</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">history</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'experiments' dropped; see 'drops()'</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

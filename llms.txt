@@ -92,10 +92,6 @@ In the following example, on lance MAgellan avec seulement le process
   : Insert source code for config()
 - [`NavPage()`](https://edyp-lab.github.io/MagellanNTK/reference/NavPage.md)
   : xxx
-- [`Save_Dataset_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/Save_Dataset.md)
-  [`Save_Dataset_server()`](https://edyp-lab.github.io/MagellanNTK/reference/Save_Dataset.md)
-  [`Save_Dataset()`](https://edyp-lab.github.io/MagellanNTK/reference/Save_Dataset.md)
-  : Load dataset shiny module
 - [`SetCurrentPosition()`](https://edyp-lab.github.io/MagellanNTK/reference/SetCurrentPosition.md)
   : Get the position of the last validated item
 - [`SetHistory()`](https://edyp-lab.github.io/MagellanNTK/reference/SetHistory.md)
@@ -169,10 +165,6 @@ In the following example, on lance MAgellan avec seulement le process
   [`history_dataset_server()`](https://edyp-lab.github.io/MagellanNTK/reference/history_dataset.md)
   [`history_dataset()`](https://edyp-lab.github.io/MagellanNTK/reference/history_dataset.md)
   : history_dataset_ui and history_dataset_server
-- [`infos_dataset_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/infos_dataset.md)
-  [`infos_dataset_server()`](https://edyp-lab.github.io/MagellanNTK/reference/infos_dataset.md)
-  [`infos_dataset()`](https://edyp-lab.github.io/MagellanNTK/reference/infos_dataset.md)
-  : infos_dataset_ui and infos_dataset_server
 - [`initComplete()`](https://edyp-lab.github.io/MagellanNTK/reference/initComplete.md)
   : xxx
 - [`Get_Code_Update_Config_Variable()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)

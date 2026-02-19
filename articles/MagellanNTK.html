@@ -65,7 +65,7 @@ Wieczorek</h4>
                                     <h4 data-toc-skip class="author">Thomas
 Burger</h4>
                         
-            <h4 data-toc-skip class="date">February 18, 2026</h4>
+            <h4 data-toc-skip class="date">February 19, 2026</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/edyp-lab/MagellanNTK/blob/main/vignettes/MagellanNTK.Rmd" class="external-link"><code>vignettes/MagellanNTK.Rmd</code></a></small>
       <div class="d-none name"><code>MagellanNTK.Rmd</code></div>
@@ -98,41 +98,6 @@ workflows and their principles. Then , it focuses on the User Interface
 of <code>MagellanNTK</code>.</p>
 <p>For a more complete (and technical) information about MagellanNTK, it
 is advised to see the <code>Inside MagellanNTK</code></p>
-</div>
-<div class="section level2">
-<h2 id="discovering-magellanntk">Discovering MagellanNTK<a class="anchor" aria-label="anchor" href="#discovering-magellanntk"></a>
-</h2>
-<p>MagellanNTK is a R package which proposes a framework to navigate
-between steps of a complex data processing tool when the succession of
-processes is mostly chronological.</p>
-<p>For example, if a process is composed of three steps, then it is very
-easy to run the first steps, then the second and finally the last one.
-It is like a dataflow manager.</p>
-<p>Moreover, this navigation system, which is at the core of
-MagellanNTK, can by used at several levels. It can then be possible to
-define, for example, a super-process (i.e. a pipeline) in which each
-step is a whole process containing itself several steps.</p>
-<div class="section level3">
-<h3 id="processes-and-pipelines">Processes and pipelines<a class="anchor" aria-label="anchor" href="#processes-and-pipelines"></a>
-</h3>
-<p>As any workflow manager, the aim of <code>MagellanNTK</code> is to
-execute a series of ordered tasks over a dataset. The core of the
-datamanager implements rules of navigation through the pipeline and
-processes which ensure the quality of the whole analysis. This is done
-to guide the user in a validated way to statistics anakysis.</p>
-<p>Dans le lexique de MagellanNTK, un workflow (ou pipeline) est un
-ensemble d’étapes de traitement et d’analyse d’un dataset. Chacune de
-ces étapes (ou process) peut également être composée de une ou plusieurs
-sous-étapes.</p>
-<p>Dans l’exemple fourni avec le package <code>MagellanNTK</code>, le
-pipeline est appelé “PipelineDemo”. Il contient 4 processes de
-traitement de données: * Generation of data: Génère des données avec
-deux distributions gaussiennes différentes, * Filtering: Supprime des
-lignes selon un critère défini par l’utilisateur * Normalization:
-Normalise les données suivants différentes méthodes * Clustering:
-Clustering des données</p>
-<p>Chacun des 4 processes pouvant contenir 1 ou plusieurs étapes.</p>
-</div>
 <div class="section level3">
 <h3 id="main-features">Main features<a class="anchor" aria-label="anchor" href="#main-features"></a>
 </h3>
@@ -167,6 +132,214 @@ fichier de configuration (nommé config.txt) de chaque plugin. Dans
 l’exemple de plugin fourni dans MagellanNTK, on voit que toues ces
 fonctions pointent vers des fonctions de MagellanNTK (valeur par
 défaut).</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="discovering-magellanntk">Discovering MagellanNTK<a class="anchor" aria-label="anchor" href="#discovering-magellanntk"></a>
+</h2>
+<p>MagellanNTK is a R package which proposes a framework to navigate
+between steps of a complex data processing tool when the succession of
+processes is mostly chronological.</p>
+<p>For example, if a process is composed of three steps, then it is very
+easy to run the first steps, then the second and finally the last one.
+It is like a dataflow manager.</p>
+<p>Moreover, this navigation system, which is at the core of
+MagellanNTK, can by used at several levels. It can then be possible to
+define, for example, a super-process (i.e. a pipeline) in which each
+step is a whole process containing itself several steps.</p>
+<div class="section level3">
+<h3 id="pipelines-processes-and-steps">Pipelines, processes and steps<a class="anchor" aria-label="anchor" href="#pipelines-processes-and-steps"></a>
+</h3>
+<p>As any workflow manager, the aim of <code>MagellanNTK</code> is to
+execute a series of ordered tasks over a dataset. The core of the
+datamanager implements rules of navigation through the pipeline and
+processes which ensure the quality of the whole analysis. This is done
+to guide the user in a validated way to statistics anakysis.</p>
+<p>In MagellanNTK, a process is defined as a data analysis process that
+performs a minimal and consistent set of operations (called ‘steps’) on
+a dataset. Each process has its own input object and returns an object
+as output.</p>
+<p>Dans le lexique de MagellanNTK, un workflow (ou pipeline) est un
+ensemble d’étapes de traitement et d’analyse d’un dataset. Chacune de
+ces étapes (ou process) peut également être composée de une ou plusieurs
+sous-étapes.</p>
+<p>Dans l’exemple fourni avec le package <code>MagellanNTK</code>, le
+pipeline est appelé “PipelineDemo”. It contains 3 processes de
+traitement de données: DataGeneration (which contains 1 step),
+Preprocessing (with 2 steps: Filtering and Normalization) and
+Clustering.</p>
+<p>The input and the output of a process is an instance of
+<code>MultiAssayExperiment</code> (mae) which contains one or several
+<code>Summarizedexperiment</code> (se). The dataset is proceeded by a
+series of treatment (those given by the steps) in a classical way for a
+workflow manager:</p>
+<ul>
+<li>The steps of a process can be represented as a directional graph
+with no no branches nor cycles. This ensures that there is only one way
+to proceed the sequence of steps.</li>
+<li>The input of any step is the whole dataset but the treatment is done
+over the last instance of SE in the dataset</li>
+<li>The output of any step is the same dataset of the input but with an
+additional SE which corresponds to the result of the operations made in
+the current step</li>
+</ul>
+<p>By default, any step can be skipped during the process. So as to
+ensure the quality of the process and for mathematical reasons, we
+introduced a tag ‘mandatory’ to each step which indicates if the step
+can be skipped or not. While a mandatory step is not validated, all
+further steps are let disabled. Once the mandatory step has been
+validated, all the further steps are enabled until the next mandatory
+one if exists.</p>
+<p>The implementation of such features is made by mean of
+<em>properties</em> on steps. Actually, four tags refines the
+possibilities of a step:</p>
+<ul>
+<li><p><strong>Mandatory</strong>: indicates whether a task must be
+executed to be able to pursue the workflow.</p></li>
+<li><p><strong>Done-Validated/Undone</strong>: indicates whether a step
+has been executed and validated. If the last step (‘Save’) of a process
+is validated, then the mae dataset (with one more se than the input) is
+returned. All features in the UI of MagellanTK (Exploratory Data
+Analyzer, ‘Save as’) are updated with this new dataset</p></li>
+<li><p><strong>Skipped</strong>: indicates whether a task has been
+skipped (i.e. it is not validated and there is at least one step further
+that has been validated). This is possible only with non mandatory
+steps.</p></li>
+<li><p><strong>Enabled/disabled</strong>: indicates whether the task is
+runnable (UI is enabled or disabled).</p></li>
+</ul>
+<p>A chaque fois qu’une étape est validée, un nouveau SE est ajouté au
+dataset. Ce nouveau dataset sert ensuite d’entrée pour les étapes
+suivantes</p>
+</div>
+<div class="section level3">
+<h3 id="rules-of-navigation">Rules of navigation<a class="anchor" aria-label="anchor" href="#rules-of-navigation"></a>
+</h3>
+<p>Some rules are applied to a workflow to guarantee the global strategy
+of the workflow and the quality of the analysis process. This point is
+important to understand the possibilities of navigation with
+MagellanNTK.</p>
+<p>When the app is launched, there is no yet dataset loaded. At this
+time, all the pipeline, process nor steps are disabled until a dataset
+is loaded. Once done, this dataset is sent to the pipeline and the
+analysis can start.</p>
+<p><strong>Start workflow at the beginning</strong>.<br>
+At the beginning, the first step (‘Description’) is the only enabled.
+This guarantees to always start from the first one. In the timeline of
+the pipeline, the Description step is marked as VALIDATED because the
+dataset already contains some information from the ‘Convert’
+process.</p>
+<p><strong>One way direction</strong>. The order in which tasks are
+executed is in one direction: tasks are executed from the first one
+towards the last one.</p>
+<p><strong>A task operates on the most recent SE in the
+dataset</strong>. As the results of tasks are stored (SE) in the dataset
+in the order they have been produced, the tasks are run over the last SE
+of the dataset. When a task produces a new results (SE), it is appended
+to the end of the dataset (MAE).</p>
+<p><strong>Run tasks once.</strong> Once a task has been validated, it
+is marked as DONE and becomes DISABLED. This feature guarantees that the
+user cannot run the same task several times on a SE. The only
+possibility is ti reset the task to start it again. (see xxx).</p>
+<p><strong>Validating a task.</strong> When a task is validated, its
+state becomes disabled ans all the further tasks until the next
+mandatory one are automatically enabled.</p>
+<p><strong>Enabled/disabled tasks</strong>. A task is marked as ENABLED
+because a rule allow it to be executed at this time. This happens
+when:</p>
+<ul>
+<li>There exists a previous task marked as VALIDATED and there is no
+MANDATORY and UNDONE task between them.</li>
+<li>No dataset has been loaded yet in MagellanNTK.</li>
+</ul>
+<p><strong>Reset action</strong>. Whatever one consider a pipeline or a
+process, the ‘Reset’ strategy is the same. Only the current task can be
+reset. Resetting the current task also reset all further tasks after it.
+This feature ensures the tasks to be processed only once. When a task is
+reseted (the current one and any further), several actions are done: *
+the dataset is reseted to its initial state at the beginning of the
+task. Typically, it will contain the results of previous validated
+tasks. * The UI of the task is disabled * The widgets go back to their
+default values</p>
+<p><strong>Reset a task of a process</strong>. This is not implemented
+The only possibility is to reset the whole process.</p>
+<p><strong>Reset a process</strong>. This can be done by clicking on the
+Reset button in the command panel of the process.</p>
+<p><strong>Reset an entire pipeline</strong>. * In the pipeline command
+panel, there is no ‘Reset’ button. To reset a pipeline, the user goes
+back to the first step (by clicking enough times on the ‘Prev’ button or
+by clicking on the ‘Go back to start’ button). then, switch to the
+command panel of the first task (on the vertical timeline) and click on
+the Reset button.</p>
+<p><strong>Navigation between steps.</strong> It is always possible to
+navigate between all the steps event if they are disabled. This feature
+is useful if one wants to see/discover the content of next steps or to
+remind the values set in the previous widgets.</p>
+</div>
+<div class="section level3">
+<h3 id="timelines">Timelines<a class="anchor" aria-label="anchor" href="#timelines"></a>
+</h3>
+<p>Timelines are a graphical representation of the set of steps which
+compose the process or pipeline. Each node of the timeline is
+represented by a bullet with its name. The style of bullets (the fill
+color and the line) depends on the state of the corresponding step.</p>
+<p>The available states are the following:</p>
+<table class="table">
+<colgroup>
+<col width="29%">
+<col width="23%">
+<col width="23%">
+<col width="23%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Bullet</th>
+<th align="center">Property</th>
+<th align="center">State</th>
+<th align="center">Done/Undone</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center"><img src="figs/bullet_empty_red_disabled.png" width="15" height="15"></td>
+<td align="center">Skipped</td>
+<td align="center">Disabled</td>
+<td align="center">Undone</td>
+</tr>
+<tr class="even">
+<td align="center"><img src="figs/bullet_empty_red_disabled.png" width="15" height="15"></td>
+<td align="center">Mandatory</td>
+<td align="center">Disabled</td>
+<td align="center">Undone</td>
+</tr>
+<tr class="odd">
+<td align="center"><img src="figs/bullet_empty_red_enabled.png" width="15"></td>
+<td align="center">Mandatory</td>
+<td align="center">Enabled</td>
+<td align="center">Undone</td>
+</tr>
+<tr class="even">
+<td align="center"><img src="figs/bullet_full_green_disabled.png" width="15" height="15"></td>
+<td align="center">-</td>
+<td align="center">Disabled</td>
+<td align="center">Done</td>
+</tr>
+<tr class="odd">
+<td align="center"><img src="figs/bullet_empty_red_disabled.png" width="15" height="15"></td>
+<td align="center">Not mandatory</td>
+<td align="center"></td>
+<td align="center">Undone</td>
+</tr>
+</tbody>
+</table>
+<p>At any time, the current step is identified by an underline below the
+name of the step. The first step is always the current step at the
+beginning of a process (launch) and after the ‘Reset’ action.</p>
+</div>
+<div class="section level3">
+<h3 id="special-case-already-processed-datasets">Special case: Already-processed datasets<a class="anchor" aria-label="anchor" href="#special-case-already-processed-datasets"></a>
+</h3>
+<p>These are datasets that have already been processed by MagellanNTK
+and may contain more than only one
+<code>SummarizedExperiment</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="first-sight-of-the-user-interface">First sight of the user interface<a class="anchor" aria-label="anchor" href="#first-sight-of-the-user-interface"></a>
@@ -220,36 +393,6 @@ pipelines are very similar and share a lot of features. For this reason,
 this section mainly focuses on a process workflow. Describing more
 complex structures will be easier.</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="running-a-single-process">Running a single process<a class="anchor" aria-label="anchor" href="#running-a-single-process"></a>
-</h2>
-<p>Pour cette section, nous proposons de suivre un example fourni dans
-MagellanNTK afin de familiariser l’utilisateur avec les interfaces et le
-fonctionnement ). Nous le guidons pas-à-pas pour utiliser l’interface de
-MagellanNTK et effectuer un premier traitement de données.</p>
-<div class="section level3">
-<h3 id="start-the-app">Start the app<a class="anchor" aria-label="anchor" href="#start-the-app"></a>
-</h3>
-<p>Tout d’abord, nous lançons l’application à l’aide des commandes
-suivantes:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK</a></span><span class="op">)</span></span>
-<span><span class="va">wf.name</span> <span class="op">&lt;-</span> <span class="st">'PipelineDemo_xxx'</span></span>
-<span><span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineDemo'</span>, package <span class="op">=</span> <span class="st">'MagellanNTK'</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">wf.path</span>, <span class="va">wf.name</span><span class="op">)</span></span></code></pre></div>
-<p>Ceci ouvrira un nouvel onglet dans votre navigateur internet par
-défaut. Th default UI of MagellanNTK is quite empty. The first action to
-perform is to load a dataset. This can be done by clicking on the menu
-“Datset/open file”. If you haven’t exported yet a dataset to a file from
-MagellanNTK, yous should select “demo datasets” option which allows you
-to choose one of the dataset in the package <code>MagellanNTK</code>.
-For this tutorial, you select the ‘lldata’ dataset which is an empty
-one.</p>
-<p>Once the dataset is loaded, the user clicks the menu “Workflow/Run”
-to launch the plugin. In the main screen, its interface is
-displayed.</p>
-</div>
 <div class="section level3">
 <h3 id="process-user-interface">Process user interface<a class="anchor" aria-label="anchor" href="#process-user-interface"></a>
 </h3>
@@ -277,6 +420,70 @@ top to bottom).</li>
 <li>
 <strong>parameters</strong> of the current screen</li>
 </ul>
+<div class="section level4">
+<h4 id="parameters">Parameters<a class="anchor" aria-label="anchor" href="#parameters"></a>
+</h4>
+<p>In this part of the sidebar are displayed the parameters
+corresponding to the current step. They are enabled or disabled whether
+the sate of their step: if the step is disabled (resp. enabled), the
+widgets are disabled (resp. enabled).</p>
+<p>If the bullet of a step is enabled then all the widgets of this step
+are enabled (as well as the Perform button). In the contrary, a bullet
+that is disabled means that all the widgets and the ‘Perform’ button in
+the UI are disabled.</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="process-user-interface-1">Process user interface<a class="anchor" aria-label="anchor" href="#process-user-interface-1"></a>
+</h3>
+<p>sddsfdsgfdsvfdvregfgqsdfvf</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="running-a-single-process">Running a single process<a class="anchor" aria-label="anchor" href="#running-a-single-process"></a>
+</h2>
+<p>Pour cette section, nous proposons de suivre un example fourni dans
+MagellanNTK afin de familiariser l’utilisateur avec les interfaces et le
+fonctionnement ). Nous le guidons pas-à-pas pour utiliser l’interface de
+MagellanNTK et effectuer un premier traitement de données. Example
+(PipelineDemo_Preprocessing)</p>
+<div class="section level3">
+<h3 id="start-the-app">Start the app<a class="anchor" aria-label="anchor" href="#start-the-app"></a>
+</h3>
+<p>Les plugins pour MagellanNTK ne sont pas directement installés dans
+le package. Les fichiers d’un plugin se trouvent dans un répertoire
+spécial (voir le document ‘Inside MagellanNTK’) qui peut etre stocké
+ailleurs : cela peut être sur l’ordinateur d’un utilisateur, dans un
+autre package R.</p>
+<p>Pour utiliser un plugin donné avec MagellanNTK, son chemlin d’accès
+doit être spécifié par le biais d’un paramètre de la fonction
+<code><a href="../reference/magellanNTK.html">MagellanNTK()</a></code>. Pour une plus grande facilité d’utilisation,
+il est possible de créer un script R spécifique pour exécuter un plugin
+donné. Dans le code qui suit, on a le contenu par exemple d’un fichier
+appelé ‘PipelineDemo.R’ et qui lance MagellanNTK avec le module
+‘Preprocessing’ contenu dans le plugin de démonstration ‘PipelineDemo’.
+Tout d’abord, nous lançons l’application à l’aide des commandes
+suivantes:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK</a></span><span class="op">)</span></span>
+<span><span class="va">wf.name</span> <span class="op">&lt;-</span> <span class="st">'PipelineDemo_Preprocessing'</span></span>
+<span><span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineDemo'</span>, package <span class="op">=</span> <span class="st">'MagellanNTK'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">wf.path</span>, <span class="va">wf.name</span><span class="op">)</span></span></code></pre></div>
+<p>Ceci ouvrira un nouvel onglet dans votre navigateur internet par
+défaut. Th default UI of MagellanNTK is quite empty. The first action to
+perform is to load a dataset. This can be done by clicking on the menu
+“Datset/open file”. If you haven’t exported yet a dataset to a file from
+MagellanNTK, yous should select “demo datasets” option which allows you
+to choose one of the dataset in the package <code>MagellanNTK</code>.
+For this tutorial, you select the ‘lldata’ dataset which is an empty
+one.</p>
+<p>Once the dataset is loaded, the user clicks the menu “Workflow/Run”
+to launch the plugin. In the main screen, its interface is
+displayed.</p>
+</div>
+<div class="section level3">
+<h3 id="user-interface">User interface<a class="anchor" aria-label="anchor" href="#user-interface"></a>
+</h3>
 <div class="section level4">
 <h4 id="commands">Commands<a class="anchor" aria-label="anchor" href="#commands"></a>
 </h4>
@@ -314,156 +521,19 @@ button.</p>
 <p><strong>Next</strong>. A click on the ‘Next’ button moves the cursor
 in the timeline forward to select the next step. If the current step is
 the last one, then the next button is disabled</p>
+<p><strong>Back to start</strong> As we will se later in the document,
+pipelines have only three commands : the already-known ‘Prev’ and ‘Next’
+which have the same function as for a process and another commands
+called ‘Back to start’ which set the first step of a pipeline as the
+current one (the underline goes under its name)</p>
 </div>
-<div class="section level4">
-<h4 id="timeline">Timeline<a class="anchor" aria-label="anchor" href="#timeline"></a>
-</h4>
-<p>The timeline represents the set of steps which compose the process.
-Each step is represented by a bullet with its name. The style of bullets
-(the fill color and the line) depends on the state of the corresponding
-step.</p>
-<p>The available states are the following:</p>
-<table class="table">
-<colgroup>
-<col width="29%">
-<col width="23%">
-<col width="23%">
-<col width="23%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Bullet</th>
-<th align="center">Property</th>
-<th align="center">State</th>
-<th align="center">Done/Undone</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="center"><img src="figs/bullet_empty_red_disabled.png" width="15" height="15"></td>
-<td align="center">Skipped</td>
-<td align="center">Disabled</td>
-<td align="center">Undone</td>
-</tr>
-<tr class="even">
-<td align="center"><img src="figs/bullet_empty_red_disabled.png" width="15" height="15"></td>
-<td align="center">Mandatory</td>
-<td align="center">Disabled</td>
-<td align="center">Undone</td>
-</tr>
-<tr class="odd">
-<td align="center"><img src="figs/bullet_empty_red_enabled.png" width="15"></td>
-<td align="center">Mandatory</td>
-<td align="center">Enabled</td>
-<td align="center">Undone</td>
-</tr>
-<tr class="even">
-<td align="center"><img src="figs/bullet_full_green_disabled.png" width="15" height="15"></td>
-<td align="center">-</td>
-<td align="center">Disabled</td>
-<td align="center">Done</td>
-</tr>
-<tr class="odd">
-<td align="center"><img src="figs/bullet_empty_red_disabled.png" width="15" height="15"></td>
-<td align="center">Not mandatory</td>
-<td align="center"></td>
-<td align="center">Undone</td>
-</tr>
-</tbody>
-</table>
-<p>At any time, the current step is identified by an underline below the
-name of the step. The first step is always the current step at the
-beginning of a process (launch) and after the ‘Reset’ action.</p>
-</div>
-<div class="section level4">
-<h4 id="parameters">Parameters<a class="anchor" aria-label="anchor" href="#parameters"></a>
-</h4>
-<p>In this part of the sidebar are displayed the parameters
-corresponding to the current step. They are enabled or disabled whether
-the sate of their step: if the step is disabled (resp. enabled), the
-widgets are disabled (resp. enabled).</p>
-<p>If the bullet of a step is enabled then all the widgets of this step
-are enabled (as well as the Perform button). In the contrary, a bullet
-that is disabled means that all the widgets and the ‘Perform’ button in
-the UI are disabled.</p>
-</div>
-</div>
-<div class="section level3">
-<h3 id="rules-of-navigation">Rules of navigation<a class="anchor" aria-label="anchor" href="#rules-of-navigation"></a>
-</h3>
-<p>The input of a process is an instance of
-<code>MultiAssayExperiment</code> which contains one or several
-<code>Summarizedexperiment</code>.</p>
-<p>A process take a list of datasets as input, execute a series of tasks
-on the last dataset of the list (the more recent), then returns a list
-of datasets. The output list may be:</p>
-<ul>
-<li><p>identical to the input list (same datasets) if the process did
-not modify it (vizualization functions for example),</p></li>
-<li><p>different if the program modifies the data. In this case,
-MagellanNTK adds the modified dataset to the end of the list of datasets
-rather than just updating the last dataset. The new list has one more
-dataset.. Thus, at any time, the list of datasets keeps the entire
-history of what happened to datasets.</p></li>
-</ul>
-<p>In a process workflow, the sequence of tasks is one-way: it always
-begins from the first task and ends up at the last one. The simplest
-sequence of tasks is the one where each task is executed once, after its
-previous neighboor has been executed. However, it may be interesting to
-introduce some additional rules to customize this sequence of tasks. As
-for example, a given task may be facultative (eventually under some
-condition) while another one will be mandatory. The implementation of
-such features is made by mean of <em>properties</em> on tasks. Actually,
-four tags refines the possibilities of a task:</p>
-<ul>
-<li><p>Mandatory: indicates whether a task must be executed to be able
-to pursiue the workflow.</p></li>
-<li><p>Done: indicates whether a task has been executed</p></li>
-<li><p>Skipped: indicates whether a task has been skipped (i.e. it is
-not validated and there is at least one task further that has been
-validated)</p></li>
-<li><p>Enabled: indicates whether the task is runnable (UI is enabled or
-disabled).</p></li>
-</ul>
-<p>In MagellanNTK, tasks are tagged with a combination of these four
-tags. Different styles are used to identify them in the user interface
-(See Tab xxx)</p>
-<p>In MagellanNTK, a task (or step) is defined as a data analysis
-process that performs a minimal and consistent in a set of operations on
-a dataset (see Fig @ref(fig:singleTask)) and a user interface based on
-Shiny modules. Each task has also its own input object and returns an
-object as output. Within MagellanNTK, those objects are <em>lists</em>
-in which each item is a dataset (several formats are possible).</p>
-<p>Les plugins pour MAgellanNTK ne sont pas directement installés dans
-le package. Les fichiers d’un plugin sont dans un répertoire spécial
-(voir le doucment ‘Inside MagellanNTK’) et ce répertoire peut etre
-n’importe où : cela peut être sur l’ordinateur d’un utilisateur, dans un
-package R.</p>
-<p>Pour utiliser un plugin donné avec MagellanNTK, cela est spécifié
-comme paramètre de la fonction <code><a href="../reference/magellanNTK.html">MagellanNTK()</a></code>. Pour une plus
-grande facilité d’utilisation, il est possible de créer un script R
-spécifique pour un plugin donné. Dans le code qui suit, on a le contenu
-par exmeple d’un fichier appelé ‘PipelineDemo.R’ et qui lance
-MagellanNTK avec le plugin de démonstration ‘PipelineDemo’.</p>
-<p>A chaque fois qu’une étape est validée, un nouveau SE est ajouté au
-dataset. Ce nouveau dataset set ensuite d’entrée pour les étapes
-suivantes</p>
-</div>
-<div class="section level3">
-<h3 id="example-pipelinedemo-xxx">Example (PipelineDemo xxx)<a class="anchor" aria-label="anchor" href="#example-pipelinedemo-xxx"></a>
-</h3>
-</div>
-<div class="section level3">
-<h3 id="already-processed-datasets">Already-processed datasets<a class="anchor" aria-label="anchor" href="#already-processed-datasets"></a>
-</h3>
-<p>These are datasets that have already been processed by MagellanNTK
-and may contain more than only one
-<code>SummarizedExperiment</code>.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="running-a-pipeline-workflow">Running a pipeline workflow<a class="anchor" aria-label="anchor" href="#running-a-pipeline-workflow"></a>
 </h2>
 <p>In this section, one describes how to use the pipeline workflow. As
-for teh process workflow, this is a step-by-step guide to be more
+for the process workflow, this is a step-by-step guide to be more
 familiar with the interface. It can be followed by typing the following
 command in a R console:</p>
 <p><strong>Launch a pipeline</strong></p>
@@ -474,7 +544,7 @@ processes.</p>
 have any steps besides a Description one. This is an exception to the
 rule that any process have at least one real step.</p>
 <div class="section level3">
-<h3 id="user-interface">User interface<a class="anchor" aria-label="anchor" href="#user-interface"></a>
+<h3 id="user-interface-1">User interface<a class="anchor" aria-label="anchor" href="#user-interface-1"></a>
 </h3>
 <p>In the case of a pipeline, the principle is the same. In the example
 in Fig. xxx, a pipeline called ‘Pipeline A’ has four steps (Description,
@@ -532,56 +602,6 @@ structure.</p>
 A pipeline is a sequence of processes (eclated view).
 </p>
 </div>
-</div>
-<div class="section level3">
-<h3 id="rules-of-navigation-1">Rules of navigation<a class="anchor" aria-label="anchor" href="#rules-of-navigation-1"></a>
-</h3>
-<p>Some rules are applied to a workflow to guarantee the global strategy
-of the workflow and the quality of the analysis process. This point is
-important to understand the possibilities of navigation with
-MagellanNTK.</p>
-<div class="section level4">
-<h4 id="load-of-a-new-dataset">Load of a new dataset<a class="anchor" aria-label="anchor" href="#load-of-a-new-dataset"></a>
-</h4>
-<p><strong>Start workflow at the beginning</strong>. When launching a
-workflow, the first task is the only enabled task. This guarantees to
-always start from the first one. A workflow démarre toujours sur l’étape
-de Description qui permet de donner des onformations sur la suite grâce
-à un fichier Rmd. Dans la timeline du pipeline, l’icone de cette étape
-est affichée en vert car on a un historique (celui de la conversion des
-données originales en dataset compatible avec MagellanNTK).
-L’utilisateur</p>
-<p><strong>One way direction</strong>. The order in which tasks are
-executed is in one direction: tasks are executed from the first one
-towards the last one. Each iteration of time is a xxx. It is not
-possible de go back or rerun a task that has already been validated
-(exception if reset, see xxx).</p>
-<p><strong>Chronological order of datasets in the list</strong>. The
-input object of a workflow is a list of datasets but the workflow
-operates only on the last one (the most recent one). When a workflow
-produces a new dataset, this one is added at the end of the list.</p>
-<p><strong>Tasks run once.</strong> In the same way, once a task has
-been validated, it becomes disabled. This is to avoid to rerun a task.
-In this case, that would mean that a task could modify its own result
-(modify the dataset it has already produced). This case is not possible
-in MagellanNTK</p>
-<p><strong>Validating a task.</strong> When a task is validated, its
-state becomes disabled ans all the further tasks until the next
-mandatory one are automatically enabled.</p>
-<p><strong>Enabling/disabling tasks</strong>. A disabled task means
-there is a rule which do not allow it to be executed at this time. A
-task at rank <em>n</em> is enabled if there is a previous task with rank
-<em>i</em> (<em>i &lt; n</em>) that has been validated and if there is
-no mandatory task of rank <em>j</em> (with <em>i &lt; j &lt; n</em>)
-that is not validated.</p>
-<p><strong>Resetting tasks</strong>. It is not possible to reset single
-tasks (the lower level of tasks). Only whole processes and pipelines can
-be reseted. For more details, see xxx.</p>
-<p><strong>Navigation between steps.</strong> It is always possible to
-navigate between all the steps event if they are disabled. This feature
-is useful if one wants to see/discover the content of next steps or to
-remind the values set in the previous widgets.</p>
-</div>
 <div class="section level4">
 <h4 id="commands-1">Commands<a class="anchor" aria-label="anchor" href="#commands-1"></a>
 </h4>
@@ -620,7 +640,7 @@ disabled).</p></li>
 <span><span class="fu"><a href="../reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">wf.path</span>, <span class="va">wf.name</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="already-processed-datasets-1">Already-processed datasets<a class="anchor" aria-label="anchor" href="#already-processed-datasets-1"></a>
+<h3 id="already-processed-datasets">Already-processed datasets<a class="anchor" aria-label="anchor" href="#already-processed-datasets"></a>
 </h3>
 <hr>
 <p>As a workflow manager, the aim of <code>MagellanNTK</code> is to
