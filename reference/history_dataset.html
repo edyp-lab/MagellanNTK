@@ -52,10 +52,16 @@
 <span>  <span class="va">id</span>,</span>
 <span>  dataIn <span class="op">=</span> <span class="fu">reactive</span><span class="op">(</span><span class="op">{</span></span>
 <span>     <span class="cn">NULL</span></span>
+<span> <span class="op">}</span><span class="op">)</span>,</span>
+<span>  remoteReset <span class="op">=</span> <span class="fu">reactive</span><span class="op">(</span><span class="op">{</span></span>
+<span>     <span class="fl">0</span></span>
+<span> <span class="op">}</span><span class="op">)</span>,</span>
+<span>  is.enabled <span class="op">=</span> <span class="fu">reactive</span><span class="op">(</span><span class="op">{</span></span>
+<span>     <span class="cn">TRUE</span></span>
 <span> <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">history_dataset</span><span class="op">(</span><span class="va">dataIn</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">history_dataset</span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -63,22 +69,23 @@
 
 
 <dl><dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
-<dd><p>A `character()` as the id of the Shiny module</p></dd>
+<dd><p>shiny id</p></dd>
 
 
 <dt id="arg-datain">dataIn<a class="anchor" aria-label="anchor" href="#arg-datain"></a></dt>
-<dd><p>xxx</p></dd>
+<dd><p>An instance of the class `MultiAssayExperiment`.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A shiny App</p>
+    <p>A shiny app</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="fu">history_dataset</span><span class="op">(</span><span class="va">lldata</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">lldata</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="fu">history_dataset</span><span class="op">(</span><span class="va">lldata</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

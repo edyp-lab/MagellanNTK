@@ -5,14 +5,14 @@ Get the history of an assay
 ## Usage
 
 ``` r
-GetHistory(obj, name)
+GetHistory(dataIn, name)
 ```
 
 ## Arguments
 
-- obj:
+- dataIn:
 
-  The dataset managed by MagellanNTK
+  An instance of \`MultiAssayExperiment\` class
 
 - name:
 

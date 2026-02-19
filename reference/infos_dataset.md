@@ -31,7 +31,7 @@ infos_dataset(obj)
 
 - dataIn:
 
-  An instance of the class \`QFeatures\`.
+  An instance of the class \`MultiAssayExperiment\`.
 
 ## Value
 
@@ -41,7 +41,7 @@ A shiny app
 
 ``` r
 if (interactive()){
-data(lldata)
-shiny::runApp(infos_dataset(lldata))
+data(lldata123)
+shiny::runApp(infos_dataset(lldata123))
 }
 ```

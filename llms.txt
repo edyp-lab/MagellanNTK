@@ -124,8 +124,6 @@ In the following example, on lance MAgellan avec seulement le process
 - [`addDatasets()`](https://edyp-lab.github.io/MagellanNTK/reference/dataset-processing.md)
   [`keepDatasets()`](https://edyp-lab.github.io/MagellanNTK/reference/dataset-processing.md)
   : Datasets processing
-- [`lldata`](https://edyp-lab.github.io/MagellanNTK/reference/datasets.md)
-  : lldata dataset
 - [`default.funcs()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
   [`default.base.URL()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
   [`default.workflow()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
@@ -134,10 +132,6 @@ In the following example, on lance MAgellan avec seulement le process
   : Default variables used in MagellanNTK
 - [`directoryInput()`](https://edyp-lab.github.io/MagellanNTK/reference/directoryInput.md)
   : Directory Selection Control
-- [`download_btns_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/download_btns.md)
-  [`download_btns_server()`](https://edyp-lab.github.io/MagellanNTK/reference/download_btns.md)
-  [`download_btns()`](https://edyp-lab.github.io/MagellanNTK/reference/download_btns.md)
-  : Download_btns shiny module.
 - [`download_dataset_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/download_dataset.md)
   [`download_dataset_server()`](https://edyp-lab.github.io/MagellanNTK/reference/download_dataset.md)
   [`download_dataset()`](https://edyp-lab.github.io/MagellanNTK/reference/download_dataset.md)
@@ -161,10 +155,6 @@ In the following example, on lance MAgellan avec seulement le process
   [`default_pos`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
   [`listBrewerPalettes`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
   : Global variables
-- [`history_dataset_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/history_dataset.md)
-  [`history_dataset_server()`](https://edyp-lab.github.io/MagellanNTK/reference/history_dataset.md)
-  [`history_dataset()`](https://edyp-lab.github.io/MagellanNTK/reference/history_dataset.md)
-  : history_dataset_ui and history_dataset_server
 - [`initComplete()`](https://edyp-lab.github.io/MagellanNTK/reference/initComplete.md)
   : xxx
 - [`Get_Code_Update_Config_Variable()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
@@ -186,6 +176,14 @@ In the following example, on lance MAgellan avec seulement le process
   : Substring test
 - [`is.validated()`](https://edyp-lab.github.io/MagellanNTK/reference/is.validated.md)
   : xxx
+- [`lldata`](https://edyp-lab.github.io/MagellanNTK/reference/lldata.md)
+  : lldata dataset
+- [`lldata1`](https://edyp-lab.github.io/MagellanNTK/reference/lldata1.md)
+  : lldata1 dataset
+- [`lldata12`](https://edyp-lab.github.io/MagellanNTK/reference/lldata12.md)
+  : lldata12 dataset
+- [`lldata123`](https://edyp-lab.github.io/MagellanNTK/reference/lldata123.md)
+  : lldata123 dataset
 - [`MagellanNTK_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)
   [`MagellanNTK_server()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)
   [`MagellanNTK()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)
