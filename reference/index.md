@@ -147,10 +147,6 @@
   [`mod_launch_magellan_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_launch_magellan.md)
   [`mod_launch_magellan()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_launch_magellan.md)
   : launch_magellan UI Function
-- [`loadapp_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_loading_page.md)
-  [`loadapp_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_loading_page.md)
-  [`loadApp()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_loading_page.md)
-  : Load customizable functions
 - [`mainapp_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_main_page.md)
   [`mainapp_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_main_page.md)
   [`mainapp()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_main_page.md)
@@ -198,7 +194,7 @@
 - [`process_layout()`](https://edyp-lab.github.io/MagellanNTK/reference/process_layout.md)
   [`process_layout_process()`](https://edyp-lab.github.io/MagellanNTK/reference/process_layout.md)
   [`process_layout_pipeline()`](https://edyp-lab.github.io/MagellanNTK/reference/process_layout.md)
-  : Timelines
+  : Layout for workflows
 - [`readConfigFile()`](https://edyp-lab.github.io/MagellanNTK/reference/readConfigFile.md)
   : Read pipelines configuration files
 - [`readDirectoryInput()`](https://edyp-lab.github.io/MagellanNTK/reference/readDirectoryInput.md)

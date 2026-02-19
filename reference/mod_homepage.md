@@ -26,11 +26,11 @@ mod_homepage()
 
 - mdfile:
 
-  xxx
+  The path to the Rmd file which describes the pipeline
 
 - dataset:
 
-  xxx
+  An instance of the class \`MultiAssayExperiment\`
 
 ## Value
 

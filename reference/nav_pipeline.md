@@ -35,7 +35,7 @@ nav_pipeline()
 
 - dataIn:
 
-  An instance of the \`MultiAssayExperiment\` class
+  An instance of the class \`MultiAssayExperiment\`
 
 - is.enabled:
 

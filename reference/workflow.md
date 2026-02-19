@@ -62,7 +62,7 @@ proc_workflowApp(
 
 - dataIn:
 
-  xxx
+  An instance of the class \`MultiAssayExperiment\`
 
 - usermod:
 

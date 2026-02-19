@@ -12,7 +12,8 @@ GetFirstMandatoryNotValidated(range, rv)
 
 - range:
 
-  xxx
+  A \`vector\` of integers. The min of this vector must be greater of
+  equal to 0 and the max must be less or equal to the size of the object
 
 - rv:
 

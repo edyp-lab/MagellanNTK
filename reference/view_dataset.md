@@ -20,7 +20,7 @@ view_dataset(dataIn, ...)
 
 - dataIn:
 
-  An instance of class xxx
+  An instance of the class \`MultiAssayExperiment\`
 
 - ...:
 

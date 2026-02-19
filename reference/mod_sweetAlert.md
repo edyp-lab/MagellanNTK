@@ -22,7 +22,7 @@ mod_SweetAlert(title, text, type = "warning")
 
 - id:
 
-  xxx
+  A \`character()\` as the id of the Shiny module
 
 - title:
 

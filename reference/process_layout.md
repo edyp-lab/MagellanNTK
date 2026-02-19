@@ -1,10 +1,7 @@
-# Timelines
+# Layout for workflows
 
-xxx
-
-xxx
-
-xxx
+Creates a layout to place the sidebar and the main screen for pipelines
+and processes.
 
 ## Usage
 
@@ -28,16 +25,19 @@ process_layout_pipeline(session, ns, sidebar, content)
 
 - sidebar:
 
-  xxx
+  Shiny components
 
 - content:
 
-  xxx
+  Shiny components
 
 ## Value
 
-NA
+A \`div()\` containing shiny components
 
-NA
+## Examples
 
-NA
+``` r
+NULL
+#> NULL
+```

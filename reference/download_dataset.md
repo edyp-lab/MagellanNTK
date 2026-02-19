@@ -28,11 +28,11 @@ download_dataset(dataIn = NULL, filename = "myDataset")
 
 - id:
 
-  internal
+  A \`character()\` as the id of the Shiny module
 
 - dataIn:
 
-  internal
+  An instance of the class \`MultiAssayExperiment\`
 
 - filename:
 

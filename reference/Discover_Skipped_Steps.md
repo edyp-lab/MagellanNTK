@@ -12,9 +12,9 @@ Discover_Skipped_Steps(steps.status)
 
 - steps.status:
 
-  A vector of integers which reflects the status of the steps in the
-  pipeline. Thus, the length of this vector is equal to the number of
-  steps
+  A vector of \`character()\` which reflects the status of the steps in
+  the pipeline. Thus, the length of this vector is equal to the number
+  of steps
 
 ## Value
 
