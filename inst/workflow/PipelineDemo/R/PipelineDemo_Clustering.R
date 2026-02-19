@@ -173,6 +173,7 @@ PipelineDemo_Clustering_server <- function(id,
     
     # Define widgets for the step
     output$Clustering_widgets_UI <- renderUI({
+      req(rv$dataIn)
       widget <- tagList(
         selectInput(
           ns('Clustering_Method'),

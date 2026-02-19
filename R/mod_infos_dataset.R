@@ -87,7 +87,7 @@ infos_dataset_server <- function(
       
       
       MagellanNTK::format_DT_server("dt2",
-        dataIn = reactive({t(summary(assay(.se), digits = 2))})
+        dataIn = reactive({t(summary(SummarizedExperiment::assay(.se), digits = 2))})
       )
       
         MagellanNTK::format_DT_ui(ns("dt2"))

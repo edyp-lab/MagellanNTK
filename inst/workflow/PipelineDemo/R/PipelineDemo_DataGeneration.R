@@ -181,6 +181,9 @@ PipelineDemo_DataGeneration_server <- function(id,
     
     # Create datatable for the step
     output$DataGeneration_tabs_UI <- DT::renderDT({
+      req(rv$dataIn)
+      req(rv$steps.status['Description'] == MagellanNTK::stepStatus$VALIDATED)
+      
       DT::datatable(
         SummarizedExperiment::assay(rv$dataIn, length(rv$dataIn))
       )

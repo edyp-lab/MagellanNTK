@@ -12,7 +12,8 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'     shiny::runApp(view_dataset(lldata))
+#' data(lldata)
+#' shiny::runApp(view_dataset(lldata))
 #' }
 #'
 NULL
@@ -27,11 +28,7 @@ NULL
 #'
 view_dataset_ui <- function(id) {
     ns <- NS(id)
-    tagList(
-        h3(style = "color: blue;", "Dataset viewer"),
-        uiOutput(ns("chooseAssay_UI")),
-        plotOutput(ns("plot"))
-    )
+    tagList()
 }
 
 
@@ -47,27 +44,7 @@ view_dataset_server <- function(
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
-        rv.openDemo <- reactiveValues(
-            dataRead = NULL,
-            dataOut = NULL
-        )
 
-
-        output$chooseAssay_UI <- renderUI({
-            req(dataIn())
-            selectInput(ns("assay"), "Choose",
-                choices = names(dataIn()),
-                width = "100px"
-            )
-        })
-
-        output$plot <- renderPlot({
-            req(input$assay)
-            plot(dataIn()[[input$assay]])
-        })
-        reactive({
-            rv.openDemo$dataOut
-        })
     })
 }
 
