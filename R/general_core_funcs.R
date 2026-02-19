@@ -39,18 +39,18 @@ Add2History <- function(history, process, step.name, param.name, value){
 #' @export
 #' @examples
 #' NULL
-GetHistory <- function(obj, name){
-  
+GetHistory <- function(dataIn, name){
+  req(dataIn)
   
   history <- NULL
-  browser()
-  if (x == 'Description'){
+  #browser()
+  if (name == 'Description'){
     if ('Convert' %in% names(dataIn))
       history <- S4Vectors::metadata(dataIn[['Convert']])[['history']]
-  } else if (x == 'Save'){
+  } else if (name == 'Save'){
     history <- NULL
-  } else if (x %in% names(dataIn)){
-    history <- DaparToolshed::GetHistory(dataIn[[x]])
+  } else if (name %in% names(dataIn)){
+    history <- S4Vectors::metadata(dataIn[[name]])[['history']]
   }
 
   return(history)
@@ -74,7 +74,7 @@ GetHistory <- function(obj, name){
 #' lldata[[1]] <- SetHistory(lldata[[1]], history)
 #'
 SetHistory <- function(obj.se, history){
-  S4Vectors::metadata(obj.se)[['history']] <- history
+  S4Vectors::metadata(obj.se)[['history']] <- rbind(S4Vectors::metadata(obj.se)[['history']], history)
   return(obj.se)
 }
 

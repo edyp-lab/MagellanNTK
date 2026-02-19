@@ -11,8 +11,8 @@
 #'
 #' @examples
 #' if (interactive()){
-#' data(lldata123)
-#' shiny::runApp(history_dataset(lldata123))
+#' data(lldata)
+#' shiny::runApp(history_dataset(lldata))
 #' }
 #' 
 NULL
@@ -71,12 +71,10 @@ history_dataset_server <- function(
       req(rv$dataIn)
 
       .name <- names(rv$dataIn)[length(rv$dataIn)]
-      df <- GetHistory(rv$dataIn, length(rv$dataIn))
+      df <- as.data.frame(GetHistory(rv$dataIn, .name))
       return(df)
     })
-    
-    
-    
+
     MagellanNTK::format_DT_server("history",
       dataIn = reactive({Get_QFeatures_History()})
     )
