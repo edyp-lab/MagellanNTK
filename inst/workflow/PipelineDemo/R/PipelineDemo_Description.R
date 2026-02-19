@@ -23,8 +23,6 @@
 #' shiny::runApp(proc_workflowApp("PipelineDemo_Description", path, dataIn = lldata))
 #' }
 #' 
-#' @importFrom QFeatures addAssay removeAssay
-#' @import DaparToolshed
 #' 
 NULL
 

@@ -12,25 +12,33 @@ history_dataset_server(
   id,
   dataIn = reactive({
      NULL
+ }),
+  remoteReset = reactive({
+     0
+ }),
+  is.enabled = reactive({
+     TRUE
  })
 )
 
-history_dataset(dataIn)
+history_dataset(obj)
 }
 \arguments{
-\item{id}{A `character()` as the id of the Shiny module}
+\item{id}{shiny id}
 
-\item{dataIn}{xxx}
+\item{dataIn}{An instance of the class `MultiAssayExperiment`.}
 }
 \value{
-A shiny App
+A shiny app
 }
 \description{
 A shiny Module.
 }
 \examples{
-if (interactive()) {
-    shiny::runApp(history_dataset(lldata))
+if (interactive()){
+data(lldata)
+shiny::runApp(history_dataset(lldata))
 }
 
 }
+\keyword{internal}

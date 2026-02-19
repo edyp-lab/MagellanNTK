@@ -11,13 +11,16 @@ SetHistory(obj.se, history)
 
 \item{history}{A `data.frame()`}
 }
+\value{
+An instance of the class `SummarizedExperiment`
+}
 \description{
 Standardize names
 }
 \examples{
 data(lldata)
-history <- GetHistory(lldata, 1)
-history <- rbind(history, c('Example', 'Step Ex', 'ex_param', 'Ex'))
+history <- GetHistory(lldata, 'Convert')
+history <- Add2History(history, 'Example', 'Step Ex', 'ex_param', 'Ex')
 lldata[[1]] <- SetHistory(lldata[[1]], history)
 
 }

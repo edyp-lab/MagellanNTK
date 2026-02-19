@@ -28,6 +28,7 @@ Description: Proteomics data often needs a series of statistical processes to
     required.
 License: Artistic-2.0
 Depends: R (>= 4.5.0)
+biocViews: Workflow, Software, GUI
 Imports: 
     S4Vectors,
     methods,
@@ -46,11 +47,13 @@ Imports:
     crayon,
     tidyverse,
     stringr,
-    waiter
+    waiter,
+    MultiAssayExperiment,
+    SummarizedExperiment
 Suggests: 
     rmarkdown, shinyjqui, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
     gtools, XML, R.utils, RColorBrewer,  openxlsx,
-    shinyAce, rclipboard, shinyWidgets, MultiAssayExperiment
+    shinyAce, rclipboard, shinyWidgets
 Collate: 
     MagellanNTK.R
     settings.R
@@ -87,7 +90,6 @@ Collate:
     mod_convert_dataset.R
     globals.R
     mod_error_modal.R
-    mod_download_btns.R
     mod_navbar_menu.R
     mod_open_dataset.R
     mod_popover_for_help.R

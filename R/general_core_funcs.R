@@ -32,7 +32,7 @@ Add2History <- function(history, process, step.name, param.name, value){
 
 #' @title Get the history of an assay
 
-#' @param obj The dataset managed by MagellanNTK
+#' @param dataIn An instance of `MultiAssayExperiment` class
 #' @param name The name of a slot in the object
 #' @return A `data.frame()`
 #'
@@ -69,9 +69,11 @@ GetHistory <- function(dataIn, name){
 #'
 #' @examples
 #' data(lldata)
-#' history <- GetHistory(lldata, 1)
-#' history <- rbind(history, c('Example', 'Step Ex', 'ex_param', 'Ex'))
+#' history <- GetHistory(lldata, 'Convert')
+#' history <- Add2History(history, 'Example', 'Step Ex', 'ex_param', 'Ex')
 #' lldata[[1]] <- SetHistory(lldata[[1]], history)
+#' 
+#' @return An instance of the class `SummarizedExperiment`
 #'
 SetHistory <- function(obj.se, history){
 

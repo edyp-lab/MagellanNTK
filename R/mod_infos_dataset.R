@@ -2,7 +2,7 @@
 #' @description  A shiny Module.
 #'
 #' @param id shiny id
-#' @param dataIn An instance of the class `QFeatures`.
+#' @param dataIn An instance of the class `MultiAssayExperiment`.
 #'
 #' @return A shiny app
 #'
@@ -11,8 +11,8 @@
 #'
 #' @examples
 #' if (interactive()){
-#' data(lldata)
-#' shiny::runApp(infos_dataset(lldata))
+#' data(lldata123)
+#' shiny::runApp(infos_dataset(lldata123))
 #' }
 #' 
 #' @import MultiAssayExperiment
@@ -87,7 +87,7 @@ infos_dataset_server <- function(
       
       
       MagellanNTK::format_DT_server("dt2",
-        dataIn = reactive({as.data.frame(summary(.se))})
+        dataIn = reactive({t(summary(assay(.se), digits = 2))})
       )
       
         MagellanNTK::format_DT_ui(ns("dt2"))

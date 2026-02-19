@@ -2,7 +2,7 @@
 #' @description  A shiny Module.
 #'
 #' @param id shiny id
-#' @param dataIn An instance of the class `QFeatures`.
+#' @param dataIn An instance of the class `MultiAssayExperiment`.
 #'
 #' @return A shiny app
 #'
@@ -44,11 +44,9 @@ history_dataset_ui <- function(id) {
 #'
 #' @keywords internal
 #'
-#' @importFrom tibble as_tibble
 #' @importFrom SummarizedExperiment rowData assay colData
 #' @importFrom S4Vectors metadata
 #' @importFrom MultiAssayExperiment experiments
-#' @importFrom QFeatures nNA
 #'
 history_dataset_server <- function(
     id,
@@ -67,7 +65,7 @@ history_dataset_server <- function(
     })
     
     
-    Get_QFeatures_History <- reactive({
+    Get_MAE_History <- reactive({
       req(rv$dataIn)
 
       .name <- names(rv$dataIn)[length(rv$dataIn)]
@@ -76,7 +74,7 @@ history_dataset_server <- function(
     })
 
     MagellanNTK::format_DT_server("history",
-      dataIn = reactive({Get_QFeatures_History()})
+      dataIn = reactive({Get_MAE_History()})
     )
     
   })

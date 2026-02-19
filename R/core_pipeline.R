@@ -6,7 +6,7 @@
 #' @param id A `character(1)` which defines the id of the module. It is the same
 #' as for the ui() function.
 #'
-#' @param dataIn An instance of the `QFeatures` class
+#' @param dataIn An instance of the `MultiAssayExperiment` class
 #'
 #' @param is.enabled A `boolean`. This variable is a remote command to specify
 #' if the corresponding module is enabled/disabled in the calling module of

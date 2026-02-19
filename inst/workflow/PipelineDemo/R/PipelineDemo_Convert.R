@@ -16,13 +16,6 @@ NULL
 
 #' @rdname mod_convert
 #' @export
-#' @importFrom QFeatures addAssay removeAssay
-#' @import DaparToolshed
-#' @importFrom MagellanNTK Get_Code_Declare_widgets Get_Code_for_ObserveEvent_widgets 
-#' source_shinyApp_files nav_process_ui nav_process_server source_wf_files 
-#' Get_Code_for_rv_reactiveValues Get_Code_Declare_rv_custom Get_Code_for_dataOut 
-#' format_DT_ui format_DT_server Timestamp toggleWidget 
-#' mod_popover_for_help_server mod_popover_for_help_ui
 #' 
 PipelineDemo_Convert_conf <- function(){
   # This list contains the basic configuration of the process
@@ -52,8 +45,6 @@ PipelineDemo_Convert_conf <- function(){
 #'
 #' @importFrom shiny NS tagList
 #' @import sos
-#' @importFrom QFeatures addAssay removeAssay
-#' @import DaparToolshed
 #'
 #' @return NA
 #'
@@ -75,8 +66,6 @@ PipelineDemo_Convert_ui <- function(id) {
 #' @importFrom shinyjs disabled info
 #' @importFrom stats setNames
 #' @importFrom utils read.csv
-#' @importFrom QFeatures addAssay removeAssay
-#' @import DaparToolshed
 #'
 #' @export
 #'

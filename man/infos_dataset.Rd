@@ -26,7 +26,7 @@ infos_dataset(obj)
 \arguments{
 \item{id}{shiny id}
 
-\item{dataIn}{An instance of the class `QFeatures`.}
+\item{dataIn}{An instance of the class `MultiAssayExperiment`.}
 }
 \value{
 A shiny app
@@ -36,8 +36,8 @@ A shiny Module.
 }
 \examples{
 if (interactive()){
-data(lldata)
-shiny::runApp(infos_dataset(lldata))
+data(lldata123)
+shiny::runApp(infos_dataset(lldata123))
 }
 
 }

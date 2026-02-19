@@ -4,10 +4,10 @@
 \alias{GetHistory}
 \title{Get the history of an assay}
 \usage{
-GetHistory(obj, name)
+GetHistory(dataIn, name)
 }
 \arguments{
-\item{obj}{The dataset managed by MagellanNTK}
+\item{dataIn}{An instance of `MultiAssayExperiment` class}
 
 \item{name}{The name of a slot in the object}
 }

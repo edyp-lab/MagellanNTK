@@ -21,7 +21,7 @@
 #' steps of the module with their default values
 #' @param custom A `list` of the custom variables used in the process. Each custom
 #' variable is accompanied with its default value
-#' @param dataIn An instance of the `QFeatures` or `SummarizedExperiment` classes
+#' @param dataIn An instance of the `MultiAssayExperiment` or `SummarizedExperiment` classes
 #' @param addon xxx
 #'
 #' @author Samuel Wieczorek

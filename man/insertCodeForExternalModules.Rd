@@ -69,7 +69,7 @@ steps of the module with their default values}
 \item{custom}{A `list` of the custom variables used in the process. Each custom
 variable is accompanied with its default value}
 
-\item{dataIn}{An instance of the `QFeatures` or `SummarizedExperiment` classes}
+\item{dataIn}{An instance of the `MultiAssayExperiment` or `SummarizedExperiment` classes}
 
 \item{addon}{xxx}
 

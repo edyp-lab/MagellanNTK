@@ -22,11 +22,6 @@
 #'   reset = reactive({NULL}),
 #'   is.enabled = reactive({NULL})
 #'   )
-#'   
-#'   observeEvent(rv$res$dataOut()$value, ignoreNULL = TRUE, ignoreInit = TRUE, {
-#'     print(rv$res$dataOut()$value)
-#'     print(rv$res$dataOut()$widgets)
-#'   })
 #' }
 #' 
 #' shinyApp(ui=ui, server=server)

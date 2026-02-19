@@ -305,9 +305,6 @@ source_wf_files <- function(
     R.dirpath <- file.path(dirpath, "R")
     files <- list.files(R.dirpath, full.names = FALSE)
     for (f in files) {
-        if (verbose) {
-            cat("sourcing ", file.path(R.dirpath, f), "...")
-        }
         source(file.path(R.dirpath, f), local = FALSE, chdir = FALSE)
     }
 
