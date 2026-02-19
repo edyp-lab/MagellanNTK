@@ -29,4 +29,5 @@ data(lldata)
 history <- GetHistory(lldata, 1)
 history <- rbind(history, c('Example', 'Step Ex', 'ex_param', 'Ex'))
 lldata[[1]] <- SetHistory(lldata[[1]], history)
+#> Error in match.names(clabs, names(xi)): names do not match previous names
 ```
