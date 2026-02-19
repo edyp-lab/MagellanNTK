@@ -76,22 +76,23 @@ download_dataset_server <- function(
       do.call(
         paste0("download", 'Button'),
         list(
-          ns("downloadData"), "rdata"
+          ns("downloadData"), "Qf"
         )
       )
     })
     
     output$downloadData <- downloadHandler(
       filename = function() {
-        paste(filename, ".rdata", sep = "")
+        paste(filename, ".qf", sep = "")
       },
       content = function(file) {
         rv$export_file <- tryCatch({
           shiny::withProgress(message = paste0("Builds Rdata file", id), {
             shiny::incProgress(0.5)
-            out.rdata <- tempfile(fileext = ".rdata")
-            saveRDS(rv$data_save, file = out.rdata )
-            out.rdata 
+            out.qf <- tempfile(fileext = ".qf")
+            #saveRDS(rv$data_save, file = out.rdata )
+            saveRDS(rv$data_save, file = out.qf )
+            out.qf 
           })
         },
           warning = function(w) w,

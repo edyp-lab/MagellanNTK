@@ -107,17 +107,6 @@ pipe_workflow_server <- function(
 
         dataOut <- reactiveVal()
 
-        output$save_dataset_ui <- renderUI({
-            req(c(dataOut(), dataOut()$dataOut()$value))
-
-          download_dataset_ui(ns("saveDataset"))
-            download_dataset_server(
-                id = "saveDataset",
-                dataIn = reactive({dataOut()$dataOut()$value})
-            )
-        })
-
-
         observeEvent(path, {
             session$userData$workflow.path <- path
             session$userData$funcs <- readConfigFile(path)$funcs

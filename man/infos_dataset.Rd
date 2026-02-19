@@ -12,25 +12,33 @@ infos_dataset_server(
   id,
   dataIn = reactive({
      NULL
+ }),
+  remoteReset = reactive({
+     0
+ }),
+  is.enabled = reactive({
+     TRUE
  })
 )
 
-infos_dataset(dataIn)
+infos_dataset(obj)
 }
 \arguments{
-\item{id}{A `character()` as the id of the Shiny module}
+\item{id}{shiny id}
 
-\item{dataIn}{xxx}
+\item{dataIn}{An instance of the class `QFeatures`.}
 }
 \value{
-A shiny App
+A shiny app
 }
 \description{
 A shiny Module.
 }
 \examples{
-if (interactive()) {
-    shiny::runApp(infos_dataset(lldata))
+if (interactive()){
+data(lldata)
+shiny::runApp(infos_dataset(lldata))
 }
 
 }
+\keyword{internal}

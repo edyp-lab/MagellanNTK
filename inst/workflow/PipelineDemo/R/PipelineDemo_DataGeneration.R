@@ -243,7 +243,7 @@ PipelineDemo_DataGeneration_server <- function(id,
     # oberveEvent runs when one of the "Run" buttons is clicked
     observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
       req(grepl('Save', btnEvents()))
-      
+
       # Add step history to the dataset history
       len <- length(rv$dataIn)
       rv$dataIn[[len]] <- SetHistory(rv$dataIn[[len]], rv.custom$history)

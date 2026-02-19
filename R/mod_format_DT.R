@@ -94,6 +94,7 @@ format_DT_server <- function(
         proxy <- DT::dataTableProxy(session$ns("StaticDataTable"), session)
 
         observe({
+ 
             req(dataIn())
             rv.infos$obj <- dataIn()
             if (!is.null(hidden())) {

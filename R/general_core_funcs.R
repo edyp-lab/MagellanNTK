@@ -40,10 +40,19 @@ Add2History <- function(history, process, step.name, param.name, value){
 #' @examples
 #' NULL
 GetHistory <- function(obj, name){
-  history <- NULL
-  if (!is.null(obj) && name %in% names(obj))
-    history <- S4Vectors::metadata(obj[[name]])[['history']]
   
+  
+  history <- NULL
+  browser()
+  if (x == 'Description'){
+    if ('Convert' %in% names(dataIn))
+      history <- S4Vectors::metadata(dataIn[['Convert']])[['history']]
+  } else if (x == 'Save'){
+    history <- NULL
+  } else if (x %in% names(dataIn)){
+    history <- DaparToolshed::GetHistory(dataIn[[x]])
+  }
+
   return(history)
 }
 

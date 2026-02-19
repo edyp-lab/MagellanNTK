@@ -1,96 +1,115 @@
-#' @title infos_dataset_ui and infos_dataset_server
+#' @title   infos_dataset_ui and infos_dataset_server
+#' @description  A shiny Module.
 #'
-#' @description A shiny Module.
+#' @param id shiny id
+#' @param dataIn An instance of the class `QFeatures`.
 #'
-#' @param id A `character()` as the id of the Shiny module
-#' @param dataIn xxx
+#' @return A shiny app
+#'
 #'
 #' @name infos_dataset
 #'
 #' @examples
-#' if (interactive()) {
-#'     shiny::runApp(infos_dataset(lldata))
+#' if (interactive()){
+#' data(lldata)
+#' shiny::runApp(infos_dataset(lldata))
 #' }
-#'
-#' @return A shiny App
-#'
+#' 
+#' @import MultiAssayExperiment
+#' 
 NULL
 
 
 
-
-#' @export
+#'
+#'
 #' @rdname infos_dataset
-#' @importFrom shiny NS tagList uiOutput fluidRow h3 br column
+#'
+#' @export
+#' @importFrom shiny NS tagList
 #'
 infos_dataset_ui <- function(id) {
-    ns <- NS(id)
-    tagList(
-        h3(style = "color: blue;", "Info dataset"),
-        uiOutput(ns("title")),
-        uiOutput(ns("choose_SE_ui")),
-        uiOutput(ns("show_SE_ui"))
-    )
+  ns <- NS(id)
+  
+  tagList(
+    h3("This is the default module infos_dataset of MagellanNTK. It can be customized."),
+    uiOutput(ns("choose_SE_ui")),
+    uiOutput(ns("show_SE_ui"))
+      )
 }
 
 
+
+
+
+# Module Server
+
 #' @rdname infos_dataset
-#'
 #' @export
-#' @importFrom BiocGenerics get
-#' @importFrom utils data
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
-#' @importFrom shiny moduleServer observe req reactive selectInput renderUI
 #'
+#' @keywords internal
+#'
+#' @importFrom SummarizedExperiment rowData assay colData
+#' @importFrom S4Vectors metadata
+#' @importFrom MultiAssayExperiment experiments
 #'
 infos_dataset_server <- function(
-        id,
-        dataIn = reactive({
-            NULL
-        })) {
-    moduleServer(id, function(input, output, session) {
-        ns <- session$ns
-
-        output$choose_SE_ui <- renderUI({
-            req(dataIn())
-            selectInput(ns("selectInputSE"),
-                "Select a dataset for further information",
-                choices = c("None", names(dataIn()))
-            )
-        })
-
-
-        output$show_SE_ui <- renderUI({
-            req(input$selectInputSE != "None")
-            req(dataIn())
-            p(input$selectInputSE)
-        })
+    id,
+  dataIn = reactive({NULL}),
+  remoteReset = reactive({0}),
+  is.enabled = reactive({TRUE})) {
+  moduleServer(id, function(input, output, session) {
+    ns <- session$ns
+    
+    rv <- reactiveValues(
+      dataIn = NULL
+    )
+    
+    observeEvent(req(inherits(dataIn(), "MultiAssayExperiment")), {
+      rv$dataIn <- dataIn()
     })
+    
+    output$choose_SE_ui <- renderUI({
+      req(rv$dataIn)
+      
+      radioButtons(ns("selectInputSE"),
+        "Select an assay for further information",
+        choices = names(MultiAssayExperiment::experiments(rv$dataIn))
+      )
+    })
+    
+
+    output$show_SE_ui <- renderUI({
+      req(rv$dataIn)
+      req(input$selectInputSE != "None")
+      .se <- rv$dataIn[[input$selectInputSE]]
+      req(.se)
+      
+      
+      MagellanNTK::format_DT_server("dt2",
+        dataIn = reactive({as.data.frame(summary(.se))})
+      )
+      
+        MagellanNTK::format_DT_ui(ns("dt2"))
+
+    })
+    
+  })
 }
 
 
 
-
-###################################################################
-##                                                               ##
-##                                                               ##
-###################################################################
 #' @export
-#' @importFrom shiny shinyApp fluidPage
 #' @rdname infos_dataset
 #'
-infos_dataset <- function(dataIn) {
-    ui <- fluidPage(
-        infos_dataset_ui("infos")
+infos_dataset <- function(obj) {
+  ui <- fluidPage(infos_dataset_ui("mod_info"))
+  
+  server <- function(input, output, session) {
+    infos_dataset_server("mod_info",
+      dataIn = reactive({obj})
     )
-
-
-    server <- function(input, output, session) {
-        infos_dataset_server("infos", dataIn = reactive({
-            dataIn
-        }))
-    }
-
-    app <- shinyApp(ui = ui, server = server)
+  }
+  
+  app <- shiny::shinyApp(ui, server)
 }

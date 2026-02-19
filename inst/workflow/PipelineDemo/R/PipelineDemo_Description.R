@@ -88,7 +88,9 @@ PipelineDemo_Description_server <- function(id,
   # Define default values for reactive values
   # By default, this list is empty for the Description module
   # but it can be customized
-  rv.custom.default.values <- list()
+  rv.custom.default.values <- list(
+    history = MagellanNTK::InitializeHistory()
+  )
   
   ###########################################################################-
   #
@@ -141,6 +143,11 @@ PipelineDemo_Description_server <- function(id,
       
       req(dataIn())
       rv$dataIn <- dataIn()
+
+      rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Description', 'Description', 'Initialization', '-')
+      
+      len <- length(rv$dataIn)
+      rv$dataIn[[len]] <- SetHistory(rv$dataIn[[len]], rv.custom$history)
       
       
       # DO NOT MODIFY THE THREE FOLLOWING LINES

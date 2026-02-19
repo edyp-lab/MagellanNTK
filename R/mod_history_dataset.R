@@ -1,77 +1,104 @@
-#' @title history_dataset_ui and history_dataset_server
+#' @title   history_dataset_ui and history_dataset_server
+#' @description  A shiny Module.
 #'
-#' @description A shiny Module.
+#' @param id shiny id
+#' @param dataIn An instance of the class `QFeatures`.
 #'
-#' @param id A `character()` as the id of the Shiny module
-#' @param dataIn xxx
+#' @return A shiny app
+#'
 #'
 #' @name history_dataset
 #'
 #' @examples
-#' if (interactive()) {
-#'     shiny::runApp(history_dataset(lldata))
+#' if (interactive()){
+#' data(lldata123)
+#' shiny::runApp(history_dataset(lldata123))
 #' }
-#'
-#' @return A shiny App
-#'
+#' 
 NULL
 
 
 
-
-#' @export
+#'
+#'
 #' @rdname history_dataset
-#' @importFrom shiny NS tagList uiOutput fluidRow h3 br column
+#'
+#' @export
+#' @importFrom shiny NS tagList
 #'
 history_dataset_ui <- function(id) {
   ns <- NS(id)
-  tagList(
-    h3(style = "color: blue;", "Generic history module")
+  div(style = 'height: 600px',
+    MagellanNTK::format_DT_ui(ns("history"))
   )
 }
 
 
+
+
+
+# Module Server
+
 #' @rdname history_dataset
-#'
 #' @export
-#' @importFrom BiocGenerics get
-#' @importFrom utils data
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
-#' @importFrom shiny moduleServer observe req reactive selectInput renderUI
 #'
+#' @keywords internal
+#'
+#' @importFrom tibble as_tibble
+#' @importFrom SummarizedExperiment rowData assay colData
+#' @importFrom S4Vectors metadata
+#' @importFrom MultiAssayExperiment experiments
+#' @importFrom QFeatures nNA
 #'
 history_dataset_server <- function(
     id,
-  dataIn = reactive({NULL})) {
+  dataIn = reactive({NULL}),
+  remoteReset = reactive({0}),
+  is.enabled = reactive({TRUE})) {
+  
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
+    rv <- reactiveValues(
+      dataIn = NULL
+    )
+    observeEvent(req(inherits(dataIn(), "MultiAssayExperiment")), {
+      rv$dataIn <- dataIn()
+    })
+    
+    
+    Get_QFeatures_History <- reactive({
+      req(rv$dataIn)
+
+      .name <- names(rv$dataIn)[length(rv$dataIn)]
+      df <- GetHistory(rv$dataIn, length(rv$dataIn))
+      return(df)
+    })
+    
+    
+    
+    MagellanNTK::format_DT_server("history",
+      dataIn = reactive({Get_QFeatures_History()})
+    )
     
   })
 }
 
 
 
-
-###################################################################
-##                                                               ##
-##                                                               ##
-###################################################################
 #' @export
-#' @importFrom shiny shinyApp fluidPage
 #' @rdname history_dataset
 #'
-history_dataset <- function(dataIn) {
-  ui <- fluidPage(
-    history_dataset_ui("infos")
-  )
-  
+history_dataset <- function(obj) {
+  ui <- fluidPage(history_dataset_ui("mod_info"))
   
   server <- function(input, output, session) {
-    history_dataset_server("infos", 
-      dataIn = reactive({dataIn}))
+    history_dataset_server("mod_info",
+      dataIn = reactive({
+        obj
+      })
+    )
   }
   
-  app <- shinyApp(ui = ui, server = server)
+  app <- shiny::shinyApp(ui, server)
 }
