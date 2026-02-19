@@ -36,6 +36,7 @@ NA
 
 ``` r
 if (interactive()) {
-    shiny::runApp(view_dataset(lldata))
+data(lldata)
+shiny::runApp(view_dataset(lldata))
 }
 ```
