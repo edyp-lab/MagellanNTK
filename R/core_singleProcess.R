@@ -53,13 +53,7 @@ NULL
 #'
 nav_single_process_ui <- function(id) {
   ns <- NS(id)
-  
-  addResourcePath(
-    prefix = "images_Prostar2",
-    directoryPath = system.file("images", package = "Prostar2")
-  )
-  
-  
+
   tagList(
     div(
       uiOutput(ns('process_panel_ui_process'))
@@ -69,10 +63,7 @@ nav_single_process_ui <- function(id) {
       top = 20,
       
       actionButton(ns("btn_eda_singleProcess"), 
-        label = tagList(
-          p("EDA", style = "margin: 0px;"),
-          tags$img(src = "images_Prostar2/logoEDA_50.png", width = '50px')
-        ),
+        label = "EDA",
         style = "padding: 0px; margin: 0px; border: none;
           background-size: cover; background-position: center;
           background-color: transparent; font-size: 12px; z-index: 999999999999;")

@@ -1,31 +1,21 @@
 Package: MagellanNTK
 Title: A customizable Workflow Manager
-Version: 0.99.28
+Version: 0.99.29
 Authors@R: 
-  c(person("MagellanNTK Package Maintainer",
-      email = "prostar-proteomics@cea.fr", role = c("cre")),
+  c(
       person(given = "Samuel", family = "Wieczorek",
-      email = "samuel.wieczorek@cea.fr", role = c("aut"),
+      email = "samuel.wieczorek@cea.fr", role = c("cre","aut"),
       comment = c(ORCID="0000-0002-5016-1203")),
       person(given = "Thomas", family ="Burger",
       email = "thomas.burger@cea.fr", role = c("aut")),
       person(given = "Manon", family ="Gaudin",
       email = "manon.gaudin@cea.fr", role = c("aut"))
       )
-Description: Proteomics data often needs a series of statistical processes to 
-    be analyzed. MagellanNTK (Magellan Navigation ToolKit) is a collection of Shiny 
+Description: MagellanNTK (Magellan Navigation ToolKit) is a collection of Shiny 
     modules which provide the basis 
     for a generic workflow manager for data processing toolswith several steps. 
     It works in combination with any package which implements data processing 
-    pipelines compliant with MagellanNTK such as MSPipelines and Prostar. It can 
-    handle lists of objects and manage a hierarchy of levels.
-    This package provides a GUI interface for the DaparToolshed package. The 
-    package Prostar (Proteomics statistical analysis with R) is a Bioconductor 
-    distributed R package which provides all the necessary functions to 
-    analyze quantitative data from label-free proteomics experiments. 
-    Contrarily to most other similar R packages, it is endowed with rich and 
-    user-friendly graphical interfaces, so that no programming skill is 
-    required.
+    pipelines compliant with MagellanNTK such as MSPipelines and Prostar2. 
 License: Artistic-2.0
 Depends: R (>= 4.5.0)
 biocViews: Workflow, Software, GUI
@@ -49,9 +39,10 @@ Imports:
     stringr,
     waiter,
     MultiAssayExperiment,
-    SummarizedExperiment
+    SummarizedExperiment,
+    rmarkdown
 Suggests: 
-    rmarkdown, shinyjqui, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
+    shinyjqui, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
     gtools, XML, R.utils, RColorBrewer,  openxlsx,
     shinyAce, rclipboard, shinyWidgets
 Collate: 

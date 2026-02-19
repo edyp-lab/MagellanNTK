@@ -142,7 +142,7 @@ PipelineDemo_Description_server <- function(id,
       req(dataIn())
       rv$dataIn <- dataIn()
 
-      rv.custom$history <- Prostar2::Add2History(rv.custom$history, 'Description', 'Description', 'Initialization', '-')
+      rv.custom$history <- Add2History(rv.custom$history, 'Description', 'Description', 'Initialization', '-')
       
       len <- length(rv$dataIn)
       rv$dataIn[[len]] <- SetHistory(rv$dataIn[[len]], rv.custom$history)

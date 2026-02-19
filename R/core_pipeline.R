@@ -193,10 +193,7 @@ nav_pipeline_server <- function(
     # Part of the UI which is placed at the top of the window and contains
     # the navigation buttons, the timeline and the EDA button for a pipeline
     output$pipeline_tl_btn_ui <- renderUI({
-      addResourcePath(
-        prefix = "images_Prostar2",
-        directoryPath = system.file("images", package = "Prostar2")
-      )
+
       div(
         style = paste0(
           "padding-left: ", default.layout$left_pipeline_timeline, "px; margin-top: -15px;",
@@ -229,10 +226,7 @@ nav_pipeline_server <- function(
           column(width = 1, 
             
             actionButton(ns("btn_eda"), 
-              label = tagList(
-                p("EDA", style = "margin: 0px;"),
-                tags$img(src = "images_Prostar2/logoEDA_50.png", width = '50px')
-              ),
+              label = "EDA",
               style = "padding: 0px; margin: 0px; border: none;
           background-size: cover; background-position: center;
           background-color: transparent; font-size: 12px; z-index: 9999999;")

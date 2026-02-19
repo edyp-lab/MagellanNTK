@@ -6,9 +6,9 @@
 #' @author Samuel Wieczorek, Manon Gaudin
 #' @examples
 #' if (interactive()){
-#' data("Exp1_R25_prot", package = "DaparToolshedData")
-#' path <- system.file('workflow/PipelineDemo', package = 'Prostar2')
-#' shiny::runApp(workflowApp("PipelineDemo_Convert", path, dataIn = Exp1_R25_prot))
+#' library(MagellanNTK)
+#' path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
+#' shiny::runApp(proc_workflowApp("PipelineDemo_Convert", path))
 #' }
 #' 
 NULL
