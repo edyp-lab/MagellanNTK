@@ -68,8 +68,6 @@ the information from the entire analysis.
 
 
 
-(Fig \@ref(fig:UI_mainIntro)).
-
 ```{r UI_mainIntro, results='markup', fig.cap="UI for a single process", echo=FALSE, out.width='100%', fig.align='center', fig.wide = TRUE}
 knitr::include_graphics("./figs/UI_PipelineDemo_Clustering2.png", error = FALSE)
 ```
@@ -138,10 +136,8 @@ also be composed of one or more sub-steps.
 In the example provided with the `MagellanNTK` package, the pipeline is called 
 "PipelineDemo". It contains 3 data processing steps: DataGeneration 
 (which contains 1 step), Preprocessing (with 2 steps: Filtering and 
-Normalization) and Clustering.
+Normalization) and Clustering (Fig. \@ref(fig:pipelineProcessStep)).
 
-  
-(Fig \@ref(fig:pipelineProcessStep)).
 
 ```{r pipelineProcessStep, results='markup', fig.cap="UI for a single process", echo=FALSE, out.width='100%', fig.align='center', fig.wide = TRUE}
 knitr::include_graphics("./figs/pipelineProcessStep.png", error = FALSE)
@@ -249,8 +245,8 @@ it to the caller program.
 ## Rules of navigation
 
 Several rules are applied to guarantee the global strategy of the workflow and the 
-quality of the analysis process.
-This point is important to understand the possibilities of navigation with MagellanNTK.
+quality of the analysis process. This point is important to understand the 
+possibilities of navigation with MagellanNTK.
 
 When the application is launched, no dataset is loaded. Consequently, all pipelines, 
 processes, and steps remain disabled until a dataset is provided. Once a dataset 
@@ -438,8 +434,25 @@ knitr::include_graphics("./figs/UI_mod_open_dataset.png", error = FALSE)
 To access the workflow, hover over the sidebar menu and go to "Workflow" -> "Run".
 
 In the main screen, one now view the complete pipeline interface. On the top of the
-screen, one recognize the pipeline timeine with the steps of the pipeline and the
-cammands panel with 3 buttons.
+screen, one recognize the pipeline timeline with the steps of the pipeline and a
+commands panel with 3 buttons.
+
+**commands**: shows a panel containing five buttons which allow to interact and 
+  navigate through the different steps of the process:
+  * **Back to start** As we will see later in the document, pipelines have only three 
+commands : the already-known 'Prev' and 'Next', which have the same function for 
+a process or a pipeline, and another commands called 'Back to start' which set 
+the first step of a pipeline as the current one (the underline goes under its name).
+
+  * **Previous**. A click on the 'Prev' button moves the cursor in the timeline backward to
+enables the previous step. If the current step is the first one, then the previous
+button is disabled.
+
+  * **Next**. Clicking on the 'Next' button moves the cursor in the timeline forward 
+to select the next step. If the current step is the last one, then the next
+button is disabled
+
+
 
 
 To navigate between processes, use the arrow on the left of the top timeline. The 
@@ -530,10 +543,24 @@ buttons in the UI are disabled.
 
 
 
+### Exploratory Data Analysis (EDA) tool
+
+This tool is available when the user clicks on its icon, placed at the top right corner
+of the screen. This action opens a modal window with 3 tabs, each of them
+displaying an information about the dataset. The content of each of these 
+panels is fully customizable by means of "generic functions" (See 'Inside MagellanNTK')
 
 
+**Infos**: xxx
+  * **history**: Displays the history stored in the current SE
+  * **EDA**: 
 
 
+```{r EDA, results='markup', fig.cap="UI for a single process", echo=FALSE, out.width='100%', fig.align='center', fig.wide = TRUE}
+knitr::include_graphics("./figs/UI_EDA1.png", error = FALSE)
+knitr::include_graphics("./figs/UI_EDA2.png", error = FALSE)
+knitr::include_graphics("./figs/UI_EDA3.png", error = FALSE)
+```
 
 
 
