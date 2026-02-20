@@ -590,7 +590,7 @@ in the UI are disabled.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="run-description-step">Run ‘Description’ step<a class="anchor" aria-label="anchor" href="#run-description-step"></a>
+<h3 id="description-step">‘Description’ step<a class="anchor" aria-label="anchor" href="#description-step"></a>
 </h3>
 <p>The first step is ‘Description’, which only serves as a starting
 point, with a short text describing the pipeline. When a dataset is
@@ -604,7 +604,7 @@ pipelinedescription
 the pipeline so as to change the current step to ‘Data Generation’.</p>
 </div>
 <div class="section level3">
-<h3 id="run-datageneration-step">Run ‘DataGeneration’ step<a class="anchor" aria-label="anchor" href="#run-datageneration-step"></a>
+<h3 id="datageneration-step">‘DataGeneration’ step<a class="anchor" aria-label="anchor" href="#datageneration-step"></a>
 </h3>
 <p>The first actual step is ‘DataGeneration’. This step is set as
 mandatory, so all subsequent processes are disabled until this step is
@@ -636,7 +636,7 @@ Step Data generation
 </div>
 </div>
 <div class="section level3">
-<h3 id="run-preprocessing-step">Run ‘Preprocessing’ step<a class="anchor" aria-label="anchor" href="#run-preprocessing-step"></a>
+<h3 id="preprocessing-step">‘Preprocessing’ step<a class="anchor" aria-label="anchor" href="#preprocessing-step"></a>
 </h3>
 <p>The second step is ‘Preprocessing’. This step is set as mandatory, so
 all subsequent processes are disabled until this step is validated.
@@ -670,7 +670,7 @@ Sub-step Preprocessing/Normalization
 </div>
 </div>
 <div class="section level3">
-<h3 id="run-clustering-step">Run ‘Clustering’ step<a class="anchor" aria-label="anchor" href="#run-clustering-step"></a>
+<h3 id="clustering-step">‘Clustering’ step<a class="anchor" aria-label="anchor" href="#clustering-step"></a>
 </h3>
 <p>The third and last actual step is ‘Clustering’. This step is not
 mandatory and can be skipped. There is only one sub-step in this step,
@@ -689,7 +689,7 @@ Sub-step Clustering/Clustering
 </div>
 </div>
 <div class="section level3">
-<h3 id="run-save-step">Run ‘Save’ step<a class="anchor" aria-label="anchor" href="#run-save-step"></a>
+<h3 id="save-step">‘Save’ step<a class="anchor" aria-label="anchor" href="#save-step"></a>
 </h3>
 <p>The last step is ‘Save’, which only serves as a ending point, with a
 short text marking the end of the pipeline. Technically, this step does
@@ -726,9 +726,43 @@ the ‘Reset’ button of this process. All the processes of the pipeline
 will be reseted in one action.</p>
 </div>
 <div class="section level2">
+<h2 id="run-a-single-process">Run a single process<a class="anchor" aria-label="anchor" href="#run-a-single-process"></a>
+</h2>
+<p>If one wants to run only a single process, MagellanNTK implements the
+ability to launch and run it rather than launch the whole pipeline and
+move to the correct process. Another advantage of this feature is the
+gain of time it offers when developing (and debugging) a new process for
+this pipeline.</p>
+<p>To launch a process, the command lines are quite similar to those for
+launching a pipeline; one just have to specify the name of the process
+to run. In the following example, one launch the process
+‘Preprocessing’:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK</a></span><span class="op">)</span></span>
+<span><span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineDemo'</span>, package <span class="op">=</span> <span class="st">'MagellanNTK'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">wf.path</span>, <span class="st">'PipelineDemo_Preprocessing'</span><span class="op">)</span></span></code></pre></div>
+<p>This also opens the MagellanNTK framework in the default web browser.
+The only difference with running a pipeline is the absence of the
+pipeline timeline on the top of the screen. All other UI components stay
+available.</p>
+<p>An important point here concerns the dataset. As this feature has
+been implemented to quickly test new data analysis tool, it has been
+decided to simplify the dataset the user will analyze with this process.
+Thus, after loading of a dataset, MagellanNTK delete all the SE stored
+in the dataset but the last one. The result is a new instance of
+<code>MultiAssayEpxeriment</code> with only one assay
+(<code>SummarizedExperiment</code>) renamed ‘Convert’ and which
+corresponds to the last assay of the real dataset.</p>
+<p>As an example, consider the dataset ‘lldata12’ from the package
+<code>MagellanNTK</code> which has 3 SE: ‘Convert’, ‘DataGeneration’ and
+‘Preprocessing’. If one load this dataset in a single process, then
+MagellanNTK will create a new dataset containing only the ‘Convert’
+assay which is a renaming of the previous ‘Preprocessing’ assy.</p>
+</div>
+<div class="section level2">
 <h2 id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## R version 4.5.2 (2025-10-31)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu</span></span>

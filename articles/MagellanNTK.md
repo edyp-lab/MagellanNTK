@@ -469,7 +469,7 @@ enabled (as well as the Run buttons). In the contrary, a bullet that is
 disabled means that all the widgets and the ‘Run’ buttons in the UI are
 disabled.
 
-### Run ‘Description’ step
+### ‘Description’ step
 
 The first step is ‘Description’, which only serves as a starting point,
 with a short text describing the pipeline. When a dataset is loaded,
@@ -482,7 +482,7 @@ pipelinedescription
 At this point, the only action is to click ‘Next’ in the timeline of the
 pipeline so as to change the current step to ‘Data Generation’.
 
-### Run ‘DataGeneration’ step
+### ‘DataGeneration’ step
 
 The first actual step is ‘DataGeneration’. This step is set as
 mandatory, so all subsequent processes are disabled until this step is
@@ -515,7 +515,7 @@ last sub-step.
 
 Step Data generation
 
-### Run ‘Preprocessing’ step
+### ‘Preprocessing’ step
 
 The second step is ‘Preprocessing’. This step is set as mandatory, so
 all subsequent processes are disabled until this step is validated.
@@ -549,7 +549,7 @@ Preprocessing/Normalization](figs/UI_PipelineDemo_Preprocessing3.png)
 
 Sub-step Preprocessing/Normalization
 
-### Run ‘Clustering’ step
+### ‘Clustering’ step
 
 The third and last actual step is ‘Clustering’. This step is not
 mandatory and can be skipped. There is only one sub-step in this step,
@@ -567,7 +567,7 @@ to directly skip to the next sub-step.
 
 Sub-step Clustering/Clustering
 
-### Run ‘Save’ step
+### ‘Save’ step
 
 The last step is ‘Save’, which only serves as a ending point, with a
 short text marking the end of the pipeline. Technically, this step does
@@ -600,6 +600,45 @@ It is possible to quickly reset the whole pipeline by clicking on the
 current process becomes the first one ‘Description’ and then, click on
 the ‘Reset’ button of this process. All the processes of the pipeline
 will be reseted in one action.
+
+## Run a single process
+
+If one wants to run only a single process, MagellanNTK implements the
+ability to launch and run it rather than launch the whole pipeline and
+move to the correct process. Another advantage of this feature is the
+gain of time it offers when developing (and debugging) a new process for
+this pipeline.
+
+To launch a process, the command lines are quite similar to those for
+launching a pipeline; one just have to specify the name of the process
+to run. In the following example, one launch the process
+‘Preprocessing’:
+
+``` r
+library(MagellanNTK)
+wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
+MagellanNTK(wf.path, 'PipelineDemo_Preprocessing')
+```
+
+This also opens the MagellanNTK framework in the default web browser.
+The only difference with running a pipeline is the absence of the
+pipeline timeline on the top of the screen. All other UI components stay
+available.
+
+An important point here concerns the dataset. As this feature has been
+implemented to quickly test new data analysis tool, it has been decided
+to simplify the dataset the user will analyze with this process. Thus,
+after loading of a dataset, MagellanNTK delete all the SE stored in the
+dataset but the last one. The result is a new instance of
+`MultiAssayEpxeriment` with only one assay (`SummarizedExperiment`)
+renamed ‘Convert’ and which corresponds to the last assay of the real
+dataset.
+
+As an example, consider the dataset ‘lldata12’ from the package
+`MagellanNTK` which has 3 SE: ‘Convert’, ‘DataGeneration’ and
+‘Preprocessing’. If one load this dataset in a single process, then
+MagellanNTK will create a new dataset containing only the ‘Convert’
+assay which is a renaming of the previous ‘Preprocessing’ assy.
 
 ## Session information
 
