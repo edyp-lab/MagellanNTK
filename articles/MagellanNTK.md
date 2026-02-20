@@ -177,7 +177,7 @@ In the case of a pipeline, the principle is the same. In the example in
 Fig. xxx, the pipeline called ‘PipelineDemo’ has four steps
 (Description, DataGeneration, Preprocessing and Clustering). Remark that
 the content of the UI area of the pipeline is exactly the whole UI of
-its current process (e.g. in Fig @ref(fig:layout)).
+its current process (e.g. in Fig (Fig. @ref(fig:layout))).
 
 ![(a) Horizontal layout, (b) Vertical layout](figs/layout.png)
 
@@ -306,8 +306,8 @@ This will open a new tab in your default web browser with this url:
 
 ### General user interface
 
-The user interface consists of two parts: the sidebar on the left and
-the main screen.
+The user interface consists of two parts (Fig. @ref(fig:menuSidebar)):
+the sidebar on the left and the main screen.
 
 - Sidebar on the left containing the general menus.
 - Main part that displays the workflow manager.
@@ -371,7 +371,7 @@ dataset” option in “Dataset source” to choose one of the datasets
 included in the `MagellanNTK` package. For this tutorial, we select the
 ‘lldata’ dataset which consists of one SE containing an empty 100 x 6
 matrix as assay. Once a dataset is chosen, a short summary of the
-dataset is displayed.
+dataset is displayed (Fig. @ref(fig:opendataset)).
 
 ![opendataset](figs/UI_mod_open_dataset.png)
 
@@ -401,15 +401,14 @@ processes.
 
 Below that header, there is the interface of the current process/step
 (the one that have the cursor under its name in the pipeline timeline).
-The process UI is divided into two parts.
+The process UI is divided into two parts (Fig.
+@ref(fig:UIsingleProcess)).
 
 - A sidebar on the left which is always visible.
 - All remaining space to show results (tabs, plots and any other stuff).
 
 The content of this part is updated each time the user changes the
 current process.
-
-(Fig. @ref(fig:UIsingleProcess)).
 
 ![UI for a single process](figs/UI_singleProcess.png)
 
