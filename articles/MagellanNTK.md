@@ -383,45 +383,6 @@ In the main screen, one now view the complete pipeline interface. On the
 top of the screen, one recognize the pipeline timeine with the steps of
 the pipeline and the cammands panel with 3 buttons.
 
-Below that header, there is the interface of the current process/step
-(the one that have the cursor under its name in the pipeline timeline).
-The process UI is divided into two parts.
-
-- A sidebar on the left which is always visible.
-- All remaining space to show results (tabs, plots and any other stuff).
-
-The sidebar itself always consists of three regions:
-
-- **commands**: shows a panel containing five buttons which allow to
-  interact and navigate through the different steps of the process:
-  - Previous: xxx.
-  - Reset: xxx.
-  - Run: xxx.
-  - Run and Proceed: xxx.
-  - Next: xxx.
-- **timeline** which represent the sequence of tasks composing the
-  process, placed in the order they can be executed (from top to
-  bottom).
-- **parameters** of the current step. In this part of the sidebar are
-  displayed the parameters corresponding to the current step. They are
-  enabled or disabled whether the sate of their step:
-- if the step is disabled (resp. enabled), the widgets are disabled
-  (resp. enabled).
-- If the bullet of a step is enabled then all the widgets of this step
-  are enabled (as well as the Run buttons). In the contrary, a bullet
-  that is disabled means that all the widgets and the ‘Run’ buttons in
-  the UI are disabled.
-
-(Fig @ref(fig:UI_singleProcess)).
-
-![UI for a single process](figs/UI_singleProcess.png)
-
-UI for a single process
-
-![pipelinedescription](figs/UI_PipelineDemo_Description.png)
-
-pipelinedescription
-
 To navigate between processes, use the arrow on the left of the top
 timeline. The double arrow to the left of the left arrow allows you to
 return with one click to the very first process (Description) from any
@@ -429,20 +390,96 @@ process of the workflow. To navigate inside a process, use the arrow in
 the left sidebar, above the vertical timeline showing the different step
 available.
 
-Even if a step is disabled, it is possible to view the content of it.
-
-At any point during the workflow, the “EDA” button at the top right
+Even if a step is disabled, it is possible to view the content of it. At
+any point during the workflow, the “EDA” button at the top right
 provides access to the previously described summary as well as a
 complete history of the parameter values used in previously validated
 processes.
 
-##### Description
+Below that header, there is the interface of the current process/step
+(the one that have the cursor under its name in the pipeline timeline).
+The process UI is divided into two parts.
+
+- A sidebar on the left which is always visible.
+- All remaining space to show results (tabs, plots and any other stuff).
+
+The content of this part is updated each time tue user changes the
+current process.
+
+(Fig @ref(fig:UI_singleProcess)).
+
+![UI for a single process](figs/UI_singleProcess.png)
+
+UI for a single process
+
+#### Sidebar of a process
+
+The sidebar itself always consists of three regions: commands, timeline
+and parameters.
+
+**commands**: shows a panel containing five buttons which allow to
+interact and navigate through the different steps of the process: \*
+**Previous**. A click on the ‘Prev’ button moves the cursor in the
+timeline backward to enables the previous step. If the current step is
+the first one, then the previous button is disabled.
+
+- **Reset**. This button is used to reset the entire process (all its
+  steps) to its initial state. Several actions follow:
+
+  - The dataset that has been loaded in the process is kept.
+  - All the analysis that may have been done are deleted. Thus, the
+    bullets in the timeline go to the ‘UNDONE’ state, no matter what
+    their state is at the moment the Reset button is clicked.
+  - The current step becomes the first one (the cursor in the timeline
+    goes under the first step).
+  - All the widgets in each step are set to their initial values and
+    become disabled (until a dataset is launched in the process).
+
+- **Run**. This action performs the analysis with the selected
+  parameters. If there are no sufficient parameters to perform the
+  analysis, no analysis is done and a modal info is displayed and invite
+  the user to adjust the parameters. Once the action has been done, the
+  bullet in the timeline changes its state and pass to ‘DONE’. After
+  this calculation, the current step stay unchanged to allow the user to
+  view the result of its action on the dataset. This button is disabled
+  if the current step is disabled (DONE or SKIPPED).
+
+- **Run and Proceed**. This is the same as the “Run” button but if the
+  calculation succeeded, the current step automatically goes to the next
+  step. This method is quicker than the previous one but has the
+  disadvantage that the user can not immediatly view the results and has
+  to click on the ‘Prev’ button to do so.
+
+- **Next**. Clicking on the ‘Next’ button moves the cursor in the
+  timeline forward to select the next step. If the current step is the
+  last one, then the next button is disabled
+
+**timeline** which represent the sequence of tasks composing the
+process, placed in the order they can be executed (from top to bottom).
+
+**Parameters** of the current step. In this part of the sidebar are
+displayed the parameters corresponding to the current step. They are
+enabled or disabled whether the sate of their step: \* if the step is
+disabled (resp. enabled), the widgets are disabled (resp. enabled). \*
+If the bullet of a step is enabled then all the widgets of this step are
+enabled (as well as the Run buttons). In the contrary, a bullet that is
+disabled means that all the widgets and the ‘Run’ buttons in the UI are
+disabled.
+
+### Run ‘Description’ step
 
 The first step is ‘Description’, which only serves as a starting point,
 with a short text describing the pipeline. When a dataset is loaded,
 this step is automatically validated.
 
-##### DataGeneration
+![pipelinedescription](figs/UI_PipelineDemo_Description.png)
+
+pipelinedescription
+
+At this point, the only action is to click ‘Next’ in the timeline of the
+pipeline so as to change the current step to ‘Data Generation’.
+
+### Run ‘DataGeneration’ step
 
 The first actual step is ‘DataGeneration’. This step is set as
 mandatory, so all subsequent processes are disabled until this step is
@@ -471,7 +508,11 @@ then go to the next step. The history is also updated with new
 informations. Note that the ‘Run -\>’ button is disabled as it is the
 last sub-step.
 
-##### Preprocessing
+![Step Data generation](figs/UI_PipelineDemo_DataGeneration3.png)
+
+Step Data generation
+
+### Run ‘Preprocessing’ step
 
 The second step is ‘Preprocessing’. This step is set as mandatory, so
 all subsequent processes are disabled until this step is validated.
@@ -488,6 +529,11 @@ filtered dataset on the plot, or ‘Run -\>’ to directly skip to the next
 sub-step. As this sub-step is not mandatory, if the next one is
 validated while ‘Filtering’ is not, it will become disabled.
 
+![Sub-step
+Preprocessing/Filtering](figs/UI_PipelineDemo_Preprocessing2.png)
+
+Sub-step Preprocessing/Filtering
+
 The ‘Normalization’ sub-step allows columns to be normalized using the
 sum or average of the values in the column. The user can specify the
 method (Sum or Mean) and a plot displays a boxplot of the column values.
@@ -495,7 +541,12 @@ Once a choice of parameters has been made, you can click on ‘Run’ to
 validate and see the normalized dataset on the plot, or ‘Run -\>’ to
 directly skip to the next sub-step.
 
-##### Clustering
+![Sub-step
+Preprocessing/Normalization](figs/UI_PipelineDemo_Preprocessing3.png)
+
+Sub-step Preprocessing/Normalization
+
+### Run ‘Clustering’ step
 
 The third and last actual step is ‘Clustering’. This step is not
 mandatory and can be skipped. There is only one sub-step in this step,
@@ -509,14 +560,18 @@ of the rows. Once a choice of parameters has been made, you can click on
 ‘Run’ to validate and see the filtered dataset on the plot, or ‘Run -\>’
 to directly skip to the next sub-step.
 
-##### Save
+![Sub-step Clustering/Clustering](figs/UI_PipelineDemo_Clustering2.png)
+
+Sub-step Clustering/Clustering
+
+### Run ‘Save’ step
 
 The last step is ‘Save’, which only serves as a ending point, with a
 short text marking the end of the pipeline. Technically, this step does
 not need to be validated as it does not change the dataset, which can be
 downloaded in “Dataset” -\> “Save as”.
 
-#### Reset a step
+## Reset a step
 
 If at any point a mistake was made in the chosen parameters, or you
 simply want to try something else, you can reset any process with the
@@ -525,6 +580,14 @@ as well as any other process down the timeline, will be resetted with
 default values and all SE from these processes will be removed. Keep in
 mind that this is irreversible, and therefore if the reset was done by
 mistake, you will have to start again from this point.
+
+![Reset a process](figs/beforeResetingProcess.png)
+
+Reset a process
+
+![Reset a process](figs/afterresetPreprocessing.png)
+
+Reset a process
 
 ## Session information
 
