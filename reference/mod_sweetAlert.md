@@ -1,6 +1,7 @@
 # A shiny app to display a modal
 
-A shiny app to display a modal
+This module is not directly used by MagellanNTK core functions. It is
+rather a useful tool for third part pipelines and processes.
 
 ## Usage
 
@@ -26,19 +27,20 @@ mod_SweetAlert(title, text, type = "warning")
 
 - title:
 
-  xxx
+  The title to be displayed in the window
 
 - text:
 
-  xxx
+  The titmessage to be displayed in the window
 
 - showClipBtn:
 
-  xxx
+  A \`boolean\` to indicates if the copy to clipboard button is shown or
+  not.
 
 - type:
 
-  xxx
+  A \`character()\` for the type of message: 'error', 'warning', etc..
 
 ## Value
 

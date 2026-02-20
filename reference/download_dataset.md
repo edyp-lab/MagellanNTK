@@ -45,7 +45,9 @@ download_dataset(dataIn = NULL, filename = "myDataset")
 
 - is.enabled:
 
-  xxx
+  A \`boolean\`. This variable is used as a remote command to specify if
+  the corresponding module is enabled (TRUE) or disabled (FALSE). For
+  more details, please refer to the document 'Inside MagellanNTK'?
 
 ## Value
 

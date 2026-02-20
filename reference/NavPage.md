@@ -1,6 +1,6 @@
-# xxx
+# Move the position of the cursor
 
-xxx
+Move the position of the cursor
 
 ## Usage
 
@@ -12,8 +12,8 @@ NavPage(direction, current.pos, len)
 
 - direction:
 
-  A \`integer(1)\` which is the direction of the xxx: forward ('1'),
-  backwards ('-1').
+  A \`integer(1)\` which is the direction in the timeline: forward (1),
+  backwards (-1).
 
 - current.pos:
 
@@ -30,6 +30,7 @@ A \`integer(1)\` which is the new current position.
 ## Examples
 
 ``` r
-NULL
-#> NULL
+NavPage(-1, 5, 5)
+#> [1] 4
+
 ```

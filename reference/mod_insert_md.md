@@ -7,7 +7,7 @@ A shiny Module.
 ``` r
 insert_md_ui(id)
 
-insert_md_server(id, url, link_URL = NULL)
+insert_md_server(id, url)
 
 insert_md(url)
 ```
@@ -20,11 +20,8 @@ insert_md(url)
 
 - url:
 
-  internal
-
-- link_URL:
-
-  xxx
+  The path to the Rmd file to display. It can be a path to a file on the
+  computer or a link to a file over internet.
 
 ## Value
 

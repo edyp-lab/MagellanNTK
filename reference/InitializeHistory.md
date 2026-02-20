@@ -11,7 +11,8 @@ InitializeHistory()
 
 ## Value
 
-A \`integer(1)\`
+A \`data.frame()\` with four columns: 'Process', 'Step', 'Parameter' and
+'Value'
 
 ## Examples
 

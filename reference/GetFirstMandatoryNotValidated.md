@@ -17,8 +17,10 @@ GetFirstMandatoryNotValidated(range, rv)
 
 - rv:
 
-  A \`list\` with at least two slots : \* mandatory: xxx \*
-  steps.status: xxx
+  A \`list\` with at least two slots : \* mandatory: A vector of
+  \`booelan\` which indicates whther the steps are mandatory or not \*
+  steps.status: A vector of \`interger()\` which indicates the status of
+  the steps
 
 ## Value
 

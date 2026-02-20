@@ -21,7 +21,7 @@ process_layout_pipeline(session, ns, sidebar, content)
 
 - ns:
 
-  xxx
+  Namespaced IDs for inputs/outputs
 
 - sidebar:
 

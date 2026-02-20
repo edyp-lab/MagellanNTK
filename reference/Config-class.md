@@ -1,18 +1,7 @@
 # Config class definition
 
 This class is used to store the configuration of any process used with
-MagellanNTK It contains a validity function to ensure that the format is
-correct.
-
-Validity: \* The first step must be called 'Description', it is a
-mandatory step. Thus, the first item of the mandatory vector is TRUE. To
-be continued...
-
-\## Initialization \### Generic process
-
-A generic process \* Generic pipeline : xxxx \* Description pipeline:
-This case is for a process called 'Description' which is the first
-process module of a pipeline
+MagellanNTK It contains the following slots:
 
 Wrapper function to the constructor of the class
 
@@ -69,11 +58,11 @@ Config(
 
 - .Object:
 
-  xxx
+  The object
 
 ## Value
 
-NA
+An instance of the class \`Config\`
 
 ## Slots
 
@@ -130,87 +119,38 @@ NA
 ## Examples
 
 ``` r
-# Example of a generic process
-generic.proc <- Config(
-    fullname = "PipelineDemo_Process1",
+# Example of a single process with one step
+proc1step <- Config(
+    fullname = "PipelineDemo_DataGeneration",
     mode = "process",
-    steps = c("Step 1", "Step 2"),
-    mandatory = c(TRUE, FALSE)
+    steps = c("DataGeneration"),
+    mandatory = c(TRUE)
 )
 
 
+# Example of a single process with two steps
 # Example of a generic pipeline
-generic.pipe <- Config(
-    fullname = "Pipe1_PipelineDemo",
-    mode = "pipeline",
-    steps = c("Process 1", "Process 2"),
+proc2steps <- Config(
+    fullname = "PipelineDemo_PreProcessing",
+    mode = "process",
+    steps = c('Filtering', 'Normalization'),
     mandatory = c(TRUE, FALSE)
 )
 
-# Example of a root pipeline (process has no parent)
-root.pipe <- Config(
+# Example of pipeline with three process
+pipe3proc <- Config(
     mode = "pipeline",
     fullname = "PipelineDemo",
-    steps = c("Process1", "Process2 bis", "Process3"),
-    mandatory = c(FALSE, FALSE, TRUE)
+    steps = c('DataGeneration', 'Preprocessing', 'Clustering'),
+    mandatory = c(TRUE, FALSE, FALSE)
 )
 
 
-# Example of a description module (process has no steps)
+# Example of a particular description module (A process with no step)
 description.process <- Config(
     fullname = "PipelineDemo_Description",
     mode = "process",
     steps = "",
     mandatory = ""
 )
-
-
-generic.proc
-#>     ------- Config -------
-#>    fullname: PipelineDemo_Process1
-#>    name: Process1
-#>    parent: PipelineDemo
-#>    mode: process
-#>    names(steps): Description Step1 Step2 Save
-#>    steps: Description Step 1 Step 2 Save
-#>    mandatory: TRUE TRUE FALSE TRUE
-#>    names(ll.UI): 
-#>    ll.UI: 
-#> 
-generic.pipe
-#>     ------- Config -------
-#>    fullname: Pipe1_PipelineDemo
-#>    name: PipelineDemo
-#>    parent: Pipe1
-#>    mode: pipeline
-#>    names(steps): Description Process1 Process2 Save
-#>    steps: Description Process 1 Process 2 Save
-#>    mandatory: TRUE TRUE FALSE TRUE
-#>    names(ll.UI): 
-#>    ll.UI: 
-#> 
-root.pipe
-#>     ------- Config -------
-#>    fullname: PipelineDemo
-#>    name: PipelineDemo
-#>    parent: 
-#>    mode: pipeline
-#>    names(steps): Description Process1 Process2bis Process3 Save
-#>    steps: Description Process1 Process2 bis Process3 Save
-#>    mandatory: TRUE FALSE FALSE TRUE TRUE
-#>    names(ll.UI): 
-#>    ll.UI: 
-#> 
-description.process
-#>     ------- Config -------
-#>    fullname: PipelineDemo_Description
-#>    name: Description
-#>    parent: PipelineDemo
-#>    mode: process
-#>    names(steps): 
-#>    steps: 
-#>    mandatory: 
-#>    names(ll.UI): 
-#>    ll.UI: 
-#> 
 ```

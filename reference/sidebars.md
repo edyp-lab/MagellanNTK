@@ -1,6 +1,7 @@
 # Sidebar functions
 
-xxx
+These functions content the UI code for the main sidebar in the
+interface of MagellanNTK
 
 ## Usage
 
@@ -10,7 +11,7 @@ Insert_User_Sidebar()
 
 ## Value
 
-NA
+Shiny UI component
 
 ## Examples
 

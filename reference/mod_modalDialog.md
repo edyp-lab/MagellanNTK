@@ -1,6 +1,8 @@
-# Predefined modal
+# Predefined modal with embeded shiny module
 
-Displays of formatted modal-dialog with 'Cancel' and 'Ok' buttons.
+Displays of formatted modal-dialog with 'Cancel' and 'Ok' buttons. This
+modal (a shiny module itself) can embed a shiny module and it is able to
+return the return value of the embeded shiny module.
 
 ## Usage
 
@@ -38,7 +40,8 @@ mod_modalDialog(
 
 - typeWidget:
 
-  = 'button',
+  The type of command widget to show to open the modal. Available values
+  are 'button' (default) and 'link'.
 
 - width:
 
@@ -47,15 +50,23 @@ mod_modalDialog(
 
 - uiContent:
 
-  The content of the modal dialog.
+  The content of the modal dialog. By default, its value is NULL which
+  means that the user wants to embed a shiny module. In this case, the
+  module rather take into account the two next parameters.
 
 - external_mod:
 
-  xxx
+  The name of a shiny module which is already loaded in the R session.
+  This name corresponds to the name of the functions \`\_ui\` and
+  \`\_server\` without these suffixes. For example, if the user wants to
+  add a module defined by the functions \`myModule_ui()\` and
+  \`myModule_server()\`, then the parameter 'external_mod' should be set
+  to 'myModule'.
 
 - external_mod_args:
 
-  xxx
+  A \`list()\` which contains the parameters sent to the function
+  \`myModule_server()\`.
 
 ## Value
 

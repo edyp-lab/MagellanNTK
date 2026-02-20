@@ -66,8 +66,9 @@ proc_workflowApp(
 
 - usermod:
 
-  A character to specifies the running mode of MagellanNTK. \* user
-  (default) : xxx \* dev: xxx
+  A \`character()\` to specifies the running mode of MagellanNTK: 'user'
+  (default) or 'dev'. For more details, please refer to the document
+  'Inside MagellanNTK'
 
 - verbose:
 
@@ -76,7 +77,7 @@ proc_workflowApp(
 
 ## Value
 
-NA
+A shiny app
 
 A shiny App
 

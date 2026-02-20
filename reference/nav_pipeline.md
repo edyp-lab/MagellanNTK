@@ -1,4 +1,4 @@
-# The server() function of the module \`nav_pipeline\`
+# Shiny module \`nav_pipeline()\`
 
 The module navigation can be launched via a Shiny app. This is the core
 module of MagellanNTK
@@ -59,8 +59,9 @@ nav_pipeline()
 
 - usermod:
 
-  A character to specifies the running mode of MagellanNTK. \* user
-  (default) : xxx \* dev: xxx
+  A \`character()\` to specifies the running mode of MagellanNTK: 'user'
+  (default) or 'dev'. For more details, please refer to the document
+  'Inside MagellanNTK'
 
 ## Value
 

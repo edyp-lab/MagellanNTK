@@ -1,4 +1,4 @@
-# xxx
+# Updates the status of steps in a given range
 
 Updates the status of steps in a given range
 
@@ -38,4 +38,5 @@ An updated version of the vector rv\$steps.enabled
 ``` r
 NULL
 #> NULL
+
 ```

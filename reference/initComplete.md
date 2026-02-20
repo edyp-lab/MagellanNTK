@@ -1,6 +1,6 @@
-# xxx
+# Initialisation function for DT
 
-A short description...
+Initialisation function for DT
 
 ## Usage
 
@@ -10,11 +10,13 @@ initComplete()
 
 ## Value
 
-NA
+literal JavaScript code
 
 ## Examples
 
 ``` r
-NULL
-#> NULL
+initComplete()
+#> [1] "function(settings, json) {\n$(this.api().table().header()).css({'background-color': 'darkgrey', 'color': 'black'});\n}"
+#> attr(,"class")
+#> [1] "JS_EVAL"
 ```

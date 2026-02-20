@@ -13,7 +13,7 @@ GetMaxValidated_BeforePos(pos = NULL, rv)
 
 - pos:
 
-  A \`integer(1)\` which is the indice of the active position.
+  A \`integer()\` which is the indice of the active position.
 
 - rv:
 
@@ -21,11 +21,13 @@ GetMaxValidated_BeforePos(pos = NULL, rv)
 
 ## Value
 
-A \`integer(1)\`
+A \`integer()\`
 
 ## Examples
 
 ``` r
-NULL
-#> NULL
+pos <- 3
+rv <- list(steps.status = c(1,1,0,1,0,0), current.pos = 3)
+GetMaxValidated_BeforePos(pos, rv)
+#> [1] 2
 ```

@@ -40,7 +40,7 @@ nav_process()
 - id:
 
   A \`character(1)\` which defines the id of the module. It is the same
-  as for the server() function.
+  as for the ui() function.
 
 - dataIn:
 
@@ -67,12 +67,14 @@ nav_process()
 
 - remoteResetUI:
 
-  xxx
+  An \`integer\` which acts as a remote command to reset the UI part of
+  the module Its value is incremented on a external event and it is used
+  to trigger an event in the module
 
 - is.skipped:
 
-  A booelan which indicates whether the pipeline or process is skipped
-  (TRUE) or not (FALSE)
+  A \`boolean\` which indicates whether the pipeline or process is
+  skipped (TRUE) or not (FALSE)
 
 - verbose:
 
@@ -81,8 +83,9 @@ nav_process()
 
 - usermod:
 
-  A character to specifies the running mode of MagellanNTK. \* user
-  (default) : xxx \* dev: xxx
+  A \`character()\` to specifies the running mode of MagellanNTK: 'user'
+  (default) or 'dev'. For more details, please refer to the document
+  'Inside MagellanNTK'
 
 ## Value
 

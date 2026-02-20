@@ -1,6 +1,6 @@
-# Package version \#'description xxx
+# Get the version of a package installed in the local R distribution
 
-Package version \#'description xxx
+Get the version of a package installed in the local R distribution
 
 ## Usage
 
@@ -12,15 +12,15 @@ GetPackageVersion(pkg)
 
 - pkg:
 
-  xxx
+  The name of a package
 
 ## Value
 
-NA
+A \`character()\`
 
 ## Examples
 
 ``` r
-NULL
-#> NULL
+GetPackageVersion('MagellanNTK')
+#> [1] "0.99.29"
 ```

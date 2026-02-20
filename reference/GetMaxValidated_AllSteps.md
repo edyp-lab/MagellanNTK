@@ -1,6 +1,7 @@
-# xxx
+# Get the last validated step
 
-xxx
+This function returns the indice of the last validated step among all
+the steps
 
 ## Usage
 
@@ -17,11 +18,11 @@ GetMaxValidated_AllSteps(steps.status)
 
 ## Value
 
-A \`integer(1)\`
+A \`integer(1)\` which is the indice of the value
 
 ## Examples
 
 ``` r
-NULL
-#> NULL
+GetMaxValidated_AllSteps(c(1,1,0,1,0,0))
+#> [1] 4
 ```

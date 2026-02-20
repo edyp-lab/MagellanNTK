@@ -67,7 +67,7 @@ the current step.</p>
 
 
 <dt id="arg-value">value<a class="anchor" aria-label="anchor" href="#arg-value"></a></dt>
-<dd><p>xxx</p></dd>
+<dd><p>The value corresponding to the param.name</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -77,8 +77,12 @@ the current step.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="cn">NULL</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">history</span> <span class="op">&lt;-</span> <span class="fu"><a href="InitializeHistory.html">InitializeHistory</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Add2History</span><span class="op">(</span><span class="va">history</span>, <span class="st">'Example'</span>, <span class="st">'First step'</span>, <span class="st">"my param"</span>, <span class="st">'THE value'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Process       Step Parameter     Value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Example First step  my param THE value</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

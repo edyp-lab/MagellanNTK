@@ -1,6 +1,6 @@
 # Main Shiny application
 
-xxx
+Main Shiny application
 
 ## Usage
 
@@ -58,8 +58,9 @@ MagellanNTK(
 
 - usermod:
 
-  A character to specifies the running mode of MagellanNTK. \* user
-  (default) : xxx \* dev: xxx
+  A \`character()\` to specifies the running mode of MagellanNTK: 'user'
+  (default) or 'dev'. For more details, please refer to the document
+  'Inside MagellanNTK'
 
 - ...:
 
@@ -68,18 +69,6 @@ MagellanNTK(
 ## Value
 
 A shiny app
-
-## Details
-
-The list of customizable functions (param \`funcs\`) contains the
-following items:
-
-These are the default values where each item points to a default
-fucntion implemented into MagellanNTK.
-
-The user can modify these values by two means: \* setting the values in
-the parameter to pass to the function \`MagellanNTK()\`, \* inside the
-UI of MagellanNTK, in the settings panels
 
 ## Examples
 

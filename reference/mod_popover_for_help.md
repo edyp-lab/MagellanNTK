@@ -1,6 +1,9 @@
-# mod_popover_for_help_ui and mod_popover_for_help_server
+# Opens a small tooltip info over a widget.
 
-A shiny Module.
+Actually, this module does not work because we do not allow the use of
+the package \`shinyBS\` package (conflicts with BS versions). In the
+future, one will fix this module with native functions in the package
+\`bs4Dash\` (https://bs4dash.rinterface.com/reference/tooltip).
 
 ## Usage
 
@@ -20,11 +23,11 @@ popover_for_help(title, content)
 
 - title:
 
-  xxxx
+  The title of the tooltip window
 
 - content:
 
-  xxx
+  The main text of the tooltip window
 
 ## Value
 

@@ -20,13 +20,11 @@ errorModal(msg)
 
 - msg:
 
-  xxxx
+  The text to display in the modal
 
 ## Value
 
 A shiny App
-
-NA
 
 ## Examples
 

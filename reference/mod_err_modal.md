@@ -1,6 +1,7 @@
-# xxx
+# A modal window to display messages
 
-xxx
+This module is not directly used by MagellanNTK core functions. It is
+rather a useful tool for third part pipelines and processes.
 
 ## Usage
 
@@ -25,15 +26,15 @@ mod_errorModal(title = NULL, text = NULL)
 
 - title:
 
-  xxxx
+  A \`character()\` as the title of the modal
 
 - text:
 
-  xxx
+  A \`character()\` as the content of the modal
 
 - footer:
 
-  xxx
+  The content of the footer . May be UI content
 
 ## Value
 

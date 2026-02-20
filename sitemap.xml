@@ -28,13 +28,11 @@
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/Update_State_Screens.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/call.func.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/dataModal.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/dataset-processing.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/default_vars.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/directoryInput.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/download_dataset.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/errorModal.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/find_funs.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/format_DT.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/generic_mod_open_dataset.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.html</loc></url>
@@ -44,7 +42,6 @@
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/initComplete.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/is.substr.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/is.validated.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/lldata.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/lldata1.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/lldata12.html</loc></url>
@@ -65,15 +62,11 @@
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/nav_pipeline.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/nav_process.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/navbarPageWithInputs.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/navbarPageWithText.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/pkgs.require.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/process_layout.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/readConfigFile.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/readDirectoryInput.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/runDirinputExample.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/shinyInput.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/shinyOutput.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/show-Config-method.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/sidebars.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/source_shinyApp_files.html</loc></url>
@@ -83,6 +76,5 @@
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/updateDirectoryInput.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/view_dataset.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/workflow.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/write.excel.html</loc></url>
 </urlset>
 

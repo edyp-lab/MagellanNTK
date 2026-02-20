@@ -1,6 +1,6 @@
-# Call function
+# Wrapper to the function \`do.call\`
 
-xxx
+Wrapper to the function \`do.call\`
 
 ## Usage
 
@@ -12,15 +12,15 @@ call.func(fname, args)
 
 - fname:
 
-  xxx
+  The name of the function to execute
 
 - args:
 
-  xxx
+  The \`list()\` of its arguments
 
 ## Value
 
-NA
+The result of the function called
 
 ## See also
 
@@ -29,7 +29,7 @@ NA
 ## Examples
 
 ``` r
-call.func("stats::rnorm", list(10))
-#>  [1]  0.36295126 -1.30454355  0.73777632  1.88850493 -0.09744510 -0.93584735
-#>  [7] -0.01595031 -0.82678895 -1.51239965  0.93536319
+call.func("stats::rnorm", list(n =10, mean=3))
+#>  [1] 3.362951 1.695456 3.737776 4.888505 2.902555 2.064153 2.984050 2.173211
+#>  [9] 1.487600 3.935363
 ```

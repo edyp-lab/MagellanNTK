@@ -98,7 +98,8 @@ Get_AdditionalModule_Core_Code(w.names = NULL, rv.custom.names = NULL)
 
 - addon:
 
-  xxx
+  Additional code for the \`observeEvent()\` function which catches the
+  \`remoteReset()\` action.
 
 - w.names:
 

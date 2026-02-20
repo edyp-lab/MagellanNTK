@@ -85,7 +85,9 @@ process</p></dd>
 
 
 <dt id="arg-remoteresetui">remoteResetUI<a class="anchor" aria-label="anchor" href="#arg-remoteresetui"></a></dt>
-<dd><p>xxx</p></dd>
+<dd><p>An `integer` which acts as a remote command to reset the
+UI part of the module Its value is incremented on a external event and it is
+used to trigger an event in the module</p></dd>
 
 
 <dt id="arg-is-enabled">is.enabled<a class="anchor" aria-label="anchor" href="#arg-is-enabled"></a></dt>
@@ -98,7 +100,8 @@ is deciding by this module.</p></dd>
 
 
 <dt id="arg-is-skipped">is.skipped<a class="anchor" aria-label="anchor" href="#arg-is-skipped"></a></dt>
-<dd><p>is.skipped xxx</p></dd>
+<dd><p>A `boolean` which indicates whether the pipeline or process
+is skipped (TRUE) or not (FALSE)</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
@@ -107,9 +110,9 @@ the verbose mode for logs.</p></dd>
 
 
 <dt id="arg-usermod">usermod<a class="anchor" aria-label="anchor" href="#arg-usermod"></a></dt>
-<dd><p>A character to specifies the running mode of MagellanNTK.
-* user (default) : xxx
-* dev: xxx</p></dd>
+<dd><p>A `character()` to specifies the running mode of MagellanNTK:
+'user' (default) or 'dev'. For more details, please refer to the document
+'Inside MagellanNTK'</p></dd>
 
 
 <dt id="arg-senddataifreset">sendDataIfReset<a class="anchor" aria-label="anchor" href="#arg-senddataifreset"></a></dt>

@@ -77,8 +77,8 @@ This is the core module of MagellanNTK</p>
 
 
 <dl><dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
-<dd><p>A `character(1)` which defines the id of the module.
-It is the same as for the server() function.</p></dd>
+<dd><p>A `character(1)` which defines the id of the module. It is the same
+as for the ui() function.</p></dd>
 
 
 <dt id="arg-datain">dataIn<a class="anchor" aria-label="anchor" href="#arg-datain"></a></dt>
@@ -107,11 +107,13 @@ trigger an event in this module</p></dd>
 
 
 <dt id="arg-remoteresetui">remoteResetUI<a class="anchor" aria-label="anchor" href="#arg-remoteresetui"></a></dt>
-<dd><p>xxx</p></dd>
+<dd><p>An `integer` which acts as a remote command to reset the
+UI part of the module Its value is incremented on a external event and it is
+used to trigger an event in the module</p></dd>
 
 
 <dt id="arg-is-skipped">is.skipped<a class="anchor" aria-label="anchor" href="#arg-is-skipped"></a></dt>
-<dd><p>A booelan which indicates whether the pipeline or process
+<dd><p>A `boolean` which indicates whether the pipeline or process
 is skipped (TRUE) or not (FALSE)</p></dd>
 
 
@@ -121,9 +123,9 @@ the verbose mode for logs.</p></dd>
 
 
 <dt id="arg-usermod">usermod<a class="anchor" aria-label="anchor" href="#arg-usermod"></a></dt>
-<dd><p>A character to specifies the running mode of MagellanNTK.
-* user (default) : xxx
-* dev: xxx</p></dd>
+<dd><p>A `character()` to specifies the running mode of MagellanNTK:
+'user' (default) or 'dev'. For more details, please refer to the document
+'Inside MagellanNTK'</p></dd>
 
 </dl></div>
     <div class="section level2">

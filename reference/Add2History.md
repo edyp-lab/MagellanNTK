@@ -29,7 +29,7 @@ Add2History(history, process, step.name, param.name, value)
 
 - value:
 
-  xxx
+  The value corresponding to the param.name
 
 ## Value
 
@@ -38,6 +38,9 @@ A \`data.frame()\`
 ## Examples
 
 ``` r
-NULL
-#> NULL
+history <- InitializeHistory()
+Add2History(history, 'Example', 'First step', "my param", 'THE value')
+#>   Process       Step Parameter     Value
+#> 1 Example First step  my param THE value
+
 ```

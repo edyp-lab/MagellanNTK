@@ -1,17 +1,33 @@
-# Timelines
+# Shiny module for the process timeline
 
-xxx
+Shiny module for the process timeline
 
 ## Usage
 
 ``` r
 timeline_process_ui(id)
 
-timeline_process_server(id, config, status, position, enabled)
+timeline_process_server(
+  id,
+  config,
+  status = reactive({
+     NULL
+ }),
+  position = reactive({
+     1
+ }),
+  enabled = reactive({
+     NULL
+ })
+)
+
+timeline_process(config, status, position, enabled)
 
 timeline_pipeline_ui(id)
 
 timeline_pipeline_server(id, config, status, position, enabled)
+
+timeline_pipeline(config, status, position, enabled)
 ```
 
 ## Arguments
@@ -41,13 +57,35 @@ timeline_pipeline_server(id, config, status, position, enabled)
 
 ## Value
 
-NA
-
-A Shiny app
+A shiny app
 
 ## Examples
 
 ``` r
-NULL
-#> NULL
+if(interactive()){
+config <- Config(
+    mode = "process",
+    fullname = "PipelineDemo_Preprocessing",
+    steps = c('Filtering', 'Normalization'),
+    mandatory = c(FALSE, TRUE)
+)
+status <- reactive({c(1, 1, 0, 0)})
+pos <- reactive({2})
+enabled <- reactive({c(0, 0, 1, 1)})
+shiny::runApp(timeline_process(config, status, pos, enabled))
+}
+
+
+if(interactive()){
+config <- Config(
+    mode = "pipeline",
+    fullname = "PipelineDemo",
+    steps = c('DataGeneration', 'Preprocessing', 'Clustering'),
+    mandatory = c(TRUE, FALSE, FALSE)
+)
+status <- reactive({c(1, 1, -1, 1, 0)})
+pos <- reactive({4})
+enabled <- reactive({c(0, 0, 0, 0, 1)})
+shiny::runApp(timeline_pipeline(config, status, pos, enabled))
+}
 ```

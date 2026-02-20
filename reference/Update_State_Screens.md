@@ -22,13 +22,13 @@ Update_State_Screens(is.skipped, is.enabled, rv)
 
 - rv:
 
-  A \`list\` containing at least an item named 'steps.status' which is a
-  vector of of names for the steps of a pipeline nor a process.
+  A \`list()\` containing at least an item named 'steps.status' which is
+  a vector of of names for the steps of a pipeline nor a process.
 
 ## Value
 
 A \`vector\` of boolean which gives the status enabled (TRUE) or
-disabled (FALSER) of the steps from a pipeline nor a process.
+disabled (FALSE) of the steps from a pipeline nor a process.
 
 ## Examples
 

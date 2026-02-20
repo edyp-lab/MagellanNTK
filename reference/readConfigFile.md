@@ -18,8 +18,9 @@ readConfigFile(path, usermod = "user")
 
 - usermod:
 
-  A character to specifies the running mode of MagellanNTK. \* user
-  (default) : xxx \* dev: xxx
+  A \`character()\` to specifies the running mode of MagellanNTK: 'user'
+  (default) or 'dev'. For more details, please refer to the document
+  'Inside MagellanNTK'
 
 ## Value
 
@@ -36,8 +37,13 @@ the UI to change the generic functions \* extension A \`character()\`
 which specifies the extension file allowed to be processed in the
 pipeline, \* class A \`character()\` which specifies the class of the
 dataset to be processed in the pipeline, \* package A \`character()\`
-which specifies the package which owns the pipeline \* demo_package xxx
-\* URL_manual xxx \* URL_ReleaseNotes xxx
+which specifies the package which owns the pipeline \* demo_package A
+\`character()\` which specifies a particular package to search \*
+URL_manual The path to the Rmd file containing the user manual of the
+pipeline. It can be a path to a file on the computer or a link to a file
+over internet. \* URL_ReleaseNotes The path to the Rmd file containing
+release notes about the pipeline. It can be a path to a file on the
+computer or a link to a file over internet.
 
 ## Examples
 

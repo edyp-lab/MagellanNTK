@@ -20,17 +20,17 @@
 - [`GetListDatasets()`](https://edyp-lab.github.io/MagellanNTK/reference/GetListDatasets.md)
   : Get datasets from packages which owns datasets of a given class
 - [`GetMaxValidated_AllSteps()`](https://edyp-lab.github.io/MagellanNTK/reference/GetMaxValidated_AllSteps.md)
-  : xxx
+  : Get the last validated step
 - [`GetMaxValidated_BeforePos()`](https://edyp-lab.github.io/MagellanNTK/reference/GetMaxValidated_BeforePos.md)
   : Get the last validated step before current position.
 - [`GetPackageVersion()`](https://edyp-lab.github.io/MagellanNTK/reference/GetPackageVersion.md)
-  : Package version \#'description xxx
+  : Get the version of a package installed in the local R distribution
 - [`InitializeHistory()`](https://edyp-lab.github.io/MagellanNTK/reference/InitializeHistory.md)
   : Get the last validated step before current position.
 - [`Insert_Call_to_Config()`](https://edyp-lab.github.io/MagellanNTK/reference/Insert_Call_to_Config.md)
   : Insert source code for config()
 - [`NavPage()`](https://edyp-lab.github.io/MagellanNTK/reference/NavPage.md)
-  : xxx
+  : Move the position of the cursor
 - [`SetCurrentPosition()`](https://edyp-lab.github.io/MagellanNTK/reference/SetCurrentPosition.md)
   : Get the position of the last validated item
 - [`SetHistory()`](https://edyp-lab.github.io/MagellanNTK/reference/SetHistory.md)
@@ -40,14 +40,14 @@
 - [`ToggleState_NavBtns()`](https://edyp-lab.github.io/MagellanNTK/reference/ToggleState_NavBtns.md)
   : Updates the state of navigation buttons
 - [`ToggleState_Screens()`](https://edyp-lab.github.io/MagellanNTK/reference/ToggleState_Screens.md)
-  : xxx
+  : Updates the status of steps in a given range
 - [`UpdateStepsStatus()`](https://edyp-lab.github.io/MagellanNTK/reference/UpdateStepsStatus.md)
   : Update the status of steps in a pipeline nor process.
 - [`Update_State_Screens()`](https://edyp-lab.github.io/MagellanNTK/reference/Update_State_Screens.md)
   : Update the status enabled/disabled of the steps of a
   pipeline/process
 - [`call.func()`](https://edyp-lab.github.io/MagellanNTK/reference/call.func.md)
-  : Call function
+  : Wrapper to the function \`do.call\`
 - [`` `%AND%` ``](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
   [`is.Windows()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
   [`is.Linux()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
@@ -58,8 +58,6 @@
   [`choose.dir.linux()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
   [`choose.dir.windows()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
   : Choose a Folder Interactively
-- [`dataModal()`](https://edyp-lab.github.io/MagellanNTK/reference/dataModal.md)
-  : xxx
 - [`addDatasets()`](https://edyp-lab.github.io/MagellanNTK/reference/dataset-processing.md)
   [`keepDatasets()`](https://edyp-lab.github.io/MagellanNTK/reference/dataset-processing.md)
   : Datasets processing
@@ -79,8 +77,6 @@
   [`errorModal_server()`](https://edyp-lab.github.io/MagellanNTK/reference/errorModal.md)
   [`errorModal()`](https://edyp-lab.github.io/MagellanNTK/reference/errorModal.md)
   : Error modal shiny module.
-- [`find_funs()`](https://edyp-lab.github.io/MagellanNTK/reference/find_funs.md)
-  : Find the packages of a function
 - [`format_DT_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/format_DT.md)
   [`format_DT_server()`](https://edyp-lab.github.io/MagellanNTK/reference/format_DT.md)
   [`format_DT()`](https://edyp-lab.github.io/MagellanNTK/reference/format_DT.md)
@@ -95,7 +91,7 @@
   [`listBrewerPalettes`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
   : Global variables
 - [`initComplete()`](https://edyp-lab.github.io/MagellanNTK/reference/initComplete.md)
-  : xxx
+  : Initialisation function for DT
 - [`Get_Code_Update_Config_Variable()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_Code_Declare_widgets()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_Code_Declare_rv_custom()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
@@ -113,8 +109,6 @@
   : R code to update the 'config' variable of a process module
 - [`is.substr()`](https://edyp-lab.github.io/MagellanNTK/reference/is.substr.md)
   : Substring test
-- [`is.validated()`](https://edyp-lab.github.io/MagellanNTK/reference/is.validated.md)
-  : xxx
 - [`lldata`](https://edyp-lab.github.io/MagellanNTK/reference/lldata.md)
   : lldata dataset
 - [`lldata1`](https://edyp-lab.github.io/MagellanNTK/reference/lldata1.md)
@@ -134,7 +128,7 @@
 - [`mod_errorModal_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_err_modal.md)
   [`mod_errorModal_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_err_modal.md)
   [`mod_errorModal()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_err_modal.md)
-  : xxx
+  : A modal window to display messages
 - [`mod_homepage_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_homepage.md)
   [`mod_homepage_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_homepage.md)
   [`mod_homepage()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_homepage.md)
@@ -154,7 +148,7 @@
 - [`mod_modalDialog_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_modalDialog.md)
   [`mod_modalDialog_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_modalDialog.md)
   [`mod_modalDialog()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_modalDialog.md)
-  : Predefined modal
+  : Predefined modal with embeded shiny module
 - [`open_workflow_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_open_workflow.md)
   [`open_workflow_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_open_workflow.md)
   [`open_workflow()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_open_workflow.md)
@@ -162,7 +156,7 @@
 - [`mod_popover_for_help_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_popover_for_help.md)
   [`mod_popover_for_help_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_popover_for_help.md)
   [`popover_for_help()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_popover_for_help.md)
-  : mod_popover_for_help_ui and mod_popover_for_help_server
+  : Opens a small tooltip info over a widget.
 - [`mod_release_notes_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_release_notes.md)
   [`mod_release_notes_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_release_notes.md)
   [`release_notes()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_release_notes.md)
@@ -176,7 +170,7 @@
 - [`nav_pipeline_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_pipeline.md)
   [`nav_pipeline_server()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_pipeline.md)
   [`nav_pipeline()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_pipeline.md)
-  : The server() function of the module \`nav_pipeline\`
+  : Shiny module \`nav_pipeline()\`
 - [`nav_process_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_process.md)
   [`nav_process_server()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_process.md)
   [`nav_process()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_process.md)
@@ -185,10 +179,6 @@
   [`nav_single_process_server()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.md)
   [`nav_single_process()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.md)
   : Shiny module \`nav_single_process()\`
-- [`navbarPageWithInputs()`](https://edyp-lab.github.io/MagellanNTK/reference/navbarPageWithInputs.md)
-  : xxx
-- [`navbarPageWithText()`](https://edyp-lab.github.io/MagellanNTK/reference/navbarPageWithText.md)
-  : function for dynamic inputs in DT
 - [`pkgs.require()`](https://edyp-lab.github.io/MagellanNTK/reference/pkgs.require.md)
   : Loads packages
 - [`process_layout()`](https://edyp-lab.github.io/MagellanNTK/reference/process_layout.md)
@@ -201,10 +191,6 @@
   : Read the value of a directoryInput
 - [`runDirinputExample()`](https://edyp-lab.github.io/MagellanNTK/reference/runDirinputExample.md)
   : Runs a demo app with the code
-- [`shinyInput()`](https://edyp-lab.github.io/MagellanNTK/reference/shinyInput.md)
-  : function for dynamic inputs in DT \#'description xxx
-- [`shinyOutput()`](https://edyp-lab.github.io/MagellanNTK/reference/shinyOutput.md)
-  : Package version \#'description xxx
 - [`show(`*`<Config>`*`)`](https://edyp-lab.github.io/MagellanNTK/reference/show-Config-method.md)
   : Prints the content of a \`Config\` class
 - [`Insert_User_Sidebar()`](https://edyp-lab.github.io/MagellanNTK/reference/sidebars.md)
@@ -215,9 +201,11 @@
   : Source workflow files
 - [`timeline_process_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/timelines.md)
   [`timeline_process_server()`](https://edyp-lab.github.io/MagellanNTK/reference/timelines.md)
+  [`timeline_process()`](https://edyp-lab.github.io/MagellanNTK/reference/timelines.md)
   [`timeline_pipeline_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/timelines.md)
   [`timeline_pipeline_server()`](https://edyp-lab.github.io/MagellanNTK/reference/timelines.md)
-  : Timelines
+  [`timeline_pipeline()`](https://edyp-lab.github.io/MagellanNTK/reference/timelines.md)
+  : Shiny module for the process timeline
 - [`toggleWidget()`](https://edyp-lab.github.io/MagellanNTK/reference/toggleWidget.md)
   : Hide/show a widget w.r.t a condition.
 - [`updateDirectoryInput()`](https://edyp-lab.github.io/MagellanNTK/reference/updateDirectoryInput.md)
@@ -233,5 +221,3 @@
   [`proc_workflow_server()`](https://edyp-lab.github.io/MagellanNTK/reference/workflow.md)
   [`proc_workflowApp()`](https://edyp-lab.github.io/MagellanNTK/reference/workflow.md)
   : Shiny example module \`Process\`
-- [`write.excel()`](https://edyp-lab.github.io/MagellanNTK/reference/write.excel.md)
-  : This function exports a data.frame to a Excel file.
