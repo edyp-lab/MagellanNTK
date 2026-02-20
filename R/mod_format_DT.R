@@ -143,7 +143,7 @@ format_DT_server <- function(
                      dom = dom,
                      columnDefs = GetColumnDefs(),
                    scrollY = TRUE, 
-                   height = '100%',
+                   #height = '100%',
                    paging = FALSE
                  )
             )
