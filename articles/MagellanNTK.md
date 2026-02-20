@@ -34,8 +34,6 @@ from a series of processes to be stored. The results of the various data
 processing operations are added to the current dataset so that a single
 result file contains the information from the entire analysis.
 
-(Fig @ref(fig:UI_mainIntro)).
-
 ![UI for a single process](figs/UI_PipelineDemo_Clustering2.png)
 
 UI for a single process
@@ -96,9 +94,8 @@ processes) can also be composed of one or more sub-steps.
 In the example provided with the `MagellanNTK` package, the pipeline is
 called “PipelineDemo”. It contains 3 data processing steps:
 DataGeneration (which contains 1 step), Preprocessing (with 2 steps:
-Filtering and Normalization) and Clustering.
-
-(Fig @ref(fig:pipelineProcessStep)).
+Filtering and Normalization) and Clustering (Fig.
+@ref(fig:pipelineProcessStep)).
 
 ![UI for a single process](figs/pipelineProcessStep.png)
 
@@ -383,8 +380,24 @@ To access the workflow, hover over the sidebar menu and go to “Workflow”
 -\> “Run”.
 
 In the main screen, one now view the complete pipeline interface. On the
-top of the screen, one recognize the pipeline timeine with the steps of
-the pipeline and the cammands panel with 3 buttons.
+top of the screen, one recognize the pipeline timeline with the steps of
+the pipeline and a commands panel with 3 buttons.
+
+**commands**: shows a panel containing five buttons which allow to
+interact and navigate through the different steps of the process: \*
+**Back to start** As we will see later in the document, pipelines have
+only three commands : the already-known ‘Prev’ and ‘Next’, which have
+the same function for a process or a pipeline, and another commands
+called ‘Back to start’ which set the first step of a pipeline as the
+current one (the underline goes under its name).
+
+- **Previous**. A click on the ‘Prev’ button moves the cursor in the
+  timeline backward to enables the previous step. If the current step is
+  the first one, then the previous button is disabled.
+
+- **Next**. Clicking on the ‘Next’ button moves the cursor in the
+  timeline forward to select the next step. If the current step is the
+  last one, then the next button is disabled
 
 To navigate between processes, use the arrow on the left of the top
 timeline. The double arrow to the left of the left arrow allows you to
@@ -467,6 +480,29 @@ If the bullet of a step is enabled then all the widgets of this step are
 enabled (as well as the Run buttons). In the contrary, a bullet that is
 disabled means that all the widgets and the ‘Run’ buttons in the UI are
 disabled.
+
+#### Exploratory Data Analysis (EDA) tool
+
+This tool is available when the user clicks on its icon, placed at the
+top right corner of the screen. This action opens a modal window with 3
+tabs, each of them displaying an information about the dataset. The
+content of each of these panels is fully customizable by means of
+“generic functions” (See ‘Inside MagellanNTK’)
+
+**Infos**: xxx \* **history**: Displays the history stored in the
+current SE \* **EDA**:
+
+![UI for a single process](figs/UI_EDA1.png)
+
+UI for a single process
+
+![UI for a single process](figs/UI_EDA2.png)
+
+UI for a single process
+
+![UI for a single process](figs/UI_EDA3.png)
+
+UI for a single process
 
 ### ‘Description’ step
 
