@@ -231,7 +231,7 @@ In the case of a pipeline, the principle is the same. In the example in
 Fig. xxx, the pipeline called 'PipelineDemo' has four steps (Description,
 DataGeneration, Preprocessing and Clustering). Remark that the content of the UI
 area of the pipeline is exactly the whole UI of its current process
-(e.g. in Fig \@ref(fig:layout)).
+(e.g. in Fig (Fig. \@ref(fig:layout))).
 
 ```{r layout, results='markup', fig.cap="(a) Horizontal layout, (b) Vertical layout", echo=FALSE, out.width='100%', fig.align='center', fig.wide = TRUE}
 knitr::include_graphics("./figs/layout.png", error = FALSE)
@@ -364,7 +364,8 @@ http://127.0.0.1:3838
 
 
 ## General user interface
-The user interface consists of two parts: the sidebar on the left and the main screen.
+The user interface consists of two parts (Fig. \@ref(fig:menuSidebar)): the 
+sidebar on the left and the main screen.
 
   * Sidebar on the left containing the general menus. 
   * Main part that displays the workflow manager. 
@@ -423,7 +424,7 @@ from MagellanNTK yet, select the "package dataset" option in "Dataset source" to
 choose one of the datasets included in the `MagellanNTK` package. For this 
 tutorial, we select the 'lldata' dataset which consists of one SE containing an 
 empty 100 x 6 matrix as assay.
-Once a dataset is chosen, a short summary of the dataset is displayed. 
+Once a dataset is chosen, a short summary of the dataset is displayed (Fig. \@ref(fig:opendataset)). 
 
   
 ```{r opendataset, results='markup', fig.cap="opendataset", echo=FALSE, out.width='100%', fig.align='center', fig.wide = TRUE}
@@ -456,14 +457,13 @@ parameter values used in previously validated processes.
 
 Below that header, there is the interface of the current process/step (the one 
 that have the cursor under its name in the pipeline timeline).
-The process UI is divided into two parts.
+The process UI is divided into two parts (Fig. \@ref(fig:UIsingleProcess)).
 
   * A sidebar on the left which is always visible.
   * All remaining space to show results (tabs, plots and any other stuff).
   
 The content of this part is updated each time the user changes the current process.
 
-(Fig. \@ref(fig:UIsingleProcess)).
 
 ```{r UIsingleProcess, results='markup', fig.cap="UI for a single process", echo=FALSE, out.width='100%', fig.align='center', fig.wide = TRUE}
 knitr::include_graphics("./figs/UI_singleProcess.png", error = FALSE)
