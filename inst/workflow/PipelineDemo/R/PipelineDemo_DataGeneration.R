@@ -7,7 +7,7 @@ PipelineDemo_DataGeneration_conf <- function(){
     fullname = 'PipelineDemo_DataGeneration',
     mode = 'process',
     steps = c('DataGeneration'),
-    mandatory = c(FALSE)
+    mandatory = c(TRUE)
   )
 }
 
