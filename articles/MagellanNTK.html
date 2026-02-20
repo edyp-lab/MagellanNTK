@@ -121,13 +121,15 @@ of its processes) or a single process. The latter option is useful for
 developing a new process or for faster, more targeted data handling.</p>
 <p>One of the key features of MagellanNTK is its high degree of
 customization. To achieve this, Shiny modules are extensively used to
-simplify the implementation. “Generic functions” in MagellanNTK are
-functions that can come from MagellanNTK itself (by default), from
-plugins containing pipelines, or from other packages. The choice of
-these functions is specified in the configuration file (named
-config.txt) for each plugin. In the example plugin provided in
-MagellanNTK, we see that all these functions point to MagellanNTK
-functions (default value).</p>
+simplify the implementation. A number of “Generic functions” are used in
+MagellanNTK to do some generic actions for a workflow manager, such as
+xxxx</p>
+<p>There is a default implementation of these functions in the package
+<code>MagellanNTK</code> itself but they also can come from plugins
+containing pipelines, or from other packages. The choice of these
+functions is specified in the configuration file (named config.txt) for
+each plugin. In the example plugin provided in MagellanNTK, we see that
+all these functions point to MagellanNTK functions (default value).</p>
 </div>
 </div>
 <div class="section level2">
@@ -702,9 +704,11 @@ downloaded in “Dataset” -&gt; “Save as”.</p>
 simply want to try something else, you can reset any process with the
 ‘Reset’ button. Resetting a process means that the process in question,
 as well as any other process down the timeline, will be resetted with
-default values and all SE from these processes will be removed. Keep in
-mind that this is irreversible, and therefore if the reset was done by
-mistake, you will have to start again from this point.</p>
+default values and all SE from these processes will be removed. It means
+that the dataset will be set to its initial value as if it is the first
+time the user start this process.</p>
+<p>Keep in mind that this is irreversible, and therefore if the reset
+was done by mistake, you will have to start again from this point.</p>
 <div class="figure" style="text-align: center">
 <img src="figs/beforeResetingProcess.png" class="r-plt" alt="Reset a process" width="100%"><p class="caption">
 Reset a process
@@ -715,6 +719,11 @@ Reset a process
 Reset a process
 </p>
 </div>
+<p>It is possible to quickly reset the whole pipeline by clicking on the
+‘Go back to start’ button (in the command panel of the pipeline). The
+current process becomes the first one ‘Description’ and then, click on
+the ‘Reset’ button of this process. All the processes of the pipeline
+will be reseted in one action.</p>
 </div>
 <div class="section level2">
 <h2 id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>

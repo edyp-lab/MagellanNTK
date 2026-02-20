@@ -50,13 +50,16 @@ developing a new process or for faster, more targeted data handling.
 
 One of the key features of MagellanNTK is its high degree of
 customization. To achieve this, Shiny modules are extensively used to
-simplify the implementation. “Generic functions” in MagellanNTK are
-functions that can come from MagellanNTK itself (by default), from
-plugins containing pipelines, or from other packages. The choice of
-these functions is specified in the configuration file (named
-config.txt) for each plugin. In the example plugin provided in
-MagellanNTK, we see that all these functions point to MagellanNTK
-functions (default value).
+simplify the implementation. A number of “Generic functions” are used in
+MagellanNTK to do some generic actions for a workflow manager, such as
+xxxx
+
+There is a default implementation of these functions in the package
+`MagellanNTK` itself but they also can come from plugins containing
+pipelines, or from other packages. The choice of these functions is
+specified in the configuration file (named config.txt) for each plugin.
+In the example plugin provided in MagellanNTK, we see that all these
+functions point to MagellanNTK functions (default value).
 
 ## Discovering MagellanNTK
 
@@ -577,9 +580,12 @@ If at any point a mistake was made in the chosen parameters, or you
 simply want to try something else, you can reset any process with the
 ‘Reset’ button. Resetting a process means that the process in question,
 as well as any other process down the timeline, will be resetted with
-default values and all SE from these processes will be removed. Keep in
-mind that this is irreversible, and therefore if the reset was done by
-mistake, you will have to start again from this point.
+default values and all SE from these processes will be removed. It means
+that the dataset will be set to its initial value as if it is the first
+time the user start this process.
+
+Keep in mind that this is irreversible, and therefore if the reset was
+done by mistake, you will have to start again from this point.
 
 ![Reset a process](figs/beforeResetingProcess.png)
 
@@ -588,6 +594,12 @@ Reset a process
 ![Reset a process](figs/afterresetPreprocessing.png)
 
 Reset a process
+
+It is possible to quickly reset the whole pipeline by clicking on the
+‘Go back to start’ button (in the command panel of the pipeline). The
+current process becomes the first one ‘Description’ and then, click on
+the ‘Reset’ button of this process. All the processes of the pipeline
+will be reseted in one action.
 
 ## Session information
 
