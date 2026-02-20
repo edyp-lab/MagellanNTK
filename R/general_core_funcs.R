@@ -9,12 +9,15 @@
 #' @param process A `character()` 
 #' @param step.name A `character()` 
 #' @param param.name A `character()` 
-#' @param value xxx
+#' @param value The value corresponding to the param.name
 #' @return A `data.frame()`
 #'
 #' @export
 #' @examples
-#' NULL
+#' history <- InitializeHistory()
+#' Add2History(history, 'Example', 'First step', "my param", 'THE value')
+#' 
+#' 
 Add2History <- function(history, process, step.name, param.name, value){
   if (inherits(value, 'list'))
     value <- unlist(value)
@@ -31,14 +34,15 @@ Add2History <- function(history, process, step.name, param.name, value){
 
 
 #' @title Get the history of an assay
-
 #' @param dataIn An instance of `MultiAssayExperiment` class
 #' @param name The name of a slot in the object
 #' @return A `data.frame()`
 #'
 #' @export
 #' @examples
-#' NULL
+#' data(lldata123)
+#' GetHistory(lldata123, 'Clustering')
+#' 
 GetHistory <- function(dataIn, name){
   req(dataIn)
   
@@ -92,7 +96,8 @@ SetHistory <- function(obj.se, history){
 #' @description This function returns the indice of the last validated step before
 #' the current step.
 #'
-#' @return A `integer(1)`
+#' @return A `data.frame()` with four columns: 'Process', 'Step', 'Parameter'
+#' and 'Value'
 #'
 #' @export
 #' @examples
@@ -107,24 +112,24 @@ history <- NULL
   }
 
 #' @title Get the last validated step before current position.
-#'
 #' @description This function returns the indice of the last validated step before
 #' the current step.
 #'
-#' @param pos A `integer(1)` which is the indice of the active position.
+#' @param pos A `integer()` which is the indice of the active position.
 #' @param rv A `list()` which stores reactiveValues()
 #'
-#' @return A `integer(1)`
+#' @return A `integer()`
 #'
 #' @export
 #' @examples
-#' NULL
+#' pos <- 3
+#' rv <- list(steps.status = c(1,1,0,1,0,0), current.pos = 3)
+#' GetMaxValidated_BeforePos(pos, rv)
 #'
 GetMaxValidated_BeforePos <- function(
     pos = NULL,
   rv) {
   ind.max <- NULL
-  
   
   if (is.null(pos)) {
     pos <- rv$current.pos
@@ -141,18 +146,20 @@ GetMaxValidated_BeforePos <- function(
 
 
 
-#' @title xxx
+#' @title Get the last validated step
 #'
-#' @description xxx
+#' @description This function returns the indice of the last validated step 
+#' among all the steps
 #'
 #' @param steps.status A vector of strings where each item is the status of a step.
 #' The length of this vector is the same of the number of steps.
 #'
-#' @return A `integer(1)`
+#' @return A `integer(1)` which is the indice of the value
 #'
 #' @export
 #' @examples
-#' NULL
+#' GetMaxValidated_AllSteps(c(1,1,0,1,0,0))
+#' 
 GetMaxValidated_AllSteps <- function(steps.status) {
   val <- 0
   ind <- grep(stepStatus$VALIDATED, steps.status)
@@ -165,9 +172,8 @@ GetMaxValidated_AllSteps <- function(steps.status) {
 
 
 
-#' @title xxx
-#'
-#' @description Updates the status of steps in a given range
+
+#' @title Updates the status of steps in a given range
 #'
 #' @param cond A `boolean`
 #' @param range A `vector` of integers. The min of this vector must be greater
@@ -182,6 +188,8 @@ GetMaxValidated_AllSteps <- function(steps.status) {
 #' @export
 #' @examples
 #' NULL
+#' 
+#' 
 ToggleState_Screens <- function(cond,
   range,
   is.enabled,
@@ -197,61 +205,27 @@ ToggleState_Screens <- function(cond,
 }
 
 
-#' @title xxx
+#' @title Move the position of the cursor
 #'
-#' @description xxx
-#'
-#' @param direction A `integer(1)` which is the direction of the xxx:
-#' forward ('1'), backwards ('-1').
+#' @param direction A `integer(1)` which is the direction in the timeline:
+#' forward (1), backwards (-1).
 #' @param current.pos A `integer(1)` which is the current position.
 #' @param len A `integer(1)` which is the number of steps in the process.
 #'
 #' @return A `integer(1)` which is the new current position.
 #' @export
 #' @examples
-#' NULL
+#' NavPage(-1, 5, 5)
+#' 
+#' 
 NavPage <- function(direction, current.pos, len) {
   newval <- current.pos + direction
   newval <- max(1, newval)
   newval <- min(newval, len)
-  current.pos <- newval
   
-  return(current.pos)
+  return(newval)
 }
 
-
-
-#' @title xxx
-#'
-#' @description xxx
-#'
-#' @param ns xxx
-#' @param mode xxx
-#'
-#' @return A tag div for ui
-#'
-#'
-#' @export
-#' @examples
-#' NULL
-dataModal <- function(ns, mode) {
-  # Used to show an explanation for the reset feature whether the navigation
-  # mode is 'process' nor 'pipeline'.
-  template_reset_modal_txt <- "This action will reset this mode. The input
-    dataset will be the output of the last previous validated process and all
-    further datasets will be removed"
-  
-  tags$div(
-    id = "modal1",
-    modalDialog(
-      span(gsub("mode", mode, template_reset_modal_txt)),
-      footer = tagList(
-        actionButton(ns("closeModal"), "Cancel", class = PrevNextBtnClass),
-        actionButton(ns("modal_ok"), "OK")
-      )
-    )
-  )
-}
 
 
 
@@ -290,8 +264,9 @@ Discover_Skipped_Steps <- function(steps.status) {
 #' @param range A `vector` of integers. The min of this vector must be greater
 #' of equal to 0 and the max must be less or equal to the size of the object
 #' @param rv A `list` with at least two slots :
-#' * mandatory: xxx
-#' * steps.status: xxx
+#' * mandatory: A vector of `booelan` which indicates whther the steps are
+#' mandatory or not
+#' * steps.status: A vector of `interger()` which indicates the status of the steps
 #'
 #' @return An integer which is the indice of the identified step in the vector
 #' rv$steps.status
@@ -442,10 +417,10 @@ SetCurrentPosition <- function(stepsstatus){
 #' or process of a pipeline has the status SKIPPED
 #' @param is.enabled A `boolean` indicating whether the current step of a process
 #' or process of a pipeline is enabled (TRUE) or not (FALSE)
-#' @param rv A `list` containing at least an item named 'steps.status' which is 
+#' @param rv A `list()` containing at least an item named 'steps.status' which is 
 #' a vector of of names for the steps of a pipeline nor a process.
 #' @return A `vector` of boolean which gives the status enabled (TRUE) or 
-#' disabled (FALSER) of the steps from a pipeline nor a process. 
+#' disabled (FALSE) of the steps from a pipeline nor a process. 
 #'
 #' @examples
 #' NULL

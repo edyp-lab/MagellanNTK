@@ -71,7 +71,8 @@ variable is accompanied with its default value}
 
 \item{dataIn}{An instance of the `MultiAssayExperiment` or `SummarizedExperiment` classes}
 
-\item{addon}{xxx}
+\item{addon}{Additional code for the `observeEvent()` function which catches the
+`remoteReset()` action.}
 
 \item{w.names}{Same as widgets.names}
 

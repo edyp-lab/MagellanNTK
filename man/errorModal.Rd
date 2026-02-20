@@ -15,12 +15,10 @@ errorModal(msg)
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
 
-\item{msg}{xxxx}
+\item{msg}{The text to display in the modal}
 }
 \value{
 A shiny App
-
-NA
 }
 \description{
 A shiny module that shows messages in modal.

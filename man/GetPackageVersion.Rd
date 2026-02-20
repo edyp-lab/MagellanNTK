@@ -2,21 +2,19 @@
 % Please edit documentation in R/utils2.R
 \name{GetPackageVersion}
 \alias{GetPackageVersion}
-\title{Package version
-#'description xxx}
+\title{Get the version of a package installed in the local R distribution}
 \usage{
 GetPackageVersion(pkg)
 }
 \arguments{
-\item{pkg}{xxx}
+\item{pkg}{The name of a package}
 }
 \value{
-NA
+A `character()`
 }
 \description{
-Package version
-#'description xxx
+Get the version of a package installed in the local R distribution
 }
 \examples{
-NULL
+GetPackageVersion('MagellanNTK')
 }

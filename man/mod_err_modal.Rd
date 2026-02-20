@@ -5,7 +5,7 @@
 \alias{mod_errorModal_ui}
 \alias{mod_errorModal_server}
 \alias{mod_errorModal}
-\title{xxx}
+\title{A modal window to display messages}
 \usage{
 mod_errorModal_ui(id)
 
@@ -21,17 +21,18 @@ mod_errorModal(title = NULL, text = NULL)
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
 
-\item{title}{xxxx}
+\item{title}{A `character()` as the title of the modal}
 
-\item{text}{xxx}
+\item{text}{A `character()` as the content of the modal}
 
-\item{footer}{xxx}
+\item{footer}{The content of the footer . May be UI content}
 }
 \value{
 A shiny App
 }
 \description{
-xxx
+This module is not directly used by MagellanNTK core functions.
+It is rather a useful tool for third part pipelines and processes.
 }
 \examples{
 if (interactive()) {

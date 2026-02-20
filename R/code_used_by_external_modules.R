@@ -22,7 +22,8 @@
 #' @param custom A `list` of the custom variables used in the process. Each custom
 #' variable is accompanied with its default value
 #' @param dataIn An instance of the `MultiAssayExperiment` or `SummarizedExperiment` classes
-#' @param addon xxx
+#' @param addon Additional code for the `observeEvent()` function which catches the
+#' `remoteReset()` action.
 #'
 #' @author Samuel Wieczorek
 #'
@@ -179,7 +180,6 @@ Get_Code_for_rv_reactiveValues <- function() {
     # A vector of boolean indicating the status (UNDONE, SKIPPED or VALIDATED)
     # of the steps
     steps.status = NULL,
-    # xxx
     reset = NULL,
     # A vector of boolean indicating if the steps are enabled or disabled
     steps.enabled = NULL
@@ -190,7 +190,7 @@ Get_Code_for_rv_reactiveValues <- function() {
 }
 
 
-#' @title Inerting code for external modules
+#' @title Inserting code for external modules
 #'
 #' @description Returned value of the process
 # * The trigger variable is used to trigger an event that can be catched by

@@ -1,10 +1,12 @@
 #' @title A shiny app to display a modal
-#'
+#' @description This module is not directly used by MagellanNTK core functions.
+#' It is rather a useful tool for third part pipelines and processes.
 #' @param id A `character()` as the id of the Shiny module
-#' @param title xxx
-#' @param text xxx
-#' @param showClipBtn xxx
-#' @param type xxx
+#' @param title The title to be displayed in the window
+#' @param text The titmessage to be displayed in the window
+#' @param showClipBtn A `boolean` to indicates if the copy to clipboard button
+#' is shown or not.
+#' @param type A `character()` for the type of message: 'error', 'warning', etc..
 #'
 #' @examples
 #' if (interactive()) {

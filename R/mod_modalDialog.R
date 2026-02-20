@@ -1,22 +1,34 @@
-# ouvre une fenetre, parametre renseigne quoi afficher dans la fenetre
-
-#' @title Predefined modal
+#' @title Predefined modal with embeded shiny module
 #'
 #' @description Displays of formatted modal-dialog with 'Cancel' and
-#' 'Ok' buttons.
+#' 'Ok' buttons. This modal (a shiny module itself) can embed a shiny module 
+#' and it is able to return the return value of the embeded shiny module.
 #'
 #' @param id A `character(1)` which is the id of the instance of the module
 #' @param title A `character(1)`
 #' @param width A `character(1)` indicating the size of the modal window. Can
 #' be "s" for small (the default), "m" for medium, or "l" for large.
-#' @param uiContent The content of the modal dialog.
-#' @param external_mod xxx
-#' @param external_mod_args xxx
-#' @param typeWidget = 'button',
+#' @param uiContent The content of the modal dialog. By default, its value is NULL
+#' which means that the user wants to embed a shiny module. 
+#' In this case, the module rather take into account the two next parameters.
+#' @param external_mod The name of a shiny module which is already loaded in the
+#' R session. This name corresponds to the name of the functions `_ui` and `_server`
+#' without these suffixes. For example, if the user wants to add a module defined
+#' by the functions `myModule_ui()` and `myModule_server()`, then the parameter
+#' 'external_mod' should be set to 'myModule'.
+#' @param external_mod_args A `list()` which contains the parameters sent to the 
+#' function `myModule_server()`.
+#' @param typeWidget The type of command widget to show to open the modal. Available
+#' values are 'button' (default) and 'link'.
 
 #'
 #'
 #' @name mod_modalDialog
+#' 
+#' 
+#' @importFrom shiny moduleServer reactiveValues renderUI actionButton actionLink
+#' observeEvent showModal modalDialog modalButton reactive fluidPage shinyApp
+
 #'
 #' @return A Shiny modal-dialog
 #'
@@ -96,7 +108,7 @@
 #'
 NULL
 
-#'
+
 #' @rdname mod_modalDialog
 #'
 #' @export
@@ -111,9 +123,6 @@ mod_modalDialog_ui <- function(id) {
 #' @export
 #'
 #' @rdname mod_modalDialog
-#'
-#' @importFrom shiny moduleServer reactiveValues renderUI actionButton actionLink
-#' observeEvent showModal modalDialog modalButton reactive
 #'
 mod_modalDialog_server <- function(
         id,
@@ -231,7 +240,6 @@ mod_modalDialog_server <- function(
 
 #' @export
 #' @rdname mod_modalDialog
-#' @importFrom shiny fluidPage reactiveValues observeEvent reactive shinyApp
 #'
 mod_modalDialog <- function(
         title,

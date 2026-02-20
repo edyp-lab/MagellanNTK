@@ -7,7 +7,8 @@
 InitializeHistory()
 }
 \value{
-A `integer(1)`
+A `data.frame()` with four columns: 'Process', 'Step', 'Parameter'
+and 'Value'
 }
 \description{
 This function returns the indice of the last validated step before

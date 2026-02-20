@@ -1,12 +1,20 @@
 #' @title Shiny example module `Pipeline Demo`
 #'
 #' @description
-#' This module contains the configuration information for the corresponding pipeline.
-#' It is called by the nav_pipeline module of the package MagellanNTK
-#' This documentation is for developers who want to create their own pipelines nor processes
-#' to be managed with `MagellanNTK`.
+#' This module contains the configuration informations for the corresponding pipeline.
+#' It is called by the `nav_pipeline` module of the package `MagellanNTK`.
+#' This documentation is for developers who want to create their own pipelines 
+#' nor processes to be managed with `MagellanNTK`.
 #' 
-#' @param id xxx
+#' The name of the server() and ui() functions are formatted with keywords separated by '_', as follows:
+#' * first string `mod`: indicates that it is a Shiny module
+#' * `pipeline name` is the name of the pipeline to which the process belongs
+#' * `process name` is the name of the process itself
+#' 
+#' This convention is important because MagellanNTK dynamically constructs 
+#' the names of the different server and UI functions when calling them.
+#' 
+#' @param id A `character(1)` which is the 'id' of the module.
 #'
 #' @param dataIn An instance of the class `MultiAssayExperiment`
 #'
@@ -15,7 +23,7 @@
 #' a communication variable between the caller and this module, thus there is no
 #' corresponding output variable
 #'
-#' @param remoteReset It is a remote command to reset the module. A boolean that
+#' @param remoteReset It is a remote command to reset the module. An `integer()` that
 #' indicates is the pipeline has been reseted by a program of higher level
 #' Basically, it is the program which has called this module
 #'
@@ -29,10 +37,16 @@
 #' @examples
 #' if (interactive()){
 #' library(MagellanNTK)
-#' wf.name <- 'PipelineDemo'
+#' 
 #' wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
 #' 
-#' MagellanNTK(wf.path, wf.name)
+#' MagellanNTK(wf.path, 'PipelineDemo')
+#' 
+#' MagellanNTK(wf.path, 'PipelineDemo_DataGeneration')
+#' 
+#' MagellanNTK(wf.path, 'PipelineDemo_Preprocessing')
+#' 
+#' MagellanNTK(wf.path, 'PipelineDemo_Clustering')
 #' }
 #' 
 #' @name modulePipeline

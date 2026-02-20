@@ -7,18 +7,20 @@
 GetMaxValidated_BeforePos(pos = NULL, rv)
 }
 \arguments{
-\item{pos}{A `integer(1)` which is the indice of the active position.}
+\item{pos}{A `integer()` which is the indice of the active position.}
 
 \item{rv}{A `list()` which stores reactiveValues()}
 }
 \value{
-A `integer(1)`
+A `integer()`
 }
 \description{
 This function returns the indice of the last validated step before
 the current step.
 }
 \examples{
-NULL
+pos <- 3
+rv <- list(steps.status = c(1,1,0,1,0,0), current.pos = 3)
+GetMaxValidated_BeforePos(pos, rv)
 
 }

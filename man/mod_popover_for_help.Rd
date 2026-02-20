@@ -5,7 +5,7 @@
 \alias{mod_popover_for_help_ui}
 \alias{mod_popover_for_help_server}
 \alias{popover_for_help}
-\title{mod_popover_for_help_ui and mod_popover_for_help_server}
+\title{Opens a small tooltip info over a widget.}
 \usage{
 mod_popover_for_help_ui(id)
 
@@ -16,15 +16,18 @@ popover_for_help(title, content)
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
 
-\item{title}{xxxx}
+\item{title}{The title of the tooltip window}
 
-\item{content}{xxx}
+\item{content}{The main text of the tooltip window}
 }
 \value{
 A shiny App
 }
 \description{
-A shiny Module.
+Actually, this module does not work because we do not allow
+the use of the package `shinyBS` package (conflicts with BS versions).
+In the future, one will fix this module with native functions in the package 
+`bs4Dash` (https://bs4dash.rinterface.com/reference/tooltip).
 }
 \examples{
 if (interactive()) {

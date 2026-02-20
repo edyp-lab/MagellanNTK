@@ -8,10 +8,11 @@
 Insert_User_Sidebar()
 }
 \value{
-NA
+Shiny UI component
 }
 \description{
-xxx
+These functions content the UI code for the main sidebar in the
+interface of MagellanNTK
 }
 \examples{
 NULL

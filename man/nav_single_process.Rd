@@ -37,7 +37,9 @@ It is the same as for the server() function.}
 \item{status}{A boolean which indicates whether the current status of the 
 process}
 
-\item{remoteResetUI}{xxx}
+\item{remoteResetUI}{An `integer` which acts as a remote command to reset the 
+UI part of the module Its value is incremented on a external event and it is
+used to trigger an event in the module}
 
 \item{is.enabled}{A `boolean`. This variable is used as a remote command to specify
 if the corresponding module is enabled/disabled in the calling module of
@@ -46,14 +48,15 @@ For example, if this module is disabled, then this variable is set to TRUE. Then
 all the widgets will be disabled. If not, the enabling/disabling of widgets
 is deciding by this module.}
 
-\item{is.skipped}{is.skipped xxx}
+\item{is.skipped}{A `boolean` which indicates whether the pipeline or process
+is skipped (TRUE) or not (FALSE)}
 
 \item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 the verbose mode for logs.}
 
-\item{usermod}{A character to specifies the running mode of MagellanNTK. 
-* user (default) : xxx
-* dev: xxx}
+\item{usermod}{A `character()` to specifies the running mode of MagellanNTK: 
+'user' (default) or 'dev'. For more details, please refer to the document 
+'Inside MagellanNTK'}
 
 \item{sendDataIfReset}{A `boolean` to indicate if the reseted value must
 be send to the caller in case of reseting the process. This is usefule for example

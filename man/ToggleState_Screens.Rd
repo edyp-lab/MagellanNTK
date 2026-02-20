@@ -2,7 +2,7 @@
 % Please edit documentation in R/general_core_funcs.R
 \name{ToggleState_Screens}
 \alias{ToggleState_Screens}
-\title{xxx}
+\title{Updates the status of steps in a given range}
 \usage{
 ToggleState_Screens(cond, range, is.enabled, rv)
 }
@@ -26,4 +26,6 @@ Updates the status of steps in a given range
 }
 \examples{
 NULL
+
+
 }

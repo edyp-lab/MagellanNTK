@@ -2,7 +2,7 @@
 % Please edit documentation in R/general_core_funcs.R
 \name{GetMaxValidated_AllSteps}
 \alias{GetMaxValidated_AllSteps}
-\title{xxx}
+\title{Get the last validated step}
 \usage{
 GetMaxValidated_AllSteps(steps.status)
 }
@@ -11,11 +11,13 @@ GetMaxValidated_AllSteps(steps.status)
 The length of this vector is the same of the number of steps.}
 }
 \value{
-A `integer(1)`
+A `integer(1)` which is the indice of the value
 }
 \description{
-xxx
+This function returns the indice of the last validated step 
+among all the steps
 }
 \examples{
-NULL
+GetMaxValidated_AllSteps(c(1,1,0,1,0,0))
+
 }

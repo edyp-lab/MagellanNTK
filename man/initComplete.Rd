@@ -2,16 +2,16 @@
 % Please edit documentation in R/utils2.R
 \name{initComplete}
 \alias{initComplete}
-\title{xxx}
+\title{Initialisation function for DT}
 \usage{
 initComplete()
 }
 \value{
-NA
+literal JavaScript code
 }
 \description{
-A short description...
+Initialisation function for DT
 }
 \examples{
-NULL
+initComplete()
 }

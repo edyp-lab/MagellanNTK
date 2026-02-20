@@ -4,7 +4,7 @@
 #' for pipelines and processes.
 #'
 #' @param session The R session parameter
-#' @param ns xxx
+#' @param ns Namespaced IDs for inputs/outputs
 #' @param sidebar Shiny components
 #' @param content Shiny components
 #'

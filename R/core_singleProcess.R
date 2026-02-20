@@ -7,7 +7,8 @@
 #' as for the ui() function.
 #'
 #' @param dataIn An instance of the `SummarizedExperiment` class
-#' @param is.skipped is.skipped xxx
+#' @param is.skipped A `boolean` which indicates whether the pipeline or process
+#' is skipped (TRUE) or not (FALSE)
 #' @param is.enabled A `boolean`. This variable is used as a remote command to specify
 #' if the corresponding module is enabled/disabled in the calling module of
 #' upper level.
@@ -15,14 +16,16 @@
 #' all the widgets will be disabled. If not, the enabling/disabling of widgets
 #' is deciding by this module.
 #' 
-#' @param remoteResetUI xxx
+#' @param remoteResetUI An `integer` which acts as a remote command to reset the 
+#' UI part of the module Its value is incremented on a external event and it is
+#' used to trigger an event in the module
 #' @param status A boolean which indicates whether the current status of the 
 #' process 
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
-#' @param usermod A character to specifies the running mode of MagellanNTK. 
-#' * user (default) : xxx
-#' * dev: xxx
+#' @param usermod A `character()` to specifies the running mode of MagellanNTK: 
+#' 'user' (default) or 'dev'. For more details, please refer to the document 
+#' 'Inside MagellanNTK'
 #' @param sendDataIfReset A `boolean` to indicate if the reseted value must
 #' be send to the caller in case of reseting the process. This is usefule for example
 #' for the Convert process
@@ -492,10 +495,6 @@ nav_single_process_server <- function(
     
     # Catch a new value on the parameter 'dataIn()' variable, sent by the
     # caller. This value may be NULL or contain a dataset.
-    # The first action is to store the dataset in the temporary variable
-    # temp.dataIn. Then, two behaviours:
-    # 1 - if the variable is NULL. xxxx
-    # 2 - if the variable contains a dataset. xxx
     observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = TRUE, {
       req(rv$config)
 
@@ -503,7 +502,7 @@ nav_single_process_server <- function(
       rv$temp.dataIn <- dataIn()
       
 
-      # Dans le cas de l'execution dd'un process unique, la stratégie pour le dataset
+      # Dans le cas de l'execution d'un process unique, la stratégie pour le dataset
       # est la suivante :
       # On ne prend pas en compte les resultats des processus intermediaires mais
       # on ne tient compte que du resultat final.

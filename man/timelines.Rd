@@ -4,17 +4,35 @@
 \alias{timelines}
 \alias{timeline_process_ui}
 \alias{timeline_process_server}
+\alias{timeline_process}
 \alias{timeline_pipeline_ui}
 \alias{timeline_pipeline_server}
-\title{Timelines}
+\alias{timeline_pipeline}
+\title{Shiny module for the process timeline}
 \usage{
 timeline_process_ui(id)
 
-timeline_process_server(id, config, status, position, enabled)
+timeline_process_server(
+  id,
+  config,
+  status = reactive({
+     NULL
+ }),
+  position = reactive({
+     1
+ }),
+  enabled = reactive({
+     NULL
+ })
+)
+
+timeline_process(config, status, position, enabled)
 
 timeline_pipeline_ui(id)
 
 timeline_pipeline_server(id, config, status, position, enabled)
+
+timeline_pipeline(config, status, position, enabled)
 }
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
@@ -32,13 +50,37 @@ See the slot steps in the config object). Each element indicates if the
 corresponding step is enabled (TRUE) or (DISABLED)}
 }
 \value{
-NA
-
-A Shiny app
+A shiny app
 }
 \description{
-xxx
+Shiny module for the process timeline
 }
 \examples{
-NULL
+if(interactive()){
+config <- Config(
+    mode = "process",
+    fullname = "PipelineDemo_Preprocessing",
+    steps = c('Filtering', 'Normalization'),
+    mandatory = c(FALSE, TRUE)
+)
+status <- reactive({c(1, 1, 0, 0)})
+pos <- reactive({2})
+enabled <- reactive({c(0, 0, 1, 1)})
+shiny::runApp(timeline_process(config, status, pos, enabled))
+}
+
+
+if(interactive()){
+config <- Config(
+    mode = "pipeline",
+    fullname = "PipelineDemo",
+    steps = c('DataGeneration', 'Preprocessing', 'Clustering'),
+    mandatory = c(TRUE, FALSE, FALSE)
+)
+status <- reactive({c(1, 1, -1, 1, 0)})
+pos <- reactive({4})
+enabled <- reactive({c(0, 0, 0, 0, 1)})
+shiny::runApp(timeline_pipeline(config, status, pos, enabled))
+}
+
 }

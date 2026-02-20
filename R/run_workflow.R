@@ -10,9 +10,9 @@
 #' @param path A `character()` which is the path to the directory which 
 #' contains the files and directories of the pipeline.
 #' @param dataIn An instance of the class `MultiAssayExperiment`
-#' @param usermod A character to specifies the running mode of MagellanNTK. 
-#' * user (default) : xxx
-#' * dev: xxx
+#' @param usermod A `character()` to specifies the running mode of MagellanNTK: 
+#' 'user' (default) or 'dev'. For more details, please refer to the document 
+#' 'Inside MagellanNTK'
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
 #'
@@ -24,7 +24,7 @@
 #' @importFrom shiny NS tagList actionButton reactive moduleServer reactiveVal
 #' renderUI observeEvent shinyApp
 #'
-#' @return NA
+#' @return A shiny app
 #'
 #' @examples
 #' if (interactive()) {
@@ -124,9 +124,7 @@ pipe_workflow_server <- function(
             )
         })
 
-        return(reactive({
-            dataOut()
-        }))
+        return(reactive({dataOut()}))
     })
 }
 
@@ -151,7 +149,7 @@ pipe_workflowApp <- function(
         )
 
         observeEvent(req(res()$dataOut()$trigger), {
-
+        # Add your code
         })
     }
 

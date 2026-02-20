@@ -1,9 +1,12 @@
-#' @title mod_popover_for_help_ui and mod_popover_for_help_server
-#' @description  A shiny Module.
+#' @title Opens a small tooltip info over a widget.
+#' @description Actually, this module does not work because we do not allow
+#' the use of the package `shinyBS` package (conflicts with BS versions).
+#' In the future, one will fix this module with native functions in the package 
+#' `bs4Dash` (https://bs4dash.rinterface.com/reference/tooltip).
 #'
 #' @param id A `character()` as the id of the Shiny module
-#' @param title xxxx
-#' @param content xxx
+#' @param title The title of the tooltip window
+#' @param content The main text of the tooltip window
 #'
 #' @name mod_popover_for_help
 #'
@@ -13,6 +16,8 @@
 #' }
 #'
 #' @return A shiny App
+#' 
+#' @importFrom shiny renderUI req moduleServer
 #'
 NULL
 
@@ -49,9 +54,6 @@ mod_popover_for_help_ui <- function(id) {
 #' @rdname mod_popover_for_help
 #'
 #' @export
-#'
-#'
-#' @importFrom shiny renderUI req moduleServer
 #'
 mod_popover_for_help_server <- function(id, title, content) {
     moduleServer(id, function(input, output, session) {

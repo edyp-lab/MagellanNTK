@@ -2,13 +2,13 @@
 % Please edit documentation in R/general_core_funcs.R
 \name{NavPage}
 \alias{NavPage}
-\title{xxx}
+\title{Move the position of the cursor}
 \usage{
 NavPage(direction, current.pos, len)
 }
 \arguments{
-\item{direction}{A `integer(1)` which is the direction of the xxx:
-forward ('1'), backwards ('-1').}
+\item{direction}{A `integer(1)` which is the direction in the timeline:
+forward (1), backwards (-1).}
 
 \item{current.pos}{A `integer(1)` which is the current position.}
 
@@ -18,8 +18,10 @@ forward ('1'), backwards ('-1').}
 A `integer(1)` which is the new current position.
 }
 \description{
-xxx
+Move the position of the cursor
 }
 \examples{
-NULL
+NavPage(-1, 5, 5)
+
+
 }

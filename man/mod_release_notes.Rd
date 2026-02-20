@@ -16,7 +16,8 @@ release_notes(URL_releaseNotes)
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
 
-\item{URL_releaseNotes}{xxx}
+\item{URL_releaseNotes}{The path to the Rmd file to display. It can be a path
+to a file on the computer or a link to a file over internet.}
 }
 \value{
 A shiny App

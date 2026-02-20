@@ -18,5 +18,7 @@ A `data.frame()`
 Get the history of an assay
 }
 \examples{
-NULL
+data(lldata123)
+GetHistory(lldata123, 'Clustering')
+
 }

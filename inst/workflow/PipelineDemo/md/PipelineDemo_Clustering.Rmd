@@ -4,4 +4,4 @@ The `Clustering` process consists of one step : `Clustering`.
 
 The `Clustering` step permits to cluster the data in order to identify the two Gaussian distributions used to generate it.
 The user can specify the method (`kmeans` or `hclust`) and the number of cluster to create
-and a table allows to preview the clusters.
+and a table allows to preview the clusters, as well as a PCA plot of the rows.

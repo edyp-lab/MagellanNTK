@@ -10,9 +10,9 @@ readConfigFile(path, usermod = "user")
 \item{path}{A `character()` which is the path to the directory which 
 contains the files and directories of the pipeline.}
 
-\item{usermod}{A character to specifies the running mode of MagellanNTK. 
-* user (default) : xxx
-* dev: xxx}
+\item{usermod}{A `character()` to specifies the running mode of MagellanNTK: 
+'user' (default) or 'dev'. For more details, please refer to the document 
+'Inside MagellanNTK'}
 }
 \value{
 A list containing the following items:
@@ -29,9 +29,13 @@ in the pipeline,
 * class A `character()` which specifies the class of the dataset to be processed
 in the pipeline,
 * package  A `character()` which specifies the package which owns the pipeline
-* demo_package xxx
-* URL_manual xxx
-* URL_ReleaseNotes xxx
+* demo_package A `character()` which specifies a particular package to search
+* URL_manual The path to the Rmd file containing the user manual of the 
+pipeline. It can be a path to a file on the computer or a link to a file 
+over internet.
+* URL_ReleaseNotes The path to the Rmd file containing release notes about 
+the pipeline. It can be a path to a file on the computer or a link to a file 
+over internet.
 }
 \description{
 Read the configuration file of a pipeline and extract formatted 

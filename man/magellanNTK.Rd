@@ -45,9 +45,9 @@ a directory which contains the files and directories of the pipeline.}
 \item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 the verbose mode for logs.}
 
-\item{usermod}{A character to specifies the running mode of MagellanNTK. 
-* user (default) : xxx
-* dev: xxx}
+\item{usermod}{A `character()` to specifies the running mode of MagellanNTK: 
+'user' (default) or 'dev'. For more details, please refer to the document 
+'Inside MagellanNTK'}
 
 \item{...}{Additional parameters}
 }
@@ -55,18 +55,7 @@ the verbose mode for logs.}
 A shiny app
 }
 \description{
-xxx
-}
-\details{
-The list of customizable functions (param `funcs`) contains the following items:
-
- These are the default values where each item points to a default fucntion
- implemented into MagellanNTK.
-
- The user can modify these values by two means:
- * setting the values in the parameter to pass to the function
- `MagellanNTK()`,
- * inside the UI of MagellanNTK, in the settings panels
+Main Shiny application
 }
 \examples{
 if (interactive()) {

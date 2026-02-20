@@ -149,19 +149,24 @@ nav_pipeline_server <- function(
       
       prev.children.trigger = NULL,
       
-      # xxxx
+ 
       child.reset = NULL,
       
       # A vector of integers where each element denotes the current
       # position of the corresponding element.
       child.position = NULL,
       
-      # xxxx
+      # A vector of objects of class `MultiAssayExperiment`. Its length is equal
+      # to the number of steps in the pipeline. Each item correspond to a step
+      # (of the same rank) and is the intput dataset (parameter dataIn) for the
+      # corresponding step (it is one on the parameter for the server() function)
+      # For more details, please refer to the document 'Inside MagellanNTK'
       child.data2send = NULL
-      #rstBtn = reactive({0})
+
     )
     
-    # Store the return values (lists) of child processes
+    # A `list()` of instances of lcass `MultiAssayExperiment` to
+    # store the return values of each steps (child processes)
     tmp.return <- reactiveValues()
     
     
@@ -220,11 +225,9 @@ nav_pipeline_server <- function(
             )
           ),
           column(width = 9, 
-            
             timeline_pipeline_ui(ns("timeline_pipeline"))
           ),
           column(width = 1, 
-            
             actionButton(ns("btn_eda"), 
               label = "EDA",
               style = "padding: 0px; margin: 0px; border: none;
@@ -345,7 +348,7 @@ nav_pipeline_server <- function(
     })
     
     
-    
+    # Displays the name of the pipeline in the upper-left corner of the screen
     output$datasetNameUI <- renderUI({
       div(style = paste0("padding-left: ", 100, "px;"),
         h4(id)
@@ -428,10 +431,6 @@ nav_pipeline_server <- function(
     
     # Catch a new value on the parameter 'dataIn()' variable, sent by the
     # caller. This value may be NULL or contain a dataset.
-    # The first action is to store the dataset in the temporary variable
-    # temp.dataIn. Then, two behaviours:
-    # 1 - if the variable is NULL. xxxx
-    # 2 - if the variable contains a dataset. xxx
     observeEvent(req(dataIn()), ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
 

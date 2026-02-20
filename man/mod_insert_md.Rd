@@ -9,16 +9,15 @@
 \usage{
 insert_md_ui(id)
 
-insert_md_server(id, url, link_URL = NULL)
+insert_md_server(id, url)
 
 insert_md(url)
 }
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
 
-\item{url}{internal}
-
-\item{link_URL}{xxx}
+\item{url}{The path to the Rmd file to display. It can be a path
+to a file on the computer or a link to a file over internet.}
 }
 \value{
 A shiny App

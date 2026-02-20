@@ -1,19 +1,5 @@
 
 
-#' @title xxx
-#' @description xxx
-#' @name mod_convert
-#' @author Samuel Wieczorek, Manon Gaudin
-#' @examples
-#' if (interactive()){
-#' library(MagellanNTK)
-#' path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
-#' shiny::runApp(proc_workflowApp("PipelineDemo_Convert", path))
-#' }
-#' 
-NULL
-
-
 #' @rdname mod_convert
 #' @export
 #' 
@@ -33,47 +19,22 @@ PipelineDemo_Convert_conf <- function(){
 
 
 
-#' @title   mod_choose_pipeline_ui and mod_choose_pipeline_server
-#' @description  A shiny Module.
-#'
-#' @param id shiny id
-#'
-#' @rdname mod_convert
-#'
-#' @keywords internal
+#' @rdname PipelineDemo
 #' @export
-#'
-#' @importFrom shiny NS tagList
-#' @import sos
-#'
-#' @return NA
 #'
 PipelineDemo_Convert_ui <- function(id) {
   ns <- NS(id)
 }
 
 
-
-
-#' Convert Server Function
-#'
-#' @param id A `character()` as the id of the Shiny module
-#' @param dataIn Must be NULL. This module has the same template as all modules
-#' used in MagellanNTK and thus has the same parameters
-#' @param steps.enabled xxx
-#' @param remoteReset A `boolean` which acts as a remote command to reset
-#' the module to its default values. Default is FALSE.
-#'
 #' @importFrom shinyjs disabled info
 #' @importFrom stats setNames
 #' @importFrom utils read.csv
 #'
 #' @export
 #'
-#' @rdname mod_convert
-#'
-#' @return NA
-#'
+#' @rdname PipelineDemo
+
 PipelineDemo_Convert_server <- function(id,
   dataIn = reactive({NULL}),
   steps.enabled = reactive({TRUE}),

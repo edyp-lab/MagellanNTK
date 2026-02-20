@@ -15,7 +15,7 @@ process_layout_pipeline(session, ns, sidebar, content)
 \arguments{
 \item{session}{The R session parameter}
 
-\item{ns}{xxx}
+\item{ns}{Namespaced IDs for inputs/outputs}
 
 \item{sidebar}{Shiny components}
 

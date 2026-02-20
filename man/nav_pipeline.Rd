@@ -4,7 +4,7 @@
 \alias{nav_pipeline}
 \alias{nav_pipeline_ui}
 \alias{nav_pipeline_server}
-\title{The server() function of the module `nav_pipeline`}
+\title{Shiny module `nav_pipeline()`}
 \usage{
 nav_pipeline_ui(id)
 
@@ -47,9 +47,9 @@ in this module}
 \item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 the verbose mode for logs.}
 
-\item{usermod}{A character to specifies the running mode of MagellanNTK. 
-* user (default) : xxx
-* dev: xxx}
+\item{usermod}{A `character()` to specifies the running mode of MagellanNTK: 
+'user' (default) or 'dev'. For more details, please refer to the document 
+'Inside MagellanNTK'}
 }
 \value{
 A list of four items:

@@ -1,7 +1,4 @@
-#' @title Timelines
-#'
-#' @description xxx
-#'
+#' @title Shiny module for the process timeline
 #' @param id A `character()` as the id of the Shiny module
 #' @param config An instance of the class `Config`
 #' @param status A boolean which indicates whether the current status of the 
@@ -16,11 +13,40 @@
 #'
 #' @importFrom shiny NS tagList
 #' @importFrom sass sass sass_file
-#' @return NA
+#' 
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
+#' 
+#' 
+#' @return A shiny app
 #'
 #' @examples 
-#' NULL
-#' @return A Shiny app
+#' if(interactive()){
+#' config <- Config(
+#'     mode = "process",
+#'     fullname = "PipelineDemo_Preprocessing",
+#'     steps = c('Filtering', 'Normalization'),
+#'     mandatory = c(FALSE, TRUE)
+#' )
+#' status <- reactive({c(1, 1, 0, 0)})
+#' pos <- reactive({2})
+#' enabled <- reactive({c(0, 0, 1, 1)})
+#' shiny::runApp(timeline_process(config, status, pos, enabled))
+#' }
+#' 
+#' 
+#' if(interactive()){
+#' config <- Config(
+#'     mode = "pipeline",
+#'     fullname = "PipelineDemo",
+#'     steps = c('DataGeneration', 'Preprocessing', 'Clustering'),
+#'     mandatory = c(TRUE, FALSE, FALSE)
+#' )
+#' status <- reactive({c(1, 1, -1, 1, 0)})
+#' pos <- reactive({4})
+#' enabled <- reactive({c(0, 0, 0, 0, 1)})
+#' shiny::runApp(timeline_pipeline(config, status, pos, enabled))
+#' }
 #' 
 NULL
 
@@ -30,9 +56,6 @@ NULL
 
 #' @export
 #' @rdname timelines
-#' 
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
 #'
 timeline_process_ui <- function(id) {
     ns <- NS(id)
@@ -54,9 +77,9 @@ timeline_process_ui <- function(id) {
 timeline_process_server <- function(
         id,
         config,
-        status,
-        position,
-        enabled) {
+        status = reactive({NULL}),
+        position = reactive({1}),
+        enabled = reactive({NULL})) {
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
@@ -119,3 +142,30 @@ timeline_process_server <- function(
         })
     })
 }
+
+
+
+
+#' @rdname timelines
+#'
+#' @export
+#' 
+timeline_process <- function(config,
+  status,
+  position,
+  enabled) {
+    ui <- fluidPage(
+      timeline_process_ui("myTimeline")
+    )
+    
+    server <- function(input, output, session) {
+      timeline_process_server("myTimeline",
+        config,
+        status,
+        position,
+        enabled
+      )
+    }
+    
+    app <- shiny::shinyApp(ui, server)
+  }

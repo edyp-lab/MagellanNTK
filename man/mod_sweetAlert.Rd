@@ -22,19 +22,21 @@ mod_SweetAlert(title, text, type = "warning")
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
 
-\item{title}{xxx}
+\item{title}{The title to be displayed in the window}
 
-\item{text}{xxx}
+\item{text}{The titmessage to be displayed in the window}
 
-\item{showClipBtn}{xxx}
+\item{showClipBtn}{A `boolean` to indicates if the copy to clipboard button
+is shown or not.}
 
-\item{type}{xxx}
+\item{type}{A `character()` for the type of message: 'error', 'warning', etc..}
 }
 \value{
 A shiny App
 }
 \description{
-A shiny app to display a modal
+This module is not directly used by MagellanNTK core functions.
+It is rather a useful tool for third part pipelines and processes.
 }
 \examples{
 if (interactive()) {

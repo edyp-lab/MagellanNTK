@@ -1,18 +1,20 @@
 #' @title Sidebar functions
-#' @description xxx
+#' @description These functions content the UI code for the main sidebar in the
+#' interface of MagellanNTK
 #' @name sidebars
 #'
 #' @examples
 #' NULL
 #'
-#' @return NA
+#' @importFrom shiny icon
+#' 
+#' @return Shiny UI component
 #'
 NULL
 
 
 
 #' @rdname sidebars
-#' @importFrom shiny icon
 #' @export
 Insert_User_Sidebar <- function() {
   bs4SidebarMenu(

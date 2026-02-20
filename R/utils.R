@@ -25,78 +25,6 @@ pkgs.require <- function(ll.deps){
 }
 
 
-#' @title xxx
-#' @description xxx
-#'
-#' @param test xxx
-#'
-#' @examples
-#' NULL
-#' @return NA
-#' @export
-#'
-is.validated <- function(test) {
-    return(test == stepStatus$VALIDATED)
-}
-
-#' @title Find the packages of a function
-#'
-#' @description
-#' This code is extracted from https://sebastiansauer.github.io/finds_funs/
-#'
-#' @param f name of function for which the package(s) are to be identified.
-#'
-#' @import tidyverse
-#' 
-#' @importFrom utils help.search installed.packages maintainer 
-#' packageVersion tail write.table
-#' @import dplyr
-#'
-#' @examples
-#' NULL
-#'
-#' @return
-#' A dataframe with two columns:
-# `package_name`: packages(s) which the function is part of (chr)
-# `builtin_package`:  whether the package comes with standard R
-#  (a 'builtin'  package)
-#
-#'
-#' @export
-#'
-#'
-find_funs <- function(f) {
-  pkgs.require('dplyr')
-    # search for help in list of installed packages
-    help_installed <- help.search(f, agrep = TRUE)
-
-    # extract package name from help file
-    pckg_hits <- help_installed$matches[, "Package"]
-
-    if (length(pckg_hits) == 0) pckg_hits <- "No_results_found"
-
-
-    # get list of built-in packages
-
-    pckgs <- installed.packages() |> dplyr::as_tibble()
-    pckgs |>
-        dplyr::filter(pckgs$Priority %in% c("base", "recommended")) |>
-        dplyr::select(pckgs$Package) |>
-        dplyr::distinct() -> builtin_pckgs_df
-
-    # check for each element of 'pckg hit' whether its built-in and loaded (via match). Then print results.
-
-    results <- dplyr::tibble(
-        package_name = pckg_hits,
-        builtin_pckage = match(pckg_hits, builtin_pckgs_df$Package, nomatch = 0) > 0,
-        loaded = match(paste("package:", pckg_hits, sep = ""), search(), nomatch = 0) > 0
-    )
-
-    return(results)
-}
-
-
-
 
 #' @title Read pipelines configuration files
 #'
@@ -105,10 +33,9 @@ find_funs <- function(f) {
 #'
 #' @param path A `character()` which is the path to the directory which 
 #' contains the files and directories of the pipeline.
-#' @param usermod A character to specifies the running mode of MagellanNTK. 
-#' * user (default) : xxx
-#' * dev: xxx
-#'
+#' @param usermod A `character()` to specifies the running mode of MagellanNTK: 
+#' 'user' (default) or 'dev'. For more details, please refer to the document 
+#' 'Inside MagellanNTK'
 #' @examples
 #' path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
 #' readConfigFile(path)
@@ -128,9 +55,13 @@ find_funs <- function(f) {
 #' * class A `character()` which specifies the class of the dataset to be processed
 #' in the pipeline,
 #' * package  A `character()` which specifies the package which owns the pipeline
-#' * demo_package xxx
-#' * URL_manual xxx
-#' * URL_ReleaseNotes xxx
+#' * demo_package A `character()` which specifies a particular package to search
+#' * URL_manual The path to the Rmd file containing the user manual of the 
+#' pipeline. It can be a path to a file on the computer or a link to a file 
+#' over internet.
+#' * URL_ReleaseNotes The path to the Rmd file containing release notes about 
+#' the pipeline. It can be a path to a file on the computer or a link to a file 
+#' over internet.
 #'
 #' @importFrom stringr str_locate_all
 #'

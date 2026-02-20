@@ -69,3 +69,28 @@ timeline_pipeline_server <- function(
         })
     })
 }
+
+
+#' @rdname timelines
+#'
+#' @export
+#' 
+timeline_pipeline <- function(config,
+  status,
+  position,
+  enabled) {
+  ui <- fluidPage(
+    timeline_pipeline_ui("myTimeline")
+  )
+  
+  server <- function(input, output, session) {
+    timeline_pipeline_server("myTimeline",
+      config,
+      status,
+      position,
+      enabled
+    )
+  }
+  
+  app <- shiny::shinyApp(ui, server)
+}

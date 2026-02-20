@@ -25,7 +25,7 @@
 #' used to trigger an event in the module
 #' @param status A boolean which indicates whether the current status of the 
 #' process 
-#' @param is.skipped A booelan which indicates whether the pipeline or process
+#' @param is.skipped A `boolean` which indicates whether the pipeline or process
 #' is skipped (TRUE) or not (FALSE)
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
@@ -394,10 +394,6 @@ nav_process_server <- function(
     
     # Catch a new value on the parameter 'dataIn()' variable, sent by the
     # caller. This value may be NULL or contain a dataset.
-    # The first action is to store the dataset in the temporary variable
-    # temp.dataIn. Then, two behaviours:
-    # 1 - if the variable is NULL. xxxx
-    # 2 - if the variable contains a dataset. xxx
     observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
       # Get the new dataset in a temporary variable

@@ -1,5 +1,4 @@
 #' @title Main Shiny application
-#' @description xxx
 #'
 #' @param id A `character()` as the id of the Shiny module
 #' @param workflow.path A `character()` which is the path to the directory which 
@@ -9,23 +8,11 @@
 #' a directory which contains the files and directories of the pipeline.
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
-#' @param usermod A character to specifies the running mode of MagellanNTK. 
-#' * user (default) : xxx
-#' * dev: xxx
+#' @param usermod A `character()` to specifies the running mode of MagellanNTK: 
+#' 'user' (default) or 'dev'. For more details, please refer to the document 
+#' 'Inside MagellanNTK'
 #' @param ... Additional parameters
 #' @param sidebarSize The width of the sidebar. Available values are 'small', 'medium', 'large'
-#'
-#'
-#' @details
-#' The list of customizable functions (param `funcs`) contains the following items:
-#'
-#'  These are the default values where each item points to a default fucntion
-#'  implemented into MagellanNTK.
-#'
-#'  The user can modify these values by two means:
-#'  * setting the values in the parameter to pass to the function
-#'  `MagellanNTK()`,
-#'  * inside the UI of MagellanNTK, in the settings panels
 #'
 #' @name magellanNTK
 #'
@@ -35,15 +22,28 @@
 #'     }
 #'
 #' @return A shiny app
-#'
-NULL
-
-#' The application User-Interface
-#'     DO NOT REMOVE.
-#' @importFrom shiny shinyUI tagList
+#' 
+#' @importFrom shiny shinyUI tagList moduleServer addResourcePath reactive
+#' shinyApp runApp
 #' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
 #' disabled inlineCSS extendShinyjs
 #'
+#'
+NULL
+
+
+
+
+
+options(
+  shiny.maxRequestSize = 3000 * 1024^2,
+  encoding = "UTF-8",
+  shiny.fullstacktrace = TRUE
+)
+
+
+
+
 #' @rdname magellanNTK
 #'
 #' @export
@@ -60,15 +60,7 @@ MagellanNTK_ui <- function(id, sidebarSize = 'medium') {
 
 
 
-options(
-    shiny.maxRequestSize = 3000 * 1024^2,
-    encoding = "UTF-8",
-    shiny.fullstacktrace = TRUE
-)
 
-
-#' @importFrom shiny moduleServer addResourcePath reactive
-#'
 #' @export
 #'
 #' @rdname magellanNTK
@@ -92,13 +84,9 @@ MagellanNTK_server <- function(
         )
     })
 }
-# )
-# }
 
 
 
-
-#' @importFrom shiny shinyApp runApp
 #' @export
 #'
 #' @rdname magellanNTK
@@ -150,17 +138,9 @@ MagellanNTK <- function(
     # Launch app
     app <- shiny::shinyApp(ui, server)
 
-    if (usermod == "dev") {
-        shiny::runApp(app,
-            launch.browser = TRUE,
-            port = 3838,
-            host = "127.0.0.1"
-        )
-    } else if (usermod == "user") {
-        shiny::runApp(app,
-            launch.browser = TRUE,
-            port = 3838,
-            host = "127.0.0.1"
-        )
-    }
+    shiny::runApp(app,
+      launch.browser = TRUE,
+      port = 3838,
+      host = "127.0.0.1"
+    )
 }

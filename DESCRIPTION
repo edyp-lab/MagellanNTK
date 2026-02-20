@@ -31,11 +31,9 @@ Imports:
     sass,
     stats,
     utils,
-    dplyr,
     BiocGenerics, 
     htmltools,
     crayon,
-    tidyverse,
     stringr,
     waiter,
     MultiAssayExperiment,
@@ -56,7 +54,6 @@ Collate:
     mod_observe_dynamic_colourPicker_input.R
     mod_errorModal.R
     default_variables.R
-    write_excel.R
     mod_download_dataset.R
     config_class.R
     doc-data.R

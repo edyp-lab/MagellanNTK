@@ -2,23 +2,23 @@
 % Please edit documentation in R/utils2.R
 \name{call.func}
 \alias{call.func}
-\title{Call function}
+\title{Wrapper to the function `do.call`}
 \usage{
 call.func(fname, args)
 }
 \arguments{
-\item{fname}{xxx}
+\item{fname}{The name of the function to execute}
 
-\item{args}{xxx}
+\item{args}{The `list()` of its arguments}
 }
 \value{
-NA
+The result of the function called
 }
 \description{
-xxx
+Wrapper to the function `do.call`
 }
 \examples{
-call.func("stats::rnorm", list(10))
+call.func("stats::rnorm", list(n =10, mean=3))
 
 }
 \seealso{

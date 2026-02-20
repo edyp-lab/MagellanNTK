@@ -1,31 +1,3 @@
-#' @title Shiny example process module.
-#' 
-#' @description
-#' This module contains the configuration informations for the corresponding pipeline.
-#' It is called by the `nav_pipeline` module of the package `MagellanNTK`.
-#' 
-#' The name of the server and ui functions are formatted with keywords separated by '_', as follows:
-#' * first string `mod`: indicates that it is a Shiny module
-#' * `pipeline name` is the name of the pipeline to which the process belongs
-#' * `process name` is the name of the process itself
-#' 
-#' This convention is important because MagellanNTK dynamically constructs 
-#' the names of the different server and UI functions when calling them.
-#' 
-#' In this example, `PipelineDemo_Description_ui()` and `PipelineDemo_Description_server()` define
-#' the code for the process `PipelineDemo_Description` which is part of the pipeline called `PipelineDemo`.
-#' 
-#' @examples
-#' if (interactive()){
-#' library(MagellanNTK)
-#' data(lldata, package = 'MagellanNTK')
-#' path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
-#' shiny::runApp(proc_workflowApp("PipelineDemo_Description", path, dataIn = lldata))
-#' }
-#' 
-#' 
-NULL
-
 #' @rdname PipelineDemo
 #' @export
 #' 
@@ -48,25 +20,8 @@ PipelineDemo_Description_ui <- function(id){
   ns <- NS(id)
 }
 
-#' @param id A `character(1)` which is the 'id' of the module.
-#' @param dataIn An instance of the class `MultiAssayExperiment`.
-#' @param steps.enabled A vector of boolean which has the same length of the steps
-#' of the pipeline. This information is used to enable/disable the widgets. It is not
-#' a communication variable between the caller and this module, thus there is no
-#' corresponding output variable
-#' @param remoteReset It is a remote command to reset the module. A boolean that
-#' indicates if the pipeline has been reset by a program of higher level
-#' Basically, it is the program which has called this module
-#' @param steps.status A vector of `character()` which indicates the status of each step
-#' which can be either 'validated', 'undone' or 'skipped'. Enabled or disabled in the UI.
-#' @param current.pos A `integer(1)` which acts as a remote command to make
-#'  a step active in the timeline. Default is 1.
-#'
+
 #' @rdname PipelineDemo
-#' 
-#' @importFrom stats setNames rnorm
-#' @importFrom shinyjs useShinyjs
-#' 
 #' @export
 #' 
 PipelineDemo_Description_server <- function(id,

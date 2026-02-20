@@ -35,8 +35,8 @@ nav_process_server(
 nav_process()
 }
 \arguments{
-\item{id}{A `character(1)` which defines the id of the module.
-It is the same as for the server() function.}
+\item{id}{A `character(1)` which defines the id of the module. It is the same
+as for the ui() function.}
 
 \item{dataIn}{An instance of the `SummarizedExperiment` class}
 
@@ -55,17 +55,19 @@ is deciding by this module.}
 module. Its value is incremented on a external event and it is used to 
 trigger an event in this module}
 
-\item{remoteResetUI}{xxx}
+\item{remoteResetUI}{An `integer` which acts as a remote command to reset the 
+UI part of the module Its value is incremented on a external event and it is
+used to trigger an event in the module}
 
-\item{is.skipped}{A booelan which indicates whether the pipeline or process
+\item{is.skipped}{A `boolean` which indicates whether the pipeline or process
 is skipped (TRUE) or not (FALSE)}
 
 \item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 the verbose mode for logs.}
 
-\item{usermod}{A character to specifies the running mode of MagellanNTK. 
-* user (default) : xxx
-* dev: xxx}
+\item{usermod}{A `character()` to specifies the running mode of MagellanNTK: 
+'user' (default) or 'dev'. For more details, please refer to the document 
+'Inside MagellanNTK'}
 }
 \value{
 A shiny App

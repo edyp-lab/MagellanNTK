@@ -8,7 +8,9 @@
 #' @param filename internal
 #' @param remoteReset A `logical(1)` which acts as a remote command to reset
 #' the module to its default values. Default is FALSE.
-#' @param is.enabled xxx
+#' @param is.enabled A `boolean`. This variable is used as a remote command to specify
+#' if the corresponding module is enabled (TRUE) or disabled (FALSE). For more
+#' details, please refer to the document 'Inside MagellanNTK'?
 #'
 #' @return NA
 #'

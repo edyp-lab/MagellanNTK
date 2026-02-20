@@ -3,7 +3,7 @@
 #' @description A shiny module that shows messages in modal.
 #'
 #' @param id A `character()` as the id of the Shiny module
-#' @param msg xxxx
+#' @param msg The text to display in the modal
 #'
 #' @name errorModal
 #'
@@ -13,6 +13,8 @@
 #' }
 #' 
 #' @return A shiny App
+#' @importFrom shiny moduleServer observeEvent showModal modalDialog wellPanel
+#' HTML
 #'
 NULL
 
@@ -24,18 +26,11 @@ NULL
 errorModal_ui <- function(id) {}
 
 #' @rdname errorModal
-#' @return NA
-#' @importFrom shiny moduleServer observeEvent showModal modalDialog wellPanel
-#' HTML
 #' @export
 #'
 errorModal_server <- function(id, msg) {
     shiny::moduleServer(id, function(input, output, session) {
         observeEvent(TRUE, ignoreInit = FALSE, {
-            # shiny::showModal(
-            #     shiny::modalDialog('test')
-            # )
-
             shiny::showModal(
                 div(
                     id = "errModal",

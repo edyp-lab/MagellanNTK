@@ -4,8 +4,8 @@
 #' @description  A shiny Module.
 #'
 #' @param id A `character()` as the id of the Shiny module
-#' @param url internal
-#' @param link_URL xxx
+#' @param url The path to the Rmd file to display. It can be a path
+#' to a file on the computer or a link to a file over internet.
 #'
 #' @name mod_insert_md
 #'
@@ -19,7 +19,13 @@
 
 #' @rdname mod_insert_md
 #' @export
-#' @importFrom shiny NS tagList uiOutput htmlOutput
+#' 
+#' @importFrom shiny NS tagList uiOutput htmlOutput observeEvent
+#'  tagList uiOutput htmlOutput actionLink req includeMarkdown p
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' disabled inlineCSS extendShinyjs
+#' @importFrom utils browseURL
+#' @import markdown
 #'
 insert_md_ui <- function(id) {
     ns <- NS(id)
@@ -31,35 +37,15 @@ insert_md_ui <- function(id) {
 
 
 
-#' @importFrom shiny tagList uiOutput htmlOutput observeEvent
-#'  tagList uiOutput htmlOutput actionLink req includeMarkdown p
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
-#'
 #' @rdname mod_insert_md
-#' @importFrom utils browseURL
-#' @import markdown
 #' @export
 insert_md_server <- function(
         id,
-        url,
-        link_URL = NULL) {
+        url) {
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
 
-        output$openURLButton_UI <- renderUI({
-            req(!is.null(link_URL))
-            shiny::actionLink(
-                inputId = ns("openURL"),
-                label = "Open in new tab"
-            )
-        })
-
-
-        observeEvent(input$openURL, {
-            utils::browseURL(link_URL)
-        })
-
+        
         output$insertMD <- renderUI({
             tryCatch(
                 {

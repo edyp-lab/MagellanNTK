@@ -14,9 +14,9 @@
 #' a directory which contains the files and directories of the pipeline.
 #' @param verbose A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
 #' the verbose mode for logs.
-#' @param usermod A character to specifies the running mode of MagellanNTK. 
-#' * user (default) : xxx
-#' * dev: xxx
+#' @param usermod A `character()` to specifies the running mode of MagellanNTK: 
+#' 'user' (default) or 'dev'. For more details, please refer to the document 
+#' 'Inside MagellanNTK'
 #' @param size The width of the sidebar.in pixels
 #'
 #'
@@ -493,8 +493,6 @@ mainapp_server <- function(id,
       # insert_md_server("usermanual",
       #   file.path(rv.core$workflow.path, 'md', "FAQ.md"))
       #
-      
-      # mod_settings_server("global_settings", obj = reactive({Exp1_R25_prot}))
       
       # mod_check_updates_server("check_updates")
       # insert_md_server("links_MD",
