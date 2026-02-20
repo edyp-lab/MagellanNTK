@@ -406,10 +406,10 @@ The process UI is divided into two parts.
 - A sidebar on the left which is always visible.
 - All remaining space to show results (tabs, plots and any other stuff).
 
-The content of this part is updated each time tue user changes the
+The content of this part is updated each time the user changes the
 current process.
 
-(Fig @ref(fig:UI_singleProcess)).
+(Fig. @ref(fig:UIsingleProcess)).
 
 ![UI for a single process](figs/UI_singleProcess.png)
 
@@ -473,7 +473,8 @@ disabled.
 
 The first step is ‘Description’, which only serves as a starting point,
 with a short text describing the pipeline. When a dataset is loaded,
-this step is automatically validated.
+this step is automatically validated (Fig.
+@ref(fig:pipelinedescription)).
 
 ![pipelinedescription](figs/UI_PipelineDemo_Description.png)
 
@@ -502,18 +503,19 @@ The ‘DataGeneration’ sub-step creates a dataset using two Gaussian
 distributions. The user can specify the sd to use for these Gaussian
 distributions and a table allows to preview the dataset once created.
 Once a choice on the sd has been made, you can click on ‘Run’ to
-validate and see the created dataset displayed on the table, or ‘Run
--\>’ to directly skip to the save sub-step.
+validate and see the created dataset displayed on the table (Fig.
+@ref(fig:datageneration3)), or ‘Run -\>’ to directly skip to the save
+sub-step.
+
+![Step Data generation](figs/UI_PipelineDemo_DataGeneration3.png)
+
+Step Data generation
 
 The ‘Save’ sub-step allows to validate the whole process. A new SE is
 created in the dataset, which can be noticed by clicking on EDA. You can
 then go to the next step. The history is also updated with new
 informations. Note that the ‘Run -\>’ button is disabled as it is the
 last sub-step.
-
-![Step Data generation](figs/UI_PipelineDemo_DataGeneration3.png)
-
-Step Data generation
 
 ### ‘Preprocessing’ step
 
@@ -529,8 +531,9 @@ the operator and the value to use for the filtering and a plot displays
 the distribution of sum/mean row values in the dataset. Once a choice of
 parameters has been made, you can click on ‘Run’ to validate and see the
 filtered dataset on the plot, or ‘Run -\>’ to directly skip to the next
-sub-step. As this sub-step is not mandatory, if the next one is
-validated while ‘Filtering’ is not, it will become disabled.
+sub-step (Fig. @ref(fig:UIPipelineDemoPreprocessing2)). As this sub-step
+is not mandatory, if the next one is validated while ‘Filtering’ is not,
+it will become disabled.
 
 ![Sub-step
 Preprocessing/Filtering](figs/UI_PipelineDemo_Preprocessing2.png)
@@ -541,8 +544,9 @@ The ‘Normalization’ sub-step allows columns to be normalized using the
 sum or average of the values in the column. The user can specify the
 method (Sum or Mean) and a plot displays a boxplot of the column values.
 Once a choice of parameters has been made, you can click on ‘Run’ to
-validate and see the normalized dataset on the plot, or ‘Run -\>’ to
-directly skip to the next sub-step.
+validate and see the normalized dataset on the plot (Fig.
+@ref(fig:UIPipelineDemoPreprocessing3)), or ‘Run -\>’ to directly skip
+to the next sub-step.
 
 ![Sub-step
 Preprocessing/Normalization](figs/UI_PipelineDemo_Preprocessing3.png)
@@ -560,8 +564,9 @@ identify the two Gaussian distributions used to generate it. The user
 can specify the method (kmeans or hclust) and the number of cluster to
 create and a table allows to preview the clusters, as well as a PCA plot
 of the rows. Once a choice of parameters has been made, you can click on
-‘Run’ to validate and see the filtered dataset on the plot, or ‘Run -\>’
-to directly skip to the next sub-step.
+‘Run’ to validate and see the filtered dataset on the plot (Fig.
+@ref(fig:UIPipelineDemoClustering2)), or ‘Run -\>’ to directly skip to
+the next sub-step.
 
 ![Sub-step Clustering/Clustering](figs/UI_PipelineDemo_Clustering2.png)
 
@@ -582,7 +587,7 @@ simply want to try something else, you can reset any process with the
 as well as any other process down the timeline, will be resetted with
 default values and all SE from these processes will be removed. It means
 that the dataset will be set to its initial value as if it is the first
-time the user start this process.
+time the user start this process (Fig. @ref(fig:resetastep)).
 
 Keep in mind that this is irreversible, and therefore if the reset was
 done by mistake, you will have to start again from this point.
@@ -638,7 +643,7 @@ As an example, consider the dataset ‘lldata12’ from the package
 `MagellanNTK` which has 3 SE: ‘Convert’, ‘DataGeneration’ and
 ‘Preprocessing’. If one load this dataset in a single process, then
 MagellanNTK will create a new dataset containing only the ‘Convert’
-assay which is a renaming of the previous ‘Preprocessing’ assy.
+assay which is a renaming of the previous ‘Preprocessing’ assay.
 
 ## Session information
 
