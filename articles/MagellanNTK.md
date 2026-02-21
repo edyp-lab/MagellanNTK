@@ -8,10 +8,10 @@ build workflows and integrate them in your UI or run it standalone.
 
 ## Introduction
 
-The package MagellanNTK provides the infrastructure for the
-configuration, the execution and the surveillance of a defined sequence
-of tasks. It builds graphical workflow based on third party tasks,
-developed as Shiny modules.
+The package MagellanNTK is a Shiny application which provides the
+infrastructure for the configuration, the execution and the surveillance
+of a defined sequence of tasks. It builds graphical workflow based on
+third party tasks, developed as Shiny modules.
 
 This document covers the description and the use of the user interface
 provided by MagellanNTK. It starts with a general overview of workflows
@@ -20,6 +20,13 @@ and their principles. Then , it focuses on the User Interface of
 
 For a more complete (and technical) information about MagellanNTK, it is
 advised to see the `Inside MagellanNTK`
+
+MagellanNTK is not strickly speaking a workflow in the sense that it do
+not provide any data analysis tool but it is a workflow manager which
+offers many customization capabilities. It can deal with data formatted
+as `MultiAssayExperiment` and thus could be used to analyse data from
+many domains such as Genetics, Epigenetics, Proteomics, Single-cell
+Proteomics, ImmunoOncology, etc.
 
 ### Main features
 
@@ -481,16 +488,14 @@ enabled (as well as the Run buttons). In the contrary, a bullet that is
 disabled means that all the widgets and the ‘Run’ buttons in the UI are
 disabled.
 
-#### Exploratory Data Analysis (EDA) tool
+#### Exploratory Data Analyzer (EDA)
 
-This tool is available when the user clicks on its icon, placed at the
-top right corner of the screen. This action opens a modal window with 3
-tabs, each of them displaying an information about the dataset. The
-content of each of these panels is fully customizable by means of
-“generic functions” (See ‘Inside MagellanNTK’)
-
-**Infos**: xxx \* **history**: Displays the history stored in the
-current SE \* **EDA**:
+This tool is available when the user clicks on the link (named EDA), at
+the top right corner of the screen. This will open a modal window which
+proposes 3 tabs, The content of each of them corresponding to a
+customizable module by means of “generic functions” (See ‘Inside
+MagellanNTK’). The examples in Fig. @ref(fig:pipelinedescription) show
+the result of default implementation of these 3 functions.
 
 ![UI for a single process](figs/UI_EDA1.png)
 

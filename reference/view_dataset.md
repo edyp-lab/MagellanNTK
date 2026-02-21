@@ -9,7 +9,7 @@ view_dataset_ui(id)
 
 view_dataset_server(id, dataIn = NULL, ...)
 
-view_dataset(dataIn, ...)
+view_dataset(dataIn)
 ```
 
 ## Arguments
@@ -36,7 +36,7 @@ NA
 
 ``` r
 if (interactive()) {
-data(lldata)
+data(lldata123)
 shiny::runApp(view_dataset(lldata))
 }
 ```

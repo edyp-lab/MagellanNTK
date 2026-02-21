@@ -59,7 +59,7 @@ Gaudin</h4>
                                     <h4 data-toc-skip class="author">Thomas
 Burger</h4>
                         
-            <h4 data-toc-skip class="date">February 20, 2026</h4>
+            <h4 data-toc-skip class="date">February 21, 2026</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/edyp-lab/MagellanNTK/blob/main/vignettes/MagellanNTK.Rmd" class="external-link"><code>vignettes/MagellanNTK.Rmd</code></a></small>
       <div class="d-none name"><code>MagellanNTK.Rmd</code></div>
@@ -82,16 +82,22 @@ Burger</h4>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The package MagellanNTK provides the infrastructure for the
-configuration, the execution and the surveillance of a defined sequence
-of tasks. It builds graphical workflow based on third party tasks,
-developed as Shiny modules.</p>
+<p>The package MagellanNTK is a Shiny application which provides the
+infrastructure for the configuration, the execution and the surveillance
+of a defined sequence of tasks. It builds graphical workflow based on
+third party tasks, developed as Shiny modules.</p>
 <p>This document covers the description and the use of the user
 interface provided by MagellanNTK. It starts with a general overview of
 workflows and their principles. Then , it focuses on the User Interface
 of <code>MagellanNTK</code>.</p>
 <p>For a more complete (and technical) information about MagellanNTK, it
 is advised to see the <code>Inside MagellanNTK</code></p>
+<p>MagellanNTK is not strickly speaking a workflow in the sense that it
+do not provide any data analysis tool but it is a workflow manager which
+offers many customization capabilities. It can deal with data formatted
+as <code>MultiAssayExperiment</code> and thus could be used to analyse
+data from many domains such as Genetics, Epigenetics, Proteomics,
+Single-cell Proteomics, ImmunoOncology, etc.</p>
 <div class="section level3">
 <h3 id="main-features">Main features<a class="anchor" aria-label="anchor" href="#main-features"></a>
 </h3>
@@ -604,15 +610,14 @@ bullet that is disabled means that all the widgets and the ‘Run’ buttons
 in the UI are disabled.</p>
 </div>
 <div class="section level4">
-<h4 id="exploratory-data-analysis-eda-tool">Exploratory Data Analysis (EDA) tool<a class="anchor" aria-label="anchor" href="#exploratory-data-analysis-eda-tool"></a>
+<h4 id="exploratory-data-analyzer-eda">Exploratory Data Analyzer (EDA)<a class="anchor" aria-label="anchor" href="#exploratory-data-analyzer-eda"></a>
 </h4>
-<p>This tool is available when the user clicks on its icon, placed at
-the top right corner of the screen. This action opens a modal window
-with 3 tabs, each of them displaying an information about the dataset.
-The content of each of these panels is fully customizable by means of
-“generic functions” (See ‘Inside MagellanNTK’)</p>
-<p><strong>Infos</strong>: xxx * <strong>history</strong>: Displays the
-history stored in the current SE * <strong>EDA</strong>:</p>
+<p>This tool is available when the user clicks on the link (named EDA),
+at the top right corner of the screen. This will open a modal window
+which proposes 3 tabs, The content of each of them corresponding to a
+customizable module by means of “generic functions” (See ‘Inside
+MagellanNTK’). The examples in Fig. @ref(fig:pipelinedescription) show
+the result of default implementation of these 3 functions.</p>
 <div class="figure" style="text-align: center">
 <img src="figs/UI_EDA1.png" class="r-plt" alt="UI for a single process" width="100%"><p class="caption">
 UI for a single process
