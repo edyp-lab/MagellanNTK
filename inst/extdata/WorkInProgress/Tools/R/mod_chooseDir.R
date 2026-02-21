@@ -17,7 +17,7 @@
 #' shiny::runApp(chooseDir())
 #' }
 #' 
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide 
 #' disabled inlineCSS extendShinyjs
 #'
 #' @return A Shiny app

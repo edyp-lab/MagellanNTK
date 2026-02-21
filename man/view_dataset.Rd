@@ -10,7 +10,7 @@ view_dataset_ui(id)
 
 view_dataset_server(id, dataIn = NULL, ...)
 
-view_dataset(dataIn, ...)
+view_dataset(dataIn)
 }
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
@@ -29,7 +29,7 @@ A shiny Module.
 }
 \examples{
 if (interactive()) {
-data(lldata)
+data(lldata123)
 shiny::runApp(view_dataset(lldata))
 }
 

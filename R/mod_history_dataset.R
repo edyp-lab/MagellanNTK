@@ -29,6 +29,7 @@ NULL
 history_dataset_ui <- function(id) {
   ns <- NS(id)
   div(style = 'height: 600px',
+    p('Default implementation of this content.'),
     MagellanNTK::format_DT_ui(ns("history"))
   )
 }

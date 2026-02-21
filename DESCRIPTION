@@ -18,7 +18,7 @@ Description: MagellanNTK (Magellan Navigation ToolKit) is a collection of Shiny
     pipelines compliant with MagellanNTK such as MSPipelines and Prostar2. 
 License: Artistic-2.0
 Depends: R (>= 4.5.0)
-biocViews: Software, GUI
+biocViews: Software, GUI, ShinyApps
 Imports: 
     S4Vectors,
     methods,
@@ -38,7 +38,8 @@ Imports:
     waiter,
     MultiAssayExperiment,
     SummarizedExperiment,
-    markdown
+    markdown,
+    graphics
 Suggests: 
     shinyjqui, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
     gtools, XML, R.utils, RColorBrewer,  openxlsx,

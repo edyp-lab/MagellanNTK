@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' if (interactive()) {
-#' data(lldata)
+#' data(lldata123)
 #' shiny::runApp(view_dataset(lldata))
 #' }
 #'
@@ -28,7 +28,11 @@ NULL
 #'
 view_dataset_ui <- function(id) {
     ns <- NS(id)
-    tagList()
+      tagList(
+        h3("This is the default module infos_dataset of MagellanNTK. It can be customized."),
+        uiOutput(ns("choose_SE_ui")),
+        plotOutput(ns("plot_ui"))
+      )
 }
 
 
@@ -36,6 +40,7 @@ view_dataset_ui <- function(id) {
 #'
 #' @export
 #' @importFrom shiny moduleServer reactiveValues reactive
+#' @importFrom graphics hist
 #'
 view_dataset_server <- function(
         id,
@@ -43,7 +48,34 @@ view_dataset_server <- function(
         ...) {
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
-
+        
+        rv <- reactiveValues(
+          dataIn = NULL
+        )
+        
+        observeEvent(req(inherits(dataIn(), "MultiAssayExperiment")), {
+          rv$dataIn <- dataIn()
+        })
+        
+        output$choose_SE_ui <- renderUI({
+          req(rv$dataIn)
+          
+          radioButtons(ns("selectInputSE"),
+            "Select an assay",
+            choices = names(MultiAssayExperiment::experiments(rv$dataIn))
+          )
+        })
+        
+        
+        output$plot_ui <- renderPlot({
+          req(rv$dataIn)
+          req(input$selectInputSE != "None")
+          .se <- rv$dataIn[[input$selectInputSE]]
+          req(.se)
+          
+          plot(graphics::hist(assay(.se))$density, type = 'l')
+        })
+        
 
     })
 }
@@ -54,8 +86,8 @@ view_dataset_server <- function(
 #' @rdname view_dataset
 #' @importFrom shiny shinyApp reactiveValues reactive
 #'
-view_dataset <- function(dataIn, ...) {
-    ui <- view_dataset_ui("demo")
+view_dataset <- function(dataIn) {
+    ui <- view_dataset_ui("modviewDataset")
 
 
     server <- function(input, output, session) {
@@ -63,11 +95,8 @@ view_dataset <- function(dataIn, ...) {
             dataIn = NULL
         )
 
-        rv$dataIn <- view_dataset_server("demo",
-            dataIn = reactive({
-                dataIn
-            }),
-            ...
+        rv$dataIn <- view_dataset_server("modviewDataset",
+            dataIn = reactive({dataIn})
         )
     }
 
