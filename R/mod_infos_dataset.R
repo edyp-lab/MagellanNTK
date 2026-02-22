@@ -15,7 +15,6 @@
 #' shiny::runApp(infos_dataset(lldata123))
 #' }
 #' 
-#' @import MultiAssayExperiment
 #' 
 NULL
 

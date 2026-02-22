@@ -1,5 +1,4 @@
 if(interactive()){
-library(shinyjs)
 library(shiny)
 ui <- mod_loading_page_ui("mod_info")
 server <- function(input, output, session) {

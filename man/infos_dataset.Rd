@@ -40,5 +40,6 @@ data(lldata123)
 shiny::runApp(infos_dataset(lldata123))
 }
 
+
 }
 \keyword{internal}

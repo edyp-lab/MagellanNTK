@@ -32,7 +32,8 @@ history_dataset(obj)
 A shiny app
 }
 \description{
-A shiny Module.
+A shiny Module which show th content of the slot 'history'
+in the metadata() of the last SE of the dataset
 }
 \examples{
 if (interactive()){

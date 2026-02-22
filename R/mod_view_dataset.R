@@ -40,6 +40,7 @@ view_dataset_ui <- function(id) {
 #'
 #' @export
 #' @importFrom shiny moduleServer reactiveValues reactive
+#' @importFrom MultiAssayExperiment experiments
 #' @importFrom graphics hist
 #'
 view_dataset_server <- function(

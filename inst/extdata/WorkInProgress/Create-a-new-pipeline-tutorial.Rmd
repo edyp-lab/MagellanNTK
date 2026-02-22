@@ -63,7 +63,38 @@ The two first templates also create:
 
 -   the generic functions that can be customized within the app
 
-# Create a workflow
+
+
+
+
+
+# Pipeline structure hierarchy
+
+For a more details on our definitions of workflows, processes,
+pipelines, please refer to the User manual of MagellanNTK.
+
+The files which compose a workflow are stored in a directory whose name is the 
+name of the pipeline. This directory contains 3 elements:
+
+  * A txte file called 'config.txt', 
+A pipeline is identified by its name while a process is identified by a
+name composed of the name of the pipeline it belongs to and its own
+name. For example, 'Pipeline A' will be identified by 'PipelineA', and
+the process 2 of this pipeline is identified by 'PipelineA_Process2'.
+
+::: bordered
+```{r listfuncs, results='markup', fig.cap="UI process", echo=FALSE, out.width='50%', fig.align='center', fig.wide = TRUE}
+knitr::include_graphics("./figs/hierarchy_funcs.png", error = FALSE)
+```
+:::
+
+It is possible that a process is the same in two pipelines. For
+simplicity reasons, one decide to duplicate their code and they have
+different names.
+
+
+
+# Create a pipeline
 
 MagellantNTK has a Shiny application to help developers to create a new
 workflow by crating a template source code. The developer has only to

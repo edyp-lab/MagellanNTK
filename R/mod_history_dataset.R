@@ -1,5 +1,6 @@
 #' @title   history_dataset_ui and history_dataset_server
-#' @description  A shiny Module.
+#' @description A shiny Module which show th content of the slot 'history'
+#' in the metadata() of the last SE of the dataset
 #'
 #' @param id A `character()` as the id of the Shiny module
 #' @param dataIn An instance of the class `MultiAssayExperiment`.

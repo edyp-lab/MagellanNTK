@@ -34,25 +34,23 @@ editor_options:
 The user manual of MagellanNTK covers a strict end-user aspect of
 MagellanNTK, describing the user interfaces and how to navigate through
 the steps of a workflow. This document focuses on a more technical view
-of the package and how to use it to instantiate workflows written bby
-thrid party
+of the package and how to use it to instantiate workflows written by
+third party.
 
 A guide to understand how the workflows code is built and how to wrote
 some code is available in vignette xxx.
 
-The package MagellanNTK has two main objectives:
+The package MagellanNTK has three main objectives:
 
--   be generic to handle several different types of datasets,
-
--   versatility to integrate many workflows
-
--   embed a maximum of code so as to minimize the code to write for
+  - be generic to handle several different types of datasets,
+  - versatility to integrate many workflows
+  - embed a maximum of code so as to minimize the code to write for
     process modules. Thus, process modules, in a sense, only contains
     the ui elements for the process and the logics of the modules.
 
 It facilitates the work for writing process modules but has some
 constraints such as the naming conventions which are important. To allow
-writing less 'dev' code, the core of Magellan is mostly based on dynamic
+writing less 'dev' code, the core of MagellanNTK is mostly based on dynamic
 function surcharge thus, the naming conventions are fundamental.
 
 The package MagellanNTK is a toolkit containing all tools to build a
@@ -67,32 +65,22 @@ and can handle different types of objects but they must be of type list
 # General principles
 
 MagellanNTK is a Shiny application which provides a workflow management
-framework. The data processing tools are not implemented if MagellanNTK
-but are passed are parameters to the application. Thus, alone,
-MagellanNTK is usefulness. To work, MagellanNTK needs:
-
--   data processing tools (as Shiny modules)
-
--   a list of datasets
-
-These data processing modules can be in a separate R script or part of a
-R package. The most important is that the functions ui(), config() and
+framework. The data processing tools of a workflow are not directly implemented 
+in the package but they are passed are parameters to the application. Thus, alone,
+MagellanNTK is usefulness. To work, MagellanNTK needs data processing tools 
+(as Shiny modules). These data processing modules can be stored in a separate R 
+scripts or be part of a R package. The most important is that the functions ui(), config() and
 server() are available in the same R environment as MagellanNTK.
 
 The package MagellanNTK mainly manage two aspects :
 
--   the navigation between the different user interfaces
-
--   the management of the datasets during the execution of the
-    workflows.
-
-All along this document, one will take some examples to explain the
-nomenclature.
+  - the navigation between the different user interfaces
+  - the management of the datasets during the execution of the workflows.
 
 ## Global architecture
 
-MagellanNTK cannot be run alone, it is always run with a package which
-contains the information about the steps to manage.
+MagellanNTK cannot be run alone, it is always run with a workflow (it is a 
+mandatory parameter).
 
 ::: bordered
 ```{r globalArch, results='markup', fig.cap="UI process", echo=FALSE, out.width='100%', fig.align='center', fig.wide = TRUE}
@@ -100,8 +88,12 @@ knitr::include_graphics("./figs/globalArch.png", error = FALSE)
 ```
 :::
 
-The final shiny app is showed by Magellan, it is its functions that are
-called in the shiny app. Inside Magellan, three main operations are run:
+MagellanNYK as an core engine which 
+
+Once MagellanNTK has been launched, its first action is ro read the configuraiotn file
+of the pipeline and instances tis variables wrt the indications contained in this file.
+The core engine of MagellanNTK 
+Inside Magellan, three main operations are run:
 
 -   Magellan needs to read the configuration of the module to adjust
     some of its features (timelines, variables): those information are
@@ -115,14 +107,71 @@ called in the shiny app. Inside Magellan, three main operations are run:
     let the external package as light and easy to understand as
     possible. While loading the source code, those functions are
     inserted inside
+    
+The core engine is ready to run when MagellanNTK is launched but there is
+no UI nor dataset. The UI to be run within MagellanNTK come from the pipeline
+files while the dataset is loaded byt the user.
 
 MagellanNTK reads the configuration class and then builds function names
 to load them. This is why these functions must be well-named and
 available in the R environment.
 
-## Workflows are built dynamically
 
-## Generic templates functions
+MagellanNTK is a Shiny App which include a workflow manager, its main part.
+It also includes classical satellite features for this type of application, such as xxx.
+
+
+
+# Core engine
+
+The workflow manager implemented in MagellanNTK core engine og MagellanNTK is the main par tof the Shiny app and 
+
+## Pipeline
+
+## Core
+
+# Generic functions
+
+The package `MagellanNTK` comes with a series of generic functions, used to do 
+some basic tasks. They are stored in the 'R' directory.
+
+Some of these functions are Shiny modules:
+
+* convert_dataset: Convert any dataset to an instance of `MultiAssayExperiment`.
+Must provide 
+* open_dataset: Open and load a dataset (instance of `MultiAssayExperiment`) in MagellanNTK
+* view_dataset: The third tab of the EDA tool.It must provide the two functions named 
+`view_dataset_ui()` and `view_dataset_server()`
+* infos_dataset: The first tab of the EDA tool. It must provide the two functions named 
+`infos_dataset_ui()` and `infos_dataset_server()`
+* history_dataset: The second tab of the EDA tool which displays the history 
+stored in the last SE of the dataset. It must provide the two functions named 
+`history_dataset_ui()` and `history_dataset_server()`
+* download_dataset: It must provide the two functions named 
+`download_dataset_ui()` and `download_dataset_server()`
+
+
+The other functions are classical R functions:
+
+  * **addDatasets()**: xxx
+  * **keepDatasets()**:
+  * **InitializeHistory()**
+  * **Add2History()**
+  * **GetHistory()**
+  * **SetHistory()** = "MagellanNTK::SetHistory"
+
+
+The definition of these functions is specified in the config file of the
+pipeline where one has also the name of the package which owns the functions
+
+
+
+These functions can easily be overridden by similar functions in third party 
+packages which contains workflows to be run with MagellanNTK. The global 
+specifications of these functions must be respected but their content can 
+be customized.
+
+
 
 Some important functions are essential to instantiate a workflow with
 MagellanNTK, event if it is only for examples or with empty datasets.
@@ -145,108 +194,8 @@ open_dataset. Propose une interface pour choisir et ouvrir un dataset enregistr�
   * Custom dataset: permet de sélectioner et d'ouvrir un fichier stocké ailleurs
 
 
-download_dataset: Intefrace pour exporter le dataset courant. Par défaut, le format proposé est le `.rdata`.
 
-
-Il existe une fonctionnalité qui permet d'affiche une fenêtre modale contenant  3 onglets appelés respe tivement infos_dataset, history_dataset et view_dataset. Le contenu de ces onglets est un module Shiny personnalisable. 
-Par défaut:
-
-  * infos_dataset. affiche des informations basiques
-
-  * history_dataset. affiche l'historique enregistré dans le dernier assay du jeu de données
-  * view_dataset: NA
-
-
-
-
-
-export_dataset
-
-build_report
-
-
-
-
-addDatasets
-
-keepDatasets
-
-InitializeHistory
-
-Add2History
-
-GetHistory
-
-SetHistory = "MagellanNTK::SetHistory"
-
-
-
-  
-
-## Builtin functions
-
-The package `MagellanNTK` comes with a series of generic functions, used to do some
-basic tasks. These functions are the following:
-
-* convert_dataset(): A Shiny module to convert any dataset to a format suitable for the pipeline used.
-* open_dataset(): xxx
-* open_demoDataset(): xxx
-* view_dataset(): xxx
-* infos_dataset(): xxx
-* download_dataset(): xxx
-* addDatasets(): xxx
-* keepDatasets():
-
-Each of these functions are Shiny modules and are loaded by default when MagellanNTK
-is run.
-
-These functions can be overridden by similar functions int third party packages which contains workflows
-to be run with MagellanNTK.Learn more on customizing these functions in xxx
-
-
-
-
-
-
-# Workflows hierarchy
-
-For a more details on our definitions of workflows, processes,
-pipelines, please refer to the User manual of MagellanNTK.
-
-One will consider here process and pipelines levels. One consider the
-default level is a pipeline, composed of several processes (as steps).
-Thus, a process always own to a pipeline.
-
-A pipeline is identified by its name while a process is identified by a
-name composed of the name of the pipeline it belongs to and its own
-name. For example, 'Pipeline A' will be identified by 'PipelineA', and
-the process 2 of this pipeline is identified by 'PipelineA_Process2'.
-
-::: bordered
-```{r listfuncs, results='markup', fig.cap="UI process", echo=FALSE, out.width='50%', fig.align='center', fig.wide = TRUE}
-knitr::include_graphics("./figs/hierarchy_funcs.png", error = FALSE)
-```
-:::
-
-It is possible that a process is the same in two pipelines. For
-simplicity reasons, one decide to duplicate their code and they have
-different names.
-
-# Installation
-
-The installation is quite simple as it is sufficient to install the package. This is explicitly needed only if one want to launch the workflow manager in a standalone mode.
-
-To install this package, start R (version "4.3") and enter:
-
-```
-library(devtools)
-install_github('edyp-lab/MagellanNTK')
-
-```
-
-If MagellanNTK is about to be used via a Shiny module, the latter is supposed to load or import the package MagellanNTK.
-
-## Understanding files for MagellanNTK
+# Understanding files for MagellanNTK
 
 The engine is getting the code of steps which i supposed to be available in the R environment. This can be done directly via the R console or via a package.
 
@@ -411,9 +360,9 @@ mod_process_PipeA_Proc1_server <- function(
 }
 ```
 
-### Structure of a Magellan-compliant module pipeline
+# Structure of a Magellan-compliant module pipeline
 
-### Conventions de nommage
+# Conventions de nommage
 
 ceci est un poitn très important pour le bon fonctionnement des deux
 packages. En effet, comme il a été précisé xxx, Magellan est un workflow
@@ -486,68 +435,6 @@ The directory 'module_examples' contain xxx
 
 # 
 
-## Launch a workflow
-
-As Magellan is a Shiny app, to launch the app, a few lines of code are
-necessary. Here, are th minimum code to launch a worklfow called Proc1
-which belongs to a composed workflow called 'PipeA'.
-
-Here is explained a minimal shiny app (code in
-'/inst/scripts/min_simple_workflow_app_example.R'). Here are the
-comments
-
-Launch the packages
-
-```{r minshinyappexample_launchpackages,attr.source = ".numberLines", eval = FALSE}
-library(MagellanNTK)
-
-f <- system.file("module_examples",
-    "example_module_PipelineA_Process1.R",
-    package = "Magellan"
-)
-source(file(f), local = TRUE)$value
-
-ui <- fluidPage(
-    mod_navigation_ui("PipelineA_Process1")
-)
-
-server <- function(input, output) {
-    data(feat1, package = "Magellan")
-    rv <- reactiveValues(
-        dataIn = feat1,
-        dataOut = NULL
-    )
-
-    observe(
-        {
-            rv$dataOut <- mod_navigation_server(
-                id = "PipelineA_Process1",
-                nav.mode = "process",
-                dataIn = reactive({
-                    rv$dataIn
-                })
-            )
-        },
-        priority = 1000
-    )
-}
-
-shinyApp(ui, server)
-```
-
-As we can see, launching a shiny app which shows a process module pass
-by `Magellan` which acts as a bridge package: the ui() and server()
-functions of the app only call `Magellan` functions.
-
-There is here a first example of the imortance of names convention. If
-we focus on the id of these functions, one can see that it is composed
-of two concatenated strings : the name of the parent and the name of the
-process. This id is splitted and xxxx. This string is precisely the name
-of the procs module source code file in the external package (but
-prefixed by 'mod\_')
-
-A generic script example is here:
-'/inst/scripts/min_simple_workflow_app.R'
 
 ## Naming conventions for modules
 
@@ -634,27 +521,6 @@ cursor for the active step) of each item in the timeline works well
 Despite that hose information are documented in the reference manual of
 Magellan but it allows to better understand here how it works.
 
-The server() function is based on the same fundamental code:
-
-```{r serverTL, eval=FALSE, echo=TRUE}
-mod_timeline_v_server <- function(
-        id,
-        config,
-        status,
-        position,
-        enabled) {
-    moduleServer(id, function(input, output, session) {
-        ns <- session$ns
-
-        UpdateTags <- reactive({
-            ...
-        })
-        output$show_v_TL <- renderUI({
-            ...
-        })
-    })
-}
-```
 
 The parameters of the server are the same for both vertical and
 horizontal timelines:
@@ -675,17 +541,6 @@ tags inserted in the css-style.
 
 # Tools for developers
 
-## Debug module
-
-A shiny module called Debug_Infos is available to follow the execution
-of a workflow and more precisely, the content of datasets.
-
-
-
-# Generic functions
-
-MagellanNTK est un data manager conçu pour être le plus générique possible et ainsi être capable de traiter
-des jeux de données de formats différents, sur des domaine sd'application différents
 
 
 \section{Session information}\label{sec:sessionInfo}

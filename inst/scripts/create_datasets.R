@@ -6,13 +6,12 @@
 #' @return NA
 #' 
 #' @examples
-#' library(MultiAssayExperiment)
 #' create_example_data()
 #' 
+#' @importFrom MultiAssayExperiment MultiAssayExperiment
+#' @importFrom SummarizedExperiment SummarizedExperiment
 #' 
 create_example_data <- function(){
-
-  requireNamespace('MultiAssayExperiment')
 
   ## Create array matrix and AnnotatedDataFrame to create an ExpressionSet class
   arraydat <- matrix(data = rep(0, 600), nrow = 100)
