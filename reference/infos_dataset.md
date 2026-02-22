@@ -44,4 +44,5 @@ if (interactive()){
 data(lldata123)
 shiny::runApp(infos_dataset(lldata123))
 }
+
 ```

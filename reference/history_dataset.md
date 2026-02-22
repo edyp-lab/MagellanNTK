@@ -1,6 +1,7 @@
 # history_dataset_ui and history_dataset_server
 
-A shiny Module.
+A shiny Module which show th content of the slot 'history' in the
+metadata() of the last SE of the dataset
 
 ## Usage
 

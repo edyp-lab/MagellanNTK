@@ -8,22 +8,22 @@ build workflows and integrate them in your UI or run it standalone.
 
 ## Introduction
 
-The package MagellanNTK is a Shiny application which provides the
+The package `MagellanNTK` is a Shiny application which provides the
 infrastructure for the configuration, the execution and the surveillance
 of a defined sequence of tasks. It builds graphical workflow based on
 third party tasks, developed as Shiny modules.
 
 This document covers the description and the use of the user interface
 provided by MagellanNTK. It starts with a general overview of workflows
-and their principles. Then , it focuses on the User Interface of
+and their principles. Then, it focuses on the User Interface of
 `MagellanNTK`.
 
 For a more complete (and technical) information about MagellanNTK, it is
-advised to see the `Inside MagellanNTK`
+advised to see the `Inside MagellanNTK`.
 
-MagellanNTK is not strickly speaking a workflow in the sense that it do
+MagellanNTK is not strictly speaking a workflow in the sense that it do
 not provide any data analysis tool but it is a workflow manager which
-offers many customization capabilities. It can deal with data formatted
+offers many customization capabilities. It can deal with data structured
 as `MultiAssayExperiment` and thus could be used to analyse data from
 many domains such as Genetics, Epigenetics, Proteomics, Single-cell
 Proteomics, ImmunoOncology, etc.
