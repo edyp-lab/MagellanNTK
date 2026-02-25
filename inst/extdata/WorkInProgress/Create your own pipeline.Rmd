@@ -1,5 +1,5 @@
 ---
-title: "Build-a-pipeline-module tutorial"
+title: "Create your own pipeline for MagellanNTK"
 author:
   name: Samuel Wieczorek
 abstract: >
@@ -32,11 +32,115 @@ knitr::opts_chunk$set(
 ```
 
 
+
+
+### Structure of a Magellan-compliant module process
+
+As for any Shiny module, it must contain the two following functions:
+ui() and server()
+
+Ces fonctions doivent avoir des noms construits de la manière suivante :
+4 chaînes de caractères séparées par un '\_':
+
+-   xxx
+
+-   xxxx
+
+-   xxxx
+
+-   xxxx
+
+Dans l'exemple ci-dessous, il s'agit d'un module nommé 'Process1' et
+faisant partie d'un pipeline appelé 'PipelineA'.
+
+Si le module n'a pas de process parent, alors
+
+```{r structProcessModule, echo=TRUE, eval = FALSE}
+mod_process_PipelineA_Process1_ui <- function(id) {
+    ns <- NS(id)
+}
+
+
+mod_process_PipeA_Proc1_server <- function(
+        id,
+        nav.mode = "process",
+        dataIn = reactive({
+            NULL
+        }),
+        steps.enabled = reactive({
+            NULL
+        }),
+        remoteReset = reactive({
+            FALSE
+        }),
+        current.pos = reactive({
+            1
+        })) {
+    # This list contains the basic configuration of the process
+    config <- list(
+        name = NULL,
+        parent = NULL,
+        steps = NULL,
+        mandatory = NULL
+    )
+
+    # Define default selected values for widgets
+    # This is only for simple workflows
+    widgets.default.values <- list(
+        # Add your own code
+    )
+
+    ### -------------------------------------------------------------###
+    ###                                                             ###
+    ### ------------------- MODULE SERVER --------------------------###
+    ###                                                             ###
+    ### -------------------------------------------------------------###
+    moduleServer(id, function(input, output, session) {
+        ns <- session$ns
+
+        # Insert necessary code which is hosted by Magellan
+        # DO NOT MODIFY THIS LINE
+        eval(str2expression(
+            SimpleWorflowCoreCode(
+                widgets = names(widgets.default.values),
+                steps = config$steps
+            )
+        ))
+
+        # Add your UI stuff below
+
+        # Insert necessary code which is hosted by Magellan
+        # DO NOT MODIFY THIS LINE
+        eval(parse(text = Module_Return_Func()))
+    })
+}
+```
+
+# Structure of a Magellan-compliant module pipeline
+
+# Conventions de nommage
+
+ceci est un poitn très important pour le bon fonctionnement des deux
+packages. En effet, comme il a été précisé xxx, Magellan est un workflow
+manager générique qui gère des modules dont on lui envoie la
+configuration. Afin de respecter cette généricité, Magellan construit
+dynamiquement un certain nombre de fonctions et de variables à partir de
+la configuration des process et pipelines
+
+
+
 # Introduction
 
-A data processing module in Prostar is an independant Shinyapp which operate one or several treatments to a dataset. Its input has at least one dataset and its output is at least the modified input dataset.
+A data processing module in Prostar is an independant Shinyapp which operate one 
+or several treatments to a dataset. Its input has at least one dataset and its 
+output is at least the modified input dataset.
 As in Prostar (>=2.0.0), the class of the dataset is QFeatures.
-The aim of this tutorial is to show how to develop a process module for Prostar (i.e. a module which belongs to a pipeline and operates transformations on the dataset). Along this tutorial, one will create a module with 3 steps and aims to modify some values in the input dataset. For that, we will also use another module available in Prostar: the navigation module which manages modules wkith several steps.
+The aim of this tutorial is to show how to develop a process module for Prostar 
+(i.e. a module which belongs to a pipeline and operates transformations on the 
+dataset). Along this tutorial, one will create a module with 3 steps and aims 
+to modify some values in the input dataset. For that, we will also use another 
+module available in Prostar: the navigation module which manages modules wkith 
+several steps.
 
 
 # Global architecture of the module

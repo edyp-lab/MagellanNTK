@@ -1,0 +1,30 @@
+# Configuration file to be used with MagellanNTK
+
+
+# is used to restrict the choices of files when loading a dataset
+class: RData
+
+# is used to restrict the choices of files of this extension when loading a dataset
+extension: .RData
+
+
+package: MagellanNTK
+
+
+# Customizable core functions
+
+convert_dataset: MagellanNTK
+open_dataset: MagellanNTK
+view_dataset: MagellanNTK
+infos_dataset: MagellanNTK
+addDatasets: MagellanNTK
+keepDatasets: MagellanNTK
+InitializeHistory: MagellanNTK
+Add2History: MagellanNTK
+GetHistory: MagellanNTK
+SetHistory: MagellanNTK
+
+
+
+URL_manual: xxx
+URL_ReleaseNotes: xxx

@@ -241,6 +241,7 @@ mainapp_server <- function(id,
             rv.core$funcs$funcs[[f]] <- default.funcs()[[f]]
           }
         }
+        
         session$userData$funcs <- rv.core$funcs$funcs
         
         # Reset of all workflow

@@ -790,7 +790,7 @@ function toggle_visibility(id1) {
 <h1 class="title toc-ignore">Inside MagellanNTK</h1>
 <h3 class="subtitle">A guideline for advanced users</h3>
 <p class="author-name">Samuel Wieczorek</p>
-<h4 class="date">février 21, 2026</h4>
+<h4 class="date">février 22, 2026</h4>
 <h4 class="abstract">Abstract</h4>
 <p>This document covers the functionalities.</p>
 
@@ -799,46 +799,37 @@ function toggle_visibility(id1) {
 <h1>Contents</h1>
 <div id="TOC">
 <ul>
-<li><a href="#introduction" id="toc-introduction"><span class="toc-section-number">1</span> Introduction</a></li>
-<li><a href="#general-principles" id="toc-general-principles"><span class="toc-section-number">2</span> General principles</a>
+<li><a href="#introduction" id="toc-introduction"><span class="toc-section-number">1</span> Introduction</a>
 <ul>
-<li><a href="#global-architecture" id="toc-global-architecture"><span class="toc-section-number">2.1</span> Global architecture</a></li>
-<li><a href="#workflows-are-built-dynamically" id="toc-workflows-are-built-dynamically"><span class="toc-section-number">2.2</span> Workflows are built dynamically</a></li>
-<li><a href="#generic-templates-functions" id="toc-generic-templates-functions"><span class="toc-section-number">2.3</span> Generic templates functions</a></li>
-<li><a href="#builtin-functions" id="toc-builtin-functions"><span class="toc-section-number">2.4</span> Builtin functions</a></li>
+<li><a href="#general-principles" id="toc-general-principles"><span class="toc-section-number">1.1</span> General principles</a></li>
+<li><a href="#global-architecture" id="toc-global-architecture"><span class="toc-section-number">1.2</span> Global architecture</a></li>
 </ul></li>
-<li><a href="#workflows-hierarchy" id="toc-workflows-hierarchy"><span class="toc-section-number">3</span> Workflows hierarchy</a></li>
-<li><a href="#installation" id="toc-installation"><span class="toc-section-number">4</span> Installation</a>
+<li><a href="#core-engine" id="toc-core-engine"><span class="toc-section-number">2</span> Core engine</a>
 <ul>
-<li><a href="#understanding-files-for-magellanntk" id="toc-understanding-files-for-magellanntk"><span class="toc-section-number">4.1</span> Understanding files for MagellanNTK</a></li>
+<li><a href="#pipeline" id="toc-pipeline"><span class="toc-section-number">2.1</span> Pipeline</a></li>
+<li><a href="#process" id="toc-process"><span class="toc-section-number">2.2</span> Process</a></li>
 </ul></li>
+<li><a href="#generic-functions" id="toc-generic-functions"><span class="toc-section-number">3</span> Generic functions</a></li>
+<li><a href="#understanding-files-for-magellanntk" id="toc-understanding-files-for-magellanntk"><span class="toc-section-number">4</span> Understanding files for MagellanNTK</a></li>
 <li><a href="#process-workflow" id="toc-process-workflow"><span class="toc-section-number">5</span> Process workflow</a>
 <ul>
 <li><a href="#setting-example" id="toc-setting-example"><span class="toc-section-number">5.1</span> Setting example</a></li>
 <li><a href="#configuration" id="toc-configuration"><span class="toc-section-number">5.2</span> Configuration</a></li>
 <li><a href="#companion-package" id="toc-companion-package"><span class="toc-section-number">5.3</span> Companion package</a></li>
+<li><a href="#the-instscripts-directory" id="toc-the-instscripts-directory"><span class="toc-section-number">5.4</span> The ‘inst/scripts’ directory</a></li>
 </ul></li>
-<li><a href="#data-structure" id="toc-data-structure"><span class="toc-section-number">6</span> Data structure</a>
+<li><a href="#section" id="toc-section"><span class="toc-section-number">6</span> </a>
 <ul>
-<li><a href="#the-instscripts-directory" id="toc-the-instscripts-directory"><span class="toc-section-number">6.1</span> The ‘inst/scripts’ directory</a></li>
+<li><a href="#naming-conventions-for-modules" id="toc-naming-conventions-for-modules"><span class="toc-section-number">6.1</span> Naming conventions for modules</a></li>
+<li><a href="#requirments" id="toc-requirments"><span class="toc-section-number">6.2</span> Requirments</a></li>
+<li><a href="#specific-functions-to-write" id="toc-specific-functions-to-write"><span class="toc-section-number">6.3</span> Specific functions to write</a></li>
 </ul></li>
-<li><a href="#section" id="toc-section"><span class="toc-section-number">7</span> </a>
+<li><a href="#simple-workflow" id="toc-simple-workflow"><span class="toc-section-number">7</span> Simple workflow</a>
 <ul>
-<li><a href="#launch-a-workflow" id="toc-launch-a-workflow"><span class="toc-section-number">7.1</span> Launch a workflow</a></li>
-<li><a href="#naming-conventions-for-modules" id="toc-naming-conventions-for-modules"><span class="toc-section-number">7.2</span> Naming conventions for modules</a></li>
-<li><a href="#requirments" id="toc-requirments"><span class="toc-section-number">7.3</span> Requirments</a></li>
-<li><a href="#specific-functions-to-write" id="toc-specific-functions-to-write"><span class="toc-section-number">7.4</span> Specific functions to write</a></li>
+<li><a href="#nomenclature-of-ui-and-server-functions" id="toc-nomenclature-of-ui-and-server-functions"><span class="toc-section-number">7.1</span> Nomenclature of ui and server functions</a></li>
+<li><a href="#timelines" id="toc-timelines"><span class="toc-section-number">7.2</span> Timelines</a></li>
 </ul></li>
-<li><a href="#simple-workflow" id="toc-simple-workflow"><span class="toc-section-number">8</span> Simple workflow</a>
-<ul>
-<li><a href="#nomenclature-of-ui-and-server-functions" id="toc-nomenclature-of-ui-and-server-functions"><span class="toc-section-number">8.1</span> Nomenclature of ui and server functions</a></li>
-<li><a href="#timeline-styles" id="toc-timeline-styles"><span class="toc-section-number">8.2</span> Timeline styles</a></li>
-</ul></li>
-<li><a href="#tools-for-developers" id="toc-tools-for-developers"><span class="toc-section-number">9</span> Tools for developers</a>
-<ul>
-<li><a href="#debug-module" id="toc-debug-module"><span class="toc-section-number">9.1</span> Debug module</a></li>
-</ul></li>
-<li><a href="#generic-functions" id="toc-generic-functions"><span class="toc-section-number">10</span> Generic functions</a></li>
+<li><a href="#tools-for-developers" id="toc-tools-for-developers"><span class="toc-section-number">8</span> Tools for developers</a></li>
 </ul>
 </div>
 
@@ -858,11 +849,11 @@ third party.</p>
 some code is available in vignette xxx.</p>
 <p>The package MagellanNTK has three main objectives:</p>
 <ul>
-<li><p>be generic to handle several different types of datasets,</p></li>
-<li><p>versatility to integrate many workflows</p></li>
-<li><p>embed a maximum of code so as to minimize the code to write for
+<li>be generic to handle several different types of datasets,</li>
+<li>versatility to integrate many workflows</li>
+<li>embed a maximum of code so as to minimize the code to write for
 process modules. Thus, process modules, in a sense, only contains
-the ui elements for the process and the logics of the modules.</p></li>
+the ui elements for the process and the logics of the modules.</li>
 </ul>
 <p>It facilitates the work for writing process modules but has some
 constraints such as the naming conventions which are important. To allow
@@ -876,32 +867,25 @@ time of launching. MagellanNTK is a generic package that offers a
 graphical workflow manager, based on Shiny modules. It is very generic
 and can handle different types of objects but they must be of type list
 (see <span class="math inline">\(\ref{objecttypes}\)</span>).</p>
-</div>
-<div id="general-principles" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> General principles</h1>
+<div id="general-principles" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> General principles</h2>
 <p>MagellanNTK is a Shiny application which provides a workflow management
-framework. The data processing tools are not implemented if MagellanNTK
-but are passed are parameters to the application. Thus, alone,
-MagellanNTK is usefulness. To work, MagellanNTK needs:</p>
-<ul>
-<li><p>data processing tools (as Shiny modules)</p></li>
-<li><p>a list of datasets</p></li>
-</ul>
-<p>These data processing modules can be in a separate R script or part of a
-R package. The most important is that the functions ui(), config() and
+framework. The data processing tools of a workflow are not directly implemented
+in the package but they are passed are parameters to the application. Thus, alone,
+MagellanNTK is usefulness. To work, MagellanNTK needs data processing tools
+(as Shiny modules). These data processing modules can be stored in a separate R
+scripts or be part of a R package. The most important is that the functions ui(), config() and
 server() are available in the same R environment as MagellanNTK.</p>
 <p>The package MagellanNTK mainly manage two aspects :</p>
 <ul>
-<li><p>the navigation between the different user interfaces</p></li>
-<li><p>the management of the datasets during the execution of the
-workflows.</p></li>
+<li>the navigation between the different user interfaces</li>
+<li>the management of the datasets during the execution of the workflows.</li>
 </ul>
-<p>All along this document, one will take some examples to explain the
-nomenclature.</p>
-<div id="global-architecture" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Global architecture</h2>
-<p>MagellanNTK cannot be run alone, it is always run with a package which
-contains the information about the steps to manage.</p>
+</div>
+<div id="global-architecture" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Global architecture</h2>
+<p>MagellanNTK cannot be run alone, it is always run with a workflow (it is a
+mandatory parameter).</p>
 <div class="bordered">
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:globalArch"></span>
 <img role="img" aria-label="UI process" src="./figs/globalArch.png" alt="UI process" width="100%" class="widefigure" />
@@ -910,8 +894,11 @@ Figure 1: <span class="caption-title">UI process</span><br>
 </p>
 </div>
 </div>
-<p>The final shiny app is showed by Magellan, it is its functions that are
-called in the shiny app. Inside Magellan, three main operations are run:</p>
+<p>MagellanNYK as an core engine which</p>
+<p>Once MagellanNTK has been launched, its first action is ro read the configuraiotn file
+of the pipeline and instances tis variables wrt the indications contained in this file.
+The core engine of MagellanNTK
+Inside Magellan, three main operations are run:</p>
 <ul>
 <li><p>Magellan needs to read the configuration of the module to adjust
 some of its features (timelines, variables): those information are
@@ -925,15 +912,64 @@ let the external package as light and easy to understand as
 possible. While loading the source code, those functions are
 inserted inside</p></li>
 </ul>
+<p>The core engine is ready to run when MagellanNTK is launched but there is
+no UI nor dataset. The UI to be run within MagellanNTK come from the pipeline
+files while the dataset is loaded byt the user.</p>
 <p>MagellanNTK reads the configuration class and then builds function names
 to load them. This is why these functions must be well-named and
 available in the R environment.</p>
+<p>MagellanNTK is a Shiny App which include a workflow manager, its main part.
+It also includes classical satellite features for this type of application, such as xxx.</p>
 </div>
-<div id="workflows-are-built-dynamically" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Workflows are built dynamically</h2>
 </div>
-<div id="generic-templates-functions" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Generic templates functions</h2>
+<div id="core-engine" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Core engine</h1>
+<p>The workflow manager implemented in MagellanNTK core engine og MagellanNTK is the main par tof the Shiny app and</p>
+<div id="pipeline" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Pipeline</h2>
+</div>
+<div id="process" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Process</h2>
+</div>
+</div>
+<div id="generic-functions" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Generic functions</h1>
+<p>The package <code>MagellanNTK</code> comes with a series of generic functions, used to do
+some basic tasks. They are stored in the ‘R’ directory.</p>
+<p>Some of these functions are Shiny modules:</p>
+<ul>
+<li>convert_dataset: Convert any dataset to an instance of <code>MultiAssayExperiment</code>.
+Must provide</li>
+<li>open_dataset: Open and load a dataset (instance of <code>MultiAssayExperiment</code>) in MagellanNTK.
+This module must have the following functions with the same name :
+<code>open_dataset_ui()</code> and <code>open_dataset_server()</code></li>
+<li>view_dataset: The third tab of the EDA tool. It must provide the two functions named
+<code>view_dataset_ui()</code> and <code>view_dataset_server()</code></li>
+<li>infos_dataset: The first tab of the EDA tool. It must provide the two functions named
+<code>infos_dataset_ui()</code> and <code>infos_dataset_server()</code></li>
+<li>history_dataset: The second tab of the EDA tool which displays the history
+stored in the last SE of the dataset. It must provide the two functions named
+<code>history_dataset_ui()</code> and <code>history_dataset_server()</code></li>
+<li>download_dataset: Offers a UI to export the dataset in different format. Default
+format is .rdata. It must provide the two functions named
+<code>download_dataset_ui()</code> and <code>download_dataset_server()</code></li>
+</ul>
+<p>The other functions are classical R functions which directly update the dataset.
+As any dataset in MagellanNTK should inherits from the class <code>MultiAssayExperiment</code>,
+there is no need to modify these functions.</p>
+<ul>
+<li><strong>addDatasets()</strong>: Add and name a new SE to a MAE.</li>
+<li><strong>keepDatasets()</strong>: Delete some SE in the dataset to keep only the required sE.</li>
+<li><strong>InitializeHistory()</strong>: Fill the initial history slot in the first SE of the dataset</li>
+<li><strong>GetHistory()</strong>: Returns a history from a given SE</li>
+<li><strong>SetHistory()</strong>: Set a valud to the history slot of a SE.</li>
+</ul>
+<p>The definition of these functions is specified in the config file of the
+pipeline where one has also the name of the package which owns the functions</p>
+<p>These functions can easily be overridden by similar functions in third party
+packages which contains workflows to be run with MagellanNTK. The global
+specifications of these functions must be respected but their content can
+be customized.</p>
 <p>Some important functions are essential to instantiate a workflow with
 MagellanNTK, event if it is only for examples or with empty datasets.</p>
 <p>These functions are implemented in MagellantNTK as generic functions and
@@ -949,80 +985,12 @@ vers un format compatible avec Prostar. Par défaut, ce module est vide.</p>
 <p>open_dataset. Propose une interface pour choisir et ouvrir un dataset enregistrée dans un format compatible avec MagelllanNTK. Le module par défaut propose deux possibilités:
 * Example dataset: ouvre les jeux de données d’exemple de MagellanNTK
 * Custom dataset: permet de sélectioner et d’ouvrir un fichier stocké ailleurs</p>
-<p>download_dataset: Intefrace pour exporter le dataset courant. Par défaut, le format proposé est le <code>.rdata</code>.</p>
-<p>Il existe une fonctionnalité qui permet d’affiche une fenêtre modale contenant 3 onglets appelés respe tivement infos_dataset, history_dataset et view_dataset. Le contenu de ces onglets est un module Shiny personnalisable.
-Par défaut:</p>
-<ul>
-<li><p>infos_dataset. affiche des informations basiques</p></li>
-<li><p>history_dataset. affiche l’historique enregistré dans le dernier assay du jeu de données</p></li>
-<li><p>view_dataset: NA</p></li>
-</ul>
-<p>export_dataset</p>
-<p>build_report</p>
-<p>addDatasets</p>
-<p>keepDatasets</p>
-<p>InitializeHistory</p>
-<p>Add2History</p>
-<p>GetHistory</p>
-<p>SetHistory = “MagellanNTK::SetHistory”</p>
 </div>
-<div id="builtin-functions" class="section level2" number="2.4">
-<h2><span class="header-section-number">2.4</span> Builtin functions</h2>
-<p>The package <code>MagellanNTK</code> comes with a series of generic functions, used to do some
-basic tasks. These functions are the following:</p>
-<ul>
-<li>convert_dataset(): A Shiny module to convert any dataset to a format suitable for the pipeline used.</li>
-<li>open_dataset(): xxx</li>
-<li>open_demoDataset(): xxx</li>
-<li>view_dataset(): xxx</li>
-<li>infos_dataset(): xxx</li>
-<li>download_dataset(): xxx</li>
-<li>addDatasets(): xxx</li>
-<li>keepDatasets():</li>
-</ul>
-<p>Each of these functions are Shiny modules and are loaded by default when MagellanNTK
-is run.</p>
-<p>These functions can be overridden by similar functions int third party packages which contains workflows
-to be run with MagellanNTK.Learn more on customizing these functions in xxx</p>
-</div>
-</div>
-<div id="workflows-hierarchy" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Workflows hierarchy</h1>
-<p>For a more details on our definitions of workflows, processes,
-pipelines, please refer to the User manual of MagellanNTK.</p>
-<p>One will consider here process and pipelines levels. One consider the
-default level is a pipeline, composed of several processes (as steps).
-Thus, a process always own to a pipeline.</p>
-<p>A pipeline is identified by its name while a process is identified by a
-name composed of the name of the pipeline it belongs to and its own
-name. For example, ‘Pipeline A’ will be identified by ‘PipelineA’, and
-the process 2 of this pipeline is identified by ‘PipelineA_Process2’.</p>
-<div class="bordered">
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:listfuncs"></span>
-<img role="img" aria-label="UI process" src="./figs/hierarchy_funcs.png" alt="UI process" width="50%" class="widefigure" />
-<p class="caption">
-Figure 2: <span class="caption-title">UI process</span><br>
-</p>
-</div>
-</div>
-<p>It is possible that a process is the same in two pipelines. For
-simplicity reasons, one decide to duplicate their code and they have
-different names.</p>
-</div>
-<div id="installation" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Installation</h1>
-<p>The installation is quite simple as it is sufficient to install the package. This is explicitly needed only if one want to launch the workflow manager in a standalone mode.</p>
-<p>To install this package, start R (version “4.3”) and enter:</p>
-<pre><code>library(devtools)
-install_github(&#39;edyp-lab/MagellanNTK&#39;)
-</code></pre>
-<p>If MagellanNTK is about to be used via a Shiny module, the latter is supposed to load or import the package MagellanNTK.</p>
-<div id="understanding-files-for-magellanntk" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Understanding files for MagellanNTK</h2>
+<div id="understanding-files-for-magellanntk" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Understanding files for MagellanNTK</h1>
 <p>The engine is getting the code of steps which i supposed to be available in the R environment. This can be done directly via the R console or via a package.</p>
 <p>Besides those code files, the developer of the module process.</p>
 <p>In this section, on describes which files are needed to feed MagellanNTK so as to use it.</p>
-</div>
 </div>
 <div id="process-workflow" class="section level1" number="5">
 <h1><span class="header-section-number">5</span> Process workflow</h1>
@@ -1081,96 +1049,6 @@ must be the same as the value of the slot fullname.</p>
 <div id="companion-package" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Companion package</h2>
 <p>Nous décrivons ici quelques aspects fondamentaux des fonctions ui() et server() pour les modules de traitement de données qui seront gérés par MagellanNTK.</p>
-<div id="structure-of-a-magellan-compliant-module-process" class="section level3" number="5.3.1">
-<h3><span class="header-section-number">5.3.1</span> Structure of a Magellan-compliant module process</h3>
-<p>As for any Shiny module, it must contain the two following functions:
-ui() and server()</p>
-<p>Ces fonctions doivent avoir des noms construits de la manière suivante :
-4 chaînes de caractères séparées par un ‘_’:</p>
-<ul>
-<li><p>xxx</p></li>
-<li><p>xxxx</p></li>
-<li><p>xxxx</p></li>
-<li><p>xxxx</p></li>
-</ul>
-<p>Dans l’exemple ci-dessous, il s’agit d’un module nommé ‘Process1’ et
-faisant partie d’un pipeline appelé ‘PipelineA’.</p>
-<p>Si le module n’a pas de process parent, alors</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>mod_process_PipelineA_Process1_ui <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>    ns <span class="ot">&lt;-</span> <span class="fu">NS</span>(id)</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>}</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>mod_process_PipeA_Proc1_server <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>        id,</span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>        <span class="at">nav.mode =</span> <span class="st">&quot;process&quot;</span>,</span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>        <span class="at">dataIn =</span> <span class="fu">reactive</span>({</span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>            <span class="cn">NULL</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>        }),</span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>        <span class="at">steps.enabled =</span> <span class="fu">reactive</span>({</span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>            <span class="cn">NULL</span></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>        }),</span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>        <span class="at">remoteReset =</span> <span class="fu">reactive</span>({</span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>            <span class="cn">FALSE</span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>        }),</span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>        <span class="at">current.pos =</span> <span class="fu">reactive</span>({</span>
-<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>            <span class="dv">1</span></span>
-<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>        })) {</span>
-<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>    <span class="co"># This list contains the basic configuration of the process</span></span>
-<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>    config <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a>        <span class="at">name =</span> <span class="cn">NULL</span>,</span>
-<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a>        <span class="at">parent =</span> <span class="cn">NULL</span>,</span>
-<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a>        <span class="at">steps =</span> <span class="cn">NULL</span>,</span>
-<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a>        <span class="at">mandatory =</span> <span class="cn">NULL</span></span>
-<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>    )</span>
-<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a>    <span class="co"># Define default selected values for widgets</span></span>
-<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a>    <span class="co"># This is only for simple workflows</span></span>
-<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a>    widgets.default.values <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a>        <span class="co"># Add your own code</span></span>
-<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a>    )</span>
-<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a></span>
-<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a>    <span class="do">### -------------------------------------------------------------</span><span class="al">###</span></span>
-<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a>    <span class="do">###                                                             </span><span class="al">###</span></span>
-<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a>    <span class="do">### ------------------- MODULE SERVER --------------------------</span><span class="al">###</span></span>
-<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a>    <span class="do">###                                                             </span><span class="al">###</span></span>
-<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a>    <span class="do">### -------------------------------------------------------------</span><span class="al">###</span></span>
-<span id="cb3-40"><a href="#cb3-40" tabindex="-1"></a>    <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb3-41"><a href="#cb3-41" tabindex="-1"></a>        ns <span class="ot">&lt;-</span> session<span class="sc">$</span>ns</span>
-<span id="cb3-42"><a href="#cb3-42" tabindex="-1"></a></span>
-<span id="cb3-43"><a href="#cb3-43" tabindex="-1"></a>        <span class="co"># Insert necessary code which is hosted by Magellan</span></span>
-<span id="cb3-44"><a href="#cb3-44" tabindex="-1"></a>        <span class="co"># DO NOT MODIFY THIS LINE</span></span>
-<span id="cb3-45"><a href="#cb3-45" tabindex="-1"></a>        <span class="fu">eval</span>(<span class="fu">str2expression</span>(</span>
-<span id="cb3-46"><a href="#cb3-46" tabindex="-1"></a>            <span class="fu">SimpleWorflowCoreCode</span>(</span>
-<span id="cb3-47"><a href="#cb3-47" tabindex="-1"></a>                <span class="at">widgets =</span> <span class="fu">names</span>(widgets.default.values),</span>
-<span id="cb3-48"><a href="#cb3-48" tabindex="-1"></a>                <span class="at">steps =</span> config<span class="sc">$</span>steps</span>
-<span id="cb3-49"><a href="#cb3-49" tabindex="-1"></a>            )</span>
-<span id="cb3-50"><a href="#cb3-50" tabindex="-1"></a>        ))</span>
-<span id="cb3-51"><a href="#cb3-51" tabindex="-1"></a></span>
-<span id="cb3-52"><a href="#cb3-52" tabindex="-1"></a>        <span class="co"># Add your UI stuff below</span></span>
-<span id="cb3-53"><a href="#cb3-53" tabindex="-1"></a></span>
-<span id="cb3-54"><a href="#cb3-54" tabindex="-1"></a>        <span class="co"># Insert necessary code which is hosted by Magellan</span></span>
-<span id="cb3-55"><a href="#cb3-55" tabindex="-1"></a>        <span class="co"># DO NOT MODIFY THIS LINE</span></span>
-<span id="cb3-56"><a href="#cb3-56" tabindex="-1"></a>        <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> <span class="fu">Module_Return_Func</span>()))</span>
-<span id="cb3-57"><a href="#cb3-57" tabindex="-1"></a>    })</span>
-<span id="cb3-58"><a href="#cb3-58" tabindex="-1"></a>}</span></code></pre></div>
-</div>
-<div id="structure-of-a-magellan-compliant-module-pipeline" class="section level3" number="5.3.2">
-<h3><span class="header-section-number">5.3.2</span> Structure of a Magellan-compliant module pipeline</h3>
-</div>
-<div id="conventions-de-nommage" class="section level3" number="5.3.3">
-<h3><span class="header-section-number">5.3.3</span> Conventions de nommage</h3>
-<p>ceci est un poitn très important pour le bon fonctionnement des deux
-packages. En effet, comme il a été précisé xxx, Magellan est un workflow
-manager générique qui gère des modules dont on lui envoie la
-configuration. Afin de respecter cette généricité, Magellan construit
-dynamiquement un certain nombre de fonctions et de variables à partir de
-la configuration des process et pipelines</p>
-</div>
-</div>
-</div>
-<div id="data-structure" class="section level1" number="6">
-<h1><span class="header-section-number">6</span> Data structure</h1>
 <p>Le dataset lldata fourni dans MagellanNTK ne contient qu’un SE nommé Convert
 qui correspond aux données initiales. C’est le dataset renvoyé par le module
 d’importation de données dans MagellanNTK.
@@ -1202,8 +1080,9 @@ necessary. These functions are defined as abstract in <code>Magellan</code>. For
 the examples, <code>Magellan</code> implements those functions for the simple class
 <code>list</code>. The dev who want to write its own process module have to write
 the code of these two functions for the class of its object.</p>
-<div id="the-instscripts-directory" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> The ‘inst/scripts’ directory</h2>
+</div>
+<div id="the-instscripts-directory" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> The ‘inst/scripts’ directory</h2>
 <p>The ‘R’ directory contains source code files. The files prefixed by
 ‘mod_’ contain a shiny module.</p>
 <p>Among those files</p>
@@ -1217,65 +1096,10 @@ the code of these two functions for the class of its object.</p>
 <p>The directory ‘module_examples’ contain xxx</p>
 </div>
 </div>
-<div id="section" class="section level1" number="7">
-<h1><span class="header-section-number">7</span> </h1>
-<div id="launch-a-workflow" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> Launch a workflow</h2>
-<p>As Magellan is a Shiny app, to launch the app, a few lines of code are
-necessary. Here, are th minimum code to launch a worklfow called Proc1
-which belongs to a composed workflow called ‘PipeA’.</p>
-<p>Here is explained a minimal shiny app (code in
-‘/inst/scripts/min_simple_workflow_app_example.R’). Here are the
-comments</p>
-<p>Launch the packages</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">library</span>(MagellanNTK)</span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a>f <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;module_examples&quot;</span>,</span>
-<span id="cb4-4"><a href="#cb4-4"></a>    <span class="st">&quot;example_module_PipelineA_Process1.R&quot;</span>,</span>
-<span id="cb4-5"><a href="#cb4-5"></a>    <span class="at">package =</span> <span class="st">&quot;Magellan&quot;</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>)</span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="fu">source</span>(<span class="fu">file</span>(f), <span class="at">local =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>value</span>
-<span id="cb4-8"><a href="#cb4-8"></a></span>
-<span id="cb4-9"><a href="#cb4-9"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb4-10"><a href="#cb4-10"></a>    <span class="fu">mod_navigation_ui</span>(<span class="st">&quot;PipelineA_Process1&quot;</span>)</span>
-<span id="cb4-11"><a href="#cb4-11"></a>)</span>
-<span id="cb4-12"><a href="#cb4-12"></a></span>
-<span id="cb4-13"><a href="#cb4-13"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb4-14"><a href="#cb4-14"></a>    <span class="fu">data</span>(feat1, <span class="at">package =</span> <span class="st">&quot;Magellan&quot;</span>)</span>
-<span id="cb4-15"><a href="#cb4-15"></a>    rv <span class="ot">&lt;-</span> <span class="fu">reactiveValues</span>(</span>
-<span id="cb4-16"><a href="#cb4-16"></a>        <span class="at">dataIn =</span> feat1,</span>
-<span id="cb4-17"><a href="#cb4-17"></a>        <span class="at">dataOut =</span> <span class="cn">NULL</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a>    )</span>
-<span id="cb4-19"><a href="#cb4-19"></a></span>
-<span id="cb4-20"><a href="#cb4-20"></a>    <span class="fu">observe</span>(</span>
-<span id="cb4-21"><a href="#cb4-21"></a>        {</span>
-<span id="cb4-22"><a href="#cb4-22"></a>            rv<span class="sc">$</span>dataOut <span class="ot">&lt;-</span> <span class="fu">mod_navigation_server</span>(</span>
-<span id="cb4-23"><a href="#cb4-23"></a>                <span class="at">id =</span> <span class="st">&quot;PipelineA_Process1&quot;</span>,</span>
-<span id="cb4-24"><a href="#cb4-24"></a>                <span class="at">nav.mode =</span> <span class="st">&quot;process&quot;</span>,</span>
-<span id="cb4-25"><a href="#cb4-25"></a>                <span class="at">dataIn =</span> <span class="fu">reactive</span>({</span>
-<span id="cb4-26"><a href="#cb4-26"></a>                    rv<span class="sc">$</span>dataIn</span>
-<span id="cb4-27"><a href="#cb4-27"></a>                })</span>
-<span id="cb4-28"><a href="#cb4-28"></a>            )</span>
-<span id="cb4-29"><a href="#cb4-29"></a>        },</span>
-<span id="cb4-30"><a href="#cb4-30"></a>        <span class="at">priority =</span> <span class="dv">1000</span></span>
-<span id="cb4-31"><a href="#cb4-31"></a>    )</span>
-<span id="cb4-32"><a href="#cb4-32"></a>}</span>
-<span id="cb4-33"><a href="#cb4-33"></a></span>
-<span id="cb4-34"><a href="#cb4-34"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
-<p>As we can see, launching a shiny app which shows a process module pass
-by <code>Magellan</code> which acts as a bridge package: the ui() and server()
-functions of the app only call <code>Magellan</code> functions.</p>
-<p>There is here a first example of the imortance of names convention. If
-we focus on the id of these functions, one can see that it is composed
-of two concatenated strings : the name of the parent and the name of the
-process. This id is splitted and xxxx. This string is precisely the name
-of the procs module source code file in the external package (but
-prefixed by ‘mod_’)</p>
-<p>A generic script example is here:
-‘/inst/scripts/min_simple_workflow_app.R’</p>
-</div>
-<div id="naming-conventions-for-modules" class="section level2" number="7.2">
-<h2><span class="header-section-number">7.2</span> Naming conventions for modules</h2>
+<div id="section" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> </h1>
+<div id="naming-conventions-for-modules" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Naming conventions for modules</h2>
 <p>As <code>Magellan</code> heavily uses dynamically built function names (to be
 generic), the naming of scripts and variables is fundamental.</p>
 <p>A module is well-defined by its <code>config</code> variable which contains its
@@ -1286,13 +1110,13 @@ PipelineA as in example).</p>
 <p>For more details on how to name files and variables in the process
 modules, please read the manual ‘xxx’</p>
 </div>
-<div id="requirments" class="section level2" number="7.3">
-<h2><span class="header-section-number">7.3</span> Requirments</h2>
+<div id="requirments" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Requirments</h2>
 <p>This package must have xxx. Two other articles are available that
 explain how to write a module for simple and composed workflows.</p>
 </div>
-<div id="specific-functions-to-write" class="section level2" number="7.4">
-<h2><span class="header-section-number">7.4</span> Specific functions to write</h2>
+<div id="specific-functions-to-write" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Specific functions to write</h2>
 <p>Whether the class of the object, it may be necessary to write the code
 for two functions that cannot be generic</p>
 <ul>
@@ -1306,8 +1130,8 @@ exmaple of those functions that are implemented for the type <code>list</code> a
 for examples purpose.</p>
 </div>
 </div>
-<div id="simple-workflow" class="section level1" number="8">
-<h1><span class="header-section-number">8</span> Simple workflow</h1>
+<div id="simple-workflow" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Simple workflow</h1>
 <p>This vignette explains how to create a new process in the <code>Magellan</code>
 framework. A process is a set of data processes applied to a dataset (ie
 an object of class QFeatures).</p>
@@ -1320,8 +1144,8 @@ functions to write and develop your own module.</p>
 aims to explain step-by-step the construction of the process</p>
 <p>As a process in <code>Magellan</code> is a shiny module, it comes with two
 functions ui() and server().</p>
-<div id="nomenclature-of-ui-and-server-functions" class="section level2" number="8.1">
-<h2><span class="header-section-number">8.1</span> Nomenclature of ui and server functions</h2>
+<div id="nomenclature-of-ui-and-server-functions" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Nomenclature of ui and server functions</h2>
 <p>The name of these functions is very important because Magellan call
 those functions by building their name dynamically. C’est pour cela
 qu’il est primordial de respecter la nomenclature.</p>
@@ -1336,8 +1160,8 @@ module,</li>
 <p>Par example, la fonction <code>mod_PipelineA_Process4_server()</code> est le nom du
 serveur pour le process 4 du pipeline A.</p>
 </div>
-<div id="timeline-styles" class="section level2" number="8.2">
-<h2><span class="header-section-number">8.2</span> Timeline styles</h2>
+<div id="timelines" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Timelines</h2>
 <p>The timelines are coded as modules. They are not exported as only
 mod_navigation_server use them. However, it may be interesting to the
 developer to know a little about them if he want to customize or develop
@@ -1348,24 +1172,6 @@ different states (enabled/disabled, color and style, display of the
 cursor for the active step) of each item in the timeline works well</p>
 <p>Despite that hose information are documented in the reference manual of
 Magellan but it allows to better understand here how it works.</p>
-<p>The server() function is based on the same fundamental code:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>mod_timeline_v_server <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>        id,</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>        config,</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>        status,</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>        position,</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>        enabled) {</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>    <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>        ns <span class="ot">&lt;-</span> session<span class="sc">$</span>ns</span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>        UpdateTags <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>            ...</span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>        })</span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>        output<span class="sc">$</span>show_v_TL <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>            ...</span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>        })</span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>    })</span>
-<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>}</span></code></pre></div>
 <p>The parameters of the server are the same for both vertical and
 horizontal timelines:</p>
 <ul>
@@ -1384,19 +1190,9 @@ indicate if the step is enabled or disabled.</li>
 tags inserted in the css-style.</p>
 </div>
 </div>
-<div id="tools-for-developers" class="section level1" number="9">
-<h1><span class="header-section-number">9</span> Tools for developers</h1>
-<div id="debug-module" class="section level2" number="9.1">
-<h2><span class="header-section-number">9.1</span> Debug module</h2>
-<p>A shiny module called Debug_Infos is available to follow the execution
-of a workflow and more precisely, the content of datasets.</p>
-</div>
-</div>
-<div id="generic-functions" class="section level1" number="10">
-<h1><span class="header-section-number">10</span> Generic functions</h1>
-<p>MagellanNTK est un data manager conçu pour être le plus générique possible et ainsi être capable de traiter
-des jeux de données de formats différents, sur des domaine sd’application différents</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<div id="tools-for-developers" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Tools for developers</h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.5.1 (2025-06-13 ucrt)
 ## Platform: x86_64-w64-mingw32/x64
 ## Running under: Windows 11 x64 (build 22631)

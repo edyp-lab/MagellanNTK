@@ -62,7 +62,7 @@ graphical workflow manager, based on Shiny modules. It is very generic
 and can handle different types of objects but they must be of type list
 (see \ref{objecttypes}).
 
-# General principles
+## General principles
 
 MagellanNTK is a Shiny application which provides a workflow management
 framework. The data processing tools of a workflow are not directly implemented 
@@ -88,9 +88,9 @@ knitr::include_graphics("./figs/globalArch.png", error = FALSE)
 ```
 :::
 
-MagellanNYK as an core engine which 
+MagellanNTK as an core engine which 
 
-Once MagellanNTK has been launched, its first action is ro read the configuraiotn file
+Once MagellanNTK has been launched, its first action is to read the configuration file
 of the pipeline and instances tis variables wrt the indications contained in this file.
 The core engine of MagellanNTK 
 Inside Magellan, three main operations are run:
@@ -128,7 +128,16 @@ The workflow manager implemented in MagellanNTK core engine og MagellanNTK is th
 
 ## Pipeline
 
-## Core
+The core engine for a pipeline consist in a `list()` called 'child.data2send' which contains, at every time, the 
+dataset to send to any process. This list has the same length that the number
+of processes in the pipeline (With the defaults steps 'Description' and 'Save').
+Thus, each process of the pipeline always have
+a dataset as parameter of its server function.
+
+The aim of the core engine is to udapte this vector each time an action is made
+in the app and can modify this vector
+
+## Process
 
 # Generic functions
 
@@ -137,28 +146,32 @@ some basic tasks. They are stored in the 'R' directory.
 
 Some of these functions are Shiny modules:
 
-* convert_dataset: Convert any dataset to an instance of `MultiAssayExperiment`.
+* **convert_dataset**: Convert any dataset to an instance of `MultiAssayExperiment`.
 Must provide 
-* open_dataset: Open and load a dataset (instance of `MultiAssayExperiment`) in MagellanNTK
-* view_dataset: The third tab of the EDA tool.It must provide the two functions named 
+* **open_dataset**: Open and load a dataset (instance of `MultiAssayExperiment`) in MagellanNTK.
+This module must have the following functions with the same name :
+`open_dataset_ui()` and `open_dataset_server()`
+* **view_dataset**: The third tab of the EDA tool. It must provide the two functions named 
 `view_dataset_ui()` and `view_dataset_server()`
-* infos_dataset: The first tab of the EDA tool. It must provide the two functions named 
+* **infos_dataset**: The first tab of the EDA tool. It must provide the two functions named 
 `infos_dataset_ui()` and `infos_dataset_server()`
-* history_dataset: The second tab of the EDA tool which displays the history 
+* **history_dataset**: The second tab of the EDA tool which displays the history 
 stored in the last SE of the dataset. It must provide the two functions named 
 `history_dataset_ui()` and `history_dataset_server()`
-* download_dataset: It must provide the two functions named 
+* **download_dataset**: Offers a UI to export the dataset in different format. Default
+format is .rdata. It must provide the two functions named 
 `download_dataset_ui()` and `download_dataset_server()`
 
 
-The other functions are classical R functions:
+The other functions are classical R functions which directly update the dataset.
+As any dataset in MagellanNTK should inherits from the class `MultiAssayExperiment`,
+there is no need to modify these functions.
 
-  * **addDatasets()**: xxx
-  * **keepDatasets()**:
-  * **InitializeHistory()**
-  * **Add2History()**
-  * **GetHistory()**
-  * **SetHistory()** = "MagellanNTK::SetHistory"
+  * **addDatasets()**: Add and name a new SE to a MAE.
+  * **keepDatasets()**: Delete some SE in the dataset to keep only the required sE.
+  * **InitializeHistory()**: Fill the initial history slot in the first SE of the dataset
+  * **GetHistory()**: Returns a history from a given SE
+  * **SetHistory()**: Set a valud to the history slot of a SE.
 
 
 The definition of these functions is specified in the config file of the
@@ -277,104 +290,6 @@ The source code
 ## Companion package
 
 Nous décrivons ici quelques aspects fondamentaux des fonctions ui() et server() pour les modules de traitement de données qui seront gérés par MagellanNTK.
-
-### Structure of a Magellan-compliant module process
-
-As for any Shiny module, it must contain the two following functions:
-ui() and server()
-
-Ces fonctions doivent avoir des noms construits de la manière suivante :
-4 chaînes de caractères séparées par un '\_':
-
--   xxx
-
--   xxxx
-
--   xxxx
-
--   xxxx
-
-Dans l'exemple ci-dessous, il s'agit d'un module nommé 'Process1' et
-faisant partie d'un pipeline appelé 'PipelineA'.
-
-Si le module n'a pas de process parent, alors
-
-```{r structProcessModule, echo=TRUE, eval = FALSE}
-mod_process_PipelineA_Process1_ui <- function(id) {
-    ns <- NS(id)
-}
-
-
-mod_process_PipeA_Proc1_server <- function(
-        id,
-        nav.mode = "process",
-        dataIn = reactive({
-            NULL
-        }),
-        steps.enabled = reactive({
-            NULL
-        }),
-        remoteReset = reactive({
-            FALSE
-        }),
-        current.pos = reactive({
-            1
-        })) {
-    # This list contains the basic configuration of the process
-    config <- list(
-        name = NULL,
-        parent = NULL,
-        steps = NULL,
-        mandatory = NULL
-    )
-
-    # Define default selected values for widgets
-    # This is only for simple workflows
-    widgets.default.values <- list(
-        # Add your own code
-    )
-
-    ### -------------------------------------------------------------###
-    ###                                                             ###
-    ### ------------------- MODULE SERVER --------------------------###
-    ###                                                             ###
-    ### -------------------------------------------------------------###
-    moduleServer(id, function(input, output, session) {
-        ns <- session$ns
-
-        # Insert necessary code which is hosted by Magellan
-        # DO NOT MODIFY THIS LINE
-        eval(str2expression(
-            SimpleWorflowCoreCode(
-                widgets = names(widgets.default.values),
-                steps = config$steps
-            )
-        ))
-
-        # Add your UI stuff below
-
-        # Insert necessary code which is hosted by Magellan
-        # DO NOT MODIFY THIS LINE
-        eval(parse(text = Module_Return_Func()))
-    })
-}
-```
-
-# Structure of a Magellan-compliant module pipeline
-
-# Conventions de nommage
-
-ceci est un poitn très important pour le bon fonctionnement des deux
-packages. En effet, comme il a été précisé xxx, Magellan est un workflow
-manager générique qui gère des modules dont on lui envoie la
-configuration. Afin de respecter cette généricité, Magellan construit
-dynamiquement un certain nombre de fonctions et de variables à partir de
-la configuration des process et pipelines
-
-
-
-# Data structure
-
 
 
 Le dataset lldata fourni dans MagellanNTK ne contient qu'un SE nommé Convert
@@ -506,7 +421,7 @@ Chacune des deux fonctions contient quatre mots-clés séparés par '\_':
 Par example, la fonction `mod_PipelineA_Process4_server()` est le nom du
 serveur pour le process 4 du pipeline A.
 
-## Timeline styles
+## Timelines
 
 The timelines are coded as modules. They are not exported as only
 mod_navigation_server use them. However, it may be interesting to the
@@ -538,9 +453,6 @@ horizontal timelines:
 
 The reactive function `UpdateTags()` updates a vector containing the
 tags inserted in the css-style.
-
-# Tools for developers
-
 
 
 \section{Session information}\label{sec:sessionInfo}
