@@ -242,8 +242,8 @@ allow it to be executed at this time. This happens when:
 process, the ‘Reset’ strategy is the same. Only the current task can be
 reset. Resetting the current task also reset all further tasks. This
 feature ensures the tasks are processed only once. When a task is
-resetted (the current and any further one), several actions are done: \*
-the dataset is resetted to its initial state at the beginning of the
+reseted (the current and any further one), several actions are done: \*
+the dataset is reseted to its initial state at the beginning of the
 task. Typically, it will only contain the results of previous validated
 tasks. \* The UI of the task is re-enabled. \* The widgets go back to
 their default values.
