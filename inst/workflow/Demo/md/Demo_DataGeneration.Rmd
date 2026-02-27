@@ -1,0 +1,6 @@
+## Overview of `DataGeneration` from `PipelineDemo`
+
+The `DataGeneration` process consists of one step : `DataGeneration`.
+
+The `DataGeneration` step creates a dataset using two Gaussian distributions. 
+The user can specify the sd to use for these Gaussian distributions and a table allows to preview the dataset.

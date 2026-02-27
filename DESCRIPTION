@@ -67,7 +67,6 @@ Collate:
     core_singleProcess.R
     core_pipeline.R
     general_core_funcs.R
-    run_workflow.R
     mod_modalDialog.R
     mod_format_DT.R
     mod_infos_dataset.R
@@ -75,7 +74,6 @@ Collate:
     mod_insert_md.R
     mod_homepage.R
     mod_view_dataset.R
-    mod_convert_dataset.R
     globals.R
     mod_error_modal.R
     mod_navbar_menu.R

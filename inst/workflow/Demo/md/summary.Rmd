@@ -1,0 +1,8 @@
+## Summary of `PipelineDemo`
+
+This file provides a summary of the demo pipeline `PipelineDemo`. 
+This pipeline is an example pipeline used to demonstrate the behavior and features of MagellanNTK.
+
+Its goal is to cluster the data in order to identify the two Gaussian distributions used to generate it.
+
+It contains 3 processes as steps: `DataGeneration`, `Preprocessing` and `Clustering`.

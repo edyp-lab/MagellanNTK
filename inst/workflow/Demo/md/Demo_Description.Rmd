@@ -1,0 +1,7 @@
+## Overview of `Description` from `PipelineDemo`
+
+The `PipelineDemo` consists of three processes : `DataGeneration`, `Preprocessing`, and `Clustering`.
+
+The dataset used in this pipeline is called `lldata` and is `MultiAssayExperiment`.
+
+Each process of the pipeline is described in the `Description` part of each step.

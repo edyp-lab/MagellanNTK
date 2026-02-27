@@ -29,6 +29,9 @@ A shiny Module.
 if (interactive()) {
     url <- "http://www.prostar-proteomics.org/md/versionNotes.md"
     shiny::runApp(release_notes(url))
+    
+    local.url <- system.file('/workflow/Demo/md/Demo.Rmd', package='MagellanNTK')
+    shiny::runApp(release_notes(local.url))
 }
 
 }
