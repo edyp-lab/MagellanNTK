@@ -1,1 +1,0 @@
-## Overview of `Process3` from `PipelineTemplate`

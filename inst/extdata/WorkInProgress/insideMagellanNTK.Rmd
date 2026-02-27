@@ -171,7 +171,7 @@ there is no need to modify these functions.
   * **keepDatasets()**: Delete some SE in the dataset to keep only the required sE.
   * **InitializeHistory()**: Fill the initial history slot in the first SE of the dataset
   * **GetHistory()**: Returns a history from a given SE
-  * **SetHistory()**: Set a valud to the history slot of a SE.
+  * **SetHistory()**: Set a value to the history slot of a SE.
 
 
 The definition of these functions is specified in the config file of the
