@@ -51,9 +51,6 @@ computer or a link to a file over internet.
 path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
 readConfigFile(path)
 #> $funcs
-#> $funcs$convert_dataset
-#> NULL
-#> 
 #> $funcs$open_dataset
 #> [1] "MagellanNTK::open_dataset"
 #> 

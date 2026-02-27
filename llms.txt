@@ -182,10 +182,6 @@ In the following example, on lance MAgellan avec seulement le process
   [`MagellanNTK_server()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)
   [`MagellanNTK()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)
   : Main Shiny application
-- [`convert_dataset_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_convert_dataset.md)
-  [`convert_dataset_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_convert_dataset.md)
-  [`convert_dataset()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_convert_dataset.md)
-  : convert_dataset_ui and convert_dataset_server
 - [`mod_errorModal_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_err_modal.md)
   [`mod_errorModal_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_err_modal.md)
   [`mod_errorModal()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_err_modal.md)
@@ -275,13 +271,6 @@ In the following example, on lance MAgellan avec seulement le process
   [`view_dataset_server()`](https://edyp-lab.github.io/MagellanNTK/reference/view_dataset.md)
   [`view_dataset()`](https://edyp-lab.github.io/MagellanNTK/reference/view_dataset.md)
   : mod_open_demo_dataset_ui and mod_open_demo_dataset_server
-- [`pipe_workflow_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/workflow.md)
-  [`pipe_workflow_server()`](https://edyp-lab.github.io/MagellanNTK/reference/workflow.md)
-  [`pipe_workflowApp()`](https://edyp-lab.github.io/MagellanNTK/reference/workflow.md)
-  [`proc_workflow_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/workflow.md)
-  [`proc_workflow_server()`](https://edyp-lab.github.io/MagellanNTK/reference/workflow.md)
-  [`proc_workflowApp()`](https://edyp-lab.github.io/MagellanNTK/reference/workflow.md)
-  : Shiny example module \`Process\`
 
 # Articles
 
