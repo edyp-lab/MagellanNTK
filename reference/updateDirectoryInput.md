@@ -25,7 +25,7 @@ updateDirectoryInput(session, inputId, value = NULL, ...)
 - ...:
 
   Additional arguments passed to
-  [`choose.dir`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md).
+  [`choose_dir`](https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.md).
   Only used if `value` is `NULL`.
 
 ## Value

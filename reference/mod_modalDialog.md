@@ -131,9 +131,9 @@ shiny::runApp(mod_modalDialog(title = "test modalDialog", uiContent = p("test"))
 
 funcs <- list(
     open_dataset = "MagellanNTK::open_dataset",
-    open_demoDataset = "MagellanNTK::open_demoDataset",
+    #open_demoDataset = "MagellanNTK::open_demoDataset",
     infos_dataset = "MagellanNTK::infos_dataset",
-    donwload_dataset = "MagellanNTK::download_dataset",
+    download_dataset = "MagellanNTK::download_dataset",
     addDatasets = "MagellanNTK::addDatasets",
     keepDatasets = "MagellanNTK::keepDatasets"
 )

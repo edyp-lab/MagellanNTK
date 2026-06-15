@@ -1,6 +1,7 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/404.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/articles/MagellanNTK.html</loc></url>
+<url><loc>https://edyp-lab.github.io/MagellanNTK/articles/Build-a-pipeline-with-MagellanNTK.html</loc></url>
+<url><loc>https://edyp-lab.github.io/MagellanNTK/articles/MagellanNTK_user.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/articles/index.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/authors.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/index.html</loc></url>
@@ -26,8 +27,8 @@
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/ToggleState_Screens.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/UpdateStepsStatus.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/Update_State_Screens.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/call.func.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.html</loc></url>
+<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/call_func.html</loc></url>
+<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/dataset-processing.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/default_vars.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/directoryInput.html</loc></url>
@@ -41,7 +42,7 @@
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/infos_dataset.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/initComplete.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/is.substr.html</loc></url>
+<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/isSubstr.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/lldata.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/lldata1.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/lldata12.html</loc></url>
@@ -57,11 +58,11 @@
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/mod_popover_for_help.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/mod_release_notes.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/mod_sweetAlert.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/module.exists.html</loc></url>
+<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/module_exists.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/nav_pipeline.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/nav_process.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.html</loc></url>
-<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/pkgs.require.html</loc></url>
+<url><loc>https://edyp-lab.github.io/MagellanNTK/reference/pkgsRequire.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/process_layout.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/readConfigFile.html</loc></url>
 <url><loc>https://edyp-lab.github.io/MagellanNTK/reference/readDirectoryInput.html</loc></url>

@@ -1,11 +1,12 @@
 # Global variables
 
-Global variables
+Global constants and configuration variables used throughout the
+package.
 
 ## Usage
 
 ``` r
-.port
+tl_v_next_icon
 
 stepStatus
 
@@ -14,12 +15,6 @@ default_pos
 listBrewerPalettes
 ```
 
-## Format
+## Value
 
-An object of class `numeric` of length 1.
-
-An object of class `list` of length 4.
-
-An object of class `list` of length 3.
-
-An object of class `character` of length 17.
+A collection of exported constants, lists and UI configuration objects.

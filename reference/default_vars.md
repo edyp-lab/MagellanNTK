@@ -6,20 +6,16 @@ width_sidebar = width_process_btns
 ## Usage
 
 ``` r
-default.funcs()
+default_funcs()
 
-default.base.URL()
+default_base_URL()
 
-default.workflow()
+default_workflow()
 
-default.layout
+default_layout
 
-default.theme(mode)
+default_theme(mode)
 ```
-
-## Format
-
-An object of class `list` of length 37.
 
 ## Arguments
 

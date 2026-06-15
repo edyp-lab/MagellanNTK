@@ -50,21 +50,16 @@ computer or a link to a file over internet.
 ``` r
 path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
 readConfigFile(path)
+#> Warning: incomplete final line found on '/home/runner/work/_temp/Library/MagellanNTK/workflow/PipelineDemo/config.txt'
 #> $funcs
 #> $funcs$open_dataset
 #> [1] "MagellanNTK::open_dataset"
-#> 
-#> $funcs$open_demoDataset
-#> NULL
 #> 
 #> $funcs$view_dataset
 #> [1] "MagellanNTK::view_dataset"
 #> 
 #> $funcs$download_dataset
-#> NULL
-#> 
-#> $funcs$export_dataset
-#> NULL
+#> [1] "MagellanNTK::download_dataset"
 #> 
 #> $funcs$build_report
 #> NULL
@@ -73,7 +68,7 @@ readConfigFile(path)
 #> [1] "MagellanNTK::infos_dataset"
 #> 
 #> $funcs$history_dataset
-#> NULL
+#> [1] "MagellanNTK::history_dataset"
 #> 
 #> $funcs$addDatasets
 #> [1] "MagellanNTK::addDatasets"
@@ -95,39 +90,33 @@ readConfigFile(path)
 #> 
 #> 
 #> $verbose
-#> [1] TRUE
+#> logical(0)
 #> 
 #> $UI_view_debugger
-#> [1] TRUE
+#> logical(0)
 #> 
 #> $UI_view_open_pipeline
-#> [1] TRUE
+#> logical(0)
 #> 
 #> $UI_view_convert_dataset
-#> [1] TRUE
+#> logical(0)
 #> 
 #> $UI_view_change_Look_Feel
-#> [1] TRUE
+#> logical(0)
 #> 
 #> $UI_view_change_core_funcs
-#> [1] TRUE
+#> logical(0)
 #> 
 #> $extension
 #> [1] ".RData"
 #> 
-#> $class
-#> [1] "RData"
-#> 
 #> $package
 #> [1] "MagellanNTK"
 #> 
-#> $demo_package
-#> [1] "MagellanNTK"
-#> 
 #> $URL_manual
-#> NULL
+#> [1] "http://www.prostar-proteomics.org/md/versionNotes.md"
 #> 
 #> $URL_ReleaseNotes
-#> NULL
+#> [1] "http://www.prostar-proteomics.org/md/versionNotes.md"
 #> 
 ```

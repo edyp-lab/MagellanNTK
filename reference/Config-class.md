@@ -119,6 +119,7 @@ An instance of the class \`Config\`
 ## Examples
 
 ``` r
+
 # Example of a single process with one step
 proc1step <- Config(
     fullname = "PipelineDemo_DataGeneration",

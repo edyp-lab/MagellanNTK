@@ -27,7 +27,7 @@ object (of type list)
 ``` r
 addDatasets(object, dataset, name)
 
-keepDatasets(object = NULL, range = seq(length(object)))
+keepDatasets(object = NULL, range = seq_along(object))
 ```
 
 ## Arguments

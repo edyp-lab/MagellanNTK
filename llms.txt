@@ -18,6 +18,7 @@ You can install the development version of MagellanNTK from
 [GitHub](https://github.com/) with:
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("edyp-lab/MagellanNTK")
 ```
@@ -107,26 +108,26 @@ In the following example, on lance MAgellan avec seulement le process
 - [`Update_State_Screens()`](https://edyp-lab.github.io/MagellanNTK/reference/Update_State_Screens.md)
   : Update the status enabled/disabled of the steps of a
   pipeline/process
-- [`call.func()`](https://edyp-lab.github.io/MagellanNTK/reference/call.func.md)
+- [`call_func()`](https://edyp-lab.github.io/MagellanNTK/reference/call_func.md)
   : Wrapper to the function \`do.call\`
-- [`` `%AND%` ``](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
-  [`is.Windows()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
-  [`is.Linux()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
-  [`is.Darwin()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
-  [`file.sep()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
-  [`choose.dir()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
-  [`choose.dir.darwin()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
-  [`choose.dir.linux()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
-  [`choose.dir.windows()`](https://edyp-lab.github.io/MagellanNTK/reference/choose.dir.md)
+- [`` `%AND%` ``](https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.md)
+  [`isWindows()`](https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.md)
+  [`isLinux()`](https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.md)
+  [`isDarwin()`](https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.md)
+  [`file_sep()`](https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.md)
+  [`choose_dir()`](https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.md)
+  [`choose_dir.darwin()`](https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.md)
+  [`choose_dir.linux()`](https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.md)
+  [`choose_dir.windows()`](https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.md)
   : Choose a Folder Interactively
 - [`addDatasets()`](https://edyp-lab.github.io/MagellanNTK/reference/dataset-processing.md)
   [`keepDatasets()`](https://edyp-lab.github.io/MagellanNTK/reference/dataset-processing.md)
   : Datasets processing
-- [`default.funcs()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
-  [`default.base.URL()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
-  [`default.workflow()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
-  [`default.layout`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
-  [`default.theme()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
+- [`default_funcs()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
+  [`default_base_URL()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
+  [`default_workflow()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
+  [`default_layout`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
+  [`default_theme()`](https://edyp-lab.github.io/MagellanNTK/reference/default_vars.md)
   : Default variables used in MagellanNTK
 - [`directoryInput()`](https://edyp-lab.github.io/MagellanNTK/reference/directoryInput.md)
   : Directory Selection Control
@@ -146,7 +147,7 @@ In the following example, on lance MAgellan avec seulement le process
   [`open_dataset_server()`](https://edyp-lab.github.io/MagellanNTK/reference/generic_mod_open_dataset.md)
   [`open_dataset()`](https://edyp-lab.github.io/MagellanNTK/reference/generic_mod_open_dataset.md)
   : Change the default functions in \`MagellanNTK\`
-- [`.port`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
+- [`tl_v_next_icon`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
   [`stepStatus`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
   [`default_pos`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
   [`listBrewerPalettes`](https://edyp-lab.github.io/MagellanNTK/reference/globalvariables.md)
@@ -168,7 +169,7 @@ In the following example, on lance MAgellan avec seulement le process
   [`Get_Workflow_Core_Code()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   [`Get_AdditionalModule_Core_Code()`](https://edyp-lab.github.io/MagellanNTK/reference/insertCodeForExternalModules.md)
   : R code to update the 'config' variable of a process module
-- [`is.substr()`](https://edyp-lab.github.io/MagellanNTK/reference/is.substr.md)
+- [`isSubstr()`](https://edyp-lab.github.io/MagellanNTK/reference/isSubstr.md)
   : Substring test
 - [`lldata`](https://edyp-lab.github.io/MagellanNTK/reference/lldata.md)
   : lldata dataset
@@ -222,7 +223,7 @@ In the following example, on lance MAgellan avec seulement le process
   [`mod_SweetAlert_server()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_sweetAlert.md)
   [`mod_SweetAlert()`](https://edyp-lab.github.io/MagellanNTK/reference/mod_sweetAlert.md)
   : A shiny app to display a modal
-- [`module.exists()`](https://edyp-lab.github.io/MagellanNTK/reference/module.exists.md)
+- [`module_exists()`](https://edyp-lab.github.io/MagellanNTK/reference/module_exists.md)
   : Checks if a Shiny module is loaded
 - [`nav_pipeline_ui()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_pipeline.md)
   [`nav_pipeline_server()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_pipeline.md)
@@ -236,7 +237,7 @@ In the following example, on lance MAgellan avec seulement le process
   [`nav_single_process_server()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.md)
   [`nav_single_process()`](https://edyp-lab.github.io/MagellanNTK/reference/nav_single_process.md)
   : Shiny module \`nav_single_process()\`
-- [`pkgs.require()`](https://edyp-lab.github.io/MagellanNTK/reference/pkgs.require.md)
+- [`pkgsRequire()`](https://edyp-lab.github.io/MagellanNTK/reference/pkgsRequire.md)
   : Loads packages
 - [`process_layout()`](https://edyp-lab.github.io/MagellanNTK/reference/process_layout.md)
   [`process_layout_process()`](https://edyp-lab.github.io/MagellanNTK/reference/process_layout.md)
@@ -276,5 +277,8 @@ In the following example, on lance MAgellan avec seulement le process
 
 ### All vignettes
 
-- [MagellanNTK user
-  manual](https://edyp-lab.github.io/MagellanNTK/articles/MagellanNTK.md):
+- [Build a pipeline with
+  MagellanNTK](https://edyp-lab.github.io/MagellanNTK/articles/Build-a-pipeline-with-MagellanNTK.md):
+- [PipelineDemo User Manual – a vignette template to accompany data
+  analysis pipeline deployed with
+  MagellanNTK](https://edyp-lab.github.io/MagellanNTK/articles/MagellanNTK_user.md):
