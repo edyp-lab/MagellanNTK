@@ -78,17 +78,17 @@ if (interactive()) {
     #
     # Compute style from within third party tab
     #
-    obj <- as.data.frame(matrix(1:30, byrow = TRUE, nrow = 6))
-    colnames(obj) <- paste0("col", 1:5)
+    obj <- as.data.frame(matrix(seq_len(30), byrow = TRUE, nrow = 6))
+    colnames(obj) <- paste0("col", seq_len(5))
 
-    mask <- as.data.frame(matrix(rep(LETTERS[1:5], 6), byrow = TRUE, nrow = 6))
+    mask <- as.data.frame(matrix(rep(LETTERS[seq_len(5)], 6), byrow = TRUE, nrow = 6))
 
 
     style <- list(
         cols = colnames(obj),
         vals = colnames(mask),
         unique = unique(mask),
-        pal = RColorBrewer::brewer.pal(5, "Dark2")[1:5]
+        pal = RColorBrewer::brewer.pal(5, "Dark2")[seq_len(5)]
     )
 
     shiny::runApp(format_DT(obj,

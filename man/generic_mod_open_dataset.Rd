@@ -11,6 +11,7 @@ open_dataset_ui(id)
 
 open_dataset_server(
   id,
+  extension = NULL,
   remoteReset = reactive({
      NULL
  }),
@@ -19,10 +20,12 @@ open_dataset_server(
  })
 )
 
-open_dataset()
+open_dataset(extension = NULL)
 }
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
+
+\item{extension}{The extension file allowed}
 
 \item{remoteReset}{An `integer` which acts as a remote command to reset the 
 module. Its value is incremented on a external event and it is used to 
@@ -43,7 +46,7 @@ This module allows to change
 }
 \examples{
 if (interactive()) {
-shiny::runApp(open_dataset())
+shiny::runApp(open_dataset(extension = "rdata"))
 }
 
 }

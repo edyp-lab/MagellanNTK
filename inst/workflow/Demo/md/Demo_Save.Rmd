@@ -1,3 +1,0 @@
-## Overview of `Save` from `PipelineDemo`
-
-The `Save` process marks the end of the pipeline.

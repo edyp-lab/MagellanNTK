@@ -44,21 +44,21 @@ process_layout_process <- function(session, ns, sidebar, content) {
   
   div(
         div(style = paste0(
-          "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_process_sidebar, ";",
-          "padding-left: ", default.layout$left_process_timeline, "px;",
-          "padding-bottom: ", default.layout$bottom_process_timeline, "px;",
-          "padding-top: ", default.layout$top_process_timeline, "px;"),
+          "background-color: ", MagellanNTK::default_theme(session$userData$usermod)$bgcolor_process_sidebar, ";",
+          "padding-left: ", default_layout$left_process_timeline, "px;",
+          "padding-bottom: ", default_layout$bottom_process_timeline, "px;",
+          "padding-top: ", default_layout$top_process_timeline, "px;"),
           sidebar
         ),
         shiny::absolutePanel(
           style = paste0(
             "position: absolute; ",
-            "width: ", default.layout$width_process_content_standalone, ";",
-            # "padding-top: ", default.layout$top_process_content_standalone, "px;",
-            "background-color: ", default.theme(session$userData$usermod)$bgcolor_process_content, ";}"
+            "width: ", default_layout$width_process_content_standalone, ";",
+            # "padding-top: ", default_layout$top_process_content_standalone, "px;",
+            "background-color: ", default_theme(session$userData$usermod)$bgcolor_process_content, ";}"
           ),
-          top = default.layout$top_process_content_standalone,
-          left = default.layout$left_process_content_standalone,
+          top = default_layout$top_process_content_standalone,
+          left = default_layout$left_process_content_standalone,
           content
         )
       )
@@ -71,21 +71,21 @@ process_layout_pipeline <- function(session, ns, sidebar, content) {
   
   div(
         div(style = paste0(
-          "background-color: ", default.theme(session$userData$usermod)$bgcolor_process_sidebar, ";",
-          "padding-left: ", default.layout$left_process_timeline, "px;",
-          "padding-bottom: ", default.layout$bottom_process_timeline, "px;",
-          "padding-top: ", default.layout$top_process_timeline, "px;"),
+          "background-color: ", default_theme(session$userData$usermod)$bgcolor_process_sidebar, ";",
+          "padding-left: ", default_layout$left_process_timeline, "px;",
+          "padding-bottom: ", default_layout$bottom_process_timeline, "px;",
+          "padding-top: ", default_layout$top_process_timeline, "px;"),
           sidebar
         ),
         shiny::absolutePanel(
           style = paste0(
             "position: absolute; ",
-            "width: ", default.layout$width_process_content, ";",
-            "padding-top: ", default.layout$top_process_content, "px;",
-            "background-color: ", default.theme(session$userData$usermod)$bgcolor_process_content, ";}"
+            "width: ", default_layout$width_process_content, ";",
+            "padding-top: ", default_layout$top_process_content, "px;",
+            "background-color: ", default_theme(session$userData$usermod)$bgcolor_process_content, ";}"
           ),
-          top = default.layout$top_process_content,
-          left = default.layout$left_process_content,
+          top = default_layout$top_process_content,
+          left = default_layout$left_process_content,
           content
         )
       )

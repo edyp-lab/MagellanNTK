@@ -24,7 +24,6 @@ Shiny modules so as to facilitate their use in a standalone mode or embeded in
 * convert_dataset(): A Shiny module to convert any dataset to a format suitable
 for the pipeline used.
 * open_dataset(): xxx
-* open_demoDataset(): xxx
 * view_dataset(): xxx
 * infos_dataset(): xxx
 * download_dataset(): xxx

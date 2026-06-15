@@ -52,8 +52,7 @@ NULL
 #'
 #' @rdname nav_pipeline
 #' @import shiny
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #'
 #' @export
 #'
@@ -76,8 +75,7 @@ nav_pipeline_ui <- function(id) {
 #' @rdname nav_pipeline
 #' @importFrom stats setNames
 #' @importFrom crayon blue yellow
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #'
 nav_pipeline_server <- function(
     id = NULL,
@@ -174,15 +172,15 @@ nav_pipeline_server <- function(
     
     output$pipeline_panel_ui <- renderUI({
       shiny::absolutePanel(
-        left = default.layout$left_pipeline_sidebar,
-        top = default.layout$top_pipeline_sidebar,
-        height = default.layout$height_pipeline_sidebar,
-        width = default.layout$width_pipeline_sidebar,
+        left = default_layout$left_pipeline_sidebar,
+        top = default_layout$top_pipeline_sidebar,
+        height = default_layout$height_pipeline_sidebar,
+        width = default_layout$width_pipeline_sidebar,
         
          style = paste0(
           "position : absolute; ",
-          "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_pipeline_sidebar, "; ",
-          "border-right: ", default.layout$line_width, "px solid ", default.layout$line_color, ";",
+          "background-color: ", MagellanNTK::default_theme(session$userData$usermod)$bgcolor_pipeline_sidebar, "; ",
+          "border-right: ", default_layout$line_width, "px solid ", default_layout$line_color, ";",
           "height: 100vh;"
         ),
         div(
@@ -201,17 +199,17 @@ nav_pipeline_server <- function(
 
       div(
         style = paste0(
-          "padding-left: ", default.layout$left_pipeline_timeline, "px; margin-top: -15px;",
+          "padding-left: ", default_layout$left_pipeline_timeline, "px; margin-top: -15px;",
           "width: 100%;",
           "background-color: red;"
         ),
         fluidRow(
           style = paste0(
-            "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_pipeline_timeline, " ; ",
+            "background-color: ", MagellanNTK::default_theme(session$userData$usermod)$bgcolor_pipeline_timeline, " ; ",
             "display: flex; ",
             "align-items: center; ",
             "justify-content: center;",
-            "border-bottom : ", default.layout$line_width, "px solid ", default.layout$line_color, ";"
+            "border-bottom : ", default_layout$line_width, "px solid ", default_layout$line_color, ";"
           ),
           column(width = 2,
             div(id = ns('div_btns_pipeline_ui'),
@@ -507,7 +505,7 @@ nav_pipeline_server <- function(
       }), nm = GetStepsNames())
       
       # Replace NULL values by NA
-      return.trigger.values[sapply(return.trigger.values, is.null)] <- NA
+      return.trigger.values[vapply(return.trigger.values, is.null, logical(1))] <- NA
       triggerValues <- unlist(return.trigger.values)
 
       # Get the values returned by each step of the modules
@@ -560,7 +558,6 @@ nav_pipeline_server <- function(
           #   } else {
 
           lastValidated <- GetMaxValidated_BeforePos(pos = ind.processHasChanged, rv = rv)
-          #browser()
           
           if (is.null(lastValidated)) # The first process has been reseted
             lastValidated <- 1
@@ -607,7 +604,6 @@ nav_pipeline_server <- function(
         
       }
       
-      #browser()
 
       final.obj <- rv$child.data2send[[length(rv$child.data2send)]]
 

@@ -202,7 +202,7 @@ PipelineDemo_Clustering_server <- function(id,
       
       datapca <- SummarizedExperiment::assay(rv$dataIn[[length(rv$dataIn)]])
       pca <- prcomp(datapca,  scale = TRUE)
-      scores <- pca$x[, 1:2]
+      scores <- pca$x[, c(1,2)]
       
       clusterspca <- as.factor(rv.custom$clusters)
       cols <- as.numeric(clusterspca)
@@ -211,7 +211,7 @@ PipelineDemo_Clustering_server <- function(id,
         xlab = "PC1", ylab = "PC2", main = "Clusters"
       )
       legend("topright", legend = levels(clusterspca),
-        col = 1:length(levels(clusterspca)), pch = 19
+        col = seq_along(levels(clusterspca)), pch = 19
       )
     })
     

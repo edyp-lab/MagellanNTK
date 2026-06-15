@@ -25,7 +25,7 @@
 #'
 #' The new windows batch script allows both initial folder and caption to be set.
 #' In the old batch script for Windows the initial folder is always ignored.
-#' @name choose.dir
+#' @name choose_dir
 #' @return
 #' A length one character vector, character NA if 'Cancel' was selected.
 #'
@@ -42,7 +42,7 @@ NULL
 #'
 #' @param x left operand
 #' @param y right operand
-#' @rdname choose.dir
+#' @rdname choose_dir
 #' @export
 #'
 `%AND%` <- function(x, y) {
@@ -57,68 +57,68 @@ NULL
 
 
 #' @export
-#' @rdname choose.dir
+#' @rdname choose_dir
 #'
-is.Windows <- function() {
+isWindows <- function() {
     Sys.info()["sysname"] == "Windows"
 }
 
 
 #' @export
-#' @rdname choose.dir
+#' @rdname choose_dir
 #'
-is.Linux <- function() {
+isLinux <- function() {
     Sys.info()["sysname"] == "Linux"
 }
 
 
 #' @export
-#' @rdname choose.dir
+#' @rdname choose_dir
 #'
-is.Darwin <- function() {
+isDarwin <- function() {
     Sys.info()["sysname"] == "Darwin"
 }
 
 #' @export
-#' @rdname choose.dir
+#' @rdname choose_dir
 #'
-file.sep <- function() {
-    if (is.Darwin()) {
+file_sep <- function() {
+    if (isDarwin()) {
         return("/")
-    } else if (is.Linux()) {
+    } else if (isLinux()) {
         return("/")
-    } else if (is.Windows()) {
+    } else if (isWindows()) {
         return("\\")
     }
 }
 
 
 #' @export
-#' @rdname choose.dir
+#' @rdname choose_dir
 #'
-choose.dir <- function(default = NA, caption = NA, useNew = TRUE) {
+choose_dir <- function(default = NA, caption = NA, useNew = TRUE) {
     if (Sys.info()["sysname"] == "Darwin") {
-        return(choose.dir.darwin(default = default, caption = caption))
+        return(choose_dir.darwin(default = default, caption = caption))
     } else if (Sys.info()["sysname"] == "Linux") {
-        return(choose.dir.linux(default = default, caption = caption))
+        return(choose_dir.linux(default = default, caption = caption))
     } else if (Sys.info()["sysname"] == "Windows") {
-        # Use batch script to circumvent issue w/ `choose.dir`/`tcltk::tk_choose.dir`
+        # Use batch script to circumvent issue w/ `choose_dir`/`tcltk::tk_choose_dir`
         # window popping out unnoticed in the back of the current window
-        return(choose.dir.windows(default = default, caption = caption, useNew = useNew))
+        return(choose_dir.windows(default = default, caption = caption, useNew = useNew))
     }
     return(paste("Error: don't know how to show a folder dialog in", Sys.info()["sysname"]))
 }
 
-#' @rdname choose.dir
+#' @rdname choose_dir
 #'
 #' @title The apple version of the choose folder
 #'
-#' @seealso \code{\link{choose.dir}}
+#' @seealso \code{\link{choose_dir}}
 #'
 #' @return
 #' A length one character vector, character NA if 'Cancel' was selected.
 #'
-choose.dir.darwin <- function(default = NA, caption = NA) {
+choose_dir.darwin <- function(default = NA, caption = NA) {
     command <- "osascript"
     args <- '-e "POSIX path of (choose folder{{prompt}}{{default}})"'
 
@@ -149,16 +149,16 @@ choose.dir.darwin <- function(default = NA, caption = NA) {
 }
 
 
-#' @rdname choose.dir
+#' @rdname choose_dir
 #'
 #' @title The linux version of the choose folder
 #'
-#' @seealso \code{\link{choose.dir}}
+#' @seealso \code{\link{choose_dir}}
 #'
 #' @return
 #' A length one character vector, character NA if 'Cancel' was selected.
 #'
-choose.dir.linux <- function(default = NA, caption = NA) {
+choose_dir.linux <- function(default = NA, caption = NA) {
     command <- "zenity"
     args <- "--file-selection --directory"
 
@@ -187,16 +187,16 @@ choose.dir.linux <- function(default = NA, caption = NA) {
     return(path)
 }
 
-#' @rdname choose.dir
+#' @rdname choose_dir
 #'
 #' @title The windows version of the choose folder
 #'
-#' @seealso \code{\link{choose.dir}}
+#' @seealso \code{\link{choose_dir}}
 #'
 #' @return
 #' A length one character vector, character NA if 'Cancel' was selected.
 #'
-choose.dir.windows <- function(default = NA, caption = NA, useNew = TRUE) {
+choose_dir.windows <- function(default = NA, caption = NA, useNew = TRUE) {
     if (useNew) {
         ## uses a powershell script rather than the bat version, gives a nicer interface
         ## and allows setting of the default directory and the caption
@@ -234,7 +234,7 @@ choose.dir.windows <- function(default = NA, caption = NA, useNew = TRUE) {
 #' @param value Initial value.  Paths are expanded via \code{\link{path.expand}}.
 #'
 #' @details
-#' This widget relies on \code{\link{choose.dir}} to present an interactive
+#' This widget relies on \code{\link{choose_dir}} to present an interactive
 #' dialog to users for selecting a directory on the local filesystem.  Therefore,
 #' this widget is intended for shiny apps that are run locally - i.e. on the
 #' same system that files/directories are to be accessed - and not from hosted
@@ -244,12 +244,11 @@ choose.dir.windows <- function(default = NA, caption = NA, useNew = TRUE) {
 #' A directory input control that can be added to a UI definition.
 #'
 #' @seealso
-#' \code{\link{updateDirectoryInput}}, \code{\link{readDirectoryInput}}, \code{\link{choose.dir}}
+#' \code{\link{updateDirectoryInput}}, \code{\link{readDirectoryInput}}, \code{\link{choose_dir}}
 #' @export
 #'
 #' @import htmltools
-#' @importFrom utils help.search installed.packages maintainer 
-#' packageVersion tail write.table
+#' @importFrom utils help.search installed.packages maintainer packageVersion tail write.table
 #'
 #' @examples
 #' NULL
@@ -311,7 +310,7 @@ directoryInput <- function(inputId, label, value = NULL) {
 #' @param session The \code{session} object passed to function given to \code{shinyServer}.
 #' @param inputId The id of the input object.
 #' @param value A directory path to set
-#' @param ... Additional arguments passed to \code{\link{choose.dir}}.  Only used
+#' @param ... Additional arguments passed to \code{\link{choose_dir}}.  Only used
 #'    if \code{value} is \code{NULL}.
 #'
 #' @details
@@ -328,7 +327,7 @@ directoryInput <- function(inputId, label, value = NULL) {
 #'
 updateDirectoryInput <- function(session, inputId, value = NULL, ...) {
     if (is.null(value)) {
-        value <- choose.dir(...)
+        value <- choose_dir(...)
     }
     session$sendInputMessage(inputId, list(chosen_dir = value))
 }
@@ -409,7 +408,7 @@ runDirinputExample <- function() {
             handlerExpr = {
                 if (input$directory > 0) {
                     # condition prevents handler execution on initial app launch
-                    path <- choose.dir(
+                    path <- choose_dir(
                         default = readDirectoryInput(session, "directory"),
                         caption = "Choose a directory..."
                     )

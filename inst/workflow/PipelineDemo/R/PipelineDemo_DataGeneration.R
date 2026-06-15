@@ -156,7 +156,7 @@ PipelineDemo_DataGeneration_server <- function(id,
       assaytmp <- rbind(gauss1, gauss2)
       colnames(assaytmp) <- colnames(datatmp)
       if (is.null(rownames(datatmp))){
-        rownames(datatmp) <- 1:nrow(datatmp)
+        rownames(datatmp) <- seq_len(nrow(datatmp))
       }
       rownames(assaytmp) <- rownames(datatmp)
       SummarizedExperiment::assay(datatmp) <- assaytmp

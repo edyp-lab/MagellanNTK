@@ -60,7 +60,7 @@ addDatasets <- function(object, dataset, name) {
 #' @rdname dataset-processing
 #' @export
 #'
-keepDatasets <- function(object = NULL, range = seq(length(object))) {
+keepDatasets <- function(object = NULL, range = seq_along(object)) {
     if (missing(range)) {
         stop("Provide range of array to be processed")
     }

@@ -6,5 +6,5 @@ For more information, please visit [edyp-lab.github.io/MagellanNTK](https://edyp
 
 
 In this example, all basic functions are set to their default values:
-`convert_dataset`, `open_dataset`, `open_demoDataset`, `view_dataset`, 
+`convert_dataset`, `open_dataset`, `view_dataset`, 
 `infos_dataset`, `addDatasets`, `keepDatasets`

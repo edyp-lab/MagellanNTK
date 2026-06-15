@@ -63,7 +63,7 @@ PipelineDemo_Description_server <- function(id,
     )
     
     eval(str2expression(core.code))
-
+    
     ###########################################################################-
     #
     #-----------------------------DESCRIPTION-----------------------------------

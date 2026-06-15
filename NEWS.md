@@ -1,3 +1,3 @@
-# MagellanNTK 0.0.0.9000
+# MagellanNTK 0.99.31
 
 * Added a `NEWS.md` file to track changes to the package.

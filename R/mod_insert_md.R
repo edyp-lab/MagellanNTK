@@ -20,10 +20,8 @@
 #' @rdname mod_insert_md
 #' @export
 #' 
-#' @importFrom shiny NS tagList uiOutput htmlOutput observeEvent
-#'  tagList uiOutput htmlOutput actionLink req includeMarkdown p
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
+#' @importFrom shiny NS tagList uiOutput htmlOutput observeEvent tagList uiOutput htmlOutput actionLink req includeMarkdown p
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #' @importFrom utils browseURL
 #' @import markdown
 #'

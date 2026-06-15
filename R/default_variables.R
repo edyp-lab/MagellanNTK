@@ -7,13 +7,13 @@
 
 #' @rdname default_vars
 #' @export
-default.funcs <- function() {
+default_funcs <- function() {
     list(
         open_dataset = "MagellanNTK::open_dataset",
-        open_demoDataset = "MagellanNTK::open_demoDataset",
+        #open_demoDataset = "MagellanNTK::open_demoDataset",
         view_dataset = "MagellanNTK::view_dataset",
         download_dataset = "MagellanNTK::download_dataset",
-        export_dataset = "MagellanNTK::export_dataset",
+        #export_dataset = "MagellanNTK::export_dataset",
         build_report = "MagellanNTK::build_report",
         infos_dataset = "MagellanNTK::infos_dataset",
         history_dataset = "MagellanNTK::history_dataset",
@@ -28,13 +28,13 @@ default.funcs <- function() {
 
 #' @rdname default_vars
 #' @export
-default.base.URL <- function() {
+default_base_URL <- function() {
     system.file("app/md", package = "MagellanNTK")
 }
 
 #' @rdname default_vars
 #' @export
-default.workflow <- function() {
+default_workflow <- function() {
     list(
         name = "PipelineDemo_Process1",
         path = system.file("workflow/PipelineDemo", package = "MagellanNTK")
@@ -48,7 +48,7 @@ default.workflow <- function() {
 #' top_sidebar = top_panel
 #' width_sidebar = width_process_btns
 #' @export
-default.layout <- list(
+default_layout <- list(
     top_process_sidebar = NULL,
     left_process_sidebar = NULL,
     width_process_sidebar = NULL,
@@ -126,7 +126,7 @@ default.layout <- list(
 #' 'user' (default) or 'dev'. For more details, please refer to the document 
 #' 'Inside MagellanNTK'
 #' @export
-default.theme <- function(mode){
+default_theme <- function(mode){
   theme <- NULL
   theme <- switch(mode,
     dev = list(

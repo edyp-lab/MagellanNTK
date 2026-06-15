@@ -41,7 +41,7 @@ mod_SweetAlert_server <- function(
     shiny::moduleServer(
         id,
         function(input, output, session) {
-          pkgs.require(c('rclipboard', 'shinyWidgets'))
+          pkgsRequire(c('rclipboard', 'shinyWidgets'))
             shinyWidgets::sendSweetAlert(
                 session = session,
                 title = NULL,

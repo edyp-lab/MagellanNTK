@@ -20,7 +20,7 @@ A directory input control that can be added to a UI definition.
 Directory Selection Control
 }
 \details{
-This widget relies on \code{\link{choose.dir}} to present an interactive
+This widget relies on \code{\link{choose_dir}} to present an interactive
 dialog to users for selecting a directory on the local filesystem.  Therefore,
 this widget is intended for shiny apps that are run locally - i.e. on the
 same system that files/directories are to be accessed - and not from hosted
@@ -31,5 +31,5 @@ NULL
 
 }
 \seealso{
-\code{\link{updateDirectoryInput}}, \code{\link{readDirectoryInput}}, \code{\link{choose.dir}}
+\code{\link{updateDirectoryInput}}, \code{\link{readDirectoryInput}}, \code{\link{choose_dir}}
 }

@@ -32,8 +32,7 @@ NULL
 
 
 #' @importFrom shiny NS tagList span uiOutput icon
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #' @import shinyEffects
 #' @import waiter
 #' @importFrom bs4Dash dashboardPage bs4DashNavbar bs4DashSidebar bs4SidebarMenu bs4SidebarMenuSubItem bs4SidebarMenuItem bs4DashBody
@@ -136,10 +135,8 @@ mainapp_ui <- function(id, session, size = '300px') {
 
 
 
-#' @importFrom shiny reactive moduleServer reactiveValues observeEvent req
-#' renderUI tagList h4 observeEvent actionButton h3 observe wellPanel helpText
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs js
+#' @importFrom shiny reactive moduleServer reactiveValues observeEvent req renderUI tagList h4 observeEvent actionButton h3 observe wellPanel helpText
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs js
 #' @import shinyEffects
 #' @importFrom S4Vectors metadata
 #' @importFrom bs4Dash updateSidebar
@@ -171,7 +168,7 @@ mainapp_server <- function(id,
       resetWF = 0,
       workflow.name = NULL,
       workflow.path = NULL,
-      funcs = list(funcs = default.funcs()),
+      funcs = list(funcs = default_funcs()),
       tmp.funcs = reactive({
         NULL
       }),
@@ -238,7 +235,7 @@ mainapp_server <- function(id,
         
         for (f in names(rv.core$funcs$funcs)) {
           if (is.null(rv.core$funcs$funcs[[f]])) {
-            rv.core$funcs$funcs[[f]] <- default.funcs()[[f]]
+            rv.core$funcs$funcs[[f]] <- default_funcs()[[f]]
           }
         }
         
@@ -255,7 +252,7 @@ mainapp_server <- function(id,
       
       for (f in names(rv.core$funcs$funcs)) {
         if (is.null(rv.core$funcs$funcs[[f]])) {
-          rv.core$funcs$funcs[[f]] <- default.funcs()[[f]]
+          rv.core$funcs$funcs[[f]] <- default_funcs()[[f]]
         }
       }
       session$userData$funcs <- rv.core$funcs$funcs
@@ -311,7 +308,7 @@ mainapp_server <- function(id,
     # output$BuildReport_UI <- renderUI({
     #   req(rv.core$funcs$funcs$build_report)
     #   
-    #   call.func(
+    #   call_func(
     #     fname = paste0(rv.core$funcs$funcs$build_report, "_server"),
     #     args = list(
     #       id = "build_report",
@@ -319,7 +316,7 @@ mainapp_server <- function(id,
     #     )
     #   )
     #   
-    #   call.func(
+    #   call_func(
     #     fname = paste0(rv.core$funcs$funcs$build_report, "_ui"),
     #     args = list(id = ns("build_report"))
     #   )
@@ -327,7 +324,7 @@ mainapp_server <- function(id,
     
     output$SaveAs_UI <- renderUI({
       req(rv.core$funcs$funcs$download_dataset)
-      call.func(
+      call_func(
         fname = paste0(rv.core$funcs$funcs$download_dataset, "_server"),
         args = list(
           id = "download_dataset",
@@ -335,7 +332,7 @@ mainapp_server <- function(id,
         )
       )
       
-      call.func(
+      call_func(
         fname = paste0(rv.core$funcs$funcs$download_dataset, "_ui"),
         args = list(id = ns("download_dataset"))
       )
@@ -351,14 +348,15 @@ mainapp_server <- function(id,
       if (is.null(rv.core$workflow.name)){
         h3('Please open a pipeline first')
       } else {
-        rv.core$result_open_dataset <- call.func(
+        rv.core$result_open_dataset <- call_func(
           fname = paste0(rv.core$funcs$funcs$open_dataset, "_server"),
           args = list(
-            id = "open_dataset"
+            id = "open_dataset",
+            extension = rv.core$funcs$extension
           )
         )
         
-        call.func(
+        call_func(
           fname = paste0(rv.core$funcs$funcs$open_dataset, "_ui"),
           args = list(id = ns("open_dataset"))
         )

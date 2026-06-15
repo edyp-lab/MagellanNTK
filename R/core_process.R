@@ -45,8 +45,7 @@
 #'
 #' @author Samuel Wieczorek
 #' 
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #' @importFrom stats setNames
 #' @import shiny
 #'
@@ -151,12 +150,12 @@ nav_process_server <- function(
       div(
         style = paste0("
         display: flex; ",
-          'padding-top: ', default.layout$padding_top_nav_process_ui, 'px;',
-          'padding-left: ', default.layout$padding_left_nav_process_ui, 'px;',
+          'padding-top: ', default_layout$padding_top_nav_process_ui, 'px;',
+          'padding-left: ', default_layout$padding_left_nav_process_ui, 'px;',
           "align-items: center; ",
           "justify-content: center;",
-          "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_process_timeline, ";",
-          "border-top: ", default.layout$line_width, "px solid ", default.layout$line_color, ";"
+          "background-color: ", MagellanNTK::default_theme(session$userData$usermod)$bgcolor_process_timeline, ";",
+          "border-top: ", default_layout$line_width, "px solid ", default_layout$line_color, ";"
         ),
         uiOutput(ns('prevBtnUI')),
         mod_modalDialog_ui(id = ns("rstBtn")),
@@ -209,7 +208,8 @@ nav_process_server <- function(
         unname(rv$steps.status[len]) != stepStatus$VALIDATED && (!is.null(dataIn())) &&
         unname(rv$steps.status[rv$current.pos]) != stepStatus$SKIPPED &&
         unname(rv$steps.status[len]) != stepStatus$SKIPPED && (!is.null(dataIn())) &&
-        status() != stepStatus$SKIPPED
+        status() != stepStatus$SKIPPED && rv$steps.enabled[rv$current.pos]
+      
       
       if (unlist(strsplit(id, '_'))[2] == 'Convert')
         enable.do.Btns <- TRUE
@@ -255,7 +255,7 @@ nav_process_server <- function(
         unname(rv$steps.status[len]) != stepStatus$VALIDATED && (!is.null(dataIn())) &&
         unname(rv$steps.status[rv$current.pos]) != stepStatus$SKIPPED &&
         unname(rv$steps.status[len]) != stepStatus$SKIPPED && (!is.null(dataIn())) &&
-        status() != stepStatus$SKIPPED
+        status() != stepStatus$SKIPPED && rv$steps.enabled[rv$current.pos]
       
       if (len > 1){
         enable.doProceed.Btns <- enable.doProceed.Btns && rv$current.pos != len
@@ -353,11 +353,11 @@ nav_process_server <- function(
         
         div(
           style = paste0(
-            "background-color: ", MagellanNTK::default.theme(session$userData$usermod)$bgcolor_process_timeline, ";",
-            "padding-top: ", default.layout$padding_top_process_sidebar, "px;",
-            "padding-bottom: ", default.layout$padding_bottom_process_sidebar, "px;",
-            "padding-left: ", default.layout$padding_left_process_sidebar, "px;",
-            "border-bottom: ", default.layout$line_width, "px solid ", default.layout$line_color, ";"),
+            "background-color: ", MagellanNTK::default_theme(session$userData$usermod)$bgcolor_process_timeline, ";",
+            "padding-top: ", default_layout$padding_top_process_sidebar, "px;",
+            "padding-bottom: ", default_layout$padding_bottom_process_sidebar, "px;",
+            "padding-left: ", default_layout$padding_left_process_sidebar, "px;",
+            "border-bottom: ", default_layout$line_width, "px solid ", default_layout$line_color, ";"),
           timeline_process_ui(ns("process_timeline"))
         )
       })

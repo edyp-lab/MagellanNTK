@@ -23,10 +23,8 @@
 #'
 #' @return A shiny app
 #' 
-#' @importFrom shiny shinyUI tagList moduleServer addResourcePath reactive
-#' shinyApp runApp
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
+#' @importFrom shiny shinyUI tagList moduleServer addResourcePath reactive shinyApp runApp
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #'
 #'
 NULL

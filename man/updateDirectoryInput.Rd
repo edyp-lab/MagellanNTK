@@ -13,7 +13,7 @@ updateDirectoryInput(session, inputId, value = NULL, ...)
 
 \item{value}{A directory path to set}
 
-\item{...}{Additional arguments passed to \code{\link{choose.dir}}.  Only used
+\item{...}{Additional arguments passed to \code{\link{choose_dir}}.  Only used
 if \code{value} is \code{NULL}.}
 }
 \value{

@@ -90,8 +90,9 @@ Config <- setClass(
         # General conditions
         #
         if (length(.Object@fullname) != 1 && .Object@fullname != "") {
-            warning(paste0("The slot 'fullname' must contain one string. Current value is: ", .Object@name))
-            passed <- FALSE
+          txt <- paste0("The slot 'fullname' must contain one string. Current value is: ", .Object@name)
+          warning(txt)
+          passed <- FALSE
         }
 
         # Check if mode exists and is an available keyword

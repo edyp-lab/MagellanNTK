@@ -3,6 +3,7 @@
 #' @description This module allows to change
 #'
 #' @param id A `character()` as the id of the Shiny module
+#' @param extension The extension file allowed
 #' @param remoteReset An `integer` which acts as a remote command to reset the 
 #' module. Its value is incremented on a external event and it is used to 
 #' trigger an event in this module
@@ -17,7 +18,7 @@
 #'
 #' @examples
 #' if (interactive()) {
-#' shiny::runApp(open_dataset())
+#' shiny::runApp(open_dataset(extension = "rdata"))
 #' }
 #'
 #' @return A Shiny app
@@ -30,8 +31,7 @@ NULL
 #' @export
 #' @rdname generic_mod_open_dataset
 #' @importFrom shiny NS tagList
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #'
 open_dataset_ui <- function(id) {
     ns <- NS(id)
@@ -50,12 +50,12 @@ open_dataset_ui <- function(id) {
 #' @export
 #' @importFrom BiocGenerics get
 #' @importFrom utils data
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #' @import shiny
 #'
 open_dataset_server <- function(
         id,
+        extension = NULL,
   remoteReset = reactive({NULL}),
   is.enabled = reactive({TRUE})) {
   
@@ -130,7 +130,7 @@ open_dataset_server <- function(
           rv.custom$remoteReset
           
           widget <- fileInput(ns("file"), "Open file",
-            accept = ".qf", 
+            accept = extension,
             multiple = FALSE)
           
           MagellanNTK::toggleWidget(widget, is.enabled())
@@ -247,7 +247,7 @@ open_dataset_server <- function(
 #' @rdname generic_mod_open_dataset
 #'
 #'
-open_dataset <- function() {
+open_dataset <- function(extension = NULL) {
     ui <- fluidPage(
         tagList(
           open_dataset_ui("demo"),
@@ -262,6 +262,7 @@ open_dataset <- function() {
         )
 
         rv$obj <- open_dataset_server("demo",
+            extension = extension,
             remoteReset = reactive({input$reset})
         )
 

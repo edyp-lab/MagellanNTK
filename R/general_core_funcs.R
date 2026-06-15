@@ -47,7 +47,6 @@ GetHistory <- function(dataIn, name){
   req(dataIn)
   
   history <- NULL
-  #browser()
   if (name == 'Description'){
     if ('Convert' %in% names(dataIn))
       history <- S4Vectors::metadata(dataIn[['Convert']])[['history']]
@@ -136,7 +135,7 @@ GetMaxValidated_BeforePos <- function(
   } else if (pos == 1)
     ind.max <- NULL
   else {
-    indices.validated <- unname(which(rv$steps.status[1:(pos-1)] == stepStatus$VALIDATED))
+    indices.validated <- unname(which(rv$steps.status[seq_len(pos-1)] == stepStatus$VALIDATED))
     if (length(indices.validated) > 0) 
       ind.max <- max(indices.validated)
   }
@@ -369,7 +368,7 @@ BuildData2Send <- function(session, dataIn, stepsNames){
       indInstepsNames <- which(proc.name == stepsNames)
       dataset <- do.call(
         eval(parse(text = session$userData$funcs$keepDatasets)),
-        list(object = dataIn, range = 1:i)
+        list(object = dataIn, range = seq_len(i))
       )
       for (j in (indInstepsNames):length(child.data2send))
             child.data2send[[j]] <- dataset
@@ -505,8 +504,7 @@ Update_State_Screens <- function(
 #' 
 #' @export
 #'
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show
-#' disabled inlineCSS extendShinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #'
 ToggleState_NavBtns <- function(current.pos, nSteps) {
   if (nSteps == 1){

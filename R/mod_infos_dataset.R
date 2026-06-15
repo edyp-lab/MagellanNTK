@@ -86,7 +86,7 @@ infos_dataset_server <- function(
       
       
       MagellanNTK::format_DT_server("dt2",
-        dataIn = reactive({round(SummarizedExperiment::assay(.se)[1:10, ], digits=2)})
+        dataIn = reactive({round(SummarizedExperiment::assay(.se)[seq_len(10), ], digits=2)})
       )
       
         tagList(

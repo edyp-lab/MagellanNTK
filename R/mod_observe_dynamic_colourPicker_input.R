@@ -48,7 +48,7 @@ mod_observe_dynamic_colourPicker_input_server <- function(id, n = NULL, label = 
 
         # Dynamic inputs
         output$dyn_inputs <- renderUI({
-            buttons <- as.list(1:n())
+            buttons <- as.list(seq_len(n()))
             # use a div with class = "dynamicSI" to distinguish from other selectInput's
             div(
                 class = "dynamicSI",
@@ -73,7 +73,7 @@ mod_observe_dynamic_colourPicker_input_server <- function(id, n = NULL, label = 
             input$lastSelectId
 
             tmp <- NULL
-            for (i in 1:n()) {
+            for (i in seq_len(n())) {
                 tmp <- c(tmp, input[[paste0("input_", i)]])
             }
             dynColors(tmp)

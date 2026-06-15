@@ -13,8 +13,7 @@
 #' }
 #' 
 #' @return A shiny App
-#' @importFrom shiny moduleServer observeEvent showModal modalDialog wellPanel
-#' HTML
+#' @importFrom shiny moduleServer observeEvent showModal modalDialog wellPanel HTML
 #'
 NULL
 

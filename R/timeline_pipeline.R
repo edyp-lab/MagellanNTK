@@ -2,8 +2,7 @@
 #' @rdname timelines
 #' @export
 #' 
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #'
 timeline_pipeline_ui <- function(id) {
     ns <- NS(id)

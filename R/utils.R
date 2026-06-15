@@ -11,15 +11,16 @@
 #' 
 #' @author Samuel Wieczorek
 #' 
-pkgs.require <- function(ll.deps){
+pkgsRequire <- function(ll.deps){
   
   if (!requireNamespace('BiocManager', quietly = TRUE)) {
-    stop(paste0("Please run install.packages('BiocManager')"))
+    stop("Please run install.packages('BiocManager')")
   }
   
   lapply(ll.deps, function(x) {
     if (!requireNamespace(x, quietly = TRUE)) {
-      stop(paste0("Please install ", x, ": BiocManager::install('", x, "')"))
+      txt <- paste0("Please install ", x, ": BiocManager::install('", x, "')")
+      stop(txt)
     }
   })
 }
@@ -108,7 +109,7 @@ readConfigFile <- function(
 
     lines <- readLines(config.file)
 
-    funcs <- lapply(default.funcs(), function(x) NULL)
+    funcs <- lapply(default_funcs(), function(x) NULL)
 
 
     tmp <- lapply(
@@ -128,9 +129,9 @@ readConfigFile <- function(
             UI_view_change_Look_Feel = TRUE,
             UI_view_change_core_funcs = FALSE,
             extension = get_data(lines, "extension"),
-            class = get_data(lines, "class"),
+            #class = get_data(lines, "class"),
             package = get_data(lines, "package"),
-            demo_package = get_data(lines, "demo_package"),
+            #demo_package = get_data(lines, "demo_package"),
             URL_manual = get_data(lines, "URL_manual"),
             URL_ReleaseNotes = get_data(lines, "URL_ReleaseNotes")
         )
@@ -144,9 +145,9 @@ readConfigFile <- function(
             UI_view_change_Look_Feel = get_data(lines, "change_Look_Feel") == "enabled",
             UI_view_change_core_funcs = get_data(lines, "change_core_funcs") == "disabled",
             extension = get_data(lines, "extension"),
-            class = get_data(lines, "class"),
+            #class = get_data(lines, "class"),
             package = get_data(lines, "package"),
-            demo_package = get_data(lines, "demo_package"),
+            #demo_package = get_data(lines, "demo_package"),
             URL_manual = get_data(lines, "URL_manual"),
             URL_ReleaseNotes = get_data(lines, "URL_ReleaseNotes")
         )
@@ -183,7 +184,7 @@ GetListDatasets <- function(class = NULL, demo_package = NULL) {
         if (!is.null(class)) {
             df <- data.frame()
 
-            for (i in seq(nrow(dat))) {
+            for (i in seq_len(nrow(dat))) {
                 pkg <- dat[i, "Package"]
                 dataset <- dat[i, "Item"]
                 tryCatch(
@@ -280,9 +281,9 @@ source_shinyApp_files <- function() {
 #' @return A boolean
 #' @export
 #' @examples
-#' is.substr('cde', 'abcdefghi')
+#' isSubstr('cde', 'abcdefghi')
 #' 
-is.substr <- function(pattern, target) {
+isSubstr <- function(pattern, target) {
     length(grep(pattern, target, fixed = TRUE)) > 0
 }
 
@@ -298,9 +299,9 @@ is.substr <- function(pattern, target) {
 #' @examples
 #' path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
 #' source_wf_files(path) 
-#' module.exists('PipelineDemo_Process2')
+#' module_exists('PipelineDemo_Process2')
 #' 
-module.exists <- function(base_name) {
+module_exists <- function(base_name) {
     server.exists <- exists(paste0(base_name, "_server"),
         envir = .GlobalEnv, mode = "function"
     )
@@ -328,8 +329,7 @@ module.exists <- function(base_name) {
 #'
 #' @export
 #' 
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #'
 #' @examples
 #' NULL

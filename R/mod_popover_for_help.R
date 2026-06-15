@@ -26,8 +26,7 @@ NULL
 #'
 #' @export
 #' @importFrom shiny NS tagList div uiOutput
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #'
 mod_popover_for_help_ui <- function(id) {
     ns <- NS(id)
@@ -126,8 +125,7 @@ button.Prostar_tooltip_white {
 #' @rdname mod_popover_for_help
 #'
 #' @export
-#' @importFrom shiny fluidPage tagList textOutput reactiveValues observeEvent
-#' shinyApp
+#' @importFrom shiny fluidPage tagList textOutput reactiveValues observeEvent shinyApp
 #'
 popover_for_help <- function(title, content) {
     ui <- fluidPage(

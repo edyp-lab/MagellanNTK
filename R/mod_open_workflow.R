@@ -45,11 +45,9 @@ open_workflow_ui <- function(id) {
 #' @rdname mod_open_workflow
 #'
 #' @export
-#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show 
-#' disabled inlineCSS extendShinyjs
+#' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #' @importFrom shiny moduleServer reactiveValues observeEvent
-#' @importFrom utils help.search installed.packages maintainer 
-#' packageVersion tail write.table
+#' @importFrom utils help.search installed.packages maintainer packageVersion tail write.table
 #'
 open_workflow_server <- function(id) {
     moduleServer(id, function(input, output, session) {
@@ -114,11 +112,11 @@ open_workflow_server <- function(id) {
                 package = as.character(input$choosePkg)
             )
 
-            tmp <- normalizePath(file.path(rv.wf$path, "R", fsep = MagellanNTK::file.sep()))
+            tmp <- normalizePath(file.path(rv.wf$path, "R", fsep = MagellanNTK::file_sep()))
             ll.files <- list.files(tmp, full.names = FALSE)
 
             ll <- unlist(lapply(ll.files, function(x) {
-                if (MagellanNTK::is.substr(basename(input$chooseWF1), x)) {
+                if (MagellanNTK::isSubstr(basename(input$chooseWF1), x)) {
                     x
                 }
             }))
@@ -162,8 +160,7 @@ open_workflow_server <- function(id) {
 #' @rdname mod_open_workflow
 #'
 #' @export
-#' @importFrom shiny fluidPage tagList textOutput reactiveValues observeEvent
-#' shinyApp
+#' @importFrom shiny fluidPage tagList textOutput reactiveValues observeEvent shinyApp
 #'
 open_workflow <- function() {
     ui <- fluidPage(
