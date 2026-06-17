@@ -184,7 +184,7 @@ nav_process_server <- function(
       req(rv$config)
       rv$current.pos
       
-      widget <-actionButton(ns("nextBtn"), tl_h_next_icon,  style = btn_css_style)
+      widget <- actionButton(ns("nextBtn"), tl_h_next_icon,  style = btn_css_style)
       
       if (length(rv$config@steps) == 1)
         .cond <- FALSE
@@ -400,8 +400,9 @@ nav_process_server <- function(
       rv$temp.dataIn <- dataIn()
 
       #rv$history <- GetHistory(dataIn(), rv$proc.id)
+      parts_GetHistory <- strsplit(session$userData$funcs$GetHistory, "::", fixed = TRUE)[[1]]
       rv$history <- do.call(
-      eval(parse(text = session$userData$funcs$GetHistory)),
+        getExportedValue(parts_GetHistory[1], parts_GetHistory[2]),
         list(dataIn(), rv$proc.id))
 
 
@@ -798,7 +799,7 @@ nav_process <- function() {
     source(f, local = FALSE, chdir = TRUE)
   }
   
-  app.path <- system.file("app", package = "MagellanNTK")
+  app.path <- system.file("www", package = "MagellanNTK")
   source(file.path(app.path, "global.R"), local = FALSE, chdir = TRUE)
   
   ui <- fluidPage(

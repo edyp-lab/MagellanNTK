@@ -29,7 +29,7 @@ default_funcs <- function() {
 #' @rdname default_vars
 #' @export
 default_base_URL <- function() {
-    system.file("app/md", package = "MagellanNTK")
+    system.file("www/md", package = "MagellanNTK")
 }
 
 #' @rdname default_vars

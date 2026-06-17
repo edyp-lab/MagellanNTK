@@ -34,7 +34,7 @@ mod_homepage_ui <- function(id) {
 #' @export
 mod_homepage_server <- function(
         id,
-        mdfile = file.path(system.file("app/md",
+        mdfile = file.path(system.file("www/md",
             package = "MagellanNTK"
         ), "Presentation.Rmd"),
   dataset = reactive({NULL})
@@ -45,7 +45,7 @@ mod_homepage_server <- function(
         if (file.exists(mdfile)) {
             .mdfile <- mdfile
         } else {
-            .mdfile <- file.path(system.file("app/md",
+            .mdfile <- file.path(system.file("www/md",
                 package = "MagellanNTK"
             ), "404.Rmd")
         }
@@ -54,8 +54,9 @@ mod_homepage_server <- function(
         
         output$infos_dataset <- renderUI({
           req(dataset())
+          parts_infos_dataset <- strsplit(session$userData$funcs$infos_dataset, "::", fixed = TRUE)[[1]]
           do.call(
-            eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_server"))),
+            getExportedValue(parts_infos_dataset[1], paste0(parts_infos_dataset[2], "_server")),
             list(
               id = "eda1",
               dataIn = reactive({dataset()})
@@ -63,9 +64,9 @@ mod_homepage_server <- function(
           )
           
           do.call(
-            eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_ui"))),
-                      list(id = ns("eda1"))
-                    )
+            getExportedValue(parts_infos_dataset[1], paste0(parts_infos_dataset[2], "_ui")),
+            list(id = ns("eda1"))
+            )
         })
     })
 }

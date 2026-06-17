@@ -11,8 +11,8 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'     base <- system.file("app/md", package = "MagellanNTK")
-#'     url <- file.path(base, "presentation.Rmd")
+#'     base <- system.file("www/md", package = "MagellanNTK")
+#'     url <- file.path(base, "Presentation.Rmd")
 #'     shiny::runApp(insert_md(url))
 #' }
 #' @return A shiny App

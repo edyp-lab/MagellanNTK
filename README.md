@@ -3,23 +3,23 @@
 
 <!-- badges: start -->
 [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![R-CMD-check](https://github.com/edyp-lab/omXplore/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check-bioc](https://github.com/edyp-lab/DaparToolshed/actions/workflows/check-bioc.yml/badge.svg)](https://github.com/edyp-lab/DaparToolshed/actions/workflows/check-bioc.yml)
 [![R-CMD-check](https://github.com/edyp-lab/MagellanNTK/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/edyp-lab/MagellanNTK/actions/workflows/R-CMD-check.yaml)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![license](https://img.shields.io/badge/license-Artistic--2.0-brightgreen.svg)](https://opensource.org/licenses/Artistic-2.0)
 <!-- badges: end -->
 
-Le package MagellanNTK est un moteur de gestion de workflows qui permet 
-d'exécuter une série de process d'analyses sur des jeux de données.
-Il contient des fonctions génériques d'entrée/sortie de dataset qui sont 
-adaptées à des formats de données de type list.
+The MagellanNTK package is a workflow management engine that allows 
+you to run a series of analysis processes on datasets.
+It contains generic dataset input/output functions that are 
+suited to data formats such as MultiAssayExperiment.
 
-Pour utiliser les fonctionnalités de MagellanNTK, il est nécessaire d'utiliser 
-des workflows soit enregistrés sur l'ordinateur, soit disponibles
-dans un package
+To use MagellanNTK's features, you must use 
+workflows that are either saved on your computer or available in a package
 
+The main strength of this package is that these native functions 
+are fully configurable. MagellanNTK offers workflow management.
 
-
-La principale puissance de ce package est que ces fonctions natives 
-sont entièrement configurableS. MagellanNTK offre une gestion de workflow
 
 ## Installation
 
@@ -38,7 +38,7 @@ of a complex data processing tool when the succession of processes is mostly
 chronological.
 
 For example, if a process is composed of three steps, then it is very easy to 
-run the first steps, then the second and finally the last one. It is like a 
+run the first step, then the second and finally the last one. It is like a 
 dataflow manager.
 
 Moreover, this navigation system, which is at the core of MagellanNTK, can by 
@@ -61,21 +61,19 @@ devtools::install_github('edyp-lab/MagellanNTK')
 
 ```
 library(MagellanNTK)
-path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
-shiny::runApp(workflowApp("PipelineDemo_Process1", path, dataIn = lldata))
+wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
+MagellanNTK(wf.path, 'PipelineDemo')
 
 ```
 
 **Launching a single process**
 
-In the following example, on lance MAgellan avec seulement le process 
-'ProcessA'.
+In the following example, only the Preprocessing process is launched.
 
 ```
 library(MagellanNTK)
-wf.name <- 'PipelineDemo_ProcessA'
 wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
-MagellanNTK(wf.path, wf.name)
+MagellanNTK(wf.path, 'PipelineDemo_Preprocessing')
 
 ```
 

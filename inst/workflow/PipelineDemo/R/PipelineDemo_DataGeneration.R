@@ -165,8 +165,9 @@ PipelineDemo_DataGeneration_server <- function(id,
       rv.custom$history <- Add2History(rv.custom$history, 'DataGeneration', 'DataGeneration', 'SD choice', rv.widgets$SD_choice)
       
       # Add generated dataset
+      parts_addDatasets <- strsplit(session$userData$funcs$addDatasets, "::", fixed = TRUE)[[1]]
       rv$dataIn <- do.call(
-        eval(parse(text = session$userData$funcs$addDatasets)), 
+        getExportedValue(parts_addDatasets[1], parts_addDatasets[2]),
         list(object = rv$dataIn, 
           dataset = datatmp,
           name = 'DataGeneration'

@@ -160,22 +160,25 @@ nav_single_process_server <- function(
       req(session$userData$funcs)
       req(rv$dataset2EDA)
       
+      parts_infos_dataset <- strsplit(session$userData$funcs$infos_dataset, "::", fixed = TRUE)[[1]]
       do.call(
-        eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_server"))),
+        getExportedValue(parts_infos_dataset[1], paste0(parts_infos_dataset[2], "_server")),
         list(id = "eda1",
           dataIn = reactive({rv$dataset2EDA})
         )
       )
       
+      parts_history_dataset <- strsplit(session$userData$funcs$history_dataset, "::", fixed = TRUE)[[1]]
       do.call(
-        eval(parse(text = paste0(session$userData$funcs$history_dataset, "_server"))),
+        getExportedValue(parts_history_dataset[1], paste0(parts_history_dataset[2], "_server")),
         list(id = "eda2",
           dataIn = reactive({rv$dataset2EDA})
         )
       )
       
+      parts_view_dataset <- strsplit(session$userData$funcs$view_dataset, "::", fixed = TRUE)[[1]]
       do.call(
-        eval(parse(text = paste0(session$userData$funcs$view_dataset, "_server"))),
+        getExportedValue(parts_view_dataset[1], paste0(parts_view_dataset[2], "_server")),
         list(id = "eda3",
           dataIn = reactive({rv$dataset2EDA})
         )
@@ -192,7 +195,7 @@ nav_single_process_server <- function(
             shiny::tabPanel(
               title = h3("Infos", style = "margin-right: 30px;"), 
               do.call(
-                eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_ui"))),
+                getExportedValue(parts_infos_dataset[1], paste0(parts_infos_dataset[2], "_ui")),
                 list(id = ns("eda1"))
               )
             ),
@@ -200,14 +203,14 @@ nav_single_process_server <- function(
               style = "overflow-y: auto; height: 80vh;",
               title = h3("History", style = "margin-right: 30px;"), 
               do.call(
-                eval(parse(text = paste0(session$userData$funcs$history_dataset, "_ui"))),
+                getExportedValue(parts_history_dataset[1], paste0(parts_history_dataset[2], "_ui")),
                 list(id = ns("eda2"))
               )
             ),
             shiny::tabPanel(
               title = h3("EDA"),
               do.call(
-                eval(parse(text = paste0(session$userData$funcs$view_dataset, "_ui"))),
+                getExportedValue(parts_view_dataset[1], paste0(parts_view_dataset[2], "_ui")),
                 list(id = ns("eda3"))
               )
             )
@@ -288,7 +291,7 @@ nav_single_process_server <- function(
       req(rv$config)
       rv$current.pos
       
-      widget <-actionButton(ns("nextBtn"), tl_h_next_icon,  style = btn_css_style)
+      widget <- actionButton(ns("nextBtn"), tl_h_next_icon,  style = btn_css_style)
       
       if (length(rv$config@steps) == 1)
         .cond <- FALSE
@@ -507,9 +510,10 @@ nav_single_process_server <- function(
       # on ne tient compte que du resultat final.
       # Pour cela, on supprime tous les datasets intermediaires et on ne garde 
       # que le dernier
-     
+      
+     parts_keepDatasets <- strsplit(session$userData$funcs$keepDatasets, "::", fixed = TRUE)[[1]]
       rv$temp.dataIn <- do.call(
-        eval(parse(text = session$userData$funcs$keepDatasets)),
+        getExportedValue(parts_keepDatasets[1], parts_keepDatasets[2]),
         list(
           object = dataIn(),
           range = length(dataIn())
@@ -517,15 +521,15 @@ nav_single_process_server <- function(
       )
     
       
-        names(rv$temp.dataIn)[1] <- 'Convert'
+      names(rv$temp.dataIn)[1] <- 'Convert'
 
-       
-        rv$temp.dataIn[[1]] <- do.call(
-          eval(parse(text = session$userData$funcs$SetHistory)), 
-          list(obj = rv$temp.dataIn[[1]], 
-            history = MagellanNTK::InitializeHistory()
-          )
+      parts_SetHistory <- strsplit(session$userData$funcs$SetHistory, "::", fixed = TRUE)[[1]]
+      rv$temp.dataIn[[1]] <- do.call(
+        getExportedValue(parts_SetHistory[1], parts_SetHistory[2]), 
+        list(obj = rv$temp.dataIn[[1]], 
+          history = MagellanNTK::InitializeHistory()
         )
+      )
         
         
         rv$dataset2EDA <- rv$temp.dataIn
@@ -831,7 +835,7 @@ nav_single_process <- function() {
     source(f, local = FALSE, chdir = TRUE)
   }
   
-  app.path <- system.file("app", package = "MagellanNTK")
+  app.path <- system.file("www", package = "MagellanNTK")
   source(file.path(app.path, "global.R"), local = FALSE, chdir = TRUE)
   
   ui <- fluidPage(

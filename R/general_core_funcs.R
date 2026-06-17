@@ -355,8 +355,9 @@ BuildData2Send <- function(session, dataIn, stepsNames){
 
   child.data2send <- lapply(as.list(stepsNames), 
     function(x) {
+      parts_keepDatasets <- strsplit(session$userData$funcs$keepDatasets, "::", fixed = TRUE)[[1]]
       dataIn <- do.call(
-        eval(parse(text = session$userData$funcs$keepDatasets)),
+        getExportedValue(parts_keepDatasets[1], parts_keepDatasets[2]),
         list(object = dataIn, range = 1)
       )
     })
@@ -366,8 +367,9 @@ BuildData2Send <- function(session, dataIn, stepsNames){
     for (i in 2:length(names(dataIn))){
       proc.name <- names(dataIn)[i]
       indInstepsNames <- which(proc.name == stepsNames)
+      parts_keepDatasets <- strsplit(session$userData$funcs$keepDatasets, "::", fixed = TRUE)[[1]]
       dataset <- do.call(
-        eval(parse(text = session$userData$funcs$keepDatasets)),
+        getExportedValue(parts_keepDatasets[1], parts_keepDatasets[2]),
         list(object = dataIn, range = seq_len(i))
       )
       for (j in (indInstepsNames):length(child.data2send))

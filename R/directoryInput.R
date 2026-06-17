@@ -278,7 +278,7 @@ directoryInput <- function(inputId, label, value = NULL) {
                     shiny::div(
                         class = "input-group shiny-input-container",
                         style = "width:100%;",
-                        div(class = "input-group-addon", icon("folder-o")),
+                        div(class = "input-group-addon", icon("folder-open")),
                         tags$input(
                             id = sprintf("%s__chosen_dir", inputId),
                             value = value,

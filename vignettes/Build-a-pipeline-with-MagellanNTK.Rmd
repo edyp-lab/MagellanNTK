@@ -208,7 +208,7 @@ It must contain at least the following files :
 
 - A file defining the pipeline itself, named `PipelineName.R`.
 - A file for the 'Description' process, which MagellanNTK automatically adds to every pipeline? named `PipelineName_Description.R`.
--	One file per process in the workflow, each following the naming convention `PipelineName_ProcessName.R`.
+- One file per process in the workflow, each following the naming convention `PipelineName_ProcessName.R`.
 - A file for the 'Save' process, also automatically added by MagellanNTK, named `PipelineName_Save.R`.
 
 
@@ -856,7 +856,7 @@ The 'Save' sub-step is automatically included in every process and therefore mus
 * Unlike the implementation described in section 7.2.1, there is no need to include `observeEvent(req(dataIn()), { rv$dataIn <- dataIn() })`. This is because the data in `dataIn()` has already been stored in `rv$dataIn` during a previous sub-step, making this part of code unneeded.
 
 
-#	PipelineName_Save.R file
+# PipelineName_Save.R file
 
 The "Save" step is automatically added to the workflow by MagellanNTK. Therefore, the file associated with this step is required. This step serves as the ending point for the workflow. 
 

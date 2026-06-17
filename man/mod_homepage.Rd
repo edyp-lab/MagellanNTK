@@ -10,7 +10,7 @@ mod_homepage_ui(id)
 
 mod_homepage_server(
   id,
-  mdfile = file.path(system.file("app/md", package = "MagellanNTK"), "Presentation.Rmd"),
+  mdfile = file.path(system.file("www/md", package = "MagellanNTK"), "Presentation.Rmd"),
   dataset = reactive({
      NULL
  })

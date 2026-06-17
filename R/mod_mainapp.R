@@ -44,7 +44,7 @@ NULL
 mainapp_ui <- function(id, session, size = '300px') {
   ns <- NS(id)
   includeCSS(file.path(system.file("www/css", package = "MagellanNTK"), "MagellanNTK.css"))
-  addResourcePath("www", system.file("app/images", package = "MagellanNTK"))
+  addResourcePath("www", system.file("www/images", package = "MagellanNTK"))
   bs4Dash::dashboardPage(
     
     preloader = list(html = tagList(spin_1(), "Loading ..."), color = "#343a40"),
@@ -172,7 +172,7 @@ mainapp_server <- function(id,
       tmp.funcs = reactive({
         NULL
       }),
-      filepath = file.path(system.file("app/md",
+      filepath = file.path(system.file("www/md",
         package = "MagellanNTK"
       ), "Presentation.Rmd")
     )
@@ -489,20 +489,10 @@ mainapp_server <- function(id,
     
     
     observe({
-      # insert_md_server("usermanual",
-      #   file.path(rv.core$workflow.path, 'md', "FAQ.md"))
-      #
-      
-      # mod_check_updates_server("check_updates")
-      # insert_md_server("links_MD",
-      #   file.path(rv.core$workflow.path, 'md', "links.md"))
-      #
       insert_md_server(
         "FAQ_MD",
         file.path(rv.core$workflow.path, "md", "FAQ.Rmd")
       )
-      # mod_bug_report_server("bug_report")
-      #
     })
   })
 }

@@ -1,20 +1,58 @@
+#' @title Shiny process module `PipelineTemplate_Process2`
+#'
 #' @description
-#' Pour customiser ce fichier, il ya plusieurs choses possibles. La plupart des 
-#' indications sont ecrites dans le code, sous forme de commentaires
+#' ...
+#'
+#' The name of the _server() and _ui() functions are formatted as follows : 
+#' `PipelineName_ProcessName` with :
+#' * `PipelineName` is the name of the pipeline to which the process belongs
+#' * `ProcessName` is the name of the process itself
 #' 
-#' De manière genberale, et comme pour tous les autres fichiers, il faut 
-#' remplacer:
-#'  * la châine de caractères "PipelineName_Process2" par la concatenation de:
-#'    * le nom de votre pipeline, toujours précédé par "Pipeline".
-#'    * '_' en guise de séparateur
-#'    * le nom du process
-#' Par exemple, si vous développez un processus nommé Process1 pour le pipeline 
-#' appelé "Test", alors lil faut remplacer la chaîne "PipelineName_Process2" 
-#' par "Test_Process1".
+#' For more information, see the "Build a pipeline with MagellanNTK" vignette.
+#'
+#' ...
+#'
+#' @param id A `character(1)` which is the 'id' of the module.
+#' @param dataIn An instance of the class `MultiAssayExperiment`.
+#' @param steps.enabled A vector of boolean which has the same length of the
+#' steps of the pipeline. This information is used to enable/disable the
+#' widgets. It is not a communication variable between the caller and this
+#' module, thus there is no corresponding output variable.
+#' @param remoteReset It is a remote command to reset the module. An
+#' `integer()` that indicates is the pipeline has been reseted by a program of
+#' higher level Basically, it is the program which has called this module.
+#' @param steps.status A vector of `character()` which indicates the status of
+#' each step which can be either 'validated', 'undone' or 'skipped'. Enabled or
+#' disabled in the UI.
+#' @param current.pos A `integer(1)` which acts as a remote command to make
+#' a step active in the timeline. Default is 1.
+#'
+#' @return An instance of the class `MultiAssayExperiment`.
+#'
+#' @examples
+#' if (interactive()) {
+#'   wf.path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
+#'
+#'   MagellanNTK(wf.path, "PipelineDemo")
+#'
+#'   MagellanNTK(wf.path, "PipelineDemo_DataGeneration")
+#'
+#'   MagellanNTK(wf.path, "PipelineDemo_Preprocessing")
+#'
+#'   MagellanNTK(wf.path, "PipelineDemo_Clustering")
+#' }
 #' 
-#' @rdname PipelineDemo
+#' @name PipelineTemplate_Process2
+#' @importFrom shiny moduleServer reactiveValues observeEvent NS tagList actionLink fluidRow column uiOutput hr reactive fluidPage
+#' @importFrom stats setNames
+#'
+NULL
+
+#' @description The `PipelineName_Process2_conf` function ...
+#'
+#' @rdname PipelineTemplate_Process2
 #' @export
-#' 
+#'
 PipelineName_Process2_conf <- function(){
   MagellanNTK::Config(
     fullname = 'PipelineName_Process2',
@@ -32,18 +70,23 @@ PipelineName_Process2_conf <- function(){
   )
 }
 
-
-#' @rdname PipelineDemo
+#' @description The ui function is the same for every module and should
+#' not be modified. This serves to initiate the ns variable, largely used in
+#' the _server() function.
+#' Do not modify anything in this function.
+#' 
+#' @rdname PipelineTemplate_Process2
 #' @export
-#'
+#' 
 PipelineName_Process2_ui <- function(id){
   ns <- NS(id)
 }
 
-
-#' @rdname PipelineDemo
+#' @description ...
+#'
+#' @rdname PipelineTemplate_Process2
 #' @export
-#' 
+#'
 PipelineName_Process2_server <- function(id,
   dataIn = reactive({NULL}),
   steps.enabled = reactive({NULL}),
@@ -228,8 +271,9 @@ PipelineName_Process2_server <- function(id,
       # la variable de travail  de l'étape 1 qui est rv.custom$dataIn1
       # Dans le aprametre nam, le suffixe "_Process1" servira à la fin, à repérer les
       # SE à supprimer du dataset final
+      parts_addDatasets <- strsplit(session$userData$funcs$addDatasets, "::", fixed = TRUE)[[1]]
       rv.custom$dataIn1 <- do.call(
-        eval(parse(text = session$userData$funcs$addDatasets)), 
+        getExportedValue(parts_addDatasets[1], parts_addDatasets[2]),
         list(object = rv.custom$dataIn1, 
           dataset = datatmp,
           name = paste0(names(rv.custom$dataIn1)[length(rv.custom$dataIn1)], '_Process2')
@@ -299,8 +343,9 @@ PipelineName_Process2_server <- function(id,
       rv.custom$history <- Add2History(rv.custom$history, 'Process2', 'Step2', XXX, XXX)
 
       # Add normalized dataset
+      parts_addDatasets <- strsplit(session$userData$funcs$addDatasets, "::", fixed = TRUE)[[1]]
       rv.custom$dataIn2 <- do.call(
-        eval(parse(text = session$userData$funcs$addDatasets)),
+        getExportedValue(parts_addDatasets[1], parts_addDatasets[2]),
         list(object = rv.custom$dataIn2,
           dataset = datatmp,
           name = paste0(names(rv.custom$dataIn2)[length(rv.custom$dataIn2)], '_Process2')

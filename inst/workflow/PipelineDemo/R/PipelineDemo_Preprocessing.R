@@ -200,8 +200,9 @@ PipelineDemo_Preprocessing_server <- function(id,
       rv.custom$history <- Add2History(rv.custom$history, 'Preprocessing', 'Filtering', 'Value', rv.widgets$Filtering_Value)
 
       # Add filtered dataset
+      parts_addDatasets <- strsplit(session$userData$funcs$addDatasets, "::", fixed = TRUE)[[1]]
       rv.custom$dataIn1 <- do.call(
-        eval(parse(text = session$userData$funcs$addDatasets)), 
+        getExportedValue(parts_addDatasets[1], parts_addDatasets[2]),
         list(object = rv.custom$dataIn1, 
           dataset = datatmp,
           name = paste0(names(rv.custom$dataIn1)[length(rv.custom$dataIn1)], '_filtered')
@@ -275,8 +276,9 @@ PipelineDemo_Preprocessing_server <- function(id,
       rv.custom$history <- Add2History(rv.custom$history, 'Preprocessing', 'Normalization', 'Type', rv.widgets$Normalization_Type)
 
       # Add normalized dataset
+      parts_addDatasets <- strsplit(session$userData$funcs$addDatasets, "::", fixed = TRUE)[[1]]
       rv.custom$dataIn2 <- do.call(
-        eval(parse(text = session$userData$funcs$addDatasets)),
+        getExportedValue(parts_addDatasets[1], parts_addDatasets[2]),
         list(object = rv.custom$dataIn2,
           dataset = datatmp,
           name = paste0(names(rv.custom$dataIn2)[length(rv.custom$dataIn2)], '_filtered')

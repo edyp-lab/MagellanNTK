@@ -71,7 +71,7 @@ MagellanNTK_server <- function(
         usermod = "user") {
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
-        addResourcePath("www", system.file("app/www", package = "MagellanNTK"))
+        addResourcePath("www", system.file("www", package = "MagellanNTK"))
         
         
         mainapp_server("mainapp_module",
@@ -111,7 +111,7 @@ MagellanNTK <- function(
   if(is.null(workflow.name) || is.null(workflow.path)) return(NULL)
   
   
-    app.path <- system.file("app", package = "MagellanNTK")
+    app.path <- system.file("www", package = "MagellanNTK")
     source(file.path(app.path, "global.R"), local = FALSE, chdir = TRUE)
 
     files <- list.files(file.path(workflow.path, "R"), full.names = TRUE)

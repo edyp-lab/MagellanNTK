@@ -260,7 +260,7 @@ nav_pipeline_server <- function(
       req(rv$config)
       rv$current.pos
       
-      widget <-actionButton(ns("nextBtn"), tl_h_next_icon,  style = btn_css_style)
+      widget <- actionButton(ns("nextBtn"), tl_h_next_icon,  style = btn_css_style)
       
       if (length(rv$config@steps) == 1)
         .cond <- FALSE
@@ -273,7 +273,7 @@ nav_pipeline_server <- function(
     
     # Display the 'Return to start' button for the pipeline
     output$startBtnUI <- renderUI({
-      widget <-actionButton(ns("startBtn"), '|<<',  style = btn_css_style)
+      widget <- actionButton(ns("startBtn"), '|<<',  style = btn_css_style)
       MagellanNTK::toggleWidget(widget, TRUE)
     })
     
@@ -284,25 +284,27 @@ nav_pipeline_server <- function(
       req(session$userData$funcs)
       req(rv$dataset2EDA)
       
+      parts_infos_dataset <- strsplit(session$userData$funcs$infos_dataset, "::", fixed = TRUE)[[1]]
       do.call(
-        eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_server"))),
+        getExportedValue(parts_infos_dataset[1], paste0(parts_infos_dataset[2], "_server")),
         list(
           id = "eda1",
           dataIn = reactive({rv$dataset2EDA})
         )
       )
       
-
+      parts_history_dataset <- strsplit(session$userData$funcs$history_dataset, "::", fixed = TRUE)[[1]]
       do.call(
-        eval(parse(text = paste0(session$userData$funcs$history_dataset, "_server"))),
+        getExportedValue(parts_history_dataset[1], paste0(parts_history_dataset[2], "_server")),
         list(
           id = "eda2",
           dataIn = reactive({rv$dataset2EDA})
         )
       )
       
+      parts_view_dataset <- strsplit(session$userData$funcs$view_dataset, "::", fixed = TRUE)[[1]]
       do.call(
-        eval(parse(text = paste0(session$userData$funcs$view_dataset, "_server"))),
+        getExportedValue(parts_view_dataset[1], paste0(parts_view_dataset[2], "_server")),
         list(
           id = "eda3",
           dataIn = reactive({rv$dataset2EDA})
@@ -320,7 +322,7 @@ nav_pipeline_server <- function(
             shiny::tabPanel(
               title = h3("Infos", style = "margin-right: 30px;"), 
               do.call(
-                eval(parse(text = paste0(session$userData$funcs$infos_dataset, "_ui"))),
+                getExportedValue(parts_infos_dataset[1], paste0(parts_infos_dataset[2], "_ui")),
                 list(id = ns("eda1"))
               )
             ),
@@ -328,14 +330,14 @@ nav_pipeline_server <- function(
               style = "overflow-y: auto; ",
               title = h3("History", style = "margin-right: 30px;"), 
               do.call(
-                eval(parse(text = paste0(session$userData$funcs$history_dataset, "_ui"))),
+                getExportedValue(parts_history_dataset[1], paste0(parts_history_dataset[2], "_ui")),
                 list(id = ns("eda2"))
               )
             ),
             shiny::tabPanel(
               title = h3("EDA"),
               do.call(
-                eval(parse(text = paste0(session$userData$funcs$view_dataset, "_ui"))),
+                getExportedValue(parts_view_dataset[1], paste0(parts_view_dataset[2], "_ui")),
                 list(id = ns("eda3"))
               )
             )
@@ -748,7 +750,7 @@ nav_pipeline <- function() {
     source(f, local = FALSE, chdir = TRUE)
   }
   
-  app.path <- system.file("app", package = "MagellanNTK")
+  app.path <- system.file("www", package = "MagellanNTK")
   source(file.path(app.path, "global.R"), local = FALSE, chdir = TRUE)
   
   ui <- fluidPage(

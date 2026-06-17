@@ -245,8 +245,9 @@ PipelineDemo_Clustering_server <- function(id,
       rv.custom$history <- Add2History(rv.custom$history, 'Clustering', 'Clustering', 'Nb clusters', rv.widgets$Clustering_Nbclust)
       
       # Add clustered dataset
+      parts_addDatasets <- strsplit(session$userData$funcs$addDatasets, "::", fixed = TRUE)[[1]]
       rv$dataIn <- do.call(
-        eval(parse(text = session$userData$funcs$addDatasets)), 
+        getExportedValue(parts_addDatasets[1], parts_addDatasets[2]),
         list(object = rv$dataIn, 
              dataset = datatmp,
              name = 'Clustering'

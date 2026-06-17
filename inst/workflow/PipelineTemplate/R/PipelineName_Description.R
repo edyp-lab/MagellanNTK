@@ -1,135 +1,229 @@
+#' @title Shiny process module `PipelineTemplate_Description`
+#'
 #' @description
-#' Pour customiser ce fichier, il faut juste remplacer la châine de caractères
-#' "PipelineName" par le nom de votre pipeline, toujours précédé par "PipelineName"
-#' Par exemple, si vous développez un pipeline appelé "Test", alors la chaîne de remplacement
-#' devra être "PipelineTest".
-#' 
-#' #' @rdname PipelineName
+#' This module contains the configuration informations for the 'Description'
+#' step of the workflow. It is called by the `nav_pipeline` module of the
+#' package `MagellanNTK`. This documentation is for developers who want to
+#' create their own pipelines or processes to be managed with `MagellanNTK`.
+#'
+#' The name of the _server() and _ui() functions are formatted as follows :
+#' `PipelineName_ProcessName` with :
+#' * `PipelineName` is the name of the pipeline to which the process belongs
+#' * `ProcessName` is the name of the process itself
+#'
+#' For more information, see the "Build a pipeline with MagellanNTK" vignette.
+#'
+#' These functions are used to create the 'Description' step.
+#'
+#' @param id A `character(1)` which is the 'id' of the module.
+#' @param dataIn An instance of the class `MultiAssayExperiment`.
+#' @param steps.enabled A vector of boolean which has the same length of the
+#' steps of the pipeline. This information is used to enable/disable the
+#' widgets. It is not a communication variable between the caller and this
+#' module, thus there is no corresponding output variable.
+#' @param remoteReset It is a remote command to reset the module. An
+#' `integer()` that indicates is the pipeline has been reseted by a program of
+#' higher level Basically, it is the program which has called this module.
+#' @param steps.status A vector of `character()` which indicates the status of
+#' each step which can be either 'validated', 'undone' or 'skipped'. Enabled or
+#' disabled in the UI.
+#' @param current.pos A `integer(1)` which acts as a remote command to make
+#' a step active in the timeline. Default is 1.
+#'
+#' @return An instance of the class `MultiAssayExperiment`.
+#'
+#' @examples
+#' if (interactive()) {
+#'   wf.path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
+#'
+#'   MagellanNTK(wf.path, "PipelineDemo")
+#'
+#'   MagellanNTK(wf.path, "PipelineDemo_DataGeneration")
+#'
+#'   MagellanNTK(wf.path, "PipelineDemo_Preprocessing")
+#'
+#'   MagellanNTK(wf.path, "PipelineDemo_Clustering")
+#' }
+#'
+#' @name PipelineTemplate_Description
+#' @importFrom shiny moduleServer reactiveValues observeEvent NS tagList actionLink fluidRow column uiOutput hr reactive fluidPage
+#' @importFrom stats setNames
+#'
+NULL
+
+#' @description The `PipelineName_Description_conf` function ...
+#'
+#' @rdname PipelineTemplate_Description
 #' @export
-#' 
-PipelineName_Description_conf <- function(){
+#'
+PipelineName_Description_conf <- function() {
   MagellanNTK::Config(
-    fullname = 'PipelineName_Description',
-    mode = 'process'
+    # The complete name of the process, which must be the same as the filename.
+    # Replace "PipelineName" by the name of your pipeline.
+    # This name must only contain only alphanumerical characters beside the '_'
+    # separator between the pipeline name and the process name.
+    fullname = "PipelineName_Description",
+
+    # Specify that this code will be used to configure a process.
+    # It will be used by the nav_process Shiny module (see core_process.R file).
+    # !! Do not modify this line !!
+    mode = "process"
+
+    # As this process contains no sub-steps (apart from the “Description”
+    # sub-step, which does not require explicit definition), it does not require
+    # the 'step' and 'mandatory' arguments
   )
 }
 
-#' @param id A `character(1)` which is the 'id' of the module.
-#' 
-#' @rdname PipelineName
-#' 
-#' @author Samuel Wieczorek, Manon Gaudin
-#' 
+#' @description The ui function is the same for every module and should
+#' not be modified. This serves to initiate the ns variable, largely used in
+#' the _server() function.
+#' Do not modify anything in this function.
+#'
+#' @rdname PipelineTemplate_Description
 #' @export
 #'
-PipelineName_Description_ui <- function(id){
+PipelineName_Description_ui <- function(id) {
   ns <- NS(id)
 }
 
 
-#' @rdname PipelineName
+#' @description The server function defines what happens during the step.
+#' Replace "PipelineName" by the name of your pipeline.
+#'
+#' @rdname PipelineTemplate_Description
 #' @export
-#' 
-PipelineName_Description_server <- function(id,
-  dataIn = reactive({NULL}),
-  steps.enabled = reactive({NULL}),
-  remoteReset = reactive({0}),
-  steps.status = reactive({NULL}),
-  current.pos = reactive({1}),
+#'
+PipelineName_Description_server <- function(
+  id,
+  dataIn = reactive({
+    NULL
+  }),
+  steps.enabled = reactive({
+    NULL
+  }),
+  remoteReset = reactive({
+    0
+  }),
+  steps.status = reactive({
+    NULL
+  }),
+  current.pos = reactive({
+    1
+  }),
   path = NULL,
-  btnEvents = reactive({NULL})
-){
-  # Define default selected values for widgets
-  # By default, this list is empty for the Description module
-  # but it can be customized
+  btnEvents = reactive({
+    NULL
+  })
+) {
+  # Define default values and initialize widgets that will be used in the
+  # process. By default, this list is empty for the 'Description' step but it
+  # can be customized if needed.
+  # Values defined in widgets.default.values are accessible via rv.widgets$Name
   widgets.default.values <- list()
-  
-  # Define default values for reactive values
-  # By default, this list is empty for the Description module
-  # but it can be customized
+
+  # Define default values and initialize reactive values that will be used in
+  # the process. By default, this list only initialize one reactive value
+  # (history) for the 'Description' step but it can be customized if needed.
+  # Values defined in rv.custom.default.values can be accessed through
+  # rv.custom$Name
   rv.custom.default.values <- list(
     history = MagellanNTK::InitializeHistory()
   )
-  
-  ###########################################################################-
+
+  ########################################################################### -
   #
   #----------------------------MODULE SERVER----------------------------------
   #
-  ###########################################################################-
+  ########################################################################### -
+  # Initiates the creation of the module
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    
+
     # Necessary code hosted by MagellanNTK
-    # DO NOT MODIFY THESE LINE
+    # Initiates the various variables required for the module to function,
+    # such as the widgets values and reactive values
+    # !! DO NOT MODIFY THESE LINES !!
     core.code <- MagellanNTK::Get_Workflow_Core_Code(
-      mode = 'process',
+      mode = "process",
       name = id,
       w.names = names(widgets.default.values),
       rv.custom.names = names(rv.custom.default.values)
     )
-    
+
     eval(str2expression(core.code))
 
-    ###########################################################################-
+    ########################################################################### -
     #
     #-----------------------------DESCRIPTION-----------------------------------
     #
-    ###########################################################################-
+    ########################################################################### -
     output$Description <- renderUI({
-
-      # Find .Rmd file used to describe the step
-      # # On recherche dans le répertoire 'md' du pipeline s'il y a un fichier
-      # du même nom que celui-ci. Si c'est le cas, on en affiche le contenu
-      # dans l'écran principal
+      # Find .Rmd file used to describe the step inside the 'md' directory 
+      # of the pipeline
       file <- normalizePath(file.path(
-        system.file('workflow', package = 'MagellanNTK'),
-        unlist(strsplit(id, '_'))[1], 
-        'md', 
-        paste0(id, '.Rmd')))
-      
-      
-      # Function for layout and display of widgets and plots for the step
+        system.file("workflow", package = "MagellanNTK"),
+        unlist(strsplit(id, "_"))[1],
+        "md",
+        paste0(id, ".Rmd")
+      ))
+
+
+      # Function for the layout and display of widgets and plots for the step
       MagellanNTK::process_layout(session,
         ns = NS(id),
+        # Defines the ui elements for the sidebar of the process for 
+        # the given step
         sidebar = tagList(),
+        # Defines the ui elements for the content area of the process for 
+        # the given step
         content = tagList(
-          if (file.exists(file))
+          # If a file has been found, it it displayed in the content area
+          if (file.exists(file)) {
             includeMarkdown(file)
-          else
-            p('No Description available')
+          } else {
+            p("No Description available")
+          }
         )
       )
     })
     
-    # oberveEvent runs when one of the "Run" buttons is clicked
-    observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE,{
-      
-      # Le core engine dans MagellanNTK (fichier core_process.R) gère les boutons
-      # de navigation et envoie à tous les modules de process la valeur
-      # bu bouton qui change à chaque click (lconcatenation du nom de l'étape dans
-      # le process et du nombre de clicks sur le bouton). Dans les modules de 
-      # process, cette valeur est recupérée dans la variable btnEvents()
-      # Ici, on filtre les click sur le bouton Run/RunProceed depuis l'étape de Description
-      req(grepl('Description', btnEvents()))
-      
-      req(dataIn())
-      rv$dataIn <- dataIn()
+    # Here can be added any additionnal element
 
-      rv.custom$history <- Add2History(rv.custom$history, 'Description', 'Description', 'Initialization', '-')
+    # This oberveEvent runs when one of the "Run" buttons is clicked
+    observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE, {
+      # The core engine in MagellanNTK (found in the core_process.R file) 
+      # manages the navigation buttons and sends the button's value to all 
+      # process modules with each click (which is a concatenation of the 
+      # sub-step name in the process and the number of clicks on the button). 
+      # In the process modules, this value is retrieved by the btnEvents() 
+      # variable
       
+      # Filter clicks on the Run/Run -> button from the 'Description' sub-step
+      req(grepl("Description", btnEvents()))
+
+      req(dataIn())
+      # Store the current dataset (dataIn()) in the reactive value rv$dataIn
+      # This ensure the entry dataset is never modified and can be retrieved 
+      # in case of a reset
+      rv$dataIn <- dataIn()
+      
+      # Records the actions performed at this stage
+      rv.custom$history <- Add2History(rv.custom$history, "Description", "Description", "Initialization", "-")
+
       len <- length(rv$dataIn)
+      # Attach the history to the dataset
       rv$dataIn[[len]] <- SetHistory(rv$dataIn[[len]], rv.custom$history)
-      
-      
+
+
       # DO NOT MODIFY THE THREE FOLLOWING LINES
       dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$value <- rv$dataIn
-      rv$steps.status['Description'] <- MagellanNTK::stepStatus$VALIDATED
+      rv$steps.status["Description"] <- MagellanNTK::stepStatus$VALIDATED
     })
-    
+
     # Insert necessary code which is hosted by MagellanNTK
     # DO NOT MODIFY THIS LINE
     eval(parse(text = MagellanNTK::Module_Return_Func()))
-  }
-  )
+  })
 }

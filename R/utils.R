@@ -263,7 +263,7 @@ source_wf_files <- function(
 #' 
 source_shinyApp_files <- function() {
     # Checks if app can be found
-    file_path_global <- system.file("app/global.R", package = "MagellanNTK")
+    file_path_global <- system.file("www/global.R", package = "MagellanNTK")
     if (!nzchar(file_path_global)) {
         stop("Shiny app not found")
     }
