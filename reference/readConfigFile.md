@@ -50,7 +50,6 @@ computer or a link to a file over internet.
 ``` r
 path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
 readConfigFile(path)
-#> Warning: incomplete final line found on '/home/runner/work/_temp/Library/MagellanNTK/workflow/PipelineDemo/config.txt'
 #> $funcs
 #> $funcs$open_dataset
 #> [1] "MagellanNTK::open_dataset"

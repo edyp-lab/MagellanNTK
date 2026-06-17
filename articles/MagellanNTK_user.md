@@ -62,6 +62,9 @@ BiocManager::install("MagellanNTK")
 library(MagellanNTK)
 ```
 
+    ## Warning: replacing previous import 'S4Arrays::makeNindexFromArrayViewport' by
+    ## 'DelayedArray::makeNindexFromArrayViewport' when loading 'SummarizedExperiment'
+
 ## MagellanNTK jargon
 
 ### Objects
@@ -715,7 +718,7 @@ sessionInfo()
     ##  [3] SparseArray_1.12.2          stringi_1.8.7              
     ##  [5] lattice_0.22-9              digest_0.6.39              
     ##  [7] magrittr_2.0.5              grid_4.6.0                 
-    ##  [9] evaluate_1.0.5              bookdown_0.46              
+    ##  [9] evaluate_1.0.5              bookdown_0.47              
     ## [11] bs4Dash_2.3.5               fastmap_1.2.0              
     ## [13] Matrix_1.7-5                jsonlite_2.0.0             
     ## [15] promises_1.5.0              BiocManager_1.30.27        

@@ -65,7 +65,7 @@ Wieczorek</h4>
                                     <h4 data-toc-skip class="author">Thomas
 Burger</h4>
                         
-            <h4 data-toc-skip class="date">June 15, 2026</h4>
+            <h4 data-toc-skip class="date">June 17, 2026</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/edyp-lab/MagellanNTK/blob/main/vignettes/Build-a-pipeline-with-MagellanNTK.Rmd" class="external-link"><code>vignettes/Build-a-pipeline-with-MagellanNTK.Rmd</code></a></small>
       <div class="d-none name"><code>Build-a-pipeline-with-MagellanNTK.Rmd</code></div>
@@ -120,6 +120,8 @@ becomes essential.</p>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"MagellanNTK"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: replacing previous import 'S4Arrays::makeNindexFromArrayViewport' by</span></span>
+<span><span class="co">## 'DelayedArray::makeNindexFromArrayViewport' when loading 'SummarizedExperiment'</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="key-terms">Key terms<a class="anchor" aria-label="anchor" href="#key-terms"></a>
@@ -177,7 +179,7 @@ organized and interact. The whole pipeline is explained in the
 package files or directly on the <a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK GitHub
 repository</a>.</p>
 <p>To launch <code>PipelineDemo</code>, use the following code :</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineDemo'</span>, package <span class="op">=</span> <span class="st">'MagellanNTK'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">wf.path</span>, <span class="st">'PipelineDemo'</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -549,7 +551,7 @@ module.</li>
 <p>Of the three functions included in this file, this is the only one
 for which settings need to be changed.</p>
 <p>The code for this function is as follow :</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PipelineName_conf</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu">MagellanNTK</span><span class="fu">::</span><span class="fu"><a href="../reference/Config-class.html">Config</a></span><span class="op">(</span></span>
 <span>    fullname <span class="op">=</span> <span class="st">'PipelineName'</span>,</span>
@@ -587,11 +589,11 @@ components of the pipeline’s main module.</p>
 be discussed in detail here. Note that they contain the same basic code
 found in the process modules, which we will cover later in this
 vignette.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PipelineName_ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PipelineName_server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>,</span>
 <span>  <span class="va">dataIn</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span><span class="cn">NULL</span><span class="op">}</span><span class="op">)</span>,</span>
 <span>  <span class="va">steps.enabled</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span><span class="cn">NULL</span><span class="op">}</span><span class="op">)</span>,</span>
@@ -634,7 +636,7 @@ functions <code>PipelineName_Description_conf()</code>,
 <h3 id="pipelinename_description_conf">PipelineName_Description_conf()<a class="anchor" aria-label="anchor" href="#pipelinename_description_conf"></a>
 </h3>
 <p>The code for this function is as follow :</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PipelineName_Description_conf</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu">MagellanNTK</span><span class="fu">::</span><span class="fu"><a href="../reference/Config-class.html">Config</a></span><span class="op">(</span></span>
 <span>    mode <span class="op">=</span> <span class="st">'process'</span>,</span>
@@ -667,14 +669,14 @@ PipelineName_Description_server()<a class="anchor" aria-label="anchor" href="#pi
 components of the description process module.</p>
 <p>The ui function is the same for every module and should not be
 modified.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PipelineName_Description_ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>The code for the server function is as follows, and is explained in
 detail below (for a description of the function parameters, please refer
 to the function man) :</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PipelineName_Description_server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>,</span>
 <span>  <span class="va">dataIn</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span><span class="cn">NULL</span><span class="op">}</span><span class="op">)</span>,</span>
 <span>  <span class="va">steps.enabled</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span><span class="cn">NULL</span><span class="op">}</span><span class="op">)</span>,</span>
@@ -755,7 +757,7 @@ to the function man) :</p>
 <div class="section level4">
 <h4 id="pipelinename_description_server-detailled-explanation">PipelineName_Description_server() detailled explanation<a class="anchor" aria-label="anchor" href="#pipelinename_description_server-detailled-explanation"></a>
 </h4>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">widgets.default.values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">rv.custom.default.values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -771,22 +773,22 @@ only one reactive value (history) is initialized. Values defined in
 <code>rv.widgets$Name</code>, while those defined in
 <code>rv.custom.default.values</code> can be accessed through
 <code>rv.custom$Name</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>      ns <span class="ot">&lt;-</span> session<span class="sc">$</span>ns</span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>      </span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>      core.code <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Get_Workflow_Core_Code</span>(</span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>        <span class="at">mode =</span> <span class="st">'process'</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>        <span class="at">name =</span> id,</span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>        <span class="at">w.names =</span> <span class="fu">names</span>(widgets.default.values),</span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>        <span class="at">rv.custom.names =</span> <span class="fu">names</span>(rv.custom.default.values)</span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>      )</span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>      </span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">str2expression</span>(core.code))</span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>      </span>
-<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a>      [...]</span>
-<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>      </span>
-<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> MagellanNTK<span class="sc">::</span><span class="fu">Module_Return_Func</span>()))</span>
-<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>      ns <span class="ot">&lt;-</span> session<span class="sc">$</span>ns</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>      </span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>      core.code <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Get_Workflow_Core_Code</span>(</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>        <span class="at">mode =</span> <span class="st">'process'</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>        <span class="at">name =</span> id,</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>        <span class="at">w.names =</span> <span class="fu">names</span>(widgets.default.values),</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>        <span class="at">rv.custom.names =</span> <span class="fu">names</span>(rv.custom.default.values)</span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>      )</span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>      </span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">str2expression</span>(core.code))</span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>      </span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>      [...]</span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>      </span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> MagellanNTK<span class="sc">::</span><span class="fu">Module_Return_Func</span>()))</span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a>  }</span></code></pre></div>
 <p>This part of the code must not be modified.
 <code><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html" class="external-link">moduleServer()</a></code> is the function that initiates the creation
 of the module that makes up the process, as well as the various
@@ -797,7 +799,7 @@ values and reactive values previously initialized with
 contains the various variables, functions, and outputs that define the
 module’s functionality and appearance, such as the following code parts
 below.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="va">output</span><span class="op">$</span><span class="va">Description</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>      </span>
 <span>      <span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/normalizePath.html" class="external-link">normalizePath</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span></span>
@@ -834,7 +836,7 @@ sidebar.</li>
 the Description process, located in the md (see section 2.3). This is
 handled through the file object, and the content is rendered using
 <code><a href="https://rstudio.github.io/htmltools/reference/include.html" class="external-link">includeMarkdown()</a></code> when the file exists.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="fu">btnEvents</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, ignoreNULL <span class="op">=</span> <span class="cn">TRUE</span>,<span class="op">{</span></span>
 <span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">'Description'</span>, <span class="fu">btnEvents</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>        </span>
@@ -894,7 +896,7 @@ everything applies to PipelineName_Process2.R as well.</p>
 <h3 id="pipelinename_process1_conf">PipelineName_Process1_conf()<a class="anchor" aria-label="anchor" href="#pipelinename_process1_conf"></a>
 </h3>
 <p>The code for this function is as follow :</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PipelineName_Process1_conf</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu">MagellanNTK</span><span class="fu">::</span><span class="fu"><a href="../reference/Config-class.html">Config</a></span><span class="op">(</span></span>
 <span>    fullname <span class="op">=</span> <span class="st">'PipelineName_Process1'</span>,</span>
@@ -939,137 +941,137 @@ spaces and hyphens.</p>
 components of the description process module.</p>
 <p>The ui function is the same for every module and should not be
 modified.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PipelineName_Process1_ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>The code for the server function is as follows, and is explained in
 detail below (for a description of the function parameters, please refer
 to the function man) :</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>PipelineName_Process1_server <span class="ot">&lt;-</span> <span class="cf">function</span>(id,</span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>  <span class="at">dataIn =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>}),</span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  <span class="at">steps.enabled =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>}),</span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  <span class="at">remoteReset =</span> <span class="fu">reactive</span>({<span class="dv">0</span>}),</span>
-<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>  <span class="at">steps.status =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>}),</span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>  <span class="at">current.pos =</span> <span class="fu">reactive</span>({<span class="dv">1</span>}),</span>
-<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>  <span class="at">path =</span> <span class="cn">NULL</span>,</span>
-<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>  <span class="at">btnEvents =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>})</span>
-<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>){</span>
-<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a></span>
-<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>  widgets.default.values <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a>  rv.custom.default.values <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a>    <span class="at">history =</span> MagellanNTK<span class="sc">::</span><span class="fu">InitializeHistory</span>()</span>
-<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a>  )</span>
-<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a>  </span>
-<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a>  <span class="do">###########################################################################-</span></span>
-<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a>  <span class="co">#</span></span>
-<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a>  <span class="co">#----------------------------MODULE SERVER----------------------------------</span></span>
-<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a>  <span class="co">#</span></span>
-<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a>  <span class="do">###########################################################################-</span></span>
-<span id="cb16-21"><a href="#cb16-21" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb16-22"><a href="#cb16-22" tabindex="-1"></a>    ns <span class="ot">&lt;-</span> session<span class="sc">$</span>ns</span>
-<span id="cb16-23"><a href="#cb16-23" tabindex="-1"></a>    </span>
-<span id="cb16-24"><a href="#cb16-24" tabindex="-1"></a>    core.code <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Get_Workflow_Core_Code</span>(</span>
-<span id="cb16-25"><a href="#cb16-25" tabindex="-1"></a>      <span class="at">mode =</span> <span class="st">'process'</span>,</span>
-<span id="cb16-26"><a href="#cb16-26" tabindex="-1"></a>      <span class="at">name =</span> id,</span>
-<span id="cb16-27"><a href="#cb16-27" tabindex="-1"></a>      <span class="at">w.names =</span> <span class="fu">names</span>(widgets.default.values),</span>
-<span id="cb16-28"><a href="#cb16-28" tabindex="-1"></a>      <span class="at">rv.custom.names =</span> <span class="fu">names</span>(rv.custom.default.values)</span>
-<span id="cb16-29"><a href="#cb16-29" tabindex="-1"></a>    )</span>
-<span id="cb16-30"><a href="#cb16-30" tabindex="-1"></a>    </span>
-<span id="cb16-31"><a href="#cb16-31" tabindex="-1"></a>    <span class="fu">eval</span>(<span class="fu">str2expression</span>(core.code))</span>
-<span id="cb16-32"><a href="#cb16-32" tabindex="-1"></a></span>
-<span id="cb16-33"><a href="#cb16-33" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
-<span id="cb16-34"><a href="#cb16-34" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb16-35"><a href="#cb16-35" tabindex="-1"></a>    <span class="co">#-----------------------------DESCRIPTION-----------------------------------</span></span>
-<span id="cb16-36"><a href="#cb16-36" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb16-37"><a href="#cb16-37" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
-<span id="cb16-38"><a href="#cb16-38" tabindex="-1"></a>    output<span class="sc">$</span>Description <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb16-39"><a href="#cb16-39" tabindex="-1"></a>      </span>
-<span id="cb16-40"><a href="#cb16-40" tabindex="-1"></a>      file <span class="ot">&lt;-</span> <span class="fu">normalizePath</span>(<span class="fu">file.path</span>(</span>
-<span id="cb16-41"><a href="#cb16-41" tabindex="-1"></a>        <span class="fu">system.file</span>(<span class="st">'workflow'</span>, <span class="at">package =</span> <span class="st">'MagellanNTK'</span>),</span>
-<span id="cb16-42"><a href="#cb16-42" tabindex="-1"></a>        <span class="fu">unlist</span>(<span class="fu">strsplit</span>(id, <span class="st">'_'</span>))[<span class="dv">1</span>], </span>
-<span id="cb16-43"><a href="#cb16-43" tabindex="-1"></a>        <span class="st">'md'</span>, </span>
-<span id="cb16-44"><a href="#cb16-44" tabindex="-1"></a>        <span class="fu">paste0</span>(id, <span class="st">'.Rmd'</span>)))</span>
-<span id="cb16-45"><a href="#cb16-45" tabindex="-1"></a>      </span>
-<span id="cb16-46"><a href="#cb16-46" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
-<span id="cb16-47"><a href="#cb16-47" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
-<span id="cb16-48"><a href="#cb16-48" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
-<span id="cb16-49"><a href="#cb16-49" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>(</span>
-<span id="cb16-50"><a href="#cb16-50" tabindex="-1"></a>          <span class="cf">if</span> (<span class="fu">file.exists</span>(file))</span>
-<span id="cb16-51"><a href="#cb16-51" tabindex="-1"></a>            <span class="fu">includeMarkdown</span>(file)</span>
-<span id="cb16-52"><a href="#cb16-52" tabindex="-1"></a>          <span class="cf">else</span></span>
-<span id="cb16-53"><a href="#cb16-53" tabindex="-1"></a>            <span class="fu">p</span>(<span class="st">'No Description available'</span>)</span>
-<span id="cb16-54"><a href="#cb16-54" tabindex="-1"></a>        )</span>
-<span id="cb16-55"><a href="#cb16-55" tabindex="-1"></a>      )</span>
-<span id="cb16-56"><a href="#cb16-56" tabindex="-1"></a>    })</span>
-<span id="cb16-57"><a href="#cb16-57" tabindex="-1"></a>    </span>
-<span id="cb16-58"><a href="#cb16-58" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>,{</span>
-<span id="cb16-59"><a href="#cb16-59" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Description'</span>, <span class="fu">btnEvents</span>()))</span>
-<span id="cb16-60"><a href="#cb16-60" tabindex="-1"></a>      </span>
-<span id="cb16-61"><a href="#cb16-61" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">dataIn</span>())</span>
-<span id="cb16-62"><a href="#cb16-62" tabindex="-1"></a>      rv<span class="sc">$</span>dataIn <span class="ot">&lt;-</span> <span class="fu">dataIn</span>()</span>
-<span id="cb16-63"><a href="#cb16-63" tabindex="-1"></a>      </span>
-<span id="cb16-64"><a href="#cb16-64" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
-<span id="cb16-65"><a href="#cb16-65" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb16-66"><a href="#cb16-66" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Description'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
-<span id="cb16-67"><a href="#cb16-67" tabindex="-1"></a>    })</span>
-<span id="cb16-68"><a href="#cb16-68" tabindex="-1"></a>    </span>
-<span id="cb16-69"><a href="#cb16-69" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
-<span id="cb16-70"><a href="#cb16-70" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb16-71"><a href="#cb16-71" tabindex="-1"></a>    <span class="co">#------------------------------SUB-STEP 1-----------------------------------</span></span>
-<span id="cb16-72"><a href="#cb16-72" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb16-73"><a href="#cb16-73" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
-<span id="cb16-74"><a href="#cb16-74" tabindex="-1"></a>    output<span class="sc">$</span>Substep1 <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb16-75"><a href="#cb16-75" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
-<span id="cb16-76"><a href="#cb16-76" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
-<span id="cb16-77"><a href="#cb16-77" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
-<span id="cb16-78"><a href="#cb16-78" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>()</span>
-<span id="cb16-79"><a href="#cb16-79" tabindex="-1"></a>      )</span>
-<span id="cb16-80"><a href="#cb16-80" tabindex="-1"></a>    })</span>
-<span id="cb16-81"><a href="#cb16-81" tabindex="-1"></a>    </span>
-<span id="cb16-82"><a href="#cb16-82" tabindex="-1"></a>    [...]</span>
-<span id="cb16-83"><a href="#cb16-83" tabindex="-1"></a></span>
-<span id="cb16-84"><a href="#cb16-84" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>, {</span>
-<span id="cb16-85"><a href="#cb16-85" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Substep1'</span>, <span class="fu">btnEvents</span>()))</span>
-<span id="cb16-86"><a href="#cb16-86" tabindex="-1"></a>      </span>
-<span id="cb16-87"><a href="#cb16-87" tabindex="-1"></a>      rv.custom<span class="sc">$</span>history <span class="ot">&lt;-</span> <span class="fu">Add2History</span>(rv.custom<span class="sc">$</span>history, <span class="st">'Process1'</span>, <span class="st">'Substep1'</span>, <span class="st">'A'</span>, <span class="st">'xxx'</span>)</span>
-<span id="cb16-88"><a href="#cb16-88" tabindex="-1"></a>      len <span class="ot">&lt;-</span> <span class="fu">length</span>(rv<span class="sc">$</span>dataIn)</span>
-<span id="cb16-89"><a href="#cb16-89" tabindex="-1"></a>      rv<span class="sc">$</span>dataIn[[len]] <span class="ot">&lt;-</span> <span class="fu">SetHistory</span>(rv<span class="sc">$</span>dataIn[[len]], rv.custom<span class="sc">$</span>history)</span>
-<span id="cb16-90"><a href="#cb16-90" tabindex="-1"></a>      </span>
-<span id="cb16-91"><a href="#cb16-91" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
-<span id="cb16-92"><a href="#cb16-92" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb16-93"><a href="#cb16-93" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Substep1'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
-<span id="cb16-94"><a href="#cb16-94" tabindex="-1"></a>    })</span>
-<span id="cb16-95"><a href="#cb16-95" tabindex="-1"></a>    </span>
-<span id="cb16-96"><a href="#cb16-96" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
-<span id="cb16-97"><a href="#cb16-97" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb16-98"><a href="#cb16-98" tabindex="-1"></a>    <span class="co">#----------------------------------SAVE-------------------------------------</span></span>
-<span id="cb16-99"><a href="#cb16-99" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb16-100"><a href="#cb16-100" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
-<span id="cb16-101"><a href="#cb16-101" tabindex="-1"></a>    output<span class="sc">$</span>Save <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb16-102"><a href="#cb16-102" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
-<span id="cb16-103"><a href="#cb16-103" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
-<span id="cb16-104"><a href="#cb16-104" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
-<span id="cb16-105"><a href="#cb16-105" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>()</span>
-<span id="cb16-106"><a href="#cb16-106" tabindex="-1"></a>      )</span>
-<span id="cb16-107"><a href="#cb16-107" tabindex="-1"></a>    })</span>
-<span id="cb16-108"><a href="#cb16-108" tabindex="-1"></a>    </span>
-<span id="cb16-109"><a href="#cb16-109" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>,{</span>
-<span id="cb16-110"><a href="#cb16-110" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Save'</span>, <span class="fu">btnEvents</span>()))</span>
-<span id="cb16-111"><a href="#cb16-111" tabindex="-1"></a>      </span>
-<span id="cb16-112"><a href="#cb16-112" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
-<span id="cb16-113"><a href="#cb16-113" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> rv<span class="sc">$</span>dataIn</span>
-<span id="cb16-114"><a href="#cb16-114" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Save'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
-<span id="cb16-115"><a href="#cb16-115" tabindex="-1"></a>    })</span>
-<span id="cb16-116"><a href="#cb16-116" tabindex="-1"></a>    </span>
-<span id="cb16-117"><a href="#cb16-117" tabindex="-1"></a>    <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> MagellanNTK<span class="sc">::</span><span class="fu">Module_Return_Func</span>()))</span>
-<span id="cb16-118"><a href="#cb16-118" tabindex="-1"></a>  }</span>
-<span id="cb16-119"><a href="#cb16-119" tabindex="-1"></a>  )</span>
-<span id="cb16-120"><a href="#cb16-120" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>PipelineName_Process1_server <span class="ot">&lt;-</span> <span class="cf">function</span>(id,</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>  <span class="at">dataIn =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>}),</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="at">steps.enabled =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>}),</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="at">remoteReset =</span> <span class="fu">reactive</span>({<span class="dv">0</span>}),</span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>  <span class="at">steps.status =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>}),</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>  <span class="at">current.pos =</span> <span class="fu">reactive</span>({<span class="dv">1</span>}),</span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>  <span class="at">path =</span> <span class="cn">NULL</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>  <span class="at">btnEvents =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>})</span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a>){</span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a>  widgets.default.values <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a>  rv.custom.default.values <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a>    <span class="at">history =</span> MagellanNTK<span class="sc">::</span><span class="fu">InitializeHistory</span>()</span>
+<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a>  )</span>
+<span id="cb17-15"><a href="#cb17-15" tabindex="-1"></a>  </span>
+<span id="cb17-16"><a href="#cb17-16" tabindex="-1"></a>  <span class="do">###########################################################################-</span></span>
+<span id="cb17-17"><a href="#cb17-17" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb17-18"><a href="#cb17-18" tabindex="-1"></a>  <span class="co">#----------------------------MODULE SERVER----------------------------------</span></span>
+<span id="cb17-19"><a href="#cb17-19" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb17-20"><a href="#cb17-20" tabindex="-1"></a>  <span class="do">###########################################################################-</span></span>
+<span id="cb17-21"><a href="#cb17-21" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb17-22"><a href="#cb17-22" tabindex="-1"></a>    ns <span class="ot">&lt;-</span> session<span class="sc">$</span>ns</span>
+<span id="cb17-23"><a href="#cb17-23" tabindex="-1"></a>    </span>
+<span id="cb17-24"><a href="#cb17-24" tabindex="-1"></a>    core.code <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Get_Workflow_Core_Code</span>(</span>
+<span id="cb17-25"><a href="#cb17-25" tabindex="-1"></a>      <span class="at">mode =</span> <span class="st">'process'</span>,</span>
+<span id="cb17-26"><a href="#cb17-26" tabindex="-1"></a>      <span class="at">name =</span> id,</span>
+<span id="cb17-27"><a href="#cb17-27" tabindex="-1"></a>      <span class="at">w.names =</span> <span class="fu">names</span>(widgets.default.values),</span>
+<span id="cb17-28"><a href="#cb17-28" tabindex="-1"></a>      <span class="at">rv.custom.names =</span> <span class="fu">names</span>(rv.custom.default.values)</span>
+<span id="cb17-29"><a href="#cb17-29" tabindex="-1"></a>    )</span>
+<span id="cb17-30"><a href="#cb17-30" tabindex="-1"></a>    </span>
+<span id="cb17-31"><a href="#cb17-31" tabindex="-1"></a>    <span class="fu">eval</span>(<span class="fu">str2expression</span>(core.code))</span>
+<span id="cb17-32"><a href="#cb17-32" tabindex="-1"></a></span>
+<span id="cb17-33"><a href="#cb17-33" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
+<span id="cb17-34"><a href="#cb17-34" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb17-35"><a href="#cb17-35" tabindex="-1"></a>    <span class="co">#-----------------------------DESCRIPTION-----------------------------------</span></span>
+<span id="cb17-36"><a href="#cb17-36" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb17-37"><a href="#cb17-37" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
+<span id="cb17-38"><a href="#cb17-38" tabindex="-1"></a>    output<span class="sc">$</span>Description <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb17-39"><a href="#cb17-39" tabindex="-1"></a>      </span>
+<span id="cb17-40"><a href="#cb17-40" tabindex="-1"></a>      file <span class="ot">&lt;-</span> <span class="fu">normalizePath</span>(<span class="fu">file.path</span>(</span>
+<span id="cb17-41"><a href="#cb17-41" tabindex="-1"></a>        <span class="fu">system.file</span>(<span class="st">'workflow'</span>, <span class="at">package =</span> <span class="st">'MagellanNTK'</span>),</span>
+<span id="cb17-42"><a href="#cb17-42" tabindex="-1"></a>        <span class="fu">unlist</span>(<span class="fu">strsplit</span>(id, <span class="st">'_'</span>))[<span class="dv">1</span>], </span>
+<span id="cb17-43"><a href="#cb17-43" tabindex="-1"></a>        <span class="st">'md'</span>, </span>
+<span id="cb17-44"><a href="#cb17-44" tabindex="-1"></a>        <span class="fu">paste0</span>(id, <span class="st">'.Rmd'</span>)))</span>
+<span id="cb17-45"><a href="#cb17-45" tabindex="-1"></a>      </span>
+<span id="cb17-46"><a href="#cb17-46" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
+<span id="cb17-47"><a href="#cb17-47" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
+<span id="cb17-48"><a href="#cb17-48" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
+<span id="cb17-49"><a href="#cb17-49" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>(</span>
+<span id="cb17-50"><a href="#cb17-50" tabindex="-1"></a>          <span class="cf">if</span> (<span class="fu">file.exists</span>(file))</span>
+<span id="cb17-51"><a href="#cb17-51" tabindex="-1"></a>            <span class="fu">includeMarkdown</span>(file)</span>
+<span id="cb17-52"><a href="#cb17-52" tabindex="-1"></a>          <span class="cf">else</span></span>
+<span id="cb17-53"><a href="#cb17-53" tabindex="-1"></a>            <span class="fu">p</span>(<span class="st">'No Description available'</span>)</span>
+<span id="cb17-54"><a href="#cb17-54" tabindex="-1"></a>        )</span>
+<span id="cb17-55"><a href="#cb17-55" tabindex="-1"></a>      )</span>
+<span id="cb17-56"><a href="#cb17-56" tabindex="-1"></a>    })</span>
+<span id="cb17-57"><a href="#cb17-57" tabindex="-1"></a>    </span>
+<span id="cb17-58"><a href="#cb17-58" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>,{</span>
+<span id="cb17-59"><a href="#cb17-59" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Description'</span>, <span class="fu">btnEvents</span>()))</span>
+<span id="cb17-60"><a href="#cb17-60" tabindex="-1"></a>      </span>
+<span id="cb17-61"><a href="#cb17-61" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">dataIn</span>())</span>
+<span id="cb17-62"><a href="#cb17-62" tabindex="-1"></a>      rv<span class="sc">$</span>dataIn <span class="ot">&lt;-</span> <span class="fu">dataIn</span>()</span>
+<span id="cb17-63"><a href="#cb17-63" tabindex="-1"></a>      </span>
+<span id="cb17-64"><a href="#cb17-64" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
+<span id="cb17-65"><a href="#cb17-65" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb17-66"><a href="#cb17-66" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Description'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
+<span id="cb17-67"><a href="#cb17-67" tabindex="-1"></a>    })</span>
+<span id="cb17-68"><a href="#cb17-68" tabindex="-1"></a>    </span>
+<span id="cb17-69"><a href="#cb17-69" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
+<span id="cb17-70"><a href="#cb17-70" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb17-71"><a href="#cb17-71" tabindex="-1"></a>    <span class="co">#------------------------------SUB-STEP 1-----------------------------------</span></span>
+<span id="cb17-72"><a href="#cb17-72" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb17-73"><a href="#cb17-73" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
+<span id="cb17-74"><a href="#cb17-74" tabindex="-1"></a>    output<span class="sc">$</span>Substep1 <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb17-75"><a href="#cb17-75" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
+<span id="cb17-76"><a href="#cb17-76" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
+<span id="cb17-77"><a href="#cb17-77" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
+<span id="cb17-78"><a href="#cb17-78" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>()</span>
+<span id="cb17-79"><a href="#cb17-79" tabindex="-1"></a>      )</span>
+<span id="cb17-80"><a href="#cb17-80" tabindex="-1"></a>    })</span>
+<span id="cb17-81"><a href="#cb17-81" tabindex="-1"></a>    </span>
+<span id="cb17-82"><a href="#cb17-82" tabindex="-1"></a>    [...]</span>
+<span id="cb17-83"><a href="#cb17-83" tabindex="-1"></a></span>
+<span id="cb17-84"><a href="#cb17-84" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>, {</span>
+<span id="cb17-85"><a href="#cb17-85" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Substep1'</span>, <span class="fu">btnEvents</span>()))</span>
+<span id="cb17-86"><a href="#cb17-86" tabindex="-1"></a>      </span>
+<span id="cb17-87"><a href="#cb17-87" tabindex="-1"></a>      rv.custom<span class="sc">$</span>history <span class="ot">&lt;-</span> <span class="fu">Add2History</span>(rv.custom<span class="sc">$</span>history, <span class="st">'Process1'</span>, <span class="st">'Substep1'</span>, <span class="st">'A'</span>, <span class="st">'xxx'</span>)</span>
+<span id="cb17-88"><a href="#cb17-88" tabindex="-1"></a>      len <span class="ot">&lt;-</span> <span class="fu">length</span>(rv<span class="sc">$</span>dataIn)</span>
+<span id="cb17-89"><a href="#cb17-89" tabindex="-1"></a>      rv<span class="sc">$</span>dataIn[[len]] <span class="ot">&lt;-</span> <span class="fu">SetHistory</span>(rv<span class="sc">$</span>dataIn[[len]], rv.custom<span class="sc">$</span>history)</span>
+<span id="cb17-90"><a href="#cb17-90" tabindex="-1"></a>      </span>
+<span id="cb17-91"><a href="#cb17-91" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
+<span id="cb17-92"><a href="#cb17-92" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb17-93"><a href="#cb17-93" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Substep1'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
+<span id="cb17-94"><a href="#cb17-94" tabindex="-1"></a>    })</span>
+<span id="cb17-95"><a href="#cb17-95" tabindex="-1"></a>    </span>
+<span id="cb17-96"><a href="#cb17-96" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
+<span id="cb17-97"><a href="#cb17-97" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb17-98"><a href="#cb17-98" tabindex="-1"></a>    <span class="co">#----------------------------------SAVE-------------------------------------</span></span>
+<span id="cb17-99"><a href="#cb17-99" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb17-100"><a href="#cb17-100" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
+<span id="cb17-101"><a href="#cb17-101" tabindex="-1"></a>    output<span class="sc">$</span>Save <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb17-102"><a href="#cb17-102" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
+<span id="cb17-103"><a href="#cb17-103" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
+<span id="cb17-104"><a href="#cb17-104" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
+<span id="cb17-105"><a href="#cb17-105" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>()</span>
+<span id="cb17-106"><a href="#cb17-106" tabindex="-1"></a>      )</span>
+<span id="cb17-107"><a href="#cb17-107" tabindex="-1"></a>    })</span>
+<span id="cb17-108"><a href="#cb17-108" tabindex="-1"></a>    </span>
+<span id="cb17-109"><a href="#cb17-109" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>,{</span>
+<span id="cb17-110"><a href="#cb17-110" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Save'</span>, <span class="fu">btnEvents</span>()))</span>
+<span id="cb17-111"><a href="#cb17-111" tabindex="-1"></a>      </span>
+<span id="cb17-112"><a href="#cb17-112" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
+<span id="cb17-113"><a href="#cb17-113" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> rv<span class="sc">$</span>dataIn</span>
+<span id="cb17-114"><a href="#cb17-114" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Save'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
+<span id="cb17-115"><a href="#cb17-115" tabindex="-1"></a>    })</span>
+<span id="cb17-116"><a href="#cb17-116" tabindex="-1"></a>    </span>
+<span id="cb17-117"><a href="#cb17-117" tabindex="-1"></a>    <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> MagellanNTK<span class="sc">::</span><span class="fu">Module_Return_Func</span>()))</span>
+<span id="cb17-118"><a href="#cb17-118" tabindex="-1"></a>  }</span>
+<span id="cb17-119"><a href="#cb17-119" tabindex="-1"></a>  )</span>
+<span id="cb17-120"><a href="#cb17-120" tabindex="-1"></a>}</span></code></pre></div>
 <div class="section level4">
 <h4 id="pipelinename_process1_server-detailled-explanation">PipelineName_Process1_server() detailled explanation<a class="anchor" aria-label="anchor" href="#pipelinename_process1_server-detailled-explanation"></a>
 </h4>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">widgets.default.values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">rv.custom.default.values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -1086,22 +1088,22 @@ defined in <code>widgets.default.values</code> are accessible via
 <code>rv.widgets$Name</code>, while those defined in
 <code>rv.custom.default.values</code> can be accessed through
 <code>rv.custom$Name</code>.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>      ns <span class="ot">&lt;-</span> session<span class="sc">$</span>ns</span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>      </span>
-<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>      core.code <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Get_Workflow_Core_Code</span>(</span>
-<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>        <span class="at">mode =</span> <span class="st">'process'</span>,</span>
-<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>        <span class="at">name =</span> id,</span>
-<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a>        <span class="at">w.names =</span> <span class="fu">names</span>(widgets.default.values),</span>
-<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a>        <span class="at">rv.custom.names =</span> <span class="fu">names</span>(rv.custom.default.values)</span>
-<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a>      )</span>
-<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a>      </span>
-<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">str2expression</span>(core.code))</span>
-<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a>      </span>
-<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a>      [...]</span>
-<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a>      </span>
-<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> MagellanNTK<span class="sc">::</span><span class="fu">Module_Return_Func</span>()))</span>
-<span id="cb18-16"><a href="#cb18-16" tabindex="-1"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>      ns <span class="ot">&lt;-</span> session<span class="sc">$</span>ns</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>      </span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>      core.code <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Get_Workflow_Core_Code</span>(</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>        <span class="at">mode =</span> <span class="st">'process'</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>        <span class="at">name =</span> id,</span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>        <span class="at">w.names =</span> <span class="fu">names</span>(widgets.default.values),</span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a>        <span class="at">rv.custom.names =</span> <span class="fu">names</span>(rv.custom.default.values)</span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a>      )</span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a>      </span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">str2expression</span>(core.code))</span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a>      </span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a>      [...]</span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a>      </span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> MagellanNTK<span class="sc">::</span><span class="fu">Module_Return_Func</span>()))</span>
+<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a>  }</span></code></pre></div>
 <p>This part of the code must not be modified.
 <code><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html" class="external-link">moduleServer()</a></code> is the function that initiates the creation
 of the module that makes up the process, as well as the various
@@ -1115,7 +1117,7 @@ appearance, such as the following code parts below.</p>
 <div class="section level5">
 <h5 id="pipelinename_process1_server-description-sub-step">PipelineName_Process1_server() Description sub-step<a class="anchor" aria-label="anchor" href="#pipelinename_process1_server-description-sub-step"></a>
 </h5>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="va">output</span><span class="op">$</span><span class="va">Description</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>      </span>
 <span>      <span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/normalizePath.html" class="external-link">normalizePath</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span></span>
@@ -1169,27 +1171,27 @@ subsequent sub-step(s).</li>
 <div class="section level5">
 <h5 id="pipelinename_process1_server-sub-step-1-sub-step">PipelineName_Process1_server() Sub-step 1 sub-step<a class="anchor" aria-label="anchor" href="#pipelinename_process1_server-sub-step-1-sub-step"></a>
 </h5>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>    output<span class="sc">$</span>Substep1 <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
-<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
-<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
-<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>()</span>
-<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>      )</span>
-<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>    })</span>
-<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a>    </span>
-<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>    [...]</span>
-<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a></span>
-<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>, {</span>
-<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Substep1'</span>, <span class="fu">btnEvents</span>()))</span>
-<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a>      </span>
-<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a>      rv.custom<span class="sc">$</span>history <span class="ot">&lt;-</span> <span class="fu">Add2History</span>(rv.custom<span class="sc">$</span>history, <span class="st">'Process1'</span>, <span class="st">'Substep1'</span>, <span class="st">'A'</span>, <span class="st">'xxx'</span>)</span>
-<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a>      len <span class="ot">&lt;-</span> <span class="fu">length</span>(rv<span class="sc">$</span>dataIn)</span>
-<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a>      rv<span class="sc">$</span>dataIn[[len]] <span class="ot">&lt;-</span> <span class="fu">SetHistory</span>(rv<span class="sc">$</span>dataIn[[len]], rv.custom<span class="sc">$</span>history)</span>
-<span id="cb20-17"><a href="#cb20-17" tabindex="-1"></a>      </span>
-<span id="cb20-18"><a href="#cb20-18" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
-<span id="cb20-19"><a href="#cb20-19" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb20-20"><a href="#cb20-20" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Substep1'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
-<span id="cb20-21"><a href="#cb20-21" tabindex="-1"></a>    })</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>    output<span class="sc">$</span>Substep1 <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>()</span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>      )</span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a>    })</span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a>    </span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a>    [...]</span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>, {</span>
+<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Substep1'</span>, <span class="fu">btnEvents</span>()))</span>
+<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a>      </span>
+<span id="cb21-14"><a href="#cb21-14" tabindex="-1"></a>      rv.custom<span class="sc">$</span>history <span class="ot">&lt;-</span> <span class="fu">Add2History</span>(rv.custom<span class="sc">$</span>history, <span class="st">'Process1'</span>, <span class="st">'Substep1'</span>, <span class="st">'A'</span>, <span class="st">'xxx'</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" tabindex="-1"></a>      len <span class="ot">&lt;-</span> <span class="fu">length</span>(rv<span class="sc">$</span>dataIn)</span>
+<span id="cb21-16"><a href="#cb21-16" tabindex="-1"></a>      rv<span class="sc">$</span>dataIn[[len]] <span class="ot">&lt;-</span> <span class="fu">SetHistory</span>(rv<span class="sc">$</span>dataIn[[len]], rv.custom<span class="sc">$</span>history)</span>
+<span id="cb21-17"><a href="#cb21-17" tabindex="-1"></a>      </span>
+<span id="cb21-18"><a href="#cb21-18" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
+<span id="cb21-19"><a href="#cb21-19" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb21-20"><a href="#cb21-20" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Substep1'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
+<span id="cb21-21"><a href="#cb21-21" tabindex="-1"></a>    })</span></code></pre></div>
 <p><code>output$Substep1 &lt;- renderUI({})</code> defines everything
 that should be displayed for the associated sub-step of the process. The
 naming convention follows <code>output$SubstepName</code>, and it always
@@ -1218,7 +1220,7 @@ to include as many sub-steps as needed within a process.</p>
 <div class="section level5">
 <h5 id="pipelinename_process1_server-save-sub-step">PipelineName_Process1_server() Save sub-step<a class="anchor" aria-label="anchor" href="#pipelinename_process1_server-save-sub-step"></a>
 </h5>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="va">output</span><span class="op">$</span><span class="va">Save</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>      <span class="fu">MagellanNTK</span><span class="fu">::</span><span class="fu"><a href="../reference/process_layout.html">process_layout</a></span><span class="op">(</span><span class="va">session</span>,</span>
 <span>        ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>,</span>
@@ -1272,7 +1274,7 @@ functions <code>PipelineName_Save_conf()</code>,
 <h3 id="pipelinename_save_conf">PipelineName_Save_conf()<a class="anchor" aria-label="anchor" href="#pipelinename_save_conf"></a>
 </h3>
 <p>The code for this function is as follow :</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PipelineName_Save_conf</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu">MagellanNTK</span><span class="fu">::</span><span class="fu"><a href="../reference/Config-class.html">Config</a></span><span class="op">(</span></span>
 <span>    mode <span class="op">=</span> <span class="st">'process'</span>,</span>
@@ -1289,14 +1291,14 @@ additional details.</p>
 components of the save process module.</p>
 <p>The ui function is the same for every module and should not be
 modified.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PipelineName_Save_ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>The code for the server function is as follows, and is explained in
 detail below (for a description of the function parameters, please refer
 to the function man) :</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PipelineName_Save_server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>,</span>
 <span>  <span class="va">dataIn</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span><span class="cn">NULL</span><span class="op">}</span><span class="op">)</span>,</span>
 <span>  <span class="va">steps.enabled</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span><span class="cn">NULL</span><span class="op">}</span><span class="op">)</span>,</span>
@@ -1371,7 +1373,7 @@ to the function man) :</p>
 <div class="section level4">
 <h4 id="pipelinename_save_server-detailled-explanation">PipelineName_Save_server() detailled explanation<a class="anchor" aria-label="anchor" href="#pipelinename_save_server-detailled-explanation"></a>
 </h4>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">widgets.default.values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">rv.custom.default.values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -1386,22 +1388,22 @@ in <code>widgets.default.values</code> are accessible via
 <code>rv.widgets$Name</code>, while those defined in
 <code>rv.custom.default.values</code> can be accessed through
 <code>rv.custom$Name</code>.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>      ns <span class="ot">&lt;-</span> session<span class="sc">$</span>ns</span>
-<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>      </span>
-<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a>      core.code <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Get_Workflow_Core_Code</span>(</span>
-<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a>        <span class="at">mode =</span> <span class="st">'process'</span>,</span>
-<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a>        <span class="at">name =</span> id,</span>
-<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a>        <span class="at">w.names =</span> <span class="fu">names</span>(widgets.default.values),</span>
-<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a>        <span class="at">rv.custom.names =</span> <span class="fu">names</span>(rv.custom.default.values)</span>
-<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a>      )</span>
-<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a>      </span>
-<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">str2expression</span>(core.code))</span>
-<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a>      </span>
-<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a>      [...]</span>
-<span id="cb26-14"><a href="#cb26-14" tabindex="-1"></a>      </span>
-<span id="cb26-15"><a href="#cb26-15" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> MagellanNTK<span class="sc">::</span><span class="fu">Module_Return_Func</span>()))</span>
-<span id="cb26-16"><a href="#cb26-16" tabindex="-1"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>      ns <span class="ot">&lt;-</span> session<span class="sc">$</span>ns</span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>      </span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>      core.code <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Get_Workflow_Core_Code</span>(</span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>        <span class="at">mode =</span> <span class="st">'process'</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a>        <span class="at">name =</span> id,</span>
+<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a>        <span class="at">w.names =</span> <span class="fu">names</span>(widgets.default.values),</span>
+<span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a>        <span class="at">rv.custom.names =</span> <span class="fu">names</span>(rv.custom.default.values)</span>
+<span id="cb27-9"><a href="#cb27-9" tabindex="-1"></a>      )</span>
+<span id="cb27-10"><a href="#cb27-10" tabindex="-1"></a>      </span>
+<span id="cb27-11"><a href="#cb27-11" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">str2expression</span>(core.code))</span>
+<span id="cb27-12"><a href="#cb27-12" tabindex="-1"></a>      </span>
+<span id="cb27-13"><a href="#cb27-13" tabindex="-1"></a>      [...]</span>
+<span id="cb27-14"><a href="#cb27-14" tabindex="-1"></a>      </span>
+<span id="cb27-15"><a href="#cb27-15" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> MagellanNTK<span class="sc">::</span><span class="fu">Module_Return_Func</span>()))</span>
+<span id="cb27-16"><a href="#cb27-16" tabindex="-1"></a>  }</span></code></pre></div>
 <p>This part of the code must not be modified.
 <code><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html" class="external-link">moduleServer()</a></code> is the function that initiates the creation
 of the module that makes up the process, as well as the various
@@ -1412,7 +1414,7 @@ values and reactive values previously initialized with
 contains the various variables, functions, and outputs that define the
 module’s functionality and appearance, such as the following code parts
 below.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="va">output</span><span class="op">$</span><span class="va">Save</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>      </span>
 <span>      <span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/normalizePath.html" class="external-link">normalizePath</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span></span>
@@ -1449,7 +1451,7 @@ sidebar.</li>
 the Save process, located in the md folder (see section 2.3). This is
 handled through the file object, and the content is rendered using
 <code><a href="https://rstudio.github.io/htmltools/reference/include.html" class="external-link">includeMarkdown()</a></code> when the file exists.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="fu">dataIn</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, <span class="op">{</span></span>
 <span>      <span class="va">rv</span><span class="op">$</span><span class="va">dataIn</span> <span class="op">&lt;-</span> <span class="fu">dataIn</span><span class="op">(</span><span class="op">)</span></span>
 <span>    <span class="op">}</span><span class="op">)</span></span></code></pre></div>
@@ -1460,7 +1462,7 @@ not triggered by clicking on a “Run” button, but when a file is
 available in <code>dataIn()</code>, meaning when the Save process is
 enabled. Its purpose is simply to make the current dataset accessible by
 storing it in the reactive value <code>rv$dataIn</code>.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="fu">btnEvents</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, ignoreInit <span class="op">=</span> <span class="cn">TRUE</span>, ignoreNULL <span class="op">=</span> <span class="cn">TRUE</span>,<span class="op">{</span></span>
 <span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html" class="external-link">req</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">'Save'</span>, <span class="fu">btnEvents</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>        </span>
@@ -1506,7 +1508,7 @@ the file name and function names can’t be modified.</p>
 <h3 id="pipelinename_convert_conf">PipelineName_Convert_conf()<a class="anchor" aria-label="anchor" href="#pipelinename_convert_conf"></a>
 </h3>
 <p>The code for this function is as follow :</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PipelineName_Convert_conf</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu">MagellanNTK</span><span class="fu">::</span><span class="fu"><a href="../reference/Config-class.html">Config</a></span><span class="op">(</span></span>
 <span>    mode <span class="op">=</span> <span class="st">'process'</span>,</span>
@@ -1549,137 +1551,137 @@ spaces and hyphens.</p>
 components of the description process module.</p>
 <p>The ui function is the same for every module and should not be
 modified.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PipelineName_Convert_ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>The code for the server function is as follows, and is explained in
 detail below (for a description of the function parameters, please refer
 to the function man) :</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>PipelineName_Convert_server <span class="ot">&lt;-</span> <span class="cf">function</span>(id,</span>
-<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>  <span class="at">dataIn =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>}),</span>
-<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>  <span class="at">steps.enabled =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>}),</span>
-<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a>  <span class="at">remoteReset =</span> <span class="fu">reactive</span>({<span class="dv">0</span>}),</span>
-<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a>  <span class="at">steps.status =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>}),</span>
-<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a>  <span class="at">current.pos =</span> <span class="fu">reactive</span>({<span class="dv">1</span>}),</span>
-<span id="cb32-7"><a href="#cb32-7" tabindex="-1"></a>  <span class="at">path =</span> <span class="cn">NULL</span>,</span>
-<span id="cb32-8"><a href="#cb32-8" tabindex="-1"></a>  <span class="at">btnEvents =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>})</span>
-<span id="cb32-9"><a href="#cb32-9" tabindex="-1"></a>){</span>
-<span id="cb32-10"><a href="#cb32-10" tabindex="-1"></a></span>
-<span id="cb32-11"><a href="#cb32-11" tabindex="-1"></a>  widgets.default.values <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb32-12"><a href="#cb32-12" tabindex="-1"></a>  rv.custom.default.values <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb32-13"><a href="#cb32-13" tabindex="-1"></a>    <span class="at">history =</span> MagellanNTK<span class="sc">::</span><span class="fu">InitializeHistory</span>()</span>
-<span id="cb32-14"><a href="#cb32-14" tabindex="-1"></a>  )</span>
-<span id="cb32-15"><a href="#cb32-15" tabindex="-1"></a>  </span>
-<span id="cb32-16"><a href="#cb32-16" tabindex="-1"></a>  <span class="do">###########################################################################-</span></span>
-<span id="cb32-17"><a href="#cb32-17" tabindex="-1"></a>  <span class="co">#</span></span>
-<span id="cb32-18"><a href="#cb32-18" tabindex="-1"></a>  <span class="co">#----------------------------MODULE SERVER----------------------------------</span></span>
-<span id="cb32-19"><a href="#cb32-19" tabindex="-1"></a>  <span class="co">#</span></span>
-<span id="cb32-20"><a href="#cb32-20" tabindex="-1"></a>  <span class="do">###########################################################################-</span></span>
-<span id="cb32-21"><a href="#cb32-21" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb32-22"><a href="#cb32-22" tabindex="-1"></a>    ns <span class="ot">&lt;-</span> session<span class="sc">$</span>ns</span>
-<span id="cb32-23"><a href="#cb32-23" tabindex="-1"></a>    </span>
-<span id="cb32-24"><a href="#cb32-24" tabindex="-1"></a>    core.code <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Get_Workflow_Core_Code</span>(</span>
-<span id="cb32-25"><a href="#cb32-25" tabindex="-1"></a>      <span class="at">mode =</span> <span class="st">'process'</span>,</span>
-<span id="cb32-26"><a href="#cb32-26" tabindex="-1"></a>      <span class="at">name =</span> id,</span>
-<span id="cb32-27"><a href="#cb32-27" tabindex="-1"></a>      <span class="at">w.names =</span> <span class="fu">names</span>(widgets.default.values),</span>
-<span id="cb32-28"><a href="#cb32-28" tabindex="-1"></a>      <span class="at">rv.custom.names =</span> <span class="fu">names</span>(rv.custom.default.values)</span>
-<span id="cb32-29"><a href="#cb32-29" tabindex="-1"></a>    )</span>
-<span id="cb32-30"><a href="#cb32-30" tabindex="-1"></a>    </span>
-<span id="cb32-31"><a href="#cb32-31" tabindex="-1"></a>    <span class="fu">eval</span>(<span class="fu">str2expression</span>(core.code))</span>
-<span id="cb32-32"><a href="#cb32-32" tabindex="-1"></a></span>
-<span id="cb32-33"><a href="#cb32-33" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
-<span id="cb32-34"><a href="#cb32-34" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb32-35"><a href="#cb32-35" tabindex="-1"></a>    <span class="co">#-----------------------------DESCRIPTION-----------------------------------</span></span>
-<span id="cb32-36"><a href="#cb32-36" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb32-37"><a href="#cb32-37" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
-<span id="cb32-38"><a href="#cb32-38" tabindex="-1"></a>    output<span class="sc">$</span>Description <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb32-39"><a href="#cb32-39" tabindex="-1"></a>      </span>
-<span id="cb32-40"><a href="#cb32-40" tabindex="-1"></a>      file <span class="ot">&lt;-</span> <span class="fu">normalizePath</span>(<span class="fu">file.path</span>(</span>
-<span id="cb32-41"><a href="#cb32-41" tabindex="-1"></a>        <span class="fu">system.file</span>(<span class="st">'workflow'</span>, <span class="at">package =</span> <span class="st">'MagellanNTK'</span>),</span>
-<span id="cb32-42"><a href="#cb32-42" tabindex="-1"></a>        <span class="fu">unlist</span>(<span class="fu">strsplit</span>(id, <span class="st">'_'</span>))[<span class="dv">1</span>], </span>
-<span id="cb32-43"><a href="#cb32-43" tabindex="-1"></a>        <span class="st">'md'</span>, </span>
-<span id="cb32-44"><a href="#cb32-44" tabindex="-1"></a>        <span class="fu">paste0</span>(id, <span class="st">'.Rmd'</span>)))</span>
-<span id="cb32-45"><a href="#cb32-45" tabindex="-1"></a>      </span>
-<span id="cb32-46"><a href="#cb32-46" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
-<span id="cb32-47"><a href="#cb32-47" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
-<span id="cb32-48"><a href="#cb32-48" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
-<span id="cb32-49"><a href="#cb32-49" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>(</span>
-<span id="cb32-50"><a href="#cb32-50" tabindex="-1"></a>          <span class="cf">if</span> (<span class="fu">file.exists</span>(file))</span>
-<span id="cb32-51"><a href="#cb32-51" tabindex="-1"></a>            <span class="fu">includeMarkdown</span>(file)</span>
-<span id="cb32-52"><a href="#cb32-52" tabindex="-1"></a>          <span class="cf">else</span></span>
-<span id="cb32-53"><a href="#cb32-53" tabindex="-1"></a>            <span class="fu">p</span>(<span class="st">'No Description available'</span>)</span>
-<span id="cb32-54"><a href="#cb32-54" tabindex="-1"></a>        )</span>
-<span id="cb32-55"><a href="#cb32-55" tabindex="-1"></a>      )</span>
-<span id="cb32-56"><a href="#cb32-56" tabindex="-1"></a>    })</span>
-<span id="cb32-57"><a href="#cb32-57" tabindex="-1"></a>    </span>
-<span id="cb32-58"><a href="#cb32-58" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>,{</span>
-<span id="cb32-59"><a href="#cb32-59" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Description'</span>, <span class="fu">btnEvents</span>()))</span>
-<span id="cb32-60"><a href="#cb32-60" tabindex="-1"></a>      </span>
-<span id="cb32-61"><a href="#cb32-61" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">dataIn</span>())</span>
-<span id="cb32-62"><a href="#cb32-62" tabindex="-1"></a>      rv<span class="sc">$</span>dataIn <span class="ot">&lt;-</span> <span class="fu">dataIn</span>()</span>
-<span id="cb32-63"><a href="#cb32-63" tabindex="-1"></a>      </span>
-<span id="cb32-64"><a href="#cb32-64" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
-<span id="cb32-65"><a href="#cb32-65" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> rv<span class="sc">$</span>dataIn</span>
-<span id="cb32-66"><a href="#cb32-66" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Description'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
-<span id="cb32-67"><a href="#cb32-67" tabindex="-1"></a>    })</span>
-<span id="cb32-68"><a href="#cb32-68" tabindex="-1"></a>    </span>
-<span id="cb32-69"><a href="#cb32-69" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
-<span id="cb32-70"><a href="#cb32-70" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb32-71"><a href="#cb32-71" tabindex="-1"></a>    <span class="co">#------------------------------SUB-STEP 1-----------------------------------</span></span>
-<span id="cb32-72"><a href="#cb32-72" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb32-73"><a href="#cb32-73" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
-<span id="cb32-74"><a href="#cb32-74" tabindex="-1"></a>    output<span class="sc">$</span>Convertsubstep1 <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb32-75"><a href="#cb32-75" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
-<span id="cb32-76"><a href="#cb32-76" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
-<span id="cb32-77"><a href="#cb32-77" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
-<span id="cb32-78"><a href="#cb32-78" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>()</span>
-<span id="cb32-79"><a href="#cb32-79" tabindex="-1"></a>      )</span>
-<span id="cb32-80"><a href="#cb32-80" tabindex="-1"></a>    })</span>
-<span id="cb32-81"><a href="#cb32-81" tabindex="-1"></a>    </span>
-<span id="cb32-82"><a href="#cb32-82" tabindex="-1"></a>    [...]</span>
-<span id="cb32-83"><a href="#cb32-83" tabindex="-1"></a></span>
-<span id="cb32-84"><a href="#cb32-84" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>, {</span>
-<span id="cb32-85"><a href="#cb32-85" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Convertsubstep1'</span>, <span class="fu">btnEvents</span>()))</span>
-<span id="cb32-86"><a href="#cb32-86" tabindex="-1"></a>      </span>
-<span id="cb32-87"><a href="#cb32-87" tabindex="-1"></a>      rv.custom<span class="sc">$</span>history <span class="ot">&lt;-</span> <span class="fu">Add2History</span>(rv.custom<span class="sc">$</span>history, <span class="st">'Convert'</span>, <span class="st">'Convertsubstep1'</span>, <span class="st">'A'</span>, <span class="st">'xxx'</span>)</span>
-<span id="cb32-88"><a href="#cb32-88" tabindex="-1"></a>      len <span class="ot">&lt;-</span> <span class="fu">length</span>(rv<span class="sc">$</span>dataIn)</span>
-<span id="cb32-89"><a href="#cb32-89" tabindex="-1"></a>      rv<span class="sc">$</span>dataIn[[len]] <span class="ot">&lt;-</span> <span class="fu">SetHistory</span>(rv<span class="sc">$</span>dataIn[[len]], rv.custom<span class="sc">$</span>history)</span>
-<span id="cb32-90"><a href="#cb32-90" tabindex="-1"></a>      </span>
-<span id="cb32-91"><a href="#cb32-91" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
-<span id="cb32-92"><a href="#cb32-92" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb32-93"><a href="#cb32-93" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Convertsubstep1'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
-<span id="cb32-94"><a href="#cb32-94" tabindex="-1"></a>    })</span>
-<span id="cb32-95"><a href="#cb32-95" tabindex="-1"></a>    </span>
-<span id="cb32-96"><a href="#cb32-96" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
-<span id="cb32-97"><a href="#cb32-97" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb32-98"><a href="#cb32-98" tabindex="-1"></a>    <span class="co">#----------------------------------SAVE-------------------------------------</span></span>
-<span id="cb32-99"><a href="#cb32-99" tabindex="-1"></a>    <span class="co">#</span></span>
-<span id="cb32-100"><a href="#cb32-100" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
-<span id="cb32-101"><a href="#cb32-101" tabindex="-1"></a>    output<span class="sc">$</span>Save <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb32-102"><a href="#cb32-102" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
-<span id="cb32-103"><a href="#cb32-103" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
-<span id="cb32-104"><a href="#cb32-104" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
-<span id="cb32-105"><a href="#cb32-105" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>()</span>
-<span id="cb32-106"><a href="#cb32-106" tabindex="-1"></a>      )</span>
-<span id="cb32-107"><a href="#cb32-107" tabindex="-1"></a>    })</span>
-<span id="cb32-108"><a href="#cb32-108" tabindex="-1"></a>    </span>
-<span id="cb32-109"><a href="#cb32-109" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>,{</span>
-<span id="cb32-110"><a href="#cb32-110" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Save'</span>, <span class="fu">btnEvents</span>()))</span>
-<span id="cb32-111"><a href="#cb32-111" tabindex="-1"></a>      </span>
-<span id="cb32-112"><a href="#cb32-112" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
-<span id="cb32-113"><a href="#cb32-113" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> rv<span class="sc">$</span>dataIn</span>
-<span id="cb32-114"><a href="#cb32-114" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Save'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
-<span id="cb32-115"><a href="#cb32-115" tabindex="-1"></a>    })</span>
-<span id="cb32-116"><a href="#cb32-116" tabindex="-1"></a>    </span>
-<span id="cb32-117"><a href="#cb32-117" tabindex="-1"></a>    <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> MagellanNTK<span class="sc">::</span><span class="fu">Module_Return_Func</span>()))</span>
-<span id="cb32-118"><a href="#cb32-118" tabindex="-1"></a>  }</span>
-<span id="cb32-119"><a href="#cb32-119" tabindex="-1"></a>  )</span>
-<span id="cb32-120"><a href="#cb32-120" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>PipelineName_Convert_server <span class="ot">&lt;-</span> <span class="cf">function</span>(id,</span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>  <span class="at">dataIn =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>}),</span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>  <span class="at">steps.enabled =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>}),</span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>  <span class="at">remoteReset =</span> <span class="fu">reactive</span>({<span class="dv">0</span>}),</span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>  <span class="at">steps.status =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>}),</span>
+<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a>  <span class="at">current.pos =</span> <span class="fu">reactive</span>({<span class="dv">1</span>}),</span>
+<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a>  <span class="at">path =</span> <span class="cn">NULL</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a>  <span class="at">btnEvents =</span> <span class="fu">reactive</span>({<span class="cn">NULL</span>})</span>
+<span id="cb33-9"><a href="#cb33-9" tabindex="-1"></a>){</span>
+<span id="cb33-10"><a href="#cb33-10" tabindex="-1"></a></span>
+<span id="cb33-11"><a href="#cb33-11" tabindex="-1"></a>  widgets.default.values <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb33-12"><a href="#cb33-12" tabindex="-1"></a>  rv.custom.default.values <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb33-13"><a href="#cb33-13" tabindex="-1"></a>    <span class="at">history =</span> MagellanNTK<span class="sc">::</span><span class="fu">InitializeHistory</span>()</span>
+<span id="cb33-14"><a href="#cb33-14" tabindex="-1"></a>  )</span>
+<span id="cb33-15"><a href="#cb33-15" tabindex="-1"></a>  </span>
+<span id="cb33-16"><a href="#cb33-16" tabindex="-1"></a>  <span class="do">###########################################################################-</span></span>
+<span id="cb33-17"><a href="#cb33-17" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb33-18"><a href="#cb33-18" tabindex="-1"></a>  <span class="co">#----------------------------MODULE SERVER----------------------------------</span></span>
+<span id="cb33-19"><a href="#cb33-19" tabindex="-1"></a>  <span class="co">#</span></span>
+<span id="cb33-20"><a href="#cb33-20" tabindex="-1"></a>  <span class="do">###########################################################################-</span></span>
+<span id="cb33-21"><a href="#cb33-21" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb33-22"><a href="#cb33-22" tabindex="-1"></a>    ns <span class="ot">&lt;-</span> session<span class="sc">$</span>ns</span>
+<span id="cb33-23"><a href="#cb33-23" tabindex="-1"></a>    </span>
+<span id="cb33-24"><a href="#cb33-24" tabindex="-1"></a>    core.code <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Get_Workflow_Core_Code</span>(</span>
+<span id="cb33-25"><a href="#cb33-25" tabindex="-1"></a>      <span class="at">mode =</span> <span class="st">'process'</span>,</span>
+<span id="cb33-26"><a href="#cb33-26" tabindex="-1"></a>      <span class="at">name =</span> id,</span>
+<span id="cb33-27"><a href="#cb33-27" tabindex="-1"></a>      <span class="at">w.names =</span> <span class="fu">names</span>(widgets.default.values),</span>
+<span id="cb33-28"><a href="#cb33-28" tabindex="-1"></a>      <span class="at">rv.custom.names =</span> <span class="fu">names</span>(rv.custom.default.values)</span>
+<span id="cb33-29"><a href="#cb33-29" tabindex="-1"></a>    )</span>
+<span id="cb33-30"><a href="#cb33-30" tabindex="-1"></a>    </span>
+<span id="cb33-31"><a href="#cb33-31" tabindex="-1"></a>    <span class="fu">eval</span>(<span class="fu">str2expression</span>(core.code))</span>
+<span id="cb33-32"><a href="#cb33-32" tabindex="-1"></a></span>
+<span id="cb33-33"><a href="#cb33-33" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
+<span id="cb33-34"><a href="#cb33-34" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb33-35"><a href="#cb33-35" tabindex="-1"></a>    <span class="co">#-----------------------------DESCRIPTION-----------------------------------</span></span>
+<span id="cb33-36"><a href="#cb33-36" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb33-37"><a href="#cb33-37" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
+<span id="cb33-38"><a href="#cb33-38" tabindex="-1"></a>    output<span class="sc">$</span>Description <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb33-39"><a href="#cb33-39" tabindex="-1"></a>      </span>
+<span id="cb33-40"><a href="#cb33-40" tabindex="-1"></a>      file <span class="ot">&lt;-</span> <span class="fu">normalizePath</span>(<span class="fu">file.path</span>(</span>
+<span id="cb33-41"><a href="#cb33-41" tabindex="-1"></a>        <span class="fu">system.file</span>(<span class="st">'workflow'</span>, <span class="at">package =</span> <span class="st">'MagellanNTK'</span>),</span>
+<span id="cb33-42"><a href="#cb33-42" tabindex="-1"></a>        <span class="fu">unlist</span>(<span class="fu">strsplit</span>(id, <span class="st">'_'</span>))[<span class="dv">1</span>], </span>
+<span id="cb33-43"><a href="#cb33-43" tabindex="-1"></a>        <span class="st">'md'</span>, </span>
+<span id="cb33-44"><a href="#cb33-44" tabindex="-1"></a>        <span class="fu">paste0</span>(id, <span class="st">'.Rmd'</span>)))</span>
+<span id="cb33-45"><a href="#cb33-45" tabindex="-1"></a>      </span>
+<span id="cb33-46"><a href="#cb33-46" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
+<span id="cb33-47"><a href="#cb33-47" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
+<span id="cb33-48"><a href="#cb33-48" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
+<span id="cb33-49"><a href="#cb33-49" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>(</span>
+<span id="cb33-50"><a href="#cb33-50" tabindex="-1"></a>          <span class="cf">if</span> (<span class="fu">file.exists</span>(file))</span>
+<span id="cb33-51"><a href="#cb33-51" tabindex="-1"></a>            <span class="fu">includeMarkdown</span>(file)</span>
+<span id="cb33-52"><a href="#cb33-52" tabindex="-1"></a>          <span class="cf">else</span></span>
+<span id="cb33-53"><a href="#cb33-53" tabindex="-1"></a>            <span class="fu">p</span>(<span class="st">'No Description available'</span>)</span>
+<span id="cb33-54"><a href="#cb33-54" tabindex="-1"></a>        )</span>
+<span id="cb33-55"><a href="#cb33-55" tabindex="-1"></a>      )</span>
+<span id="cb33-56"><a href="#cb33-56" tabindex="-1"></a>    })</span>
+<span id="cb33-57"><a href="#cb33-57" tabindex="-1"></a>    </span>
+<span id="cb33-58"><a href="#cb33-58" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>,{</span>
+<span id="cb33-59"><a href="#cb33-59" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Description'</span>, <span class="fu">btnEvents</span>()))</span>
+<span id="cb33-60"><a href="#cb33-60" tabindex="-1"></a>      </span>
+<span id="cb33-61"><a href="#cb33-61" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">dataIn</span>())</span>
+<span id="cb33-62"><a href="#cb33-62" tabindex="-1"></a>      rv<span class="sc">$</span>dataIn <span class="ot">&lt;-</span> <span class="fu">dataIn</span>()</span>
+<span id="cb33-63"><a href="#cb33-63" tabindex="-1"></a>      </span>
+<span id="cb33-64"><a href="#cb33-64" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
+<span id="cb33-65"><a href="#cb33-65" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> rv<span class="sc">$</span>dataIn</span>
+<span id="cb33-66"><a href="#cb33-66" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Description'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
+<span id="cb33-67"><a href="#cb33-67" tabindex="-1"></a>    })</span>
+<span id="cb33-68"><a href="#cb33-68" tabindex="-1"></a>    </span>
+<span id="cb33-69"><a href="#cb33-69" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
+<span id="cb33-70"><a href="#cb33-70" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb33-71"><a href="#cb33-71" tabindex="-1"></a>    <span class="co">#------------------------------SUB-STEP 1-----------------------------------</span></span>
+<span id="cb33-72"><a href="#cb33-72" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb33-73"><a href="#cb33-73" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
+<span id="cb33-74"><a href="#cb33-74" tabindex="-1"></a>    output<span class="sc">$</span>Convertsubstep1 <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb33-75"><a href="#cb33-75" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
+<span id="cb33-76"><a href="#cb33-76" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
+<span id="cb33-77"><a href="#cb33-77" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
+<span id="cb33-78"><a href="#cb33-78" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>()</span>
+<span id="cb33-79"><a href="#cb33-79" tabindex="-1"></a>      )</span>
+<span id="cb33-80"><a href="#cb33-80" tabindex="-1"></a>    })</span>
+<span id="cb33-81"><a href="#cb33-81" tabindex="-1"></a>    </span>
+<span id="cb33-82"><a href="#cb33-82" tabindex="-1"></a>    [...]</span>
+<span id="cb33-83"><a href="#cb33-83" tabindex="-1"></a></span>
+<span id="cb33-84"><a href="#cb33-84" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>, {</span>
+<span id="cb33-85"><a href="#cb33-85" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Convertsubstep1'</span>, <span class="fu">btnEvents</span>()))</span>
+<span id="cb33-86"><a href="#cb33-86" tabindex="-1"></a>      </span>
+<span id="cb33-87"><a href="#cb33-87" tabindex="-1"></a>      rv.custom<span class="sc">$</span>history <span class="ot">&lt;-</span> <span class="fu">Add2History</span>(rv.custom<span class="sc">$</span>history, <span class="st">'Convert'</span>, <span class="st">'Convertsubstep1'</span>, <span class="st">'A'</span>, <span class="st">'xxx'</span>)</span>
+<span id="cb33-88"><a href="#cb33-88" tabindex="-1"></a>      len <span class="ot">&lt;-</span> <span class="fu">length</span>(rv<span class="sc">$</span>dataIn)</span>
+<span id="cb33-89"><a href="#cb33-89" tabindex="-1"></a>      rv<span class="sc">$</span>dataIn[[len]] <span class="ot">&lt;-</span> <span class="fu">SetHistory</span>(rv<span class="sc">$</span>dataIn[[len]], rv.custom<span class="sc">$</span>history)</span>
+<span id="cb33-90"><a href="#cb33-90" tabindex="-1"></a>      </span>
+<span id="cb33-91"><a href="#cb33-91" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
+<span id="cb33-92"><a href="#cb33-92" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb33-93"><a href="#cb33-93" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Convertsubstep1'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
+<span id="cb33-94"><a href="#cb33-94" tabindex="-1"></a>    })</span>
+<span id="cb33-95"><a href="#cb33-95" tabindex="-1"></a>    </span>
+<span id="cb33-96"><a href="#cb33-96" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
+<span id="cb33-97"><a href="#cb33-97" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb33-98"><a href="#cb33-98" tabindex="-1"></a>    <span class="co">#----------------------------------SAVE-------------------------------------</span></span>
+<span id="cb33-99"><a href="#cb33-99" tabindex="-1"></a>    <span class="co">#</span></span>
+<span id="cb33-100"><a href="#cb33-100" tabindex="-1"></a>    <span class="do">###########################################################################-</span></span>
+<span id="cb33-101"><a href="#cb33-101" tabindex="-1"></a>    output<span class="sc">$</span>Save <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb33-102"><a href="#cb33-102" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
+<span id="cb33-103"><a href="#cb33-103" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
+<span id="cb33-104"><a href="#cb33-104" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
+<span id="cb33-105"><a href="#cb33-105" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>()</span>
+<span id="cb33-106"><a href="#cb33-106" tabindex="-1"></a>      )</span>
+<span id="cb33-107"><a href="#cb33-107" tabindex="-1"></a>    })</span>
+<span id="cb33-108"><a href="#cb33-108" tabindex="-1"></a>    </span>
+<span id="cb33-109"><a href="#cb33-109" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>,{</span>
+<span id="cb33-110"><a href="#cb33-110" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Save'</span>, <span class="fu">btnEvents</span>()))</span>
+<span id="cb33-111"><a href="#cb33-111" tabindex="-1"></a>      </span>
+<span id="cb33-112"><a href="#cb33-112" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
+<span id="cb33-113"><a href="#cb33-113" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> rv<span class="sc">$</span>dataIn</span>
+<span id="cb33-114"><a href="#cb33-114" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Save'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
+<span id="cb33-115"><a href="#cb33-115" tabindex="-1"></a>    })</span>
+<span id="cb33-116"><a href="#cb33-116" tabindex="-1"></a>    </span>
+<span id="cb33-117"><a href="#cb33-117" tabindex="-1"></a>    <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> MagellanNTK<span class="sc">::</span><span class="fu">Module_Return_Func</span>()))</span>
+<span id="cb33-118"><a href="#cb33-118" tabindex="-1"></a>  }</span>
+<span id="cb33-119"><a href="#cb33-119" tabindex="-1"></a>  )</span>
+<span id="cb33-120"><a href="#cb33-120" tabindex="-1"></a>}</span></code></pre></div>
 <div class="section level4">
 <h4 id="pipelinename_convert_server-detailled-explanation">PipelineName_Convert_server() detailled explanation<a class="anchor" aria-label="anchor" href="#pipelinename_convert_server-detailled-explanation"></a>
 </h4>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">widgets.default.values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">rv.custom.default.values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -1695,22 +1697,22 @@ defined in <code>widgets.default.values</code> are accessible via
 <code>rv.widgets$Name</code>, while those defined in
 <code>rv.custom.default.values</code> can be accessed through
 <code>rv.custom$Name</code>.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>      ns <span class="ot">&lt;-</span> session<span class="sc">$</span>ns</span>
-<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>      </span>
-<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a>      core.code <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Get_Workflow_Core_Code</span>(</span>
-<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a>        <span class="at">mode =</span> <span class="st">'process'</span>,</span>
-<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a>        <span class="at">name =</span> id,</span>
-<span id="cb34-7"><a href="#cb34-7" tabindex="-1"></a>        <span class="at">w.names =</span> <span class="fu">names</span>(widgets.default.values),</span>
-<span id="cb34-8"><a href="#cb34-8" tabindex="-1"></a>        <span class="at">rv.custom.names =</span> <span class="fu">names</span>(rv.custom.default.values)</span>
-<span id="cb34-9"><a href="#cb34-9" tabindex="-1"></a>      )</span>
-<span id="cb34-10"><a href="#cb34-10" tabindex="-1"></a>      </span>
-<span id="cb34-11"><a href="#cb34-11" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">str2expression</span>(core.code))</span>
-<span id="cb34-12"><a href="#cb34-12" tabindex="-1"></a>      </span>
-<span id="cb34-13"><a href="#cb34-13" tabindex="-1"></a>      [...]</span>
-<span id="cb34-14"><a href="#cb34-14" tabindex="-1"></a>      </span>
-<span id="cb34-15"><a href="#cb34-15" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> MagellanNTK<span class="sc">::</span><span class="fu">Module_Return_Func</span>()))</span>
-<span id="cb34-16"><a href="#cb34-16" tabindex="-1"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>      ns <span class="ot">&lt;-</span> session<span class="sc">$</span>ns</span>
+<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a>      </span>
+<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a>      core.code <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Get_Workflow_Core_Code</span>(</span>
+<span id="cb35-5"><a href="#cb35-5" tabindex="-1"></a>        <span class="at">mode =</span> <span class="st">'process'</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" tabindex="-1"></a>        <span class="at">name =</span> id,</span>
+<span id="cb35-7"><a href="#cb35-7" tabindex="-1"></a>        <span class="at">w.names =</span> <span class="fu">names</span>(widgets.default.values),</span>
+<span id="cb35-8"><a href="#cb35-8" tabindex="-1"></a>        <span class="at">rv.custom.names =</span> <span class="fu">names</span>(rv.custom.default.values)</span>
+<span id="cb35-9"><a href="#cb35-9" tabindex="-1"></a>      )</span>
+<span id="cb35-10"><a href="#cb35-10" tabindex="-1"></a>      </span>
+<span id="cb35-11"><a href="#cb35-11" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">str2expression</span>(core.code))</span>
+<span id="cb35-12"><a href="#cb35-12" tabindex="-1"></a>      </span>
+<span id="cb35-13"><a href="#cb35-13" tabindex="-1"></a>      [...]</span>
+<span id="cb35-14"><a href="#cb35-14" tabindex="-1"></a>      </span>
+<span id="cb35-15"><a href="#cb35-15" tabindex="-1"></a>      <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> MagellanNTK<span class="sc">::</span><span class="fu">Module_Return_Func</span>()))</span>
+<span id="cb35-16"><a href="#cb35-16" tabindex="-1"></a>  }</span></code></pre></div>
 <p>This part of the code must not be modified.
 <code><a href="https://rdrr.io/pkg/shiny/man/moduleServer.html" class="external-link">moduleServer()</a></code> is the function that initiates the creation
 of the module that makes up the process, as well as the various
@@ -1724,7 +1726,7 @@ below.</p>
 <div class="section level5">
 <h5 id="pipelinename_convert_server-description-sub-step">PipelineName_Convert_server() Description sub-step<a class="anchor" aria-label="anchor" href="#pipelinename_convert_server-description-sub-step"></a>
 </h5>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="va">output</span><span class="op">$</span><span class="va">Description</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>      </span>
 <span>      <span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/normalizePath.html" class="external-link">normalizePath</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span></span>
@@ -1771,27 +1773,27 @@ difference :</p>
 <div class="section level5">
 <h5 id="pipelinename_convert_server-convert-sub-step-1-sub-step">PipelineName_Convert_server() Convert sub-step 1 sub-step<a class="anchor" aria-label="anchor" href="#pipelinename_convert_server-convert-sub-step-1-sub-step"></a>
 </h5>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>    output<span class="sc">$</span>Convertsubstep1 <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
-<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
-<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
-<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>()</span>
-<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a>      )</span>
-<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a>    })</span>
-<span id="cb36-8"><a href="#cb36-8" tabindex="-1"></a>    </span>
-<span id="cb36-9"><a href="#cb36-9" tabindex="-1"></a>    [...]</span>
-<span id="cb36-10"><a href="#cb36-10" tabindex="-1"></a></span>
-<span id="cb36-11"><a href="#cb36-11" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>, {</span>
-<span id="cb36-12"><a href="#cb36-12" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Convertsubstep1'</span>, <span class="fu">btnEvents</span>()))</span>
-<span id="cb36-13"><a href="#cb36-13" tabindex="-1"></a>      </span>
-<span id="cb36-14"><a href="#cb36-14" tabindex="-1"></a>      rv.custom<span class="sc">$</span>history <span class="ot">&lt;-</span> <span class="fu">Add2History</span>(rv.custom<span class="sc">$</span>history, <span class="st">'Convert'</span>, <span class="st">'Convertsubstep1'</span>, <span class="st">'A'</span>, <span class="st">'xxx'</span>)</span>
-<span id="cb36-15"><a href="#cb36-15" tabindex="-1"></a>      len <span class="ot">&lt;-</span> <span class="fu">length</span>(rv<span class="sc">$</span>dataIn)</span>
-<span id="cb36-16"><a href="#cb36-16" tabindex="-1"></a>      rv<span class="sc">$</span>dataIn[[len]] <span class="ot">&lt;-</span> <span class="fu">SetHistory</span>(rv<span class="sc">$</span>dataIn[[len]], rv.custom<span class="sc">$</span>history)</span>
-<span id="cb36-17"><a href="#cb36-17" tabindex="-1"></a>      </span>
-<span id="cb36-18"><a href="#cb36-18" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
-<span id="cb36-19"><a href="#cb36-19" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb36-20"><a href="#cb36-20" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Convertsubstep1'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
-<span id="cb36-21"><a href="#cb36-21" tabindex="-1"></a>    })</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>    output<span class="sc">$</span>Convertsubstep1 <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>      MagellanNTK<span class="sc">::</span><span class="fu">process_layout</span>(session,</span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>        <span class="at">ns =</span> <span class="fu">NS</span>(id),</span>
+<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>        <span class="at">sidebar =</span> <span class="fu">tagList</span>(),</span>
+<span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a>        <span class="at">content =</span> <span class="fu">tagList</span>()</span>
+<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a>      )</span>
+<span id="cb37-7"><a href="#cb37-7" tabindex="-1"></a>    })</span>
+<span id="cb37-8"><a href="#cb37-8" tabindex="-1"></a>    </span>
+<span id="cb37-9"><a href="#cb37-9" tabindex="-1"></a>    [...]</span>
+<span id="cb37-10"><a href="#cb37-10" tabindex="-1"></a></span>
+<span id="cb37-11"><a href="#cb37-11" tabindex="-1"></a>    <span class="fu">observeEvent</span>(<span class="fu">req</span>(<span class="fu">btnEvents</span>()), <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, <span class="at">ignoreNULL =</span> <span class="cn">TRUE</span>, {</span>
+<span id="cb37-12"><a href="#cb37-12" tabindex="-1"></a>      <span class="fu">req</span>(<span class="fu">grepl</span>(<span class="st">'Convertsubstep1'</span>, <span class="fu">btnEvents</span>()))</span>
+<span id="cb37-13"><a href="#cb37-13" tabindex="-1"></a>      </span>
+<span id="cb37-14"><a href="#cb37-14" tabindex="-1"></a>      rv.custom<span class="sc">$</span>history <span class="ot">&lt;-</span> <span class="fu">Add2History</span>(rv.custom<span class="sc">$</span>history, <span class="st">'Convert'</span>, <span class="st">'Convertsubstep1'</span>, <span class="st">'A'</span>, <span class="st">'xxx'</span>)</span>
+<span id="cb37-15"><a href="#cb37-15" tabindex="-1"></a>      len <span class="ot">&lt;-</span> <span class="fu">length</span>(rv<span class="sc">$</span>dataIn)</span>
+<span id="cb37-16"><a href="#cb37-16" tabindex="-1"></a>      rv<span class="sc">$</span>dataIn[[len]] <span class="ot">&lt;-</span> <span class="fu">SetHistory</span>(rv<span class="sc">$</span>dataIn[[len]], rv.custom<span class="sc">$</span>history)</span>
+<span id="cb37-17"><a href="#cb37-17" tabindex="-1"></a>      </span>
+<span id="cb37-18"><a href="#cb37-18" tabindex="-1"></a>      dataOut<span class="sc">$</span>trigger <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span><span class="fu">Timestamp</span>()</span>
+<span id="cb37-19"><a href="#cb37-19" tabindex="-1"></a>      dataOut<span class="sc">$</span>value <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb37-20"><a href="#cb37-20" tabindex="-1"></a>      rv<span class="sc">$</span>steps.status[<span class="st">'Convertsubstep1'</span>] <span class="ot">&lt;-</span> MagellanNTK<span class="sc">::</span>stepStatus<span class="sc">$</span>VALIDATED</span>
+<span id="cb37-21"><a href="#cb37-21" tabindex="-1"></a>    })</span></code></pre></div>
 <p><code>output$Substep1 &lt;- renderUI({})</code> defines everything
 that should be displayed for the associated sub-step of the process. The
 naming convention follows <code>output$SubstepName</code>, and it always
@@ -1820,7 +1822,7 @@ to include as many sub-steps as needed within a process.</p>
 <div class="section level5">
 <h5 id="pipelinename_convert_server-save-sub-step">PipelineName_Convert_server() Save sub-step<a class="anchor" aria-label="anchor" href="#pipelinename_convert_server-save-sub-step"></a>
 </h5>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="va">output</span><span class="op">$</span><span class="va">Save</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>      <span class="fu">MagellanNTK</span><span class="fu">::</span><span class="fu"><a href="../reference/process_layout.html">process_layout</a></span><span class="op">(</span><span class="va">session</span>,</span>
 <span>        ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/NS.html" class="external-link">NS</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>,</span>
@@ -1865,7 +1867,7 @@ part of code unneeded.</li>
 </h2>
 <p>The <code><a href="../reference/magellanNTK.html">MagellanNTK()</a></code> function is used to launch a pipeline.
 To do so, you need to provide the path to the pipeline directory.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineName'</span>, package <span class="op">=</span> <span class="st">'PackageName'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">wf.path</span>, <span class="st">'PipelineName'</span><span class="op">)</span></span></code></pre></div>
 <p>Running this command will open the pipeline interface in a new tab of
@@ -1873,13 +1875,13 @@ your default web browser, typically at the following address: <a href="http://12
 <p>It is also possible to launch a single process instead of the entire
 pipeline by specifying the process name in the
 <code><a href="../reference/magellanNTK.html">MagellanNTK()</a></code> function.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineName'</span>, package <span class="op">=</span> <span class="st">'PackageName'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">wf.path</span>, <span class="st">'PipelineName_ProcessName'</span><span class="op">)</span></span></code></pre></div>
 <p>Finally, you can create a custom wrapper function around
 <code><a href="../reference/magellanNTK.html">MagellanNTK()</a></code> to simplify launching your pipeline. For
 example :</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PackageApp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">wf.name</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"workflow/"</span>, <span class="va">wf.path</span><span class="op">)</span>, package <span class="op">=</span> <span class="st">"PackageName"</span><span class="op">)</span></span>
 <span>  <span class="fu">MagellanNTK</span><span class="fu">::</span><span class="fu"><a href="../reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span>workflow.path <span class="op">=</span> <span class="va">wf.path</span>,</span>
@@ -1893,7 +1895,7 @@ package or simplifying repeated usage.</p>
 <div class="section level2">
 <h2 class="unnumbered" id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## R version 4.6.0 (2026-04-24)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu</span></span>
@@ -1923,7 +1925,7 @@ package or simplifying repeated usage.</p>
 <span><span class="co">##  [3] SparseArray_1.12.2          stringi_1.8.7              </span></span>
 <span><span class="co">##  [5] lattice_0.22-9              digest_0.6.39              </span></span>
 <span><span class="co">##  [7] magrittr_2.0.5              grid_4.6.0                 </span></span>
-<span><span class="co">##  [9] evaluate_1.0.5              bookdown_0.46              </span></span>
+<span><span class="co">##  [9] evaluate_1.0.5              bookdown_0.47              </span></span>
 <span><span class="co">## [11] bs4Dash_2.3.5               fastmap_1.2.0              </span></span>
 <span><span class="co">## [13] Matrix_1.7-5                jsonlite_2.0.0             </span></span>
 <span><span class="co">## [15] promises_1.5.0              BiocManager_1.30.27        </span></span>

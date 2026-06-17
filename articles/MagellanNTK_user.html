@@ -65,7 +65,7 @@ Wieczorek</h4>
                                     <h4 data-toc-skip class="author">Thomas
 Burger</h4>
                         
-            <h4 data-toc-skip class="date">June 15, 2026</h4>
+            <h4 data-toc-skip class="date">June 17, 2026</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/edyp-lab/MagellanNTK/blob/main/vignettes/MagellanNTK_user.Rmd" class="external-link"><code>vignettes/MagellanNTK_user.Rmd</code></a></small>
       <div class="d-none name"><code>MagellanNTK_user.Rmd</code></div>
@@ -132,6 +132,8 @@ some specific <code>MagellanNTK</code> features.</p>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"MagellanNTK"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: replacing previous import 'S4Arrays::makeNindexFromArrayViewport' by</span></span>
+<span><span class="co">## 'DelayedArray::makeNindexFromArrayViewport' when loading 'SummarizedExperiment'</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -539,7 +541,7 @@ workflow.</p>
 </h3>
 <p><code>PipelineDemo</code> can be launched by typing the following
 command in a R console :</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK</a></span><span class="op">)</span></span>
 <span><span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineDemo'</span>, package <span class="op">=</span> <span class="st">'MagellanNTK'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">wf.path</span>, <span class="st">'PipelineDemo'</span><span class="op">)</span></span></code></pre></div>
@@ -835,7 +837,7 @@ step.</p>
 launching a pipeline; one just have to specify the name of the process
 to run. For example, the process ‘Preprocessing’ can be launched by
 typing the following command in a R console :</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK</a></span><span class="op">)</span></span>
 <span><span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineDemo'</span>, package <span class="op">=</span> <span class="st">'MagellanNTK'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">wf.path</span>, <span class="st">'PipelineDemo_Preprocessing'</span><span class="op">)</span></span></code></pre></div>
@@ -860,7 +862,7 @@ needed in this case.</p>
 <div class="section level2">
 <h2 class="unnumbered" id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## R version 4.6.0 (2026-04-24)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu</span></span>
@@ -890,7 +892,7 @@ needed in this case.</p>
 <span><span class="co">##  [3] SparseArray_1.12.2          stringi_1.8.7              </span></span>
 <span><span class="co">##  [5] lattice_0.22-9              digest_0.6.39              </span></span>
 <span><span class="co">##  [7] magrittr_2.0.5              grid_4.6.0                 </span></span>
-<span><span class="co">##  [9] evaluate_1.0.5              bookdown_0.46              </span></span>
+<span><span class="co">##  [9] evaluate_1.0.5              bookdown_0.47              </span></span>
 <span><span class="co">## [11] bs4Dash_2.3.5               fastmap_1.2.0              </span></span>
 <span><span class="co">## [13] Matrix_1.7-5                jsonlite_2.0.0             </span></span>
 <span><span class="co">## [15] promises_1.5.0              BiocManager_1.30.27        </span></span>
