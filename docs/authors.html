@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">MagellanNTK</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.31</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,13 +15,11 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="articles/MagellanNTK.html">Get started</a></li>
-<li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="articles/Build-a-pipeline-module.html">Build-a-pipeline-module tutorial</a></li>
-    <li><a class="dropdown-item" href="articles/Create-a-new-pipeline-tutorial.html">Create a template</a></li>
-    <li><a class="dropdown-item" href="articles/insideMagellanNTK.html">Inside MagellanNTK</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="articles/Build-a-pipeline-with-MagellanNTK.html">Build a pipeline with MagellanNTK</a></li>
+    <li><a class="dropdown-item" href="articles/MagellanNTK_user.html">PipelineDemo User Manual – a vignette template to accompany data analysis pipeline deployed with MagellanNTK</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -42,43 +40,33 @@
       <h2>Authors</h2>
 
       <ul class="list-unstyled"><li>
-          <p><strong>Samuel Wieczorek</strong>. Author, maintainer. <a href="https://orcid.org/0000-0002-5016-1203" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>
+          <p><strong>Samuel Wieczorek</strong>. Maintainer, author. <a href="https://orcid.org/0000-0002-5016-1203" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>
           </p>
         </li>
         <li>
           <p><strong>Thomas Burger</strong>. Author.
           </p>
         </li>
+        <li>
+          <p><strong>Manon Gaudin</strong>. Author.
+          </p>
+        </li>
       </ul></div>
 
     <div class="section level2">
       <h2 id="citation">Citation</h2>
-      <p><small class="dont-index">Source: <a href="https://github.com/edyp-lab/MagellanNTK/blob/HEAD/inst/CITATION" class="external-link"><code>inst/CITATION</code></a></small></p>
+      <p><small class="dont-index">Source: <a href="https://github.com/edyp-lab/MagellanNTK/blob/HEAD/DESCRIPTION" class="external-link"><code>DESCRIPTION</code></a></small></p>
 
-      <p>edyp-lab (2025).
-<em>manual</em>.
-<a href="https://doi.org/10.18129/B9.bioc.MagellanNTK" class="external-link">doi:10.18129/B9.bioc.MagellanNTK</a>, https://github.com/edyp-lab/MagellanNTK/MagellanNTK - R package version 0.99.11, <a href="http://www.bioconductor.org/packages/MagellanNTK" class="external-link">http://www.bioconductor.org/packages/MagellanNTK</a>.
+      <p>Wieczorek S, Burger T, Gaudin M (2026).
+<em>MagellanNTK: A customizable Workflow Manager</em>.
+R package version 0.99.31, <a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">https://github.com/edyp-lab/MagellanNTK</a>.
 </p>
       <pre>@Manual{,
-  title = {manual},
-  author = {{edyp-lab}},
-  year = {2025},
-  url = {http://www.bioconductor.org/packages/MagellanNTK},
-  note = {https://github.com/edyp-lab/MagellanNTK/MagellanNTK - R package version 0.99.11},
-  doi = {10.18129/B9.bioc.MagellanNTK},
-}</pre>
-      <p>edyp-lab (2025).
-“manual.”
-<em>bioRxiv</em>.
-<a href="https://doi.org/10.1101/TODO" class="external-link">doi:10.1101/TODO</a>, <a href="https://www.biorxiv.org/content/10.1101/TODO" class="external-link">https://www.biorxiv.org/content/10.1101/TODO</a>.
-</p>
-      <pre>@Article{,
-  title = {manual},
-  author = {{edyp-lab}},
-  year = {2025},
-  journal = {bioRxiv},
-  doi = {10.1101/TODO},
-  url = {https://www.biorxiv.org/content/10.1101/TODO},
+  title = {MagellanNTK: A customizable Workflow Manager},
+  author = {Samuel Wieczorek and Thomas Burger and Manon Gaudin},
+  year = {2026},
+  note = {R package version 0.99.31},
+  url = {https://github.com/edyp-lab/MagellanNTK},
 }</pre>
     </div>
 
@@ -87,11 +75,11 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Samuel Wieczorek, Thomas Burger.</p>
+  <p>Developed by Samuel Wieczorek, Thomas Burger, Manon Gaudin.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

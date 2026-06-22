@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">MagellanNTK</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.31</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,13 +15,11 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/MagellanNTK.html">Get started</a></li>
-<li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+      <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/Build-a-pipeline-module.html">Build-a-pipeline-module tutorial</a></li>
-    <li><a class="dropdown-item" href="../articles/Create-a-new-pipeline-tutorial.html">Create a template</a></li>
-    <li><a class="dropdown-item" href="../articles/insideMagellanNTK.html">Inside MagellanNTK</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/Build-a-pipeline-with-MagellanNTK.html">Build a pipeline with MagellanNTK</a></li>
+    <li><a class="dropdown-item" href="../articles/MagellanNTK_user.html">PipelineDemo User Manual – a vignette template to accompany data analysis pipeline deployed with MagellanNTK</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -62,7 +60,7 @@
 
 
 <dt id="arg-value">value<a class="anchor" aria-label="anchor" href="#arg-value"></a></dt>
-<dd><p>Initial value.  Paths are expanded via <code><a href="https://rdrr.io/r/base/path.expand.html" class="external-link">path.expand</a></code>.</p></dd>
+<dd><p>Initial value. Paths are expanded via <code><a href="https://rdrr.io/r/base/path.expand.html" class="external-link">path.expand</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -71,15 +69,17 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This widget relies on <code><a href="choose.dir.html">choose.dir</a></code> to present an interactive
-dialog to users for selecting a directory on the local filesystem.  Therefore,
+    <p>This widget relies on <code><a href="choose_dir.html">choose_dir</a></code> to present an interactive
+dialog to users for selecting a directory on the local filesystem. Therefore,
 this widget is intended for shiny apps that are run locally - i.e. on the
 same system that files/directories are to be accessed - and not from hosted
 applications (e.g. from shinyapps.io).</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="updateDirectoryInput.html">updateDirectoryInput</a></code>, <code><a href="readDirectoryInput.html">readDirectoryInput</a></code>, <code><a href="choose.dir.html">choose.dir</a></code></p></div>
+    <div class="dont-index"><p><code><a href="updateDirectoryInput.html">updateDirectoryInput</a></code>,
+<code><a href="readDirectoryInput.html">readDirectoryInput</a></code>,
+<code><a href="choose_dir.html">choose_dir</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -94,11 +94,11 @@ applications (e.g. from shinyapps.io).</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Samuel Wieczorek, Thomas Burger.</p>
+  <p>Developed by Samuel Wieczorek, Thomas Burger, Manon Gaudin.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>
