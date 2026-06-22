@@ -29,19 +29,17 @@ A directory input control that can be added to a UI definition.
 
 ## Details
 
-This widget relies on
-[`choose_dir`](https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.md)
-to present an interactive dialog to users for selecting a directory on
-the local filesystem. Therefore, this widget is intended for shiny apps
-that are run locally - i.e. on the same system that files/directories
-are to be accessed - and not from hosted applications (e.g. from
-shinyapps.io).
+This widget relies on [`choose_dir`](choose_dir.md) to present an
+interactive dialog to users for selecting a directory on the local
+filesystem. Therefore, this widget is intended for shiny apps that are
+run locally - i.e. on the same system that files/directories are to be
+accessed - and not from hosted applications (e.g. from shinyapps.io).
 
 ## See also
 
-[`updateDirectoryInput`](https://edyp-lab.github.io/MagellanNTK/reference/updateDirectoryInput.md),
-[`readDirectoryInput`](https://edyp-lab.github.io/MagellanNTK/reference/readDirectoryInput.md),
-[`choose_dir`](https://edyp-lab.github.io/MagellanNTK/reference/choose_dir.md)
+[`updateDirectoryInput`](updateDirectoryInput.md),
+[`readDirectoryInput`](readDirectoryInput.md),
+[`choose_dir`](choose_dir.md)
 
 ## Examples
 

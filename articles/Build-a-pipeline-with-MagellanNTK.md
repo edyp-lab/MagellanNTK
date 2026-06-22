@@ -166,17 +166,14 @@ operations performed throughout a workflow. To support this,
 `MagellanNTK` provides a history system that records the values of the
 parameters used during data processing. MagellanNTK includes built-in
 functions to manage this history:
-[`InitializeHistory()`](https://edyp-lab.github.io/MagellanNTK/reference/InitializeHistory.md)
-to create it,
-[`GetHistory()`](https://edyp-lab.github.io/MagellanNTK/reference/GetHistory.md)
-to retrieve it,
-[`Add2History()`](https://edyp-lab.github.io/MagellanNTK/reference/Add2History.md)
-to record new entries, and
-[`SetHistory()`](https://edyp-lab.github.io/MagellanNTK/reference/SetHistory.md)
-to attach it to the dataset (see section 2.1). A history is associated
-with a specific `SummarizedExperiment`, not with the entire
-`MultiAssayExperiment`. As a result, each SE contains information
-related to the step it corresponds to.
+[`InitializeHistory()`](../reference/InitializeHistory.md) to create it,
+[`GetHistory()`](../reference/GetHistory.md) to retrieve it,
+[`Add2History()`](../reference/Add2History.md) to record new entries,
+and [`SetHistory()`](../reference/SetHistory.md) to attach it to the
+dataset (see section 2.1). A history is associated with a specific
+`SummarizedExperiment`, not with the entire `MultiAssayExperiment`. As a
+result, each SE contains information related to the step it corresponds
+to.
 
 The history is structured as a table with four columns :
 
@@ -326,12 +323,12 @@ the following three functions:
 
 - `PipelineName_ProcessName_conf()` : Configures the process. This
   function configures the process by calling the
-  [`Config()`](https://edyp-lab.github.io/MagellanNTK/reference/Config-class.md)
-  function (provided by `MagellanNTK`), which creates an object of class
-  `Config`. This object stores key structural information about the
-  workflow. The function itself is a standard R function, not a Shiny
-  module, and the resulting `Config` object is used to define and manage
-  the configuration of processes within `MagellanNTK`.
+  [`Config()`](../reference/Config-class.md) function (provided by
+  `MagellanNTK`), which creates an object of class `Config`. This object
+  stores key structural information about the workflow. The function
+  itself is a standard R function, not a Shiny module, and the resulting
+  `Config` object is used to define and manage the configuration of
+  processes within `MagellanNTK`.
 - `PipelineName_ProcessName_ui()` : Declares the UI for the module. This
   function is identical for all processes and requires no customization.
   It is almost empty but must be present.
@@ -425,8 +422,7 @@ PipelineName_conf <- function(){
 }
 ```
 
-This function calls the
-[`Config()`](https://edyp-lab.github.io/MagellanNTK/reference/Config-class.md)
+This function calls the [`Config()`](../reference/Config-class.md)
 function from MagellanNTK with the following arguments :
 
 - `fullname` : The exact name of the pipeline.
@@ -700,8 +696,8 @@ convention follows `output$SubstepName`, and it always uses a
 [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) function.
 
 The layout itself is constructed using the
-[`process_layout()`](https://edyp-lab.github.io/MagellanNTK/reference/process_layout.md)
-function. Its key arguments are:
+[`process_layout()`](../reference/process_layout.md) function. Its key
+arguments are:
 
 - `sidebar` : Defines the content displayed in the sidebar.
 - `content` : Defines what appears in the main panel.
@@ -745,15 +741,15 @@ consistent behavior.
 Updating the history at each sub-step is also recommended. In this
 example, the history is initialized beforehand in
 `rv.custom.default.values`. The
-[`Add2History()`](https://edyp-lab.github.io/MagellanNTK/reference/Add2History.md)
-function records the actions performed at this stage, ensuring
-traceability of the workflow. This history is then attached to the
-dataset (e.g., a `SummarizedExperiment`) using
-[`SetHistory()`](https://edyp-lab.github.io/MagellanNTK/reference/SetHistory.md)
-(see section 2.1 for more details on these functions). The history also
-plays a key role when reloading previously processed data, as it allows
-the pipeline to determine which steps have already been completed and
-which sub-steps are validated.
+[`Add2History()`](../reference/Add2History.md) function records the
+actions performed at this stage, ensuring traceability of the workflow.
+This history is then attached to the dataset (e.g., a
+`SummarizedExperiment`) using
+[`SetHistory()`](../reference/SetHistory.md) (see section 2.1 for more
+details on these functions). The history also plays a key role when
+reloading previously processed data, as it allows the pipeline to
+determine which steps have already been completed and which sub-steps
+are validated.
 
 The final three lines should not be modified. `dataOut$trigger` signals
 that the button has been clicked, `dataOut$value` carries the output
@@ -1355,8 +1351,8 @@ convention follows `output$SubstepName`, and it always uses a
 [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) function.
 
 The layout itself is constructed using the
-[`process_layout()`](https://edyp-lab.github.io/MagellanNTK/reference/process_layout.md)
-function. Its key arguments are:
+[`process_layout()`](../reference/process_layout.md) function. Its key
+arguments are:
 
 - `sidebar` : Defines the content displayed in the sidebar.
 - `content` : Defines what appears in the main panel.
@@ -1806,10 +1802,9 @@ differences:
 
 ## Launch the pipeline
 
-The
-[`MagellanNTK()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)
-function is used to launch a pipeline. To do so, you need to provide the
-path to the pipeline directory.
+The [`MagellanNTK()`](../reference/magellanNTK.md) function is used to
+launch a pipeline. To do so, you need to provide the path to the
+pipeline directory.
 
 ``` r
 
@@ -1823,8 +1818,7 @@ your default web browser, typically at the following address:
 
 It is also possible to launch a single process instead of the entire
 pipeline by specifying the process name in the
-[`MagellanNTK()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)
-function.
+[`MagellanNTK()`](../reference/magellanNTK.md) function.
 
 ``` r
 
@@ -1833,8 +1827,8 @@ MagellanNTK(wf.path, 'PipelineName_ProcessName')
 ```
 
 Finally, you can create a custom wrapper function around
-[`MagellanNTK()`](https://edyp-lab.github.io/MagellanNTK/reference/magellanNTK.md)
-to simplify launching your pipeline. For example :
+[`MagellanNTK()`](../reference/magellanNTK.md) to simplify launching
+your pipeline. For example :
 
 ``` r
 
