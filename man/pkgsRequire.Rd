@@ -25,6 +25,7 @@ NULL
 \donttest{
 pkgsRequire(c("stats"))
 }
+
 }
 \author{
 Samuel Wieczorek

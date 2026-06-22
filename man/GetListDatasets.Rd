@@ -7,9 +7,11 @@
 GetListDatasets(class = NULL, demo_package = NULL)
 }
 \arguments{
-\item{class}{A `character()` which is the class of the datasets one looking for}
+\item{class}{A `character()` which is the class of the datasets one looking 
+for}
 
-\item{demo_package}{A `character()` which specifies a particular package to search}
+\item{demo_package}{A `character()` which specifies a particular package to 
+search}
 }
 \value{
 A `vector` in which items are the name of datasets which inherits

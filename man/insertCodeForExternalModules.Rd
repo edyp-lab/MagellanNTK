@@ -60,24 +60,25 @@ Get_AdditionalModule_Core_Code(w.names = NULL, rv.custom.names = NULL)
 \item{widgets.names}{A `vector` containing the names of the widgets in all
 steps of the module.}
 
-\item{rv.custom.names}{A `vector` containing the names of the custom variables
-in all steps of the module.}
+\item{rv.custom.names}{A `vector` containing the names of the custom
+variables in all steps of the module.}
 
 \item{widgets}{A `list` containing the names of the widgets in all
 steps of the module with their default values}
 
-\item{custom}{A `list` of the custom variables used in the process. Each custom
-variable is accompanied with its default value}
+\item{custom}{A `list` of the custom variables used in the process. Each
+custom variable is accompanied with its default value}
 
-\item{dataIn}{An instance of the `MultiAssayExperiment` or `SummarizedExperiment` classes}
+\item{dataIn}{An instance of the `MultiAssayExperiment` or
+`SummarizedExperiment` classes}
 
-\item{addon}{Additional code for the `observeEvent()` function which catches the
-`remoteReset()` action.}
+\item{addon}{Additional code for the `observeEvent()` function which catches
+the `remoteReset()` action.}
 
 \item{w.names}{Same as widgets.names}
 
-\item{mode}{A `character()` which indicates whether the current module is used
-as a 'process' nor a 'pipeline.' Default value is NULL}
+\item{mode}{A `character()` which indicates whether the current module is
+used as a 'process' nor a 'pipeline.' Default value is NULL}
 
 \item{name}{The Shiny id of the process or pipeline}
 }
@@ -114,8 +115,7 @@ A `character()` containing R source code
 This function generates the necessary code to
 modify the variable 'config' (slots steps and mandatory). It adds
 a 'Description' step and a TRUE value at the beginning of the 'steps'
-and 'mandatory'
- list, erases all white spaces for the names of the steps.
+and 'mandatory' list, erases all white spaces for the names of the steps.
 
 This function generates the necessary code to
 modify the variable 'config' (slots steps and mandatory). It adds
@@ -138,7 +138,12 @@ second is the name of the widget
 
 Returned value of the process
 
-This function generates dynamically the observeEvent function for each widget
+This function generates dynamically the observeEvent function 
+for each widget
+}
+\examples{
+MagellanNTK::Get_AdditionalModule_Core_Code("PipelineDemo", "")
+
 }
 \author{
 Samuel Wieczorek

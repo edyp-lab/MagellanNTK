@@ -40,7 +40,7 @@ as for the ui() function.}
 
 \item{dataIn}{An instance of the `SummarizedExperiment` class}
 
-\item{status}{A boolean which indicates whether the current status of the 
+\item{status}{A boolean which indicates whether the current status of the
 process}
 
 \item{is.enabled}{A `boolean`. This variable is a remote command to specify
@@ -51,23 +51,22 @@ that it is disabled (i.e. skipped), then this variable is set to TRUE. Then,
 all the widgets will be disabled. If not, the enabling/disabling of widgets
 is deciding by this module.}
 
-\item{remoteReset}{An `integer` which acts as a remote command to reset the 
-module. Its value is incremented on a external event and it is used to 
+\item{remoteReset}{An `integer` which acts as a remote command to reset the
+module. Its value is incremented on a external event and it is used to
 trigger an event in this module}
 
-\item{remoteResetUI}{An `integer` which acts as a remote command to reset the 
+\item{remoteResetUI}{An `integer` which acts as a remote command to reset the
 UI part of the module Its value is incremented on a external event and it is
 used to trigger an event in the module}
 
 \item{is.skipped}{A `boolean` which indicates whether the pipeline or process
 is skipped (TRUE) or not (FALSE)}
 
-\item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
-the verbose mode for logs.}
+\item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON
+(TRUE) the verbose mode for logs.}
 
-\item{usermod}{A `character()` to specifies the running mode of MagellanNTK: 
-'user' (default) or 'dev'. For more details, please refer to the document 
-'Inside MagellanNTK'}
+\item{usermod}{A `character()` to specifies the running mode of MagellanNTK:
+'user' (default) or 'dev'.}
 }
 \value{
 A shiny App
@@ -78,7 +77,7 @@ This is the core module of MagellanNTK
 }
 \examples{
 if (interactive()) {
-    nav_process()
+  nav_process()
 }
 
 }

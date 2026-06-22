@@ -29,7 +29,7 @@ mod_SweetAlert(title, text, type = "warning")
 \item{showClipBtn}{A `boolean` to indicates if the copy to clipboard button
 is shown or not.}
 
-\item{type}{A `character()` for the type of message: 'error', 'warning', etc..}
+\item{type}{A `character()` for the type of message: 'error', 'warning', etc.}
 }
 \value{
 A shiny App
@@ -40,7 +40,7 @@ It is rather a useful tool for third part pipelines and processes.
 }
 \examples{
 if (interactive()) {
-    shiny::runApp(mod_SweetAlert("my title", "my message"))
+  shiny::runApp(mod_SweetAlert("my title", "my message"))
 }
 
 }

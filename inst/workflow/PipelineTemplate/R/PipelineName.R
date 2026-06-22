@@ -51,7 +51,7 @@
 NULL
 
 #' @description The `PipelineName_conf` function is a function that configures
-#' the entire pipeline. 
+#' the entire pipeline.
 #' It is a simple R function, not a Shiny module.
 #'
 #' @rdname PipelineTemplate
@@ -65,18 +65,21 @@ PipelineName_conf <- function() {
     fullname = "PipelineName",
 
     # Specify that this code will be used to configure a pipeline.
-    # It will be used by the nav_pipeline Shiny module (see core_pipeline.R file).
+    # It will be used by the nav_pipeline Shiny module 
+    # (see core_pipeline.R file).
     # !! Do not modify this line !!
     mode = "pipeline",
 
     # Describe the list of processes to be added in the pipeline.
     # These should be in the desired order.
-    # Each item in this vector must have a corresponding file in the R directory,
+    # These names must only contain only alphanumerical characters.
+    # Each item in this vector must have a corresponding file in the R directory
     # with the format : `PipelineName_ProcessName`
     steps = c("Process1", "Process2"),
 
     # Indicates if the steps are mandatory or not.
-    # This logical vector must have the same length as the previous vector steps.
+    # This logical vector must have the same length as the previous
+    # vector steps.
     mandatory = c(FALSE, TRUE)
   )
 }
@@ -86,7 +89,7 @@ PipelineName_conf <- function() {
 #' not be modified. This serves to initiate the ns variable, largely used in
 #' the _server() function.
 #' Do not modify anything in this function.
-#' 
+#'
 #' @rdname PipelineTemplate
 #' @export
 #'
@@ -95,7 +98,7 @@ PipelineName_ui <- function(id) {
 }
 
 
-#' @description The server function does not need to be modified here as it 
+#' @description The server function does not need to be modified here as it
 #' sets up the pipeline. Just replace "PipelineName" if needed.
 #'
 #' @rdname PipelineTemplate
@@ -121,7 +124,8 @@ PipelineName_server <- function(
   path = NULL
 ) {
   # Contrary to a process function, there is no widget in this module as they
-  # are contained inside of the other modules, and this is to set up the pipeline.
+  # are contained inside of the other modules, and this is to set up the 
+  # pipeline.
   # Thus, no modification has to be made here.
 
   # Those two variables must bet set to NULL in this function.
@@ -140,7 +144,7 @@ PipelineName_server <- function(
     eval(str2expression(core.code))
 
     # Insert necessary code which is hosted by MagellanNTK
-    # DO NOT MODIFY THIS LINE
+    # !! DO NOT MODIFY THIS LINE !!
     eval(parse(text = MagellanNTK::Module_Return_Func()))
   })
 }

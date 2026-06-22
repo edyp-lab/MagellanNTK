@@ -7,13 +7,13 @@
 Discover_Skipped_Steps(steps.status)
 }
 \arguments{
-\item{steps.status}{A vector of `character()` which reflects the status of the steps 
-in the pipeline. Thus, the length of this vector is equal to the number of 
-steps}
+\item{steps.status}{A vector of `character()` which reflects the status of
+the steps in the pipeline. Thus, the length of this vector is equal to the
+number of steps}
 }
 \value{
-A vector of integers of the same length as steps.status and where skipped 
-steps are identified with '-1'
+A vector of integers of the same length as steps.status and where
+skipped steps are identified with '-1'
 }
 \description{
 Discover Skipped Steps

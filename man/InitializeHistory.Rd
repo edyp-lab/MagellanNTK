@@ -11,8 +11,8 @@ A `data.frame()` with four columns: 'Process', 'Step', 'Parameter'
 and 'Value'
 }
 \description{
-This function returns the indice of the last validated step before
-the current step.
+This function returns the indice of the last validated step
+before the current step.
 }
 \examples{
 InitializeHistory()

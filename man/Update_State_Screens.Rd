@@ -7,17 +7,17 @@
 Update_State_Screens(is.skipped, is.enabled, rv)
 }
 \arguments{
-\item{is.skipped}{A `boolean` indicating whether the current step of a process
-or process of a pipeline has the status SKIPPED}
+\item{is.skipped}{A `boolean` indicating whether the current step of a
+process or process of a pipeline has the status SKIPPED}
 
-\item{is.enabled}{A `boolean` indicating whether the current step of a process
-or process of a pipeline is enabled (TRUE) or not (FALSE)}
+\item{is.enabled}{A `boolean` indicating whether the current step of a
+process or process of a pipeline is enabled (TRUE) or not (FALSE)}
 
-\item{rv}{A `list()` containing at least an item named 'steps.status' which is 
-a vector of of names for the steps of a pipeline nor a process.}
+\item{rv}{A `list()` containing at least an item named 'steps.status' which
+is a vector of of names for the steps of a pipeline nor a process.}
 }
 \value{
-A `vector` of boolean which gives the status enabled (TRUE) or 
+A `vector` of boolean which gives the status enabled (TRUE) or
 disabled (FALSE) of the steps from a pipeline nor a process.
 }
 \description{

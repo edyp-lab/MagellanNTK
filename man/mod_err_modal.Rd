@@ -36,7 +36,7 @@ It is rather a useful tool for third part pipelines and processes.
 }
 \examples{
 if (interactive()) {
-    shiny::runApp(mod_errorModal("myTitle", "myContent"))
+  shiny::runApp(mod_errorModal("myTitle", "myContent"))
 }
 
 }

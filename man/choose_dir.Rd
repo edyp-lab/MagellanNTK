@@ -69,8 +69,9 @@ paths are expanded with \code{\link{path.expand}}.
 For Linux, with \code{default = NA}, the initial folder selection is
 determined by defaul behavior of the zenity script.
 
-The new windows batch script allows both initial folder and caption to be set.
-In the old batch script for Windows the initial folder is always ignored.
+The new windows batch script allows both initial folder and caption to be
+set. In the old batch script for Windows the initial folder is always
+ignored.
 }
 \examples{
 NULL

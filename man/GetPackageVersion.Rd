@@ -16,5 +16,6 @@ A `character()`
 Get the version of a package installed in the local R distribution
 }
 \examples{
-GetPackageVersion('MagellanNTK')
+GetPackageVersion("MagellanNTK")
+
 }

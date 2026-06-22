@@ -29,10 +29,3 @@ for the pipeline used.
 * download_dataset(): xxx
 * addDatasets(): xxx
 * keepDatasets(): xxx
-
-
-in the package `MagellanNTK`, a shiny module called `mod_load_packages` is used
-to configure the functions to use (i.e. from which package they are loaded 
-from).
-
-

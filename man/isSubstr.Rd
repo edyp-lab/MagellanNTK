@@ -18,6 +18,6 @@ A boolean
 Substring test
 }
 \examples{
-isSubstr('cde', 'abcdefghi')
+isSubstr("cde", "abcdefghi")
 
 }

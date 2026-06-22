@@ -7,7 +7,8 @@
 readDirectoryInput(session, inputId)
 }
 \arguments{
-\item{session}{The \code{session} object passed to function given to \code{shinyServer}.}
+\item{session}{The \code{session} object passed to function given to
+\code{shinyServer}.}
 
 \item{inputId}{The id of the input object}
 }

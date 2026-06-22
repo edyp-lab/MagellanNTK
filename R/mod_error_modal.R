@@ -4,7 +4,9 @@
 #'
 #' @param id A `character()` as the id of the Shiny module
 #' @param msg The text to display in the modal
-#'
+#' 
+#' @return A shiny App
+#' 
 #' @name errorModal
 #'
 #' @examples
@@ -12,11 +14,9 @@
 #'     shiny::runApp(errorModal("my error text"))
 #' }
 #' 
-#' @return A shiny App
 #' @importFrom shiny moduleServer observeEvent showModal modalDialog wellPanel HTML
 #'
 NULL
-
 
 #' @rdname errorModal
 #'
@@ -25,6 +25,7 @@ NULL
 errorModal_ui <- function(id) {}
 
 #' @rdname errorModal
+#' 
 #' @export
 #'
 errorModal_server <- function(id, msg) {
@@ -49,14 +50,11 @@ errorModal_server <- function(id, msg) {
     })
 }
 
-
-
-
-
-#' @export
 #' @rdname errorModal
+#' 
 #' @importFrom shiny fluidPage shinyApp
-#'
+#' 
+#' @export
 errorModal <- function(msg) {
     ui <- fluidPage(
         errorModal_ui(id = "ex")

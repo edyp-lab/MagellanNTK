@@ -33,21 +33,21 @@ MagellanNTK(
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
 
-\item{sidebarSize}{The width of the sidebar. Available values are 'small', 'medium', 'large'}
+\item{sidebarSize}{The width of the sidebar. Available values are 'small',
+'medium', 'large'}
 
-\item{workflow.path}{A `character()` which is the path to the directory which 
+\item{workflow.path}{A `character()` which is the path to the directory which
 contains the files and directories of the pipeline.}
 
 \item{workflow.name}{A `character()` which is the name of the pipeline to
-launch and run whithin the framework of MagellanNTK. It designs the name of 
+launch and run whithin the framework of MagellanNTK. It designs the name of
 a directory which contains the files and directories of the pipeline.}
 
-\item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
-the verbose mode for logs.}
+\item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON
+(TRUE) the verbose mode for logs.}
 
-\item{usermod}{A `character()` to specifies the running mode of MagellanNTK: 
-'user' (default) or 'dev'. For more details, please refer to the document 
-'Inside MagellanNTK'}
+\item{usermod}{A `character()` to specifies the running mode of MagellanNTK:
+'user' (default) or 'dev'.}
 
 \item{...}{Additional parameters}
 }
@@ -59,7 +59,8 @@ Main Shiny application
 }
 \examples{
 if (interactive()) {
-    MagellanNTK()
-    }
+  wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
+  MagellanNTK(wf.path, 'PipelineDemo')
+}
 
 }

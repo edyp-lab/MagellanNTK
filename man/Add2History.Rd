@@ -21,12 +21,11 @@ Add2History(history, process, step.name, param.name, value)
 A `data.frame()`
 }
 \description{
-This function returns the indice of the last validated step before
-the current step.
+This function returns the indice of the last validated step
+before the current step.
 }
 \examples{
 history <- InitializeHistory()
-Add2History(history, 'Example', 'First step', "my param", 'THE value')
-
+Add2History(history, "Example", "First step", "my param", "THE value")
 
 }

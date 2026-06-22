@@ -21,16 +21,14 @@ view_dataset(dataIn)
 }
 \value{
 A shiny App
-
-NA
 }
 \description{
 A shiny Module.
 }
 \examples{
 if (interactive()) {
-data(lldata123)
-shiny::runApp(view_dataset(lldata))
+  data(lldata123)
+  shiny::runApp(view_dataset(lldata))
 }
 
 }

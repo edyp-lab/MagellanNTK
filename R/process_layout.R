@@ -8,85 +8,93 @@
 #' @param sidebar Shiny components
 #' @param content Shiny components
 #'
+#' @return A `div()` containing shiny components
+#'
 #' @name process_layout
 #'
 #' @import shiny
 #' @importFrom sass sass sass_file
-#' @return A `div()` containing shiny components
-#' 
+#'
 #' @examples
 #' NULL
-#' 
+#'
 NULL
 
-
-
-
-
-#' @export
 #' @rdname process_layout
 #'
+#' @export
+#'
 process_layout <- function(session, ns, sidebar, content) {
-  
+  if (is.null(session$userData$wf_mode)) {
+    session$userData$wf_mode <- "pipeline"
+  }
   switch(session$userData$wf_mode,
     process = process_layout_process(session, ns, sidebar, content),
     pipeline = process_layout_pipeline(session, ns, sidebar, content)
   )
 }
 
-
-
-
 #' @rdname process_layout
+#'
 #' @export
 #'
 process_layout_process <- function(session, ns, sidebar, content) {
-  
   div(
-        div(style = paste0(
-          "background-color: ", MagellanNTK::default_theme(session$userData$usermod)$bgcolor_process_sidebar, ";",
-          "padding-left: ", default_layout$left_process_timeline, "px;",
-          "padding-bottom: ", default_layout$bottom_process_timeline, "px;",
-          "padding-top: ", default_layout$top_process_timeline, "px;"),
-          sidebar
-        ),
-        shiny::absolutePanel(
-          style = paste0(
-            "position: absolute; ",
-            "width: ", default_layout$width_process_content_standalone, ";",
-            # "padding-top: ", default_layout$top_process_content_standalone, "px;",
-            "background-color: ", default_theme(session$userData$usermod)$bgcolor_process_content, ";}"
-          ),
-          top = default_layout$top_process_content_standalone,
-          left = default_layout$left_process_content_standalone,
-          content
-        )
-      )
+    div(
+      style = paste0(
+        "background-color: ", MagellanNTK::default_theme(
+          session$userData$usermod
+        )$bgcolor_process_sidebar, ";",
+        "padding-left: ", default_layout$left_process_timeline, "px;",
+        "padding-bottom: ", default_layout$bottom_process_timeline, "px;",
+        "padding-top: ", default_layout$top_process_timeline, "px;"
+      ),
+      sidebar
+    ),
+    shiny::absolutePanel(
+      style = paste0(
+        "position: absolute; ",
+        "width: ", default_layout$width_process_content_standalone, ";",
+        "background-color: ", default_theme(
+          session$userData$usermod
+        )$bgcolor_process_content, ";}"
+      ),
+      top = default_layout$top_process_content_standalone,
+      left = default_layout$left_process_content_standalone,
+      content
+    )
+  )
 }
 
 #' @rdname process_layout
+#'
 #' @export
 #'
 process_layout_pipeline <- function(session, ns, sidebar, content) {
-  
   div(
-        div(style = paste0(
-          "background-color: ", default_theme(session$userData$usermod)$bgcolor_process_sidebar, ";",
-          "padding-left: ", default_layout$left_process_timeline, "px;",
-          "padding-bottom: ", default_layout$bottom_process_timeline, "px;",
-          "padding-top: ", default_layout$top_process_timeline, "px;"),
-          sidebar
-        ),
-        shiny::absolutePanel(
-          style = paste0(
-            "position: absolute; ",
-            "width: ", default_layout$width_process_content, ";",
-            "padding-top: ", default_layout$top_process_content, "px;",
-            "background-color: ", default_theme(session$userData$usermod)$bgcolor_process_content, ";}"
-          ),
-          top = default_layout$top_process_content,
-          left = default_layout$left_process_content,
-          content
-        )
-      )
+    div(
+      style = paste0(
+        "background-color: ", default_theme(
+          session$userData$usermod
+        )$bgcolor_process_sidebar, ";",
+        "padding-left: ", default_layout$left_process_timeline, "px;",
+        "padding-bottom: ", default_layout$bottom_process_timeline, "px;",
+        "padding-top: ", default_layout$top_process_timeline, "px;"
+      ),
+      sidebar
+    ),
+    shiny::absolutePanel(
+      style = paste0(
+        "position: absolute; ",
+        "width: ", default_layout$width_process_content, ";",
+        "padding-top: ", default_layout$top_process_content, "px;",
+        "background-color: ", default_theme(
+          session$userData$usermod
+        )$bgcolor_process_content, ";}"
+      ),
+      top = default_layout$top_process_content,
+      left = default_layout$left_process_content,
+      content
+    )
+  )
 }

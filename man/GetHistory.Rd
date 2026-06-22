@@ -19,6 +19,6 @@ Get the history of an assay
 }
 \examples{
 data(lldata123)
-GetHistory(lldata123, 'Clustering')
+GetHistory(lldata123, "Clustering")
 
 }

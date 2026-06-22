@@ -7,17 +7,18 @@
 GetMaxValidated_AllSteps(steps.status)
 }
 \arguments{
-\item{steps.status}{A vector of strings where each item is the status of a step.
+\item{steps.status}{A vector of strings where each item is the status of a
+step.
 The length of this vector is the same of the number of steps.}
 }
 \value{
 A `integer(1)` which is the indice of the value
 }
 \description{
-This function returns the indice of the last validated step 
+This function returns the indice of the last validated step
 among all the steps
 }
 \examples{
-GetMaxValidated_AllSteps(c(1,1,0,1,0,0))
+GetMaxValidated_AllSteps(c(1, 1, 0, 1, 0, 0))
 
 }

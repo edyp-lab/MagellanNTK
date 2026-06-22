@@ -1,9 +1,6 @@
-#' @title   format_DT_ui and format_DT_server
+#' @title format_DT_ui and format_DT_server
 #'
-#' @description
-#'
-#' A shiny Module.
-#'
+#' @description A shiny Module.
 #'
 #' @param id A `character()` as the id of the Shiny module
 #' @param dataIn A `data.frame()`
@@ -13,197 +10,198 @@
 #' @param dom Default is 'Bt',
 #' @param max.rows Default is 20,
 #' @param hc_style Default is NULL,
-#' @param remoteReset An `integer` which acts as a remote command to reset the 
-#' module. Its value is incremented on a external event and it is used to 
+#' @param remoteReset An `integer` which acts as a remote command to reset the
+#' module. Its value is incremented on a external event and it is used to
 #' trigger an event in this module
 #' @param is.enabled Default is TRUE
+#'
+#' @return A shiny App
 #'
 #' @name format_DT
 #'
 #' @examples
 #' if (interactive()) {
-#'     obj <- SummarizedExperiment::assay(lldata[[1]])
-#'     shiny::runApp(format_DT(obj))
-#'     #
-#'     # Compute style from within third party tab
-#'     #
-#'     obj <- as.data.frame(matrix(seq_len(30), byrow = TRUE, nrow = 6))
-#'     colnames(obj) <- paste0("col", seq_len(5))
+#'   obj <- SummarizedExperiment::assay(lldata[[1]])
+#'   obj <- as.data.frame(obj)
+#'   shiny::runApp(format_DT(obj))
 #'
-#'     mask <- as.data.frame(matrix(rep(LETTERS[seq_len(5)], 6), byrow = TRUE, nrow = 6))
+#'   # Compute style from within third party tab
+#'   obj <- as.data.frame(matrix(seq_len(30), byrow = TRUE, nrow = 6))
+#'   colnames(obj) <- paste0("col", seq_len(5))
 #'
+#'   mask <- as.data.frame(matrix(rep(LETTERS[seq_len(5)], 6),
+#'     byrow = TRUE, nrow = 6
+#'   ))
 #'
-#'     style <- list(
-#'         cols = colnames(obj),
-#'         vals = colnames(mask),
-#'         unique = unique(mask),
-#'         pal = RColorBrewer::brewer.pal(5, "Dark2")[seq_len(5)]
-#'     )
+#'   style <- list(
+#'     cols = colnames(obj),
+#'     vals = colnames(mask),
+#'     unique = unique(mask),
+#'     pal = RColorBrewer::brewer.pal(5, "Dark2")[seq_len(5)]
+#'   )
 #'
-#'     shiny::runApp(format_DT(obj,
-#'         hidden = mask,
-#'         hc_style = style
-#'     ))
+#'   shiny::runApp(format_DT(obj,
+#'     hidden = mask,
+#'     hc_style = style
+#'   ))
 #' }
-#'
-#' @return A shiny App
 #'
 NULL
 
-
 #' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #' @importFrom shiny NS tagList
-#' @export
+#'
 #' @rdname format_DT
 #'
-format_DT_ui <- function(id) {
-    ns <- NS(id)
-    tagList(
-        shinyjs::useShinyjs(),
-      DT::DTOutput(ns("StaticDataTable"))
-    )
-}
-
-#'
 #' @export
 #'
+format_DT_ui <- function(id) {
+  ns <- NS(id)
+  tagList(
+    shinyjs::useShinyjs(),
+    DT::DTOutput(ns("StaticDataTable"))
+  )
+}
+
 #' @importFrom htmlwidgets JS
 #' @importFrom DT dataTableProxy replaceData formatStyle styleEqual datatable
 #'
 #' @rdname format_DT
-format_DT_server <- function(
-        id,
-        dataIn = reactive({NULL}),
-        hidden = reactive({NULL}),
-        withDLBtns = FALSE,
-        showRownames = FALSE,
-        dom = "Bt",
-        max.rows = 20,
-        hc_style = reactive({NULL}),
-        remoteReset = reactive({0}),
-        is.enabled = reactive({TRUE})) {
-    moduleServer(id, function(input, output, session) {
-        ns <- session$ns
-
-        rv.infos <- reactiveValues(
-            obj = NULL
-        )
-
-
-        proxy <- DT::dataTableProxy(session$ns("StaticDataTable"), session)
-
-        observe({
- 
-            req(dataIn())
-            rv.infos$obj <- dataIn()
-            if (!is.null(hidden())) {
-                rv.infos$obj <- cbind(dataIn(), hidden())
-            }
-
-
-            DT::replaceData(proxy, rv.infos$obj, resetPaging = FALSE)
-        })
-
-        initComplete <- function() {
-            return(htmlwidgets::JS(
-                "function(settings, json) {",
-                "$(this.api().table().header()).css({'background-color': 'darkgrey', 'color': 'black'});",
-                "}"
-            ))
-        }
-
-
-
-        GetColumnDefs <- reactive({
-
-            if (!is.null(hidden())) {
-                tgt.seq <- seq.int(from = ncol(dataIn()), to = ncol(dataIn()) + ncol(hidden()) - 1)
-                list(
-                    list(targets = "_all", className = "dt-center"),
-                    list(targets = tgt.seq, visible = FALSE)
-                )
-            } else {
-                list(list(targets = "_all", className = "dt-center"))
-            }
-        })
-
-
-        output$StaticDataTable <- DT::renderDT(server = TRUE, {
-            req(length(rv.infos$obj) > 0)
-            # .jscode <- DT::JS("$.fn.dataTable.render.ellipsis( 30 )")
-            dt <- DT::datatable(
-                rv.infos$obj,
-                escape = FALSE,
-                extensions = c("Scroller"),
-                 rownames = showRownames,
-                 plugins = "ellipsis",
-                 options = list(
-                     initComplete = initComplete(),
-                     dom = dom,
-                     columnDefs = GetColumnDefs(),
-                   scrollY = TRUE, 
-                   #height = '100%',
-                   paging = FALSE
-                 )
-            )
-
-
-            if (!is.null(hc_style())) {
-                dt <- dt |>
-                    DT::formatStyle(
-                        columns = hc_style()$cols,
-                        valueColumns = hc_style()$vals,
-                        target = "cell",
-                        backgroundColor = DT::styleEqual(hc_style()$unique, hc_style()$pal)
-                    )
-            }
-
-
-            dt
-        })
-    })
-}
-
-
-
-
-#' @export
-#' @rdname format_DT
 #'
-format_DT <- function(
-        dataIn,
-        hidden = NULL,
-        withDLBtns = FALSE,
-        showRownames = FALSE,
-        dom = "Bt",
-        hc_style = NULL,
-        remoteReset = NULL,
-        is.enabled = TRUE) {
-    stopifnot(inherits(dataIn, "data.frame"))
-    ui <- format_DT_ui("dt")
+#' @export
+#'
+format_DT_server <- function(id,
+                             dataIn = reactive({
+                               NULL
+                             }),
+                             hidden = reactive({
+                               NULL
+                             }),
+                             withDLBtns = FALSE,
+                             showRownames = FALSE,
+                             dom = "Bt",
+                             max.rows = 20,
+                             hc_style = reactive({
+                               NULL
+                             }),
+                             remoteReset = reactive({
+                               0
+                             }),
+                             is.enabled = reactive({
+                               TRUE
+                             })) {
+  moduleServer(id, function(input, output, session) {
+    ns <- session$ns
 
-    server <- function(input, output, session) {
-        format_DT_server("dt",
-            dataIn = reactive({
-                dataIn
-            }),
-            hidden = reactive({
-                hidden
-            }),
-            withDLBtns = withDLBtns,
-            showRownames = showRownames,
-            dom = dom,
-            hc_style = reactive({
-                hc_style
-            }),
-            remoteReset = reactive({
-                remoteReset
-            }),
-            is.enabled = reactive({
-                is.enabled
-            })
-        )
+    rv.infos <- reactiveValues(
+      obj = NULL
+    )
+
+    proxy <- DT::dataTableProxy(session$ns("StaticDataTable"), session)
+
+    observe({
+      req(dataIn())
+      rv.infos$obj <- dataIn()
+      if (!is.null(hidden())) {
+        rv.infos$obj <- cbind(dataIn(), hidden())
+      }
+
+      DT::replaceData(proxy, rv.infos$obj, resetPaging = FALSE)
+    })
+
+    initComplete <- function() {
+      return(htmlwidgets::JS(
+        "function(settings, json) {",
+        "$(this.api().table().header()).css({'background-color': 'darkgrey',
+        'color': 'black'});",
+        "}"
+      ))
     }
 
-    app <- shinyApp(ui = ui, server = server)
+    GetColumnDefs <- reactive({
+      if (!is.null(hidden())) {
+        tgt.seq <- seq.int(
+          from = ncol(dataIn()),
+          to = ncol(dataIn()) + ncol(hidden()) - 1
+        )
+        list(
+          list(targets = "_all", className = "dt-center"),
+          list(targets = tgt.seq, visible = FALSE)
+        )
+      } else {
+        list(list(targets = "_all", className = "dt-center"))
+      }
+    })
+
+    output$StaticDataTable <- DT::renderDT(server = TRUE, {
+      req(length(rv.infos$obj) > 0)
+      dt <- DT::datatable(
+        rv.infos$obj,
+        escape = FALSE,
+        extensions = c("Scroller"),
+        rownames = showRownames,
+        plugins = "ellipsis",
+        options = list(
+          initComplete = initComplete(),
+          dom = dom,
+          columnDefs = GetColumnDefs(),
+          scrollY = TRUE,
+          paging = FALSE
+        )
+      )
+
+      if (!is.null(hc_style())) {
+        dt <- dt |>
+          DT::formatStyle(
+            columns = hc_style()$cols,
+            valueColumns = hc_style()$vals,
+            target = "cell",
+            backgroundColor = DT::styleEqual(hc_style()$unique, hc_style()$pal)
+          )
+      }
+
+      dt
+    })
+  })
+}
+
+#' @rdname format_DT
+#'
+#' @export
+#'
+format_DT <- function(dataIn,
+                      hidden = NULL,
+                      withDLBtns = FALSE,
+                      showRownames = FALSE,
+                      dom = "Bt",
+                      hc_style = NULL,
+                      remoteReset = NULL,
+                      is.enabled = TRUE) {
+  stopifnot(inherits(dataIn, "data.frame"))
+  ui <- format_DT_ui("dt")
+
+  server <- function(input, output, session) {
+    format_DT_server("dt",
+      dataIn = reactive({
+        dataIn
+      }),
+      hidden = reactive({
+        hidden
+      }),
+      withDLBtns = withDLBtns,
+      showRownames = showRownames,
+      dom = dom,
+      hc_style = reactive({
+        hc_style
+      }),
+      remoteReset = reactive({
+        remoteReset
+      }),
+      is.enabled = reactive({
+        is.enabled
+      })
+    )
+  }
+
+  app <- shinyApp(ui = ui, server = server)
 }

@@ -7,8 +7,8 @@
 ToggleState_NavBtns(current.pos, nSteps)
 }
 \arguments{
-\item{current.pos}{An `integer` which gives the current position of the cursor
-in the corresponding timeline}
+\item{current.pos}{An `integer` which gives the current position of the 
+cursor in the corresponding timeline}
 
 \item{nSteps}{The number of steps in the timeline}
 }

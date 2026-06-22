@@ -20,9 +20,8 @@ default_layout
 default_theme(mode)
 }
 \arguments{
-\item{mode}{A `character()` to specifies the running mode of MagellanNTK: 
-'user' (default) or 'dev'. For more details, please refer to the document 
-'Inside MagellanNTK'}
+\item{mode}{A `character()` to specifies the running mode of MagellanNTK:
+'user' (default) or 'dev'.}
 }
 \value{
 NA
@@ -34,4 +33,5 @@ width_sidebar = width_process_btns
 }
 \examples{
 NULL
+
 }

@@ -36,14 +36,12 @@
 #' @examples
 #' data(lldata)
 #' obj.se <- lldata[[1]]
-#' new.obj <- addDatasets(lldata, obj.se, 'mynewobj')
-#' 
+#' new.obj <- addDatasets(lldata, obj.se, "mynewobj")
+#'
 #' data(lldata123)
-#' keepDatasets(lldata123, c(1,3))
+#' keepDatasets(lldata123, c(1, 3))
 #'
 NULL
-
-
 
 #' @rdname dataset-processing
 #' @export
@@ -53,20 +51,16 @@ addDatasets <- function(object, dataset, name) {
   return(object)
 }
 
-
-
-
-
 #' @rdname dataset-processing
 #' @export
 #'
 keepDatasets <- function(object = NULL, range = seq_along(object)) {
-    if (missing(range)) {
-        stop("Provide range of array to be processed")
-    }
+  if (missing(range)) {
+    stop("Provide range of array to be processed")
+  }
 
   stopifnot(!is.null(object))
   stopifnot(max(range) <= length(object))
 
-    return(object[,,range])
+  return(object[, , range])
 }

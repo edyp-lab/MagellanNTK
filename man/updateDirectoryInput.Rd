@@ -7,13 +7,14 @@
 updateDirectoryInput(session, inputId, value = NULL, ...)
 }
 \arguments{
-\item{session}{The \code{session} object passed to function given to \code{shinyServer}.}
+\item{session}{The \code{session} object passed to function given to
+\code{shinyServer}.}
 
 \item{inputId}{The id of the input object.}
 
 \item{value}{A directory path to set}
 
-\item{...}{Additional arguments passed to \code{\link{choose_dir}}.  Only used
+\item{...}{Additional arguments passed to \code{\link{choose_dir}}. Only used
 if \code{value} is \code{NULL}.}
 }
 \value{

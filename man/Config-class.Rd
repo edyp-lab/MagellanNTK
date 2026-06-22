@@ -25,14 +25,15 @@ Config(
 )
 }
 \arguments{
-\item{fullname}{The complete name of the pipeline or the process (in this case,
-it is the concatenation of the name of the pipeline and the name of the process 
-itself, separated by '_')}
+\item{fullname}{The complete name of the pipeline or the process (in this
+case, it is the concatenation of the name of the pipeline and the name of the
+process itself, separated by '_')}
 
-\item{mode}{A `character()` which indicates whether the current module is used
-as a 'process' nor a 'pipeline.' Default value is NULL}
+\item{mode}{A `character()` which indicates whether the current module is
+used as a 'process' nor a 'pipeline.' Default value is NULL}
 
-\item{steps}{A vector containing the names of steps in a process or a pipeline.}
+\item{steps}{A vector containing the names of steps in a process or a
+pipeline.}
 
 \item{mandatory}{A vector of boolean where each element indicates whether the
 corresponding steps is mandatory or not. It has the same length of the vector
@@ -69,11 +70,11 @@ a whole process nor a process of a pipeline.}
 of the pipeline. Two steps will be automatically inserted in this vector:
 'Description 'in the first position and 'Save' at the end.}
 
-\item{\code{mandatory}}{A `vector` of `boolean()` in which each item is the 
+\item{\code{mandatory}}{A `vector` of `boolean()` in which each item is the
 necessary code for the GUI of a step. The size of this vector is the number
  of steps}
 
-\item{\code{ll.UI}}{A `vector` of Shiny source code. Each item is the necessary code 
+\item{\code{ll.UI}}{A `vector` of Shiny source code. Each item is the necessary code
 for the GUI of a step. The size of this vector is the number of steps}
 
 \item{\code{steps.source.file}}{A `vector` of which each item is the source code
@@ -83,7 +84,7 @@ of the corresponding step.}
 of the pipeline. Two steps will be automatically inserted in this vector:
 'Description 'in the first position and 'Save' at the end.}
 
-\item{\code{mandatory}}{A `vector` of `boolean()` in which each item is the 
+\item{\code{mandatory}}{A `vector` of `boolean()` in which each item is the
 necessary code for the GUI of a step. The size of this vector is the number
  of steps}
 }}
@@ -92,37 +93,36 @@ necessary code for the GUI of a step. The size of this vector is the number
 
 # Example of a single process with one step
 proc1step <- Config(
-    fullname = "PipelineDemo_DataGeneration",
-    mode = "process",
-    steps = c("DataGeneration"),
-    mandatory = c(TRUE)
+  fullname = "PipelineDemo_DataGeneration",
+  mode = "process",
+  steps = c("DataGeneration"),
+  mandatory = c(TRUE)
 )
 
 
 # Example of a single process with two steps
-# Example of a generic pipeline
 proc2steps <- Config(
-    fullname = "PipelineDemo_PreProcessing",
-    mode = "process",
-    steps = c('Filtering', 'Normalization'),
-    mandatory = c(TRUE, FALSE)
+  fullname = "PipelineDemo_PreProcessing",
+  mode = "process",
+  steps = c("Filtering", "Normalization"),
+  mandatory = c(TRUE, FALSE)
 )
 
 # Example of pipeline with three process
 pipe3proc <- Config(
-    mode = "pipeline",
-    fullname = "PipelineDemo",
-    steps = c('DataGeneration', 'Preprocessing', 'Clustering'),
-    mandatory = c(TRUE, FALSE, FALSE)
+  mode = "pipeline",
+  fullname = "PipelineDemo",
+  steps = c("DataGeneration", "Preprocessing", "Clustering"),
+  mandatory = c(TRUE, FALSE, FALSE)
 )
 
 
 # Example of a particular description module (A process with no step)
 description.process <- Config(
-    fullname = "PipelineDemo_Description",
-    mode = "process",
-    steps = "",
-    mandatory = ""
+  fullname = "PipelineDemo_Description",
+  mode = "process",
+  steps = "",
+  mandatory = ""
 )
 
 }

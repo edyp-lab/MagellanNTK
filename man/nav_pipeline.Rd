@@ -39,17 +39,16 @@ that it is disabled (i.e. skipped), then this variable is set to TRUE. Then,
 all the widgets will be disabled. If not, the enabling/disabling of widgets
 is deciding by this module.}
 
-\item{remoteReset}{An `integer` which acts as a remote command to reset the 
-module. Its value is incremented on a external event and it is used to 
-trigger an event 
+\item{remoteReset}{An `integer` which acts as a remote command to reset the
+module. Its value is incremented on a external event and it is used to
+trigger an event
 in this module}
 
-\item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
-the verbose mode for logs.}
+\item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON
+(TRUE) the verbose mode for logs.}
 
-\item{usermod}{A `character()` to specifies the running mode of MagellanNTK: 
-'user' (default) or 'dev'. For more details, please refer to the document 
-'Inside MagellanNTK'}
+\item{usermod}{A `character()` to specifies the running mode of MagellanNTK:
+'user' (default) or 'dev'.}
 }
 \value{
 A list of four items:
@@ -64,8 +63,8 @@ This is the core module of MagellanNTK
 }
 \examples{
 if (interactive()) {
-    library(shiny)
-    nav_pipeline()
+  library(shiny)
+  nav_pipeline()
 }
 
 }

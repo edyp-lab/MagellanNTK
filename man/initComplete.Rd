@@ -14,4 +14,5 @@ Initialisation function for DT
 }
 \examples{
 initComplete()
+
 }

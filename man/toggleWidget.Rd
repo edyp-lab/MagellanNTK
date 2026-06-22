@@ -19,6 +19,7 @@ Wrapper for the `toggleWidget()` function of the package `shinyjs`
 }
 \examples{
 NULL
+
 }
 \author{
 Samuel Wieczorek

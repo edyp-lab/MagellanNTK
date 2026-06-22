@@ -14,7 +14,7 @@ Loads the source code of basic Shiny app files
 }
 \examples{
 if (interactive()) {
-source_shinyApp_files()
+  source_shinyApp_files()
 }
 
 }

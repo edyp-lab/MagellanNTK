@@ -13,12 +13,12 @@ NA
 Runs a demo app with the code
 }
 \details{
-Runs a demo app with the code. See the code in the example_application folder for
-how this is accomplished.
+Runs a demo app with the code. See the code in the example_application folder
+for how this is accomplished.
 }
 \examples{
 if (interactive()) {
-    shiny::runApp(runDirinputExample())
+  shiny::runApp(runDirinputExample())
 }
 
 }

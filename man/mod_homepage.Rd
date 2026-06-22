@@ -33,7 +33,7 @@ A shiny Module.
 }
 \examples{
 if (interactive()) {
-    shiny::runApp(mod_homepage())
+  shiny::runApp(mod_homepage())
 }
 
 }

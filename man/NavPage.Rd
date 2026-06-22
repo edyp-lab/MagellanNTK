@@ -23,5 +23,4 @@ Move the position of the cursor
 \examples{
 NavPage(-1, 5, 5)
 
-
 }

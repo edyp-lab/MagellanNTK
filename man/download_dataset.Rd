@@ -34,9 +34,8 @@ download_dataset(dataIn = NULL, filename = "myDataset")
 \item{remoteReset}{A `logical(1)` which acts as a remote command to reset
 the module to its default values. Default is FALSE.}
 
-\item{is.enabled}{A `boolean`. This variable is used as a remote command to specify
-if the corresponding module is enabled (TRUE) or disabled (FALSE). For more
-details, please refer to the document 'Inside MagellanNTK'?}
+\item{is.enabled}{A `boolean`. This variable is used as a remote command to
+specify if the corresponding module is enabled (TRUE) or disabled (FALSE).}
 }
 \value{
 NA
@@ -45,10 +44,9 @@ NA
 A shiny Module.
 }
 \examples{
-if (interactive()){
-data(lldata, package = "MagellanNTK")
-shiny::runApp(download_dataset(lldata))
+if (interactive()) {
+  data(lldata, package = "MagellanNTK")
+  shiny::runApp(download_dataset(lldata))
 }
-
 
 }

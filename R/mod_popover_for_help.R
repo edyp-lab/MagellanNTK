@@ -1,78 +1,73 @@
 #' @title Opens a small tooltip info over a widget.
+#'
 #' @description Actually, this module does not work because we do not allow
 #' the use of the package `shinyBS` package (conflicts with BS versions).
-#' In the future, one will fix this module with native functions in the package 
+#' In the future, one will fix this module with native functions in the package
 #' `bs4Dash` (https://bs4dash.rinterface.com/reference/tooltip).
 #'
 #' @param id A `character()` as the id of the Shiny module
 #' @param title The title of the tooltip window
 #' @param content The main text of the tooltip window
 #'
+#' @return A shiny App
+#'
 #' @name mod_popover_for_help
 #'
 #' @examples
 #' if (interactive()) {
-#'     shiny::runApp(popover_for_help("myTitle", "myContent"))
+#'   shiny::runApp(popover_for_help("myTitle", "myContent"))
 #' }
 #'
-#' @return A shiny App
-#' 
 #' @importFrom shiny renderUI req moduleServer
 #'
 NULL
 
-
 #' @rdname mod_popover_for_help
 #'
-#' @export
 #' @importFrom shiny NS tagList div uiOutput
 #' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #'
+#' @export
+#'
 mod_popover_for_help_ui <- function(id) {
-    ns <- NS(id)
-    tagList(
-        shinyjs::useShinyjs(),
-        shinyjs::inlineCSS(pop_css),
-        div(
-            div(
-                # edit1
-                style = "display:inline-block; vertical-align: middle; padding-bottom: 5px;",
-                uiOutput(ns("write_title_ui"))
-            ),
-            div(
-                style = "display:inline-block; vertical-align: middle;padding-bottom: 5px;",
-                uiOutput(ns("dot")),
-                uiOutput(ns("show_Pop"))
-            )
-        )
+  ns <- NS(id)
+  tagList(
+    shinyjs::useShinyjs(),
+    shinyjs::inlineCSS(pop_css),
+    div(
+      div(
+        # edit1
+        style = "display:inline-block; vertical-align: middle;
+                padding-bottom: 5px;",
+        uiOutput(ns("write_title_ui"))
+      ),
+      div(
+        style = "display:inline-block; vertical-align: middle;
+                padding-bottom: 5px;",
+        uiOutput(ns("dot")),
+        uiOutput(ns("show_Pop"))
+      )
     )
+  )
 }
-
-
 
 #' @rdname mod_popover_for_help
 #'
 #' @export
 #'
 mod_popover_for_help_server <- function(id, title, content) {
-    moduleServer(id, function(input, output, session) {
-        ns <- session$ns
+  moduleServer(id, function(input, output, session) {
+    ns <- session$ns
 
-        output$write_title_ui <- renderUI({
-            HTML(paste0("<strong><font size=\"4\">", title, "</font></strong>"))
-        })
-
-        output$dot <- renderUI({
-            tags$button(tags$sup("[?]"), class = "custom_tooltip")
-        })
-
-        # output$show_Pop <- renderUI({
-        #     req(content)
-        #     shinyBS::bsTooltip(ns("dot"), content, trigger = "hover")
-        # })
+    output$write_title_ui <- renderUI({
+      HTML(paste0("<strong><font size=\"4\">", title, "</font></strong>"))
     })
-}
 
+    output$dot <- renderUI({
+      tags$button(tags$sup("[?]"), class = "custom_tooltip")
+    })
+  })
+}
 
 pop_css <- "button.custom_tooltip {
     background:none;
@@ -121,23 +116,22 @@ button.Prostar_tooltip_white {
 
 }"
 
-
 #' @rdname mod_popover_for_help
 #'
-#' @export
 #' @importFrom shiny fluidPage tagList textOutput reactiveValues observeEvent shinyApp
 #'
+#' @export
 popover_for_help <- function(title, content) {
-    ui <- fluidPage(
-        mod_popover_for_help_ui("settings")
+  ui <- fluidPage(
+    mod_popover_for_help_ui("settings")
+  )
+
+  server <- function(input, output, session) {
+    mod_popover_for_help_server("settings",
+      title = title,
+      content = content
     )
+  }
 
-    server <- function(input, output, session) {
-        mod_popover_for_help_server("settings",
-            title = title,
-            content = content
-        )
-    }
-
-    app <- shiny::shinyApp(ui, server)
+  app <- shiny::shinyApp(ui, server)
 }

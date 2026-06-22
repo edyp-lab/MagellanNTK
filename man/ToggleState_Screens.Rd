@@ -27,5 +27,4 @@ Updates the status of steps in a given range
 \examples{
 NULL
 
-
 }

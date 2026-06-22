@@ -15,3 +15,7 @@ A `character()` containing R source code
 \description{
 Insert source code for config()
 }
+\examples{
+Insert_Call_to_Config("PipelineDemo")
+
+}

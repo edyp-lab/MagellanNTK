@@ -18,7 +18,7 @@ The result of the function called
 Wrapper to the function `do.call`
 }
 \examples{
-call_func("stats::rnorm", list(n =10, mean=3))
+call_func("stats::rnorm", list(n = 10, mean = 3))
 
 }
 \seealso{

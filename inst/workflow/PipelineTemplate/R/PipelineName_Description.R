@@ -35,14 +35,7 @@
 #' @examples
 #' if (interactive()) {
 #'   wf.path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
-#'
-#'   MagellanNTK(wf.path, "PipelineDemo")
-#'
-#'   MagellanNTK(wf.path, "PipelineDemo_DataGeneration")
-#'
-#'   MagellanNTK(wf.path, "PipelineDemo_Preprocessing")
-#'
-#'   MagellanNTK(wf.path, "PipelineDemo_Clustering")
+#'   MagellanNTK(wf.path, "PipelineDemo_Description")
 #' }
 #'
 #' @name PipelineTemplate_Description
@@ -51,7 +44,9 @@
 #'
 NULL
 
-#' @description The `PipelineName_Description_conf` function ...
+#' @description The `PipelineName_Description_conf` function is a function that
+#' configures the 'Description' step and its sub-steps.
+#' It is a simple R function, not a Shiny module.
 #'
 #' @rdname PipelineTemplate_Description
 #' @export
@@ -131,11 +126,11 @@ PipelineName_Description_server <- function(
     history = MagellanNTK::InitializeHistory()
   )
 
-  ########################################################################### -
+  ###########################################################################-
   #
   #----------------------------MODULE SERVER----------------------------------
   #
-  ########################################################################### -
+  ###########################################################################-
   # Initiates the creation of the module
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
@@ -153,13 +148,14 @@ PipelineName_Description_server <- function(
 
     eval(str2expression(core.code))
 
-    ########################################################################### -
+    ###########################################################################-
     #
     #-----------------------------DESCRIPTION-----------------------------------
     #
-    ########################################################################### -
+    ###########################################################################-
+    # Defines everything that should be displayed in this sub-step
     output$Description <- renderUI({
-      # Find .Rmd file used to describe the step inside the 'md' directory 
+      # Find .Rmd file used to describe the step inside the 'md' directory
       # of the pipeline
       file <- normalizePath(file.path(
         system.file("workflow", package = "MagellanNTK"),
@@ -168,15 +164,14 @@ PipelineName_Description_server <- function(
         paste0(id, ".Rmd")
       ))
 
-
       # Function for the layout and display of widgets and plots for the step
       MagellanNTK::process_layout(session,
         ns = NS(id),
-        # Defines the ui elements for the sidebar of the process for 
-        # the given step
+        # Defines the ui elements for the sidebar of the process for
+        # the given sub-step
         sidebar = tagList(),
-        # Defines the ui elements for the content area of the process for 
-        # the given step
+        # Defines the ui elements for the content area of the process for
+        # the given sub-step
         content = tagList(
           # If a file has been found, it it displayed in the content area
           if (file.exists(file)) {
@@ -187,43 +182,50 @@ PipelineName_Description_server <- function(
         )
       )
     })
-    
-    # Here can be added any additionnal element
+
+    # Here can be added any additional element
 
     # This oberveEvent runs when one of the "Run" buttons is clicked
     observeEvent(req(btnEvents()), ignoreInit = TRUE, ignoreNULL = TRUE, {
-      # The core engine in MagellanNTK (found in the core_process.R file) 
-      # manages the navigation buttons and sends the button's value to all 
-      # process modules with each click (which is a concatenation of the 
-      # sub-step name in the process and the number of clicks on the button). 
-      # In the process modules, this value is retrieved by the btnEvents() 
+      # The core engine in MagellanNTK (found in the core_process.R file)
+      # manages the navigation buttons and sends the button's value to all
+      # process modules with each click (which is a concatenation of the
+      # sub-step name in the process and the number of clicks on the button).
+      # In the process modules, this value is retrieved by the btnEvents()
       # variable
-      
-      # Filter clicks on the Run/Run -> button from the 'Description' sub-step
-      req(grepl("Description", btnEvents()))
 
+      # Filter clicks on the Run/Run -> button from the 'Description' sub-step
+      # Specified which sub-step this is associated with
+      req(grepl("Description", btnEvents()))
+      
       req(dataIn())
       # Store the current dataset (dataIn()) in the reactive value rv$dataIn
-      # This ensure the entry dataset is never modified and can be retrieved 
+      # This ensure the entry dataset is never modified and can be retrieved
       # in case of a reset
       rv$dataIn <- dataIn()
-      
+
       # Records the actions performed at this stage
-      rv.custom$history <- Add2History(rv.custom$history, "Description", "Description", "Initialization", "-")
+      rv.custom$history <- Add2History(rv.custom$history, 
+                                       "Description", 
+                                       "Description", 
+                                       "Initialization", 
+                                       "-")
 
       len <- length(rv$dataIn)
       # Attach the history to the dataset
       rv$dataIn[[len]] <- SetHistory(rv$dataIn[[len]], rv.custom$history)
 
-
-      # DO NOT MODIFY THE THREE FOLLOWING LINES
+      # !! DO NOT MODIFY THE THREE FOLLOWING LINES !!
+      # Signals that the button has been clicked and the sub-step completed
       dataOut$trigger <- MagellanNTK::Timestamp()
+      # Output data. Non-null has it is the last sub-step of the process
       dataOut$value <- rv$dataIn
+      # Updates the validation status of the sub-step
       rv$steps.status["Description"] <- MagellanNTK::stepStatus$VALIDATED
     })
 
     # Insert necessary code which is hosted by MagellanNTK
-    # DO NOT MODIFY THIS LINE
+    # !! DO NOT MODIFY THIS LINE !!
     eval(parse(text = MagellanNTK::Module_Return_Func()))
   })
 }

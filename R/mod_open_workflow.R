@@ -1,184 +1,168 @@
 #' @title mod_open_workflow_ui and mod_open_workflow_server
 #'
-#' @description  A shiny Module.
+#' @description A shiny Module.
 #'
 #' @param id A `character()` as the id of the Shiny module
+#'
+#' @return A shiny App
 #'
 #' @name mod_open_workflow
 #'
 #' @examples
 #' if (interactive()) {
-#' shiny::runApp(open_workflow())
+#'   shiny::runApp(open_workflow())
 #' }
-#'
-#' @return A shiny App
 #'
 NULL
 
-
-
-
-#' @export
 #' @rdname mod_open_workflow
+#'
 #' @importFrom shiny NS tagList h3 fluidRow column uiOutput actionButton
 #'
+#' @export
+#'
 open_workflow_ui <- function(id) {
-    ns <- NS(id)
-    tagList(
-        h3(style = "color: blue;", "Open workflow"),
-        # div(
-        #   width = '600px',
-        #   uiOutput(ns('dirInput_UI'))
-        #   ),
-        fluidRow(
-            column(width = 3, uiOutput(ns("choosePackage_UI"))),
-            column(width = 3, uiOutput(ns("chooseWF1_UI"))),
-            column(width = 3, uiOutput(ns("chooseProcess_UI")))
-        ),
-        uiOutput(ns("wf_preview_ui")),
-        actionButton(ns("load_btn"), "Load"),
-        uiOutput(ns("infos_wf_UI"))
-    )
+  ns <- NS(id)
+  tagList(
+    h3(style = "color: blue;", "Open workflow"),
+    fluidRow(
+      column(width = 3, uiOutput(ns("choosePackage_UI"))),
+      column(width = 3, uiOutput(ns("chooseWF1_UI"))),
+      column(width = 3, uiOutput(ns("chooseProcess_UI")))
+    ),
+    uiOutput(ns("wf_preview_ui")),
+    actionButton(ns("load_btn"), "Load"),
+    uiOutput(ns("infos_wf_UI"))
+  )
 }
-
 
 #' @rdname mod_open_workflow
 #'
-#' @export
 #' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #' @importFrom shiny moduleServer reactiveValues observeEvent
 #' @importFrom utils help.search installed.packages maintainer packageVersion tail write.table
 #'
+#' @export
+#'
 open_workflow_server <- function(id) {
-    moduleServer(id, function(input, output, session) {
-        ns <- session$ns
+  moduleServer(id, function(input, output, session) {
+    ns <- session$ns
 
-        rv.wf <- reactiveValues(
-            path = path.expand("~"),
-            dataOut = NULL
-        )
+    rv.wf <- reactiveValues(
+      path = path.expand("~"),
+      dataOut = NULL
+    )
 
-        session$onSessionEnded(function() {
-            stopApp()
-        })
-
-
-        output$wf_preview_ui <- renderUI({
-            p("Preview")
-        })
-
-        FindPkg2MagellanNTK <- reactive({
-            x <- data(package = .packages(all.available = TRUE))$results
-            rnames <- rownames(installed.packages())
-            ll <- lapply(rnames, function(x) {
-                dir.exists(system.file("workflow", package = as.character(x)))
-            })
-
-            rnames[which(ll == TRUE)]
-        })
-
-
-        output$choosePackage_UI <- renderUI({
-            selectInput(ns("choosePkg"), "Package",
-                choices = FindPkg2MagellanNTK()
-            )
-        })
-
-
-
-        Find_WF <- reactive({
-            req(input$choosePkg)
-
-            path <- system.file("workflow", package = as.character(input$choosePkg))
-            ll.workflows <- list.dirs(path, full.names = FALSE, recursive = FALSE)
-
-            ll.workflows
-        })
-
-
-        output$chooseWF1_UI <- renderUI({
-            req(Find_WF())
-            selectInput(ns("chooseWF1"), "Choose workflow",
-                choices = Find_WF()
-            )
-        })
-
-
-
-        output$chooseProcess_UI <- renderUI({
-            req(input$chooseWF1)
-
-            rv.wf$path <- system.file(file.path("workflow", input$chooseWF1),
-                package = as.character(input$choosePkg)
-            )
-
-            tmp <- normalizePath(file.path(rv.wf$path, "R", fsep = MagellanNTK::file_sep()))
-            ll.files <- list.files(tmp, full.names = FALSE)
-
-            ll <- unlist(lapply(ll.files, function(x) {
-                if (MagellanNTK::isSubstr(basename(input$chooseWF1), x)) {
-                    x
-                }
-            }))
-
-
-            # Remove Description and Save process
-            ll <- ll[-c(grep("_Description", ll), grep("_Save", ll))]
-
-
-            selectInput(ns("chooseProcess"), "Choose process",
-                choices = gsub(".R", "", ll)
-            )
-        })
-
-
-
-        ## -- Open a MSnset File --------------------------------------------
-        observeEvent(input$load_btn, ignoreInit = TRUE, {
-            rv.wf$path
-
-            rv.wf$dataOut$pkg <- input$choosePkg
-            rv.wf$dataOut$path <- rv.wf$path
-            rv.wf$dataOut$wf_name <- input$chooseProcess
-            # Load customizable functions if config.txt file exists
-            rv.wf$dataOut$funcs <- MagellanNTK::readConfigFile(rv.wf$path)$funcs
-        })
-
-        output$infos_wf_UI <- renderUI({
-            req(rv.wf$dataOut$wf_name)
-        })
-
-        reactive({
-            rv.wf$dataOut
-        })
+    session$onSessionEnded(function() {
+      stopApp()
     })
+
+    output$wf_preview_ui <- renderUI({
+      p("Preview")
+    })
+
+    FindPkg2MagellanNTK <- reactive({
+      x <- data(package = .packages(all.available = TRUE))$results
+      rnames <- rownames(installed.packages())
+      ll <- lapply(rnames, function(x) {
+        dir.exists(system.file("workflow", package = as.character(x)))
+      })
+
+      rnames[which(ll == TRUE)]
+    })
+
+    output$choosePackage_UI <- renderUI({
+      selectInput(ns("choosePkg"), "Package",
+        choices = FindPkg2MagellanNTK()
+      )
+    })
+
+    Find_WF <- reactive({
+      req(input$choosePkg)
+
+      path <- system.file("workflow", package = as.character(input$choosePkg))
+      ll.workflows <- list.dirs(path, full.names = FALSE, recursive = FALSE)
+
+      ll.workflows
+    })
+
+    output$chooseWF1_UI <- renderUI({
+      req(Find_WF())
+      selectInput(ns("chooseWF1"), "Choose workflow",
+        choices = Find_WF()
+      )
+    })
+
+    output$chooseProcess_UI <- renderUI({
+      req(input$chooseWF1)
+
+      rv.wf$path <- system.file(file.path("workflow", input$chooseWF1),
+        package = as.character(input$choosePkg)
+      )
+
+      tmp <- normalizePath(file.path(rv.wf$path, "R",
+        fsep = MagellanNTK::file_sep()
+      ))
+      ll.files <- list.files(tmp, full.names = FALSE)
+
+      ll <- unlist(lapply(ll.files, function(x) {
+        if (MagellanNTK::isSubstr(basename(input$chooseWF1), x)) {
+          x
+        }
+      }))
+
+      # Remove Description and Save process
+      ll <- ll[-c(grep("_Description", ll), grep("_Save", ll))]
+
+      selectInput(ns("chooseProcess"), "Choose process",
+        choices = gsub(".R", "", ll)
+      )
+    })
+
+    ## -- Open a File --------------------------------------------
+    observeEvent(input$load_btn, ignoreInit = TRUE, {
+      req(FindPkg2MagellanNTK())
+      req(Find_WF())
+      rv.wf$path
+
+      rv.wf$dataOut$pkg <- input$choosePkg
+      rv.wf$dataOut$path <- rv.wf$path
+      rv.wf$dataOut$wf_name <- input$chooseProcess
+      # Load customizable functions if config.txt file exists
+      rv.wf$dataOut$funcs <- MagellanNTK::readConfigFile(rv.wf$path)$funcs
+    })
+
+    output$infos_wf_UI <- renderUI({
+      req(rv.wf$dataOut$wf_name)
+    })
+
+    reactive({
+      rv.wf$dataOut
+    })
+  })
 }
-
-
-
 
 #' @rdname mod_open_workflow
 #'
-#' @export
 #' @importFrom shiny fluidPage tagList textOutput reactiveValues observeEvent shinyApp
 #'
+#' @export
+#'
 open_workflow <- function() {
-    ui <- fluidPage(
-        tagList(
-            open_workflow_ui("wf")
-        )
+  ui <- fluidPage(
+    tagList(
+      open_workflow_ui("wf")
+    )
+  )
+
+  server <- function(input, output, session) {
+    rv <- reactiveValues(
+      obj = NULL,
+      result = NULL
     )
 
-    server <- function(input, output, session) {
-        rv <- reactiveValues(
-            obj = NULL,
-            result = NULL
-        )
+    rv$result <- open_workflow_server("wf")
+  }
 
-
-        rv$result <- open_workflow_server("wf")
-
-    }
-
-    app <- shiny::shinyApp(ui, server)
+  app <- shiny::shinyApp(ui, server)
 }

@@ -36,9 +36,9 @@ A shiny Module which show th content of the slot 'history'
 in the metadata() of the last SE of the dataset
 }
 \examples{
-if (interactive()){
-data(lldata)
-shiny::runApp(history_dataset(lldata))
+if (interactive()) {
+  data(lldata)
+  shiny::runApp(history_dataset(lldata))
 }
 
 }

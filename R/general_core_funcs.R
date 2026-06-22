@@ -1,176 +1,181 @@
-
-
 #' @title Get the last validated step before current position.
 #'
-#' @description This function returns the indice of the last validated step before
-#' the current step.
+#' @description This function returns the indice of the last validated step
+#' before the current step.
 #'
 #' @param history A `data.frame()`
-#' @param process A `character()` 
-#' @param step.name A `character()` 
-#' @param param.name A `character()` 
+#' @param process A `character()`
+#' @param step.name A `character()`
+#' @param param.name A `character()`
 #' @param value The value corresponding to the param.name
+#'
 #' @return A `data.frame()`
 #'
-#' @export
 #' @examples
 #' history <- InitializeHistory()
-#' Add2History(history, 'Example', 'First step', "my param", 'THE value')
-#' 
-#' 
-Add2History <- function(history, process, step.name, param.name, value){
-  if (inherits(value, 'list'))
+#' Add2History(history, "Example", "First step", "my param", "THE value")
+#'
+#' @export
+#'
+Add2History <- function(history, process, step.name, param.name, value) {
+  if (inherits(value, "list")) {
     value <- unlist(value)
-  
-  if (is.null(value))
+  }
+
+  if (is.null(value)) {
     value <- NA
-  
-  history[nrow(history)+1, ] <- c(process, step.name, param.name, value)
-  
+  }
+
+  history[nrow(history) + 1, ] <- c(process, step.name, param.name, value)
+
   return(history)
 }
-
-
-
 
 #' @title Get the history of an assay
 #' @param dataIn An instance of `MultiAssayExperiment` class
 #' @param name The name of a slot in the object
+#'
 #' @return A `data.frame()`
 #'
-#' @export
 #' @examples
 #' data(lldata123)
-#' GetHistory(lldata123, 'Clustering')
-#' 
-GetHistory <- function(dataIn, name){
+#' GetHistory(lldata123, "Clustering")
+#'
+#' @export
+#'
+GetHistory <- function(dataIn, name) {
   req(dataIn)
-  
+
   history <- NULL
-  if (name == 'Description'){
-    if ('Convert' %in% names(dataIn))
-      history <- S4Vectors::metadata(dataIn[['Convert']])[['history']]
-  } else if (name == 'Save'){
+  if (name == "Description") {
+    if ("Convert" %in% names(dataIn)) {
+      history <- S4Vectors::metadata(dataIn[["Convert"]])[["history"]]
+    }
+  } else if (name == "Save") {
     history <- NULL
-  } else if (name %in% names(dataIn)){
-    history <- S4Vectors::metadata(dataIn[[name]])[['history']]
+  } else if (name %in% names(dataIn)) {
+    history <- S4Vectors::metadata(dataIn[[name]])[["history"]]
   }
 
   return(history)
 }
-
-
 
 #' @title Standardize names
 #'
 #' @param obj.se An instance of the class `SummarizedExperiment`
 #' @param history A `data.frame()`
 #'
-#' @author Samuel Wieczorek
+#' @return An instance of the class `SummarizedExperiment`
 #'
-#' @export
+#' @author Samuel Wieczorek
 #'
 #' @examples
 #' data(lldata)
-#' history <- GetHistory(lldata, 'Convert')
-#' history <- Add2History(history, 'Example', 'Step Ex', 'ex_param', 'Ex')
+#' history <- GetHistory(lldata, "Convert")
+#' history <- Add2History(history, "Example", "Step Ex", "ex_param", "Ex")
 #' lldata[[1]] <- SetHistory(lldata[[1]], history)
-#' 
-#' @return An instance of the class `SummarizedExperiment`
 #'
-SetHistory <- function(obj.se, history){
-
-  if(is.null(S4Vectors::metadata(obj.se)[['history']]) && is.data.frame(history))
-    S4Vectors::metadata(obj.se)[['history']] <- history
-   else{
-     S4Vectors::metadata(obj.se)[['history']] <- rbind(
-       S4Vectors::metadata(obj.se)[['history']], history)
-   }
+#' @export
+#'
+SetHistory <- function(obj.se, history) {
+  if (is.null(S4Vectors::metadata(obj.se)[["history"]]) &&
+    is.data.frame(history)) {
+    S4Vectors::metadata(obj.se)[["history"]] <- history
+  } else {
+    S4Vectors::metadata(obj.se)[["history"]] <- rbind(
+      S4Vectors::metadata(obj.se)[["history"]], history
+    )
+  }
   return(obj.se)
 }
 
-
 #' @title Get the last validated step before current position.
 #'
-#' @description This function returns the indice of the last validated step before
-#' the current step.
+#' @description This function returns the indice of the last validated step
+#' before the current step.
 #'
 #' @return A `data.frame()` with four columns: 'Process', 'Step', 'Parameter'
 #' and 'Value'
 #'
-#' @export
 #' @examples
 #' InitializeHistory()
-#' 
-InitializeHistory <- function(){
-history <- NULL
-  history <- setNames(data.frame(matrix(ncol = 4, nrow = 0)),
-    c('Process', 'Step', 'Parameter', 'Value'))
+#'
+#' @export
+#'
+InitializeHistory <- function() {
+  history <- NULL
+  history <- setNames(
+    data.frame(matrix(ncol = 4, nrow = 0)),
+    c("Process", "Step", "Parameter", "Value")
+  )
 
   return(history)
-  }
+}
 
 #' @title Get the last validated step before current position.
-#' @description This function returns the indice of the last validated step before
-#' the current step.
+#'
+#' @description This function returns the indice of the last validated step
+#' before the current step.
 #'
 #' @param pos A `integer()` which is the indice of the active position.
 #' @param rv A `list()` which stores reactiveValues()
 #'
 #' @return A `integer()`
 #'
-#' @export
 #' @examples
 #' pos <- 3
-#' rv <- list(steps.status = c(1,1,0,1,0,0), current.pos = 3)
+#' rv <- list(steps.status = c(1, 1, 0, 1, 0, 0), current.pos = 3)
 #' GetMaxValidated_BeforePos(pos, rv)
 #'
+#' @export
+#'
 GetMaxValidated_BeforePos <- function(
-    pos = NULL,
-  rv) {
+  pos = NULL,
+  rv
+) {
   ind.max <- NULL
-  
+
   if (is.null(pos)) {
     pos <- rv$current.pos
-  } else if (pos == 1)
+  } else if (pos == 1) {
     ind.max <- NULL
-  else {
-    indices.validated <- unname(which(rv$steps.status[seq_len(pos-1)] == stepStatus$VALIDATED))
-    if (length(indices.validated) > 0) 
+  } else {
+    indices.validated <- unname(which(
+      rv$steps.status[seq_len(pos - 1)] == stepStatus$VALIDATED
+    ))
+    if (length(indices.validated) > 0) {
       ind.max <- max(indices.validated)
+    }
   }
-  
+
   return(ind.max)
 }
 
-
-
 #' @title Get the last validated step
 #'
-#' @description This function returns the indice of the last validated step 
+#' @description This function returns the indice of the last validated step
 #' among all the steps
 #'
-#' @param steps.status A vector of strings where each item is the status of a step.
+#' @param steps.status A vector of strings where each item is the status of a
+#' step.
 #' The length of this vector is the same of the number of steps.
 #'
 #' @return A `integer(1)` which is the indice of the value
 #'
-#' @export
 #' @examples
-#' GetMaxValidated_AllSteps(c(1,1,0,1,0,0))
-#' 
+#' GetMaxValidated_AllSteps(c(1, 1, 0, 1, 0, 0))
+#'
+#' @export
+#'
 GetMaxValidated_AllSteps <- function(steps.status) {
   val <- 0
   ind <- grep(stepStatus$VALIDATED, steps.status)
   if (length(ind) > 0) {
     val <- max(ind)
   }
-  
+
   return(val)
 }
-
-
-
 
 #' @title Updates the status of steps in a given range
 #'
@@ -184,15 +189,17 @@ GetMaxValidated_AllSteps <- function(steps.status) {
 #'
 #' @return An updated version of the vector rv$steps.enabled
 #'
-#' @export
 #' @examples
 #' NULL
-#' 
-#' 
-ToggleState_Screens <- function(cond,
+#'
+#' @export
+#'
+ToggleState_Screens <- function(
+  cond,
   range,
   is.enabled,
-  rv) {
+  rv
+) {
   if (isTRUE(is.enabled)) {
     rv$steps.enabled[range] <- unlist(
       lapply(range, function(x) {
@@ -203,7 +210,6 @@ ToggleState_Screens <- function(cond,
   return(rv$steps.enabled)
 }
 
-
 #' @title Move the position of the cursor
 #'
 #' @param direction A `integer(1)` which is the direction in the timeline:
@@ -212,38 +218,35 @@ ToggleState_Screens <- function(cond,
 #' @param len A `integer(1)` which is the number of steps in the process.
 #'
 #' @return A `integer(1)` which is the new current position.
-#' @export
+#'
 #' @examples
 #' NavPage(-1, 5, 5)
-#' 
-#' 
+#'
+#' @export
+#'
 NavPage <- function(direction, current.pos, len) {
   newval <- current.pos + direction
   newval <- max(1, newval)
   newval <- min(newval, len)
-  
+
   return(newval)
 }
 
-
-
-
-
 #' @title Discover Skipped Steps
-#' 
-#' @param steps.status A vector of `character()` which reflects the status of the steps 
-#' in the pipeline. Thus, the length of this vector is equal to the number of 
-#' steps
 #'
-#' @return A vector of integers of the same length as steps.status and where skipped 
-#' steps are identified with '-1'
+#' @param steps.status A vector of `character()` which reflects the status of
+#' the steps in the pipeline. Thus, the length of this vector is equal to the
+#' number of steps
 #'
+#' @return A vector of integers of the same length as steps.status and where
+#' skipped steps are identified with '-1'
 #'
-#' @export
 #' @examples
 #' steps <- c(1, 1, 0, 1)
 #' Discover_Skipped_Steps(steps)
-#' 
+#'
+#' @export
+#'
 Discover_Skipped_Steps <- function(steps.status) {
   for (i in seq_len(length(steps.status))) {
     max.val <- GetMaxValidated_AllSteps(steps.status)
@@ -251,12 +254,9 @@ Discover_Skipped_Steps <- function(steps.status) {
       steps.status[i] <- stepStatus$SKIPPED
     }
   }
-  
+
   return(steps.status)
 }
-
-
-
 
 #' @title Get the first mandatory step not validated
 #'
@@ -265,11 +265,12 @@ Discover_Skipped_Steps <- function(steps.status) {
 #' @param rv A `list` with at least two slots :
 #' * mandatory: A vector of `booelan` which indicates whther the steps are
 #' mandatory or not
-#' * steps.status: A vector of `interger()` which indicates the status of the steps
+#' * steps.status: A vector of `interger()` which indicates the status of the 
+#' steps
 #'
 #' @return An integer which is the indice of the identified step in the vector
 #' rv$steps.status
-#' 
+#'
 #' @examples
 #' NULL
 #'
@@ -284,154 +285,162 @@ GetFirstMandatoryNotValidated <- function(range, rv) {
       rv$config@mandatory[x] && !rv$steps.status[x]
     }
   )))
-  
+
   if (sum(first) > 0) {
     .ind <- min(which(first))
   }
-  
+
   return(.ind)
 }
-
 
 #' @title Update the status of steps in a pipeline nor process.
 #'
 #' @param dataIn An instance of the `SummarizedExperiment` class
 #' @param config An instance of the `Config` class
-#' @return A vector of boolean in which each item indicates the status 
+#' @return A vector of boolean in which each item indicates the status
 #' (VALIDATED, UNDONE, SKIPPED) of the corresponding step.
-#' 
 #'
 #' @examples
 #' NULL
+#'
 #' @export
 #'
-UpdateStepsStatus <- function(dataIn, config){
-
+UpdateStepsStatus <- function(dataIn, config) {
   nSteps <- length(config@steps)
   steps.names <- names(config@steps)
   steps.status <- setNames(rep(stepStatus$UNDONE, nSteps), nm = steps.names)
-  
-  if(!is.null(dataIn)){
-  for (i in steps.names){
-    steps.status[i] <- as.numeric(i %in% names(dataIn))
+
+  if (!is.null(dataIn)) {
+    for (i in steps.names) {
+      steps.status[i] <- as.numeric(i %in% names(dataIn))
+    }
+
+    if ("Description" %in% names(steps.status)) {
+      steps.status["Description"] <- TRUE
+    }
   }
-  
-  if ('Description' %in% names(steps.status))
-    steps.status['Description'] <- TRUE
-  }
-  
+
   return(steps.status)
 }
 
-
-
 #' @title Builds a vector of data
 #'
-#' @description The names of the slots in dataIn are a subset of the names of the steps
-#' (names(stepsNames)). Each item is the result of a process and whe,n a process
-#' has been validated, it creates a new slot with its own name
+#' @description The names of the slots in dataIn are a subset of the names of
+#' the steps (names(stepsNames)). Each item is the result of a process and when
+#' a process has been validated, it creates a new slot with its own name
 #'
 #' @param session internal parameter
 #' @param dataIn An instance of an object of type `list()`.
-#' @param stepsNames A vector in which items is the name of a step in the pipeline.
-
-#' @return A vector of the same length of the vector `stepsNames` in which each item
-#' is an object (the type of object used by the pipeline). This object must have the same
-#' behavior of a `list()`.
+#' @param stepsNames A vector in which items is the name of a step in the
+#' pipeline.
+#'
+#' @return A vector of the same length of the vector `stepsNames` in which each
+#' item is an object (the type of object used by the pipeline). This object
+#' must have the same behavior of a `list()`.
 #'
 #' @examples
 #' data(lldata)
-#' stepsNames <- c('data1', 'data2', 'data3')
-#' #BuildData2Send(lldata, stepsNames)
-#' 
-#' 
-#' stepsNames <- c('data1', 'data2', 'data3', 'data4', 'data5')
-#' #BuildData2Send(lldata, stepsNames)
-#' 
+#' stepsNames <- c("data1", "data2", "data3")
+#' BuildData2Send(NULL, lldata, stepsNames)
+#'
+#' stepsNames <- c("data1", "data2", "data3", "data4", "data5")
+#' BuildData2Send(NULL, lldata, stepsNames)
+#'
 #' @export
 #'
-BuildData2Send <- function(session, dataIn, stepsNames){
+BuildData2Send <- function(session, dataIn, stepsNames) {
   req(dataIn)
 
-  child.data2send <- lapply(as.list(stepsNames), 
+  child.data2send <- lapply(
+    as.list(stepsNames),
     function(x) {
-      parts_keepDatasets <- strsplit(session$userData$funcs$keepDatasets, "::", fixed = TRUE)[[1]]
+      if (is.null(session$userData$funcs$keepDatasets)) {
+        session$userData$funcs$keepDatasets <- "MagellanNTK::keepDatasets"
+      }
+      parts_keepDatasets <- strsplit(session$userData$funcs$keepDatasets, "::",
+        fixed = TRUE
+      )[[1]]
       dataIn <- do.call(
         getExportedValue(parts_keepDatasets[1], parts_keepDatasets[2]),
         list(object = dataIn, range = 1)
       )
-    })
-    names(child.data2send) <- stepsNames 
-    
-    if (length(names(dataIn)) > 1){
-    for (i in 2:length(names(dataIn))){
+    }
+  )
+  names(child.data2send) <- stepsNames
+
+  if (length(names(dataIn)) > 1) {
+    for (i in 2:length(names(dataIn))) {
       proc.name <- names(dataIn)[i]
       indInstepsNames <- which(proc.name == stepsNames)
-      parts_keepDatasets <- strsplit(session$userData$funcs$keepDatasets, "::", fixed = TRUE)[[1]]
+      if (is.null(session$userData$funcs$keepDatasets)) {
+        session$userData$funcs$keepDatasets <- "MagellanNTK::keepDatasets"
+      }
+      parts_keepDatasets <- strsplit(session$userData$funcs$keepDatasets, "::",
+        fixed = TRUE
+      )[[1]]
       dataset <- do.call(
         getExportedValue(parts_keepDatasets[1], parts_keepDatasets[2]),
         list(object = dataIn, range = seq_len(i))
       )
-      for (j in (indInstepsNames):length(child.data2send))
-            child.data2send[[j]] <- dataset
-        }
-}
-    names(child.data2send) <- stepsNames
-    
-    
-    return (child.data2send)
-}
+      for (j in (indInstepsNames):length(child.data2send)) {
+        child.data2send[[j]] <- dataset
+      }
+    }
+  }
+  names(child.data2send) <- stepsNames
 
+  return(child.data2send)
+}
 
 #' @title Get the position of the last validated item
 #'
-#' @param stepsstatus A vector of integers which reflects the status of the steps 
-#' in the pipeline. Thus, the length of this vector is equal to the number of 
-#' steps
+#' @param stepsstatus A vector of integers which reflects the status of the
+#' steps in the pipeline. Thus, the length of this vector is equal to the
+#' number of steps
+#'
 #' @return An integer
 #'
 #' @examples
-#' status <- c(1,1,1,0,0)
+#' status <- c(1, 1, 1, 0, 0)
 #' SetCurrentPosition(status)
-#' 
-#' 
-#' status <- c(1,1,0,1, 0)
+#'
+#' status <- c(1, 1, 0, 1, 0)
 #' SetCurrentPosition(status)
-#' 
+#'
 #' @export
 #'
-SetCurrentPosition <- function(stepsstatus){
+SetCurrentPosition <- function(stepsstatus) {
   position <- 1
   ind.last.validated <- GetMaxValidated_AllSteps(stepsstatus)
-  if (ind.last.validated == 0)
+  if (ind.last.validated == 0) {
     position <- 1
-  else
+  } else {
     position <- ind.last.validated
+  }
   return(position)
 }
 
-
-
 #' @title Update the status enabled/disabled of the steps of a pipeline/process
 #'
-#' @param is.skipped A `boolean` indicating whether the current step of a process
-#' or process of a pipeline has the status SKIPPED
-#' @param is.enabled A `boolean` indicating whether the current step of a process
-#' or process of a pipeline is enabled (TRUE) or not (FALSE)
-#' @param rv A `list()` containing at least an item named 'steps.status' which is 
-#' a vector of of names for the steps of a pipeline nor a process.
-#' @return A `vector` of boolean which gives the status enabled (TRUE) or 
-#' disabled (FALSE) of the steps from a pipeline nor a process. 
+#' @param is.skipped A `boolean` indicating whether the current step of a
+#' process or process of a pipeline has the status SKIPPED
+#' @param is.enabled A `boolean` indicating whether the current step of a
+#' process or process of a pipeline is enabled (TRUE) or not (FALSE)
+#' @param rv A `list()` containing at least an item named 'steps.status' which
+#' is a vector of of names for the steps of a pipeline nor a process.
+#'
+#' @return A `vector` of boolean which gives the status enabled (TRUE) or
+#' disabled (FALSE) of the steps from a pipeline nor a process.
 #'
 #' @examples
 #' NULL
 #' @export
 #'
 Update_State_Screens <- function(
-    is.skipped,
-    is.enabled,
-    rv) {
-
+  is.skipped,
+  is.enabled,
+  rv
+) {
   len <- length(rv$steps.status)
 
   if (isTRUE(is.skipped)) {
@@ -452,7 +461,7 @@ Update_State_Screens <- function(
         rv = rv
       )
     }
-    
+
     if (ind.max < len) {
       # Enable all steps after the current one but the ones
       # after the first mandatory not validated
@@ -485,40 +494,38 @@ Update_State_Screens <- function(
       }
     }
   }
-  
+
   return(steps.enabled)
 }
-
 
 #' @title Updates the state of navigation buttons
 #'
 #' @description Enables/disables the buttons 'Next step' and 'Previous step'
 #' wrt the current position of the cursor in the timeline.
 #'
-#' @param current.pos An `integer` which gives the current position of the cursor
-#' in the corresponding timeline
+#' @param current.pos An `integer` which gives the current position of the 
+#' cursor in the corresponding timeline
 #' @param nSteps The number of steps in the timeline
 #'
 #' @return NA
 #'
 #' @examples
 #' NULL
-#' 
-#' @export
 #'
 #' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #'
+#' @export
+#'
 ToggleState_NavBtns <- function(current.pos, nSteps) {
-  if (nSteps == 1){
-    # on est soit sur l'etape de 'Description' soit sur l'etape de 'Save'
+  if (nSteps == 1) {
+    # We are either on the “Description” step or the “Save” step
     shinyjs::toggleState(id = "prevBtn", condition = FALSE)
     shinyjs::toggleState(id = "nextBtn", condition = FALSE)
   } else {
     # If the cursor is not on the first position, show the 'prevBtn'
     shinyjs::toggleState(id = "prevBtn", condition = current.pos != 1)
-    
+
     # If the cursor is set before the last step, show the 'nextBtn'
     shinyjs::toggleState(id = "nextBtn", condition = current.pos < nSteps)
   }
-  
 }

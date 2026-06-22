@@ -23,7 +23,7 @@ A shiny Module.
 }
 \examples{
 if (interactive()) {
-    shiny::runApp(mod_launch_magellan())
+  shiny::runApp(mod_launch_magellan())
 }
 
 }

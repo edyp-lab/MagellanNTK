@@ -1,33 +1,40 @@
 #' @title Global variables
-#' 
+#'
 #' @description
 #' Global constants and configuration variables used throughout the package.
 #'
 #' @return
 #' A collection of exported constants, lists and UI configuration objects.
 #' 
-#' @name globalvariables
+#' @examples
+#' NULL
 #' 
+#'
+#' @name globalvariables
+#'
 NULL
 
-
 #' @rdname globalvariables
+#' 
 #' @export
-
-tl_v_next_icon <- shiny::icon('arrow-down')
-tl_v_prev_icon <- shiny::icon('arrow-up')
-tl_h_next_icon <- shiny::icon('arrow-right')
-tl_h_prev_icon <- shiny::icon('arrow-left')
+#' 
+tl_v_next_icon <- shiny::icon("arrow-down")
+tl_v_prev_icon <- shiny::icon("arrow-up")
+tl_h_next_icon <- shiny::icon("arrow-right")
+tl_h_prev_icon <- shiny::icon("arrow-left")
 actionBtnClass <- "btn btn-primary"
 optionsBtnClass <- "info"
 redBtnClass <- "btn btn-danger"
 PrevNextBtnClass <- "btn btn-info"
 btn_success_color <- "btn btn-success"
-btn_css_style <- "font-size:60%; display:inline-block; vertical-align: middle; padding: 7px; margin: 4px;"
+btn_css_style <- "font-size:60%; display:inline-block; vertical-align: middle;
+padding: 7px; margin: 4px;"
 
 
 #' @rdname globalvariables
+#' 
 #' @export
+#' 
 stepStatus <- list(
   VALIDATED = 1,
   SKIPPED = -1,
@@ -35,41 +42,51 @@ stepStatus <- list(
   RESETED = -10
 )
 
-
-
 #' @rdname globalvariables
+#' 
 #' @export
+#' 
 default_pos <- list(
   VALIDATED = 1,
   SKIPPED = 1,
   UNDONE = 1
 )
 
-
 #' @rdname globalvariables
+#' 
 #' @export
-listBrewerPalettes <- c("Dark2 (qualit.)" = "Dark2",
-                        "Accent (qualit.)"="Accent",
-                        "Paired (qualit.)" = "Paired",
-                        "Pastel1 (qualit.)" = "Pastel1",
-                        "Pastel2 (qualit.)" = "Pastel2",
-                        "Set1 (qualit.)" = "Set1",
-                        "Set2 (qualit.)" = "Set2",
-                        "Set3 (qualit.)" = "Set3",
-                        "BrBG (diverging)"="BrBG",
-                        "PiYG (diverging)"=  "PiYG",
-                        "PRGn (diverging)" ="PRGn",
-                        "PuOr (diverging)" ="PuOr",
-                        "RdBu (diverging)"="RdBu",
-                        "RdGy (diverging)" ="RdGy",
-                        "RdYlBu (diverging)" ="RdYlBu",
-                        "RdYlGn (diverging)" ="RdYlGn",
-                        "Spectral (diverging)"="Spectral")
+#' 
+listBrewerPalettes <- c(
+  "Dark2 (qualit.)" = "Dark2",
+  "Accent (qualit.)" = "Accent",
+  "Paired (qualit.)" = "Paired",
+  "Pastel1 (qualit.)" = "Pastel1",
+  "Pastel2 (qualit.)" = "Pastel2",
+  "Set1 (qualit.)" = "Set1",
+  "Set2 (qualit.)" = "Set2",
+  "Set3 (qualit.)" = "Set3",
+  "BrBG (diverging)" = "BrBG",
+  "PiYG (diverging)" = "PiYG",
+  "PRGn (diverging)" = "PRGn",
+  "PuOr (diverging)" = "PuOr",
+  "RdBu (diverging)" = "RdBu",
+  "RdGy (diverging)" = "RdGy",
+  "RdYlBu (diverging)" = "RdYlBu",
+  "RdYlGn (diverging)" = "RdYlGn",
+  "Spectral (diverging)" = "Spectral"
+)
 
 #' @name globalvariables
+#' 
 #' @rdname globalvariables
+#' 
 # #' @export
-utils::globalVariables(c("listBrewerPalettes", "default_pos", "stepStatus",
-                         "tl_v_next_icon", "tl_v_prev_icon", "tl_h_next_icon", "tl_h_prev_icon",
-                         "actionBtnClass", "optionsBtnClass", "redBtnClass", "PrevNextBtnClass",
-                         "btn_success_color", "btn_css_style"))
+utils::globalVariables(c(
+  "listBrewerPalettes", "default_pos",
+  "stepStatus",
+  "tl_v_next_icon", "tl_v_prev_icon", "tl_h_next_icon",
+  "tl_h_prev_icon",
+  "actionBtnClass", "optionsBtnClass", "redBtnClass",
+  "PrevNextBtnClass",
+  "btn_success_color", "btn_css_style"
+))

@@ -15,12 +15,12 @@ GetMaxValidated_BeforePos(pos = NULL, rv)
 A `integer()`
 }
 \description{
-This function returns the indice of the last validated step before
-the current step.
+This function returns the indice of the last validated step
+before the current step.
 }
 \examples{
 pos <- 3
-rv <- list(steps.status = c(1,1,0,1,0,0), current.pos = 3)
+rv <- list(steps.status = c(1, 1, 0, 1, 0, 0), current.pos = 3)
 GetMaxValidated_BeforePos(pos, rv)
 
 }

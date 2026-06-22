@@ -15,6 +15,6 @@ These functions content the UI code for the main sidebar in the
 interface of MagellanNTK
 }
 \examples{
-NULL
+Insert_User_Sidebar()
 
 }

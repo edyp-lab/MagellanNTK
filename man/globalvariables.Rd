@@ -22,3 +22,8 @@ A collection of exported constants, lists and UI configuration objects.
 \description{
 Global constants and configuration variables used throughout the package.
 }
+\examples{
+NULL
+
+
+}

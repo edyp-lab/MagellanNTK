@@ -60,10 +60,10 @@ of the package which uses MagellanNTK
 \examples{
 data(lldata)
 obj.se <- lldata[[1]]
-new.obj <- addDatasets(lldata, obj.se, 'mynewobj')
+new.obj <- addDatasets(lldata, obj.se, "mynewobj")
 
 data(lldata123)
-keepDatasets(lldata123, c(1,3))
+keepDatasets(lldata123, c(1, 3))
 
 NULL
 }

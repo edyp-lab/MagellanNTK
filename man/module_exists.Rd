@@ -18,7 +18,7 @@ Shiny module are available in the global environment.
 }
 \examples{
 path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
-source_wf_files(path) 
-module_exists('PipelineDemo_Process2')
+source_wf_files(path)
+module_exists("PipelineDemo_Process2")
 
 }

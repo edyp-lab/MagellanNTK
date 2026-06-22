@@ -26,12 +26,12 @@ A shiny App
 \description{
 Actually, this module does not work because we do not allow
 the use of the package `shinyBS` package (conflicts with BS versions).
-In the future, one will fix this module with native functions in the package 
+In the future, one will fix this module with native functions in the package
 `bs4Dash` (https://bs4dash.rinterface.com/reference/tooltip).
 }
 \examples{
 if (interactive()) {
-    shiny::runApp(popover_for_help("myTitle", "myContent"))
+  shiny::runApp(popover_for_help("myTitle", "myContent"))
 }
 
 }

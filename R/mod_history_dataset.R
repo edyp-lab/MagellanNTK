@@ -1,4 +1,5 @@
 #' @title   history_dataset_ui and history_dataset_server
+#'
 #' @description A shiny Module which show th content of the slot 'history'
 #' in the metadata() of the last SE of the dataset
 #'
@@ -7,42 +8,32 @@
 #'
 #' @return A shiny app
 #'
-#'
 #' @name history_dataset
 #'
 #' @examples
-#' if (interactive()){
-#' data(lldata)
-#' shiny::runApp(history_dataset(lldata))
+#' if (interactive()) {
+#'   data(lldata)
+#'   shiny::runApp(history_dataset(lldata))
 #' }
-#' 
+#'
 NULL
 
-
-
-#'
-#'
 #' @rdname history_dataset
 #'
-#' @export
 #' @importFrom shiny NS tagList
+#'
+#' @export
 #'
 history_dataset_ui <- function(id) {
   ns <- NS(id)
-  div(style = 'height: 600px',
-    p('Default implementation of this content.'),
+  div(
+    style = "height: 600px",
+    p("Default implementation of this content."),
     MagellanNTK::format_DT_ui(ns("history"))
   )
 }
 
-
-
-
-
-# Module Server
-
 #' @rdname history_dataset
-#' @export
 #'
 #' @keywords internal
 #'
@@ -50,23 +41,30 @@ history_dataset_ui <- function(id) {
 #' @importFrom S4Vectors metadata
 #' @importFrom MultiAssayExperiment experiments
 #'
+#' @export
+#'
 history_dataset_server <- function(
-    id,
-  dataIn = reactive({NULL}),
-  remoteReset = reactive({0}),
-  is.enabled = reactive({TRUE})) {
-  
+  id,
+  dataIn = reactive({
+    NULL
+  }),
+  remoteReset = reactive({
+    0
+  }),
+  is.enabled = reactive({
+    TRUE
+  })
+) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    
+
     rv <- reactiveValues(
       dataIn = NULL
     )
     observeEvent(req(inherits(dataIn(), "MultiAssayExperiment")), {
       rv$dataIn <- dataIn()
     })
-    
-    
+
     Get_MAE_History <- reactive({
       req(rv$dataIn)
 
@@ -76,20 +74,20 @@ history_dataset_server <- function(
     })
 
     MagellanNTK::format_DT_server("history",
-      dataIn = reactive({Get_MAE_History()})
+      dataIn = reactive({
+        Get_MAE_History()
+      })
     )
-    
   })
 }
 
-
-
-#' @export
 #' @rdname history_dataset
+#'
+#' @export
 #'
 history_dataset <- function(obj) {
   ui <- fluidPage(history_dataset_ui("mod_info"))
-  
+
   server <- function(input, output, session) {
     history_dataset_server("mod_info",
       dataIn = reactive({
@@ -97,6 +95,6 @@ history_dataset <- function(obj) {
       })
     )
   }
-  
+
   app <- shiny::shinyApp(ui, server)
 }

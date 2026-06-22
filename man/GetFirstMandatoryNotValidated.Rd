@@ -13,7 +13,8 @@ of equal to 0 and the max must be less or equal to the size of the object}
 \item{rv}{A `list` with at least two slots :
 * mandatory: A vector of `booelan` which indicates whther the steps are
 mandatory or not
-* steps.status: A vector of `interger()` which indicates the status of the steps}
+* steps.status: A vector of `interger()` which indicates the status of the 
+steps}
 }
 \value{
 An integer which is the indice of the identified step in the vector

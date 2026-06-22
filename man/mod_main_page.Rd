@@ -31,18 +31,17 @@ mainapp(usermod = "user")
 \item{size}{The width of the sidebar.in pixels}
 
 \item{workflow.name}{A `character()` which is the name of the pipeline to
-launch and run whithin the framework of MagellanNTK. It designs the name of 
+launch and run whithin the framework of MagellanNTK. It designs the name of
 a directory which contains the files and directories of the pipeline.}
 
-\item{workflow.path}{A `character()` which is the path to the directory which 
+\item{workflow.path}{A `character()` which is the path to the directory which
 contains the files and directories of the pipeline.}
 
-\item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON (TRUE)
-the verbose mode for logs.}
+\item{verbose}{A `boolean` to indicate whether to turn off (FALSE) or ON
+(TRUE) the verbose mode for logs.}
 
-\item{usermod}{A `character()` to specifies the running mode of MagellanNTK: 
-'user' (default) or 'dev'. For more details, please refer to the document 
-'Inside MagellanNTK'}
+\item{usermod}{A `character()` to specifies the running mode of MagellanNTK:
+'user' (default) or 'dev'.}
 }
 \value{
 A shiny App
@@ -52,7 +51,7 @@ A shiny Module.
 }
 \examples{
 if (interactive()) {
-    shiny::runApp(mainapp())
+  shiny::runApp(mainapp())
 }
 
 }
