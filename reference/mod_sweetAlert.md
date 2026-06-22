@@ -40,7 +40,7 @@ mod_SweetAlert(title, text, type = "warning")
 
 - type:
 
-  A \`character()\` for the type of message: 'error', 'warning', etc..
+  A \`character()\` for the type of message: 'error', 'warning', etc.
 
 ## Value
 
@@ -50,6 +50,6 @@ A shiny App
 
 ``` r
 if (interactive()) {
-    shiny::runApp(mod_SweetAlert("my title", "my message"))
+  shiny::runApp(mod_SweetAlert("my title", "my message"))
 }
 ```

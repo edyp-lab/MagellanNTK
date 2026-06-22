@@ -16,6 +16,6 @@ NA
 
 ``` r
 if (interactive()) {
-source_shinyApp_files()
+  source_shinyApp_files()
 }
 ```

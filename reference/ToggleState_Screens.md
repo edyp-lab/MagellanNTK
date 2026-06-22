@@ -38,5 +38,4 @@ An updated version of the vector rv\$steps.enabled
 ``` r
 NULL
 #> NULL
-
 ```

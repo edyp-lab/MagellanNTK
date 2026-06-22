@@ -30,7 +30,7 @@ Samuel Wieczorek
 
 ``` r
 data(lldata)
-history <- GetHistory(lldata, 'Convert')
-history <- Add2History(history, 'Example', 'Step Ex', 'ex_param', 'Ex')
+history <- GetHistory(lldata, "Convert")
+history <- Add2History(history, "Example", "Step Ex", "ex_param", "Ex")
 lldata[[1]] <- SetHistory(lldata[[1]], history)
 ```

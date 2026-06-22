@@ -21,6 +21,6 @@ A \`character()\`
 ## Examples
 
 ``` r
-GetPackageVersion('MagellanNTK')
+GetPackageVersion("MagellanNTK")
 #> [1] "0.99.31"
 ```

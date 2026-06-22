@@ -23,12 +23,11 @@ An integer
 ## Examples
 
 ``` r
-status <- c(1,1,1,0,0)
+status <- c(1, 1, 1, 0, 0)
 SetCurrentPosition(status)
 #> [1] 3
 
-
-status <- c(1,1,0,1, 0)
+status <- c(1, 1, 0, 1, 0)
 SetCurrentPosition(status)
 #> [1] 4
 ```

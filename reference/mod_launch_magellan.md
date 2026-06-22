@@ -26,6 +26,6 @@ A shiny App
 
 ``` r
 if (interactive()) {
-    shiny::runApp(mod_launch_magellan())
+  shiny::runApp(mod_launch_magellan())
 }
 ```

@@ -40,9 +40,8 @@ A shiny app
 ## Examples
 
 ``` r
-if (interactive()){
-data(lldata123)
-shiny::runApp(infos_dataset(lldata123))
+if (interactive()) {
+  data(lldata123)
+  shiny::runApp(infos_dataset(lldata123))
 }
-
 ```

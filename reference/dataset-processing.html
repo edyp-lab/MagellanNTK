@@ -126,10 +126,10 @@ of the package which uses MagellanNTK</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">lldata</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obj.se</span> <span class="op">&lt;-</span> <span class="va">lldata</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-in"><span><span class="va">new.obj</span> <span class="op">&lt;-</span> <span class="fu">addDatasets</span><span class="op">(</span><span class="va">lldata</span>, <span class="va">obj.se</span>, <span class="st">'mynewobj'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">new.obj</span> <span class="op">&lt;-</span> <span class="fu">addDatasets</span><span class="op">(</span><span class="va">lldata</span>, <span class="va">obj.se</span>, <span class="st">"mynewobj"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">lldata123</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">keepDatasets</span><span class="op">(</span><span class="va">lldata123</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">keepDatasets</span><span class="op">(</span><span class="va">lldata123</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> harmonizing input:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   removing 12 sampleMap rows not in names(experiments)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A MultiAssayExperiment object of 2 listed</span>

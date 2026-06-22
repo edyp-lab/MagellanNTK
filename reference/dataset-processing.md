@@ -68,10 +68,10 @@ for of the package which uses MagellanNTK
 ``` r
 data(lldata)
 obj.se <- lldata[[1]]
-new.obj <- addDatasets(lldata, obj.se, 'mynewobj')
+new.obj <- addDatasets(lldata, obj.se, "mynewobj")
 
 data(lldata123)
-keepDatasets(lldata123, c(1,3))
+keepDatasets(lldata123, c(1, 3))
 #> harmonizing input:
 #>   removing 12 sampleMap rows not in names(experiments)
 #> A MultiAssayExperiment object of 2 listed

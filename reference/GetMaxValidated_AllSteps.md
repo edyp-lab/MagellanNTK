@@ -23,6 +23,6 @@ A \`integer(1)\` which is the indice of the value
 ## Examples
 
 ``` r
-GetMaxValidated_AllSteps(c(1,1,0,1,0,0))
+GetMaxValidated_AllSteps(c(1, 1, 0, 1, 0, 0))
 #> [1] 4
 ```

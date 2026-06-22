@@ -76,75 +76,55 @@ A Shiny modal-dialog
 
 ``` r
 if (interactive()) {
+  ########################################################
+  ##
+  # Example with a simple static HTML
+  ##
+  ########################################################
+  
+  shiny::runApp(mod_modalDialog(
+    title = "test modalDialog",
+    uiContent = p("test")
+  ))
 
-########################################################
-##
-# Example with a simple static HTML
-##
-########################################################
 
-shiny::runApp(mod_modalDialog(title = "test modalDialog", uiContent = p("test")))
+  ########################################################
+  ##
+  ##   Example with a simple Shiny module without any return value
+  ##
+  ########################################################
 
-########################################################
-##
-##   Example with a simple Shiny module without any return value
-##
-########################################################
-
-simple_mod_ui <- function(id) {
+  simple_mod_ui <- function(id) {
     # create the namespace from the id
     ns <- NS(id)
     fluidPage(
-        actionButton(ns("test"), "Test")
+      actionButton(ns("test"), "Test")
     )
-}
+  }
 
-
-simple_mod_server <- function(id) { # height auto
+  simple_mod_server <- function(id) { # height auto
 
     moduleServer(id, function(input, output, session) {
-        ns <- session$ns
+      ns <- session$ns
 
-        # reactiveValues object for storing current data set.
-        dataOut <- reactiveVal(NULL)
+      # reactiveValues object for storing current data set.
+      dataOut <- reactiveVal(NULL)
 
-        observeEvent(input$test, {
-            dataOut(paste0("Clicked ", input$test, " times."))
-        })
+      observeEvent(input$test, {
+        dataOut(paste0("Clicked ", input$test, " times."))
+      })
 
 
-        return(reactive({
-            dataOut()
-        }))
+      return(reactive({
+        dataOut()
+      }))
     })
-}
+  }
 
+  shiny::runApp(mod_modalDialog(
+    title = "test modalDialog",
+    uiContent = p("test")
+  ))
 
-shiny::runApp(mod_modalDialog(title = "test modalDialog", uiContent = p("test")))
-
-
-########################################################
-##
-## Example with a more complex Shiny module with a return value
-##
-########################################################
-
-funcs <- list(
-    open_dataset = "MagellanNTK::open_dataset",
-    #open_demoDataset = "MagellanNTK::open_demoDataset",
-    infos_dataset = "MagellanNTK::infos_dataset",
-    download_dataset = "MagellanNTK::download_dataset",
-    addDatasets = "MagellanNTK::addDatasets",
-    keepDatasets = "MagellanNTK::keepDatasets"
-)
-
-
-shiny::runApp(
-    mod_modalDialog(
-        title = "test modalDialog",
-        external_mod = "mod_load_package",
-        external_mod_args = list(funcs = funcs)
-    )
-)
 }
 ```

@@ -53,6 +53,6 @@ A Shiny app
 
 ``` r
 if (interactive()) {
-shiny::runApp(open_dataset(extension = "rdata"))
+  shiny::runApp(open_dataset(extension = "rdata"))
 }
 ```

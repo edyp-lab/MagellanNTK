@@ -32,5 +32,4 @@ A \`integer(1)\` which is the new current position.
 ``` r
 NavPage(-1, 5, 5)
 #> [1] 4
-
 ```

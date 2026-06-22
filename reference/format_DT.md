@@ -94,27 +94,28 @@ A shiny App
 
 ``` r
 if (interactive()) {
-    obj <- SummarizedExperiment::assay(lldata[[1]])
-    shiny::runApp(format_DT(obj))
-    #
-    # Compute style from within third party tab
-    #
-    obj <- as.data.frame(matrix(seq_len(30), byrow = TRUE, nrow = 6))
-    colnames(obj) <- paste0("col", seq_len(5))
+  obj <- SummarizedExperiment::assay(lldata[[1]])
+  obj <- as.data.frame(obj)
+  shiny::runApp(format_DT(obj))
 
-    mask <- as.data.frame(matrix(rep(LETTERS[seq_len(5)], 6), byrow = TRUE, nrow = 6))
+  # Compute style from within third party tab
+  obj <- as.data.frame(matrix(seq_len(30), byrow = TRUE, nrow = 6))
+  colnames(obj) <- paste0("col", seq_len(5))
 
+  mask <- as.data.frame(matrix(rep(LETTERS[seq_len(5)], 6),
+    byrow = TRUE, nrow = 6
+  ))
 
-    style <- list(
-        cols = colnames(obj),
-        vals = colnames(mask),
-        unique = unique(mask),
-        pal = RColorBrewer::brewer.pal(5, "Dark2")[seq_len(5)]
-    )
+  style <- list(
+    cols = colnames(obj),
+    vals = colnames(mask),
+    unique = unique(mask),
+    pal = RColorBrewer::brewer.pal(5, "Dark2")[seq_len(5)]
+  )
 
-    shiny::runApp(format_DT(obj,
-        hidden = mask,
-        hc_style = style
-    ))
+  shiny::runApp(format_DT(obj,
+    hidden = mask,
+    hc_style = style
+  ))
 }
 ```

@@ -147,3 +147,10 @@ A \`character()\` containing R source code
 ## Author
 
 Samuel Wieczorek
+
+## Examples
+
+``` r
+MagellanNTK::Get_AdditionalModule_Core_Code("PipelineDemo", "")
+#> [1] "rv.widgets <- reactiveValues(\n\tPipelineDemo = widgets.default.values$PipelineDemo\n)\n\n\nobserveEvent(input$PipelineDemo, {\n    rv.widgets$PipelineDemo <- input$PipelineDemo})\n\n\n\nrv <- reactiveValues(\n    # Stores the object given in input of the process\n    dataIn = NULL,\n    # A vector of boolean indicating the status (UNDONE, SKIPPED or VALIDATED)\n    # of the steps\n    steps.status = NULL,\n    reset = NULL,\n    # A vector of boolean indicating if the steps are enabled or disabled\n    steps.enabled = NULL)\nrv.custom <- reactiveValues(\n\t = rv.custom.default.values$\n)\n\n\ndataOut <- reactiveValues(\n                trigger = as.numeric(Sys.time()),\n                value = NULL,\n                sidebarState = NULL\n                )\nobserveEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {\nlapply(names(rv.widgets), function(x){\n          rv.widgets[[x]] <- widgets.default.values[[x]]\n          #shinyjs::reset(x)\n        })\nlapply(names(rv.custom), function(x){\n        rv.custom[[x]] <- rv.custom.default.values[[x]]\n    })\n  rv$dataIn <- dataIn()\n    })"
+```

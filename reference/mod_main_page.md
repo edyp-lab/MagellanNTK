@@ -55,8 +55,7 @@ mainapp(usermod = "user")
 - usermod:
 
   A \`character()\` to specifies the running mode of MagellanNTK: 'user'
-  (default) or 'dev'. For more details, please refer to the document
-  'Inside MagellanNTK'
+  (default) or 'dev'.
 
 ## Value
 
@@ -66,6 +65,6 @@ A shiny App
 
 ``` r
 if (interactive()) {
-    shiny::runApp(mainapp())
+  shiny::runApp(mainapp())
 }
 ```

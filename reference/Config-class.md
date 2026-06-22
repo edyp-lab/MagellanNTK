@@ -122,36 +122,35 @@ An instance of the class \`Config\`
 
 # Example of a single process with one step
 proc1step <- Config(
-    fullname = "PipelineDemo_DataGeneration",
-    mode = "process",
-    steps = c("DataGeneration"),
-    mandatory = c(TRUE)
+  fullname = "PipelineDemo_DataGeneration",
+  mode = "process",
+  steps = c("DataGeneration"),
+  mandatory = c(TRUE)
 )
 
 
 # Example of a single process with two steps
-# Example of a generic pipeline
 proc2steps <- Config(
-    fullname = "PipelineDemo_PreProcessing",
-    mode = "process",
-    steps = c('Filtering', 'Normalization'),
-    mandatory = c(TRUE, FALSE)
+  fullname = "PipelineDemo_PreProcessing",
+  mode = "process",
+  steps = c("Filtering", "Normalization"),
+  mandatory = c(TRUE, FALSE)
 )
 
 # Example of pipeline with three process
 pipe3proc <- Config(
-    mode = "pipeline",
-    fullname = "PipelineDemo",
-    steps = c('DataGeneration', 'Preprocessing', 'Clustering'),
-    mandatory = c(TRUE, FALSE, FALSE)
+  mode = "pipeline",
+  fullname = "PipelineDemo",
+  steps = c("DataGeneration", "Preprocessing", "Clustering"),
+  mandatory = c(TRUE, FALSE, FALSE)
 )
 
 
 # Example of a particular description module (A process with no step)
 description.process <- Config(
-    fullname = "PipelineDemo_Description",
-    mode = "process",
-    steps = "",
-    mandatory = ""
+  fullname = "PipelineDemo_Description",
+  mode = "process",
+  steps = "",
+  mandatory = ""
 )
 ```

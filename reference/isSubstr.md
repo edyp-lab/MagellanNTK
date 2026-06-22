@@ -25,6 +25,6 @@ A boolean
 ## Examples
 
 ``` r
-isSubstr('cde', 'abcdefghi')
+isSubstr("cde", "abcdefghi")
 #> [1] TRUE
 ```

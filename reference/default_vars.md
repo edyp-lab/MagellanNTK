@@ -22,8 +22,7 @@ default_theme(mode)
 - mode:
 
   A \`character()\` to specifies the running mode of MagellanNTK: 'user'
-  (default) or 'dev'. For more details, please refer to the document
-  'Inside MagellanNTK'
+  (default) or 'dev'.
 
 ## Value
 

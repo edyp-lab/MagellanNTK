@@ -18,3 +18,11 @@ listBrewerPalettes
 ## Value
 
 A collection of exported constants, lists and UI configuration objects.
+
+## Examples
+
+``` r
+NULL
+#> NULL
+
+```

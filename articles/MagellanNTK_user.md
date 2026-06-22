@@ -724,7 +724,7 @@ sessionInfo()
     ## [15] promises_1.5.0              BiocManager_1.30.27        
     ## [17] textshaping_1.0.5           jquerylib_0.1.4            
     ## [19] abind_1.4-8                 cli_3.6.6                  
-    ## [21] shiny_1.13.0                crayon_1.5.3               
+    ## [21] shiny_1.14.0                crayon_1.5.3               
     ## [23] rlang_1.2.0                 XVector_0.52.0             
     ## [25] Biobase_2.72.0              DelayedArray_0.38.2        
     ## [27] cachem_1.1.0                yaml_2.3.12                
@@ -742,7 +742,7 @@ sessionInfo()
     ## [51] desc_1.4.3                  pkgdown_2.2.0              
     ## [53] bslib_0.11.0                later_1.4.8                
     ## [55] glue_1.8.1                  Rcpp_1.1.1-1.1             
-    ## [57] systemfonts_1.3.2           xfun_0.58                  
+    ## [57] systemfonts_1.3.2           xfun_0.59                  
     ## [59] GenomicRanges_1.64.0        MatrixGenerics_1.24.0      
     ## [61] knitr_1.51                  xtable_1.8-8               
     ## [63] htmltools_0.5.9             rmarkdown_2.31             

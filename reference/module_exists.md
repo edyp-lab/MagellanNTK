@@ -23,8 +23,8 @@ A boolean
 
 ``` r
 path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
-source_wf_files(path) 
+source_wf_files(path)
 #> [1] TRUE
-module_exists('PipelineDemo_Process2')
+module_exists("PipelineDemo_Process2")
 #> [1] FALSE
 ```

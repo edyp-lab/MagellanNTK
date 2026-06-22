@@ -30,13 +30,11 @@ view_dataset(dataIn)
 
 A shiny App
 
-NA
-
 ## Examples
 
 ``` r
 if (interactive()) {
-data(lldata123)
-shiny::runApp(view_dataset(lldata))
+  data(lldata123)
+  shiny::runApp(view_dataset(lldata))
 }
 ```

@@ -59,8 +59,7 @@ MagellanNTK(
 - usermod:
 
   A \`character()\` to specifies the running mode of MagellanNTK: 'user'
-  (default) or 'dev'. For more details, please refer to the document
-  'Inside MagellanNTK'
+  (default) or 'dev'.
 
 - ...:
 
@@ -74,6 +73,7 @@ A shiny app
 
 ``` r
 if (interactive()) {
-    MagellanNTK()
-    }
+  wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
+  MagellanNTK(wf.path, 'PipelineDemo')
+}
 ```

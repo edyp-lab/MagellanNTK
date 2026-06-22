@@ -39,8 +39,7 @@ A \`data.frame()\`
 
 ``` r
 history <- InitializeHistory()
-Add2History(history, 'Example', 'First step', "my param", 'THE value')
+Add2History(history, "Example", "First step", "my param", "THE value")
 #>   Process       Step Parameter     Value
 #> 1 Example First step  my param THE value
-
 ```

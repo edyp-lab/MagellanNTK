@@ -46,8 +46,7 @@ download_dataset(dataIn = NULL, filename = "myDataset")
 - is.enabled:
 
   A \`boolean\`. This variable is used as a remote command to specify if
-  the corresponding module is enabled (TRUE) or disabled (FALSE). For
-  more details, please refer to the document 'Inside MagellanNTK'?
+  the corresponding module is enabled (TRUE) or disabled (FALSE).
 
 ## Value
 
@@ -56,9 +55,8 @@ NA
 ## Examples
 
 ``` r
-if (interactive()){
-data(lldata, package = "MagellanNTK")
-shiny::runApp(download_dataset(lldata))
+if (interactive()) {
+  data(lldata, package = "MagellanNTK")
+  shiny::runApp(download_dataset(lldata))
 }
-
 ```

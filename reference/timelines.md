@@ -1,6 +1,8 @@
 # Shiny module for the process timeline
 
-Shiny module for the process timeline
+Define the appearance of the pipeline timeline.
+
+Define the appearance of the pipeline timeline.
 
 ## Usage
 
@@ -42,7 +44,7 @@ timeline_pipeline(config, status, position, enabled)
 
 - status:
 
-  A boolean which indicates whether the current status of the process ,
+  A boolean which indicates whether the current status of the pipeline
 
 - position:
 
@@ -51,7 +53,7 @@ timeline_pipeline(config, status, position, enabled)
 
 - enabled:
 
-  A vector of booleans with the same length as the number of steps ( See
+  A vector of booleans with the same length as the number of steps (See
   the slot steps in the config object). Each element indicates if the
   corresponding step is enabled (TRUE) or (DISABLED)
 
@@ -59,33 +61,46 @@ timeline_pipeline(config, status, position, enabled)
 
 A shiny app
 
+A shiny App
+
 ## Examples
 
 ``` r
-if(interactive()){
-config <- Config(
+if (interactive()) {
+  config <- Config(
     mode = "process",
     fullname = "PipelineDemo_Preprocessing",
-    steps = c('Filtering', 'Normalization'),
+    steps = c("Filtering", "Normalization"),
     mandatory = c(FALSE, TRUE)
-)
-status <- reactive({c(1, 1, 0, 0)})
-pos <- reactive({2})
-enabled <- reactive({c(0, 0, 1, 1)})
-shiny::runApp(timeline_process(config, status, pos, enabled))
+  )
+  status <- reactive({
+    c(1, 1, 0, 0)
+  })
+  pos <- reactive({
+    2
+  })
+  enabled <- reactive({
+    c(0, 0, 1, 1)
+  })
+  shiny::runApp(timeline_process(config, status, pos, enabled))
 }
 
-
-if(interactive()){
-config <- Config(
+if (interactive()) {
+  config <- Config(
     mode = "pipeline",
     fullname = "PipelineDemo",
-    steps = c('DataGeneration', 'Preprocessing', 'Clustering'),
+    steps = c("DataGeneration", "Preprocessing", "Clustering"),
     mandatory = c(TRUE, FALSE, FALSE)
-)
-status <- reactive({c(1, 1, -1, 1, 0)})
-pos <- reactive({4})
-enabled <- reactive({c(0, 0, 0, 0, 1)})
-shiny::runApp(timeline_pipeline(config, status, pos, enabled))
+  )
+  status <- reactive({
+    c(1, 1, -1, 1, 0)
+  })
+  pos <- reactive({
+    4
+  })
+  enabled <- reactive({
+    c(0, 0, 0, 0, 1)
+  })
+  shiny::runApp(timeline_pipeline(config, status, pos, enabled))
 }
 ```

@@ -26,6 +26,6 @@ A shiny App
 
 ``` r
 if (interactive()) {
-shiny::runApp(open_workflow())
+  shiny::runApp(open_workflow())
 }
 ```

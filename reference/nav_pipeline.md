@@ -60,8 +60,7 @@ nav_pipeline()
 - usermod:
 
   A \`character()\` to specifies the running mode of MagellanNTK: 'user'
-  (default) or 'dev'. For more details, please refer to the document
-  'Inside MagellanNTK'
+  (default) or 'dev'.
 
 ## Value
 
@@ -78,7 +77,7 @@ Samuel Wieczorek
 
 ``` r
 if (interactive()) {
-    library(shiny)
-    nav_pipeline()
+  library(shiny)
+  nav_pipeline()
 }
 ```

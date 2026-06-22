@@ -37,6 +37,6 @@ A shiny App
 
 ``` r
 if (interactive()) {
-    shiny::runApp(popover_for_help("myTitle", "myContent"))
+  shiny::runApp(popover_for_help("myTitle", "myContent"))
 }
 ```

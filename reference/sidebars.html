@@ -57,8 +57,96 @@ interface of MagellanNTK</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="cn">NULL</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">Insert_User_Sidebar</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;ul class="nav nav-pills nav-sidebar flex-column sidebar-menu nav-child-indent" data-widget="treeview" role="menu" data-accordion="true"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;li class="nav-item"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;a class="nav-link" id="tab-Home" href="#" data-target="#shiny-tab-Home" data-toggle="tab" data-value="Home"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;i class="fas fa-house nav-icon" role="presentation" aria-label="house icon"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;p class="sidebarMenuItem"&gt;Home&lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/a&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/li&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;li class="nav-item has-treeview"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;a href="#" class="nav-link"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;i class="fas fa-house nav-icon" role="presentation" aria-label="house icon"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;p class="sidebarMenuItem"&gt;Dataset&lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;i class="right fas fa-angle-left"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/a&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;ul class="nav nav-treeview" data-expanded="&amp;lt;pclass=&amp;quot;sidebarMenuItem&amp;quot;&amp;gt;Dataset&amp;lt;/p&amp;gt;"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;li class="nav-item"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;a class="nav-link treeview-link" id="tab-openDataset" href="#" data-target="#shiny-tab-openDataset" data-toggle="tab" data-value="openDataset"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;i class="fas fa-gear" role="presentation" aria-label="gear icon" cl="fas fa-gear nav-icon"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;p class="sidebarMenuSubItem"&gt;Open file&lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;/a&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/li&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;li class="nav-item"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;a class="nav-link treeview-link" id="tab-convertDataset" href="#" data-target="#shiny-tab-convertDataset" data-toggle="tab" data-value="convertDataset"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;i class="fas fa-gear" role="presentation" aria-label="gear icon" cl="fas fa-gear nav-icon"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;p class="sidebarMenuSubItem"&gt;Import&lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;/a&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/li&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;li class="nav-item"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;a class="nav-link treeview-link" id="tab-SaveAs" href="#" data-target="#shiny-tab-SaveAs" data-toggle="tab" data-value="SaveAs"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;i class="fas fa-gear" role="presentation" aria-label="gear icon" cl="fas fa-gear nav-icon"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;p class="sidebarMenuSubItem"&gt;Save As&lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;/a&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/li&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/ul&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/li&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;li class="nav-item has-treeview"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;a href="#" class="nav-link"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;i class="fas fa-house nav-icon" role="presentation" aria-label="house icon"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;p class="sidebarMenuItem"&gt;Workflow&lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;i class="right fas fa-angle-left"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/a&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;ul class="nav nav-treeview" data-expanded="&amp;lt;pclass=&amp;quot;sidebarMenuItem&amp;quot;&amp;gt;Workflow&amp;lt;/p&amp;gt;"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;li class="nav-item"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;a class="nav-link treeview-link" id="tab-workflow" href="#" data-target="#shiny-tab-workflow" data-toggle="tab" data-value="workflow"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;i class="fas fa-gear" role="presentation" aria-label="gear icon" cl="fas fa-gear nav-icon"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;p class="sidebarMenuSubItem"&gt;Run&lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;/a&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/li&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;li class="nav-item"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;a class="nav-link treeview-link" id="tab-Manual" href="#" data-target="#shiny-tab-Manual" data-toggle="tab" data-value="Manual"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;i class="fas fa-gear" role="presentation" aria-label="gear icon" cl="fas fa-gear nav-icon"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;p class="sidebarMenuSubItem"&gt;Manual&lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;/a&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/li&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;li class="nav-item"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;a class="nav-link treeview-link" id="tab-faq" href="#" data-target="#shiny-tab-faq" data-toggle="tab" data-value="faq"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;i class="fas fa-gear" role="presentation" aria-label="gear icon" cl="fas fa-gear nav-icon"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;p class="sidebarMenuSubItem"&gt;FAQ&lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;/a&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/li&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;li class="nav-item"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;a class="nav-link treeview-link" id="tab-releaseNotes" href="#" data-target="#shiny-tab-releaseNotes" data-toggle="tab" data-value="releaseNotes"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;i class="fas fa-gear" role="presentation" aria-label="gear icon" cl="fas fa-gear nav-icon"&gt;&lt;/i&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;p class="sidebarMenuSubItem"&gt;Release Notes&lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;/p&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;/a&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/li&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/ul&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/li&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div id="tabs_289892295" class="sidebarMenuSelectedTabItem" data-value="null"&gt;&lt;/div&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/ul&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

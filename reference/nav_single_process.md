@@ -71,8 +71,7 @@ nav_single_process()
 - usermod:
 
   A \`character()\` to specifies the running mode of MagellanNTK: 'user'
-  (default) or 'dev'. For more details, please refer to the document
-  'Inside MagellanNTK'
+  (default) or 'dev'.
 
 - sendDataIfReset:
 
@@ -92,6 +91,6 @@ Samuel Wieczorek
 
 ``` r
 if (interactive()) {
-    nav_single_process()
+  nav_single_process()
 }
 ```

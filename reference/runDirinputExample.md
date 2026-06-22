@@ -21,6 +21,6 @@ folder for how this is accomplished.
 
 ``` r
 if (interactive()) {
-    shiny::runApp(runDirinputExample())
+  shiny::runApp(runDirinputExample())
 }
 ```

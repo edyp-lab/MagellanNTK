@@ -27,7 +27,7 @@ A \`integer()\`
 
 ``` r
 pos <- 3
-rv <- list(steps.status = c(1,1,0,1,0,0), current.pos = 3)
+rv <- list(steps.status = c(1, 1, 0, 1, 0, 0), current.pos = 3)
 GetMaxValidated_BeforePos(pos, rv)
 #> [1] 2
 ```
