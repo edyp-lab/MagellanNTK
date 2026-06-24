@@ -112,8 +112,7 @@ format_DT_server <- function(id,
     initComplete <- function() {
       return(htmlwidgets::JS(
         "function(settings, json) {",
-        "$(this.api().table().header()).css({'background-color': 'darkgrey',
-        'color': 'black'});",
+        "$(this.api().table().header()).css({'background-color': 'darkgrey', 'color': 'black'});",
         "}"
       ))
     }

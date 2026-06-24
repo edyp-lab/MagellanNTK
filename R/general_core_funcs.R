@@ -19,7 +19,7 @@
 #'
 Add2History <- function(history, process, step.name, param.name, value) {
   if (inherits(value, "list")) {
-    value <- unlist(value)
+    value <- paste(names(value), unlist(value), collapse = ", ", sep = "=")
   }
 
   if (is.null(value)) {

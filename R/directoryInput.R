@@ -9,6 +9,7 @@
 #' @param default which folder to show initially
 #' @param caption the caption on the selection dialog
 #' @param useNew boolean, selects the type of dialog shown in windows
+#' @param sysinfo System inforamtions
 #'
 #' @details
 #' Uses an Apple Script, Zenity or Windows Batch script to display an OS-native
@@ -58,33 +59,11 @@ NULL
 #' @export
 #' @rdname choose_dir
 #'
-isWindows <- function() {
-  Sys.info()["sysname"] == "Windows"
-}
-
-#' @export
-#' @rdname choose_dir
-#'
-isLinux <- function() {
-  Sys.info()["sysname"] == "Linux"
-}
-
-#' @export
-#' @rdname choose_dir
-#'
-isDarwin <- function() {
-  Sys.info()["sysname"] == "Darwin"
-}
-
-#' @export
-#' @rdname choose_dir
-#'
-file_sep <- function() {
-  if (isDarwin()) {
+file_sep <- function(sysinfo = Sys.info()) {
+  sysname <- sysinfo["sysname"]
+  if (sysname == "Darwin" || sysname == "Linux") {
     return("/")
-  } else if (isLinux()) {
-    return("/")
-  } else if (isWindows()) {
+  } else if (sysname == "Windows") {
     return("\\")
   }
 }
@@ -92,25 +71,18 @@ file_sep <- function() {
 #' @export
 #' @rdname choose_dir
 #'
-choose_dir <- function(default = NA, caption = NA, useNew = TRUE) {
-  if (Sys.info()["sysname"] == "Darwin") {
+choose_dir <- function(default = NA, caption = NA, useNew = TRUE, sysinfo = Sys.info()) {
+  sysname <- sysinfo["sysname"]
+
+  if (sysname == "Darwin") {
     return(choose_dir.darwin(default = default, caption = caption))
-  } else if (Sys.info()["sysname"] == "Linux") {
+  } else if (sysname == "Linux") {
     return(choose_dir.linux(default = default, caption = caption))
-  } else if (Sys.info()["sysname"] == "Windows") {
-    # Use batch script to circumvent issue
-    # w/ `choose_dir`/`tcltk::tk_choose_dir`
-    # window popping out unnoticed in the back of the current window
-    return(choose_dir.windows(
-      default = default, caption = caption,
-      useNew = useNew
-    ))
+  } else if (sysname == "Windows") {
+    return(choose_dir.windows(default = default, caption = caption, useNew = useNew))
   }
 
-  return(paste(
-    "Error: don't know how to show a folder dialog in",
-    Sys.info()["sysname"]
-  ))
+  return(paste("Error: don't know how to show a folder dialog in", sysname))
 }
 
 #' @rdname choose_dir

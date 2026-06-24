@@ -3,9 +3,6 @@
 \name{choose_dir}
 \alias{choose_dir}
 \alias{\%AND\%}
-\alias{isWindows}
-\alias{isLinux}
-\alias{isDarwin}
 \alias{file_sep}
 \alias{choose_dir.darwin}
 \alias{choose_dir.linux}
@@ -14,15 +11,9 @@
 \usage{
 x \%AND\% y
 
-isWindows()
+file_sep(sysinfo = Sys.info())
 
-isLinux()
-
-isDarwin()
-
-file_sep()
-
-choose_dir(default = NA, caption = NA, useNew = TRUE)
+choose_dir(default = NA, caption = NA, useNew = TRUE, sysinfo = Sys.info())
 
 choose_dir.darwin(default = NA, caption = NA)
 
@@ -34,6 +25,8 @@ choose_dir.windows(default = NA, caption = NA, useNew = TRUE)
 \item{x}{left operand}
 
 \item{y}{right operand}
+
+\item{sysinfo}{System inforamtions}
 
 \item{default}{which folder to show initially}
 

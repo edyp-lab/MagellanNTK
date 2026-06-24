@@ -73,7 +73,7 @@ pkgsRequire <- function(ll.deps) {
 #'
 readConfigFile <- function(path,
                            usermod = "user") {
-  config.file <- normalizePath(file.path(path, "config.txt"))
+  config.file <- suppressWarnings(normalizePath(file.path(path, "config.txt")))
   if (!file.exists(config.file)) {
     stop("file does not exist")
   }
@@ -173,7 +173,7 @@ GetListDatasets <- function(class = NULL, demo_package = NULL) {
     ll.datasets <- dat
 
     if (!is.null(class)) {
-      df <- data.frame()
+      df <- data.frame(Package = character(0), Item = character(0), stringsAsFactors = FALSE)
 
       for (i in seq_len(nrow(dat))) {
         pkg <- dat[i, "Package"]
@@ -231,7 +231,7 @@ source_wf_files <- function(dirpath,
   }
 
   # if config.txt exists, update some funcs
-  config.file <- normalizePath(file.path(dirpath, "config.txt"))
+  config.file <- suppressWarnings(normalizePath(file.path(dirpath, "config.txt")))
   file.exists(config.file)
 }
 
@@ -288,7 +288,7 @@ isSubstr <- function(pattern, target) {
 #' @examples
 #' path <- system.file("workflow/PipelineDemo", package = "MagellanNTK")
 #' source_wf_files(path)
-#' module_exists("PipelineDemo_Process2")
+#' module_exists("PipelineDemo_Preprocessing")
 #'
 #' @export
 #'

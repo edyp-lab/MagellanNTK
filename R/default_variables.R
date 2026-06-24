@@ -23,7 +23,7 @@ default_funcs <- function() {
     addDatasets = "MagellanNTK::addDatasets",
     keepDatasets = "MagellanNTK::keepDatasets",
     InitializeHistory = "MagellanNTK::InitializeHistory",
-    Add2History = "MagellanNTK::InitializeHistory",
+    Add2History = "MagellanNTK::Add2History",
     GetHistory = "MagellanNTK::GetHistory",
     SetHistory = "MagellanNTK::SetHistory"
   )
@@ -41,7 +41,7 @@ default_base_URL <- function() {
 #' @export
 default_workflow <- function() {
   list(
-    name = "PipelineDemo_Process1",
+    name = "PipelineDemo_Preprocessing",
     path = system.file("workflow/PipelineDemo", package = "MagellanNTK")
   )
 }
@@ -124,6 +124,9 @@ default_layout <- list(
 #'
 default_theme <- function(mode) {
   if (is.null(mode)) {
+    mode <- "user"
+  }
+  if (!(mode %in% c("user", "dev"))) {
     mode <- "user"
   }
   theme <- NULL
