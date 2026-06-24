@@ -11,15 +11,9 @@ Given x and y, return y only if both x and y are set
 ``` r
 x %AND% y
 
-isWindows()
+file_sep(sysinfo = Sys.info())
 
-isLinux()
-
-isDarwin()
-
-file_sep()
-
-choose_dir(default = NA, caption = NA, useNew = TRUE)
+choose_dir(default = NA, caption = NA, useNew = TRUE, sysinfo = Sys.info())
 
 choose_dir.darwin(default = NA, caption = NA)
 
@@ -37,6 +31,10 @@ choose_dir.windows(default = NA, caption = NA, useNew = TRUE)
 - y:
 
   right operand
+
+- sysinfo:
+
+  System inforamtions
 
 - default:
 

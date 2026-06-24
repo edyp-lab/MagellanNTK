@@ -40,10 +40,8 @@
 - [`Update_State_Screens()`](Update_State_Screens.md) : Update the
   status enabled/disabled of the steps of a pipeline/process
 - [`call_func()`](call_func.md) : Wrapper to the function \`do.call\`
-- [`` `%AND%` ``](choose_dir.md) [`isWindows()`](choose_dir.md)
-  [`isLinux()`](choose_dir.md) [`isDarwin()`](choose_dir.md)
-  [`file_sep()`](choose_dir.md) [`choose_dir()`](choose_dir.md)
-  [`choose_dir.darwin()`](choose_dir.md)
+- [`` `%AND%` ``](choose_dir.md) [`file_sep()`](choose_dir.md)
+  [`choose_dir()`](choose_dir.md) [`choose_dir.darwin()`](choose_dir.md)
   [`choose_dir.linux()`](choose_dir.md)
   [`choose_dir.windows()`](choose_dir.md) : Choose a Folder
   Interactively

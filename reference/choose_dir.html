@@ -58,15 +58,9 @@ Windows.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="va">x</span> <span class="op">%AND%</span> <span class="va">y</span></span>
 <span></span>
-<span><span class="fu">isWindows</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">file_sep</span><span class="op">(</span>sysinfo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.info.html" class="external-link">Sys.info</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">isLinux</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">isDarwin</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">file_sep</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">choose_dir</span><span class="op">(</span>default <span class="op">=</span> <span class="cn">NA</span>, caption <span class="op">=</span> <span class="cn">NA</span>, useNew <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">choose_dir</span><span class="op">(</span>default <span class="op">=</span> <span class="cn">NA</span>, caption <span class="op">=</span> <span class="cn">NA</span>, useNew <span class="op">=</span> <span class="cn">TRUE</span>, sysinfo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.info.html" class="external-link">Sys.info</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">choose_dir.darwin</span><span class="op">(</span>default <span class="op">=</span> <span class="cn">NA</span>, caption <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
@@ -85,6 +79,10 @@ Windows.</p>
 
 <dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
 <dd><p>right operand</p></dd>
+
+
+<dt id="arg-sysinfo">sysinfo<a class="anchor" aria-label="anchor" href="#arg-sysinfo"></a></dt>
+<dd><p>System inforamtions</p></dd>
 
 
 <dt id="arg-default">default<a class="anchor" aria-label="anchor" href="#arg-default"></a></dt>
