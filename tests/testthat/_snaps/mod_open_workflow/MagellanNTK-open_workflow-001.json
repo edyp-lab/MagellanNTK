@@ -1,0 +1,25 @@
+{
+  "output": {
+    "wf-chooseWF1_UI": {
+      "html": "<div class=\"form-group shiny-input-container\">\n  <label class=\"control-label\" id=\"wf-chooseWF1-label\" for=\"wf-chooseWF1\">Choose workflow<\/label>\n  <div>\n    <select id=\"wf-chooseWF1\" class=\"shiny-input-select\"><option value=\"PipelineDemo\" selected>PipelineDemo<\/option>\n<option value=\"PipelineTemplate\">PipelineTemplate<\/option><\/select>\n    <script type=\"application/json\" data-for=\"wf-chooseWF1\" data-nonempty=\"\">{\"plugins\":[\"selectize-plugin-a11y\"]}<\/script>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "selectize",
+          "version": "0.15.2",
+          "src": {
+            "href": "selectize-0.15.2"
+          },
+          "meta": null,
+          "script": [
+            "js/selectize.min.js",
+            "accessibility/js/selectize-plugin-a11y.min.js"
+          ],
+          "stylesheet": "css/selectize.bootstrap3.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    }
+  }
+}

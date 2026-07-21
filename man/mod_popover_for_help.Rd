@@ -4,14 +4,13 @@
 \alias{mod_popover_for_help}
 \alias{mod_popover_for_help_ui}
 \alias{mod_popover_for_help_server}
-\alias{popover_for_help}
 \title{Opens a small tooltip info over a widget.}
 \usage{
 mod_popover_for_help_ui(id)
 
 mod_popover_for_help_server(id, title, content)
 
-popover_for_help(title, content)
+mod_popover_for_help(title, content)
 }
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
@@ -31,7 +30,7 @@ In the future, one will fix this module with native functions in the package
 }
 \examples{
 if (interactive()) {
-  shiny::runApp(popover_for_help("myTitle", "myContent"))
+  mod_popover_for_help("myTitle", "myContent")
 }
 
 }

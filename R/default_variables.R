@@ -123,10 +123,7 @@ default_layout <- list(
 #' @export
 #'
 default_theme <- function(mode) {
-  if (is.null(mode)) {
-    mode <- "user"
-  }
-  if (!(mode %in% c("user", "dev"))) {
+  if (!(is.character(mode) && mode %in% c("user", "dev"))) {
     mode <- "user"
   }
   theme <- NULL

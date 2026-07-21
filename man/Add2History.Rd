@@ -4,14 +4,14 @@
 \alias{Add2History}
 \title{Get the last validated step before current position.}
 \usage{
-Add2History(history, process, step.name, param.name, value)
+Add2History(history, step, substep, param.name, value)
 }
 \arguments{
 \item{history}{A `data.frame()`}
 
-\item{process}{A `character()`}
+\item{step}{A `character()`}
 
-\item{step.name}{A `character()`}
+\item{substep}{A `character()`}
 
 \item{param.name}{A `character()`}
 
@@ -26,6 +26,6 @@ before the current step.
 }
 \examples{
 history <- InitializeHistory()
-Add2History(history, "Example", "First step", "my param", "THE value")
+Add2History(history, "Example step", "First sub-step", "my param", "THE value")
 
 }

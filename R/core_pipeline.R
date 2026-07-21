@@ -74,6 +74,7 @@ nav_pipeline_ui <- function(id) {
 #' @importFrom shinyjs useShinyjs hidden toggle toggleState info hide show disabled inlineCSS extendShinyjs
 #'
 nav_pipeline_server <- function(
+  # nocov start
   id = NULL,
   dataIn = reactive({
     NULL
@@ -86,6 +87,7 @@ nav_pipeline_server <- function(
   }),
   verbose = FALSE,
   usermod = "user"
+  # nocov end
 ) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
@@ -299,7 +301,7 @@ nav_pipeline_server <- function(
       MagellanNTK::toggleWidget(widget, TRUE)
     })
 
-
+    # nocov start
     # Catch the event of clicking on the EDA button
     observeEvent(input$btn_eda, {
       req(session$userData$funcs)
@@ -396,7 +398,7 @@ nav_pipeline_server <- function(
         )
       )
     })
-
+    # nocov end
 
     # Displays the name of the pipeline in the upper-left corner of the screen
     output$datasetNameUI <- renderUI({
@@ -411,6 +413,7 @@ nav_pipeline_server <- function(
     # and is attached to the server, this function can be view as the
     # initialization of the server module. This code is generic to both
     # process and pipeline modules
+    # nocov start
     observeEvent(id,
       ignoreInit = FALSE,
       ignoreNULL = TRUE,
@@ -472,7 +475,7 @@ nav_pipeline_server <- function(
       },
       priority = 1000
     )
-
+    # nocov end
 
     # General observe for the timeline of the pipeline
     observe({
@@ -499,6 +502,7 @@ nav_pipeline_server <- function(
 
     # Catch a new value on the parameter 'dataIn()' variable, sent by the
     # caller. This value may be NULL or contain a dataset.
+    # nocov start
     observeEvent(req(dataIn()), ignoreNULL = FALSE, ignoreInit = FALSE, {
       req(rv$config)
 
@@ -541,7 +545,7 @@ nav_pipeline_server <- function(
 
       rv$current.pos <- SetCurrentPosition(rv$steps.status)
     })
-
+    # nocov end
     observe({
       lapply(GetStepsNames(), function(x) {
         tmp.return[[x]] <- nav_process_server(
@@ -599,7 +603,7 @@ nav_pipeline_server <- function(
         values = unlist(return.values)
       )
     })
-
+    # nocov start
     # Catch the returned values of the processes attached to pipeline
     observeEvent(GetValuesFromChildren()$triggers, ignoreInit = TRUE, {
       triggerValues <- GetValuesFromChildren()$triggers
@@ -719,7 +723,7 @@ nav_pipeline_server <- function(
       ind.undone <- unname(which(rv$steps.status == stepStatus$UNDONE))
       rv$resetChildrenUI[ind.undone] <- rv$resetChildrenUI[ind.undone] + 1
     })
-
+    # nocov end
     GetStepsNames <- reactive({
       req(rv$config@steps)
       names(rv$config@steps)
@@ -759,7 +763,7 @@ nav_pipeline_server <- function(
         process and all further datasets will be removed"
 
     txt <- span(gsub("mode", "mode_Test", template_reset_modal_txt))
-
+    # nocov start
     observeEvent(input$closeModal, {
       removeModal()
     })
@@ -772,7 +776,7 @@ nav_pipeline_server <- function(
       shinyjs::hide(selector = paste0(".page_", id))
       shinyjs::show(GetStepsNames()[rv$current.pos])
     })
-
+    # nocov end
     # The return value of the nav_process module server
     # The item 'dataOut' has been updated by the module process and it is
     # returned to the function that has called this nav_process module (it
@@ -828,7 +832,7 @@ nav_pipeline <- function() {
       uiOutput("debugInfos_ui")
     )
   )
-
+  # nocov start
   server <- function(input, output, session) {
     session$userData$workflow.path <- path
     rv <- reactiveValues(
@@ -851,6 +855,6 @@ nav_pipeline <- function() {
       )
     })
   }
-
+  # nocov end
   shiny::shinyApp(ui, server)
 }

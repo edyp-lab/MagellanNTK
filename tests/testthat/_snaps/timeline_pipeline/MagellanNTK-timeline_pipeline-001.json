@@ -1,0 +1,10 @@
+{
+  "output": {
+    "myTimeline-show_pipeline_TL": {
+      "html": "<div class=\"pipeline-timeline\">\n  <li class=\"li completed disabled mandatory\">\n    <div class=\"timestamp status\">\n      <h4>Description<\/h4>\n    <\/div>\n    <div class=\"boxes\"><\/div>\n  <\/li>\n  <li class=\"li completed disabled mandatory\">\n    <div class=\"timestamp status\">\n      <h4>DataGeneration<\/h4>\n    <\/div>\n    <div class=\"boxes\"><\/div>\n  <\/li>\n  <li class=\"li skipped disabled \">\n    <div class=\"timestamp status\">\n      <h4>Preprocessing<\/h4>\n    <\/div>\n    <div class=\"boxes\"><\/div>\n  <\/li>\n  <li class=\"li completed disabled  active\">\n    <div class=\"timestamp status\">\n      <h4>Clustering<\/h4>\n    <\/div>\n    <div class=\"boxes\"><\/div>\n  <\/li>\n  <li class=\"li undone enabled mandatory\">\n    <div class=\"timestamp status\">\n      <h4>Save<\/h4>\n    <\/div>\n    <div class=\"boxes\"><\/div>\n  <\/li>\n<\/div>",
+      "deps": [
+
+      ]
+    }
+  }
+}

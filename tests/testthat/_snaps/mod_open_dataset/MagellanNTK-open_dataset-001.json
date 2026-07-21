@@ -1,0 +1,76 @@
+{
+  "input": {
+    "demo-chooseSource": "packageDataset",
+    "demo-demoDataset": "None",
+    "reset": 0
+  },
+  "output": {
+    "demo-Description_infos_dataset_UI": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "demo-chooseDemoDataset": {
+      "html": "<div class=\"form-group shiny-input-container\" style=\"width:200px;\">\n  <label class=\"control-label\" id=\"demo-demoDataset-label\" for=\"demo-demoDataset\">Demo dataset<\/label>\n  <div>\n    <select id=\"demo-demoDataset\" class=\"shiny-input-select\"><option value=\"None\">None<\/option>\n<option value=\"lldata\">lldata<\/option>\n<option value=\"lldata1\">lldata1<\/option>\n<option value=\"lldata12\">lldata12<\/option>\n<option value=\"lldata123\">lldata123<\/option><\/select>\n    <script type=\"application/json\" data-for=\"demo-demoDataset\" data-nonempty=\"\">{\"plugins\":[\"selectize-plugin-a11y\"]}<\/script>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "selectize",
+          "version": "0.15.2",
+          "src": {
+            "href": "selectize-0.15.2"
+          },
+          "meta": null,
+          "script": [
+            "js/selectize.min.js",
+            "accessibility/js/selectize-plugin-a11y.min.js"
+          ],
+          "stylesheet": "css/selectize.bootstrap3.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    },
+    "demo-chooseSource_UI": {
+      "html": "<div class=\"form-group shiny-input-container\" style=\"width:200px;\">\n  <label class=\"control-label\" id=\"demo-chooseSource-label\" for=\"demo-chooseSource\">Dataset source<\/label>\n  <div>\n    <select id=\"demo-chooseSource\" class=\"shiny-input-select\"><option value=\"packageDataset\" selected>package dataset<\/option>\n<option value=\"customDataset\">Custom dataset<\/option><\/select>\n    <script type=\"application/json\" data-for=\"demo-chooseSource\" data-nonempty=\"\">{\"plugins\":[\"selectize-plugin-a11y\"]}<\/script>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "selectize",
+          "version": "0.15.2",
+          "src": {
+            "href": "selectize-0.15.2"
+          },
+          "meta": null,
+          "script": [
+            "js/selectize.min.js",
+            "accessibility/js/selectize-plugin-a11y.min.js"
+          ],
+          "stylesheet": "css/selectize.bootstrap3.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    },
+    "demo-customDataset_UI": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "demo-packageDataset_UI": {
+      "html": "<div id=\"demo-choosePkg\" class=\"shiny-html-output\"><\/div>\n<div id=\"demo-chooseDemoDataset\" class=\"shiny-html-output\"><\/div>",
+      "deps": [
+
+      ]
+    }
+  },
+  "export": {
+
+  }
+}

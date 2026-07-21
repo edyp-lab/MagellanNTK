@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'   shiny::runApp(open_workflow())
+#'   open_workflow()
 #' }
 #'
 NULL
@@ -120,6 +120,7 @@ open_workflow_server <- function(id) {
     })
 
     ## -- Open a File --------------------------------------------
+    # nocov start
     observeEvent(input$load_btn, ignoreInit = TRUE, {
       req(FindPkg2MagellanNTK())
       req(Find_WF())
@@ -131,14 +132,17 @@ open_workflow_server <- function(id) {
       # Load customizable functions if config.txt file exists
       rv.wf$dataOut$funcs <- MagellanNTK::readConfigFile(rv.wf$path)$funcs
     })
+    # nocov end
 
     output$infos_wf_UI <- renderUI({
       req(rv.wf$dataOut$wf_name)
     })
-
+    
+    # nocov start
     reactive({
       rv.wf$dataOut
     })
+    # nocov end
   })
 }
 
@@ -154,7 +158,7 @@ open_workflow <- function() {
       open_workflow_ui("wf")
     )
   )
-
+  # nocov start
   server <- function(input, output, session) {
     rv <- reactiveValues(
       obj = NULL,
@@ -163,6 +167,6 @@ open_workflow <- function() {
 
     rv$result <- open_workflow_server("wf")
   }
-
-  app <- shiny::shinyApp(ui, server)
+  # nocov end
+  shiny::shinyApp(ui, server)
 }

@@ -37,7 +37,7 @@ A shiny Module.
 \examples{
 if (interactive()) {
   data(lldata123)
-  shiny::runApp(infos_dataset(lldata123))
+  infos_dataset(lldata123)
 }
 
 }

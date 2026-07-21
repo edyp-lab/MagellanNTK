@@ -11,7 +11,7 @@ test_that("InitializeHistory creates an empty history data frame", {
   expect_equal(nrow(result), 0)
   
   # Check column names
-  expect_equal(names(result), c("Process", "Step", "Parameter", "Value"))
+  expect_equal(names(result), c("Step", "Substep", "Parameter", "Value"))
 })
 
 
@@ -27,8 +27,8 @@ test_that("Add2History adds a row to history data frame", {
   expect_equal(ncol(result), 4)
   
   # Check content
-  expect_equal(result$Process[1], "Process1")
-  expect_equal(result$Step[1], "Step1")
+  expect_equal(result$Step[1], "Process1")
+  expect_equal(result$Substep[1], "Step1")
   expect_equal(result$Parameter[1], "Param1")
   expect_equal(result$Value[1], "Value1")
 })
@@ -62,7 +62,7 @@ test_that("Add2History preserves existing history", {
 
   # Check both entries exist
   expect_equal(nrow(result), 2)
-  expect_equal(result$Process, c("Process1", "Process2"))
+  expect_equal(result$Step, c("Process1", "Process2"))
 })
 
 

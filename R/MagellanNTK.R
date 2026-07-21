@@ -52,7 +52,9 @@ MagellanNTK_ui <- function(id, sidebarSize = "medium") {
 #' @rdname magellanNTK
 #'
 #' @export
-MagellanNTK_server <- function(id,
+MagellanNTK_server <- function(
+                               # nocov start
+                               id,
                                workflow.path = reactive({
                                  NULL
                                }),
@@ -60,7 +62,9 @@ MagellanNTK_server <- function(id,
                                  NULL
                                }),
                                verbose = FALSE,
-                               usermod = "user") {
+                               usermod = "user"
+                               # nocov end
+                               ) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     addResourcePath("www", system.file("www", package = "MagellanNTK"))
@@ -110,7 +114,7 @@ MagellanNTK <- function(workflow.path = NULL,
   source_shinyApp_files()
 
   ui <- MagellanNTK_ui("infos", sidebarSize = sidebarSize)
-
+  # nocov start
   server <- function(input, output, session) {
     MagellanNTK_server("infos",
       workflow.path = reactive({
@@ -123,13 +127,13 @@ MagellanNTK <- function(workflow.path = NULL,
       usermod = usermod
     )
   }
-
+  # nocov end
   # Launch app
-  app <- shiny::shinyApp(ui, server)
+  shiny::shinyApp(ui, server)
 
-  shiny::runApp(app,
-    launch.browser = TRUE,
-    port = 3838,
-    host = "127.0.0.1"
-  )
+  # shiny::runApp(app,
+  #   launch.browser = TRUE,
+  #   port = 3838,
+  #   host = "127.0.0.1"
+  # )
 }

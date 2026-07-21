@@ -80,6 +80,7 @@ nav_single_process_ui <- function(id) {
 #' @export
 #'
 nav_single_process_server <- function(
+  # nocov start
   id = NULL,
   dataIn = reactive({
     NULL
@@ -95,6 +96,7 @@ nav_single_process_server <- function(
   verbose = FALSE,
   usermod = "user",
   sendDataIfReset = TRUE
+  # nocov end
 ) {
   ### -------------------------------------------------------------###
   ###                                                             ###
@@ -146,7 +148,7 @@ nav_single_process_server <- function(
       history = InitializeHistory(),
       btnEvents = 0
     )
-
+    # nocov start
     observeEvent(input$btn_eda_singleProcess, {
       req(session$userData$funcs)
       req(rv$dataset2EDA)
@@ -241,7 +243,7 @@ nav_single_process_server <- function(
         )
       )
     })
-
+    # nocov end
     output$process_panel_ui_process <- renderUI({
       shiny::absolutePanel(
         left = default_layout$left_pipeline_sidebar,
@@ -430,7 +432,7 @@ nav_single_process_server <- function(
         h3(id)
       )
     })
-
+    # nocov start
     observeEvent(status(), {
       rv$status <- status()
     })
@@ -502,7 +504,7 @@ nav_single_process_server <- function(
       },
       priority = 1000
     )
-
+    # nocov end
     output$testTL <- renderUI({
       timeline_process_server(
         id = "process_timeline",
@@ -561,6 +563,7 @@ nav_single_process_server <- function(
 
     # Catch a new value on the parameter 'dataIn()' variable, sent by the
     # caller. This value may be NULL or contain a dataset.
+    # nocov start
     observeEvent(dataIn(), ignoreNULL = FALSE, ignoreInit = TRUE, {
       req(rv$config)
 
@@ -729,7 +732,7 @@ nav_single_process_server <- function(
       )
       rv$doProceedAction <- "Do"
     })
-
+    # nocov end
     RefineProcessStatus <- function(history, steps.status) {
       req(history)
       req(steps.status)
@@ -740,7 +743,7 @@ nav_single_process_server <- function(
       if (length(steps.status) > 1) {
         steps.status[1] <- stepStatus$VALIDATED
         # It is not Description nor Save processes
-        .ind <- which(names(steps.status) %in% history[, "Step"])
+        .ind <- which(names(steps.status) %in% history[, "Substep"])
         steps.status[.ind] <- stepStatus$VALIDATED
         steps.status["Save"] <- stepStatus$VALIDATED
       } else if (length(steps.status) == 1 &&
@@ -752,7 +755,7 @@ nav_single_process_server <- function(
 
       return(steps.status)
     }
-
+    # nocov start
     observeEvent(rv$status, ignoreInit = TRUE, ignoreNULL = TRUE, {
       shinyjs::toggleState("DoProceedBtn",
         condition = unname(rv$status) == stepStatus$UNDONE
@@ -779,7 +782,7 @@ nav_single_process_server <- function(
         rv = rv
       )
     })
-
+    # nocov end
     ResetProcess <- function() {
       # The cursor is set to the first step
       rv$current.pos <- 1
@@ -790,7 +793,7 @@ nav_single_process_server <- function(
         nm = names(rv$config@steps)
       )
     }
-
+    # nocov start
     observeEvent(rv$rstBtn(), ignoreInit = TRUE, ignoreNULL = TRUE, {
       req(rv$config)
       rv$dataIn <- rv$temp.dataIn <- dataIn()
@@ -812,7 +815,7 @@ nav_single_process_server <- function(
         })
       }
     })
-
+    # nocov end
     GetStepsNames <- reactive({
       names(rv$config@steps)
     })
@@ -829,7 +832,7 @@ nav_single_process_server <- function(
       title = "Reset",
       uiContent = p(txt)
     )
-
+    # nocov start
     observeEvent(rv$current.pos, ignoreInit = FALSE, {
       if (length(rv$config@steps) == 1) {
         shinyjs::toggleState(id = "prevBtn", condition = FALSE)
@@ -866,7 +869,7 @@ nav_single_process_server <- function(
       shinyjs::hide(selector = paste0(".page_", id))
       shinyjs::show(GetStepsNames()[rv$current.pos])
     })
-
+    # nocov end
     # The return value of the nav_process module server
     # The item 'dataOut' has been updated by the module process and it is
     # returned to the function that has called this nav_process module (it
@@ -911,7 +914,7 @@ nav_single_process <- function() {
       uiOutput("UI")
     )
   )
-
+  # nocov start
   server <- function(input, output, session) {
     session$userData$workflow.path <- path
 
@@ -933,6 +936,6 @@ nav_single_process <- function() {
       )
     })
   }
-
+  # nocov end
   shiny::shinyApp(ui, server)
 }

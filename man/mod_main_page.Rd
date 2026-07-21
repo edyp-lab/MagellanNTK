@@ -51,7 +51,7 @@ A shiny Module.
 }
 \examples{
 if (interactive()) {
-  shiny::runApp(mainapp())
+  mainapp()
 }
 
 }

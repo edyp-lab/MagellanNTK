@@ -24,7 +24,7 @@ A shiny Module.
 }
 \examples{
 if (interactive()) {
-  shiny::runApp(open_workflow())
+  open_workflow()
 }
 
 }

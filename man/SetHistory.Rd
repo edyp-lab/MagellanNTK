@@ -20,7 +20,7 @@ Standardize names
 \examples{
 data(lldata)
 history <- GetHistory(lldata, "Convert")
-history <- Add2History(history, "Example", "Step Ex", "ex_param", "Ex")
+history <- Add2History(history, "Step example", "Substep example", "ex_param", "Ex")
 lldata[[1]] <- SetHistory(lldata[[1]], history)
 
 }

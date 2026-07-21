@@ -21,9 +21,10 @@
 #'
 #' @examples
 #' if (interactive()) {
+#'   data(lldata)
 #'   obj <- SummarizedExperiment::assay(lldata[[1]])
 #'   obj <- as.data.frame(obj)
-#'   shiny::runApp(format_DT(obj))
+#'   format_DT(obj)
 #'
 #'   # Compute style from within third party tab
 #'   obj <- as.data.frame(matrix(seq_len(30), byrow = TRUE, nrow = 6))
@@ -40,10 +41,10 @@
 #'     pal = RColorBrewer::brewer.pal(5, "Dark2")[seq_len(5)]
 #'   )
 #'
-#'   shiny::runApp(format_DT(obj,
+#'   format_DT(obj,
 #'     hidden = mask,
 #'     hc_style = style
-#'   ))
+#'   )
 #' }
 #'
 NULL
@@ -70,7 +71,9 @@ format_DT_ui <- function(id) {
 #'
 #' @export
 #'
-format_DT_server <- function(id,
+format_DT_server <- function(
+                             # nocov start
+                             id,
                              dataIn = reactive({
                                NULL
                              }),
@@ -89,7 +92,9 @@ format_DT_server <- function(id,
                              }),
                              is.enabled = reactive({
                                TRUE
-                             })) {
+                             })
+                             # nocov end
+                             ) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -178,7 +183,7 @@ format_DT <- function(dataIn,
                       is.enabled = TRUE) {
   stopifnot(inherits(dataIn, "data.frame"))
   ui <- format_DT_ui("dt")
-
+  # nocov start
   server <- function(input, output, session) {
     format_DT_server("dt",
       dataIn = reactive({
@@ -201,6 +206,6 @@ format_DT <- function(dataIn,
       })
     )
   }
-
-  app <- shinyApp(ui = ui, server = server)
+  # nocov end
+  shinyApp(ui = ui, server = server)
 }

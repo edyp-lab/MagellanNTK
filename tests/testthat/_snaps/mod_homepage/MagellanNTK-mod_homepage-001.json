@@ -1,0 +1,10 @@
+{
+  "output": {
+    "mod_pkg-md_file-insertMD": {
+      "html": "<h1 id=\"introduction-to-magellanntk\">Introduction to MagellanNTK<\/h1>\n<h1 id=\"customizable-functions\">Customizable functions<\/h1>\n<p>The package <code>MagellanNTK<\/code> uses a collection of functions that come with default\ndefinition but can also be customizable by other devs. All these funtions are\nShiny modules so as to facilitate their use in a standalone mode or embeded in\n<code>MagellanNTK<\/code> interface. These are the following:<\/p>\n<ul>\n<li>convert_dataset(): A Shiny module to convert any dataset to a format suitable\nfor the pipeline used.<\/li>\n<li>open_dataset(): xxx<\/li>\n<li>view_dataset(): xxx<\/li>\n<li>infos_dataset(): xxx<\/li>\n<li>download_dataset(): xxx<\/li>\n<li>addDatasets(): xxx<\/li>\n<li>keepDatasets(): xxx<\/li>\n<\/ul>\n",
+      "deps": [
+
+      ]
+    }
+  }
+}

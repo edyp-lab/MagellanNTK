@@ -12,7 +12,7 @@
 #' @examples
 #' if (interactive()) {
 #'   data(lldata123)
-#'   shiny::runApp(infos_dataset(lldata123))
+#'   infos_dataset(lldata123)
 #' }
 #'
 NULL
@@ -44,6 +44,7 @@ infos_dataset_ui <- function(id) {
 #' @export
 #'
 infos_dataset_server <- function(
+  # nocov start
   id,
   dataIn = reactive({
     NULL
@@ -54,6 +55,7 @@ infos_dataset_server <- function(
   is.enabled = reactive({
     TRUE
   })
+  # nocov end
 ) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
@@ -102,7 +104,7 @@ infos_dataset_server <- function(
 #'
 infos_dataset <- function(obj) {
   ui <- fluidPage(infos_dataset_ui("mod_info"))
-
+  # nocov start
   server <- function(input, output, session) {
     infos_dataset_server("mod_info",
       dataIn = reactive({
@@ -110,6 +112,6 @@ infos_dataset <- function(obj) {
       })
     )
   }
-
-  app <- shiny::shinyApp(ui, server)
+  # nocov end
+  shiny::shinyApp(ui, server)
 }

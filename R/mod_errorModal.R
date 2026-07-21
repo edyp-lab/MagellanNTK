@@ -14,7 +14,7 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'   shiny::runApp(mod_errorModal("myTitle", "myContent"))
+#'   mod_errorModal("myTitle", "myContent")
 #' }
 #'
 NULL
@@ -38,6 +38,7 @@ mod_errorModal_server <- function(
   shiny::moduleServer(
     id,
     function(input, output, session) {
+      # nocov start
       observeEvent(TRUE, ignoreInit = FALSE, {
         shiny::showModal(
           div(
@@ -59,6 +60,7 @@ mod_errorModal_server <- function(
           )
         )
       })
+      # nocov end
     }
   )
 }
@@ -68,12 +70,13 @@ mod_errorModal_server <- function(
 #'
 mod_errorModal <- function(title = NULL, text = NULL) {
   ui <- fluidPage()
-
+  # nocov start
   server <- function(input, output) {
     mod_errorModal_server("test",
       title = title,
       text = text
     )
   }
-  app <- shiny::shinyApp(ui, server)
+  # nocov end
+  shiny::shinyApp(ui, server)
 }

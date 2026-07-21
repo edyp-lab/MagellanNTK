@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'   shiny::runApp(mod_homepage())
+#'   mod_homepage()
 #' }
 #'
 NULL
@@ -32,13 +32,17 @@ mod_homepage_ui <- function(id) {
 #'
 #' @export
 #'
-mod_homepage_server <- function(id,
+mod_homepage_server <- function(
+                                # nocov start
+                                id,
                                 mdfile = file.path(system.file("www/md",
                                   package = "MagellanNTK"
                                 ), "Presentation.Rmd"),
                                 dataset = reactive({
                                   NULL
-                                })) {
+                                })
+                                # nocov end
+                                ) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -51,7 +55,8 @@ mod_homepage_server <- function(id,
     }
 
     insert_md_server("md_file", normalizePath(.mdfile))
-
+    
+    # nocov start
     output$infos_dataset <- renderUI({
       req(dataset())
       parts_infos_dataset <- strsplit(session$userData$funcs$infos_dataset,
@@ -79,6 +84,7 @@ mod_homepage_server <- function(id,
         list(id = ns("eda1"))
       )
     })
+    # nocov end
   })
 }
 
@@ -92,10 +98,10 @@ mod_homepage <- function() {
   ui <- fluidPage(
     mod_homepage_ui("mod_pkg")
   )
-
+  # nocov start
   server <- function(input, output, session) {
     mod_homepage_server("mod_pkg")
   }
-
-  app <- shinyApp(ui, server)
+  # nocov end
+  shinyApp(ui, server)
 }

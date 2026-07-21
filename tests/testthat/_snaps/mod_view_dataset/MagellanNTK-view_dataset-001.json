@@ -1,0 +1,40 @@
+{
+  "output": {
+    "modviewDataset-plot_ui": {
+      "src": "[image data hash: e59bebc2ecd68d0674a5574f1f7c121e]",
+      "width": 1219,
+      "height": 400,
+      "alt": "Plot object",
+      "coordmap": {
+        "panels": [
+          {
+            "domain": {
+              "left": 0.5679999999999999,
+              "right": 1.432,
+              "bottom": 0.5679999999999999,
+              "top": 1.432
+            },
+            "range": {
+              "left": 59.04000000000001,
+              "right": 1188.76,
+              "bottom": 325.56,
+              "top": 58.03999999999998
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "mapping": {
+
+            }
+          }
+        ],
+        "dims": {
+          "width": 1219,
+          "height": 400
+        }
+      },
+      "error": null
+    }
+  }
+}

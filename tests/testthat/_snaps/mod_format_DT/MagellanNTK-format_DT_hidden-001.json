@@ -1,0 +1,177 @@
+{
+  "output": {
+    "dt-StaticDataTable": {
+      "x": {
+        "filter": "none",
+        "vertical": false,
+        "extensions": [
+          "Scroller"
+        ],
+        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th>col1<\/th>\n      <th>col2<\/th>\n      <th>col3<\/th>\n      <th>col4<\/th>\n      <th>col5<\/th>\n      <th>V1<\/th>\n      <th>V2<\/th>\n      <th>V3<\/th>\n      <th>V4<\/th>\n      <th>V5<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "options": {
+          "initComplete": "function(settings, json) {\n$(this.api().table().header()).css({'background-color': 'darkgrey', 'color': 'black'});\n}",
+          "dom": "Bt",
+          "columnDefs": [
+            {
+              "targets": "_all",
+              "className": "dt-center"
+            },
+            {
+              "targets": [
+                5,
+                6,
+                7,
+                8,
+                9
+              ],
+              "visible": false
+            },
+            {
+              "name": "col1",
+              "targets": 0
+            },
+            {
+              "name": "col2",
+              "targets": 1
+            },
+            {
+              "name": "col3",
+              "targets": 2
+            },
+            {
+              "name": "col4",
+              "targets": 3
+            },
+            {
+              "name": "col5",
+              "targets": 4
+            },
+            {
+              "name": "V1",
+              "targets": 5
+            },
+            {
+              "name": "V2",
+              "targets": 6
+            },
+            {
+              "name": "V3",
+              "targets": 7
+            },
+            {
+              "name": "V4",
+              "targets": 8
+            },
+            {
+              "name": "V5",
+              "targets": 9
+            }
+          ],
+          "scrollY": true,
+          "paging": false,
+          "order": [
+
+          ],
+          "autoWidth": false,
+          "orderClasses": false,
+          "rowCallback": "function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[5]; $(this.api().cell(row, 0).node()).css({'background-color':value == \"A\" ? \"#1B9E77\" : value == \"B\" ? \"#D95F02\" : value == \"C\" ? \"#7570B3\" : value == \"D\" ? \"#E7298A\" : value == \"E\" ? \"#66A61E\" : null});\nvar value=data[6]; $(this.api().cell(row, 1).node()).css({'background-color':value == \"A\" ? \"#1B9E77\" : value == \"B\" ? \"#D95F02\" : value == \"C\" ? \"#7570B3\" : value == \"D\" ? \"#E7298A\" : value == \"E\" ? \"#66A61E\" : null});\nvar value=data[7]; $(this.api().cell(row, 2).node()).css({'background-color':value == \"A\" ? \"#1B9E77\" : value == \"B\" ? \"#D95F02\" : value == \"C\" ? \"#7570B3\" : value == \"D\" ? \"#E7298A\" : value == \"E\" ? \"#66A61E\" : null});\nvar value=data[8]; $(this.api().cell(row, 3).node()).css({'background-color':value == \"A\" ? \"#1B9E77\" : value == \"B\" ? \"#D95F02\" : value == \"C\" ? \"#7570B3\" : value == \"D\" ? \"#E7298A\" : value == \"E\" ? \"#66A61E\" : null});\nvar value=data[9]; $(this.api().cell(row, 4).node()).css({'background-color':value == \"A\" ? \"#1B9E77\" : value == \"B\" ? \"#D95F02\" : value == \"C\" ? \"#7570B3\" : value == \"D\" ? \"#E7298A\" : value == \"E\" ? \"#66A61E\" : null});\n}",
+          "ajax": {
+            "type": "POST",
+            "data": "function(d) {\nd.search.caseInsensitive = true;\nd.search.smart = true;\nd.escape = false;\nvar encodeAmp = function(x) { x.value = x.value.replace(/&/g, \"%26\"); }\nencodeAmp(d.search);\n$.each(d.columns, function(i, v) {encodeAmp(v.search);});\n}"
+          },
+          "serverSide": true,
+          "processing": true
+        },
+        "selection": {
+          "mode": "multiple",
+          "selected": null,
+          "target": "row",
+          "selectable": null
+        }
+      },
+      "evals": [
+        "options.initComplete",
+        "options.rowCallback",
+        "options.ajax.data"
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "jquery",
+          "version": "3.6.0",
+          "src": {
+            "href": "jquery-3.6.0"
+          },
+          "meta": null,
+          "script": "jquery-3.6.0.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "dt-core",
+          "version": "1.13.6",
+          "src": {
+            "href": "dt-core-1.13.6"
+          },
+          "meta": null,
+          "script": "js/jquery.dataTables.min.js",
+          "stylesheet": [
+            "css/jquery.dataTables.min.css",
+            "css/jquery.dataTables.extra.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "dt-ext-scroller",
+          "version": "1.13.6",
+          "src": {
+            "href": "dt-ext-scroller-1.13.6"
+          },
+          "meta": null,
+          "script": "js/dataTables.scroller.min.js",
+          "stylesheet": "css/scroller.dataTables.min.css",
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "dt-plugin-ellipsis",
+          "version": "1.13.6",
+          "src": {
+            "href": "dt-plugin-ellipsis-1.13.6"
+          },
+          "meta": null,
+          "script": "source.min.js",
+          "stylesheet": [
+
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.2.2",
+          "src": {
+            "href": "crosstalk-1.2.2"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.min.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    }
+  }
+}

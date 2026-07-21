@@ -73,9 +73,10 @@ A shiny Module.
 }
 \examples{
 if (interactive()) {
+  data(lldata)
   obj <- SummarizedExperiment::assay(lldata[[1]])
   obj <- as.data.frame(obj)
-  shiny::runApp(format_DT(obj))
+  format_DT(obj)
 
   # Compute style from within third party tab
   obj <- as.data.frame(matrix(seq_len(30), byrow = TRUE, nrow = 6))
@@ -92,10 +93,10 @@ if (interactive()) {
     pal = RColorBrewer::brewer.pal(5, "Dark2")[seq_len(5)]
   )
 
-  shiny::runApp(format_DT(obj,
+  format_DT(obj,
     hidden = mask,
     hc_style = style
-  ))
+  )
 }
 
 }

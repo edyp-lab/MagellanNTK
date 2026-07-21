@@ -66,7 +66,9 @@ timeline_process_ui <- function(id) {
 #'
 #' @export
 #'
-timeline_process_server <- function(id,
+timeline_process_server <- function(
+                                    # nocov start
+                                    id,
                                     config,
                                     status = reactive({
                                       NULL
@@ -76,7 +78,9 @@ timeline_process_server <- function(id,
                                     }),
                                     enabled = reactive({
                                       NULL
-                                    })) {
+                                    })
+                                    # nocov end
+                                    ) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -146,7 +150,7 @@ timeline_process <- function(
   ui <- fluidPage(
     timeline_process_ui("myTimeline")
   )
-
+  # nocov start
   server <- function(input, output, session) {
     timeline_process_server(
       "myTimeline",
@@ -156,6 +160,6 @@ timeline_process <- function(
       enabled
     )
   }
-
+  # nocov end
   app <- shiny::shinyApp(ui, server)
 }

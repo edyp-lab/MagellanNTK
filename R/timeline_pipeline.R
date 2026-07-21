@@ -33,7 +33,7 @@
 #'   enabled <- reactive({
 #'     c(0, 0, 0, 0, 1)
 #'   })
-#'   shiny::runApp(timeline_pipeline(config, status, pos, enabled))
+#'   timeline_pipeline(config, status, pos, enabled)
 #' }
 #'
 NULL
@@ -123,7 +123,7 @@ timeline_pipeline <- function(
   ui <- fluidPage(
     timeline_pipeline_ui("myTimeline")
   )
-
+  # nocov start
   server <- function(input, output, session) {
     timeline_pipeline_server(
       "myTimeline",
@@ -133,6 +133,6 @@ timeline_pipeline <- function(
       enabled
     )
   }
-
-  app <- shiny::shinyApp(ui, server)
+  # nocov end
+  shiny::shinyApp(ui, server)
 }

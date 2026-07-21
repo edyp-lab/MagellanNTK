@@ -4,14 +4,13 @@
 \alias{mod_release_notes}
 \alias{mod_release_notes_ui}
 \alias{mod_release_notes_server}
-\alias{release_notes}
 \title{mod_release_notes_ui and mod_release_notes_server}
 \usage{
 mod_release_notes_ui(id)
 
 mod_release_notes_server(id, URL_releaseNotes)
 
-release_notes(URL_releaseNotes)
+mod_release_notes(URL_releaseNotes)
 }
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
@@ -28,12 +27,12 @@ A shiny Module.
 \examples{
 if (interactive()) {
   url <- "http://www.prostar-proteomics.org/md/versionNotes.md"
-  shiny::runApp(release_notes(url))
+  mod_release_notes(url)
 
   local.url <- system.file("/workflow/PipelineDemo/md/links.Rmd",
     package = "MagellanNTK"
   )
-  shiny::runApp(release_notes(local.url))
+  mod_release_notes(local.url)
 }
 
 }

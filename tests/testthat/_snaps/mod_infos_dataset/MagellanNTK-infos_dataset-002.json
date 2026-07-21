@@ -1,0 +1,256 @@
+{
+  "input": {
+    "mod_info-dt2-StaticDataTable_cell_clicked": {
+
+    },
+    "mod_info-dt2-StaticDataTable_cells_selected": [
+
+    ],
+    "mod_info-dt2-StaticDataTable_columns_selected": null,
+    "mod_info-dt2-StaticDataTable_rows_all": null,
+    "mod_info-dt2-StaticDataTable_rows_current": null,
+    "mod_info-dt2-StaticDataTable_rows_selected": null,
+    "mod_info-dt2-StaticDataTable_search": "",
+    "mod_info-dt2-StaticDataTable_state": null,
+    "mod_info-selectInputSE": "DataGeneration"
+  },
+  "output": {
+    "mod_info-choose_SE_ui": {
+      "html": "<div id=\"mod_info-selectInputSE\" class=\"form-group shiny-input-radiogroup shiny-input-container\" role=\"radiogroup\" aria-labelledby=\"mod_info-selectInputSE-label\">\n  <label class=\"control-label\" id=\"mod_info-selectInputSE-label\" for=\"mod_info-selectInputSE\">Select an assay for further information<\/label>\n  <div class=\"shiny-options-group\">\n    <div class=\"radio\">\n      <label>\n        <input type=\"radio\" name=\"mod_info-selectInputSE\" value=\"Convert\" checked=\"checked\"/>\n        <span>Convert<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"radio\">\n      <label>\n        <input type=\"radio\" name=\"mod_info-selectInputSE\" value=\"DataGeneration\"/>\n        <span>DataGeneration<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"radio\">\n      <label>\n        <input type=\"radio\" name=\"mod_info-selectInputSE\" value=\"Preprocessing\"/>\n        <span>Preprocessing<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"radio\">\n      <label>\n        <input type=\"radio\" name=\"mod_info-selectInputSE\" value=\"Clustering\"/>\n        <span>Clustering<\/span>\n      <\/label>\n    <\/div>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "mod_info-dt2-StaticDataTable": {
+      "x": {
+        "filter": "none",
+        "vertical": false,
+        "extensions": [
+          "Scroller"
+        ],
+        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th>col1<\/th>\n      <th>col2<\/th>\n      <th>col3<\/th>\n      <th>col4<\/th>\n      <th>col5<\/th>\n      <th>col6<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "options": {
+          "initComplete": "function(settings, json) {\n$(this.api().table().header()).css({'background-color': 'darkgrey', 'color': 'black'});\n}",
+          "dom": "Bt",
+          "columnDefs": [
+            {
+              "targets": "_all",
+              "className": "dt-center"
+            },
+            {
+              "name": "col1",
+              "targets": 0
+            },
+            {
+              "name": "col2",
+              "targets": 1
+            },
+            {
+              "name": "col3",
+              "targets": 2
+            },
+            {
+              "name": "col4",
+              "targets": 3
+            },
+            {
+              "name": "col5",
+              "targets": 4
+            },
+            {
+              "name": "col6",
+              "targets": 5
+            }
+          ],
+          "scrollY": true,
+          "paging": false,
+          "order": [
+
+          ],
+          "autoWidth": false,
+          "orderClasses": false,
+          "ajax": {
+            "type": "POST",
+            "data": "function(d) {\nd.search.caseInsensitive = true;\nd.search.smart = true;\nd.escape = false;\nvar encodeAmp = function(x) { x.value = x.value.replace(/&/g, \"%26\"); }\nencodeAmp(d.search);\n$.each(d.columns, function(i, v) {encodeAmp(v.search);});\n}"
+          },
+          "serverSide": true,
+          "processing": true
+        },
+        "selection": {
+          "mode": "multiple",
+          "selected": null,
+          "target": "row",
+          "selectable": null
+        }
+      },
+      "evals": [
+        "options.initComplete",
+        "options.ajax.data"
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "jquery",
+          "version": "3.6.0",
+          "src": {
+            "href": "jquery-3.6.0"
+          },
+          "meta": null,
+          "script": "jquery-3.6.0.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "dt-core",
+          "version": "1.13.6",
+          "src": {
+            "href": "dt-core-1.13.6"
+          },
+          "meta": null,
+          "script": "js/jquery.dataTables.min.js",
+          "stylesheet": [
+            "css/jquery.dataTables.min.css",
+            "css/jquery.dataTables.extra.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "dt-ext-scroller",
+          "version": "1.13.6",
+          "src": {
+            "href": "dt-ext-scroller-1.13.6"
+          },
+          "meta": null,
+          "script": "js/dataTables.scroller.min.js",
+          "stylesheet": "css/scroller.dataTables.min.css",
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "dt-plugin-ellipsis",
+          "version": "1.13.6",
+          "src": {
+            "href": "dt-plugin-ellipsis-1.13.6"
+          },
+          "meta": null,
+          "script": "source.min.js",
+          "stylesheet": [
+
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.2.2",
+          "src": {
+            "href": "crosstalk-1.2.2"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.min.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    },
+    "mod_info-show_SE_ui": {
+      "html": "<p>10 first rows of the assay<\/p>\n<!--SHINY.SINGLETON[add739c82ab207ed2c80be4b7e4b181525eb7a75]-->\n<head>\n  <script>Shiny.addCustomMessageHandler('shinyjs-show', function(params) { shinyjs.debugMessage('shinyjs: calling function \"show\" with parameters:'); shinyjs.debugMessage(params); shinyjs.show(params);});\nShiny.addCustomMessageHandler('shinyjs-hide', function(params) { shinyjs.debugMessage('shinyjs: calling function \"hide\" with parameters:'); shinyjs.debugMessage(params); shinyjs.hide(params);});\nShiny.addCustomMessageHandler('shinyjs-toggle', function(params) { shinyjs.debugMessage('shinyjs: calling function \"toggle\" with parameters:'); shinyjs.debugMessage(params); shinyjs.toggle(params);});\nShiny.addCustomMessageHandler('shinyjs-enable', function(params) { shinyjs.debugMessage('shinyjs: calling function \"enable\" with parameters:'); shinyjs.debugMessage(params); shinyjs.enable(params);});\nShiny.addCustomMessageHandler('shinyjs-disable', function(params) { shinyjs.debugMessage('shinyjs: calling function \"disable\" with parameters:'); shinyjs.debugMessage(params); shinyjs.disable(params);});\nShiny.addCustomMessageHandler('shinyjs-toggleState', function(params) { shinyjs.debugMessage('shinyjs: calling function \"toggleState\" with parameters:'); shinyjs.debugMessage(params); shinyjs.toggleState(params);});\nShiny.addCustomMessageHandler('shinyjs-addClass', function(params) { shinyjs.debugMessage('shinyjs: calling function \"addClass\" with parameters:'); shinyjs.debugMessage(params); shinyjs.addClass(params);});\nShiny.addCustomMessageHandler('shinyjs-removeClass', function(params) { shinyjs.debugMessage('shinyjs: calling function \"removeClass\" with parameters:'); shinyjs.debugMessage(params); shinyjs.removeClass(params);});\nShiny.addCustomMessageHandler('shinyjs-toggleClass', function(params) { shinyjs.debugMessage('shinyjs: calling function \"toggleClass\" with parameters:'); shinyjs.debugMessage(params); shinyjs.toggleClass(params);});\nShiny.addCustomMessageHandler('shinyjs-html', function(params) { shinyjs.debugMessage('shinyjs: calling function \"html\" with parameters:'); shinyjs.debugMessage(params); shinyjs.html(params);});\nShiny.addCustomMessageHandler('shinyjs-onevent', function(params) { shinyjs.debugMessage('shinyjs: calling function \"onevent\" with parameters:'); shinyjs.debugMessage(params); shinyjs.onevent(params);});\nShiny.addCustomMessageHandler('shinyjs-removeEvent', function(params) { shinyjs.debugMessage('shinyjs: calling function \"removeEvent\" with parameters:'); shinyjs.debugMessage(params); shinyjs.removeEvent(params);});\nShiny.addCustomMessageHandler('shinyjs-alert', function(params) { shinyjs.debugMessage('shinyjs: calling function \"alert\" with parameters:'); shinyjs.debugMessage(params); shinyjs.alert(params);});\nShiny.addCustomMessageHandler('shinyjs-logjs', function(params) { shinyjs.debugMessage('shinyjs: calling function \"logjs\" with parameters:'); shinyjs.debugMessage(params); shinyjs.logjs(params);});\nShiny.addCustomMessageHandler('shinyjs-runjs', function(params) { shinyjs.debugMessage('shinyjs: calling function \"runjs\" with parameters:'); shinyjs.debugMessage(params); shinyjs.runjs(params);});\nShiny.addCustomMessageHandler('shinyjs-reset', function(params) { shinyjs.debugMessage('shinyjs: calling function \"reset\" with parameters:'); shinyjs.debugMessage(params); shinyjs.reset(params);});\nShiny.addCustomMessageHandler('shinyjs-delay', function(params) { shinyjs.debugMessage('shinyjs: calling function \"delay\" with parameters:'); shinyjs.debugMessage(params); shinyjs.delay(params);});\nShiny.addCustomMessageHandler('shinyjs-click', function(params) { shinyjs.debugMessage('shinyjs: calling function \"click\" with parameters:'); shinyjs.debugMessage(params); shinyjs.click(params);});\nShiny.addCustomMessageHandler('shinyjs-refresh', function(params) { shinyjs.debugMessage('shinyjs: calling function \"refresh\" with parameters:'); shinyjs.debugMessage(params); shinyjs.refresh(params);});<\/script>\n  <script src=\"shinyjs/shinyjs-default-funcs.js\"><\/script>\n  <script>shinyjs.debug = false;<\/script>\n  <head>\n    <style>.shinyjs-hide { display: none !important; }<\/style>\n  <\/head>\n<\/head>\n<!--/SHINY.SINGLETON[add739c82ab207ed2c80be4b7e4b181525eb7a75]-->\n<div class=\"datatables html-widget html-widget-output shiny-report-size html-fill-item\" id=\"mod_info-dt2-StaticDataTable\" style=\"width:100%;height:auto;\"><\/div>",
+      "deps": [
+        {
+          "name": "htmltools-fill",
+          "version": "0.5.9",
+          "src": {
+            "href": "htmltools-fill-0.5.9"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "fill.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "htmlwidgets",
+          "version": "1.6.4",
+          "src": {
+            "href": "htmlwidgets-1.6.4"
+          },
+          "meta": null,
+          "script": "htmlwidgets.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "datatables-css",
+          "version": "0.0.0",
+          "src": {
+            "href": "datatables-css-0.0.0"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "datatables-crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "datatables-binding",
+          "version": "0.34.0",
+          "src": {
+            "href": "datatables-binding-0.34.0"
+          },
+          "meta": null,
+          "script": "datatables.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "3.5.1",
+          "src": {
+            "href": "jquery-3.5.1"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.2.2",
+          "src": {
+            "href": "crosstalk-1.2.2"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.min.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    }
+  },
+  "export": {
+
+  }
+}

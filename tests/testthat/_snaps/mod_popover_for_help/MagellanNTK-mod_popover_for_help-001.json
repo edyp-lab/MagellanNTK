@@ -1,0 +1,10 @@
+{
+  "output": {
+    "settings-dot": {
+      "html": "<button class=\"custom_tooltip\">\n  <sup>[?]<\/sup>\n<\/button>",
+      "deps": [
+
+      ]
+    }
+  }
+}

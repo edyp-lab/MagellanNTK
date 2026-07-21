@@ -38,7 +38,7 @@ in the metadata() of the last SE of the dataset
 \examples{
 if (interactive()) {
   data(lldata)
-  shiny::runApp(history_dataset(lldata))
+  history_dataset(lldata)
 }
 
 }

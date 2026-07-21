@@ -1,0 +1,25 @@
+{
+  "output": {
+    "wf-chooseProcess_UI": {
+      "html": "<div class=\"form-group shiny-input-container\">\n  <label class=\"control-label\" id=\"wf-chooseProcess-label\" for=\"wf-chooseProcess\">Choose process<\/label>\n  <div>\n    <select id=\"wf-chooseProcess\" class=\"shiny-input-select\"><option value=\"PipelineDemo\" selected>PipelineDemo<\/option>\n<option value=\"PipelineDemo_Clustering\">PipelineDemo_Clustering<\/option>\n<option value=\"PipelineDemo_Convert\">PipelineDemo_Convert<\/option>\n<option value=\"PipelineDemo_DataGeneration\">PipelineDemo_DataGeneration<\/option>\n<option value=\"PipelineDemo_Preprocessing\">PipelineDemo_Preprocessing<\/option><\/select>\n    <script type=\"application/json\" data-for=\"wf-chooseProcess\" data-nonempty=\"\">{\"plugins\":[\"selectize-plugin-a11y\"]}<\/script>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "selectize",
+          "version": "0.15.2",
+          "src": {
+            "href": "selectize-0.15.2"
+          },
+          "meta": null,
+          "script": [
+            "js/selectize.min.js",
+            "accessibility/js/selectize-plugin-a11y.min.js"
+          ],
+          "stylesheet": "css/selectize.bootstrap3.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    }
+  }
+}

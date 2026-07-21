@@ -1,0 +1,45 @@
+{
+  "input": {
+
+  },
+  "output": {
+    "dl-buttons_ui": {
+      "html": "<div id=\"dl-dl_raw\" class=\"shiny-html-output\"><\/div>",
+      "deps": [
+
+      ]
+    },
+    "dl-dl_raw": {
+      "html": "<a id=\"dl-downloadData\" class=\"btn btn-default shiny-download-link disabled\" href=\"\" target=\"_blank\" download aria-disabled=\"true\" tabindex=\"-1\">\n  <i class=\"fas fa-download\" role=\"presentation\" aria-label=\"download icon\"><\/i>\n  Qf\n<\/a>",
+      "deps": [
+        {
+          "name": "font-awesome",
+          "version": "6.5.2",
+          "src": {
+            "href": "font-awesome-6.5.2"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": [
+            "css/all.min.css",
+            "css/v4-shims.min.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    },
+    "dl-nodataset_ui": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    }
+  },
+  "export": {
+
+  }
+}

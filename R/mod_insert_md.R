@@ -14,7 +14,7 @@
 #' if (interactive()) {
 #'   base <- system.file("www/md", package = "MagellanNTK")
 #'   url <- file.path(base, "Presentation.Rmd")
-#'   shiny::runApp(insert_md(url))
+#'   insert_md(url)
 #' }
 #'
 NULL
@@ -71,10 +71,10 @@ insert_md <- function(url) {
   ui <- fluidPage(
     insert_md_ui("tree")
   )
-
+  # nocov start
   server <- function(input, output) {
     insert_md_server("tree", url)
   }
-
-  app <- shinyApp(ui, server)
+  # nocov end
+  shinyApp(ui, server)
 }

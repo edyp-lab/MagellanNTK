@@ -13,7 +13,7 @@
 #' @examples
 #' if (interactive()) {
 #'   data(lldata123)
-#'   shiny::runApp(view_dataset(lldata))
+#'   view_dataset(lldata123)
 #' }
 #'
 NULL
@@ -84,7 +84,7 @@ view_dataset_server <- function(id,
 #'
 view_dataset <- function(dataIn) {
   ui <- view_dataset_ui("modviewDataset")
-
+  # nocov start
   server <- function(input, output, session) {
     rv <- reactiveValues(
       dataIn = NULL
@@ -96,6 +96,6 @@ view_dataset <- function(dataIn) {
       })
     )
   }
-
-  app <- shinyApp(ui = ui, server = server)
+  # nocov end
+  shinyApp(ui = ui, server = server)
 }

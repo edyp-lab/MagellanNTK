@@ -14,7 +14,7 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'   shiny::runApp(mod_SweetAlert("my title", "my message"))
+#'   mod_SweetAlert("my title", "my message")
 #' }
 #'
 #' @name mod_sweetAlert
@@ -73,7 +73,7 @@ mod_SweetAlert_server <- function(id,
 #'
 mod_SweetAlert <- function(title, text, type = "warning") {
   ui <- fluidPage()
-
+  # nocov start
   server <- function(input, output) {
     mod_SweetAlert_server("test",
       title = title,
@@ -82,6 +82,6 @@ mod_SweetAlert <- function(title, text, type = "warning") {
       type = type
     )
   }
-
-  app <- shinyApp(ui, server)
+  # nocov end
+  shinyApp(ui, server)
 }

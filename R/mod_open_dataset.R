@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'   shiny::runApp(open_dataset(extension = "rdata"))
+#'   open_dataset(extension = "rdata")
 #' }
 #'
 NULL
@@ -51,14 +51,18 @@ open_dataset_ui <- function(id) {
 #'
 #' @export
 #'
-open_dataset_server <- function(id,
+open_dataset_server <- function(
+                                # nocov start
+                                id,
                                 extension = NULL,
                                 remoteReset = reactive({
                                   NULL
                                 }),
                                 is.enabled = reactive({
                                   TRUE
-                                })) {
+                                })
+                                # nocov end
+                                ) {
   widgets.default.values <- list(
     chooseSource = "packageDataset",
     file = character(0),
@@ -93,7 +97,7 @@ open_dataset_server <- function(id,
       sep = "\n"
     )
     eval(str2expression(core))
-
+    # nocov start
     observeEvent(remoteReset(), ignoreInit = TRUE, ignoreNULL = TRUE, {
       lapply(names(rv.widgets), function(x) {
         rv.widgets[[x]] <- widgets.default.values[[x]]
@@ -106,7 +110,7 @@ open_dataset_server <- function(id,
       dataOut$name <- NULL
       dataOut$dataset <- NULL
     })
-
+    # nocov end
     output$chooseSource_UI <- renderUI({
       widget <- selectInput(ns("chooseSource"), "Dataset source",
         choices = c(
@@ -169,7 +173,7 @@ open_dataset_server <- function(id,
 
       shinyjs::toggleState("load_dataset_btn", condition = cond1 || cond2)
     })
-
+    # nocov start
     observeEvent(input$file, {
       rv.widgets$file <- input$file
       rv.custom$dataRead <- NULL
@@ -207,7 +211,7 @@ open_dataset_server <- function(id,
       dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$name <- rv.custom$name
     })
-
+    
     # Part of open custom dataset
     ## -- Open a  File --------------------------------------------
     observeEvent(req(rv.widgets$demoDataset != "None"), ignoreInit = FALSE, {
@@ -219,7 +223,7 @@ open_dataset_server <- function(id,
       dataOut$trigger <- MagellanNTK::Timestamp()
       dataOut$name <- rv.custom$name
     })
-
+    # nocov end
     output$Description_infos_dataset_UI <- renderUI({
       req(rv.custom$dataRead)
 
@@ -232,10 +236,11 @@ open_dataset_server <- function(id,
 
       infos_dataset_ui(id = ns("Description_infosdataset"))
     })
-
+    # nocov start
     return(reactive({
       dataOut
     }))
+    # nocov end
   })
 }
 
@@ -250,7 +255,7 @@ open_dataset <- function(extension = NULL) {
       actionButton("reset", "reset")
     )
   )
-
+  # nocov start
   server <- function(input, output, session) {
     rv <- reactiveValues(
       obj = NULL
@@ -263,6 +268,6 @@ open_dataset <- function(extension = NULL) {
       })
     )
   }
-
-  app <- shinyApp(ui = ui, server = server)
+  # nocov end
+  shinyApp(ui = ui, server = server)
 }

@@ -1,0 +1,10 @@
+{
+  "output": {
+    "settings-write_title_ui": {
+      "html": "<strong><font size=\"4\">myTitle<\/font><\/strong>",
+      "deps": [
+
+      ]
+    }
+  }
+}

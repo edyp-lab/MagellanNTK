@@ -44,9 +44,10 @@ Imports:
     markdown,
     graphics
 Suggests: 
-    shinyjqui, BiocStyle, testthat, shinyTree, knitr, colourpicker, 
-    gtools, XML, R.utils, RColorBrewer,  openxlsx,
-    shinyAce, rclipboard, shinyWidgets
+    shinyjqui, BiocStyle, testthat, shinytest2, shinyTree, knitr, colourpicker, 
+    gtools, XML, R.utils, RColorBrewer,  openxlsx, shinyvalidate, shinyAce, 
+    rclipboard, shinyWidgets, KernSmooth, MASS, boot, class, cluster, foreign, 
+    mgcv, nlme, nnet, rpart, spatial, survival
 Collate: 
     MagellanNTK.R
     process_layout.R
@@ -54,8 +55,6 @@ Collate:
     mod_sweetAlert.R
     mod_open_workflow.R
     directoryInput.R
-    mod_launch_magellan.R
-    mod_observe_dynamic_colourPicker_input.R
     mod_errorModal.R
     default_variables.R
     mod_download_dataset.R
@@ -78,7 +77,6 @@ Collate:
     mod_homepage.R
     mod_view_dataset.R
     globals.R
-    mod_error_modal.R
     mod_open_dataset.R
     mod_popover_for_help.R
     mod_release_notes.R

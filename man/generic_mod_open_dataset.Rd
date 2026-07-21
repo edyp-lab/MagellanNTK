@@ -46,7 +46,7 @@ This module allows to change
 }
 \examples{
 if (interactive()) {
-  shiny::runApp(open_dataset(extension = "rdata"))
+  open_dataset(extension = "rdata")
 }
 
 }

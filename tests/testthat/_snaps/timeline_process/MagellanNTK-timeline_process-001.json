@@ -1,0 +1,10 @@
+{
+  "output": {
+    "myTimeline-show_process_TL": {
+      "html": "<div class=\"process-timeline\">\n  <div class=\"li completed disabled mandatory\">\n    <div class=\"icon\" style=\"height: 30px; width: 30px;\">\n      <img src=\"www/images/description.png\" height=\"25px\"/>\n    <\/div>\n    <div class=\"label texteSurUneLigne\">Description<\/div>\n  <\/div>\n  <div class=\"li completed disabled mandatory\">\n    <div class=\"icon\" style=\"height: 30px; width: 30px;\">\n      <img src=\"www/images/step_icon.png\" height=\"25px\"/>\n    <\/div>\n    <div class=\"label texteSurUneLigne\">DataGeneration<\/div>\n  <\/div>\n  <div class=\"li skipped disabled \">\n    <div class=\"icon\" style=\"height: 30px; width: 30px;\">\n      <img src=\"www/images/step_icon.png\" height=\"25px\"/>\n    <\/div>\n    <div class=\"label texteSurUneLigne\">Preprocessing<\/div>\n  <\/div>\n  <div class=\"li completed disabled  active\">\n    <div class=\"icon\" style=\"height: 30px; width: 30px;\">\n      <img src=\"www/images/step_icon.png\" height=\"25px\"/>\n    <\/div>\n    <div class=\"label texteSurUneLigne\">Clustering<\/div>\n  <\/div>\n  <div class=\"li undone enabled mandatory\">\n    <div class=\"icon\" style=\"height: 30px; width: 30px;\">\n      <img src=\"www/images/save.png\" height=\"25px\"/>\n    <\/div>\n    <div class=\"label texteSurUneLigne\">Save<\/div>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    }
+  }
+}

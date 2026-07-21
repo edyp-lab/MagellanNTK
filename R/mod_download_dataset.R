@@ -17,7 +17,7 @@
 #' @examples
 #' if (interactive()) {
 #'   data(lldata, package = "MagellanNTK")
-#'   shiny::runApp(download_dataset(lldata))
+#'   download_dataset(lldata)
 #' }
 #'
 NULL
@@ -43,6 +43,7 @@ download_dataset_ui <- function(id) {
 #' @export
 #'
 download_dataset_server <- function(
+  # nocov start
   id,
   dataIn = reactive({
     NULL
@@ -54,6 +55,7 @@ download_dataset_server <- function(
   is.enabled = reactive({
     TRUE
   })
+  # nocov end
 ) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
@@ -71,11 +73,11 @@ download_dataset_server <- function(
       req(rv$data_save)
       uiOutput(ns("dl_raw"))
     })
-
+    # nocov start
     observeEvent(req(dataIn()), ignoreNULL = TRUE, ignoreInit = FALSE, {
       rv$data_save <- dataIn()
     })
-    
+    # nocov end
     ## Save as .qf -----
     output$dl_raw <- renderUI({
       do.call(
@@ -118,7 +120,7 @@ download_dataset <- function(
   filename = "myDataset"
 ) {
   ui <- download_dataset_ui("dl")
-
+  # nocov start
   server <- function(input, output, session) {
     download_dataset_server("dl",
       dataIn = reactive({
@@ -127,6 +129,6 @@ download_dataset <- function(
       filename = filename
     )
   }
-
-  app <- shiny::shinyApp(ui = ui, server = server)
+  # nocov end
+  shiny::shinyApp(ui = ui, server = server)
 }

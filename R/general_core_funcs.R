@@ -4,8 +4,8 @@
 #' before the current step.
 #'
 #' @param history A `data.frame()`
-#' @param process A `character()`
-#' @param step.name A `character()`
+#' @param step A `character()`
+#' @param substep A `character()`
 #' @param param.name A `character()`
 #' @param value The value corresponding to the param.name
 #'
@@ -13,11 +13,11 @@
 #'
 #' @examples
 #' history <- InitializeHistory()
-#' Add2History(history, "Example", "First step", "my param", "THE value")
+#' Add2History(history, "Example step", "First sub-step", "my param", "THE value")
 #'
 #' @export
 #'
-Add2History <- function(history, process, step.name, param.name, value) {
+Add2History <- function(history, step, substep, param.name, value) {
   if (inherits(value, "list")) {
     value <- paste(names(value), unlist(value), collapse = ", ", sep = "=")
   }
@@ -26,7 +26,7 @@ Add2History <- function(history, process, step.name, param.name, value) {
     value <- NA
   }
 
-  history[nrow(history) + 1, ] <- c(process, step.name, param.name, value)
+  history[nrow(history) + 1, ] <- c(step, substep, param.name, value)
 
   return(history)
 }
@@ -72,7 +72,7 @@ GetHistory <- function(dataIn, name) {
 #' @examples
 #' data(lldata)
 #' history <- GetHistory(lldata, "Convert")
-#' history <- Add2History(history, "Example", "Step Ex", "ex_param", "Ex")
+#' history <- Add2History(history, "Step example", "Substep example", "ex_param", "Ex")
 #' lldata[[1]] <- SetHistory(lldata[[1]], history)
 #'
 #' @export
@@ -106,7 +106,7 @@ InitializeHistory <- function() {
   history <- NULL
   history <- setNames(
     data.frame(matrix(ncol = 4, nrow = 0)),
-    c("Process", "Step", "Parameter", "Value")
+    c("Step", "Substep", "Parameter", "Value")
   )
 
   return(history)

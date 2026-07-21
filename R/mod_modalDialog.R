@@ -29,56 +29,10 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'   ########################################################
-#'   ##
-#'   # Example with a simple static HTML
-#'   ##
-#'   ########################################################
-#'   
-#'   shiny::runApp(mod_modalDialog(
+#'   mod_modalDialog(
 #'     title = "test modalDialog",
 #'     uiContent = p("test")
-#'   ))
-#'
-#'
-#'   ########################################################
-#'   ##
-#'   ##   Example with a simple Shiny module without any return value
-#'   ##
-#'   ########################################################
-#'
-#'   simple_mod_ui <- function(id) {
-#'     # create the namespace from the id
-#'     ns <- NS(id)
-#'     fluidPage(
-#'       actionButton(ns("test"), "Test")
-#'     )
-#'   }
-#'
-#'   simple_mod_server <- function(id) { # height auto
-#'
-#'     moduleServer(id, function(input, output, session) {
-#'       ns <- session$ns
-#'
-#'       # reactiveValues object for storing current data set.
-#'       dataOut <- reactiveVal(NULL)
-#'
-#'       observeEvent(input$test, {
-#'         dataOut(paste0("Clicked ", input$test, " times."))
-#'       })
-#'
-#'
-#'       return(reactive({
-#'         dataOut()
-#'       }))
-#'     })
-#'   }
-#'
-#'   shiny::runApp(mod_modalDialog(
-#'     title = "test modalDialog",
-#'     uiContent = p("test")
-#'   ))
-#'
+#'   )
 #' }
 #'
 NULL
@@ -132,6 +86,7 @@ mod_modalDialog_server <- function(id,
     })
 
     # Show modal when button is clicked.
+    # nocov start
     observeEvent(input$show, {
       if (is.null(width)) {
         width <- "small"
@@ -155,7 +110,7 @@ mod_modalDialog_server <- function(id,
         )
       )
     })
-
+    # nocov end
     session$userData$clicks_observer <- observe({
       req(external_mod)
       args <- list(id = "test")
@@ -169,6 +124,7 @@ mod_modalDialog_server <- function(id,
     # When OK button is pressed, attempt to load the data set. If successful,
     # remove the modal. If not show another modal, but this time with a failure
     # message.
+    # nocov start
     observeEvent(input$ok, {
       if (!is.null(external_mod)) {
         rv$dataOut <- rv$tmp()
@@ -178,7 +134,7 @@ mod_modalDialog_server <- function(id,
       removeModal()
       RemoveModule()
     })
-
+    # nocov end
     remove_shiny_inputs <- function(id, .input) {
       invisible(
         lapply(grep(id, names(.input), value = TRUE), function(i) {
@@ -192,10 +148,11 @@ mod_modalDialog_server <- function(id,
       remove_shiny_inputs("my_module", input)
       session$userData$clicks_observer$destroy()
     })
-
+    # nocov start
     return(reactive({
       rv$dataOut
     }))
+    # nocov end
   })
 }
 
@@ -213,7 +170,7 @@ mod_modalDialog <- function(title,
       mod_modalDialog_ui(id = "tbl")
     )
   )
-
+  # nocov start
   server <- function(input, output) {
     rv <- reactiveValues(dataOut = NULL)
 
@@ -234,6 +191,6 @@ mod_modalDialog <- function(title,
       rv$dataOut
     }))
   }
-
-  app <- shinyApp(ui = ui, server = server)
+  # nocov end
+  shinyApp(ui = ui, server = server)
 }

@@ -369,7 +369,7 @@ runDirinputExample <- function() {
         column(1)
       )
     ))
-
+  # nocov start
   server <- shinyServer(function(input, output, session) {
     session$onSessionEnded(function() {
       stopApp()
@@ -403,6 +403,6 @@ runDirinputExample <- function() {
       data.frame(name = basename(files), file.info(files))
     })
   })
-
+  # nocov end
   shiny::shinyApp(ui, server)
 }

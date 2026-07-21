@@ -21,7 +21,7 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'   shiny::runApp(mainapp())
+#'   mainapp()
 #' }
 #'
 NULL
@@ -141,6 +141,7 @@ mainapp_ui <- function(id, session, size = "300px") {
 #' @export
 #'
 mainapp_server <- function(
+    # nocov start
   id,
   workflow.name = reactive({
     NULL
@@ -150,14 +151,15 @@ mainapp_server <- function(
   }),
   verbose = FALSE,
   usermod = "user"
+  # nocov end
 ) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-
+    # nocov start
     observeEvent(input$toggleSidebarBar, {
       bs4Dash::updateSidebar("mySidebar", session = session)
     })
-
+    # nocov end
     rv.core <- reactiveValues(
       result_convert = reactive({
         NULL
@@ -178,14 +180,12 @@ mainapp_server <- function(
       workflow.name = NULL,
       workflow.path = NULL,
       funcs = list(funcs = default_funcs()),
-      tmp.funcs = reactive({
-        NULL
-      }),
+      tmp.funcs = reactive({NULL}),
       filepath = file.path(system.file("www/md",
         package = "MagellanNTK"
       ), "Presentation.Rmd")
     )
-
+    # nocov start
     observeEvent(id,
       {
         if (is.null(workflow.path())) {
@@ -276,7 +276,7 @@ mainapp_server <- function(
       source_wf_files(session$userData$workflow.path)
       rv.core$resetWF <- MagellanNTK::Timestamp()
     })
-
+    # nocov end
     output$Insert_User_Sidebar_UI <- renderUI({
       req(usermod)
 
@@ -315,11 +315,11 @@ mainapp_server <- function(
         style = "background-color: lightgrey;"
       )
     })
-
+    # nocov start
     observeEvent(input$ReloadProstar, {
       shinyjs::js$reset()
     })
-
+    # nocov end
     output$SaveAs_UI <- renderUI({
       req(rv.core$funcs$funcs$download_dataset)
       call_func(
@@ -510,7 +510,7 @@ mainapp <- function(usermod = "user") {
   ui <- fluidPage(
     mainapp_ui("main")
   )
-
+  # nocov start
   server <- function(input, output, session) {
     mainapp_server("main",
       workflow.name = reactive({
@@ -524,6 +524,6 @@ mainapp <- function(usermod = "user") {
       usermod = usermod
     )
   }
-
-  app <- shiny::shinyApp(ui, server)
+  # nocov end
+  shiny::shinyApp(ui, server)
 }

@@ -15,7 +15,7 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'   shiny::runApp(popover_for_help("myTitle", "myContent"))
+#'   mod_popover_for_help("myTitle", "myContent")
 #' }
 #'
 #' @importFrom shiny renderUI req moduleServer
@@ -121,17 +121,17 @@ button.Prostar_tooltip_white {
 #' @importFrom shiny fluidPage tagList textOutput reactiveValues observeEvent shinyApp
 #'
 #' @export
-popover_for_help <- function(title, content) {
+mod_popover_for_help <- function(title, content) {
   ui <- fluidPage(
     mod_popover_for_help_ui("settings")
   )
-
+  # nocov start
   server <- function(input, output, session) {
     mod_popover_for_help_server("settings",
       title = title,
       content = content
     )
   }
-
-  app <- shiny::shinyApp(ui, server)
+  # nocov end
+  shiny::shinyApp(ui, server)
 }

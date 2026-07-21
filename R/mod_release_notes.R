@@ -13,12 +13,12 @@
 #' @examples
 #' if (interactive()) {
 #'   url <- "http://www.prostar-proteomics.org/md/versionNotes.md"
-#'   shiny::runApp(release_notes(url))
+#'   mod_release_notes(url)
 #'
 #'   local.url <- system.file("/workflow/PipelineDemo/md/links.Rmd",
 #'     package = "MagellanNTK"
 #'   )
-#'   shiny::runApp(release_notes(local.url))
+#'   mod_release_notes(local.url)
 #' }
 #'
 NULL
@@ -55,14 +55,14 @@ mod_release_notes_server <- function(id, URL_releaseNotes) {
 #'
 #' @export
 #'
-release_notes <- function(URL_releaseNotes) {
+mod_release_notes <- function(URL_releaseNotes) {
   ui <- mod_release_notes_ui("notes")
-
+  # nocov start
   server <- function(input, output, session) {
     mod_release_notes_server("notes",
       URL_releaseNotes = URL_releaseNotes
     )
   }
-
-  app <- shinyApp(ui = ui, server = server)
+  # nocov end
+  shinyApp(ui = ui, server = server)
 }
