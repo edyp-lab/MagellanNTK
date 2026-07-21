@@ -161,6 +161,9 @@ test_that("module returns a reactive", {
 # shinytest2 ----
 
 test_that("shinytest2 tests for download_dataset", {
+  testthat::skip_if_not_installed("chromote")
+  testthat::skip_on_ci()
+  
   data(lldata)
   shiny_app <- MagellanNTK::download_dataset(lldata)
     app <- shinytest2::AppDriver$new(shiny_app, name = "MagellanNTK-download_dataset")

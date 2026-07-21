@@ -148,6 +148,9 @@ test_that("module returns a reactive with rv$dataOut", {
 # shinytest2 ----
 
 test_that("shinytest2 tests for mod_modalDialog", {
+  testthat::skip_if_not_installed("chromote")
+  testthat::skip_on_ci()
+  
   shiny_app <- MagellanNTK::mod_modalDialog(title = "test modalDialog",
                                             uiContent = p("test"))
     app <- shinytest2::AppDriver$new(shiny_app, name = "MagellanNTK-mod_modalDialog")
