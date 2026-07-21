@@ -116,9 +116,6 @@ In the following example, only the Preprocessing process is launched.
 - [`download_dataset_ui()`](download_dataset.md)
   [`download_dataset_server()`](download_dataset.md)
   [`download_dataset()`](download_dataset.md) : dl
-- [`errorModal_ui()`](errorModal.md)
-  [`errorModal_server()`](errorModal.md) [`errorModal()`](errorModal.md)
-  : Error modal shiny module.
 - [`format_DT_ui()`](format_DT.md) [`format_DT_server()`](format_DT.md)
   [`format_DT()`](format_DT.md) : format_DT_ui and format_DT_server
 - [`open_dataset_ui()`](generic_mod_open_dataset.md)
@@ -163,10 +160,6 @@ In the following example, only the Preprocessing process is launched.
 - [`insert_md_ui()`](mod_insert_md.md)
   [`insert_md_server()`](mod_insert_md.md)
   [`insert_md()`](mod_insert_md.md) : insert_md_ui and insert_md_server
-- [`mod_launch_magellan_ui()`](mod_launch_magellan.md)
-  [`mod_launch_magellan_server()`](mod_launch_magellan.md)
-  [`mod_launch_magellan()`](mod_launch_magellan.md) : launch_magellan UI
-  Function
 - [`mainapp_ui()`](mod_main_page.md)
   [`mainapp_server()`](mod_main_page.md) [`mainapp()`](mod_main_page.md)
   : mod_main_page_ui and mod_loading_page_server
@@ -180,12 +173,12 @@ In the following example, only the Preprocessing process is launched.
   mod_open_workflow_server
 - [`mod_popover_for_help_ui()`](mod_popover_for_help.md)
   [`mod_popover_for_help_server()`](mod_popover_for_help.md)
-  [`popover_for_help()`](mod_popover_for_help.md) : Opens a small
+  [`mod_popover_for_help()`](mod_popover_for_help.md) : Opens a small
   tooltip info over a widget.
 - [`mod_release_notes_ui()`](mod_release_notes.md)
   [`mod_release_notes_server()`](mod_release_notes.md)
-  [`release_notes()`](mod_release_notes.md) : mod_release_notes_ui and
-  mod_release_notes_server
+  [`mod_release_notes()`](mod_release_notes.md) : mod_release_notes_ui
+  and mod_release_notes_server
 - [`mod_SweetAlert_ui()`](mod_sweetAlert.md)
   [`mod_SweetAlert_server()`](mod_sweetAlert.md)
   [`mod_SweetAlert()`](mod_sweetAlert.md) : A shiny app to display a
@@ -243,4 +236,4 @@ In the following example, only the Preprocessing process is launched.
 - [Build a pipeline with
   MagellanNTK](Build-a-pipeline-with-MagellanNTK.md):
 - [PipelineDemo User Manual – a vignette template to accompany data
-  analysis pipeline deployed with MagellanNTK](MagellanNTK_user.md):
+  analysis pipelines deployed with MagellanNTK](MagellanNTK_user.md):

@@ -43,6 +43,6 @@ A shiny app
 ``` r
 if (interactive()) {
   data(lldata)
-  shiny::runApp(history_dataset(lldata))
+  history_dataset(lldata)
 }
 ```

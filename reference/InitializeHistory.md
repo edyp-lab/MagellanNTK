@@ -18,6 +18,6 @@ A \`data.frame()\` with four columns: 'Process', 'Step', 'Parameter' and
 
 ``` r
 InitializeHistory()
-#> [1] Process   Step      Parameter Value    
+#> [1] Step      Substep   Parameter Value    
 #> <0 rows> (or 0-length row.names)
 ```

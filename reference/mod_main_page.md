@@ -65,6 +65,6 @@ A shiny App
 
 ``` r
 if (interactive()) {
-  shiny::runApp(mainapp())
+  mainapp()
 }
 ```

@@ -35,6 +35,6 @@ A shiny App
 ``` r
 if (interactive()) {
   data(lldata123)
-  shiny::runApp(view_dataset(lldata))
+  view_dataset(lldata123)
 }
 ```

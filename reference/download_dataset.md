@@ -57,6 +57,6 @@ NA
 ``` r
 if (interactive()) {
   data(lldata, package = "MagellanNTK")
-  shiny::runApp(download_dataset(lldata))
+  download_dataset(lldata)
 }
 ```

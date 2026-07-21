@@ -3,43 +3,39 @@
 Abstract
 
 The R package MagellanNTK (Magellan Navigation ToolKit) is a workflow
-manager using Shiny modules. It is the perfect companion package to
-build workflows and integrate them in your UI or run it standalone.
+manager to pipe Shiny modules into integrated data processing workflows.
+This vignette details how to engineer complexe workflow using
+MagellanNTK functionalities.
 
 ## Introduction
 
-`MagellanNTK` is a package that offers the core infrastructure,
-configuration tools, and step-by-step execution needed to build
-workflows within a `Shiny` application. It serves as a framework upon
-which `Shiny` modules can be assembled to create customized analysis
-pipelines. Because it supports data structured as
-`MultiAssayExperiment`, it can be applied across a wide range of
-domains, including genetics, epigenetics, proteomics, single-cell
-proteomics, immuno-oncology, and more.
+`MagellanNTK` is a package that offers the core infrastructure and
+configuration tools to build workflows within a `Shiny` application. It
+serves as a framework upon which `Shiny` modules can be assembled to
+create customized analysis pipelines. Because it supports data
+structured as `MultiAssayExperiment`, it can be applied across a wide
+range of domains, including genetics, epigenetics, proteomics,
+single-cell proteomics, immuno-oncology, and more.
 
-`MagellanNTK` is designed around three main objectives :
+`MagellanNTK` is designed around three main objectives:
 
-- Generality, allowing it to accommodate a wide variety of dataset types
-- Versatility, enabling the integration of diverse workflows
-- Code encapsulation, embedding as much functionality as possible to
-  minimize the amount of code required in process modules, so these
-  modules primarily define the UI components and core logic.
+- **Generality**, allowing it to accommodate a wide variety of dataset
+  types.
+- **Versatility**, enabling the integration of diverse workflows.
+- **Code encapsulation**, embedding as much functionality as possible to
+  minimize the amount of code required to deploy a workflow.
 
-This simplifies the development of process modules but introduces
-certain constraints, notably strict naming conventions. As the framework
-relies heavily on dynamic function surcharge to minimize the amount of
-“developer-level” code required, adhering to these naming conventions
-becomes essential.
+It simplifies the development of MagellanNTK workflows but introduces a
+few constraints, which are hereafter detailed.
 
 This vignette explains how to create a new pipeline using the
-`MagellanNTK` framework.
-
-To learn more about MagellanNTK pipeline from a user perspective, see
-`MagellanNTK user manual`.
+`MagellanNTK` framework. Before developing a pipeline, it is important
+to be familiar with MagellanNTK from a user standpoint. To do so, please
+refer first to the `MagellanNTK user manual` vignette.
 
 ### Installation
 
-To install `MagellanNTK` :
+To install `MagellanNTK`:
 
 ``` r
 
@@ -53,21 +49,18 @@ BiocManager::install("MagellanNTK")
 library(MagellanNTK)
 ```
 
-    ## Warning: replacing previous import 'S4Arrays::makeNindexFromArrayViewport' by
-    ## 'DelayedArray::makeNindexFromArrayViewport' when loading 'SummarizedExperiment'
-
-### Key terms
+### Glossary
 
 The key terms used throughout this documentation are defined as follow
-(Fig. @ref(fig:keytermsOrganisation)) :
+(Fig. @ref(fig:keytermsOrganisation)):
 
-- **Pipeline** : The complete structure that includes the workflow along
-  with all related elements (e.g., FAQ, Convert module, etc).
-- **Workflow** : The ordered sequence of processes of the pipeline.
-- **Process or step** : An individual step within a workflow. Each
+- **Pipeline**: The complete structure that includes the workflow along
+  with all related elements (e.g., FAQ, I/O functionalities, etc).
+- **Workflow**: The ordered sequence of processes of the pipeline.
+- **Process or step**: An individual step within a workflow. Each
   process corresponds to a dedicated Shiny module and is implemented in
   its own file.
-- **Sub-step** : An individual step within a process. A process may have
+- **Sub-step**: An individual step within a process. A process may have
   as many sub-step as needed.
 
 ![Key terms definition](figs/keytermsOrganisation.png)
@@ -102,7 +95,7 @@ The code for this demo pipeline can be found by following the path
 or directly on the [MagellanNTK GitHub
 repository](https://github.com/edyp-lab/MagellanNTK).
 
-To launch `PipelineDemo`, use the following code :
+To launch `PipelineDemo`, use the following code:
 
 ``` r
 
@@ -122,101 +115,113 @@ workflow. `MagellanNTK` can also operate on data formats derived from
 MAE, such as `QFeatures`.
 
 This data structure enables working with a single object while
-preserving all previous states of the dataset. At the start of each
-process, the input must be a `MultiAssayExperiment`, and all operations
-should be performed on its latest `SummarizedExperiment`. The output
-must also be an `MultiAssayExperiment`, with an additional SE containing
-the results of the process. Previously existing `SummarizedExperiment`
-should remain unchanged to ensure full traceability of the analysis.
+preserving all previous states of the dataset. Doing so is convenient
+for reproducibility concern but it comes with a few constraint:
+
+- At the beginning of each process, the input must be a
+  `MultiAssayExperiment`.
+- When defining a new process, it is of the utmost importance to specify
+  the latest `SummarizedExperiment` of the `MultiAssayExperiment` so
+  that all subsequent operations apply to it.
+- The output data of the process must also be an `MultiAssayExperiment`,
+  with an additional `SummarizedExperiment` containing the results of
+  the process.
+- Previously existing `SummarizedExperiment` should not be changed to
+  ensure full traceability of the analysis.
 
 Since the workflow relies on this format, input data must be provided as
-a `MultiAssayExperiment`. However, the ‘Convert’ process allows other
-data formats (e.g., .csv, .txt) to be imported and transformed into a
-valid MAE, ensuring compatibility with the pipeline (see section 9).
+a `MultiAssayExperiment`. To cope with that, the ‘Convert’ process
+allows external data formats (e.g., .csv, .txt) to be imported and
+transformed into a valid MAE (see Section 9).
 
 #### Modules in MagellanNTK
 
-Shiny modules are a central component of pipelines in `MagellanNTK`.
+Shiny modules are pivotal components of pipelines in `MagellanNTK`.
 Within a pipeline, each process is implemented as a Shiny module. These
 modules take a `MultiAssayExperiment` as input and return an updated
 `MultiAssayExperiment`, to which a new `SummarizedExperiment` is
 appended, named after the executed step (see Section 3).
 
-Outside of the workflow, several standalone modules exist, including :
+Outside of the workflow, several standalone modules exist, which are
+accessible via the MagellanNTK GUI (see `MagellanNTK user manual`
+vignette). This notably includes:
 
-- `EDA` : Exploratory Data Analysis. Accessible via the “EDA” button in
+- `EDA`: Exploratory Data Analysis. Accessible via the “EDA” button in
   the workflow. It opens a pop-up window with three tabs, each
   corresponding to a separate module. Typically, the first tab displays
   dataset information, the second shows the processing history, and the
   third presents various visualizations (see Section 2.1).
-- `open_dataset` : Located in the “Open File” tab under the “Dataset”
+- `open_dataset`: Located in the “Open File” tab under the “Dataset”
   section of the sidebar. It allows loading an existing dataset (see
   Section 2.1).
-- `download_dataset` : Located in the “Save As” tab under the “Dataset”
+- `download_dataset`: Located in the “Save As” tab under the “Dataset”
   section of the sidebar. It allows saving the current dataset locally
   (see Section 2.1).
-- `Convert` : Located in the “Import” tab under the “Dataset” section of
+- `Convert`: Located in the “Import” tab under the “Dataset” section of
   the sidebar. It allows importing data from external formats and
   converting it into a `MultiAssayExperiment` (see Section 8).
 
 #### History
 
-The `MultiAssayExperiment` structure makes it possible to track all
-operations performed throughout a workflow. To support this,
-`MagellanNTK` provides a history system that records the values of the
-parameters used during data processing. MagellanNTK includes built-in
-functions to manage this history:
-[`InitializeHistory()`](../reference/InitializeHistory.md) to create it,
-[`GetHistory()`](../reference/GetHistory.md) to retrieve it,
+The `MultiAssayExperiment` structure preserves the successive states of
+a dataset by storing the result of each validated step as a new
+`SummarizedExperiment`. While this allows the evolution of the dataset
+to be tracked throughout the workflow, it does not record how each
+result was obtained. To capture this, `MagellanNTK` provides a history
+log that records the values of the parameters used during data
+processing. MagellanNTK includes built-in functions to manage this
+history: [`InitializeHistory()`](../reference/InitializeHistory.md) to
+create it, [`GetHistory()`](../reference/GetHistory.md) to retrieve it,
 [`Add2History()`](../reference/Add2History.md) to record new entries,
 and [`SetHistory()`](../reference/SetHistory.md) to attach it to the
-dataset (see section 2.1). A history is associated with a specific
+dataset (see Section 2.1). A history is associated with a specific
 `SummarizedExperiment`, not with the entire `MultiAssayExperiment`. As a
 result, each SE contains information related to the step it corresponds
 to.
 
-The history is structured as a table with four columns :
+The history is structured as a table with four columns:
 
-- **Process** : The name of the process.
-- **Step** : The name of the sub-step.
-- **Parameter** : The name of the parameter being recorded.
-- **Value** : The corresponding parameter value.
+- **Step**: The name of the process.
+- **Substep**: The name of the sub-step.
+- **Parameter**: The name of the parameter being recorded.
+- **Value**: The corresponding parameter value.
 
 At least one parameter should be recorded for each validated sub-step.
-This is important because the “Step” column is used to determine which
-sub-steps have been validated, particularly when reloading a dataset
-that has already been processed. More generally, it is recommended to
-log as many parameters as possible to ensure full traceability and
-facilitate reproducibility of the analysis.
+This is important because the “Substep” column is used to determine
+which sub-steps have been validated, particularly when reloading a
+dataset that has already been processed. More generally, it is
+recommended to log as many parameters as possible to ensure full
+traceability and facilitate reproducibility of the analysis.
 
 ## Folder and files configuration
 
-The first step is to create the directories and files required for the
-pipeline. Each pipeline has its own directory, which contains all
-elements specific to that workflow. There are no restrictions on
-Pipeline names, provided they do not include spaces, hyphens, or special
-characters, only alphanumerical characters.
+When creating a pipeline, the first thing to do is to create the
+directories and files required for the pipeline. Each pipeline has its
+own directory, which contains all elements specific to that workflow.
+There are no restrictions on Pipeline names, provided they do not
+include spaces, hyphens, or special characters, only alphanumerical
+characters. Though, we encourage naming them as PipelineXxxx, for
+clarity sake.
 
 This directory can either be included within an R package (under the
 inst/ folder) or stored directly on a local machine. MagellanNTK only
 requires the path to this directory.
 
-For example, for a pipeline named “PipelineName” :
+For example, for a pipeline named “PipelineName”:
 
 - **On a local computer**, the path to provide could be
   `C:\Windows\Users\UserName\PipelineName`
 - **Inside an R package** (here called “PackageName”), the path can be
-  retrieved with :
-  `system.file("PipelineName", package = "PackageName")`
+  retrieved with: `system.file("PipelineName", package = "PackageName")`
 
 The PipelineName directory must contain the following directories and
-files (Fig. @ref(fig:configfolders)) :
+files (Fig. @ref(fig:configfolders)):
 
-- md : Folder that contains .Rmd files related to the pipeline, such as
+- md: Folder that contains .Rmd files related to the pipeline, such as
   the pipeline’s home page or FAQ.
-- R : Folder that contains .R files, including the modules for the
+- R: Folder that contains .R files, including the modules for the
   different processes.
-- config.txt : File containing various settings related to the pipeline.
+- config.txt: File containing various settings related to the pipeline.
 
 ![Mandatory folders and files](figs/configfolders.png)
 
@@ -232,16 +237,21 @@ the path to the directory containing the pipeline to be launched.
 MagellanNTK uses this to load the config.txt file, which allows it to
 dynamically instantiate generic functions, among other things.
 
-The config.txt file can be divided into multiple sections.
+The config.txt file can be divided into three sections.
 
-The first one defines general settings used by MagellanNTK :
+#### General settings
 
-- `extension` : Restricts file selection to files with this extension
-  when loading a dataset.
-- `package` : If the pipeline is included in a package, this is the name
+The first one defines general settings used by MagellanNTK:
+
+- `extension`: Restricts file selection to files with this extension
+  when loading a dataset. When users will load preexisting datasets, the
+  extension specification will restrict the files proposed in the GUI.
+- `package`: If the pipeline is included in a package, this is the name
   of the package containing it.
 
-The second one specifies the packages from which to use the “core”
+#### Generic functions
+
+The second one specifies the packages from which to use the generic
 functions. These functions have a default version available in
 MagellanNTK, but can be modified and customized to suit the pipeline’s
 needs. The source code for these functions must be stored in a package’s
@@ -249,58 +259,63 @@ R directory so that they can be called using the `::` command. This
 package may be a different package from the one in which the pipeline is
 located. It is important that these functions, if customized, have the
 same names, inputs, and outputs as the default functions included in
-MagellanNTK. These functions can be divided into two categories: the
-first consists of Shiny modules, which must therefore contain both
-`FunctionName_ui()` and `FunctionName_server()`, and the second consists
-of standard functions.
+MagellanNTK. These functions can be divided into two categories: first
+Shiny modules, and second standard functions.
 
-These functions are described below :
+Shiny modules are made of a pair of functions: one for the interface
+(`*_ui`) and one for the server part (`*_server`). Shiny modules generic
+functions are as follow: - `open_dataset`: Open and load a dataset
+(instance of `MultiAssayExperiment`). - `infos_dataset`: The first tab
+of the EDA tool. Usually used to display informations about the
+dataset. - `history_dataset`: The second tab of the EDA tool which
+displays the history stored in the last SE of the dataset.  
+- `view_dataset`: The third tab of the EDA tool. Usually used to display
+various graphs. - `download_dataset`: Offers a UI to export the dataset
+in different format. Default format is .rdata.
 
-- Shiny modules :
-  - `open_dataset` : Open and load a dataset (instance of
-    `MultiAssayExperiment`).
-  - `infos_dataset` : The first tab of the EDA tool. Usually used to
-    display informations about the dataset.
-  - `history_dataset` : The second tab of the EDA tool which displays
-    the history stored in the last SE of the dataset.  
-  - `view_dataset` : The third tab of the EDA tool. Usually used to
-    display various graphs.
-  - `download_dataset` : Offers a UI to export the dataset in different
-    format. Default format is .rdata.
-- Standard functions :
-  - `addDatasets` : Add the ‘dataset’ (e.g. a `SummarizedExperiment`) to
-    the object (e.g. a `MultiAssayExperiment`)
-  - `keepDatasets` : Delete some SE in the dataset to keep only the
-    required SE.
-  - `InitializeHistory` : Fill the initial history slot in the first SE
-    of the dataset.
-  - `Add2History` : Adds additional information to the variable
-    rv.custom\$history, which is used to make the history inside of a
-    process.
-  - `GetHistory` : Returns the history from a given SE.
-  - `SetHistory` : Set a value to the history slot of a SE. Usually used
-    at the end of each process.
+Standard functions are usual R functions. Standard generic functions are
+as follow: - `addDatasets`: Add the ‘dataset’ (e.g. a
+`SummarizedExperiment`) to the object (e.g. a `MultiAssayExperiment`) -
+`keepDatasets`: Delete some SE in the dataset to keep only the required
+SE. - `InitializeHistory`: Fill the initial history slot in the first SE
+of the dataset. - `Add2History`: Adds additional information to the
+variable rv.custom\$history, which is used to make the history inside of
+a process. - `GetHistory`: Returns the history from a given SE. -
+`SetHistory`: Set a value to the history slot of a SE. Usually used at
+the end of each process.
+
+#### Other informations
 
 The third one defines where are the user manual and the release notes.
 It can be an URL leading to a file or a path inside the package.
 
-- `URL_manual` : Link or path to the user manual.
-- `URL_ReleaseNotes` : Link or path to the release notes.
+- `URL_manual`: Link or path to the user manual.
+- `URL_ReleaseNotes`: Link or path to the release notes.
 
 ### R
 
 This directory contains the source files for the Shiny modules
 corresponding to the various processes of the pipeline.
 
-It must contain at least the following files :
+It must contain at least the following files:
 
-- A file defining the pipeline itself, named `PipelineName.R`.
-- A file for the ‘Description’ process, which MagellanNTK automatically
-  adds to every pipeline? named `PipelineName_Description.R`.
+- A file defining the pipeline itself, named `PipelineName.R` (see
+  Section 4).
+- A file for the ‘Description’ process named
+  `PipelineName_Description.R`, as the ‘Description’ step is
+  automatically added to the workflow as first step (see Section 5).
 - One file per process in the workflow, each following the naming
-  convention `PipelineName_ProcessName.R`.
-- A file for the ‘Save’ process, also automatically added by
-  MagellanNTK, named `PipelineName_Save.R`.
+  convention `PipelineName_ProcessName.R` (see Section 6).
+- A file for the ‘Save’ process named `PipelineName_Save.R`, as the
+  ‘Save’ step is automatically added to the workflow as last step (see
+  Section 7).
+
+Keep in mind that throughout this vignette, ‘PipelineName’ is used as a
+placeholder and can be replaced with any valid pipeline name. Pipeline
+names may only contain alphanumeric characters, i.e., no spaces,
+hyphens, or special characters. Although any valid name can be used, it
+is recommended to follow the PipelineXxxx naming convention for clarity
+sake.
 
 ### md
 
@@ -311,17 +326,17 @@ as its corresponding R script in the R directory, i.e.,
 `PipelineName_ProcessName.Rmd`. These files are called in the process
 modules during the first sub-step (‘Description’) and are displayed in
 the interface via the `output$Description <- renderUI({ })` block (see
-section 5).
+Section 5).
 
 ## Code Structure of a Shiny Module for MagellanNTK
 
 Each process in the pipeline must follow the same basic structure. In
 addition, each process must have its own R file named
 `PipelineName_ProcessName.R`. These files must be placed in the
-pipeline’s R folder (see section 2.2). Each of these files must contain
+pipeline’s R folder (see Section 2.2). Each of these files must contain
 the following three functions:
 
-- `PipelineName_ProcessName_conf()` : Configures the process. This
+- `PipelineName_ProcessName_conf()`: Configures the process. This
   function configures the process by calling the
   [`Config()`](../reference/Config-class.md) function (provided by
   `MagellanNTK`), which creates an object of class `Config`. This object
@@ -329,11 +344,11 @@ the following three functions:
   itself is a standard R function, not a Shiny module, and the resulting
   `Config` object is used to define and manage the configuration of
   processes within `MagellanNTK`.
-- `PipelineName_ProcessName_ui()` : Declares the UI for the module. This
+- `PipelineName_ProcessName_ui()`: Declares the UI for the module. This
   function is identical for all processes and requires no customization.
   It is almost empty but must be present.
-- `PipelineName_ProcessName_server()` : Implements the server part of
-  the process and therefore defines the entire step. It contains all
+- `PipelineName_ProcessName_server()`: Implements the server part of the
+  process and therefore defines the entire step. It contains all
   module-specific code, including the construction of UI elements, since
   these interfaces are generated dynamically using Shiny’s
   [`uiOutput()`](https://rdrr.io/pkg/shiny/man/htmlOutput.html)
@@ -344,19 +359,19 @@ The ’\_conf’ function has no parameters. The ’\_ui’ function takes a
 single parameter, `id`, while the ’\_server’ function includes the
 following parameters:
 
-- `id` : A `character(1)` representing the ‘id’ of the module.
-- `dataIn` : A `MultiAssayExperiment`, which is the input data.
-- `steps.enabled` : A logical vector with the same length as the number
+- `id`: A `character(1)` representing the ‘id’ of the module.
+- `dataIn`: A `MultiAssayExperiment`, which is the input data.
+- `steps.enabled`: A logical vector with the same length as the number
   of process or sub-step. It controls which steps are enabled or
   disabled in the interface.
-- `remoteReset` : An [`integer()`](https://rdrr.io/r/base/integer.html)
+- `remoteReset`: An [`integer()`](https://rdrr.io/r/base/integer.html)
   acting as a remote signal to reset the module, indicating whether the
   pipeline has been reset at a higher level.
-- `steps.status` : A
+- `steps.status`: A
   [`character()`](https://rdrr.io/r/base/character.html) vector
   describing the status of each step, which can be “validated”,
-  “undone”, or “skipped”.
-- `current.pos` : A `integer(1)` used as a remote command to set a step
+  “pending”, or “skipped”.
+- `current.pos`: A `integer(1)` used as a remote command to set a step
   as active (1) or inactive (0) in the workflow timeline.
 
 As described in section 1.4, the data format used throughout the
@@ -365,7 +380,7 @@ a new `SummarizedExperiment` (SE) is appended to the MAE. Although
 `dataIn()` provides access to the input dataset within a process, it is
 good practice to store it at the beginning in `rv$dataIn`. This reactive
 value is automatically created in each process by MagellanNTK, but the
-dataset needs to be manually store in it (see process descriptions
+dataset needs to be manually stored in it (see process descriptions
 below). Any modifications should then be applied to `rv$dataIn`, never
 directly to `dataIn()`. This ensures that the original dataset remains
 accessible (e.g., in case of a reset) and avoids unintended side
@@ -380,7 +395,7 @@ updated MAE with the newly added SE reflecting the results of the
 process.
 
 `widgets.default.values` and `rv.custom.default.values` are two
-important variables found in every process. These are list that are,
+important variables found in every process. These are lists that are,
 respectively, used to store default values and initialize widgets and
 reactive values that will be used in the process. Values defined in
 `widgets.default.values` are accessible via `rv.widgets$Name`, while
@@ -400,15 +415,15 @@ functions:
 
 - `PipelineName_conf()` which is a function that configures the entire
   pipeline.
-- `PipelineName_ui()` and `PipelineName_server()` that define the
-  associated module.
+- `PipelineName_ui()` that define part of the associated module.
+- `PipelineName_server()` that define part of the associated module.
 
 ### PipelineName_conf()
 
 Of the three functions included in this file, this is the only one for
 which settings need to be changed.
 
-The code for this function is as follow :
+The code for this function is as follows:
 
 ``` r
 
@@ -423,23 +438,23 @@ PipelineName_conf <- function(){
 ```
 
 This function calls the [`Config()`](../reference/Config-class.md)
-function from MagellanNTK with the following arguments :
+function from MagellanNTK with the following arguments:
 
-- `fullname` : The exact name of the pipeline.
-- `mode` : Specifies what is being initialized. Here, ‘pipeline’
+- `fullname`: The exact name of the pipeline.
+- `mode`: Specifies what is being initialized. Here, ‘pipeline’
   indicates that this file is setting up the entire pipeline.
-- `steps` : A vector listing all processes in the workflow (excluding
+- `steps`: A vector listing all processes in the workflow (excluding
   “Description” and “Save,” which MagellanNTK adds automatically). It
   should contains the name of each process in the order they are
-  intended to be in.
-- `mandatory` : A logical vector matching the length of the one in
+  intended to appear.
+- `mandatory`: A logical vector matching the length of the one in
   `steps`. It defines which processes are mandatory (TRUE) and which may
   be skipped (FALSE).
 
 ### PipelineName_ui() and PipelineName_server()
 
-These two functions define, respectively, the UI and server components
-of the pipeline’s main module.
+These two functions respectively define the UI and server components of
+the pipeline’s main module.
 
 Since nothing needs to be changed in these functions, they will not be
 discussed in detail here. Note that they contain the same basic code
@@ -486,7 +501,7 @@ PipelineName_server <- function(id,
 
 The “Description” step is automatically added to the workflow by
 MagellanNTK. Therefore, the file associated with this step is required.
-This step serves as the starting point for the workflow. When a dataset
+This step serves as the starting point for any workflow. When a dataset
 is loaded, this step is automatically validated.
 
 Similarly to what we saw earlier, this file contains the three functions
@@ -495,7 +510,7 @@ Similarly to what we saw earlier, this file contains the three functions
 
 ### PipelineName_Description_conf()
 
-The code for this function is as follow :
+The code for this function is as follow:
 
 ``` r
 
@@ -507,22 +522,22 @@ PipelineName_Description_conf <- function(){
 }
 ```
 
-There is a few differences with `PipelineName_conf()`, notably :
+There is a few differences with `PipelineName_conf()`, notably:
 
-- `mode` : Here, this is a process that is being initialized, hence
+- `mode`: Here, this is a process that is being initialized, hence
   ‘process’.
-- `fullname` : The name is not only the name of the process, but a
+- `fullname`: The name is not only the name of the process, but a
   concatenation of the name of the pipeline with the name of the
   process, separated by ’\_‘. As a general rule, ’fullname’ must match
   the filename.
-- `steps` and `mandatory` : Neither of these is defined here because
-  this process contains no sub-steps (apart from the “Description”
-  sub-step, which does not require explicit definition).
+- `steps` and `mandatory`: Neither of these is defined here because this
+  process contains no sub-steps (apart from the “Description” sub-step,
+  which does not require explicit definition).
 
 ### PipelineName_Description_ui() and PipelineName_Description_server()
 
-These two functions define, respectively, the UI and server components
-of the description process module.
+These two functions respectively define the UI and server components of
+the description process module.
 
 The ui function is the same for every module and should not be modified.
 
@@ -535,7 +550,7 @@ PipelineName_Description_ui <- function(id){
 
 The code for the server function is as follows, and is explained in
 detail below (for a description of the function parameters, please refer
-to the function man) :
+to the function man):
 
 ``` r
 
@@ -661,7 +676,7 @@ This part of the code must not be modified.
 [`moduleServer()`](https://rdrr.io/pkg/shiny/man/moduleServer.html) is
 the function that initiates the creation of the module that makes up the
 process, as well as the various variables required for the module to
-function, such as the widgets values and reactive values previously
+work, such as the widgets values and reactive values previously
 initialized with `widgets.default.values` and
 `rv.custom.default.values`. The section `[...]` contains the various
 variables, functions, and outputs that define the module’s functionality
@@ -699,11 +714,11 @@ The layout itself is constructed using the
 [`process_layout()`](../reference/process_layout.md) function. Its key
 arguments are:
 
-- `sidebar` : Defines the content displayed in the sidebar.
-- `content` : Defines what appears in the main panel.
+- `sidebar`: Defines the content displayed in the sidebar.
+- `content`: Defines what appears in the main panel.
 
 In this case, the goal is to display the .Rmd file associated with the
-Description process, located in the md (see section 2.3). This is
+Description process, located in the md (see Section 2.3). This is
 handled through the file object, and the content is rendered using
 [`includeMarkdown()`](https://rstudio.github.io/htmltools/reference/include.html)
 when the file exists.
@@ -733,8 +748,8 @@ be there for each sub-step. The line
 `req(grepl('SubstepName', btnEvents()))` specifies which sub-step the
 event is associated with.
 
-It is good practice to store the current dataset (`dataIn()`) in the
-reactive value `rv$dataIn`. Any subsequent modifications should be
+It is good practice to store the current dataset, i.e., `dataIn()`, in
+the reactive value `rv$dataIn`. Any subsequent modifications should be
 applied to `rv$dataIn`, rather than directly to `dataIn()`, to ensure
 consistent behavior.
 
@@ -745,7 +760,7 @@ example, the history is initialized beforehand in
 actions performed at this stage, ensuring traceability of the workflow.
 This history is then attached to the dataset (e.g., a
 `SummarizedExperiment`) using
-[`SetHistory()`](../reference/SetHistory.md) (see section 2.1 for more
+[`SetHistory()`](../reference/SetHistory.md) (see Section 2.1 for more
 details on these functions). The history also plays a key role when
 reloading previously processed data, as it allows the pipeline to
 determine which steps have already been completed and which sub-steps
@@ -759,20 +774,22 @@ status of the sub-step.
 
 ## PipelineName_Process1.R and PipelineName_Process2.R files
 
-These files provide two base of processes. A workflow can include as
-many processes as needed. Process1 illustrates a process with a single
-sub-step (in addition to the automatic ‘Description’ and ‘Save’
-sub-steps), while Process2 contains two sub-steps. As with processes,
-there is no limit to the number of sub-steps within a process.
+These two files are template that can be reused to define new processes.
+A workflow can include as many processes as needed. Process1 is the
+template in case the process has a single sub-step (in addition to the
+automatic ‘Description’ and ‘Save’ sub-steps), while Process2 is the
+template in case the process hase two (or more) sub-steps. As with
+processes, there is no limit to the number of sub-steps within a
+process.
 
 Because these two files are very similar, they will be explained
 together. PipelineName_Process1.R will serve as the primary example,
 with additional guidance on how to define additional sub-steps, but
-everything applies to PipelineName_Process2.R as well.
+everything equally applies to PipelineName_Process2.R.
 
 ### PipelineName_Process1_conf()
 
-The code for this function is as follow :
+The code for this function is as follow:
 
 ``` r
 
@@ -786,24 +803,26 @@ PipelineName_Process1_conf <- function(){
 }
 ```
 
-This function is mostly similar with `PipelineName_conf()` and
-`PipelineName_Description_conf()` seen above.
+This function is mostly similar to `PipelineName_conf()` and
+`PipelineName_Description_conf()` described above.
 
-- `fullname` : The name is not only the name of the process, but a
+- `fullname`: The name is not only the name of the process, but a
   concatenation of the name of the pipeline with the name of the
   process, separated by ’\_‘. As a general rule, ’fullname’ must match
   the filename.
-- `mode` : Here, this is a process that is being initialized, hence
+- `mode`: Here, this is a process that is being initialized, hence
   ‘process’.
-- `steps` : A vector listing all sub-steps in the process (excluding
+- `steps`: A vector listing all sub-steps in the process (excluding
   “Description” and “Save”, which MagellanNTK adds automatically). It
   should contains the name of each sub-step in the order they are
-  intended to be in. Here, for Process1, there is only 1 sub-step, but
-  more can be added as can be seen in PipelineName_Process2.R.
-- `mandatory` : A logical vector matching the length of the one in
+  intended to be displayed. Here, for Process1, there is only one
+  sub-step, but more of them can be added as can be seen in
+  PipelineName_Process2.R.
+- `mandatory`: A logical vector matching the length of the one in
   `steps`. It defines which sub-steps are mandatory (TRUE) and which may
-  be skipped (FALSE). Here, for Process1, there is only 1 sub-step, but
-  more can be added as can be seen in PipelineName_Process2.R.
+  be skipped (FALSE). Here, for Process1, there is only one sub-step,
+  but more of them can be added as can be seen in
+  PipelineName_Process2.R.
 
 There are no restrictions on sub-step names, provided they do not
 contain special characters. They may include alphanumerical characters,
@@ -811,8 +830,8 @@ spaces and hyphens.
 
 ### PipelineName_Process1_ui() and PipelineName_Process1_server()
 
-These two functions define, respectively, the UI and server components
-of the description process module.
+These two functions respectively define the UI and server components of
+the description process module.
 
 The ui function is the same for every module and should not be modified.
 
@@ -825,7 +844,7 @@ PipelineName_Process1_ui <- function(id){
 
 The code for the server function is as follows, and is explained in
 detail below (for a description of the function parameters, please refer
-to the function man) :
+to the function man):
 
 ``` r
 PipelineName_Process1_server <- function(id,
@@ -1050,11 +1069,11 @@ differences:
 
 - Since the ‘Description’ sub-step is not the only sub-step in the
   process (unlike in section 5), there is no need to update the history.
-  This sub-step is purely informational and serves as an introduction to
-  the process, without performing any action on the data.
+  This sub-step is informational only and serves as an introduction to
+  the process, without triggering any action on the data.
 - Because additional sub-steps follow, the line `dataOut$value <- NULL`
   is used. This indicates that no output dataset is returned at this
-  stage, as no transformation has been applied yet. The data will only
+  stage since no transformation has been applied yet. The data will only
   be processed and returned in the subsequent sub-step(s).
 
 ##### PipelineName_Process1_server() Sub-step 1 sub-step
@@ -1088,8 +1107,8 @@ displayed for the associated sub-step of the process. The naming
 convention follows `output$SubstepName`, and it always uses a
 [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) function. If
 a sub-step name include spaces or hyphens, these are removed when
-forming “SubstepName” (e.g., “Sub-step 1” becomes “Substep1”). However,
-the letter case must still be preserved.
+forming “SubstepName” (e.g., “Sub-step 1” becomes “Substep1”). Warning,
+the naming convention is case sensitive.
 
 Within the `[...]` section, you can define any additional UI elements or
 outputs (widgets, plots, text, tables, etc.). These elements can then be
@@ -1166,7 +1185,7 @@ Similarly to what we saw earlier, this file contains the three functions
 
 ### PipelineName_Save_conf()
 
-The code for this function is as follow :
+The code for this function is as follow:
 
 ``` r
 
@@ -1183,8 +1202,8 @@ additional details.
 
 ### PipelineName_Save_ui() and PipelineName_Save_server()
 
-These two functions define, respectively, the UI and server components
-of the save process module.
+These two functions respectively define the UI and server components of
+the save process module.
 
 The ui function is the same for every module and should not be modified.
 
@@ -1197,7 +1216,7 @@ PipelineName_Save_ui <- function(id){
 
 The code for the server function is as follows, and is explained in
 detail below (for a description of the function parameters, please refer
-to the function man) :
+to the function man):
 
 ``` r
 
@@ -1354,11 +1373,11 @@ The layout itself is constructed using the
 [`process_layout()`](../reference/process_layout.md) function. Its key
 arguments are:
 
-- `sidebar` : Defines the content displayed in the sidebar.
-- `content` : Defines what appears in the main panel.
+- `sidebar`: Defines the content displayed in the sidebar.
+- `content`: Defines what appears in the main panel.
 
 In this case, the goal is to display the .Rmd file associated with the
-Save process, located in the md folder (see section 2.3). This is
+Save process, located in the md folder (see Section 2.3). This is
 handled through the file object, and the content is rendered using
 [`includeMarkdown()`](https://rstudio.github.io/htmltools/reference/include.html)
 when the file exists.
@@ -1376,9 +1395,9 @@ Description sub-step is present.
 Unlike the
 [`observeEvent()`](https://rdrr.io/pkg/shiny/man/observeEvent.html)
 described below, this one is not triggered by clicking on a “Run”
-button, but when a file is available in `dataIn()`, meaning when the
-Save process is enabled. Its purpose is simply to make the current
-dataset accessible by storing it in the reactive value `rv$dataIn`.
+button, but when a file is available in `dataIn()`, i.e. when the Save
+process is enabled. Its purpose is simply to make the current dataset
+accessible by storing it in the reactive value `rv$dataIn`.
 
 ``` r
 
@@ -1428,7 +1447,7 @@ name and function names can’t be modified.
 
 ### PipelineName_Convert_conf()
 
-The code for this function is as follow :
+The code for this function is as follow:
 
 ``` r
 
@@ -1443,20 +1462,20 @@ PipelineName_Convert_conf <- function(){
 ```
 
 This function is mostly similar to `PipelineName_Description_conf()`
-seen above.
+described above.
 
-- `fullname` : The name is not only the name of the process, but a
+- `fullname`: The name is not only the name of the process, but a
   concatenation of the name of the pipeline with the name of the
   process, separated by ’\_‘. As a general rule, ’fullname’ must match
   the filename.
-- `mode` : Here, this is a process that is being initialized, hence
+- `mode`: Here, this is a process that is being initialized, hence
   ‘process’.
-- `steps` : A vector listing all sub-steps in the process (excluding
+- `steps`: A vector listing all sub-steps in the process (excluding
   “Description” and “Save”, which MagellanNTK adds automatically). It
   should contains the name of each sub-step in the order they are
   intended to be in. Here, there is only 1 sub-step, but more can be
   added.
-- `mandatory` : A logical vector matching the length of the one in
+- `mandatory`: A logical vector matching the length of the one in
   `steps`. It defines which sub-steps are mandatory (TRUE) and which may
   be skipped (FALSE). Here, there is only 1 sub-step, but more can be
   added.
@@ -1467,8 +1486,8 @@ spaces and hyphens.
 
 ### PipelineName_Convert_ui() and PipelineName_Convert_server()
 
-These two functions define, respectively, the UI and server components
-of the description process module.
+These two functions respectively define the UI and server components of
+the description process module.
 
 The ui function is the same for every module and should not be modified.
 
@@ -1481,7 +1500,7 @@ PipelineName_Convert_ui <- function(id){
 
 The code for the server function is as follows, and is explained in
 detail below (for a description of the function parameters, please refer
-to the function man) :
+to the function man):
 
 ``` r
 PipelineName_Convert_server <- function(id,
@@ -1698,7 +1717,7 @@ convention follows `output$SubstepName`, and it always uses a
 The ‘Description’ sub-step is automatically included in every process
 and therefore must be defined in each process file. Its implementation
 is largely similar to what is described in section 6.2.1, with one main
-difference :
+difference:
 
 - Despite additional sub-steps following this one, the line
   `dataOut$value <- rv$dataIn` is used.
@@ -1735,7 +1754,7 @@ convention follows `output$SubstepName`, and it always uses a
 [`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html) function. If
 a sub-step name include spaces or hyphens, these are removed when
 forming “SubstepName” (e.g., “Convert sub-step 1” becomes
-“Convertsubstep1”). However, the letter case must still be preserved.
+“Convertsubstep1”). Warning, the naming convention is case sensitive.
 
 Within the `[...]` section, you can define any additional UI elements or
 outputs (widgets, plots, text, tables, etc.). These elements can then be
@@ -1828,7 +1847,7 @@ MagellanNTK(wf.path, 'PipelineName_ProcessName')
 
 Finally, you can create a custom wrapper function around
 [`MagellanNTK()`](../reference/magellanNTK.md) to simplify launching
-your pipeline. For example :
+your pipeline. For example:
 
 ``` r
 
@@ -1851,7 +1870,7 @@ or simplifying repeated usage.
 sessionInfo()
 ```
 
-    ## R version 4.6.0 (2026-04-24)
+    ## R version 4.6.1 (2026-06-24)
     ## Platform: x86_64-pc-linux-gnu
     ## Running under: Ubuntu 24.04.4 LTS
     ## 
@@ -1878,7 +1897,7 @@ sessionInfo()
     ##  [1] sass_0.4.10                 generics_0.1.4             
     ##  [3] SparseArray_1.12.2          stringi_1.8.7              
     ##  [5] lattice_0.22-9              digest_0.6.39              
-    ##  [7] magrittr_2.0.5              grid_4.6.0                 
+    ##  [7] magrittr_2.0.5              grid_4.6.1                 
     ##  [9] evaluate_1.0.5              bookdown_0.47              
     ## [11] bs4Dash_2.3.5               fastmap_1.2.0              
     ## [13] Matrix_1.7-5                jsonlite_2.0.0             
@@ -1886,26 +1905,26 @@ sessionInfo()
     ## [17] textshaping_1.0.5           jquerylib_0.1.4            
     ## [19] abind_1.4-8                 cli_3.6.6                  
     ## [21] shiny_1.14.0                crayon_1.5.3               
-    ## [23] rlang_1.2.0                 XVector_0.52.0             
+    ## [23] rlang_1.3.0                 XVector_0.52.0             
     ## [25] Biobase_2.72.0              DelayedArray_0.38.2        
     ## [27] cachem_1.1.0                yaml_2.3.12                
     ## [29] otel_0.2.0                  S4Arrays_1.12.0            
-    ## [31] tools_4.6.0                 httpuv_1.6.17              
+    ## [31] tools_4.6.1                 httpuv_1.6.17              
     ## [33] DT_0.34.0                   SummarizedExperiment_1.42.0
     ## [35] BiocGenerics_0.58.1         MultiAssayExperiment_1.38.0
     ## [37] waiter_0.2.5.1              R6_2.6.1                   
     ## [39] mime_0.13                   matrixStats_1.5.0          
-    ## [41] stats4_4.6.0                lifecycle_1.0.5            
+    ## [41] stats4_4.6.1                lifecycle_1.0.5            
     ## [43] stringr_1.6.0               Seqinfo_1.2.0              
     ## [45] S4Vectors_0.50.1            fs_2.1.0                   
     ## [47] htmlwidgets_1.6.4           IRanges_2.46.0             
     ## [49] shinyjs_2.1.1               ragg_1.5.2                 
-    ## [51] desc_1.4.3                  pkgdown_2.2.0              
+    ## [51] desc_1.4.3                  pkgdown_2.2.1              
     ## [53] bslib_0.11.0                later_1.4.8                
-    ## [55] glue_1.8.1                  Rcpp_1.1.1-1.1             
-    ## [57] systemfonts_1.3.2           xfun_0.59                  
+    ## [55] glue_1.8.1                  Rcpp_1.1.2                 
+    ## [57] systemfonts_1.3.2           xfun_0.60                  
     ## [59] GenomicRanges_1.64.0        MatrixGenerics_1.24.0      
     ## [61] knitr_1.51                  xtable_1.8-8               
     ## [63] htmltools_0.5.9             rmarkdown_2.31             
-    ## [65] compiler_4.6.0              shinyEffects_0.2.0         
+    ## [65] compiler_4.6.1              shinyEffects_0.2.0         
     ## [67] markdown_2.0

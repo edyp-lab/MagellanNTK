@@ -50,6 +50,6 @@ A shiny App
 
 ``` r
 if (interactive()) {
-  shiny::runApp(mod_SweetAlert("my title", "my message"))
+  mod_SweetAlert("my title", "my message")
 }
 ```

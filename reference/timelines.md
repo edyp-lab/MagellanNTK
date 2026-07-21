@@ -101,6 +101,6 @@ if (interactive()) {
   enabled <- reactive({
     c(0, 0, 0, 0, 1)
   })
-  shiny::runApp(timeline_pipeline(config, status, pos, enabled))
+  timeline_pipeline(config, status, pos, enabled)
 }
 ```

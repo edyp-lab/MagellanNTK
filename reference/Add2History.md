@@ -6,7 +6,7 @@ current step.
 ## Usage
 
 ``` r
-Add2History(history, process, step.name, param.name, value)
+Add2History(history, step, substep, param.name, value)
 ```
 
 ## Arguments
@@ -15,11 +15,11 @@ Add2History(history, process, step.name, param.name, value)
 
   A \`data.frame()\`
 
-- process:
+- step:
 
   A \`character()\`
 
-- step.name:
+- substep:
 
   A \`character()\`
 
@@ -39,7 +39,7 @@ A \`data.frame()\`
 
 ``` r
 history <- InitializeHistory()
-Add2History(history, "Example", "First step", "my param", "THE value")
-#>   Process       Step Parameter     Value
-#> 1 Example First step  my param THE value
+Add2History(history, "Example step", "First sub-step", "my param", "THE value")
+#>           Step        Substep Parameter     Value
+#> 1 Example step First sub-step  my param THE value
 ```

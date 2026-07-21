@@ -1,10 +1,13 @@
-# PipelineDemo User Manual – a vignette template to accompany data analysis pipeline deployed with MagellanNTK
+# PipelineDemo User Manual – a vignette template to accompany data analysis pipelines deployed with MagellanNTK
 
 Abstract
 
 This vignette presents the capabilities of the ‘MagellanNTK’ package,
 from the perspective of someone using a data analysis workflow built on
-top of ‘MagellanNTK’.
+top of ‘MagellanNTK’. To this end, it presents a dummy data analysis
+workflow referred to as “PipelineDemo”. This vignette can naturally be
+used as a template to derive other vignettes that would accompany new
+data analysis workflows deployed with “MagellanNTK”
 
 ## Introduction
 
@@ -19,7 +22,7 @@ third party packages, developed as Shiny modules.
 The main vignette accompanying `MagellanNTK` is referred to as “Build a
 pipeline with MagellanNTK” and is intended for bioinformaticians seeking
 to deploy application-specific pipelines using `MagellanNTK`; and which
-will subsequently be used by a pool of data analyst. Such
+will subsequently be used by a pool of data analysts. Such
 application-specific pipelines may be complex enough to require their
 own vignette, explaining both the specificities of the pipeline, and
 some general concerns that are shared by all MagellanNTK-based
@@ -37,18 +40,18 @@ Contrarily to most “real” `MagellanNTK` pipelines, which should be build
 using third party Shiny modules, the ‘PipelineDemo’ example pipeline is
 provided within the `MagellanNTK` package. Its code is stored in the
 folder ‘inst/workflow/PipelineDemo’. It is a toy pipeline which allows
-the user to generate data, to apply a couple preprocessing, and to
-perform cluster analysis. These steps appear in the timeline of the
-graphical user interface, where they are preceded by a ‘Description’
-step and a ‘Save’ step that respectively define the beginning and the
-end of the pipeline.
+the user to generate data, to apply a couple of preprocessing steps, and
+finally, to perform cluster analysis. These steps appear in the timeline
+of the graphical user interface, where they are preceded by a
+‘Description’ step and a ‘Save’ step that respectively define the
+beginning and the end of the pipeline.
 
 Before delving into the details of this toy pipeline, let us define some
 specific `MagellanNTK` features.
 
 ### Installation
 
-To install `MagellanNTK` :
+To install `MagellanNTK`:
 
 ``` r
 
@@ -62,23 +65,20 @@ BiocManager::install("MagellanNTK")
 library(MagellanNTK)
 ```
 
-    ## Warning: replacing previous import 'S4Arrays::makeNindexFromArrayViewport' by
-    ## 'DelayedArray::makeNindexFromArrayViewport' when loading 'SummarizedExperiment'
-
 ## MagellanNTK jargon
 
 ### Objects
 
 The key terms used throughout this documentation are defined as follow
-(Fig. @ref(fig:keytermsOrganisation)) :
+(Fig. @ref(fig:keytermsOrganisation)):
 
-- **Pipeline** : The complete structure that includes the workflow along
-  with all related elements (e.g., FAQ, Convert module, etc).
-- **Workflow** : The ordered sequence of processes of the pipeline.
-- **Process or step** : An individual step within a workflow. Each
+- **Pipeline**: The complete structure that includes the workflow
+  together with all related elements (e.g., FAQ, Convert module, etc).
+- **Workflow**: The ordered sequence of processes of the pipeline.
+- **Process or step**: An individual step within a workflow. Each
   process corresponds to a dedicated Shiny module and is implemented in
   its own file.
-- **Sub-step** : An individual step within a process. A process may have
+- **Sub-step**: An individual step within a process. A process may have
   as many sub-step as needed.
 
 ![Visual representation of key terms](figs/keytermsOrganisation.png)
@@ -95,26 +95,6 @@ of these steps contains one or more sub-steps (Fig.
 
 PipelineDemo’s organisation
 
-Each step or sub-step can have several associated states, which can
-change during the workflow :
-
-- **Mandatory/Not mandatory**: Indicates whether a step or sub-step must
-  be completed before continuing the workflow. Mandatory steps cannot be
-  skipped. As long as a mandatory step/sub-step remains undone, all
-  subsequent steps/sub-steps are disabled. Once validated, the following
-  steps/sub-steps become enabled, up to the next mandatory one, if
-  applicable.
-- **Validated/Undone/Skipped**: Describes the execution status of a step
-  or sub-step. A step/sub-step can be validated if completed, undone if
-  not yet executed, or skipped if bypassed. Skipping is only possible
-  for non-mandatory steps/sub-steps and occurs when a later
-  step/sub-step has been validated.
-- **Enabled/Disabled**: Indicates whether a step or sub-step can
-  currently be executed, i.e., whether its UI is active or inactive.
-
-The state of a step or sub-step can be observed on the timeline (see
-Section 2.2).
-
 Workflow steps are always organized linearly, meaning they follow a
 predefined order and can only be executed sequentially. However,
 non-mandatory steps may be skipped if needed. The same logic applies to
@@ -124,35 +104,55 @@ validated statistical workflow.
 
 ### Timelines
 
+Each step or sub-step is tagged with various **states**, which can
+change during the workflow:
+
+- **Enabled/Disabled**: Indicates whether a step or sub-step can
+  currently be executed, i.e., whether its UI is active or inactive.
+- **Mandatory/Not mandatory**: Indicates whether a step or sub-step must
+  be completed before continuing the workflow. Mandatory steps cannot be
+  skipped. As long as a mandatory step/sub-step remains pending, all
+  subsequent steps/sub-steps are disabled. Once validated, the following
+  steps/sub-steps become enabled, up to the next mandatory one, if
+  applicable.
+- **Validated/Pending/Skipped**: Describes the execution status of a
+  step or sub-step. A step/sub-step can be validated if completed,
+  pending if not yet executed, or skipped if bypassed. Skipping is only
+  possible for non-mandatory steps/sub-steps and occurs when a later
+  step/sub-step has been validated.
+
+The state of a step or sub-step can be observed on the timeline.
+
 Timelines provide a graphical representation of the steps that make up a
 process or the workflow. Each step is represented by a node displayed as
 a bullet labeled with its corresponding name. The appearance of each
-node reflects the state of the associated step :
+node reflects the state of the associated step:
 
-- **Line style** : Solid for enabled steps, dashed for disabled steps.
-- **Line color** : Red for mandatory steps, black for non-mandatory
+- **Line style**: Solid for enabled steps, dashed for disabled steps.
+- **Line color**: Red for mandatory steps, black for non-mandatory
   steps.
-- **Fill color** : White for undone steps, green for validated steps,
+- **Fill color**: White for pending steps, green for validated steps,
   and grey for skipped steps.
 
-The possible states are the following :
+The possible states are the following:
 
-| Bullet | Property | State | Validated/Undone/Skipped |
+| Bullet | Property | State | Validated/Pending/Skipped |
 |:--:|:--:|:--:|:--:|
-| ![](figs/bullet_mandatory_enabled_undone.png) | Mandatory | Enabled | Undone |
-| ![](figs/bullet_mandatory_disabled_undone.png) | Mandatory | Disabled | Undone |
+| ![](figs/bullet_mandatory_enabled_undone.png) | Mandatory | Enabled | Pending |
+| ![](figs/bullet_mandatory_disabled_undone.png) | Mandatory | Disabled | Pending |
 | ![](figs/bullet_mandatory_disabled_done.png) | Mandatory | Disabled | Validated |
-| ![](figs/bullet_Notmandatory_enabled_undone.png) | Not Mandatory | Enabled | Undone |
-| ![](figs/bullet_Notmandatory_disabled_undone.png) | Not Mandatory | Disabled | Undone |
+| ![](figs/bullet_Notmandatory_enabled_undone.png) | Not Mandatory | Enabled | Pending |
+| ![](figs/bullet_Notmandatory_disabled_undone.png) | Not Mandatory | Disabled | Pending |
 | ![](figs/bullet_Notmandatory_disabled_done.png) | Not Mandatory | Disabled | Validated |
 | ![](figs/bullet_Notmandatory_disabled_skipped.png) | Not Mandatory | Disabled | Skipped |
 
-At any point during the workflow, the current step is indicated by an
-underline beneath the step name.
+At any point during the workflow, the current step or sub-step is
+underlined. The underlined sub-step, its related step and its related
+process are referred to as **active**.
 
-Two distinct timelines are displayed in the interface. The first,
+Two distinct timelines are displayed in the interface. The first one,
 located at the top of the screen, is the horizontal workflow timeline,
-which contains all steps of the workflow. The second, located in the
+which contains all steps of the workflow. The second one, located in the
 process sidebar on the left, is a vertical timeline displaying all
 sub-steps of the currently active process. Everything described
 previously applies to both timelines.
@@ -162,6 +162,12 @@ In the example in Fig. @ref(fig:timelinelayout), the different steps of
 current step is ‘Preprocessing’, indicated by the underline beneath its
 name, and its sub-steps are displayed in the vertical timeline on the
 left, with ‘Description’ being the current sub-step.
+
+In Fig. @ref(fig:timelinelayout), the workflow timeline indicates that
+the ‘Description’ step, which is mandatory, has already been validated.
+The next step enabled is ‘DataGeneration’, as it is both mandatory and
+still pending. As a result, the ‘Preprocessing’ step remains disabled,
+as indicated by the dotted line.
 
 ![(a) Horizontal workflow timeline, (b) Vertical step
 timeline](figs/timelinelayout.png)
@@ -178,8 +184,8 @@ analysis can only begin when a valid dataset has been provided.
 The workflow always starts with the ‘Description’ step, which must be
 validated before subsequent steps become enabled. It then follows a
 strictly linear structure, meaning that each step must be executed in a
-predefined order, never in parallel or out of order. However, some steps
-or sub-steps may be skipped if they are not mandatory.
+predefined order, never in parallel or using an other order. However,
+some steps or sub-steps may be skipped if they are not mandatory.
 
 The navigation in the workflow is flexible. It is always possible to
 move between any steps or sub-steps at any time, even if they are
@@ -192,23 +198,23 @@ disabled. At the same time, all subsequent steps are automatically
 enabled up to the next mandatory step, if one exists.
 
 A step can only be executed once. If a mistake has been made or the
-parameters should be changes, the step must be reset (see Section 4.1).
+parameters should be changed, the step must be reset (see Section 4.1).
 This restores both the dataset and the step to the state they were in
 before the step was run. The step is re-enabled and all widgets return
 to their default values. Resetting a step automatically resets all
 subsequent steps. Individual sub-steps cannot be reset independently,
-only entire step.
+reset applies to the entire step at once.
 
 If a dataset that has already passed either fully or partially through
 the pipeline is loaded, it retains information about which steps and
 sub-steps have already been validated. As a result, the workflow
 automatically marks those steps as validated and resumes from the next
-undone step.
+pending step.
 
 ### Data format requirements
 
 `MagellanNTK` relies on `MultiAssayExperiment` (MAE) objects to store
-and manage data throughout the pipeline. A MAE can be viewed as a
+and manage data throughout the pipeline. An MAE can be viewed as a
 container that holds one or more datasets, called `SummarizedExperiment`
 (SE). At each step, rather than modifying an existing dataset, the
 results of the process is added to the MAE as a new SE. As a result, all
@@ -224,26 +230,30 @@ not necessary for the original data to already be in this format. The
 with the rest of the pipeline (see Section 3.5.1).
 
 Along with adding a new SE at the end of each step, the values of the
-parameters used during the analysis are recorded in a history table.
-This history provides a complete record of the actions performed on the
-dataset, making it possible to review the entire analysis and ensure
-full traceability of the workflow. Each entry in the history contains
-the name of the step, the name of the sub-step, the parameter name, and
-its corresponding value.
+parameters used during the analysis are recorded in a history table
+(Fig. @ref(fig:history)). This history provides a complete record of the
+actions performed on the dataset, making it possible to review the
+entire analysis and ensure full traceability of the workflow. Each entry
+in the history contains the name of the step, the name of the sub-step,
+the parameter name, and its corresponding value.
+
+![History table](figs/history.png)
+
+History table
 
 ### General user interface
 
 The user interface is divided into two main sections (Fig.
-@ref(fig:mainInterface)) :
+@ref(fig:mainInterface)):
 
 - **The main sidebar**, located on the left, which provides access to
   the general menus.
 - **The main interface**, which displays the pipeline.
 
-![General user interface : (a) Main sidebar, (b) Main
+![General user interface: (a) Main sidebar, (b) Main
 interface](figs/mainInterface.png)
 
-General user interface : (a) Main sidebar, (b) Main interface
+General user interface: (a) Main sidebar, (b) Main interface
 
 #### Main sidebar
 
@@ -259,26 +269,26 @@ The general menus of the main sidebar
 
 The different menus are as follows:
 
-- **Home** : Displays general information about the pipeline.
+- **Home**: Displays general information about the pipeline.
 
-- **Dataset** :
+- **Dataset**:
 
-  - **Open file** : Allows a dataset to be loaded into the pipeline,
+  - **Open file**: Allows a dataset to be loaded into the pipeline,
     either from a local file or from an existing dataset provided by a
     selected package.
-  - **Import** : Provides access to the conversion module, which can be
+  - **Import**: Provides access to the conversion module, which can be
     used to transform external data files into a compatible format.
-  - **Save as** : Allows the current dataset to be exported.
+  - **Save as**: Allows the current dataset to be exported.
 
-- **Workflow** :
+- **Workflow**:
 
-  - **Run** : Opens the workflow interface. This interface is always
+  - **Run**: Opens the workflow interface. This interface is always
     accessible, even when no dataset has been loaded. In that case, all
     widgets remain disabled until a valid dataset is available.
-  - **FAQ** : Displays the FAQ document associated with the current
+  - **FAQ**: Displays the FAQ document associated with the current
     pipeline.
-  - **Manual** : Opens the user manual for the current pipeline.
-  - **Release notes** : Displays the release notes associated with the
+  - **Manual**: Opens the user manual for the current pipeline.
+  - **Release notes**: Displays the release notes associated with the
     current pipeline.
 
 #### Main interface
@@ -289,97 +299,98 @@ elements. However, within a workflow, this interface is more elaborate
 and include elements related to the execution and navigation of the
 workflow.
 
-The interface within a workflow can be separated in 3 parts (Fig.
-@ref(fig:mainInterfaceGeneral)) :
+The interface within a workflow contains 3 parts (Fig.
+@ref(fig:mainInterfaceGeneral)):
 
 - **Process sidebar**
 - **Workflow header**
 - **Content area**
 
-![Main interface during a workflow : (a) Process sidebar, (b) Workflow
+![Main interface during a workflow: (a) Process sidebar, (b) Workflow
 header, (c) Content area](figs/mainInterfaceGeneral.png)
 
-Main interface during a workflow : (a) Process sidebar, (b) Workflow
+Main interface during a workflow: (a) Process sidebar, (b) Workflow
 header, (c) Content area
 
 ##### Process sidebar
 
-The process sidebar can be separated in 3 parts (Fig.
-@ref(fig:mainInterfaceSidebar)) :
+The process sidebar separates into 3 parts (Fig.
+@ref(fig:mainInterfaceSidebar)):
 
-- The **pipeline name** : The name of the current pipeline.
-- The **process timeline** : The timeline of the current process (see
+- The **pipeline name**: The name of the current pipeline.
+- The **process timeline**: The timeline of the current process (see
   Section 2.2), as well as the buttons used to navigate through and
   reset the process.
-- The **parameters** : The parameters and associated widgets for the
+- The **parameters**: The parameters and associated widgets for the
   current process.
 
 The process timeline is specific to each process, while the parameters
 vary across sub-steps.
 
-![Composition of the process sidebar : (a) Pipeline name, (b) Process
+![Composition of the process sidebar: (a) Pipeline name, (b) Process
 timeline, (c) Parameters](figs/mainInterfaceSidebar.png)
 
-Composition of the process sidebar : (a) Pipeline name, (b) Process
+Composition of the process sidebar: (a) Pipeline name, (b) Process
 timeline, (c) Parameters
 
 There are 5 navigation buttons (Fig.
-@ref(fig:mainInterfaceSidebarButtons)). The first one and last ones are
+@ref(fig:mainInterfaceSidebarButtons)). The first and last ones are
 respectively the ‘Previous’ and ‘Next’ buttons, which allow navigation
 to the previous or next sub-step within the current step. The ‘Reset’
 button is used to reset the current step (see Section 4.1). The ‘Run’
 and ‘Run -\>’ button are both used to validate the current sub-step, but
-differ in behavior : ‘Run’ simply validates the sub-step, whereas ‘Run
+differ in behavior: ‘Run’ simply validates the sub-step, whereas ‘Run
 -\>’ validates the sub-step and automatically moves to the next
 sub-step.
 
-![The process sidebar's buttons : (a) 'Previous' button, (b) 'Reset'
+![The process sidebar's buttons: (a) 'Previous' button, (b) 'Reset'
 button, (c) 'Run' button, (d) 'Run -\>' button, (e) 'Next'
 button](figs/mainInterfaceSidebarButtons.png)
 
-The process sidebar’s buttons : (a) ‘Previous’ button, (b) ‘Reset’
+The process sidebar’s buttons: (a) ‘Previous’ button, (b) ‘Reset’
 button, (c) ‘Run’ button, (d) ‘Run -\>’ button, (e) ‘Next’ button
 
 ##### Workflow header
 
-The workflow header can be separated in 2 parts (Fig.
-@ref(fig:mainInterfaceHeader)) :
+The workflow header contains 2 parts (Fig.
+@ref(fig:mainInterfaceHeader)):
 
-- The **workflow timeline** : The timeline of the current workflow (see
+- The **workflow timeline**: The timeline of the current workflow (see
   Section 2.2), as well as the buttons used to navigate through the
   workflow.
-- The **EDA button** : The button to access the Exploratory Data
-  Analyzer (EDA) (see Section 3.3).
+- The **EDA button**: The button to access the Exploratory Data Analyzer
+  (EDA) (see Section 3.3).
 
-![Composition of the workflow header : (a) Workflow timeline, (b) EDA
+![Composition of the workflow header: (a) Workflow timeline, (b) EDA
 button](figs/mainInterfaceHeader.png)
 
-Composition of the workflow header : (a) Workflow timeline, (b) EDA
+Composition of the workflow header: (a) Workflow timeline, (b) EDA
 button
 
 There are 3 navigation buttons (Fig.
 @ref(fig:mainInterfaceHeaderButtons)). The first one is the ‘Go back to
 start’ button, which allows to return to the ‘Description’ step in a
-single click. The other two buttons are used to navigate to the previous
-or next step in the workflow.
+single click. The other two buttons are used to navigate forward or
+backward in the workflow.
 
-![The workflow header's buttons : (a) 'Go back to start' button, (b)
+![The workflow header's buttons: (a) 'Go back to start' button, (b)
 'Previous' and 'Next' buttons](figs/mainInterfaceHeaderButtons.png)
 
-The workflow header’s buttons : (a) ‘Go back to start’ button, (b)
+The workflow header’s buttons: (a) ‘Go back to start’ button, (b)
 ‘Previous’ and ‘Next’ buttons
 
 ##### Content area
 
 The content area is the section of the interface where tables or
-graphical outputs (such as plots) are displayed throughout the workflow.
+graphical outputs (such as plots) are displayed throughout the workflow
+(Fig. @ref(fig:mainInterfaceGeneral) (c)).
 
 ## Step-by-step discovery of PipelineDemo
 
 ### Launch the pipeline
 
 `PipelineDemo` can be launched by typing the following command in a R
-console :
+console:
 
 ``` r
 
@@ -388,11 +399,11 @@ wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
 MagellanNTK(wf.path, 'PipelineDemo')
 ```
 
-This will open a new tab in your default web browser with this url :
+This will open a new tab in your default web browser with this url:
 <http://127.0.0.1:3838>
 
-After a short loading screen, the pipeline will be open on the home page
-(Fig. @ref(fig:homePage)).
+After a loading screen, the pipeline will be open on the home page (Fig.
+@ref(fig:homePage)).
 
 ![Home page](figs/homePage.png)
 
@@ -405,9 +416,9 @@ over the main sidebar menu and go to ‘Dataset’ -\> ‘Open file’. If you
 haven’t exported a dataset from MagellanNTK yet, select the ‘package
 dataset’ option in ‘Dataset source’ to choose one of the datasets
 included in the `MagellanNTK` package. For this example, we select the
-‘lldata’ dataset which consists of one SE containing an empty 100 x 6
-matrix as assay. Once a dataset is chosen, a short summary of the
-dataset is displayed (Fig. @ref(fig:opendataset)).
+‘lldata’ dataset which consists of one SE containing a zero-filled
+matrix of size 100x6 as assay. Once a dataset is chosen, a short summary
+of the dataset is displayed (Fig. @ref(fig:opendataset)).
 
 ![Open a dataset](figs/UI_mod_open_dataset.png)
 
@@ -423,15 +434,15 @@ performed on it, and the results obtained so far. The EDA tool is
 accessible at any time during the workflow via the EDA button located in
 the top-right corner.
 
-It contains 3 tabs :
+It contains 3 tabs:
 
-- **Info** : Presents general information about the dataset (Fig.
+- **Info**: Presents general information about the dataset (Fig.
   @ref(fig:EDA1)).
-- **History** : Displays the dataset history, which include all
-  parameter values recorded during the analysis (see Section 2.4) (Fig.
+- **History**: Displays the dataset history, which include all parameter
+  values recorded during the analysis (see Section 2.4) (Fig.
   @ref(fig:EDA2)).
-- **EDA** : Provides various visualizations for exploring the dataset
-  and the results obtained at the any step of the workflow (Fig.
+- **EDA**: Provides various visualizations for exploring the dataset and
+  the results obtained at the any step of the workflow (Fig.
   @ref(fig:EDA3)).
 
 ![EDA 'Infos' tab](figs/UI_EDA1.png)
@@ -459,21 +470,22 @@ this step is automatically marked as validated (Fig.
 
 Description step
 
-No particular action needs to be taken here. Click on the ‘Next’ button
-in the timeline of the pipeline so as to change the current step to
-‘Data Generation’.
+No particular action needs to be taken here. After reading its content,
+click on the ‘Next’ button in the timeline of the pipeline so as to
+change the current step to ‘Data Generation’.
 
 #### ‘DataGeneration’ step
 
-The first data processing step is ‘DataGeneration’. This step is set as
-mandatory, meaning that all subsequent processes remain disabled until
-it has been validated. Like all other processes (with the exception of
-the ‘Description’ and ‘Save’ processes, respectively at the beginning
-and the end of the workflow), it includes an initial ‘Description’
-sub-step and a final ‘Save’ sub-step. Between these two, there is only
-one data processing sub-step in this step, called ‘DataGeneration’. As
-the whole step is mandatory and contains only one data processing
-sub-step, ‘DataGeneration’ is mandatory as well.
+The first data processing step of PipelineDemo is called
+‘DataGeneration’. This step is set as mandatory, meaning that all
+subsequent processes remain disabled until it has been validated. Like
+all other processes (with the exception of the ‘Description’ and ‘Save’
+processes, respectively at the beginning and the end of the workflow),
+it includes an initial ‘Description’ sub-step and a final ‘Save’
+sub-step. Between these two, there is only one data processing sub-step
+in this step, called ‘DataGeneration’. As the whole step is mandatory
+and contains only one data processing sub-step, ‘DataGeneration’ is
+mandatory as well.
 
 The ‘Description’ sub-step serves as a starting point of the process,
 with a short text displayed describing the process purpose. This
@@ -481,11 +493,11 @@ sub-step behavior is the same for every process, only the displayed text
 differs.
 
 The ‘DataGeneration’ sub-step generates a dataset from two Gaussian
-distributions. The user can specify the standard deviation (sd) to use
-for these distributions, and a table allows to preview the dataset after
-it has been created. Once the desired standard deviation has been
-selected, clicking on ‘Run’ validates the sub-step and displays the
-generated dataset in the table (Fig. @ref(fig:datageneration3)).
+distributions. The user can specify the standard deviation (sd) to
+parametrize these distributions, and a table allows to preview the
+dataset after it has been created. Once the desired standard deviation
+has been selected, clicking on ‘Run’ validates the sub-step and displays
+the generated dataset in the table (Fig. @ref(fig:datageneration3)).
 Alternatively, clicking ‘Run -\>’ validates the sub-step and
 automatically proceeds to the next one.
 
@@ -495,19 +507,19 @@ automatically proceeds to the next one.
 
 The ‘Save’ sub-step allows to validate the whole process. Once
 validated, a new SummarizedExperiment is added to the dataset, which can
-be verified through the EDA window (see Section 3.3), and the history is
-also updated with information about the parameters used in the process
-(see Section 2.4). Once this sub-step has been validated, the whole
-process is validated as well, and the workflow can proceed to the next
-step. Note that, since ‘Save’ is the last sub-step of the process, the
-‘Run -\>’ button is disabled.
+be verified through the EDA window (see Section 3.3), and the history
+log is also updated with information about the parameters used in the
+process (see Section 2.4). Once this sub-step has been validated, the
+whole process is validated as well, and the data analyst can proceed to
+the next step. Note that, since ‘Save’ is the last sub-step of the
+process, the ‘Run -\>’ button is disabled.
 
 #### ‘Preprocessing’ step
 
-The second step is ‘Preprocessing’. This step is set as mandatory,
-meaning that all subsequent processes remain disabled until it has been
-validated. There are two sub-steps in this step, in addition to
-‘Description’ and ‘Save’ : ‘Filtering’ and ‘Normalization’. While the
+The second step is called ‘Preprocessing’. This step is set as
+mandatory, meaning that all subsequent processes remain disabled until
+it has been validated. There are two sub-steps in this step, in addition
+to ‘Description’ and ‘Save’: ‘Filtering’ and ‘Normalization’. While the
 ‘Preprocessing’ step is mandatory, only the ‘Normalization’ sub-step is
 also mandatory, making it possible to skip the ‘Filtering’ sub-step.
 
@@ -521,7 +533,7 @@ Alternatively, clicking ‘Run -\>’ validates the sub-step and
 automatically proceeds to the next one (Fig.
 @ref(fig:UIPipelineDemoPreprocessing2)). Since this sub-step is not
 mandatory, if the subsequent sub-step is validated while ‘Filtering’ is
-not, it will become disabled.
+not, it will be disabled.
 
 !['Filtering' sub-step](figs/UI_PipelineDemo_Preprocessing2.png)
 
@@ -542,8 +554,8 @@ automatically proceeds to the next one.
 
 #### ‘Clustering’ step
 
-The third step is ‘Clustering’. This step is not mandatory and can be
-skipped. There is only one sub-step in this step, in addition to
+The third step is called ‘Clustering’. This step is not mandatory and
+can be skipped. There is only one sub-step in this step, in addition to
 ‘Description’ and ‘Save’, called ‘Clustering’.
 
 The ‘Clustering’ sub-step performs data clustering to help identify the
@@ -562,10 +574,10 @@ validates the sub-step and automatically proceeds to the next one.
 
 #### ‘Save’ step
 
-The last step is ‘Save’, which mainly serves as a ending point, with a
-short text marking the end of the pipeline. Technically, this step does
-not need to be validated as it does not change the dataset, which can be
-downloaded in ‘Dataset’ -\> ‘Save as’.
+The last step is called ‘Save’, which mainly serves as a ending point,
+with a short text marking the end of the pipeline. Technically, this
+step does not need to be validated as it does not change the dataset,
+which can be downloaded in ‘Dataset’ -\> ‘Save as’.
 
 ### Other parts of the pipeline
 
@@ -585,7 +597,7 @@ workflow.
 In this pipeline, the ‘Convert’ process is intentionally left empty and
 does not perform any conversion. This is by choice, as `PipelineDemo` is
 intended solely as a demonstration pipeline and does not rely on any
-real input datasets that would need to be imported or converted
+real input datasets that would need to be imported or converted (Fig.
 @ref(fig:convertProcess)).
 
 ![Convert process](figs/convertProcess.png)
@@ -623,7 +635,7 @@ were being launched for the first time. This action also resets all
 downstream processes in the workflow and removes any
 SummarizedExperiment created by those processes. As a result, the
 dataset is reverted to its initial state, as if the process had never
-been executed, allowing the analysis to be rerun from that point (Fig.
+been executed, allowing the analysis anterior from that point (Fig.
 @ref(fig:resetastepbef) and @ref(fig:resetastepaft)).
 
 Please note that this action is irreversible. If the pipeline is reset
@@ -640,11 +652,11 @@ process](figs/afterresetPreprocessing.png)
 
 After resetting the ‘Preprocessing’ process
 
-To reset the entire pipeline easily, click the ‘Go back to start’ button
-located to the left of the workflow timeline (see 2.5). This
-automatically returns the workflow to the first process, which is
-‘Description’. From there, clicking the ‘Reset’ button will reset all
-processes in the pipeline at once.
+To reset the entire pipeline easily, first click the ‘Go back to start’
+button, located on the left of the workflow timeline (see 2.5). By doing
+so, the workflow returns to the first process (‘Description’). Second,
+click the ‘Reset’ button. Doing so will reset all processes in the
+pipeline at once.
 
 ### Running a single process
 
@@ -654,9 +666,9 @@ specific process is needed for an analysis, as it is faster than
 starting the full pipeline and manually navigating to the desired step.
 
 To launch a process, the command lines are quite similar to those for
-launching a pipeline; one just have to specify the name of the process
-to run. For example, the process ‘Preprocessing’ can be launched by
-typing the following command in a R console :
+launching a pipeline; one just has to specify the name of the process to
+run. For example, the process ‘Preprocessing’ can be launched by typing
+the following command in a R console:
 
 ``` r
 
@@ -665,7 +677,7 @@ wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
 MagellanNTK(wf.path, 'PipelineDemo_Preprocessing')
 ```
 
-This will open a new tab in your default web browser with this url :
+This will open a new tab in your default web browser with this url:
 <http://127.0.0.1:3838>
 
 Most of the interface remains identical to that of the full pipeline.
@@ -679,9 +691,11 @@ process](figs/singleprocess.png)
 
 ‘Preprocessing’ process when launched as a single process
 
-One important point concerns dataset loading. When a
-`MultiAssayEpxeriment` is loaded, only its last `SummarizedExperiment`
-is kept and automatically renamed to ‘Convert’.
+Dataset loading deserves attention. When a `MultiAssayExperiment`
+containing several `SummarizedExperiment` is loaded, only the last one
+is kept (the others are discarded). Furthermore, the remaining SE is
+automatically renamed as ‘Convert’. It will serves as input dataset for
+the process.
 
 ## Session information
 
@@ -690,7 +704,7 @@ is kept and automatically renamed to ‘Convert’.
 sessionInfo()
 ```
 
-    ## R version 4.6.0 (2026-04-24)
+    ## R version 4.6.1 (2026-06-24)
     ## Platform: x86_64-pc-linux-gnu
     ## Running under: Ubuntu 24.04.4 LTS
     ## 
@@ -717,7 +731,7 @@ sessionInfo()
     ##  [1] sass_0.4.10                 generics_0.1.4             
     ##  [3] SparseArray_1.12.2          stringi_1.8.7              
     ##  [5] lattice_0.22-9              digest_0.6.39              
-    ##  [7] magrittr_2.0.5              grid_4.6.0                 
+    ##  [7] magrittr_2.0.5              grid_4.6.1                 
     ##  [9] evaluate_1.0.5              bookdown_0.47              
     ## [11] bs4Dash_2.3.5               fastmap_1.2.0              
     ## [13] Matrix_1.7-5                jsonlite_2.0.0             
@@ -725,26 +739,26 @@ sessionInfo()
     ## [17] textshaping_1.0.5           jquerylib_0.1.4            
     ## [19] abind_1.4-8                 cli_3.6.6                  
     ## [21] shiny_1.14.0                crayon_1.5.3               
-    ## [23] rlang_1.2.0                 XVector_0.52.0             
+    ## [23] rlang_1.3.0                 XVector_0.52.0             
     ## [25] Biobase_2.72.0              DelayedArray_0.38.2        
     ## [27] cachem_1.1.0                yaml_2.3.12                
     ## [29] otel_0.2.0                  S4Arrays_1.12.0            
-    ## [31] tools_4.6.0                 httpuv_1.6.17              
+    ## [31] tools_4.6.1                 httpuv_1.6.17              
     ## [33] DT_0.34.0                   SummarizedExperiment_1.42.0
     ## [35] BiocGenerics_0.58.1         MultiAssayExperiment_1.38.0
     ## [37] waiter_0.2.5.1              R6_2.6.1                   
     ## [39] mime_0.13                   matrixStats_1.5.0          
-    ## [41] stats4_4.6.0                lifecycle_1.0.5            
+    ## [41] stats4_4.6.1                lifecycle_1.0.5            
     ## [43] stringr_1.6.0               Seqinfo_1.2.0              
     ## [45] S4Vectors_0.50.1            fs_2.1.0                   
     ## [47] htmlwidgets_1.6.4           IRanges_2.46.0             
     ## [49] shinyjs_2.1.1               ragg_1.5.2                 
-    ## [51] desc_1.4.3                  pkgdown_2.2.0              
+    ## [51] desc_1.4.3                  pkgdown_2.2.1              
     ## [53] bslib_0.11.0                later_1.4.8                
-    ## [55] glue_1.8.1                  Rcpp_1.1.1-1.1             
-    ## [57] systemfonts_1.3.2           xfun_0.59                  
+    ## [55] glue_1.8.1                  Rcpp_1.1.2                 
+    ## [57] systemfonts_1.3.2           xfun_0.60                  
     ## [59] GenomicRanges_1.64.0        MatrixGenerics_1.24.0      
     ## [61] knitr_1.51                  xtable_1.8-8               
     ## [63] htmltools_0.5.9             rmarkdown_2.31             
-    ## [65] compiler_4.6.0              shinyEffects_0.2.0         
+    ## [65] compiler_4.6.1              shinyEffects_0.2.0         
     ## [67] markdown_2.0

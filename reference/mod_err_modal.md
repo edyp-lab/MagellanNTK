@@ -44,6 +44,6 @@ A shiny App
 
 ``` r
 if (interactive()) {
-  shiny::runApp(mod_errorModal("myTitle", "myContent"))
+  mod_errorModal("myTitle", "myContent")
 }
 ```

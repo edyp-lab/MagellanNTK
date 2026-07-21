@@ -9,7 +9,7 @@ mod_release_notes_ui(id)
 
 mod_release_notes_server(id, URL_releaseNotes)
 
-release_notes(URL_releaseNotes)
+mod_release_notes(URL_releaseNotes)
 ```
 
 ## Arguments
@@ -32,11 +32,11 @@ A shiny App
 ``` r
 if (interactive()) {
   url <- "http://www.prostar-proteomics.org/md/versionNotes.md"
-  shiny::runApp(release_notes(url))
+  mod_release_notes(url)
 
   local.url <- system.file("/workflow/PipelineDemo/md/links.Rmd",
     package = "MagellanNTK"
   )
-  shiny::runApp(release_notes(local.url))
+  mod_release_notes(local.url)
 }
 ```

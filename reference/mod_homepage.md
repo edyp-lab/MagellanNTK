@@ -40,6 +40,6 @@ A shiny App
 
 ``` r
 if (interactive()) {
-  shiny::runApp(mod_homepage())
+  mod_homepage()
 }
 ```

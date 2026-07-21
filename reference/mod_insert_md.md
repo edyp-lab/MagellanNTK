@@ -33,6 +33,6 @@ A shiny App
 if (interactive()) {
   base <- system.file("www/md", package = "MagellanNTK")
   url <- file.path(base, "Presentation.Rmd")
-  shiny::runApp(insert_md(url))
+  insert_md(url)
 }
 ```
