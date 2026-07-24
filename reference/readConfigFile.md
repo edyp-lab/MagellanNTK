@@ -108,6 +108,9 @@ readConfigFile(path)
 #> $extension
 #> [1] ".RData"
 #> 
+#> $class
+#> [1] "RData"
+#> 
 #> $package
 #> [1] "MagellanNTK"
 #> 
