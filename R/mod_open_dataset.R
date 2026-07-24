@@ -54,6 +54,7 @@ open_dataset_ui <- function(id) {
 open_dataset_server <- function(
                                 # nocov start
                                 id,
+                                class = NULL,
                                 extension = NULL,
                                 remoteReset = reactive({
                                   NULL

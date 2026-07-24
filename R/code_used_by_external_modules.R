@@ -47,7 +47,8 @@ NULL
 #'
 Get_Code_Update_Config_Variable <- function() {
   code <- "config@steps <- setNames(config@steps,
-        nm = gsub(' ', '', config@steps, fixed = TRUE))"
+        nm = gsub(' ', '', config@steps, fixed = TRUE))
+  "
 
   code
 }
@@ -171,7 +172,8 @@ Get_Code_for_rv_reactiveValues <- function() {
     steps.status = NULL,
     reset = NULL,
     # A vector of boolean indicating if the steps are enabled or disabled
-    steps.enabled = NULL)"
+    steps.enabled = NULL)
+  "
 
   basis
 }
@@ -198,7 +200,8 @@ Get_Code_for_dataOut <- function() {
                 trigger = as.numeric(Sys.time()),
                 value = NULL,
                 sidebarState = NULL
-                )"
+                )
+  "
 
   code
 }
@@ -224,7 +227,8 @@ observeEvent(steps.status(), ignoreNULL = TRUE, {
                                  nm = names(rv$config@steps))
     else
         rv$steps.status <- steps.status()
-})"
+})
+  "
 
   code
 }

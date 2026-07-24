@@ -348,7 +348,8 @@ mainapp_server <- function(
           fname = paste0(rv.core$funcs$funcs$open_dataset, "_server"),
           args = list(
             id = "open_dataset",
-            extension = rv.core$funcs$extension
+            extension = rv.core$funcs$extension,
+            class = rv.core$funcs$class
           )
         )
         call_func(

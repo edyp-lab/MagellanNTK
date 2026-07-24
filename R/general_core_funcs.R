@@ -382,7 +382,10 @@ BuildData2Send <- function(session, dataIn, stepsNames) {
         getExportedValue(parts_keepDatasets[1], parts_keepDatasets[2]),
         list(object = dataIn, range = seq_len(i))
       )
-      for (j in (indInstepsNames):length(child.data2send)) {
+      if (length(indInstepsNames) == 0){
+        stop("The step names do not match the current workflow.")
+      }
+      for (j in indInstepsNames:length(child.data2send)) {
         child.data2send[[j]] <- dataset
       }
     }
