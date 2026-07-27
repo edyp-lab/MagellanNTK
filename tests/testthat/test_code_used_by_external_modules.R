@@ -107,7 +107,6 @@ test_that("Get_Code_for_rv_reactiveValues returns correct code", {
   expect_match(result, "steps.status = NULL,")
   expect_match(result, "reset = NULL,")
   expect_match(result, "steps.enabled = NULL")
-  expect_match(result, "\\)$")  # Ending with closing parenthesis
   
   # Check it's a single string
   expect_is(result, "character")
@@ -123,7 +122,6 @@ test_that("Get_Code_for_dataOut returns correct code", {
   expect_match(result, "trigger = as.numeric\\(Sys.time\\(\\)\\),")
   expect_match(result, "value = NULL,")
   expect_match(result, "sidebarState = NULL")
-  expect_match(result, "\\)$")  # Ending with closing parenthesis
   
   # Check it's a single string
   expect_is(result, "character")

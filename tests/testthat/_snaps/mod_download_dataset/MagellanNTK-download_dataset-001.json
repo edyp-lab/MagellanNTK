@@ -10,7 +10,7 @@
       ]
     },
     "dl-dl_raw": {
-      "html": "<a id=\"dl-downloadData\" class=\"btn btn-default shiny-download-link disabled\" href=\"\" target=\"_blank\" download aria-disabled=\"true\" tabindex=\"-1\">\n  <i class=\"fas fa-download\" role=\"presentation\" aria-label=\"download icon\"><\/i>\n  Qf\n<\/a>",
+      "html": "<a aria-disabled=\"true\" class=\"btn btn-default shiny-download-link disabled\" download href=\"\" id=\"dl-downloadData\" tabindex=\"-1\" target=\"_blank\">\n  <i class=\"fas fa-download\" role=\"presentation\" aria-label=\"download icon\"><\/i>\n  Qf\n<\/a>",
       "deps": [
         {
           "name": "font-awesome",

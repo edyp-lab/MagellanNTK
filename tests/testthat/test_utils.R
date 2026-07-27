@@ -36,7 +36,7 @@ test_that("readConfigFile reads and parses config.txt correctly in user mode", {
   expect_named(result, c(
     "funcs", "verbose", "UI_view_debugger", "UI_view_open_pipeline",
     "UI_view_convert_dataset", "UI_view_change_Look_Feel",
-    "UI_view_change_core_funcs", "extension", "package",
+    "UI_view_change_core_funcs", "extension", "class", "package",
     "URL_manual", "URL_ReleaseNotes"
   ))
   

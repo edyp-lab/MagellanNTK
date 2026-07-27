@@ -4,7 +4,7 @@
   },
   "output": {
     "tbl-dialog_UI": {
-      "html": "<button class=\"btn btn-default action-button btn btn-danger\" id=\"tbl-show\" style=\"font-size:60%; display:inline-block; vertical-align: middle;&#10;padding: 7px; margin: 4px;\" type=\"button\">\n  <span class=\"action-label\">test modalDialog<\/span>\n<\/button>",
+      "html": "<button class=\"btn btn-default action-button btn btn-danger\" id=\"tbl-show\" style=\"font-size:60%; display:inline-block; vertical-align: middle;&#10;padding: 7px; margin: 4px;\" type=\"button\"><span class=\"action-label\">test modalDialog<\/span><\/button>",
       "deps": [
 
       ]

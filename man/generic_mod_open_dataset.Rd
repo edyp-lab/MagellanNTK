@@ -11,6 +11,7 @@ open_dataset_ui(id)
 
 open_dataset_server(
   id,
+  class = NULL,
   extension = NULL,
   remoteReset = reactive({
      NULL
@@ -24,6 +25,8 @@ open_dataset(extension = NULL)
 }
 \arguments{
 \item{id}{A `character()` as the id of the Shiny module}
+
+\item{class}{The type of file to allow for other packages dataset}
 
 \item{extension}{The extension file allowed}
 

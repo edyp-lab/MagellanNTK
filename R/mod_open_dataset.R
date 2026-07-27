@@ -3,6 +3,7 @@
 #' @description This module allows to change
 #'
 #' @param id A `character()` as the id of the Shiny module
+#' @param class The type of file to allow for other packages dataset
 #' @param extension The extension file allowed
 #' @param remoteReset An `integer` which acts as a remote command to reset the
 #' module. Its value is incremented on a external event and it is used to
