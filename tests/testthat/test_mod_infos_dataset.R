@@ -119,6 +119,9 @@ test_that("output$show_SE_ui renders when all requirements are met", {
 
 # shinytest2 ----
 test_that("shinytest2 tests for infos_dataset", {
+  testthat::skip_if_not_installed("chromote")
+  testthat::skip_on_ci()
+  
   data(lldata123)
   shiny_app <- MagellanNTK::infos_dataset(lldata123)
   app <- shinytest2::AppDriver$new(shiny_app, name = "MagellanNTK-infos_dataset")
