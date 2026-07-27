@@ -22,5 +22,5 @@ A \`character()\`
 
 ``` r
 GetPackageVersion("MagellanNTK")
-#> [1] "0.99.31"
+#> [1] "0.99.32"
 ```
