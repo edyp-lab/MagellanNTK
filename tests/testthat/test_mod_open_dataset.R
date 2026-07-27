@@ -199,6 +199,9 @@ test_that("module returns a reactive with dataOut", {
 # shinytest2 ----
 
 test_that("shinytest2 tests for open_dataset", {
+  testthat::skip_if_not_installed("chromote")
+  testthat::skip_on_ci()
+  
   shiny_app <- MagellanNTK::open_dataset(extension = "rdata")
     app <- shinytest2::AppDriver$new(shiny_app, name = "MagellanNTK-open_dataset")
   
