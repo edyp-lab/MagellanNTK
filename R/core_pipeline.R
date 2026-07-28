@@ -58,7 +58,8 @@ nav_pipeline_ui <- function(id) {
   ns <- NS(id)
 
   div(
-    style = "width: 100%;",
+    style = "width: 100%; height: 100%;",
+    uiOutput(ns("background_ui")),
     uiOutput(ns("pipeline_panel_ui")),
     uiOutput(ns("pipeline_tl_btn_ui"))
   )
@@ -162,7 +163,13 @@ nav_pipeline_server <- function(
     # A `list()` of instances of lcass `MultiAssayExperiment` to
     # store the return values of each steps (child processes)
     tmp.return <- reactiveValues()
-
+    
+    output$background_ui <- renderUI({
+      div(style = paste0(
+      "background-color: ", MagellanNTK::default_theme(session$userData$usermod)$bgcolor_pipeline_sidebar, "; 
+      border-right: ", default_layout$line_width, "px solid ", default_layout$line_color, "; 
+      margin-left: -100px; width: 354px; height:100%; position:fixed; z-index:-1;"))
+    })
 
     output$pipeline_panel_ui <- renderUI({
       shiny::absolutePanel(
@@ -182,8 +189,7 @@ nav_pipeline_server <- function(
         ),
         div(
           style = " align-items: center;
-          justify-content: center;
-          margin-bottom: 20px;",
+          justify-content: center;",
           uiOutput(ns("datasetNameUI"))
         ),
         div(
@@ -403,8 +409,8 @@ nav_pipeline_server <- function(
     # Displays the name of the pipeline in the upper-left corner of the screen
     output$datasetNameUI <- renderUI({
       div(
-        style = paste0("padding-left: ", 100, "px;"),
-        h4(id)
+        style = "padding-left: 90px; font-size:20px;",
+        id
       )
     })
 

@@ -313,8 +313,8 @@ nav_process_server <- function(
 
     output$proc_datasetNameUI <- renderUI({
       div(
-        style = paste0("padding-left: ", 100, "px;"),
-        h3(id)
+        style = "padding-left: 90px; font-size:20px;",
+        id
       )
     })
     # nocov start

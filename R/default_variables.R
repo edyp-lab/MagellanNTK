@@ -149,7 +149,7 @@ default_theme <- function(mode) {
       # color of the process sidebar
       bgcolor_pipeline_sidebar = "lightgrey",
       bgcolor_pipeline_timeline = "lightgrey",
-      bgcolor_content_wrapper = "white"
+      bgcolor_content_wrapper = "transparent"
     )
   )
 

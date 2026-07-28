@@ -56,6 +56,7 @@ nav_single_process_ui <- function(id) {
 
   tagList(
     div(
+      uiOutput(ns("background_ui")),
       uiOutput(ns("process_panel_ui_process"))
     ),
     shiny::absolutePanel(
@@ -244,6 +245,13 @@ nav_single_process_server <- function(
       )
     })
     # nocov end
+    output$background_ui <- renderUI({
+      div(style = paste0(
+        "background-color: ", MagellanNTK::default_theme(session$userData$usermod)$bgcolor_pipeline_sidebar, "; 
+      border-right: ", default_layout$line_width, "px solid ", default_layout$line_color, "; 
+      margin-left: -100px; width: 354px; height:100%; position:fixed; z-index:-1;"))
+    })
+    
     output$process_panel_ui_process <- renderUI({
       shiny::absolutePanel(
         left = default_layout$left_pipeline_sidebar,
@@ -264,8 +272,7 @@ nav_single_process_server <- function(
         ),
         div(
           style = " align-items: center;
-          justify-content: center;
-          margin-bottom: 20px;",
+          justify-content: center;",
           uiOutput(ns("proc_datasetNameUI")),
         ),
         div(
@@ -428,8 +435,8 @@ nav_single_process_server <- function(
 
     output$proc_datasetNameUI <- renderUI({
       div(
-        style = paste0("padding-left: ", 100, "px;"),
-        h3(id)
+        style = "padding-left: 90px; font-size:20px;",
+        id
       )
     })
     # nocov start

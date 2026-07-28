@@ -74,7 +74,7 @@ process_layout_pipeline <- function(session, ns, sidebar, content) {
   div(
     div(
       style = paste0(
-        "background-color: ", default_theme(
+        "background-color: ", MagellanNTK::default_theme(
           session$userData$usermod
         )$bgcolor_process_sidebar, ";",
         "padding-left: ", default_layout$left_process_timeline, "px;",
@@ -87,7 +87,6 @@ process_layout_pipeline <- function(session, ns, sidebar, content) {
       style = paste0(
         "position: absolute; ",
         "width: ", default_layout$width_process_content, ";",
-        "padding-top: ", default_layout$top_process_content, "px;",
         "background-color: ", default_theme(
           session$userData$usermod
         )$bgcolor_process_content, ";}"

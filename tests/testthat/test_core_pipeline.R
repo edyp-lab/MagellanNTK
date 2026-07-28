@@ -16,7 +16,7 @@ test_that("nav_pipeline_ui returns a div with expected uiOutput elements", {
   
   expect_s3_class(ui, "shiny.tag")
   ui_as_char <- as.character(ui)
-  expect_true(any(grepl('style=\"width: 100%;\"', ui_as_char)))
+  expect_true(any(grepl('style=\"width: 100%; height: 100%;\"', ui_as_char)))
   expect_true(any(grepl("test_id-pipeline_panel_ui", ui_as_char)))
   expect_true(any(grepl("test_id-pipeline_tl_btn_ui", ui_as_char)))
 })
