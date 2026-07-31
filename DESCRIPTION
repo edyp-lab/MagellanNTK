@@ -1,16 +1,16 @@
 Package: MagellanNTK
 Type: Package
 Title: A customizable Workflow Manager
-Version: 0.99.32
-Date: 2026-07-27
+Version: 0.99.33
+  Date: 2026-07-31
 Authors@R: 
     c(person(given = "Samuel", family = "Wieczorek",
-      email = "samuel.wieczorek@cea.fr", role = c("cre","aut"),
+      email = "samuel.wieczorek@cea.fr", role = c("aut"),
       comment = c(ORCID="0000-0002-5016-1203")),
       person(given = "Thomas", family ="Burger",
       email = "thomas.burger@cea.fr", role = c("aut")),
       person(given = "Manon", family ="Gaudin",
-      email = "manon.gaudin@cea.fr", role = c("aut"))
+      email = "manon.gaudin@cea.fr", role = c("cre","aut"))
       )
 Description: MagellanNTK (Magellan Navigation ToolKit) is a collection of Shiny 
     modules which provide the basis for a generic workflow manager for data 
