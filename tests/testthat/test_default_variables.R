@@ -73,7 +73,7 @@ test_that("default_theme returns correct theme for user mode", {
   # Check specific values for user mode
   expect_equal(result$bgcolor_process_sidebar, "lightgrey")
   expect_equal(result$bgcolor_pipeline_sidebar, "lightgrey")
-  expect_equal(result$bgcolor_content_wrapper, "white")
+  expect_equal(result$bgcolor_content_wrapper, "transparent")
 })
 
 test_that("default_theme returns correct theme for dev mode", {
