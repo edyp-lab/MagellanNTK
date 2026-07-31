@@ -2,7 +2,7 @@ Package: MagellanNTK
 Type: Package
 Title: A customizable Workflow Manager
 Version: 0.99.33
-  Date: 2026-07-31
+Date: 2026-07-31
 Authors@R: 
     c(person(given = "Samuel", family = "Wieczorek",
       email = "samuel.wieczorek@cea.fr", role = c("aut"),
