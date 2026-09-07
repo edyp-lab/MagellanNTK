@@ -1,32 +1,12 @@
 # MagellanNTK
 
-The MagellanNTK package is a workflow management engine that allows you
-to run a series of analysis processes on datasets. It contains generic
-dataset input/output functions that are suited to data formats such as
-MultiAssayExperiment.
-
-To use MagellanNTK’s features, you must use workflows that are either
-saved on your computer or available in a package
-
-The main strength of this package is that these native functions are
-fully configurable. MagellanNTK offers workflow management.
-
-## Installation
-
-You can install the development version of MagellanNTK from
-[GitHub](https://github.com/) with:
-
-``` r
-
-# install.packages("devtools")
-devtools::install_github("edyp-lab/MagellanNTK")
-```
-
-# MagellanNTK
-
-MagellanNTK is a R package which proposes a framework to navigate
-between steps of a complex data processing tool when the succession of
-processes is mostly chronological.
+The package `MagellanNTK` is a Shiny application which provides the
+infrastructure for the configuration, the execution and the surveillance
+of a defined sequence of computational tasks for data analysis,
+hereafter called “pipelines”. It builds graphical pipelines based on
+third party packages, developed as Shiny modules. It proposes a
+framework to navigate between steps of a complex data processing tool
+when the succession of processes is mostly chronological.
 
 For example, if a process is composed of three steps, then it is very
 easy to run the first step, then the second and finally the last one. It
@@ -37,13 +17,17 @@ can by used at several levels. It can then be possible to define, for
 example, a super-process (i.e. a pipeline) in which each step is a whole
 process containing itself several steps.
 
-## Install
+## Installation
 
-    devtools::install_github('edyp-lab/MagellanNTK')
+To install `MagellanNTK`:
+
+`{r install, eval = FALSE} if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager") BiocManager::install("MagellanNTK")`
 
 ## Using MagellanNTK
 
 **Launching a pipeline**
+
+In the following example, the pipeline called PipelineDemo is launched.
 
     library(MagellanNTK)
     wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')

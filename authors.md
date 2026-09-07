@@ -14,14 +14,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/edyp-lab/MagellanNTK/blob/main/DESCRIPTION)
 
-Wieczorek S, Burger T, Gaudin M (2026). *MagellanNTK: A customizable
-Workflow Manager*. R package version 0.99.33,
+Wieczorek S, Burger T, Gaudin M (2026). *MagellanNTK: Configurable Shiny
+data-analysis workflows*. R package version 0.99.34,
 <https://github.com/edyp-lab/MagellanNTK>.
 
     @Manual{,
-      title = {MagellanNTK: A customizable Workflow Manager},
+      title = {MagellanNTK: Configurable Shiny data-analysis workflows},
       author = {Samuel Wieczorek and Thomas Burger and Manon Gaudin},
       year = {2026},
-      note = {R package version 0.99.33},
+      note = {R package version 0.99.34},
       url = {https://github.com/edyp-lab/MagellanNTK},
     }

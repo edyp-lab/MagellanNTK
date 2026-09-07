@@ -15,4 +15,4 @@ data(lldata1)
 
 ## Format
 
-An object of class \`MultiAssayExperiments\`
+An object of class \`MultiAssayExperiment\`

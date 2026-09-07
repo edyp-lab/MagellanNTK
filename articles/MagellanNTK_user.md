@@ -399,8 +399,7 @@ wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
 MagellanNTK(wf.path, 'PipelineDemo')
 ```
 
-This will open a new tab in your default web browser with this url:
-<http://127.0.0.1:3838>
+Running this command will open the pipeline interface.
 
 After a loading screen, the pipeline will be open on the home page (Fig.
 @ref(fig:homePage)).
@@ -677,8 +676,7 @@ wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
 MagellanNTK(wf.path, 'PipelineDemo_Preprocessing')
 ```
 
-This will open a new tab in your default web browser with this url:
-<http://127.0.0.1:3838>
+Running this command will open the pipeline interface.
 
 Most of the interface remains identical to that of the full pipeline.
 The main difference is that the application behaves as if the workflow
@@ -725,14 +723,14 @@ sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] MagellanNTK_0.99.33 BiocStyle_2.40.0   
+    ## [1] MagellanNTK_0.99.34 BiocStyle_2.40.0   
     ## 
     ## loaded via a namespace (and not attached):
     ##  [1] sass_0.4.10                 generics_0.1.4             
-    ##  [3] SparseArray_1.12.2          stringi_1.8.7              
+    ##  [3] SparseArray_1.12.2          stringi_1.8.9              
     ##  [5] lattice_0.22-9              digest_0.6.39              
     ##  [7] magrittr_2.0.5              grid_4.6.1                 
-    ##  [9] evaluate_1.0.5              bookdown_0.47              
+    ##  [9] evaluate_1.0.5              bookdown_0.48              
     ## [11] bs4Dash_2.3.5               fastmap_1.2.0              
     ## [13] Matrix_1.7-5                jsonlite_2.0.0             
     ## [15] promises_1.5.0              BiocManager_1.30.27        
@@ -750,15 +748,15 @@ sessionInfo()
     ## [39] mime_0.13                   matrixStats_1.5.0          
     ## [41] stats4_4.6.1                lifecycle_1.0.5            
     ## [43] stringr_1.6.0               Seqinfo_1.2.0              
-    ## [45] S4Vectors_0.50.1            fs_2.1.0                   
+    ## [45] S4Vectors_0.50.2            fs_2.1.0                   
     ## [47] htmlwidgets_1.6.4           IRanges_2.46.0             
     ## [49] shinyjs_2.1.1               ragg_1.5.2                 
     ## [51] desc_1.4.3                  pkgdown_2.2.1              
-    ## [53] bslib_0.11.0                later_1.4.8                
+    ## [53] bslib_0.12.0                later_1.4.8                
     ## [55] glue_1.8.1                  Rcpp_1.1.2                 
     ## [57] systemfonts_1.3.2           xfun_0.60                  
     ## [59] GenomicRanges_1.64.0        MatrixGenerics_1.24.0      
-    ## [61] knitr_1.51                  xtable_1.8-8               
-    ## [63] htmltools_0.5.9             rmarkdown_2.31             
+    ## [61] knitr_1.52                  xtable_1.8-8               
+    ## [63] htmltools_0.5.9             rmarkdown_2.32             
     ## [65] compiler_4.6.1              shinyEffects_0.2.0         
     ## [67] markdown_2.0

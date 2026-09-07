@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">MagellanNTK</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.33</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.34</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,7 @@ Wieczorek</h4>
                                     <h4 data-toc-skip class="author">Thomas
 Burger</h4>
                         
-            <h4 data-toc-skip class="date">July 31, 2026</h4>
+            <h4 data-toc-skip class="date">September 07, 2026</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/edyp-lab/MagellanNTK/blob/main/vignettes/MagellanNTK_user.Rmd" class="external-link"><code>vignettes/MagellanNTK_user.Rmd</code></a></small>
       <div class="d-none name"><code>MagellanNTK_user.Rmd</code></div>
@@ -557,8 +557,7 @@ command in a R console:</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK</a></span><span class="op">)</span></span>
 <span><span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineDemo'</span>, package <span class="op">=</span> <span class="st">'MagellanNTK'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">wf.path</span>, <span class="st">'PipelineDemo'</span><span class="op">)</span></span></code></pre></div>
-<p>This will open a new tab in your default web browser with this url:
-<a href="http://127.0.0.1:3838" class="external-link uri">http://127.0.0.1:3838</a></p>
+<p>Running this command will open the pipeline interface.</p>
 <p>After a loading screen, the pipeline will be open on the home page
 (Fig. @ref(fig:homePage)).</p>
 <div class="figure" style="text-align: center">
@@ -855,8 +854,7 @@ the following command in a R console:</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edyp-lab/MagellanNTK" class="external-link">MagellanNTK</a></span><span class="op">)</span></span>
 <span><span class="va">wf.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'workflow/PipelineDemo'</span>, package <span class="op">=</span> <span class="st">'MagellanNTK'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/magellanNTK.html">MagellanNTK</a></span><span class="op">(</span><span class="va">wf.path</span>, <span class="st">'PipelineDemo_Preprocessing'</span><span class="op">)</span></span></code></pre></div>
-<p>This will open a new tab in your default web browser with this url:
-<a href="http://127.0.0.1:3838" class="external-link uri">http://127.0.0.1:3838</a></p>
+<p>Running this command will open the pipeline interface.</p>
 <p>Most of the interface remains identical to that of the full pipeline.
 The main difference is that the application behaves as if the workflow
 only contained the ‘Preprocessing’ step. As a result, only the vertical
@@ -901,14 +899,14 @@ the process.</p>
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] MagellanNTK_0.99.33 BiocStyle_2.40.0   </span></span>
+<span><span class="co">## [1] MagellanNTK_0.99.34 BiocStyle_2.40.0   </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##  [1] sass_0.4.10                 generics_0.1.4             </span></span>
-<span><span class="co">##  [3] SparseArray_1.12.2          stringi_1.8.7              </span></span>
+<span><span class="co">##  [3] SparseArray_1.12.2          stringi_1.8.9              </span></span>
 <span><span class="co">##  [5] lattice_0.22-9              digest_0.6.39              </span></span>
 <span><span class="co">##  [7] magrittr_2.0.5              grid_4.6.1                 </span></span>
-<span><span class="co">##  [9] evaluate_1.0.5              bookdown_0.47              </span></span>
+<span><span class="co">##  [9] evaluate_1.0.5              bookdown_0.48              </span></span>
 <span><span class="co">## [11] bs4Dash_2.3.5               fastmap_1.2.0              </span></span>
 <span><span class="co">## [13] Matrix_1.7-5                jsonlite_2.0.0             </span></span>
 <span><span class="co">## [15] promises_1.5.0              BiocManager_1.30.27        </span></span>
@@ -926,16 +924,16 @@ the process.</p>
 <span><span class="co">## [39] mime_0.13                   matrixStats_1.5.0          </span></span>
 <span><span class="co">## [41] stats4_4.6.1                lifecycle_1.0.5            </span></span>
 <span><span class="co">## [43] stringr_1.6.0               Seqinfo_1.2.0              </span></span>
-<span><span class="co">## [45] S4Vectors_0.50.1            fs_2.1.0                   </span></span>
+<span><span class="co">## [45] S4Vectors_0.50.2            fs_2.1.0                   </span></span>
 <span><span class="co">## [47] htmlwidgets_1.6.4           IRanges_2.46.0             </span></span>
 <span><span class="co">## [49] shinyjs_2.1.1               ragg_1.5.2                 </span></span>
 <span><span class="co">## [51] desc_1.4.3                  pkgdown_2.2.1              </span></span>
-<span><span class="co">## [53] bslib_0.11.0                later_1.4.8                </span></span>
+<span><span class="co">## [53] bslib_0.12.0                later_1.4.8                </span></span>
 <span><span class="co">## [55] glue_1.8.1                  Rcpp_1.1.2                 </span></span>
 <span><span class="co">## [57] systemfonts_1.3.2           xfun_0.60                  </span></span>
 <span><span class="co">## [59] GenomicRanges_1.64.0        MatrixGenerics_1.24.0      </span></span>
-<span><span class="co">## [61] knitr_1.51                  xtable_1.8-8               </span></span>
-<span><span class="co">## [63] htmltools_0.5.9             rmarkdown_2.31             </span></span>
+<span><span class="co">## [61] knitr_1.52                  xtable_1.8-8               </span></span>
+<span><span class="co">## [63] htmltools_0.5.9             rmarkdown_2.32             </span></span>
 <span><span class="co">## [65] compiler_4.6.1              shinyEffects_0.2.0         </span></span>
 <span><span class="co">## [67] markdown_2.0</span></span></code></pre>
 </div>
