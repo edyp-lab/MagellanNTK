@@ -5,7 +5,7 @@
 \alias{lldata1}
 \title{lldata1 dataset}
 \format{
-An object of class `MultiAssayExperiments`
+An object of class `MultiAssayExperiment`
 }
 \usage{
 data(lldata1)

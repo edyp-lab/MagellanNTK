@@ -12,7 +12,7 @@
 #' @keywords data
 #' @usage data(lldata)
 #'
-#' @format An object of class `MultiAssayExperiments`
+#' @format An object of class `MultiAssayExperiment`
 #'
 #' @keywords datasets
 NULL
@@ -30,7 +30,7 @@ NULL
 #' @keywords data
 #' @usage data(lldata1)
 #'
-#' @format An object of class `MultiAssayExperiments`
+#' @format An object of class `MultiAssayExperiment`
 #'
 #' @keywords datasets
 NULL
@@ -52,7 +52,7 @@ NULL
 #' @keywords data
 #' @usage data(lldata12)
 #'
-#' @format An object of class `MultiAssayExperiments`
+#' @format An object of class `MultiAssayExperiment`
 #'
 #' @keywords datasets
 NULL
@@ -74,7 +74,7 @@ NULL
 #' @keywords data
 #' @usage data(lldata123)
 #'
-#' @format An object of class `MultiAssayExperiments`
+#' @format An object of class `MultiAssayExperiment`
 #'
 #' @keywords datasets
 NULL

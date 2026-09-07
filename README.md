@@ -9,31 +9,12 @@
 [![license](https://img.shields.io/badge/license-Artistic--2.0-brightgreen.svg)](https://opensource.org/licenses/Artistic-2.0)
 <!-- badges: end -->
 
-The MagellanNTK package is a workflow management engine that allows 
-you to run a series of analysis processes on datasets.
-It contains generic dataset input/output functions that are 
-suited to data formats such as MultiAssayExperiment.
 
-To use MagellanNTK's features, you must use 
-workflows that are either saved on your computer or available in a package
-
-The main strength of this package is that these native functions 
-are fully configurable. MagellanNTK offers workflow management.
-
-
-## Installation
-
-You can install the development version of MagellanNTK from [GitHub](https://github.com/) with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("edyp-lab/MagellanNTK")
-```
-
-  
-# MagellanNTK
-
-MagellanNTK is a R package which proposes a framework to navigate between steps 
+The package `MagellanNTK` is a Shiny application which provides the 
+infrastructure for the configuration, the execution and the surveillance of a 
+defined sequence of computational tasks for data analysis, hereafter called 
+"pipelines". It builds graphical pipelines based on third party packages, 
+developed as Shiny modules. It proposes a framework to navigate between steps 
 of a complex data processing tool when the succession of processes is mostly 
 chronological.
 
@@ -47,17 +28,23 @@ super-process (i.e. a pipeline) in which each step is a whole process
 containing itself several steps.
 
 
-## Install
+## Installation
 
+To install `MagellanNTK`:
+
+```{r install, eval = FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("MagellanNTK")
 ```
-devtools::install_github('edyp-lab/MagellanNTK')
-```
+
 
 ## Using MagellanNTK
 
 
-
 **Launching a pipeline**
+
+In the following example, the pipeline called PipelineDemo is launched.
 
 ```
 library(MagellanNTK)

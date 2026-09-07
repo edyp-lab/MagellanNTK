@@ -269,8 +269,7 @@ wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
 MagellanNTK(wf.path, 'PipelineDemo')
 ```
 
-This will open a new tab in your default web browser with this url: 
-http://127.0.0.1:3838
+Running this command will open the pipeline interface.
 
 After a loading screen, the pipeline will be open on the home page (Fig. \@ref(fig:homePage)). 
 
@@ -436,8 +435,7 @@ wf.path <- system.file('workflow/PipelineDemo', package = 'MagellanNTK')
 MagellanNTK(wf.path, 'PipelineDemo_Preprocessing')
 ```
 
-This will open a new tab in your default web browser with this url: 
-http://127.0.0.1:3838
+Running this command will open the pipeline interface.
 
 Most of the interface remains identical to that of the full pipeline. The main difference is that the application behaves as if the workflow only contained the 'Preprocessing' step. As a result, only the vertical timeline is displayed, since the horizontal workflow timeline is not needed in this case.
 
