@@ -1399,7 +1399,7 @@ wf.path <- system.file('workflow/PipelineName', package = 'PackageName')
 MagellanNTK(wf.path, 'PipelineName')
 ```
 
-Running this command will open the pipeline interface in a new tab of your default web browser, typically at the following address: http://127.0.0.1:3838
+Running this command will open the pipeline interface.
 
 
 It is also possible to launch a single process instead of the entire pipeline by specifying the process name in the `MagellanNTK()` function.
