@@ -2,7 +2,7 @@ Package: MagellanNTK
 Type: Package
 Title: Configurable Shiny data-analysis workflows
 Version: 0.99.34
-Date: 2026-07-31
+Date: 2026-09-07
 Authors@R: 
     c(person(given = "Samuel", family = "Wieczorek",
       email = "samuel.wieczorek@cea.fr", role = c("aut"),
@@ -16,7 +16,7 @@ Description: MagellanNTK (Magellan Navigation ToolKit) is a collection of Shiny
     modules which provide the basis for a generic workflow manager for data 
     processing tools with several steps. It works in combination with any package 
     which implements data processing pipelines compliant with MagellanNTK such 
-    as MSPipelines and Prostar2. 
+    as Prostar2. 
 License: Artistic-2.0
 URL: https://github.com/edyp-lab/MagellanNTK, https://edyp-lab.github.io/MagellanNTK/
 BugReports: https://github.com/edyp-lab/MagellanNTK/issues
